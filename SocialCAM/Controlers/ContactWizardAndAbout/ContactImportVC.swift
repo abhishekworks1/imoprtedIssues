@@ -47,11 +47,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var line1: UILabel!
     @IBOutlet weak var line2: UILabel!
     @IBOutlet weak var line3: UILabel!
+    @IBOutlet weak var line4: UILabel!
+    
 
     @IBOutlet weak var lblNum2: UILabel!
     @IBOutlet weak var lblNum3: UILabel!
     @IBOutlet weak var lblNum4: UILabel!
-
+    @IBOutlet weak var lblNum5: UILabel!
+    
+    @IBOutlet weak var page0view: UIView!
     @IBOutlet weak var page1view: UIView!
     @IBOutlet weak var page2view: UIView!
     @IBOutlet weak var page3view: UIView!
@@ -380,53 +384,79 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         present(alert, animated: true)
     }
     
+    @IBAction func didTapView0NextButton(_ sender: UIButton) {
+        pageNo = 2
+        setupPage()
+    }
+    
+    
+    
     func setupPage(){
         self.searchBar.endEditing(true)
         if pageNo == 1 {
-            page1view.isHidden = false
+            page0view.isHidden = false
+            page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
             page4view.isHidden = true
-            line1.backgroundColor = grayColor
-            line2.backgroundColor = grayColor
-            line3.backgroundColor = grayColor
-            lblNum2.textColor = grayColor
-            lblNum3.textColor = grayColor
-            lblNum4.textColor = grayColor
-            lblNum2.backgroundColor = .white
-            lblNum3.backgroundColor = .white
-            lblNum4.backgroundColor = .white
         }
         else if pageNo == 2 {
-            page1view.isHidden = true
-            page2view.isHidden = false
+            page0view.isHidden = true
+            page1view.isHidden = false
+            page2view.isHidden = true
             page3view.isHidden = true
             page4view.isHidden = true
             line1.backgroundColor = blueColor1
             line2.backgroundColor = grayColor
             line3.backgroundColor = grayColor
+            line4.backgroundColor = grayColor
             lblNum2.textColor = .white
             lblNum3.textColor = grayColor
             lblNum4.textColor = grayColor
+            lblNum5.textColor = grayColor
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
-            itemsTableView.reloadData()
+            lblNum5.backgroundColor = .white
         }
         else if pageNo == 3 {
+            page0view.isHidden = true
+            page1view.isHidden = true
+            page2view.isHidden = false
+            page3view.isHidden = true
+            page4view.isHidden = true
+            line1.backgroundColor = blueColor1
+            line2.backgroundColor = blueColor1
+            line3.backgroundColor = grayColor
+            line4.backgroundColor = grayColor
+            lblNum2.textColor = .white
+            lblNum3.textColor = .white
+            lblNum4.textColor = grayColor
+            lblNum5.textColor = grayColor
+            lblNum2.backgroundColor = blueColor1
+            lblNum3.backgroundColor = blueColor1
+            lblNum4.backgroundColor = .white
+            lblNum5.backgroundColor = .white
+            itemsTableView.reloadData()
+        }
+        else if pageNo == 4 {
+            page0view.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = false
             page4view.isHidden = true
             line1.backgroundColor = blueColor1
             line2.backgroundColor = blueColor1
-            line3.backgroundColor = grayColor
+            line3.backgroundColor = blueColor1
+            line4.backgroundColor = grayColor
             lblNum2.textColor = .white
             lblNum3.textColor = .white
-            lblNum4.textColor = grayColor
+            lblNum4.textColor = .white
+            lblNum5.textColor = grayColor
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
-            lblNum4.backgroundColor = .white
+            lblNum4.backgroundColor = blueColor1
+            lblNum5.backgroundColor = .white
            /*if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
@@ -446,7 +476,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             page3NextBtn.setTitleColor(.white, for: .normal)
             self.previewMainView.isHidden = false
         }
-        else if pageNo == 4 {
+        else if pageNo == 5 {
+            page0view.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
@@ -454,12 +485,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             line1.backgroundColor = blueColor1
             line2.backgroundColor = blueColor1
             line3.backgroundColor = blueColor1
+            line4.backgroundColor = blueColor1
             lblNum2.textColor = .white
             lblNum3.textColor = .white
             lblNum4.textColor = .white
+            lblNum5.textColor = .white
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = blueColor1
+            lblNum5.backgroundColor = blueColor1
             
             self.previewMainView.isHidden = true
             switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
@@ -1192,7 +1226,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         searchBar.showsCancelButton = false
         if !isSelectSMS {
             isSelectSMS = true
-            pageNo = 2
+            pageNo = 3
             setupPage()
             return
         }
@@ -1215,7 +1249,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         searchBar.showsCancelButton = false
         if isSelectSMS {
             isSelectSMS = false
-            pageNo = 2
+            pageNo = 3
             setupPage()
             return
         }
@@ -1665,24 +1699,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func previousClick(_ sender: UIButton) {
         if sender.tag == 1 {
-            pageNo = 1
-            self.setupPage()
-        }else if sender.tag == 2 {
             pageNo = 2
             self.setupPage()
-        }else if sender.tag == 3 {
+        }else if sender.tag == 2 {
             pageNo = 3
+            self.setupPage()
+        }else if sender.tag == 3 {
+            pageNo = 4
             self.setupPage()
         }
     }
     
     @IBAction func nextClick(_ sender: UIButton) {
         if sender.tag == 1 {
-            pageNo = 3
+            pageNo = 4
             self.setupPage()
         }
        else if sender.tag == 2 {
-           pageNo = 4
+           pageNo = 5
            self.setupPage()
            if isSelectSMS {
                //emailSelected(sender: UIButton())
@@ -1706,14 +1740,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         
     }
+    
+    @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
+        pageNo = 2
+        setupPage()
+    }
+    
+    @IBAction func didTapQuickStartButton(_ sender: Any) {
+        if let quickStartString = Defaults.shared.currentUser?.quickStartPage {
+            guard let url = URL(string: quickStartString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+    }
+    
+    
+    
     @IBAction func mainOptionsClick(_ sender: UIButton) {
         if sender.tag == 1 {
             isSelectSMS = false
-            pageNo = 2
+            pageNo = 3
             self.setupPage()
         }else if sender.tag == 2 {
             isSelectSMS = true
-            pageNo = 2
+            pageNo = 3
             self.setupPage()
         }else if sender.tag == 3 {
             if let token = Defaults.shared.sessionToken {
@@ -1742,7 +1793,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnTextShareAction(_ sender: UIButton) {
         self.shareType = ShareType.textShare
         isSelectSMS = true
-        pageNo = 2
+        pageNo = 3
         self.setupPage()
         self.itemsTableView.reloadData()
     }
@@ -1756,14 +1807,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnManualEmailAction(_ sender: UIButton) {
         self.shareType = ShareType.email
         isSelectSMS = false
-        pageNo = 2
+        pageNo = 3
         self.setupPage()
         self.itemsTableView.reloadData()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
         self.shareType = ShareType.socialShare
         isSelectSMS = true
-        pageNo = 2
+        pageNo = 3
         self.setupPage()
         self.itemsTableView.reloadData()
     }

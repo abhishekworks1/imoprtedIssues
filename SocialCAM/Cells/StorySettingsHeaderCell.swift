@@ -28,6 +28,7 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var imgfoundingMember: UIImageView!
     @IBOutlet weak var imgSubscribeBadge: UIImageView!
 
+    @IBOutlet weak var blueBgImg: UIImageView!
     
     @IBOutlet weak var iconSettingsImage: UIImageView!
     @IBOutlet weak var badgesView: UIStackView!
@@ -51,7 +52,6 @@ class StorySettingsHeader: UITableViewCell {
     
     @IBAction func didTapProfilePicButton(_ sender: UIButton) {
         self.callBackForReload!(true)
-        
     }
     
     
