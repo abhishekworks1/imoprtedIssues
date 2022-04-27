@@ -120,8 +120,8 @@ class StorySettings {
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
-                                /*StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),*/
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",

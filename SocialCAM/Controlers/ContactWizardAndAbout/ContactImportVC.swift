@@ -95,7 +95,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     //share page declaration
     var txtDetailForEmail: String = ""
     var txtLinkWithCheckOut: String = ""
-    var ReferralLink: String = ""
+//    var ReferralLink: String = ""
     var greetingMessage: String = ""
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var imgProfileBadge: UIImageView!
@@ -116,17 +116,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var lblDisplayName: UILabel!
     @IBOutlet weak var btnShare: UIButton!
     
-    
     @IBOutlet weak var preLunchBadge: UIImageView!
-     @IBOutlet weak var foundingMergeBadge: UIImageView!
-     @IBOutlet weak var socialBadgeicon: UIImageView!
-     @IBOutlet weak var subscriptionBadgeicon: UIImageView!
-        
+    @IBOutlet weak var foundingMergeBadge: UIImageView!
+    @IBOutlet weak var socialBadgeicon: UIImageView!
+    @IBOutlet weak var subscriptionBadgeicon: UIImageView!
+    
     @IBOutlet weak var preLunchBadge1: UIImageView!
-     @IBOutlet weak var foundingMergeBadge1: UIImageView!
-     @IBOutlet weak var socialBadgeicon1: UIImageView!
-     @IBOutlet weak var subscriptionBadgeicon1: UIImageView!
-
+    @IBOutlet weak var foundingMergeBadge1: UIImageView!
+    @IBOutlet weak var socialBadgeicon1: UIImageView!
+    @IBOutlet weak var subscriptionBadgeicon1: UIImageView!
     
     @IBOutlet weak var textMessageButton: UIButton!
     @IBOutlet weak var textMessageSeperatorView: UIView!
@@ -162,7 +160,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     //for View One
     @IBOutlet weak var lblReferralLink: UILabel!
-   
     
     @IBOutlet weak var businessDashboardStackView: UIStackView!
     @IBOutlet weak var businessDashboardButton: UIButton!
@@ -186,7 +183,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var selectedFilter:String = ContactStatus.all
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
     var selectedContactType:String = ContactType.mobile
-    
+    var urlToShare = ""
     let themeBlueColor = UIColor(hexString:"4F2AD8")
     let logoImage = UIImage(named:"qr_applogo")
     private var lastContentOffset: CGFloat = 0
@@ -230,7 +227,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
           
         if let channelId = Defaults.shared.currentUser?.channelId {
             //self.txtLinkWithCheckOut = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
-            self.ReferralLink = "\(websiteUrl)/\(channelId)"
+//            self.ReferralLink = "\(websiteUrl)/\(channelId)"
             self.lblUserName.text = "@\(channelId)"
         }
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
@@ -241,10 +238,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
 //            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
 //        }
-        if let referralPage = Defaults.shared.currentUser?.referralPage {
-            let image =  URL(string: referralPage)?.qrImage(using: themeBlueColor, logo: logoImage)
+//        if let referralPage = Defaults.shared.currentUser?.referralPage {
+            let image =  URL(string: urlToShare)?.qrImage(using: themeBlueColor, logo: logoImage)
             self.imageQrCode.image = image?.convert()
-        }
+//        }
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.btnIncludeQrImg.isSelected = Defaults.shared.includeQRImgForShare == true
         self.getVerifiedSocialPlatforms()
@@ -274,9 +271,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.emailContactTableView.isHidden = true
         self.contactTableView.isHidden = false
         
-        if let channelId = Defaults.shared.currentUser?.channelId {
-            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
-        }
+//        if let channelId = Defaults.shared.currentUser?.channelId {
+            self.lblReferralLink.text = urlToShare//"\(websiteUrl)/\(channelId)"
+//        }
         
         self.textShareView.dropShadow()
         self.qrCodeShareView.dropShadow()
@@ -1152,11 +1149,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func setPreviewData(){
-        if let referralPage = Defaults.shared.currentUser?.referralPage {
-            self.getLinkPreview(link:referralPage) { image in
-                
+//        if let referralPage = Defaults.shared.currentUser?.referralPage {
+            self.getLinkPreview(link:urlToShare) { image in
             }
-        }
+//        }
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
         
@@ -1742,17 +1738,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
+        if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
+           urlToShare = shareUrl
+        }
         pageNo = 2
         setupPage()
     }
     
     @IBAction func didTapQuickStartButton(_ sender: Any) {
-        if let quickStartString = Defaults.shared.currentUser?.quickStartPage {
-            guard let url = URL(string: quickStartString) else {
-                return
-            }
-            presentSafariBrowser(url: url)
+        if let shareUrl = Defaults.shared.currentUser?.referralPage {
+           urlToShare = shareUrl
         }
+        pageNo = 2
+        setupPage()
     }
     
     
@@ -1778,12 +1776,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func btnCopyReferralLink(_ sender: UIButton) {
-        if let channelId = Defaults.shared.currentUser?.channelId {
-            UIPasteboard.general.string = "\(websiteUrl)/\(channelId)"
+//        if let channelId = Defaults.shared.currentUser?.channelId {
+            UIPasteboard.general.string = urlToShare//"\(websiteUrl)/\(channelId)"
             DispatchQueue.runOnMainThread {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.linkCopied())
             }
-        }
+//        }
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
@@ -1844,8 +1842,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            return
 //        }
             let urlString = self.txtLinkWithCheckOut
-            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
+//            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
             UIPasteboard.general.string = urlwithString
             var shareItems: [Any] = [urlwithString]
             //if isIncludeProfileImg {
@@ -1912,7 +1910,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         //showAlert("Text services are not available")
                         return
                 }
-                let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                let reflink = urlToShare//"\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
                  let json = """
                  {
                      "contactId":"\(mobilecontact.Id ?? "")",
@@ -1936,7 +1934,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             }else{
                 if MFMailComposeViewController.canSendMail() {
-                    let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                    let reflink = urlToShare//"\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
                      let json = """
                      {
                          "contactId":"\(mobilecontact.Id ?? "")",
@@ -2009,8 +2007,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         }else{
             let urlString = self.txtLinkWithCheckOut
-            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
+//            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
             //UIPasteboard.general.string = urlwithString
             //var shareItems: [Any] = [urlwithString]
 
