@@ -61,8 +61,8 @@ class RefferalEditProfileViewController: UIViewController {
     }
     
     @IBAction func didTapNextButtonClick(_ sender: UIButton) {
-        self.showHUD()
         if isImageSelected {
+            self.showHUD()
             if let img = imgProfilePic.image {
                 self.updateProfilePic(image: img)
                 self.updateProfileDetails(image: img)
