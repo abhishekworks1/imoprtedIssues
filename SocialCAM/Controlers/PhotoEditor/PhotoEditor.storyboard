@@ -3158,7 +3158,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Hashtag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKL-q4-VQW">
-                                        <rect key="frame" x="113.66666666666667" y="11.666666666666664" width="147.66666666666663" height="21"/>
+                                        <rect key="frame" x="118.66666666666667" y="11.666666666666664" width="137.66666666666663" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -3191,7 +3191,7 @@
                                 <rect key="frame" x="8" y="96" width="359" height="672"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visible Hashtags " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLB-LG-USH">
-                                        <rect key="frame" x="20" y="20" width="148.33333333333334" height="20"/>
+                                        <rect key="frame" x="20" y="20" width="130.66666666666666" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="17"/>
                                         <color key="textColor" red="0.17254901960784313" green="0.19607843137254902" blue="0.24705882352941178" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3272,7 +3272,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden Hashtags " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eer-CM-VHL">
-                                        <rect key="frame" x="20" y="200.66666666666669" width="151.66666666666666" height="20"/>
+                                        <rect key="frame" x="20" y="200.66666666666669" width="136.66666666666666" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="17"/>
                                         <color key="textColor" red="0.17254901959999999" green="0.1960784314" blue="0.2470588235" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4078,25 +4078,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zZw-8j-z2A">
-                                <rect key="frame" x="0.0" y="88" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="589"/>
                             </imageView>
                             <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UTF-Hb-ecP" customClass="MLVideoView" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="589"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <scrollView multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kzg-VF-MT4">
-                                <rect key="frame" x="0.0" y="88" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="589"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="delegate" destination="6Qy-WB-R2R" id="wBA-tA-Rr4"/>
                                 </connections>
                             </scrollView>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="trs-uu-BNL">
-                                <rect key="frame" x="0.0" y="88" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="589"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-gp-yHY">
-                                <rect key="frame" x="0.0" y="695" width="375" height="83"/>
+                                <rect key="frame" x="0.0" y="685" width="375" height="83"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="83" id="5lQ-0X-KIh"/>
@@ -4161,7 +4161,7 @@
                                 </connections>
                             </collectionView>
                             <collectionView multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X6y-Qt-TrV" customClass="KDDragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="590" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="580" width="375" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="gTI-vb-KIu"/>
@@ -4187,7 +4187,7 @@
                                 </connections>
                             </collectionView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5gE-sh-2Lt">
-                                <rect key="frame" x="169" y="369" width="37" height="37"/>
+                                <rect key="frame" x="169" y="364" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n6Z-cB-PKo">
@@ -4310,7 +4310,7 @@
                             <constraint firstItem="Kzg-VF-MT4" firstAttribute="leading" secondItem="8xp-9W-Jgj" secondAttribute="leading" id="ZVS-83-QC2"/>
                             <constraint firstItem="trs-uu-BNL" firstAttribute="top" secondItem="Kzg-VF-MT4" secondAttribute="top" id="bUF-mL-D3A"/>
                             <constraint firstItem="zZw-8j-z2A" firstAttribute="leading" secondItem="Kzg-VF-MT4" secondAttribute="leading" id="e3h-Qw-EkE"/>
-                            <constraint firstItem="8xp-9W-Jgj" firstAttribute="bottom" secondItem="yeA-gp-yHY" secondAttribute="bottom" id="hNy-qs-2m0"/>
+                            <constraint firstItem="8xp-9W-Jgj" firstAttribute="bottom" secondItem="yeA-gp-yHY" secondAttribute="bottom" constant="10" id="hNy-qs-2m0"/>
                             <constraint firstItem="UTF-Hb-ecP" firstAttribute="bottom" secondItem="Kzg-VF-MT4" secondAttribute="bottom" id="hcb-6K-v9h"/>
                             <constraint firstItem="Kzg-VF-MT4" firstAttribute="top" secondItem="n6Z-cB-PKo" secondAttribute="bottom" id="hts-Fe-ORQ"/>
                             <constraint firstItem="zZw-8j-z2A" firstAttribute="top" secondItem="Kzg-VF-MT4" secondAttribute="top" id="i9V-se-66E"/>
