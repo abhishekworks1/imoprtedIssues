@@ -1558,6 +1558,7 @@ extension StoryEditorViewController {
                     if isDownload {
                         if  cameraMode == .pic2Art && (self.isFastesteverWatermarkShow || self.isAppIdentifierWatermarkShow || self.isPublicDisplaynameWatermarkShow) {
                             self.mergeImageAndTextWatermark(image: image)
+                            self.view.makeToast(R.string.localizable.photoSaved())
                         } else {
                             self.saveImageOrVideoInGallery(image: image)
                         }
