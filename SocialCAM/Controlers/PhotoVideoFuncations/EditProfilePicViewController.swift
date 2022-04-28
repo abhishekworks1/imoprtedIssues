@@ -210,6 +210,7 @@ class EditProfilePicViewController: UIViewController {
         if isImageSelected {
             if let img = imgProfilePic.image {
                 self.updateProfilePic(image: img)
+                self.updateProfileDetails(image: img)
             }
         }
         if isCountryFlagSelected {
@@ -650,7 +651,19 @@ extension EditProfilePicViewController {
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
-    
+    func updateProfileDetails(image: UIImage) {
+        ProManagerApi.updateProfileDetails(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+          
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
     func addSocialPlatform() {
         let previousSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         self.socialPlatforms = socialPlatforms.uniq()
