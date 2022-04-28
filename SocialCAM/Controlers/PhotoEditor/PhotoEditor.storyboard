@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -2794,9 +2794,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="f57-Ps-T8Q"/>
                                 <exclude reference="BhR-mE-dNB"/>
                                 <exclude reference="dq7-3d-yW8"/>
-                                <exclude reference="f57-Ps-T8Q"/>
                             </mask>
                         </variation>
                     </view>
@@ -4095,7 +4095,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="599"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-gp-yHY" customClass="InfiniteCollectionView" customModule="InfiniteLayout">
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-gp-yHY">
                                 <rect key="frame" x="0.0" y="695" width="375" height="83"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -4330,7 +4330,7 @@
                         <outlet property="btnDownload" destination="yTr-hS-mhd" id="ueI-Pt-WSM"/>
                         <outlet property="btnDropDown" destination="u7y-KA-fsk" id="QmX-IV-9YH"/>
                         <outlet property="btnSlideShow" destination="QMZ-79-fwh" id="tDU-c5-fkR"/>
-                        <outlet property="collectionView" destination="yeA-gp-yHY" id="AQg-cQ-MWy"/>
+                        <outlet property="collectionView" destination="yeA-gp-yHY" id="2Tm-70-e5K"/>
                         <outlet property="filterImageView" destination="zZw-8j-z2A" id="2pB-m3-ZlF"/>
                         <outlet property="imageCollectionView" destination="X6y-Qt-TrV" id="ZZ0-wz-beJ"/>
                         <outlet property="scrollView" destination="Kzg-VF-MT4" id="X57-lv-mW9"/>
@@ -4515,7 +4515,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
