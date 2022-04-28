@@ -653,6 +653,7 @@
 		35663E162817C942000F25AC /* ShareExtentionQuickCam.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 35663E0C2817C942000F25AC /* ShareExtentionQuickCam.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		35D01470281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D0146F281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift */; };
 		35D01471281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D0146F281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift */; };
+		35D01472281A642F003C3B7B /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35663E0E2817C942000F25AC /* ShareViewController.swift */; };
 		35E979832803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
 		35E979842803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
 		35E9798728042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */; };
@@ -34048,6 +34049,7 @@
 				C2F933FB264AA0CA006CA527 /* CollageView.swift in Sources */,
 				C2F933FC264AA0CA006CA527 /* RotationDialPlate.swift in Sources */,
 				821BBF17271705DD00D48DA9 /* FlagLayoutListCollectionViewCell.swift in Sources */,
+				35D01472281A642F003C3B7B /* ShareViewController.swift in Sources */,
 				C2F933FD264AA0CA006CA527 /* Queuer.swift in Sources */,
 				C2F933FE264AA0CA006CA527 /* NextLevelSession.swift in Sources */,
 				C2F933FF264AA0CA006CA527 /* MusicPickerVC.swift in Sources */,
@@ -37852,7 +37854,7 @@
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -37864,7 +37866,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -37880,7 +37882,7 @@
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -37892,7 +37894,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Alpha;
 		};
@@ -37908,7 +37910,7 @@
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -37920,7 +37922,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Beta;
 		};
@@ -37936,7 +37938,7 @@
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -37948,7 +37950,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
