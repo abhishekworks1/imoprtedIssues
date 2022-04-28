@@ -285,7 +285,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         //        }
         
 //        if let channelId = Defaults.shared.currentUser?.channelId {
-            self.lblReferralLink.text = urlToShare//"\(websiteUrl)/\(channelId)"
+        lblReferralLink.attributedText = NSAttributedString(string: urlToShare, attributes:
+            [.underlineStyle: NSUnderlineStyle.single.rawValue])
+//            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
 //        }
         setPreviewData()
     }
