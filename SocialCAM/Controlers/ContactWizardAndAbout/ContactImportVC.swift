@@ -401,6 +401,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             page2view.isHidden = true
             page3view.isHidden = true
             page4view.isHidden = true
+            line1.backgroundColor = grayColor
+            line2.backgroundColor = grayColor
+            line3.backgroundColor = grayColor
+            line4.backgroundColor = grayColor
+            lblNum2.textColor = grayColor
+            lblNum3.textColor = grayColor
+            lblNum4.textColor = grayColor
+            lblNum5.textColor = grayColor
+            lblNum2.backgroundColor = .white
+            lblNum3.backgroundColor = .white
+            lblNum4.backgroundColor = .white
+            lblNum5.backgroundColor = .white
         }
         else if pageNo == 2 {
             page0view.isHidden = true
@@ -1699,47 +1711,40 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
-        if sender.tag == 1 {
-            pageNo = 2
-            self.setupPage()
-        }else if sender.tag == 2 {
-            pageNo = 3
-            self.setupPage()
-        }else if sender.tag == 3 {
-            pageNo = 4
-            self.setupPage()
-        }
+        pageNo = pageNo - 1
+        setupPage()
     }
     
     @IBAction func nextClick(_ sender: UIButton) {
-        if sender.tag == 1 {
+    
+        if pageNo == 1 {
+            pageNo = 2
+            self.setupPage()
+        }
+        else if pageNo == 2 {
+            pageNo = 3
+            self.setupPage()
+        }
+        else if pageNo == 3 {
             pageNo = 4
             self.setupPage()
         }
-       else if sender.tag == 2 {
-           pageNo = 5
-           self.setupPage()
-           if isSelectSMS {
-               //emailSelected(sender: UIButton())
-           } else {
-               emailSelected(sender: UIButton())
-           }
-//          if isSelectSMS {
-//               pageNo = 4
-//               self.setupPage()
-//           }else{
-//               navigationController?.popViewController(animated: true)
-//           }
-        }else if sender.tag == 3 {
+        else if pageNo == 4 {
+            pageNo = 5
+            self.setupPage()
+            if isSelectSMS {
+            } else {
+                emailSelected(sender: UIButton())
+            }
+        }
+        else if sender.tag == 3 {
             let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
             referSuccess.callback = { message in
                 self.pageNo = 1
                 self.setupPage()
             }
             navigationController?.pushViewController(referSuccess, animated: true)
-            //navigationController?.popViewController(animated: true)
         }
-        
     }
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
