@@ -37,7 +37,7 @@ extension StyleTransferVC: UIGestureRecognizerDelegate {
 
 class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
-    @IBOutlet weak var collectionView: InfiniteCollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     var cameraMode: CameraMode = .basicCamera
     var indexOfPic = 0
     var dragAndDropManager: KDDragAndDropManager?
@@ -89,6 +89,9 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     fileprivate var rotationRecognizer: UIRotationGestureRecognizer?
     fileprivate var panRecognizer: UIPanGestureRecognizer?
     fileprivate var referenceCenter: CGPoint = .zero
+    
+    let flowLayout = ZoomAndSnapFlowLayout()
+
     
     var isZooming = false {
         didSet {
@@ -210,7 +213,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.infiniteLayout.isEnabled = false
+//        collectionView.infiniteLayout.isEnabled = false
         setData()
         setupLayout()
         addGestureRecognizers()
@@ -238,6 +241,13 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         let imageCollectionViewLayout = self.imageCollectionView.collectionViewLayout as? UPCarouselFlowLayout
         imageCollectionViewLayout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
         imageCollectionView.register(R.nib.imageCollectionViewCell)
+        
+        
+        guard let collectionView = collectionView else { return }
+        //collectionView.decelerationRate = .fast // uncomment if necessary
+        collectionView.dataSource = self
+        collectionView.collectionViewLayout = flowLayout
+        collectionView.contentInsetAdjustmentBehavior = .always
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -726,25 +736,25 @@ extension StyleTransferVC: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView == self.scrollView {
-            let totalCells = self.styleData.count * self.multiplier(estimatedItemSize: collectionView.infiniteLayout.itemSize, enabled: collectionView.infiniteLayout.isEnabled)
-            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
-                selectedIndex = selectedIndex == 0 ? totalCells - 1 : selectedIndex - 1
-            } else {
-                selectedIndex = selectedIndex == totalCells - 1 ? 0 : selectedIndex + 1
-            }
-            guard !self.isProcessing else {
-                return
-            }
-            for (index, style) in self.styleData.enumerated() {
-                style.isSelected = (index == selectedIndex)
-            }
-            self.collectionView.reloadData()
-            self.collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0),
-                                             at: .centeredHorizontally,
-                                             animated: true)
-            self.applyStyle(index: selectedIndex)
-        }
+//        if scrollView == self.scrollView {
+//            let totalCells = self.styleData.count * self.multiplier(estimatedItemSize: collectionView.infiniteLayout.itemSize, enabled: collectionView.infiniteLayout.isEnabled)
+//            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
+//                selectedIndex = selectedIndex == 0 ? totalCells - 1 : selectedIndex - 1
+//            } else {
+//                selectedIndex = selectedIndex == totalCells - 1 ? 0 : selectedIndex + 1
+//            }
+//            guard !self.isProcessing else {
+//                return
+//            }
+//            for (index, style) in self.styleData.enumerated() {
+//                style.isSelected = (index == selectedIndex)
+//            }
+//            self.collectionView.reloadData()
+//            self.collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0),
+//                                             at: .centeredHorizontally,
+//                                             animated: true)
+//            self.applyStyle(index: selectedIndex)
+//        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
