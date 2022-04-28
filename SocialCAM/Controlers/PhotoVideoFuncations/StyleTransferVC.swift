@@ -232,6 +232,19 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("InAppear")
+        let savedata =  UserDefaults.init(suiteName: "group.app.quickcam.app.ShareExtentionQ")
+        print("ImageData \(String(describing: savedata?.value(forKey: "img")))")
+        if savedata?.value(forKey: "img") != nil {
+            print("Available Data")
+            let data = ((savedata?.value(forKey: "img")as! NSDictionary).value(forKey: "imgData")as! Data)
+            let str = ((savedata?.value(forKey: "img")as! NSDictionary).value(forKey: "name")as! String)
+            
+        }
+    }
+    
     fileprivate func setupLayout() {
         self.dragAndDropManager = KDDragAndDropManager(
             canvas: self.view,
@@ -545,7 +558,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
 //        Defaults.shared.callHapticFeedback(isHeavy: false)
         if gesture.state == .began {
             
-            let alert = UIAlertController(title: "Selected default Filter", message: "You are selcted default Filter", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Selected default Filter", message: "You are Selected default Filter", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Apply", style: .default, handler: { [self] applyBtn in
                 selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
                 type = .image(image: filteredImage!)

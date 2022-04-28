@@ -15450,6 +15450,7 @@
 		35663E112817C942000F25AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		35663E132817C942000F25AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35D0146F281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAndSnapFlowLayout.swift; sourceTree = "<group>"; };
+		35D01474281A820B003C3B7B /* ShareExtentionQuickCam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtentionQuickCam.entitlements; sourceTree = "<group>"; };
 		35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AboutStoryboard.storyboard; sourceTree = "<group>"; };
 		35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RefferalEditProfile.storyboard; sourceTree = "<group>"; };
 		35E9798928042F5800A218E6 /* RefferalEditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalEditProfileViewController.swift; sourceTree = "<group>"; };
@@ -16946,6 +16947,7 @@
 		35663E0D2817C942000F25AC /* ShareExtentionQuickCam */ = {
 			isa = PBXGroup;
 			children = (
+				35D01474281A820B003C3B7B /* ShareExtentionQuickCam.entitlements */,
 				35663E0E2817C942000F25AC /* ShareViewController.swift */,
 				35663E102817C942000F25AC /* MainInterface.storyboard */,
 				35663E132817C942000F25AC /* Info.plist */,
@@ -37846,6 +37848,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -37874,6 +37877,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -37902,6 +37906,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -37930,6 +37935,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
