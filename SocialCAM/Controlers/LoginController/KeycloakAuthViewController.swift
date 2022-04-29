@@ -199,7 +199,9 @@ extension KeycloakAuthViewController {
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
        // if isRefferencingChannelEmpty {
-        if isOnboardingCompleted {
+      //  print("isRefferencingChannelEmpty \(isRefferencingChannelEmpty)")
+     //   print("isOnboardingCompleted \(isOnboardingCompleted)")
+        if !isOnboardingCompleted && isRefferencingChannelEmpty{
             guard let sessioToken = Defaults.shared.sessionToken, let keycloakURL = URL(string: "\(websiteUrl)\(Paths.onboarding)\(sessioToken)\(Paths.redirect_uri)\(redirectUri)") else {
                 return
             }
