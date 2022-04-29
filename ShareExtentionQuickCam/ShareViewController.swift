@@ -46,7 +46,7 @@ class ShareViewController: UIViewController {
                             let url = data as! URL
                             let path = "\(self.docPath)/\(url.pathComponents.last ?? "")"
                             print(">>> sharepath: \(String(describing: url.path))")
-
+//                            UserDefaults.standard.setValue(url.path, forKey: "SharedImage")
                             try? FileManager.default.copyItem(at: url, to: URL(fileURLWithPath: path))
 
                         } else {
@@ -72,8 +72,8 @@ class ShareViewController: UIViewController {
                         ],
                         options: JSONSerialization.WritingOptions.init(rawValue: 0))
                     let jsonString = (NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                    print("myapp://app.quickcam.app.share?\(jsonString!)")
-                    let result = self.openURL(URL(string: "myapp://app.quickcam.app.share?\(jsonString!)")!)
+                    print("quickcamrefer://app.share?\(jsonString!)")
+                    let result = self.openURL(URL(string: "quickcamrefer://app.share?\(jsonString!)")!)
 //                    self.openURL(URL(string: "myapp://com.myapp.share?\(jsonString!)")!)
                     print(result)
                 } catch {
