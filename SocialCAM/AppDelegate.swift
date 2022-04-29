@@ -466,6 +466,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        
+        print(application.canOpenURL(url))
+        print("************")
+        print(url)
+        print("************")
         return TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:])
     }
     

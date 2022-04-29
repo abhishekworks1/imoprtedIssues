@@ -141,30 +141,17 @@ class ShareSettingViewController: UIViewController {
             if  badgearry.count >  0 {
                 preLunchBadge.isHidden = false
                 let imageName = badgearry[0]
-                if imageName == "iosbadge" || imageName == "androidbadge" {
-                    subscriptionBadgeiconImageView.image = UIImage(named: imageName)
-                } else {
-                    preLunchBadgeImageView.image = UIImage(named: imageName)
-                }
+                preLunchBadgeImageView.image = UIImage(named: imageName)
             }
             if  badgearry.count >  1 {
                 foundingMergeBadge.isHidden = false
                 let imageName = badgearry[1]
-                if imageName == "iosbadge" || imageName == "androidbadge" {
-                    subscriptionBadgeiconImageView.image = UIImage(named: imageName)
-                } else {
-                    foundingMergeBadgeImageView.image = UIImage(named: imageName)
-                }
+                foundingMergeBadgeImageView.image = UIImage(named: imageName)
             }
             if  badgearry.count >  2 {
                 socialBadgeicon.isHidden = false
-                
                 let imageName = badgearry[2]
-                if imageName == "iosbadge" || imageName == "androidbadge" {
-                    subscriptionBadgeiconImageView.image = UIImage(named: imageName)
-                } else {
-                    socialBadgeiconImageView.image = UIImage(named: imageName)
-                }
+                socialBadgeiconImageView.image = UIImage(named: imageName)
             }
             if  badgearry.count >  3 {
                 subscriptionBadgeicon.isHidden = false
