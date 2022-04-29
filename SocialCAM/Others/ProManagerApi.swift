@@ -781,7 +781,7 @@ extension ProManagerApi: TargetType {
             guard let imageData = image.jpegData(compressionQuality: 0.8) else {
                 return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
             }
-            let imageDataMultiPart = [MultipartFormData(provider: .data(imageData), name: "image", fileName: "photo.jpg", mimeType: "image/jpeg")]
+            let imageDataMultiPart = [MultipartFormData(provider: .data(imageData), name: "profileCard", fileName: "photo.jpg", mimeType: "image/jpeg")]
             var multipartData = imageDataMultiPart
             let imageSource = "\(imageSource)"
             guard let data = imageSource.data(using: String.Encoding.utf8, allowLossyConversion: false) else {

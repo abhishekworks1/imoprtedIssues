@@ -542,7 +542,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else if settingTitle.settingsType == .qrcode {
             hideUnhideImgButton(cell, R.image.settings_QRCode())
         }else if settingTitle.settingsType == .accountSettings {
-            hideUnhideImgButton(cell, R.image.settings_System())
+            hideUnhideImgButton(cell, R.image.settings_Account())
         } else if settingTitle.settingsType == .cameraSettings {
             hideUnhideImgButton(cell, R.image.settings_CameraSettings())
         } else if settingTitle.settingsType == .system {
@@ -556,7 +556,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .notification {
             hideUnhideImgButton(cell, R.image.settings_Notifications())
         } else if settingTitle.settingsType == .checkUpdate {
-            hideUnhideImgButton(cell, R.image.settings_Notifications())
+            hideUnhideImgButton(cell, R.image.settings_CheckUpdate())
         } else if settingTitle.settingsType == .referringChannel {
             hideUnhideImgButton(cell, R.image.settings_ReferringChannel())
         } else if settingTitle.settingsType == .subscription {
@@ -1326,7 +1326,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         }else if settingTitle.settingsType == .qrcode {
             cell.socialImageView?.image =  R.image.settings_QRCode()
         }else if settingTitle.settingsType == .accountSettings {
-            cell.socialImageView?.image = R.image.settings_System()
+            cell.socialImageView?.image = R.image.settings_Account()
         } else if settingTitle.settingsType == .cameraSettings {
             cell.socialImageView?.image = R.image.settings_CameraSettings()
         } else if settingTitle.settingsType == .system {
@@ -1340,7 +1340,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .notification {
             cell.socialImageView?.image = R.image.settings_Notifications()
         } else if settingTitle.settingsType == .checkUpdate {
-            cell.socialImageView?.image = R.image.settings_Notifications()
+            cell.socialImageView?.image = R.image.settings_CheckUpdate()
         } else if settingTitle.settingsType == .referringChannel {
             cell.socialImageView?.image = R.image.settings_ReferringChannel()
         } else if settingTitle.settingsType == .subscription {
