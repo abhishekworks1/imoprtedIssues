@@ -39,7 +39,7 @@ class ReferSuccessVC: UIViewController {
     */
 
     @IBAction func BusinessDashboardAction(_ sender: Any) {
-        businessDashbardConfirmPopupView.isHidden = false
+        openBussinessDashboard()
     }
     @IBAction func ReferMoreAction(_ sender: Any) {
         for controller in self.navigationController!.viewControllers as Array {
@@ -65,7 +65,7 @@ class ReferSuccessVC: UIViewController {
         
         if let token = Defaults.shared.sessionToken {
 //            let urlString = "\(websiteUrl)/redirect?token=\(token)"
-            let urlString = "\(websiteUrl)/share-wizard"
+            let urlString = "\(websiteUrl)/redirect?token=\(token)"
             guard let url = URL(string: urlString) else {
                 return
             }
@@ -89,5 +89,22 @@ class ReferSuccessVC: UIViewController {
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true, completion: nil)
     }
-    
+    func openBussinessDashboard(){
+        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
+             businessDashbardConfirmPopupView.isHidden = false
+            btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
+//            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
+          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        }else{
+            if let token = Defaults.shared.sessionToken {
+                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
+                 guard let url = URL(string: urlString) else {
+                     return
+                 }
+                 presentSafariBrowser(url: url)
+             }
+             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        }
+    }
 }
