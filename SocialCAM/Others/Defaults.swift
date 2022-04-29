@@ -730,6 +730,17 @@ class Defaults {
         }
     }
     
+    var settingsPreference: Int {
+        //0 for list , 1 for grid
+        get {
+            return appDefaults?.integer(forKey: "settingsPreference") ?? 0
+        }
+        set {
+            appDefaults?.setValue(newValue, forKey: "settingsPreference")
+            userDefaults.synchronize()
+        }
+    }
+    
     var isRegistered: Bool? {
         get {
             return appDefaults?.value(forKey: "isRegistered") as? Bool ?? false
