@@ -267,7 +267,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
         self.settingsTableView.reloadData()
         storyCameraVC.syncUserModel { _ in
-            
         }
     }
     
