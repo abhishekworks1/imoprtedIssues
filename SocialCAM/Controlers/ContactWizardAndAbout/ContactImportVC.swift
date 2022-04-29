@@ -1264,6 +1264,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         searchBar.showsCancelButton = false
         if isSelectSMS {
             isSelectSMS = false
+            self.shareType = ShareType.email
             pageNo = 3
             setupPage()
             return
