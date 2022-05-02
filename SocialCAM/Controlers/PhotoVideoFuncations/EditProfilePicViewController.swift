@@ -708,10 +708,10 @@ extension EditProfilePicViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
+//            self.socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
         } else {
             self.socialPlatformStackViewHeightConstraint.constant = 0
-            self.socialBadgeicon.isHidden = true
+//            self.socialBadgeicon.isHidden = true
         }
     
     }

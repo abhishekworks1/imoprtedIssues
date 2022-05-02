@@ -82,7 +82,7 @@ enum SettingsMode: Int {
 }
 
 class StorySetting {
-    var name: String
+       var name: String
     var selected: Bool
     var image: UIImage?
     var selectedImage: UIImage?
@@ -717,7 +717,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     self.youTubeVerifiedView.isHidden = false
                 }
             }
-            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
+//            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
         }
     }
    

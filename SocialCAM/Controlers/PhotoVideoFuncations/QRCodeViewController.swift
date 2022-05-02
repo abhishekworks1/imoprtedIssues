@@ -83,7 +83,7 @@ class QRCodeViewController: UIViewController {
        // imageQrCode.addGradient()
         self.quickStartClicked(self.quickStartButton)
         refferelType = .quickStart
-        getVerifiedSocialPlatforms()
+//        getVerifiedSocialPlatforms()
     }
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer)
     {
@@ -184,7 +184,7 @@ class QRCodeViewController: UIViewController {
     
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = Defaults.shared.socialPlatforms {
-            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
+//            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
         }
     }
     
