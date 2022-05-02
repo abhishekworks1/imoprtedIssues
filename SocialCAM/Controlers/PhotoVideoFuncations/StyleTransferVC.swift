@@ -37,10 +37,12 @@ extension StyleTransferVC: UIGestureRecognizerDelegate {
 
 class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
+    @IBOutlet weak var showDefaultFilterView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     var cameraMode: CameraMode = .basicCamera
     var indexOfPic = 0
     var dragAndDropManager: KDDragAndDropManager?
+    var selectedGestureTag = -1
     @IBOutlet weak var btnSlideShow: UIButton!
     @IBOutlet weak var btnCollage: UIButton!
     @IBOutlet weak var btnDropDown: UIButton!
@@ -60,6 +62,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             btnCollage.isHidden = !isShowHideMode
         }
     }
+    @IBOutlet weak var checkUnCheckImageView: UIImageView!
     
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -205,6 +208,8 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     var isPic2ArtApp: Bool = false
     
+    var isDefaultFilterChecked = false
+    
     var isViewDidLayoutCallFirstTime = true
     
     deinit {
@@ -234,7 +239,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("InAppear")
+        if let value = UserDefaults.standard.value(forKey: "isDefaultFilterChecked") as? Bool {
+            isDefaultFilterChecked = value
+        }
+        
         let savedata =  UserDefaults.init(suiteName: "group.app.quickcam.app.ShareExtentionQ")
         print("ImageData \(String(describing: savedata?.value(forKey: "img")))")
         if savedata?.value(forKey: "img") != nil {
@@ -319,6 +327,28 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             break
         }
     }
+    
+    @IBAction func didTapDoNotShowAgainButton(_ sender: UIButton) {
+        isDefaultFilterChecked = isDefaultFilterChecked ? false : true
+        checkUnCheckImageView.image = isDefaultFilterChecked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
+        UserDefaults.standard.set(isDefaultFilterChecked, forKey: "isDefaultFilterChecked")
+    }
+    
+    @IBAction func didTapYesButton(_ sender: UIButton) {
+        selectedFilterIndexPath = IndexPath.init(row: selectedGestureTag, section: 0)
+        type = .image(image: filteredImage!)
+        self.applyStyle(index: selectedGestureTag)
+        styleData[selectedFilterIndexPath.item].isSelected = true
+        self.collectionView.reloadData()
+        applyFilter()
+        UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
+        showDefaultFilterView.isHidden = true
+    }
+    
+    @IBAction func didTapNoButton(_ sender: UIButton) {
+        showDefaultFilterView.isHidden = true
+    }
+    
     
     @IBAction func backButtonClicked(_ sender: Any) {
         DispatchQueue.main.async {
@@ -557,19 +587,25 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     @objc func handleLongPressOnFilterImageView(_ gesture: UILongPressGestureRecognizer) {
 //        Defaults.shared.callHapticFeedback(isHeavy: false)
         if gesture.state == .began {
-            
-            let alert = UIAlertController(title: "Selected default Filter", message: "You are Selected default Filter", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Apply", style: .default, handler: { [self] applyBtn in
-                selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
+            selectedGestureTag = gesture.view!.tag
+            print("*********************")
+            print(selectedGestureTag)
+            print("*********************")
+            print(gesture.view!.tag)
+            print("*****************")
+            if isDefaultFilterChecked {
+                selectedFilterIndexPath = IndexPath.init(row: selectedGestureTag, section: 0)
                 type = .image(image: filteredImage!)
-                self.applyStyle(index: gesture.view!.tag)
+                self.applyStyle(index: selectedGestureTag)
                 styleData[selectedFilterIndexPath.item].isSelected = true
                 self.collectionView.reloadData()
                 applyFilter()
                 UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            } else {
+                showDefaultFilterView.isHidden = false
+            }
+            
+            
         }
     }
     
@@ -621,6 +657,19 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             videoView.play(asset: mergeSession.assetRepresentingSegments())
         }
         selectedItemArray = []
+        
+        setupTapGestureView()
+        
+    }
+    
+    func setupTapGestureView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapShowDefaultView))
+        tapGesture.numberOfTapsRequired = 1
+        showDefaultFilterView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapShowDefaultView(sender: UITapGestureRecognizer) {
+        showDefaultFilterView.isHidden = true
     }
     
     func scaledSize(size: CGSize) -> CGSize {
@@ -776,7 +825,7 @@ extension StyleTransferVC: UIScrollViewDelegate {
         let index = collectionView!.indexPathForItem(at: visiblePoint)
         if indexOfPic != index?.row ?? 0 {
             indexOfPic = index?.row ?? 0
-//            Defaults.shared.callHapticFeedback(isHeavy: false)
+            Defaults.shared.callHapticFeedback(isHeavy: false)
         }
     }
 }
@@ -842,7 +891,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
-            return styleData.count
+            return styleData.count * 2
         } else if collectionView.tag == 2 {
             return selectedItemArray.count
         } else {
@@ -928,7 +977,26 @@ extension StyleTransferVC: UICollectionViewDelegate {
         let xScrollOffset = CGFloat(indexPath.item)*UIScreen.width
         self.scrollView.setContentOffset(CGPoint(x: xScrollOffset, y: 0),
                                          animated: false)
-        self.applyStyle(index: indexPath.item)
+        self.applyStyle(index: indexPath.item % styleData.count)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard collectionView != self.imageCollectionView else {
+            return
+        }
+        var offset = collectionView.contentOffset
+        let height = collectionView.contentSize.height
+        //         if collection view scrolls horizontally, use offset.x else comment below line of code
+        //                In my case the collectionview scrolls vertically this I am commenting below line of code
+        let width = collectionView.contentSize.width
+        if offset.x < width/4 {
+            offset.x += width/2
+            collectionView.setContentOffset(offset, animated: false)
+        } else if offset.x > width/4 * 3 {
+            offset.x -= width/2
+            collectionView.setContentOffset(offset, animated: false)
+        }
     }
 }
 

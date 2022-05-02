@@ -291,7 +291,7 @@ open class TrimmerView: UIView {
     
     // Return the minimum distance between the left and right view expressed in seconds
     open var minimumDistanceBetweenDraggableViews: CGFloat? {
-        return CGFloat(minVideoDurationAfterTrimming)
+        return CGFloat(0.1)
             * thumbnailsView.durationSize
             / CGFloat(thumbnailsView.videoDuration.seconds)
     }
@@ -860,8 +860,10 @@ open class TrimmerView: UIView {
             
         case .began:
             if isLeftGesture {
+                bringSubviewToFront(rightDraggableView)
                 currentLeadingConstraint = trimViewLeadingConstraint.constant
             } else {
+                bringSubviewToFront(leftDraggableView)
                 currentTrailingConstraint = trimViewTrailingConstraint.constant
             }
             
