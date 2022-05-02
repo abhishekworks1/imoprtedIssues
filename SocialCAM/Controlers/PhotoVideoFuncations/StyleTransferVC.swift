@@ -588,6 +588,11 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
 //        Defaults.shared.callHapticFeedback(isHeavy: false)
         if gesture.state == .began {
             selectedGestureTag = gesture.view!.tag
+            print("*********************")
+            print(selectedGestureTag)
+            print("*********************")
+            print(gesture.view!.tag)
+            print("*****************")
             if isDefaultFilterChecked {
                 selectedFilterIndexPath = IndexPath.init(row: selectedGestureTag, section: 0)
                 type = .image(image: filteredImage!)
@@ -886,7 +891,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
-            return styleData.count
+            return styleData.count * 2
         } else if collectionView.tag == 2 {
             return selectedItemArray.count
         } else {
@@ -972,7 +977,26 @@ extension StyleTransferVC: UICollectionViewDelegate {
         let xScrollOffset = CGFloat(indexPath.item)*UIScreen.width
         self.scrollView.setContentOffset(CGPoint(x: xScrollOffset, y: 0),
                                          animated: false)
-        self.applyStyle(index: indexPath.item)
+        self.applyStyle(index: indexPath.item % styleData.count)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard collectionView != self.imageCollectionView else {
+            return
+        }
+        var offset = collectionView.contentOffset
+        let height = collectionView.contentSize.height
+        //         if collection view scrolls horizontally, use offset.x else comment below line of code
+        //                In my case the collectionview scrolls vertically this I am commenting below line of code
+        let width = collectionView.contentSize.width
+        if offset.x < width/4 {
+            offset.x += width/2
+            collectionView.setContentOffset(offset, animated: false)
+        } else if offset.x > width/4 * 3 {
+            offset.x -= width/2
+            collectionView.setContentOffset(offset, animated: false)
+        }
     }
 }
 
