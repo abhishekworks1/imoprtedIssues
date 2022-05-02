@@ -652,6 +652,19 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             videoView.play(asset: mergeSession.assetRepresentingSegments())
         }
         selectedItemArray = []
+        
+        setupTapGestureView()
+        
+    }
+    
+    func setupTapGestureView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapShowDefaultView))
+        tapGesture.numberOfTapsRequired = 1
+        showDefaultFilterView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapShowDefaultView(sender: UITapGestureRecognizer) {
+        showDefaultFilterView.isHidden = true
     }
     
     func scaledSize(size: CGSize) -> CGSize {
