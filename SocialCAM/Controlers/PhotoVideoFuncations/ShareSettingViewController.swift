@@ -187,10 +187,10 @@ class ShareSettingViewController: UIViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialBadgeicon.isHidden = socialPlatforms.count != 4
+//            self.socialBadgeicon.isHidden = socialPlatforms.count != 4
         } else {
             self.verifiedView.isHidden = true
-            self.socialBadgeicon.isHidden = true
+//            self.socialBadgeicon.isHidden = true
         }
     }
     

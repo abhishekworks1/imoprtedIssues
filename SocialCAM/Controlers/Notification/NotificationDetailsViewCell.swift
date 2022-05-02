@@ -126,7 +126,7 @@ class NotificationDetailsViewCell: UICollectionViewCell {
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-        self.socialMediaVerifiedBadgeView.isHidden = socialPlatfroms.count != 4
+//        self.socialMediaVerifiedBadgeView.isHidden = socialPlatfroms.count != 4
     }
     
     func convertDate(_ date: String) -> String {
