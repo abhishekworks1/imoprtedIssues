@@ -37,10 +37,12 @@ extension StyleTransferVC: UIGestureRecognizerDelegate {
 
 class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
+    @IBOutlet weak var showDefaultFilterView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     var cameraMode: CameraMode = .basicCamera
     var indexOfPic = 0
     var dragAndDropManager: KDDragAndDropManager?
+    var selectedGestureTag = -1
     @IBOutlet weak var btnSlideShow: UIButton!
     @IBOutlet weak var btnCollage: UIButton!
     @IBOutlet weak var btnDropDown: UIButton!
@@ -60,6 +62,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             btnCollage.isHidden = !isShowHideMode
         }
     }
+    @IBOutlet weak var checkUnCheckImageView: UIImageView!
     
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -205,6 +208,8 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     var isPic2ArtApp: Bool = false
     
+    var isDefaultFilterChecked = false
+    
     var isViewDidLayoutCallFirstTime = true
     
     deinit {
@@ -234,7 +239,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("InAppear")
+        if let value = UserDefaults.standard.value(forKey: "isDefaultFilterChecked") as? Bool {
+            isDefaultFilterChecked = value
+        }
+        
         let savedata =  UserDefaults.init(suiteName: "group.app.quickcam.app.ShareExtentionQ")
         print("ImageData \(String(describing: savedata?.value(forKey: "img")))")
         if savedata?.value(forKey: "img") != nil {
@@ -319,6 +327,28 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             break
         }
     }
+    
+    @IBAction func didTapDoNotShowAgainButton(_ sender: UIButton) {
+        isDefaultFilterChecked = isDefaultFilterChecked ? false : true
+        checkUnCheckImageView.image = isDefaultFilterChecked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
+        UserDefaults.standard.set(isDefaultFilterChecked, forKey: "isDefaultFilterChecked")
+    }
+    
+    @IBAction func didTapYesButton(_ sender: UIButton) {
+        selectedFilterIndexPath = IndexPath.init(row: selectedGestureTag, section: 0)
+        type = .image(image: filteredImage!)
+        self.applyStyle(index: selectedGestureTag)
+        styleData[selectedFilterIndexPath.item].isSelected = true
+        self.collectionView.reloadData()
+        applyFilter()
+        UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
+        showDefaultFilterView.isHidden = true
+    }
+    
+    @IBAction func didTapNoButton(_ sender: UIButton) {
+        showDefaultFilterView.isHidden = true
+    }
+    
     
     @IBAction func backButtonClicked(_ sender: Any) {
         DispatchQueue.main.async {
@@ -557,19 +587,20 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     @objc func handleLongPressOnFilterImageView(_ gesture: UILongPressGestureRecognizer) {
 //        Defaults.shared.callHapticFeedback(isHeavy: false)
         if gesture.state == .began {
-            
-            let alert = UIAlertController(title: "Selected default Filter", message: "You are Selected default Filter", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Apply", style: .default, handler: { [self] applyBtn in
-                selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
+            selectedGestureTag = gesture.view!.tag
+            if isDefaultFilterChecked {
+                selectedFilterIndexPath = IndexPath.init(row: selectedGestureTag, section: 0)
                 type = .image(image: filteredImage!)
-                self.applyStyle(index: gesture.view!.tag)
+                self.applyStyle(index: selectedGestureTag)
                 styleData[selectedFilterIndexPath.item].isSelected = true
                 self.collectionView.reloadData()
                 applyFilter()
                 UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            } else {
+                showDefaultFilterView.isHidden = false
+            }
+            
+            
         }
     }
     
