@@ -776,7 +776,7 @@ extension StyleTransferVC: UIScrollViewDelegate {
         let index = collectionView!.indexPathForItem(at: visiblePoint)
         if indexOfPic != index?.row ?? 0 {
             indexOfPic = index?.row ?? 0
-//            Defaults.shared.callHapticFeedback(isHeavy: false)
+            Defaults.shared.callHapticFeedback(isHeavy: false)
         }
     }
 }
