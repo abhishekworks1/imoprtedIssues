@@ -23,7 +23,7 @@ class ShareViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
 
-        let alertView = UIAlertController(title: "Export", message: " ", preferredStyle: .alert)
+        let alertView = UIAlertController(title: "Export", message: "", preferredStyle: .alert)
 
         self.present(alertView, animated: true, completion: {
 
@@ -119,6 +119,9 @@ class ShareViewController: UIViewController {
             let files = try! FileManager.default.contentsOfDirectory(atPath: docPath)
             for file in files {
                 try? FileManager.default.removeItem(at: URL(fileURLWithPath: "\(docPath)/\(file)"))
+                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                    self.navigationController?.pushViewController(contactWizardController, animated: true)
+                }
             }
         }
         
