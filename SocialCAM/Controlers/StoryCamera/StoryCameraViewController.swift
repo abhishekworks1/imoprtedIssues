@@ -729,6 +729,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.syncUserModel { _ in
             if Defaults.shared.appMode == .basic &&  self.isFreshSession{
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
+                    if i == 0 {
+                        self.cameraSliderView.stringArray.remove(at: 0)
+                        self.cameraSliderView.collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+                    }
                     if cameraMode.recordingType == .normal{
                         self.isFreshSession = false
                         self.cameraSliderView.selectCell = i
@@ -801,6 +805,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.speedSlider.isHidden = true
             self.speedSliderView.isHidden = true
         }
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

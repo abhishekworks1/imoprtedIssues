@@ -17,13 +17,13 @@ class ShareViewController: UIViewController {
         super.viewDidLoad()
         
         handleResponseOfShareData()
-//                self.handleSharedFile()
+
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
 
-        let alertView = UIAlertController(title: "Export", message: " ", preferredStyle: .alert)
+        let alertView = UIAlertController(title: "Export", message: "", preferredStyle: .alert)
 
         self.present(alertView, animated: true, completion: {
 
@@ -46,10 +46,7 @@ class ShareViewController: UIViewController {
                             let url = data as! URL
                             let path = "\(self.docPath)/\(url.pathComponents.last ?? "")"
                             print(">>> sharepath: \(String(describing: url.path))")
-//                            UserDefaults.standard.setValue(url.path, forKey: "SharedImage")
                             try? FileManager.default.copyItem(at: url, to: URL(fileURLWithPath: path))
-                           
-
                         } else {
                             NSLog("\(error)")
                         }
@@ -101,7 +98,7 @@ class ShareViewController: UIViewController {
     
     func handleResponseOfShareData() {
         
-        let containerURL = FileManager().containerURL(forSecurityApplicationGroupIdentifier: "app.quickcam.app.ShareExtentionQuickCam")
+        let containerURL = FileManager().containerURL(forSecurityApplicationGroupIdentifier: UserDefaults.GroupName.name)
         docPath = "\(containerURL?.path ?? "")/share/"
         print("****************")
         print(docPath)
@@ -144,33 +141,11 @@ class ShareViewController: UIViewController {
     }
     
 }
-//    private func save(_ data: Data, key: String, value: Any) {
-//        // You must use the userdefaults of an app group, otherwise the main app don't have access to it.
-//        let userDefaults = UserDefaults(suiteName: "group.app.quickcam.app.ShareExtentionQ")
-//        userDefaults?.set(data, forKey: key)
-//    }
-    
-    
-//    private func handleSharedFile() {
-//        // extracting the path to the URL that is being shared
-//        let attachments = (extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
-//        let contentType = kUTTypeData as String
-//        for provider in attachments {
-//            // Check if the content type is the same as we expected
-//            if provider.hasItemConformingToTypeIdentifier(contentType) {
-//                provider.loadItem(forTypeIdentifier: contentType,
-//                                  options: nil) { [unowned self] (data, error) in
-//                    // Handle the error here if you want
-//                    guard error == nil else { return }
-//
-//                    if let url = data as? URL,
-//                       let imageData = try? Data(contentsOf: url) {
-//                        self.save(imageData, key: "imageData", value: imageData)
-//                        openURL(url)
-//                    } else {
-//                        // Handle this situation as you prefer
-//                        fatalError("Impossible to save image")
-//                    }
-//                }}
-//        }
-//    }
+
+
+extension UserDefaults {
+    struct GroupName {
+        static let name = "group.app.quickcam.app.ShareExtentionQ"
+    }
+    static let group = UserDefaults(suiteName: GroupName.name)!
+}

@@ -242,15 +242,6 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         if let value = UserDefaults.standard.value(forKey: "isDefaultFilterChecked") as? Bool {
             isDefaultFilterChecked = value
         }
-        
-        let savedata =  UserDefaults.init(suiteName: "group.app.quickcam.app.ShareExtentionQ")
-        print("ImageData \(String(describing: savedata?.value(forKey: "img")))")
-        if savedata?.value(forKey: "img") != nil {
-            print("Available Data")
-            let data = ((savedata?.value(forKey: "img")as! NSDictionary).value(forKey: "imgData")as! Data)
-            let str = ((savedata?.value(forKey: "img")as! NSDictionary).value(forKey: "name")as! String)
-            
-        }
     }
     
     fileprivate func setupLayout() {
