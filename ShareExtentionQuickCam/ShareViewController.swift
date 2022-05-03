@@ -116,9 +116,9 @@ class ShareViewController: UIViewController {
             let files = try! FileManager.default.contentsOfDirectory(atPath: docPath)
             for file in files {
                 try? FileManager.default.removeItem(at: URL(fileURLWithPath: "\(docPath)/\(file)"))
-                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
-                    self.navigationController?.pushViewController(contactWizardController, animated: true)
-                }
+//                if let contactWizardController = R.storyboard.photoEditor.contactImportVC() {
+//                    self.navigationController?.pushViewController(contactWizardController, animated: true)
+//                }
             }
         }
         

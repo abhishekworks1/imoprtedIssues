@@ -725,14 +725,22 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(appSurveyPopupView)
         view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
-
+        
+        
         self.syncUserModel { _ in
-            if Defaults.shared.appMode == .basic &&  self.isFreshSession{
+            if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
                     if i == 0 {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
                     }
+                }
+            }
+        }
+
+        self.syncUserModel { _ in
+            if Defaults.shared.appMode == .basic &&  self.isFreshSession{
+                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
                     if cameraMode.recordingType == .normal{
                         self.isFreshSession = false
                         self.cameraSliderView.selectCell = i
