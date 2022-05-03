@@ -13,6 +13,7 @@ import MobileCoreServices
 class ShareViewController: UIViewController {
     
     var docPath = ""
+    var imagePath = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +48,7 @@ class ShareViewController: UIViewController {
                             let path = "\(self.docPath)/\(url.pathComponents.last ?? "")"
                             print(">>> sharepath: \(String(describing: url.path))")
                             try? FileManager.default.copyItem(at: url, to: URL(fileURLWithPath: path))
+                            self.imagePath = url.path
                         } else {
                             NSLog("\(error)")
                         }
@@ -70,7 +72,7 @@ class ShareViewController: UIViewController {
                         ],
                         options: JSONSerialization.WritingOptions.init(rawValue: 0))
                     let jsonString = (NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                    let result = self.openURL(URL(string: "quickcamrefer://app.share?\(jsonString!)")!)
+                    let result = self.openURL(URL(string: "quickcamrefer://app.share?\(self.imagePath)")!)
                 } catch {
                     alertView.message = "Error: \(error.localizedDescription)"
                 }
@@ -99,7 +101,7 @@ class ShareViewController: UIViewController {
     func handleResponseOfShareData() {
         
         let containerURL = FileManager().containerURL(forSecurityApplicationGroupIdentifier: UserDefaults.GroupName.name)
-        docPath = "\(containerURL?.path ?? "")/share/"
+        docPath = "\(containerURL?.path ?? "")/share"
         print("****************")
         print(docPath)
         print("****************")
@@ -112,15 +114,13 @@ class ShareViewController: UIViewController {
         print("****************")
         
         //  removing previous stored files
-        if docPath != "" {
-            let files = try! FileManager.default.contentsOfDirectory(atPath: docPath)
-            for file in files {
-                try? FileManager.default.removeItem(at: URL(fileURLWithPath: "\(docPath)/\(file)"))
-//                if let contactWizardController = R.storyboard.photoEditor.contactImportVC() {
-//                    self.navigationController?.pushViewController(contactWizardController, animated: true)
-//                }
-            }
-        }
+//        if docPath != "" {
+//            let files = try! FileManager.default.contentsOfDirectory(atPath: docPath)
+//            for file in files {
+//                try? FileManager.default.removeItem(at: URL(fileURLWithPath: "\(docPath)/\(file)"))
+//               
+//            }
+//        }
         
     }
 

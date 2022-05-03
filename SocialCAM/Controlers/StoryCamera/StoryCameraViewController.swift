@@ -725,7 +725,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(appSurveyPopupView)
         view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(displayLaunchDetails), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         self.syncUserModel { _ in
             if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
@@ -815,6 +815,21 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
         
         
+    }
+    
+    @objc func displayLaunchDetails() {
+        let receiveAppdelegate = UIApplication.shared.delegate as! AppDelegate
+        if receiveAppdelegate.imagePath != "" {
+            print(receiveAppdelegate.imagePath)
+            let url = URL(fileURLWithPath: receiveAppdelegate.imagePath)
+            do {
+                let imageData = try Data(contentsOf: url)
+                let image = UIImage(data: imageData)
+                print(image)
+            } catch let dataErr {
+                print(dataErr.localizedDescription)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
