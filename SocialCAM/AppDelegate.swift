@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var isSubscriptionButtonPressed = false
     var isUpdateAppButtonPressed = false
+    var imagePath = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -370,6 +371,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        
+        print("&&&&&&&&&&&&&&")
+        print(url.query ?? "NO Image Path Found")
+        imagePath = url.query!
+        print("&&&&&&&&&&&&&&")
+        
+        
         if GoogleManager.shared.handelOpenUrl(app: app, url: url, options: options) {
             return true
         } else if SnapKitManager.shared.application(app, open: url, options: options) {
@@ -466,11 +474,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        
-        print(application.canOpenURL(url))
-        print("************")
-        print(url)
-        print("************")
         return TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:])
     }
     
