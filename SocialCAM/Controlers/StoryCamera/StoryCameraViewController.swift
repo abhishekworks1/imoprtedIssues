@@ -816,7 +816,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if Defaults.shared.cameraMode == .pic2Art {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 5
+            self.cameraSliderView.selectCell = 4
             self.cameraSliderView.collectionView.reloadData()
         }
         
