@@ -48,7 +48,18 @@ class ShareViewController: UIViewController {
                             let path = "\(self.docPath)/\(url.pathComponents.last ?? "")"
                             print(">>> sharepath: \(String(describing: url.path))")
                             try? FileManager.default.copyItem(at: url, to: URL(fileURLWithPath: path))
-                            self.imagePath = url.path
+                            print("&&&&&&&&&&&&&&&&&&")
+                            print(self.imagePath)
+                            let newurl = URL(fileURLWithPath: url.path)
+                            do {
+                                let imageData = try Data(contentsOf: newurl)
+                                let image = UIImage(data: imageData)
+                                print(image)
+                                self.imagePath = self.convertImageToBase64String(img: image!)
+                            } catch let dataErr {
+                                print(dataErr.localizedDescription)
+                            }
+                            print("&&&&&&&&&&&&&&&&&&")
                         } else {
                             NSLog("\(error)")
                         }
@@ -114,13 +125,9 @@ class ShareViewController: UIViewController {
         print("****************")
         
         //  removing previous stored files
-//        if docPath != "" {
-//            let files = try! FileManager.default.contentsOfDirectory(atPath: docPath)
-//            for file in files {
-//                try? FileManager.default.removeItem(at: URL(fileURLWithPath: "\(docPath)/\(file)"))
-//               
-//            }
-//        }
+        if docPath != "" {
+            removeItem(docPath)
+        }
         
     }
 
@@ -141,6 +148,10 @@ class ShareViewController: UIViewController {
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let absoluteFilePath = documentsDirectory.appendingPathComponent(relativeFilePath)
         try? FileManager.default.removeItem(at: absoluteFilePath)
+    }
+    
+    func convertImageToBase64String (img: UIImage) -> String {
+        return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
     }
     
 }

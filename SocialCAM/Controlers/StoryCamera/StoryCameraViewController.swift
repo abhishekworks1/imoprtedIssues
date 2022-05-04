@@ -821,15 +821,16 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         let receiveAppdelegate = UIApplication.shared.delegate as! AppDelegate
         if receiveAppdelegate.imagePath != "" {
             print(receiveAppdelegate.imagePath)
-            let url = URL(fileURLWithPath: receiveAppdelegate.imagePath)
-            do {
-                let imageData = try Data(contentsOf: url)
-                let image = UIImage(data: imageData)
-                print(image)
-            } catch let dataErr {
-                print(dataErr.localizedDescription)
-            }
+          let newImage = convertBase64StringToImage(imageBase64String: receiveAppdelegate.imagePath)
+            print(newImage)
+            openStoryEditor(images: [newImage])
         }
+    }
+    
+    func convertBase64StringToImage (imageBase64String:String) -> UIImage {
+        let imageData = Data(base64Encoded: imageBase64String)
+        let image = UIImage(data: imageData!)
+        return image!
     }
     
     override func viewDidAppear(_ animated: Bool) {
