@@ -180,6 +180,26 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 }
             }
             
+            if Defaults.shared.muteOnFastMotion && !isMute {
+                if (currentValue == .fast2x || currentValue == .fast3x || currentValue == .fast4x || currentValue == .fast5x) {
+                    muteButton.setImage(R.image.storyMute(), for: UIControl.State.normal)
+                    muteLabel.text = R.string.localizable.micOff()
+                } else if currentValue == .normal {
+                    muteButton.setImage(R.image.unmute(), for: UIControl.State.normal)
+                    muteLabel.text = R.string.localizable.micOn()
+                }
+            }
+            
+            if Defaults.shared.muteOnSlowMotion && !isMute {
+                if (currentValue == .slow2x || currentValue == .slow3x || currentValue == .slow4x || currentValue == .slow5x) {
+                    muteButton.setImage(R.image.storyMute(), for: UIControl.State.normal)
+                    muteLabel.text = R.string.localizable.micOff()
+                } else if currentValue == .normal {
+                    muteButton.setImage(R.image.unmute(), for: UIControl.State.normal)
+                    muteLabel.text = R.string.localizable.micOn()
+                }
+            }
+            
             if isLiteApp {
                 var recordingSpeed = VideoSpeedType.normal
                 var timeScale: Float64 = 1
@@ -348,6 +368,11 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             }
         case .ended:
             DispatchQueue.main.async {
+                if (Defaults.shared.muteOnFastMotion || Defaults.shared.muteOnSlowMotion) && !self.isMute {
+                    self.muteButton.setImage(R.image.unmute(), for: UIControl.State.normal)
+                    self.muteLabel.text = R.string.localizable.micOn()
+                }
+            
                 self.isVideoRecordedForEditScreen = true
                 self.resetPositionRecordButton()
                 self.speedLabel.text = ""
