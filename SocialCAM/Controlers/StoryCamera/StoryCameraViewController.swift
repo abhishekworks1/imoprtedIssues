@@ -814,9 +814,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.speedSliderView.isHidden = true
         }
         
-        print("&&&&&&&&&&&&&&&&&&&&&&&")
-        print(Defaults.shared.cameraMode)
-        print("&&&&&&&&&&&&&&&&&&&&&&&")
         if Defaults.shared.cameraMode == .pic2Art {
             self.isFreshSession = false
             self.cameraSliderView.selectCell = 4
@@ -917,6 +914,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     func dynamicSetSlowFastVerticalBar() {
+        print("&&&&&&&&&&&&&&&&&&&&&")
+        print(Defaults.shared.appMode)
+        print("&&&&&&&&&&&&&&&&&&&&&")
+        
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
         if recordingType == .fastMotion {
             speedOptions[0] = ""
@@ -2938,10 +2939,10 @@ extension StoryCameraViewController {
     func setAppModeBasedOnUserSync(){
         Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
-                Defaults.shared.appMode = .basic
+                Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){
                 if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
-                    Defaults.shared.appMode = .basic
+                    Defaults.shared.appMode = .professional
                 }else {
                     Defaults.shared.appMode = .free
                 }
