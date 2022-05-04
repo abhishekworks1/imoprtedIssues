@@ -814,6 +814,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.speedSliderView.isHidden = true
         }
         
+        print("&&&&&&&&&&&&&&&&&&&&&&&")
+        print(Defaults.shared.cameraMode)
+        print("&&&&&&&&&&&&&&&&&&&&&&&")
+        if Defaults.shared.cameraMode == .pic2Art {
+            self.isFreshSession = false
+            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.collectionView.reloadData()
+        }
         
     }
     
@@ -823,6 +831,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
 //            print(receiveAppdelegate.imagePath)
           let newImage = convertBase64StringToImage(imageBase64String: receiveAppdelegate.imagePath)
             print(newImage)
+            Defaults.shared.cameraMode = .pic2Art
             openStoryEditor(images: [newImage])
         }
     }
