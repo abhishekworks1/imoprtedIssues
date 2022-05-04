@@ -372,10 +372,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         
-        print("&&&&&&&&&&&&&&")
-        print(url.query ?? "NO Image Path Found")
+//        print("&&&&&&&&&&&&&&")
+//        print(url.query ?? "NO Image Path Found")
         imagePath = url.query!
-        print("&&&&&&&&&&&&&&")
+//        print("&&&&&&&&&&&&&&")
         
         
         if GoogleManager.shared.handelOpenUrl(app: app, url: url, options: options) {

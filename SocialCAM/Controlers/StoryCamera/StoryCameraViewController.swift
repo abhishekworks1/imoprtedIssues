@@ -820,10 +820,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @objc func displayLaunchDetails() {
         let receiveAppdelegate = UIApplication.shared.delegate as! AppDelegate
         if receiveAppdelegate.imagePath != "" {
-//            TODO: - Here you will get selected Image Url Path
-            print("&&&&&&&&&&&&&&&&&&&&&")
-            print(receiveAppdelegate.imagePath)
-            print("&&&&&&&&&&&&&&&&&&&&&")
+//            print(receiveAppdelegate.imagePath)
+          let newImage = convertBase64StringToImage(imageBase64String: receiveAppdelegate.imagePath)
+            print(newImage)
+            openStoryEditor(images: [newImage])
         }
     }
     
