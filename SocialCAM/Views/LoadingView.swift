@@ -154,6 +154,11 @@ public class LoadingView: UIView {
     }
     
     func advertisementTimer() {
+        if imgAdvertisementArray.count == 0 {
+            imgAdvertise.isHidden = true
+        } else {
+            imgAdvertise.isHidden = false
+        }
         if currentSelectedImg < imgAdvertisementArray.count {
             imgAdvertise.image = imgAdvertisementArray[currentSelectedImg]
         }
@@ -187,7 +192,7 @@ public class LoadingView: UIView {
     }
     
     open func setup() {
-        if isLiteApp {
+      /*  if isLiteApp {
             if Defaults.shared.isFreeTrial == true {
                 //checkForBanners(bannerImg: R.image.specialOfferForLifebanner())
                 imgAdvertisementArray = [R.image.joinBusinessCenter()]
@@ -200,6 +205,16 @@ public class LoadingView: UIView {
                     //checkForBanners(bannerImg: R.image.fullVersionComingBanner())
                 }
             }
+        } */
+
+        let subscriptionType = Defaults.shared.subscriptionType
+        imgAdvertisementArray = [R.image.upgradeBasicLiteBanner()]
+        if subscriptionType?.lowercased() == "basic" {
+            imgAdvertisementArray = [R.image.upgradeToAdvance()]
+        }else if subscriptionType?.lowercased() == "advanced" {
+            imgAdvertisementArray = [R.image.upgradeToPro()]
+        }else if subscriptionType?.lowercased() == "professional" {
+            imgAdvertisementArray.removeAll()
         }
         advertisementTimer()
     }
