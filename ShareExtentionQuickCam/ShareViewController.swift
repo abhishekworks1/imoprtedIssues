@@ -49,16 +49,17 @@ class ShareViewController: UIViewController {
                             print(">>> sharepath: \(String(describing: url.path))")
                             try? FileManager.default.copyItem(at: url, to: URL(fileURLWithPath: path))
                             print("&&&&&&&&&&&&&&&&&&")
+                            self.imagePath = url.path
                             print(self.imagePath)
-                            let newurl = URL(fileURLWithPath: url.path)
-                            do {
-                                let imageData = try Data(contentsOf: newurl)
-                                let image = UIImage(data: imageData)
-                                print(image)
-                                self.imagePath = self.convertImageToBase64String(img: image!)
-                            } catch let dataErr {
-                                print(dataErr.localizedDescription)
-                            }
+//                            let newurl = URL(fileURLWithPath: url.path)
+//                            do {
+//                                let imageData = try Data(contentsOf: newurl)
+//                                let image = UIImage(data: imageData)
+//                                print(image)
+//                                self.imagePath = self.convertImageToBase64String(img: image!)
+//                            } catch let dataErr {
+//                                print(dataErr.localizedDescription)
+//                            }
                             print("&&&&&&&&&&&&&&&&&&")
                         } else {
                             NSLog("\(error)")
