@@ -1313,6 +1313,7 @@ class Defaults {
         
         var imageArray = [String]()
 //        print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.badges?[0].toJSON()))")
+      //  print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.badges?[0].toJSON()))")
         //Defaults.shared.currentUser?.badges?[0].followingUser?.badges?[0].badge?.code
         if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
             let badgesArray = Defaults.shared.currentUser?.badges
