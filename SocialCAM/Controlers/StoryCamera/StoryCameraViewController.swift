@@ -727,6 +727,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(profilePicTooltip)
         NotificationCenter.default.addObserver(self, selector: #selector(displayLaunchDetails), name: UIApplication.didBecomeActiveNotification, object: nil)
         
+//        self.syncUserModel { isCompleted in
+//            if Defaults.shared.allowFullAccess ?? false {
+//                Defaults.shared.appMode = .professional
+//            } else {
+//                Defaults.shared.appMode = .free
+//            }
+//        }
+        
         self.syncUserModel { _ in
             if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
