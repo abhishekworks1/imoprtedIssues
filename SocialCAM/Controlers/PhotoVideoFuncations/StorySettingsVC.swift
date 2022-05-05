@@ -156,6 +156,7 @@ class StorySettings {
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var youTubeVerifiedView: UIView!
     @IBOutlet weak var snapVerifiedView: UIView!
@@ -212,7 +213,8 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.backButton.imageView?.contentMode = .scaleAspectFit
+        self.backButton.imageEdgeInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
        /* let json = """
         {
             "contactId":"vhjgjghjhgjkvhjgjghjhgjk",
