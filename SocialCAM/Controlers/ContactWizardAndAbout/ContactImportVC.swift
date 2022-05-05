@@ -1945,18 +1945,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
                 present(textComposer, animated: true)
             
-            }else{
+            } else {
+                let reflink = urlToShare//"\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                 let json = """
+                 {
+                     "contactId":"\(mobilecontact.Id ?? "")",
+                     "refType":"email"
+                 }
+                 """
+                let str = json.toBase64()
+                let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
+                
                 if MFMailComposeViewController.canSendMail() {
-                    let reflink = urlToShare//"\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
-                     let json = """
-                     {
-                         "contactId":"\(mobilecontact.Id ?? "")",
-                         "refType":"email"
-                     }
-                     """
-                    let str = json.toBase64()
-                    let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
-                    
                     let mail = MFMailComposeViewController()
                     mail.mailComposeDelegate = self
                     mail.setToRecipients([mobileContact?.email ?? ""])
@@ -1968,11 +1968,39 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     present(mail, animated: true)
                     
                     // Show third party email composer if default Mail app is not present
+                }  else if let emailUrl = createEmailUrl(to: mobileContact?.email ?? "", subject: self.txtDetailForEmail, body: urlwithString) {
+                    UIApplication.shared.open(emailUrl)
                 }
             }
             
         }
     }
+    
+    private func createEmailUrl(to: String, subject: String, body: String) -> URL? {
+                let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                
+                let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+        //TODO: In future if need to add other mail options
+//                let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)")
+//                let yahooMail = URL(string: "ymail://mail/compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+//                let sparkUrl = URL(string: "readdle-spark://compose?recipient=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                let defaultUrl = URL(string: "mailto:\(to)?subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                
+                if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
+                    return gmailUrl
+                }
+                   // else if let outlookUrl = outlookUrl, UIApplication.shared.canOpenURL(outlookUrl) {
+//                    return outlookUrl
+//                } else if let yahooMail = yahooMail, UIApplication.shared.canOpenURL(yahooMail) {
+//                    return yahooMail
+//                } else if let sparkUrl = sparkUrl, UIApplication.shared.canOpenURL(sparkUrl) {
+//                    return sparkUrl
+//                }
+                
+                return defaultUrl
+            }
+    
     func didPressButton(_ contact: PhoneContact, mobileContact:ContactResponse?,reInvite :Bool = false) {
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
