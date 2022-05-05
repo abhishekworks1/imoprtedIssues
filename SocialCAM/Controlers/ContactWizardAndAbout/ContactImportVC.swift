@@ -1238,10 +1238,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     } */
     
     @IBAction func textMessageSelected(sender: UIButton) {
+        self.shareType = ShareType.textShare
         searchBar.showsCancelButton = false
         if !isSelectSMS {
-            isSelectSMS = true
+          //  isSelectSMS = true
             pageNo = 3
+            selectedContactType = ContactType.mobile
             setupPage()
             return
         }
@@ -1259,12 +1261,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.showLoader()
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
+        isSelectSMS = false
     }
     @IBAction func emailSelected(sender: UIButton) {
         searchBar.showsCancelButton = false
-        if isSelectSMS {
-            isSelectSMS = false
+        self.shareType = ShareType.email
+        if !isSelectSMS {
+          //  isSelectSMS = false
             self.shareType = ShareType.email
+            selectedContactType = ContactType.email
             pageNo = 3
             setupPage()
             return
@@ -1283,6 +1288,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.showLoader()
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
+        isSelectSMS = false
         
     }
     @IBAction func socialShareCloseClick(sender: UIButton) {
@@ -1735,9 +1741,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         else if pageNo == 4 {
             pageNo = 5
             self.setupPage()
+            isSelectSMS = true
             if isSelectSMS {
+                if self.shareType == ShareType.textShare{
+                    textMessageSelected(sender: UIButton())
+                }else if self.shareType == ShareType.email{
+                    emailSelected(sender: UIButton())
+                }
             } else {
-                emailSelected(sender: UIButton())
+                if self.shareType == ShareType.textShare{
+                    textMessageSelected(sender: UIButton())
+                    isSelectSMS = false
+                }else if self.shareType == ShareType.email{
+                    emailSelected(sender: UIButton())
+                    isSelectSMS = false
+                }
+               
             }
         }
         else if sender.tag == 3 {
