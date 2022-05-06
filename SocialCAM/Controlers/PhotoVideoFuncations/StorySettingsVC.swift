@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import SafariServices
+import Alamofire
 
 enum SettingsMode: Int {
     case subscriptions = 0
@@ -210,7 +211,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType
     private lazy var storyCameraVC = StoryCameraViewController()
-    
+    var notificationUnreadCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.backButton.imageView?.contentMode = .scaleAspectFit
@@ -259,9 +260,10 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             showTableAction(UIButton())
         }
         
-        self.getUserNotificationModel { isSuccess in
-            
+        if let count = Defaults.shared.currentUser?.unreadCount {
+            self.notificationUnreadCount = count
         }
+        self.getUserNotificationModel { isSuccess in}
     }
   
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
@@ -484,19 +486,22 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
 
 extension StorySettingsVC {
     func getUserNotificationModel(completion: @escaping (_ isCompleted: Bool?) -> Void) {
-       
-        ProManagerApi.userNotificationUnreadCount.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
-                
-                Defaults.shared.currentUser = response.result?.user
-               
-                
-                completion(true)
+        let path = API.shared.baseUrlV2 + Paths.userNotificationUnreadCount
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: NotificationCountResult?.self) {(resposnse) in
+            let resultsNotificationCount = resposnse.value as? NotificationCountResult
+            if resultsNotificationCount?.success == true {
+                if let unreadCount = resultsNotificationCount?.data?.count {
+                    self.notificationUnreadCount = resultsNotificationCount?.data?.count ?? 0
+                    self.settingsTableView.reloadData()
+                    self.settingCollectionView.reloadData()
+                }
             }
-        }, onError: { error in
-            print(error)
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag)
+        }
     }
 }
 
@@ -580,11 +585,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .notification {
             cell.roundedView.isHidden = false
             hideUnhideImgButton(cell, R.image.settings_Notifications())
-            if let unreadCount = Defaults.shared.currentUser?.unreadCount {
-                cell.badgesCountLabel.text = "\(unreadCount)"
-                if unreadCount > 9 {
-                    cell.badgesCountLabel.text = "9+"
-                }
+            cell.badgesCountLabel.text = "\(self.notificationUnreadCount)"
+            if self.notificationUnreadCount == 0 {
+                cell.roundedView.isHidden = true
             }
         } else if settingTitle.settingsType == .checkUpdate {
             hideUnhideImgButton(cell, R.image.settings_CheckUpdate())
@@ -1372,11 +1375,9 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .notification {
             cell.socialImageView?.image = R.image.settings_Notifications()
             cell.roundedView.isHidden = false
-            if let unreadCount = Defaults.shared.currentUser?.unreadCount {
-                cell.countLabel.text = "\(unreadCount)"
-                if unreadCount > 9 {
-                    cell.countLabel.text = "9+"
-                }
+            cell.countLabel.text = "\(self.notificationUnreadCount)"
+            if self.notificationUnreadCount == 0 {
+                cell.roundedView.isHidden = true
             }
         } else if settingTitle.settingsType == .checkUpdate {
             cell.socialImageView?.image = R.image.settings_CheckUpdate()
