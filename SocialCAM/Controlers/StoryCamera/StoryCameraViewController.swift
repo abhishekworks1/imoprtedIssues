@@ -2945,7 +2945,6 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-        Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){
