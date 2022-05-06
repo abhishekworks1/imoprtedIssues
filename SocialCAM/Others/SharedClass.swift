@@ -1160,7 +1160,7 @@ public struct Paths {
     static let inviteGuesViaMobile = "contact-list/mobile/status"
     static let createContactFroMobile = "contact-list/mobile"
     static let getContactList = "template?type=message-content"
-    
+    static let userNotificationUnreadCount = "notifications/unread/count"
 }
 
 struct WebsiteData {

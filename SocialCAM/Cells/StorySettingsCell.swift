@@ -10,6 +10,8 @@ import UIKit
 
 class StorySettingsCell: UITableViewCell {
 
+    @IBOutlet weak var badgesCountLabel: ColorBGLabel!
+    @IBOutlet weak var roundedView: RoundedView!
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet weak var settingsName: UILabel!

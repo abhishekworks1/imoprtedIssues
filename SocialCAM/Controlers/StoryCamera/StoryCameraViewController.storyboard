@@ -2977,6 +2977,32 @@ Countdown</string>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGI-uf-G3N" customClass="RoundedView" customModule="BoomiCam" customModuleProvider="target">
+                                                    <rect key="frame" x="40" y="5" width="20" height="20"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-V5-Enj" customClass="ColorBGLabel" customModule="BoomiCam" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                            <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Yjn-V5-Enj" firstAttribute="centerY" secondItem="DGI-uf-G3N" secondAttribute="centerY" id="1Cx-YU-zap"/>
+                                                        <constraint firstAttribute="width" constant="20" id="CE2-OR-MTv"/>
+                                                        <constraint firstItem="Yjn-V5-Enj" firstAttribute="height" secondItem="DGI-uf-G3N" secondAttribute="height" id="JlD-XI-2F8"/>
+                                                        <constraint firstAttribute="height" constant="20" id="QP9-ho-Fce"/>
+                                                        <constraint firstItem="Yjn-V5-Enj" firstAttribute="width" secondItem="DGI-uf-G3N" secondAttribute="width" id="nph-ra-xCS"/>
+                                                        <constraint firstItem="Yjn-V5-Enj" firstAttribute="centerX" secondItem="DGI-uf-G3N" secondAttribute="centerX" id="vj9-oi-Cwh"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NA-le-UqP">
                                                     <rect key="frame" x="355" y="0.0" width="10" height="22"/>
                                                     <constraints>
@@ -2987,11 +3013,13 @@ Countdown</string>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="q1K-Id-wpK" firstAttribute="top" secondItem="u5h-Xu-o4t" secondAttribute="top" constant="8" id="4ai-YT-1PW"/>
+                                                <constraint firstItem="DGI-uf-G3N" firstAttribute="top" secondItem="u5h-Xu-o4t" secondAttribute="top" constant="5" id="5Xr-Vg-rmz"/>
                                                 <constraint firstAttribute="trailing" secondItem="czm-RC-Ina" secondAttribute="trailing" constant="12" id="B2r-cC-yM0"/>
                                                 <constraint firstAttribute="bottom" secondItem="czm-RC-Ina" secondAttribute="bottom" id="COH-PP-s11"/>
                                                 <constraint firstItem="czm-RC-Ina" firstAttribute="top" secondItem="u5h-Xu-o4t" secondAttribute="top" id="He6-Tz-feI"/>
                                                 <constraint firstItem="4NA-le-UqP" firstAttribute="top" secondItem="u5h-Xu-o4t" secondAttribute="top" id="P3W-Rj-QIk"/>
                                                 <constraint firstAttribute="trailing" secondItem="4NA-le-UqP" secondAttribute="trailing" constant="10" id="QdX-gk-YD3"/>
+                                                <constraint firstItem="DGI-uf-G3N" firstAttribute="leading" secondItem="u5h-Xu-o4t" secondAttribute="leading" constant="40" id="RgM-Rd-gCW"/>
                                                 <constraint firstItem="q1K-Id-wpK" firstAttribute="leading" secondItem="u5h-Xu-o4t" secondAttribute="leading" constant="25" id="Vgw-aD-12d"/>
                                                 <constraint firstItem="czm-RC-Ina" firstAttribute="leading" secondItem="u5h-Xu-o4t" secondAttribute="leading" constant="12" id="gKr-Po-AQV"/>
                                                 <constraint firstItem="4NA-le-UqP" firstAttribute="leading" secondItem="q1K-Id-wpK" secondAttribute="trailing" constant="15" id="hEK-HP-kK9"/>
@@ -3001,8 +3029,10 @@ Countdown</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="badgesCountLabel" destination="Yjn-V5-Enj" id="FFq-2s-qrU"/>
                                             <outlet property="detailButton" destination="4NA-le-UqP" id="vpl-oT-6qu"/>
                                             <outlet property="onOffButton" destination="eiX-DR-pOS" id="WS9-Ef-7ma"/>
+                                            <outlet property="roundedView" destination="DGI-uf-G3N" id="b73-jj-Yuu"/>
                                             <outlet property="settingsName" destination="usu-Hs-5ix" id="MqX-1E-OaG"/>
                                             <outlet property="shadowView" destination="czm-RC-Ina" id="QxS-x3-4q7"/>
                                             <outlet property="socialImageView" destination="3pg-bi-IU9" id="94l-Yf-6Yb"/>

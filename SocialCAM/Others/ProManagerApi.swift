@@ -91,6 +91,7 @@ public enum ProManagerApi {
     case editDisplayName(publicDisplayName: String?, privateDisplayName: String?)
     case setFollow(userId: String)
     case setUnFollow(userId: String)
+    case userNotificationUnreadCount
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -313,6 +314,8 @@ extension ProManagerApi: TargetType {
             return Paths.setFollow
         case .setUnFollow:
             return Paths.setUnFollow
+        case .userNotificationUnreadCount:
+            return Paths.userNotificationUnreadCount
         }
        
     }
@@ -322,7 +325,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -715,6 +718,8 @@ extension ProManagerApi: TargetType {
             param = ["followUserId": userId]
         case .setUnFollow(let userId):
             param = ["followUserId": userId]
+        case .userNotificationUnreadCount:
+            break
         }
         return param
     }
@@ -728,7 +733,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
             return URLEncoding.default
         default:
             return JSONEncoding.default
