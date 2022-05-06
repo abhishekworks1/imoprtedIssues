@@ -979,7 +979,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 verticalLines.visibleLeftSideViews = true
             }
         }
-        if recordingType == .promo {
+        if recordingType == .promo && Defaults.shared.appMode != .professional {
             timerValueView.isHidden = true
             verticalLines.visibleLeftSideViews = false
             verticalLines.numberOfViews = .speed3x
@@ -2945,7 +2945,7 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-        Defaults.shared.allowFullAccess = true
+//        Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){
