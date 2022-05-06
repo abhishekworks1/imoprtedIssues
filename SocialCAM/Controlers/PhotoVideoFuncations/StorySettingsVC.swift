@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import SafariServices
+import Alamofire
 
 enum SettingsMode: Int {
     case subscriptions = 0
@@ -210,7 +211,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType
     private lazy var storyCameraVC = StoryCameraViewController()
-    
+    var notificationUnreadCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.backButton.imageView?.contentMode = .scaleAspectFit
@@ -258,6 +259,11 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         } else {
             showTableAction(UIButton())
         }
+        
+        if let count = Defaults.shared.currentUser?.unreadCount {
+            self.notificationUnreadCount = count
+        }
+        self.getUserNotificationModel { isSuccess in}
     }
   
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
@@ -478,6 +484,27 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
 }
 
+extension StorySettingsVC {
+    func getUserNotificationModel(completion: @escaping (_ isCompleted: Bool?) -> Void) {
+        let path = API.shared.baseUrlV2 + Paths.userNotificationUnreadCount
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: NotificationCountResult?.self) {(resposnse) in
+            let resultsNotificationCount = resposnse.value as? NotificationCountResult
+            if resultsNotificationCount?.success == true {
+                if let unreadCount = resultsNotificationCount?.data?.count {
+                    self.notificationUnreadCount = resultsNotificationCount?.data?.count ?? 0
+                    self.settingsTableView.reloadData()
+                    self.settingCollectionView.reloadData()
+                }
+            }
+        }
+    }
+}
+
 extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -525,6 +552,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
+        cell.roundedView.isHidden = true
         if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -555,7 +583,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .logout {
             hideUnhideImgButton(cell, R.image.settings_Logout())
         } else if settingTitle.settingsType == .notification {
+            cell.roundedView.isHidden = false
             hideUnhideImgButton(cell, R.image.settings_Notifications())
+            cell.badgesCountLabel.text = "\(self.notificationUnreadCount)"
+            if self.notificationUnreadCount == 0 {
+                cell.roundedView.isHidden = true
+            }
         } else if settingTitle.settingsType == .checkUpdate {
             hideUnhideImgButton(cell, R.image.settings_CheckUpdate())
         } else if settingTitle.settingsType == .referringChannel {
@@ -1316,6 +1349,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         let settingTitle = StorySettings.storySettings[indexPath.item]
         let settings = settingTitle.settings[0]
         cell.settingsName.text = settings.name
+        cell.roundedView.isHidden = true
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
@@ -1340,6 +1374,11 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             cell.socialImageView?.image = R.image.settings_Logout()
         } else if settingTitle.settingsType == .notification {
             cell.socialImageView?.image = R.image.settings_Notifications()
+            cell.roundedView.isHidden = false
+            cell.countLabel.text = "\(self.notificationUnreadCount)"
+            if self.notificationUnreadCount == 0 {
+                cell.roundedView.isHidden = true
+            }
         } else if settingTitle.settingsType == .checkUpdate {
             cell.socialImageView?.image = R.image.settings_CheckUpdate()
         } else if settingTitle.settingsType == .referringChannel {
