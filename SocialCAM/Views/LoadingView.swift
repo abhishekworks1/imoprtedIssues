@@ -208,11 +208,11 @@ public class LoadingView: UIView {
         } */
 
         let subscriptionType = Defaults.shared.subscriptionType
-        imgAdvertisementArray = [R.image.upgradeBasicLiteBanner()]
+        imgAdvertisementArray = [R.image.upgradeToBasic(), R.image.upgradeToAdvanced(), R.image.upgradeToProfessional()]
         if subscriptionType?.lowercased() == "basic" {
-            imgAdvertisementArray = [R.image.upgradeToAdvance()]
+            imgAdvertisementArray = [R.image.upgradeToAdvanced(), R.image.upgradeToProfessional()]
         }else if subscriptionType?.lowercased() == "advanced" {
-            imgAdvertisementArray = [R.image.upgradeToPro()]
+            imgAdvertisementArray = [R.image.upgradeToProfessional()]
         }else if subscriptionType?.lowercased() == "professional" {
             imgAdvertisementArray.removeAll()
         }
