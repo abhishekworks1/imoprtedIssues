@@ -747,7 +747,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
 
         self.syncUserModel { _ in
-            if Defaults.shared.appMode == .basic &&  self.isFreshSession{
+            if (Defaults.shared.appMode == .basic || Defaults.shared.appMode == .professional) &&  self.isFreshSession{
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
                     if cameraMode.recordingType == .normal{
                         self.isFreshSession = false
@@ -2129,7 +2129,7 @@ extension StoryCameraViewController {
                         self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
                         if Defaults.shared.appMode == .professional {
-                           // totalSeconds = 
+                            totalSeconds = 60
                         }
                     }
                     self.progressMaxSeconds = totalSeconds
