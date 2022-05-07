@@ -747,7 +747,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
 
         self.syncUserModel { _ in
-            if Defaults.shared.appMode == .basic &&  self.isFreshSession{
+            if (Defaults.shared.appMode == .basic || Defaults.shared.appMode == .professional) &&  self.isFreshSession{
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
                     if cameraMode.recordingType == .normal{
                         self.isFreshSession = false
@@ -967,19 +967,23 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
         if recordingType == .normal || recordingType == .capture {
             if isLiteApp {
-                verticalLines.visibleLeftSideViews = true
-                verticalLines.numberOfViews = .speed3x
-                speedSliderLabels.names = speedOptions
-                speedSliderLabels.value = 2
-                speedSlider.tickCount = speedOptions.count
-                speedSlider.value = 2
-                speedSlider.ticksListener = speedSliderLabels
-                self.setupLiteAppMode(mode: .normal)
+                if Defaults.shared.appMode == .professional {
+                    verticalLines.visibleLeftSideViews = true
+                } else {
+                    verticalLines.visibleLeftSideViews = true
+                    verticalLines.numberOfViews = .speed3x
+                    speedSliderLabels.names = speedOptions
+                    speedSliderLabels.value = 2
+                    speedSlider.tickCount = speedOptions.count
+                    speedSlider.value = 2
+                    speedSlider.ticksListener = speedSliderLabels
+                    self.setupLiteAppMode(mode: .normal)
+                }
             } else {
                 verticalLines.visibleLeftSideViews = true
             }
         }
-        if recordingType == .promo {
+        if recordingType == .promo && Defaults.shared.appMode != .professional {
             timerValueView.isHidden = true
             verticalLines.visibleLeftSideViews = false
             verticalLines.numberOfViews = .speed3x
@@ -2124,6 +2128,9 @@ extension StoryCameraViewController {
                     } else if isLiteApp {
                         self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
+                        if Defaults.shared.appMode == .professional {
+                            totalSeconds = 60
+                        }
                     }
                     self.progressMaxSeconds = totalSeconds
                     self.circularProgress.progressInsideFillColor = .red
@@ -2945,6 +2952,7 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
+//        Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){
