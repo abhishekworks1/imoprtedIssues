@@ -967,14 +967,18 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
         if recordingType == .normal || recordingType == .capture {
             if isLiteApp {
-                verticalLines.visibleLeftSideViews = true
-                verticalLines.numberOfViews = .speed3x
-                speedSliderLabels.names = speedOptions
-                speedSliderLabels.value = 2
-                speedSlider.tickCount = speedOptions.count
-                speedSlider.value = 2
-                speedSlider.ticksListener = speedSliderLabels
-                self.setupLiteAppMode(mode: .normal)
+                if Defaults.shared.appMode == .professional {
+                    verticalLines.visibleLeftSideViews = true
+                } else {
+                    verticalLines.visibleLeftSideViews = true
+                    verticalLines.numberOfViews = .speed3x
+                    speedSliderLabels.names = speedOptions
+                    speedSliderLabels.value = 2
+                    speedSlider.tickCount = speedOptions.count
+                    speedSlider.value = 2
+                    speedSlider.ticksListener = speedSliderLabels
+                    self.setupLiteAppMode(mode: .normal)
+                }
             } else {
                 verticalLines.visibleLeftSideViews = true
             }
@@ -2124,6 +2128,9 @@ extension StoryCameraViewController {
                     } else if isLiteApp {
                         self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
+                        if Defaults.shared.appMode == .professional {
+                           // totalSeconds = 
+                        }
                     }
                     self.progressMaxSeconds = totalSeconds
                     self.circularProgress.progressInsideFillColor = .red
