@@ -715,6 +715,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.syncUserModel { _ in
+        if Defaults.shared.appMode != .free {
+            if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
+                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
+                    if i == 0 {
+                        self.cameraSliderView.stringArray.remove(at: 0)
+                        self.cameraSliderView.collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+                    }
+                }
+            }
+        }
+        }
+
         super.viewWillAppear(animated)
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
@@ -735,16 +748,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
 //            }
 //        }
         
-        self.syncUserModel { _ in
-            if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
-                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
-                    if i == 0 {
-                        self.cameraSliderView.stringArray.remove(at: 0)
-                        self.cameraSliderView.collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
-                    }
-                }
-            }
-        }
 
         self.syncUserModel { _ in
             if Defaults.shared.appMode == .basic &&  self.isFreshSession{
