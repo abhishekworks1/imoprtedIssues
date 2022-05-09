@@ -554,11 +554,7 @@ class Defaults {
         get {
             if isLiteApp {
                 let appMode = AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 1)) ?? .basic
-                if appMode == .advanced {//}|| appMode == .professional {
-                    return .basic
-                } else {
                     return appMode
-                }
             } else {
                 return AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
             }
