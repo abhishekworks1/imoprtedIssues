@@ -35,8 +35,9 @@
                     <color key="textColor" red="0.9986641839" green="0.9986641839" blue="0.9986641839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upgradeToBasic" translatesAutoresizingMaskIntoConstraints="NO" id="U9d-aU-XfD">
-                    <rect key="frame" x="0.0" y="779" width="414" height="111"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upgradeBasicLiteBanner" translatesAutoresizingMaskIntoConstraints="NO" id="U9d-aU-XfD">
+                    <rect key="frame" x="0.0" y="751" width="414" height="111"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="111" id="L5Y-pU-eTe"/>
                     </constraints>
@@ -89,7 +90,7 @@ Please don't lock your screen or switch to other apps for best results.</string>
                 <constraint firstItem="7iU-JH-nNW" firstAttribute="centerX" secondItem="0Lx-Qt-fc6" secondAttribute="centerX" id="eVD-he-xKh"/>
                 <constraint firstItem="4eW-yR-MIS" firstAttribute="trailing" secondItem="ffb-vb-TLv" secondAttribute="trailing" id="eWz-0n-G8L"/>
                 <constraint firstItem="7iU-JH-nNW" firstAttribute="centerY" secondItem="0Lx-Qt-fc6" secondAttribute="centerY" id="fWP-K1-A3u"/>
-                <constraint firstAttribute="bottom" secondItem="U9d-aU-XfD" secondAttribute="bottom" constant="6" id="kDU-JS-Ztf"/>
+                <constraint firstItem="z6i-ay-gi9" firstAttribute="bottom" secondItem="U9d-aU-XfD" secondAttribute="bottom" id="kDU-JS-Ztf"/>
                 <constraint firstItem="4eW-yR-MIS" firstAttribute="top" secondItem="ffb-vb-TLv" secondAttribute="bottom" constant="2.5" id="ooC-uy-res"/>
                 <constraint firstAttribute="trailing" secondItem="U9d-aU-XfD" secondAttribute="trailing" id="qcu-I3-xUR"/>
                 <constraint firstItem="Vpg-dw-Xh5" firstAttribute="centerX" secondItem="ffb-vb-TLv" secondAttribute="centerX" id="rTG-IK-lqf"/>
