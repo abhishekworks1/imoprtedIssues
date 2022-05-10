@@ -722,6 +722,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                     if i == 0 {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+                        self.speedSlider.isHidden = true
+                        self.speedSliderView.isHidden = true
+                        self.verticalLines.isHidden = true
                     }
                 }
             }
@@ -1541,9 +1544,9 @@ extension StoryCameraViewController {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
                 
-//                if isQuickApp && Defaults.shared.appMode == .free {
-//                    self.showAlertForUpgradeSubscription()
-//                }
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }
 
             default:
                 break

@@ -90,6 +90,14 @@ class StorySettingsOptionsVC: UIViewController {
     @objc func showYoutubeLoginTooltip() {
         self.skipYTLoginTooltipView.isHidden = false
     }
+    
+    @IBAction func didTapCameraButton(_ sender: UIButton) {
+        if let cameraScreen = R.storyboard.storyCameraViewController.storyCameraViewController() {
+            self.navigationController?.pushViewController(cameraScreen, animated: true)
+        }
+    }
+    
+    
 
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
