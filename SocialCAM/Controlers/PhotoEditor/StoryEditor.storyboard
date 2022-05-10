@@ -542,7 +542,7 @@
                                                 <rect key="frame" x="0.0" y="364" width="87.333333333333329" height="45"/>
                                                 <subviews>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-Ja-cb7">
-                                                        <rect key="frame" x="0.0" y="2" width="87.333333333333329" height="227"/>
+                                                        <rect key="frame" x="0.0" y="2" width="87.333333333333329" height="256"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <state key="normal" image="ic_omit"/>
                                                         <state key="selected" image="addNewMusic"/>
@@ -555,7 +555,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVG-GS-dpb">
-                                                        <rect key="frame" x="0.0" y="231" width="87.333333333333329" height="14"/>
+                                                        <rect key="frame" x="0.0" y="29" width="87.333333333333329" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="Oy0-UB-h7Q"/>
                                                         </constraints>
@@ -574,9 +574,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="LVG-GS-dpb" firstAttribute="top" secondItem="cFi-yR-uXv" secondAttribute="bottom" constant="5" id="1qB-8G-0PO"/>
                                                     <constraint firstItem="LVG-GS-dpb" firstAttribute="leading" secondItem="NOw-4w-lE4" secondAttribute="leading" id="3hh-KR-bNb"/>
-                                                    <constraint firstItem="LVG-GS-dpb" firstAttribute="top" secondItem="dRi-Ja-cb7" secondAttribute="bottom" constant="2" id="4FV-nG-9Ov"/>
                                                     <constraint firstItem="ZJt-TI-XJN" firstAttribute="top" secondItem="NOw-4w-lE4" secondAttribute="top" id="EZC-Xi-95W"/>
+                                                    <constraint firstItem="LVG-GS-dpb" firstAttribute="centerX" secondItem="cFi-yR-uXv" secondAttribute="centerX" id="Ikv-rf-yc8"/>
                                                     <constraint firstAttribute="trailing" secondItem="dRi-Ja-cb7" secondAttribute="trailing" id="LUs-an-Ls4"/>
                                                     <constraint firstAttribute="trailing" secondItem="LVG-GS-dpb" secondAttribute="trailing" id="RdS-Qn-mLI"/>
                                                     <constraint firstAttribute="height" constant="45" id="Xgt-e8-9gj"/>
@@ -4531,7 +4532,7 @@
         <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="hideToolTipCheckMark" width="20" height="20"/>
         <image name="ic_Done" width="72" height="72"/>
-        <image name="ic_omit" width="256" height="227"/>
+        <image name="ic_omit" width="256" height="256"/>
         <image name="icoBitmoji" width="24" height="24"/>
         <image name="icoClose" width="26" height="26"/>
         <image name="icoFacebook" width="36" height="36"/>
@@ -4550,7 +4551,7 @@
         <image name="maskStory" width="34" height="34"/>
         <image name="merge" width="32" height="32"/>
         <image name="mergeBack" width="24" height="24"/>
-        <image name="mergeNew" width="512" height="485"/>
+        <image name="mergeNew" width="256" height="256"/>
         <image name="moreOptions" width="512" height="512"/>
         <image name="multiFilter" width="24" height="24"/>
         <image name="new_link_icon" width="512" height="512"/>
@@ -4566,7 +4567,7 @@
         <image name="share1" width="20" height="20"/>
         <image name="showStoryCamIcons" width="34" height="34"/>
         <image name="specificBoom" width="24" height="17"/>
-        <image name="split1" width="256" height="230.5"/>
+        <image name="split1" width="256" height="256"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="storyClose" width="24" height="24"/>
         <image name="storyDelete" width="25" height="24"/>
@@ -4579,7 +4580,7 @@
         <image name="storySound" width="32" height="32"/>
         <image name="storySticker" width="34" height="34"/>
         <image name="timeSpeed" width="34" height="34"/>
-        <image name="trim1" width="512" height="368"/>
+        <image name="trim1" width="256" height="256"/>
         <image name="trimDone" width="21" height="15"/>
         <image name="trimSave" width="21" height="15"/>
         <image name="watermark1" width="20" height="20"/>
@@ -4587,7 +4588,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4596,7 +4597,7 @@
             <color red="0.35294117647058826" green="0.38039215686274508" blue="0.4823529411764706" alpha="0.36000001430511475" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hashtag_lightGold">
-            <color red="0.98000001907348633" green="0.85100001096725464" blue="0.37999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98039215686274506" green="0.85098039215686272" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkSkyBlue">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
