@@ -167,6 +167,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
     
     
+    @IBOutlet weak var allButton: UIButton!
+    @IBOutlet weak var recentButton: UIButton!
+    @IBOutlet weak var inviteButton: UIButton!
+    @IBOutlet weak var invitedButton: UIButton!
+    @IBOutlet weak var openedButton: UIButton!
+    @IBOutlet weak var signedupButton: UIButton!
+    @IBOutlet weak var subscriberButton: UIButton!
+    @IBOutlet weak var optOutButton: UIButton!
+    @IBOutlet weak var hiddenButton: UIButton!
+    
+    
     var searchText:String = ""
     var selectedContact:ContactResponse?
     var inviteData:Data?
@@ -1106,6 +1117,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func filterOptionClicked(sender: UIButton) {
         filterOptionView.isHidden = true
+        allButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        recentButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        inviteButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        invitedButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        openedButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        signedupButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        subscriberButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        optOutButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        hiddenButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        
+        sender.backgroundColor = ApplicationSettings.appLightBlueColor
+        
         switch sender.tag {
         case 1:
             self.selectedFilter = ContactStatus.all
