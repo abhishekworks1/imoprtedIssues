@@ -240,7 +240,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         }
         
         kCell.label.text = self.stringArray[indexPath.item].name
-        kCell.tag = indexPath.row
+        kCell.tag = indexPath.item
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
         //kCell.backgroundColor = .red
@@ -327,4 +327,14 @@ extension UILabel{
         self.numberOfLines = 1
         self.translatesAutoresizingMaskIntoConstraints = false
     }
+}
+
+extension Array where Element: Equatable {
+
+ // Remove first collection element that is equal to the given `object`:
+ mutating func remove(object: Element) {
+     guard let index = firstIndex(of: object) else {return}
+     remove(at: index)
+ }
+
 }

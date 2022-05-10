@@ -436,3 +436,24 @@ class ContactResponse: Mappable {
         hide <- map["hide"]
     }
 }
+
+class NotificationCountResult: Codable {
+    var message: String?
+    var success: Bool?
+    var data : NotificationCountData?
+    private enum CodingKeys: String, CodingKey
+    {
+        case message
+        case success
+        case data
+    }
+}
+
+class NotificationCountData: Codable {
+    var count: Int = 0
+    
+    private enum CodingKeys: String, CodingKey {
+        case count
+    }
+    
+}

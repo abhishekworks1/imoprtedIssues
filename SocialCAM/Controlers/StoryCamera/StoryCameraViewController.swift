@@ -611,6 +611,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
            //Add Pinch Gesture on CameraView.
              let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
         gestureView?.addGestureRecognizer(pinchRecognizer)
+        bottomCameraViews.addGestureRecognizer(pinchRecognizer)
     }
     
     // Find a camera with the specified AVCaptureDevicePosition, returning nil if one is not found
@@ -649,15 +650,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
         
         switch pinch.state {
-        case .began:
-            bottomCameraViews.isUserInteractionEnabled = false
-        case .changed: update(scale: newScaleFactor)
+        case .changed:
+            update(scale: newScaleFactor)
         case .ended:
-            bottomCameraViews.isUserInteractionEnabled = true
             lastZoomFactor = minMaxZoom(newScaleFactor)
             update(scale: lastZoomFactor)
         default: break
         }
+        
     }
      
     
@@ -715,6 +715,22 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.syncUserModel { _ in
+        if Defaults.shared.appMode != .free {
+            if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
+                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
+                    if i == 0 {
+                        self.cameraSliderView.stringArray.remove(at: 0)
+                        self.cameraSliderView.collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+                        self.speedSlider.isHidden = true
+                        self.speedSliderView.isHidden = true
+                        self.verticalLines.isHidden = true
+                    }
+                }
+            }
+        }
+        }
+
         super.viewWillAppear(animated)
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
@@ -725,9 +741,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(appSurveyPopupView)
         view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
+        NotificationCenter.default.addObserver(self, selector: #selector(displayLaunchDetails), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+//        self.syncUserModel { isCompleted in
+//            if Defaults.shared.allowFullAccess ?? false {
+//                Defaults.shared.appMode = .professional
+//            } else {
+//                Defaults.shared.appMode = .free
+//            }
+//        }
+        
 
         self.syncUserModel { _ in
-            if Defaults.shared.appMode == .basic &&  self.isFreshSession{
+            if (Defaults.shared.appMode == .basic || Defaults.shared.appMode == .professional) &&  self.isFreshSession{
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
                     if cameraMode.recordingType == .normal{
                         self.isFreshSession = false
@@ -801,6 +827,30 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.speedSlider.isHidden = true
             self.speedSliderView.isHidden = true
         }
+        
+        if Defaults.shared.cameraMode == .pic2Art {
+            self.isFreshSession = false
+            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.collectionView.reloadData()
+        }
+        
+    }
+    
+    @objc func displayLaunchDetails() {
+        let receiveAppdelegate = UIApplication.shared.delegate as! AppDelegate
+        if receiveAppdelegate.imagePath != "" {
+//            print(receiveAppdelegate.imagePath)
+          let newImage = convertBase64StringToImage(imageBase64String: receiveAppdelegate.imagePath)
+            print(newImage)
+            Defaults.shared.cameraMode = .pic2Art
+            openStoryEditor(images: [newImage])
+        }
+    }
+    
+    func convertBase64StringToImage (imageBase64String:String) -> UIImage {
+        let imageData = Data(base64Encoded: imageBase64String)
+        let image = UIImage(data: imageData!)
+        return image!
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -878,6 +928,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     func dynamicSetSlowFastVerticalBar() {
+        print("&&&&&&&&&&&&&&&&&&&&&")
+        print(Defaults.shared.appMode)
+        print("&&&&&&&&&&&&&&&&&&&&&")
+        
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
         if recordingType == .fastMotion {
             speedOptions[0] = ""
@@ -919,19 +973,23 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
         if recordingType == .normal || recordingType == .capture {
             if isLiteApp {
-                verticalLines.visibleLeftSideViews = true
-                verticalLines.numberOfViews = .speed3x
-                speedSliderLabels.names = speedOptions
-                speedSliderLabels.value = 2
-                speedSlider.tickCount = speedOptions.count
-                speedSlider.value = 2
-                speedSlider.ticksListener = speedSliderLabels
-                self.setupLiteAppMode(mode: .normal)
+                if Defaults.shared.appMode == .professional {
+                    verticalLines.visibleLeftSideViews = true
+                } else {
+                    verticalLines.visibleLeftSideViews = true
+                    verticalLines.numberOfViews = .speed3x
+                    speedSliderLabels.names = speedOptions
+                    speedSliderLabels.value = 2
+                    speedSlider.tickCount = speedOptions.count
+                    speedSlider.value = 2
+                    speedSlider.ticksListener = speedSliderLabels
+                    self.setupLiteAppMode(mode: .normal)
+                }
             } else {
                 verticalLines.visibleLeftSideViews = true
             }
         }
-        if recordingType == .promo {
+        if recordingType == .promo && Defaults.shared.appMode != .professional {
             timerValueView.isHidden = true
             verticalLines.visibleLeftSideViews = false
             verticalLines.numberOfViews = .speed3x
@@ -1486,9 +1544,9 @@ extension StoryCameraViewController {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
                 
-//                if isQuickApp && Defaults.shared.appMode == .free {
-//                    self.showAlertForUpgradeSubscription()
-//                }
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }
 
             default:
                 break
@@ -2076,6 +2134,9 @@ extension StoryCameraViewController {
                     } else if isLiteApp {
                         self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
+                        if Defaults.shared.appMode == .professional {
+                            totalSeconds = 60
+                        }
                     }
                     self.progressMaxSeconds = totalSeconds
                     self.circularProgress.progressInsideFillColor = .red
@@ -2897,12 +2958,12 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-        Defaults.shared.allowFullAccess = true
+//        Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
-                Defaults.shared.appMode = .basic
+                Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){
                 if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
-                    Defaults.shared.appMode = .basic
+                    Defaults.shared.appMode = .professional
                 }else {
                     Defaults.shared.appMode = .free
                 }

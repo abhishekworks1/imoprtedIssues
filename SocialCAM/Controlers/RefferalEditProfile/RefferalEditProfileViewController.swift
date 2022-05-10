@@ -61,10 +61,11 @@ class RefferalEditProfileViewController: UIViewController {
     }
     
     @IBAction func didTapNextButtonClick(_ sender: UIButton) {
-        self.showHUD()
         if isImageSelected {
+            self.showHUD()
             if let img = imgProfilePic.image {
                 self.updateProfilePic(image: img)
+                self.updateProfileDetails(image: img)
             }
         }
     }
@@ -88,7 +89,18 @@ class RefferalEditProfileViewController: UIViewController {
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
-    
+    func updateProfileDetails(image: UIImage) {
+        ProManagerApi.updateProfileDetails(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
     func goToShareScreen() {
         if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
             self.navigationController?.pushViewController(shareSettingVC, animated: true)

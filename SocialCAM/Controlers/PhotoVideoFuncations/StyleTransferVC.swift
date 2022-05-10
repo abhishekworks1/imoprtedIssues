@@ -37,10 +37,12 @@ extension StyleTransferVC: UIGestureRecognizerDelegate {
 
 class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
-    @IBOutlet weak var collectionView: InfiniteCollectionView!
+    @IBOutlet weak var showDefaultFilterView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     var cameraMode: CameraMode = .basicCamera
     var indexOfPic = 0
     var dragAndDropManager: KDDragAndDropManager?
+    var selectedGestureTag = -1
     @IBOutlet weak var btnSlideShow: UIButton!
     @IBOutlet weak var btnCollage: UIButton!
     @IBOutlet weak var btnDropDown: UIButton!
@@ -60,6 +62,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             btnCollage.isHidden = !isShowHideMode
         }
     }
+    @IBOutlet weak var checkUnCheckImageView: UIImageView!
     
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -89,6 +92,9 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     fileprivate var rotationRecognizer: UIRotationGestureRecognizer?
     fileprivate var panRecognizer: UIPanGestureRecognizer?
     fileprivate var referenceCenter: CGPoint = .zero
+    
+    let flowLayout = ZoomAndSnapFlowLayout()
+
     
     var isZooming = false {
         didSet {
@@ -202,12 +208,17 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     var isPic2ArtApp: Bool = false
     
+    var isDefaultFilterChecked = false
+    
+    var isViewDidLayoutCallFirstTime = true
+    
     deinit {
         print("Deinit \(self.description)")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        collectionView.infiniteLayout.isEnabled = false
         setData()
         setupLayout()
         addGestureRecognizers()
@@ -226,6 +237,13 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let value = UserDefaults.standard.value(forKey: "isDefaultFilterChecked") as? Bool {
+            isDefaultFilterChecked = value
+        }
+    }
+    
     fileprivate func setupLayout() {
         self.dragAndDropManager = KDDragAndDropManager(
             canvas: self.view,
@@ -235,6 +253,13 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         let imageCollectionViewLayout = self.imageCollectionView.collectionViewLayout as? UPCarouselFlowLayout
         imageCollectionViewLayout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
         imageCollectionView.register(R.nib.imageCollectionViewCell)
+        
+        
+        guard let collectionView = collectionView else { return }
+        //collectionView.decelerationRate = .fast // uncomment if necessary
+        collectionView.dataSource = self
+        collectionView.collectionViewLayout = flowLayout
+        collectionView.contentInsetAdjustmentBehavior = .always
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -293,6 +318,28 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             break
         }
     }
+    
+    @IBAction func didTapDoNotShowAgainButton(_ sender: UIButton) {
+        isDefaultFilterChecked = isDefaultFilterChecked ? false : true
+        checkUnCheckImageView.image = isDefaultFilterChecked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
+        UserDefaults.standard.set(isDefaultFilterChecked, forKey: "isDefaultFilterChecked")
+    }
+    
+    @IBAction func didTapYesButton(_ sender: UIButton) {
+        selectedFilterIndexPath = IndexPath.init(row: selectedGestureTag, section: 0)
+        type = .image(image: filteredImage!)
+        self.applyStyle(index: selectedGestureTag)
+        styleData[selectedFilterIndexPath.item].isSelected = true
+        self.collectionView.reloadData()
+        applyFilter()
+        UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
+        showDefaultFilterView.isHidden = true
+    }
+    
+    @IBAction func didTapNoButton(_ sender: UIButton) {
+        showDefaultFilterView.isHidden = true
+    }
+    
     
     @IBAction func backButtonClicked(_ sender: Any) {
         DispatchQueue.main.async {
@@ -529,14 +576,27 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     }
     
     @objc func handleLongPressOnFilterImageView(_ gesture: UILongPressGestureRecognizer) {
-        Defaults.shared.callHapticFeedback(isHeavy: false)
+//        Defaults.shared.callHapticFeedback(isHeavy: false)
         if gesture.state == .began {
-            selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
-            type = .image(image: filteredImage!)
-            self.applyStyle(index: gesture.view!.tag)
-            styleData[selectedFilterIndexPath.row].isSelected = true
-            self.collectionView.reloadData()
-            applyFilter()
+            selectedGestureTag = gesture.view!.tag
+            print("*********************")
+            print(selectedGestureTag)
+            print("*********************")
+            print(gesture.view!.tag)
+            print("*****************")
+            if isDefaultFilterChecked {
+                selectedFilterIndexPath = IndexPath.init(row: selectedGestureTag, section: 0)
+                type = .image(image: filteredImage!)
+                self.applyStyle(index: selectedGestureTag)
+                styleData[selectedFilterIndexPath.item].isSelected = true
+                self.collectionView.reloadData()
+                applyFilter()
+                UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
+            } else {
+                showDefaultFilterView.isHidden = false
+            }
+            
+            
         }
     }
     
@@ -571,6 +631,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             type = .image(image: newImage)
             filterImageView.image = newImage
             orignalImage = newImage
+            
+            if let filterIndex = UserDefaults.standard.value(forKey: "SelectedFilterIndex") as? Int {
+                selectedIndex = filterIndex
+            }
             self.applyStyle(index: selectedIndex)
         case .video(let videoSegments, let index):
             btnAddImage.isHidden = true
@@ -584,6 +648,19 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             videoView.play(asset: mergeSession.assetRepresentingSegments())
         }
         selectedItemArray = []
+        
+        setupTapGestureView()
+        
+    }
+    
+    func setupTapGestureView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapShowDefaultView))
+        tapGesture.numberOfTapsRequired = 1
+        showDefaultFilterView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapShowDefaultView(sender: UITapGestureRecognizer) {
+        showDefaultFilterView.isHidden = true
     }
     
     func scaledSize(size: CGSize) -> CGSize {
@@ -647,6 +724,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     }
     
     func applyStyle(index: Int) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         if #available(iOS 12.0, *) {
             selectedIndex = index
             switch type {
@@ -679,6 +757,9 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                                 let tempImage = tempContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(predictionOutput.stylizedImage), height: CVPixelBufferGetHeight(predictionOutput.stylizedImage)))
                                 self.filteredImage = UIImage(cgImage: tempImage!)
                                 self.applyFilter()
+                                self.collectionView.reloadData()
+                                self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                self.styleData[self.selectedIndex].isSelected = true
                             } catch let error as NSError {
                                 print("CoreML Model Error: \(error)")
                             }
@@ -708,25 +789,25 @@ extension StyleTransferVC: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView == self.scrollView {
-            let totalCells = self.styleData.count * self.multiplier(estimatedItemSize: collectionView.infiniteLayout.itemSize, enabled: collectionView.infiniteLayout.isEnabled)
-            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
-                selectedIndex = selectedIndex == 0 ? totalCells - 1 : selectedIndex - 1
-            } else {
-                selectedIndex = selectedIndex == totalCells - 1 ? 0 : selectedIndex + 1
-            }
-            guard !self.isProcessing else {
-                return
-            }
-            for (index, style) in self.styleData.enumerated() {
-                style.isSelected = (index == selectedIndex)
-            }
-            self.collectionView.reloadData()
-            self.collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0),
-                                             at: .centeredHorizontally,
-                                             animated: true)
-            self.applyStyle(index: selectedIndex)
-        }
+//        if scrollView == self.scrollView {
+//            let totalCells = self.styleData.count * self.multiplier(estimatedItemSize: collectionView.infiniteLayout.itemSize, enabled: collectionView.infiniteLayout.isEnabled)
+//            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
+//                selectedIndex = selectedIndex == 0 ? totalCells - 1 : selectedIndex - 1
+//            } else {
+//                selectedIndex = selectedIndex == totalCells - 1 ? 0 : selectedIndex + 1
+//            }
+//            guard !self.isProcessing else {
+//                return
+//            }
+//            for (index, style) in self.styleData.enumerated() {
+//                style.isSelected = (index == selectedIndex)
+//            }
+//            self.collectionView.reloadData()
+//            self.collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0),
+//                                             at: .centeredHorizontally,
+//                                             animated: true)
+//            self.applyStyle(index: selectedIndex)
+//        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -735,7 +816,7 @@ extension StyleTransferVC: UIScrollViewDelegate {
         let index = collectionView!.indexPathForItem(at: visiblePoint)
         if indexOfPic != index?.row ?? 0 {
             indexOfPic = index?.row ?? 0
-//            Defaults.shared.callHapticFeedback(isHeavy: false)
+            Defaults.shared.callHapticFeedback(isHeavy: false)
         }
     }
 }
@@ -801,7 +882,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
-            return styleData.count
+            return styleData.count * 2
         } else if collectionView.tag == 2 {
             return selectedItemArray.count
         } else {
@@ -818,18 +899,18 @@ extension StyleTransferVC: UICollectionViewDelegate {
             let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
             let borderWidth: CGFloat = 3
 
-            cell.imagesStackView.tag = indexPath.row
+            cell.imagesStackView.tag = indexPath.item
 
             var images = [SegmentVideos]()
 
-            images = [selectedItemArray[indexPath.row]]
+            images = [selectedItemArray[indexPath.item]]
 
             let views = cell.imagesStackView.subviews
             for view in views {
                 cell.imagesStackView.removeArrangedSubview(view)
             }
 
-            cell.lblSegmentCount.text = String(indexPath.row + 1)
+            cell.lblSegmentCount.text = String(indexPath.item + 1)
 
             for imageName in images {
                 let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
@@ -851,10 +932,10 @@ extension StyleTransferVC: UICollectionViewDelegate {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.styleCollectionViewCell, for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.styleImageView.image = styleData[indexPath.row % styleData.count].image
-            cell.tag = indexPath.row % styleData.count
-            cell.lblFilterNumber.text = "\(Int(indexPath.row % styleData.count) + 1)"
-            let borderWidth: CGFloat = styleData[indexPath.row % styleData.count].isSelected ? 2.0 : 0.0
+            cell.styleImageView.image = styleData[indexPath.item % styleData.count].image
+            cell.tag = indexPath.item % styleData.count
+            cell.lblFilterNumber.text = "\(Int(indexPath.item % styleData.count) + 1)"
+            let borderWidth: CGFloat = styleData[indexPath.item % styleData.count].isSelected ? 2.0 : 0.0
             cell.styleImageView.layer.borderWidth = borderWidth
             switch type {
             case .image:
@@ -869,7 +950,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Defaults.shared.callHapticFeedback(isHeavy: false)
+//        Defaults.shared.callHapticFeedback(isHeavy: false)
         guard indexPath.row != selectedIndex, !self.isProcessing, collectionView != self.imageCollectionView else {
             return
         }
@@ -881,13 +962,32 @@ extension StyleTransferVC: UICollectionViewDelegate {
         }
 
         for (index, style) in self.styleData.enumerated() {
-            style.isSelected = (index == (indexPath.row % styleData.count))
+            style.isSelected = (index == (indexPath.item % styleData.count))
         }
         collectionView.reloadData()
-        let xScrollOffset = CGFloat(indexPath.row)*UIScreen.width
+        let xScrollOffset = CGFloat(indexPath.item)*UIScreen.width
         self.scrollView.setContentOffset(CGPoint(x: xScrollOffset, y: 0),
                                          animated: false)
-        self.applyStyle(index: indexPath.row)
+        self.applyStyle(index: indexPath.item % styleData.count)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard collectionView != self.imageCollectionView else {
+            return
+        }
+        var offset = collectionView.contentOffset
+        let height = collectionView.contentSize.height
+        //         if collection view scrolls horizontally, use offset.x else comment below line of code
+        //                In my case the collectionview scrolls vertically this I am commenting below line of code
+        let width = collectionView.contentSize.width
+        if offset.x < width/4 {
+            offset.x += width/2
+            collectionView.setContentOffset(offset, animated: false)
+        } else if offset.x > width/4 * 3 {
+            offset.x -= width/2
+            collectionView.setContentOffset(offset, animated: false)
+        }
     }
 }
 

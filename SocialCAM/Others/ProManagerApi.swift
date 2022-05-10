@@ -76,6 +76,7 @@ public enum ProManagerApi {
     case createUser(channelId: String, refferingChannel: String)
     case userDelete
     case uploadPicture(image: UIImage, imageSource: String)
+    case updateProfileDetails(image: UIImage, imageSource: String)
     case getReferredUserList(page: Int, limit: Int)
     case setAffiliate(isAllowAffiliate: Bool)
     case addSocialPlatforms(socialPlatforms: [String])
@@ -90,6 +91,7 @@ public enum ProManagerApi {
     case editDisplayName(publicDisplayName: String?, privateDisplayName: String?)
     case setFollow(userId: String)
     case setUnFollow(userId: String)
+    case userNotificationUnreadCount
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -280,6 +282,8 @@ extension ProManagerApi: TargetType {
             return Paths.userDelete
         case .uploadPicture:
             return Paths.updateUserProfile
+        case .updateProfileDetails:
+            return Paths.updateProfileDetails
         case .getReferredUserList:
             return Paths.getReferredUsersList
         case .setAffiliate:
@@ -310,6 +314,8 @@ extension ProManagerApi: TargetType {
             return Paths.setFollow
         case .setUnFollow:
             return Paths.setUnFollow
+        case .userNotificationUnreadCount:
+            return Paths.userNotificationUnreadCount
         }
        
     }
@@ -319,7 +325,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -676,6 +682,8 @@ extension ProManagerApi: TargetType {
             break
         case .uploadPicture:
             break
+        case .updateProfileDetails:
+            break
         case .getReferredUserList(let page, let limit):
             param = ["page": page, "limit": limit]
         case .setAffiliate(let isAllowAffiliate):
@@ -710,6 +718,8 @@ extension ProManagerApi: TargetType {
             param = ["followUserId": userId]
         case .setUnFollow(let userId):
             param = ["followUserId": userId]
+        case .userNotificationUnreadCount:
+            break
         }
         return param
     }
@@ -723,7 +733,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
             return URLEncoding.default
         default:
             return JSONEncoding.default
@@ -772,6 +782,19 @@ extension ProManagerApi: TargetType {
             }
             multipartData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data(data), name: "imageSource", mimeType: "application/json"))
             return .uploadMultipart(multipartData)
+        case .updateProfileDetails(let image, let imageSource):
+            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+                return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
+            }
+            let imageDataMultiPart = [MultipartFormData(provider: .data(imageData), name: "profileCard", fileName: "photo.jpg", mimeType: "image/jpeg")]
+            var multipartData = imageDataMultiPart
+            let imageSource = "\(imageSource)"
+            guard let data = imageSource.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
+                return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
+            }
+            multipartData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data(data), name: "imageSource", mimeType: "application/json"))
+            return .uploadMultipart(multipartData)
+           
         default:
             return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
         }
@@ -794,7 +817,7 @@ extension ProManagerApi: TargetType {
                 .request(self)
                 .mapObject(T.self)
                 .subscribe(onSuccess: { (object) in
-                    print("Json Response \(String(describing: object.toJSONString()))")
+                    print("Json Response \(String(describing: object.toJSON()))")
                     observer.onNext(object)
                 }, onError: { (error) in
                     observer.onError(error)

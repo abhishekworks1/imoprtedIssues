@@ -154,6 +154,11 @@ public class LoadingView: UIView {
     }
     
     func advertisementTimer() {
+        if imgAdvertisementArray.count == 0 {
+            imgAdvertise.isHidden = true
+        } else {
+            imgAdvertise.isHidden = false
+        }
         if currentSelectedImg < imgAdvertisementArray.count {
             imgAdvertise.image = imgAdvertisementArray[currentSelectedImg]
         }
@@ -173,7 +178,9 @@ public class LoadingView: UIView {
             currentSelectedImg = 0
         }
         if currentSelectedImg < imgAdvertisementArray.count {
-            imgAdvertise.image = imgAdvertisementArray[currentSelectedImg]
+            DispatchQueue.main.async {
+                self.imgAdvertise.image = self.imgAdvertisementArray[self.currentSelectedImg]
+            }
         }
     }
     
@@ -187,7 +194,8 @@ public class LoadingView: UIView {
     }
     
     open func setup() {
-        if isLiteApp {
+        
+      /*  if isLiteApp {
             if Defaults.shared.isFreeTrial == true {
                 //checkForBanners(bannerImg: R.image.specialOfferForLifebanner())
                 imgAdvertisementArray = [R.image.joinBusinessCenter()]
@@ -200,7 +208,34 @@ public class LoadingView: UIView {
                     //checkForBanners(bannerImg: R.image.fullVersionComingBanner())
                 }
             }
+        } */
+        
+        if isLiteApp {
+            let subscriptionType = Defaults.shared.subscriptionType
+            imgAdvertisementArray = [R.image.upgradeBasicLiteBanner()]
+            if Defaults.shared.isFreeTrial == true || subscriptionType?.lowercased() == "trial" {
+                imgAdvertisementArray = [R.image.upgradeBasicLiteBanner(),
+                                         R.image.upgradeToAdvance(),
+                                         R.image.upgradeToPro(),
+                                         R.image.gameMode(),
+                                         R.image.earlyBird()]
+            } else {
+                if subscriptionType?.lowercased() == "basic" {
+                    imgAdvertisementArray = [R.image.upgradeToAdvance(),
+                                             R.image.upgradeToPro(),
+                                             R.image.gameMode(),
+                                             R.image.earlyBird()]
+                } else if subscriptionType?.lowercased() == "advanced" {
+                    imgAdvertisementArray = [ R.image.upgradeToPro(),
+                                              R.image.gameMode(),
+                                              R.image.earlyBird()]
+                } else if subscriptionType?.lowercased() == "pro" {
+                    imgAdvertisementArray = [R.image.gameMode(),
+                                             R.image.earlyBird()]
+                }
+            }
         }
+        imgAdvertisementArray.shuffle()
         advertisementTimer()
     }
     

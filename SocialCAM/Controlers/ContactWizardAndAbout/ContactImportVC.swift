@@ -47,11 +47,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var line1: UILabel!
     @IBOutlet weak var line2: UILabel!
     @IBOutlet weak var line3: UILabel!
+    @IBOutlet weak var line4: UILabel!
+    
 
     @IBOutlet weak var lblNum2: UILabel!
     @IBOutlet weak var lblNum3: UILabel!
     @IBOutlet weak var lblNum4: UILabel!
-
+    @IBOutlet weak var lblNum5: UILabel!
+    
+    @IBOutlet weak var page0view: UIView!
     @IBOutlet weak var page1view: UIView!
     @IBOutlet weak var page2view: UIView!
     @IBOutlet weak var page3view: UIView!
@@ -69,6 +73,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var socialShareView: UIView!
     @IBOutlet weak var businessDashboardView: UIView!
     
+    @IBOutlet weak var deleteContactConfirmationView: UIView!
+    @IBOutlet weak var deleteContactDoNotShowButton: UIButton!
     @IBOutlet weak var filterOptionView: UIView!
     var loadingStatus = false
     let blueColor1 = UIColor(red: 0/255, green: 125/255, blue: 255/255, alpha: 1.0)
@@ -89,7 +95,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     //share page declaration
     var txtDetailForEmail: String = ""
     var txtLinkWithCheckOut: String = ""
-    var ReferralLink: String = ""
+//    var ReferralLink: String = ""
     var greetingMessage: String = ""
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var imgProfileBadge: UIImageView!
@@ -110,17 +116,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var lblDisplayName: UILabel!
     @IBOutlet weak var btnShare: UIButton!
     
-    
     @IBOutlet weak var preLunchBadge: UIImageView!
-     @IBOutlet weak var foundingMergeBadge: UIImageView!
-     @IBOutlet weak var socialBadgeicon: UIImageView!
-     @IBOutlet weak var subscriptionBadgeicon: UIImageView!
-        
+    @IBOutlet weak var foundingMergeBadge: UIImageView!
+    @IBOutlet weak var socialBadgeicon: UIImageView!
+    @IBOutlet weak var subscriptionBadgeicon: UIImageView!
+    
     @IBOutlet weak var preLunchBadge1: UIImageView!
-     @IBOutlet weak var foundingMergeBadge1: UIImageView!
-     @IBOutlet weak var socialBadgeicon1: UIImageView!
-     @IBOutlet weak var subscriptionBadgeicon1: UIImageView!
-
+    @IBOutlet weak var foundingMergeBadge1: UIImageView!
+    @IBOutlet weak var socialBadgeicon1: UIImageView!
+    @IBOutlet weak var subscriptionBadgeicon1: UIImageView!
     
     @IBOutlet weak var textMessageButton: UIButton!
     @IBOutlet weak var textMessageSeperatorView: UIView!
@@ -156,12 +160,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     //for View One
     @IBOutlet weak var lblReferralLink: UILabel!
-   
     
     @IBOutlet weak var businessDashboardStackView: UIStackView!
     @IBOutlet weak var businessDashboardButton: UIButton!
     @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
+    
+    
+    @IBOutlet weak var allButton: UIButton!
+    @IBOutlet weak var recentButton: UIButton!
+    @IBOutlet weak var inviteButton: UIButton!
+    @IBOutlet weak var invitedButton: UIButton!
+    @IBOutlet weak var openedButton: UIButton!
+    @IBOutlet weak var signedupButton: UIButton!
+    @IBOutlet weak var subscriberButton: UIButton!
+    @IBOutlet weak var optOutButton: UIButton!
+    @IBOutlet weak var hiddenButton: UIButton!
     
     
     var searchText:String = ""
@@ -180,7 +194,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var selectedFilter:String = ContactStatus.all
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
     var selectedContactType:String = ContactType.mobile
-    
+    var urlToShare = ""
     let themeBlueColor = UIColor(hexString:"4F2AD8")
     let logoImage = UIImage(named:"qr_applogo")
     private var lastContentOffset: CGFloat = 0
@@ -224,7 +238,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
           
         if let channelId = Defaults.shared.currentUser?.channelId {
             //self.txtLinkWithCheckOut = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
-            self.ReferralLink = "\(websiteUrl)/\(channelId)"
+//            self.ReferralLink = "\(websiteUrl)/\(channelId)"
             self.lblUserName.text = "@\(channelId)"
         }
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
@@ -235,10 +249,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
 //            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
 //        }
-        if let referralPage = Defaults.shared.currentUser?.referralPage {
-            let image =  URL(string: referralPage)?.qrImage(using: themeBlueColor, logo: logoImage)
-            self.imageQrCode.image = image?.convert()
-        }
+
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.btnIncludeQrImg.isSelected = Defaults.shared.includeQRImgForShare == true
         self.getVerifiedSocialPlatforms()
@@ -267,17 +278,29 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         selectedContactType = ContactType.mobile
         self.emailContactTableView.isHidden = true
         self.contactTableView.isHidden = false
-        
-        if let channelId = Defaults.shared.currentUser?.channelId {
-            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
-        }
+
         
         self.textShareView.dropShadow()
         self.qrCodeShareView.dropShadow()
         self.manualEmailView.dropShadow()
         self.socialShareView.dropShadow()
         self.businessDashboardView.dropShadow()
+        
+        previewImageview.contentMode = .scaleAspectFit
        
+    }
+    func setupUIBasedOnUrlToShare() {
+        //        if let referralPage = Defaults.shared.currentUser?.referralPage {
+                    let image =  URL(string: urlToShare)?.qrImage(using: themeBlueColor, logo: logoImage)
+                    self.imageQrCode.image = image?.convert()
+        //        }
+        
+//        if let channelId = Defaults.shared.currentUser?.channelId {
+        lblReferralLink.attributedText = NSAttributedString(string: urlToShare, attributes:
+            [.underlineStyle: NSUnderlineStyle.single.rawValue])
+//            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
+//        }
+        setPreviewData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
@@ -308,7 +331,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if pageNo == 4{
             self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
         }
-        setPreviewData()
+        
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if !filterOptionView.isHidden{
@@ -376,53 +399,91 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         present(alert, animated: true)
     }
     
+    @IBAction func didTapView0NextButton(_ sender: UIButton) {
+        pageNo = 2
+        setupPage()
+    }
+    
+    
+    
     func setupPage(){
         self.searchBar.endEditing(true)
         if pageNo == 1 {
-            page1view.isHidden = false
+            page0view.isHidden = false
+            page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
             page4view.isHidden = true
             line1.backgroundColor = grayColor
             line2.backgroundColor = grayColor
             line3.backgroundColor = grayColor
+            line4.backgroundColor = grayColor
             lblNum2.textColor = grayColor
             lblNum3.textColor = grayColor
             lblNum4.textColor = grayColor
+            lblNum5.textColor = grayColor
             lblNum2.backgroundColor = .white
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
+            lblNum5.backgroundColor = .white
         }
         else if pageNo == 2 {
-            page1view.isHidden = true
-            page2view.isHidden = false
+            page0view.isHidden = true
+            page1view.isHidden = false
+            page2view.isHidden = true
             page3view.isHidden = true
             page4view.isHidden = true
             line1.backgroundColor = blueColor1
             line2.backgroundColor = grayColor
             line3.backgroundColor = grayColor
+            line4.backgroundColor = grayColor
             lblNum2.textColor = .white
             lblNum3.textColor = grayColor
             lblNum4.textColor = grayColor
+            lblNum5.textColor = grayColor
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
-            itemsTableView.reloadData()
+            lblNum5.backgroundColor = .white
         }
         else if pageNo == 3 {
+            page0view.isHidden = true
+            page1view.isHidden = true
+            page2view.isHidden = false
+            page3view.isHidden = true
+            page4view.isHidden = true
+            line1.backgroundColor = blueColor1
+            line2.backgroundColor = blueColor1
+            line3.backgroundColor = grayColor
+            line4.backgroundColor = grayColor
+            lblNum2.textColor = .white
+            lblNum3.textColor = .white
+            lblNum4.textColor = grayColor
+            lblNum5.textColor = grayColor
+            lblNum2.backgroundColor = blueColor1
+            lblNum3.backgroundColor = blueColor1
+            lblNum4.backgroundColor = .white
+            lblNum5.backgroundColor = .white
+            itemsTableView.reloadData()
+        }
+        else if pageNo == 4 {
+            page0view.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = false
             page4view.isHidden = true
             line1.backgroundColor = blueColor1
             line2.backgroundColor = blueColor1
-            line3.backgroundColor = grayColor
+            line3.backgroundColor = blueColor1
+            line4.backgroundColor = grayColor
             lblNum2.textColor = .white
             lblNum3.textColor = .white
-            lblNum4.textColor = grayColor
+            lblNum4.textColor = .white
+            lblNum5.textColor = grayColor
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
-            lblNum4.backgroundColor = .white
+            lblNum4.backgroundColor = blueColor1
+            lblNum5.backgroundColor = .white
            /*if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
@@ -442,7 +503,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             page3NextBtn.setTitleColor(.white, for: .normal)
             self.previewMainView.isHidden = false
         }
-        else if pageNo == 4 {
+        else if pageNo == 5 {
+            page0view.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
@@ -450,12 +512,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             line1.backgroundColor = blueColor1
             line2.backgroundColor = blueColor1
             line3.backgroundColor = blueColor1
+            line4.backgroundColor = blueColor1
             lblNum2.textColor = .white
             lblNum3.textColor = .white
             lblNum4.textColor = .white
+            lblNum5.textColor = .white
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = blueColor1
+            lblNum5.backgroundColor = blueColor1
             
             self.previewMainView.isHidden = true
             switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
@@ -466,6 +531,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.getContactList(firstTime:true)
                 break
             case .denied, .notDetermined:
+                contactPermitView.isHidden = true
+                self.getContactList(firstTime:true)
                 break //request permission
             case .restricted:
                 break
@@ -484,6 +551,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.smsMsgListing = resposnse.value as? msgTitleList
+            print(self.smsMsgListing?.list.count)
             if self.isSelectSMS {
                 self.itemsTableView.reloadData()
             }
@@ -502,6 +570,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
+            print("&&&&&&&&&&&&&&&&")
+            print(resposnse.value)
+            print("&&&&&&&&&&&&&&&&")
             self.emailMsgListing = resposnse.value as? msgTitleList
             if !self.isSelectSMS {
                 self.itemsTableView.reloadData()
@@ -707,10 +778,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
-                if contacts.count == 0 && firstTime{
-                  //  self.syncButtonClicked(sender:self.syncButton)
-                  //  return
-                }
+               
                 if page == 1{
                     if self.selectedContactType == ContactType.mobile{
                         self.allmobileContactsForHide = [ContactResponse]()
@@ -721,28 +789,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.emailContacts = [ContactResponse]()
                     }
                 }
-              //  print(contacts.count)
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
                     self.mobileContacts.append(contentsOf:contacts)
-                    //self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-//                    let unhideContacts = contacts.filter {$0.hide == hide}
-//                    if unhideContacts.count < 10{
-//                        print("page before\(page)")
-//                        let pageCount =  page + (10 - unhideContacts.count)
-//                        print("page after\(pageCount)")
-//                        self.getContactList(page:pageCount, filter: filter)
-//                        return
-//                    }
-//                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
-//                      print("allmobileContactsForHide\(self.allmobileContactsForHide.count)")
-//                      print("mobileContacts\(self.mobileContacts.count)")
-//                        self.getContactList(page: self.allmobileContactsForHide.count, filter: filter)
-//                        return
-//                    }
-                   // self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-                  // self.mobileContacts.append(contentsOf:contacts)
+
                     self.allmobileContacts = self.mobileContacts
+                    if self.mobileContacts.count > 0{
+                        self.contactPermitView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
@@ -750,7 +804,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     
-                    
+                    if self.emailContacts.count > 0{
+                        self.contactPermitView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -1003,14 +1059,80 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             filterOptionView.isHidden = true
         }
     }
+    func hasContactPermission() -> Bool {
+        var hasPermission = false
+        
+        switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
+        case .authorized: //access contacts
+            hasPermission = true
+            break
+        case .denied, .notDetermined:
+            hasPermission = false
+            break //request permission
+        case .restricted:
+            hasPermission = false
+            break
+        @unknown default:
+            hasPermission = true
+            break
+        }
+        
+        
+        return hasPermission
+    }
+    func showContactPermission(){
+        if !hasContactPermission() {
+            let alertController = UIAlertController(title: "Contact Permission Required", message: "Please enable contact access permissions in settings.", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "Enable", style: .default, handler: {(cAlertAction) in
+                //Redirect to Settings app
+                self.ContactPermission()
+              //  UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertController.addAction(cancelAction)
+            
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+   
     @IBAction func syncButtonClicked(sender: UIButton) {
         filterOptionView.isHidden = true
-        self.showLoader()
-        self.loadContacts(filter: self.filter)
+        
+        switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
+        case .authorized: //access contacts
+            self.showLoader()
+            self.loadContacts(filter: self.filter)
+            break
+        case .denied, .notDetermined:
+            showContactPermission()
+            break //request permission
+        case .restricted:
+            showContactPermission()
+            break
+        @unknown default:
+            break
+        }
+       
        //ContactPermission()
     }
     @IBAction func filterOptionClicked(sender: UIButton) {
         filterOptionView.isHidden = true
+        allButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        recentButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        inviteButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        invitedButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        openedButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        signedupButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        subscriberButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        optOutButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        hiddenButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        
+        sender.backgroundColor = ApplicationSettings.appLightBlueColor
+        
         switch sender.tag {
         case 1:
             self.selectedFilter = ContactStatus.all
@@ -1073,11 +1195,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func setPreviewData(){
-        if let referralPage = Defaults.shared.currentUser?.referralPage {
-            self.getLinkPreview(link:referralPage) { image in
-                
+//        if let referralPage = Defaults.shared.currentUser?.referralPage {
+            self.getLinkPreview(link:urlToShare) { image in
             }
-        }
+//        }
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
         
@@ -1089,8 +1210,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.lblpreviewUrl.text = link
-                self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
-                self.previewImageview.contentMode = .scaleAspectFill
+              //  self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
+            
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
 //            if ogData.imageUrl != nil {
@@ -1144,10 +1265,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     } */
     
     @IBAction func textMessageSelected(sender: UIButton) {
+        self.shareType = ShareType.textShare
         searchBar.showsCancelButton = false
         if !isSelectSMS {
-            isSelectSMS = true
-            pageNo = 2
+          //  isSelectSMS = true
+            pageNo = 3
+            selectedContactType = ContactType.mobile
             setupPage()
             return
         }
@@ -1165,12 +1288,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.showLoader()
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
+        isSelectSMS = false
     }
     @IBAction func emailSelected(sender: UIButton) {
         searchBar.showsCancelButton = false
-        if isSelectSMS {
-            isSelectSMS = false
-            pageNo = 2
+        self.shareType = ShareType.email
+        if !isSelectSMS {
+          //  isSelectSMS = false
+            self.shareType = ShareType.email
+            selectedContactType = ContactType.email
+            pageNo = 3
             setupPage()
             return
         }
@@ -1188,6 +1315,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.showLoader()
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
+        isSelectSMS = false
         
     }
     @IBAction func socialShareCloseClick(sender: UIButton) {
@@ -1289,6 +1417,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             var item : Titletext?
             if isSelectSMS {
                 item = self.smsMsgListing?.list[indexPath.row]
+                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                print(item?.content ?? "No Data Found")
+                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
                 cell.setText(text: item?.content ?? "")
                 cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
                 print("isselectsms")
@@ -1501,17 +1632,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
                 return UIMenu(title: "", children: [
                     UIAction(title: "Delete", image: UIImage(systemName: "")) { action in
-                        if tableView == self.emailContactTableView{
-                            let contact = self.emailContacts[indexPath.row]
-                            print(contact.email ?? "")
-                            self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
-                            
-                        }else if tableView == self.contactTableView{
-                            let contact = self.mobileContacts[indexPath.row]
-                            print(contact.mobile ?? "")
-                            self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
-                        }
                         
+                        if Defaults.shared.isDoNotShowAgainDeleteContactPopup{
+                            self.deleteContactConfirmationView.isHidden = true
+                            if tableView == self.emailContactTableView{
+                                let contact = self.emailContacts[indexPath.row]
+                                print(contact.email ?? "")
+                                self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
+                                
+                            }else if tableView == self.contactTableView{
+                                let contact = self.mobileContacts[indexPath.row]
+                                print(contact.mobile ?? "")
+                                self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
+                            }
+                        }else{
+                            self.deleteContactConfirmationView.tag = indexPath.row
+                            self.deleteContactConfirmationView.isHidden = false
+                        }
                     },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
                         if tableView == self.emailContactTableView{
                             let contact = self.emailContacts[indexPath.row]
@@ -1613,56 +1750,86 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
-        if sender.tag == 1 {
-            pageNo = 1
-            self.setupPage()
-        }else if sender.tag == 2 {
-            pageNo = 2
-            self.setupPage()
-        }else if sender.tag == 3 {
-            pageNo = 3
-            self.setupPage()
-        }
+        pageNo = pageNo - 1
+        setupPage()
     }
     
     @IBAction func nextClick(_ sender: UIButton) {
-        if sender.tag == 1 {
+    
+        if pageNo == 1 {
+            pageNo = 2
+            self.setupPage()
+        }
+        else if pageNo == 2 {
             pageNo = 3
             self.setupPage()
         }
-       else if sender.tag == 2 {
-           pageNo = 4
-           self.setupPage()
-           if isSelectSMS {
-               //emailSelected(sender: UIButton())
-           } else {
-               emailSelected(sender: UIButton())
-           }
-//          if isSelectSMS {
-//               pageNo = 4
-//               self.setupPage()
-//           }else{
-//               navigationController?.popViewController(animated: true)
-//           }
-        }else if sender.tag == 3 {
+        else if pageNo == 3 {
+            let rows = itemsTableView.numberOfRows(inSection: 0)
+            if rows == 0 {
+                showAlert(alertMessage: "No text available to send")
+                return
+            }
+            pageNo = 4
+            self.setupPage()
+        }
+        else if pageNo == 4 {
+            pageNo = 5
+            self.setupPage()
+            isSelectSMS = true
+            if isSelectSMS {
+                if self.shareType == ShareType.textShare{
+                    textMessageSelected(sender: UIButton())
+                }else if self.shareType == ShareType.email{
+                    emailSelected(sender: UIButton())
+                }
+            } else {
+                if self.shareType == ShareType.textShare{
+                    textMessageSelected(sender: UIButton())
+                    isSelectSMS = false
+                }else if self.shareType == ShareType.email{
+                    emailSelected(sender: UIButton())
+                    isSelectSMS = false
+                }
+               
+            }
+        }
+        else if sender.tag == 3 {
             let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
             referSuccess.callback = { message in
                 self.pageNo = 1
                 self.setupPage()
             }
             navigationController?.pushViewController(referSuccess, animated: true)
-            //navigationController?.popViewController(animated: true)
         }
-        
     }
+    
+    @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
+        if let shareUrl = Defaults.shared.currentUser?.referralPage {
+           urlToShare = shareUrl
+        }
+        pageNo = 2
+        setupPage()
+        setupUIBasedOnUrlToShare()
+    }
+    
+    @IBAction func didTapQuickStartButton(_ sender: Any) {
+        if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
+           urlToShare = shareUrl
+        }
+        pageNo = 2
+        setupPage()
+        setupUIBasedOnUrlToShare()
+    }
+
     @IBAction func mainOptionsClick(_ sender: UIButton) {
         if sender.tag == 1 {
             isSelectSMS = false
-            pageNo = 2
+            pageNo = 3
             self.setupPage()
         }else if sender.tag == 2 {
             isSelectSMS = true
-            pageNo = 2
+            pageNo = 3
             self.setupPage()
         }else if sender.tag == 3 {
             if let token = Defaults.shared.sessionToken {
@@ -1676,12 +1843,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func btnCopyReferralLink(_ sender: UIButton) {
-        if let channelId = Defaults.shared.currentUser?.channelId {
-            UIPasteboard.general.string = "\(websiteUrl)/\(channelId)"
+//        if let channelId = Defaults.shared.currentUser?.channelId {
+            UIPasteboard.general.string = urlToShare//"\(websiteUrl)/\(channelId)"
             DispatchQueue.runOnMainThread {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.linkCopied())
             }
-        }
+//        }
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
@@ -1691,7 +1858,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnTextShareAction(_ sender: UIButton) {
         self.shareType = ShareType.textShare
         isSelectSMS = true
-        pageNo = 2
+        pageNo = 3
         self.setupPage()
         self.itemsTableView.reloadData()
     }
@@ -1705,14 +1872,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnManualEmailAction(_ sender: UIButton) {
         self.shareType = ShareType.email
         isSelectSMS = false
-        pageNo = 2
+        pageNo = 3
         self.setupPage()
         self.itemsTableView.reloadData()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
         self.shareType = ShareType.socialShare
         isSelectSMS = true
-        pageNo = 2
+        pageNo = 3
         self.setupPage()
         self.itemsTableView.reloadData()
     }
@@ -1742,8 +1909,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            return
 //        }
             let urlString = self.txtLinkWithCheckOut
-            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
+//            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
             UIPasteboard.general.string = urlwithString
             var shareItems: [Any] = [urlwithString]
             //if isIncludeProfileImg {
@@ -1810,7 +1977,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         //showAlert("Text services are not available")
                         return
                 }
-                let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                let reflink = urlToShare//"\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
                  let json = """
                  {
                      "contactId":"\(mobilecontact.Id ?? "")",
@@ -1832,18 +1999,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
                 present(textComposer, animated: true)
             
-            }else{
+            } else {
+                let reflink = urlToShare//"\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                 let json = """
+                 {
+                     "contactId":"\(mobilecontact.Id ?? "")",
+                     "refType":"email"
+                 }
+                 """
+                let str = json.toBase64()
+                let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
+                
                 if MFMailComposeViewController.canSendMail() {
-                    let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
-                     let json = """
-                     {
-                         "contactId":"\(mobilecontact.Id ?? "")",
-                         "refType":"email"
-                     }
-                     """
-                    let str = json.toBase64()
-                    let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
-                    
                     let mail = MFMailComposeViewController()
                     mail.mailComposeDelegate = self
                     mail.setToRecipients([mobileContact?.email ?? ""])
@@ -1855,11 +2022,39 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     present(mail, animated: true)
                     
                     // Show third party email composer if default Mail app is not present
+                }  else if let emailUrl = createEmailUrl(to: mobileContact?.email ?? "", subject: self.txtDetailForEmail, body: urlwithString) {
+                    UIApplication.shared.open(emailUrl)
                 }
             }
             
         }
     }
+    
+    private func createEmailUrl(to: String, subject: String, body: String) -> URL? {
+                let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                
+                let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+        //TODO: In future if need to add other mail options
+//                let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)")
+//                let yahooMail = URL(string: "ymail://mail/compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+//                let sparkUrl = URL(string: "readdle-spark://compose?recipient=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                let defaultUrl = URL(string: "mailto:\(to)?subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                
+                if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
+                    return gmailUrl
+                }
+                   // else if let outlookUrl = outlookUrl, UIApplication.shared.canOpenURL(outlookUrl) {
+//                    return outlookUrl
+//                } else if let yahooMail = yahooMail, UIApplication.shared.canOpenURL(yahooMail) {
+//                    return yahooMail
+//                } else if let sparkUrl = sparkUrl, UIApplication.shared.canOpenURL(sparkUrl) {
+//                    return sparkUrl
+//                }
+                
+                return defaultUrl
+            }
+    
     func didPressButton(_ contact: PhoneContact, mobileContact:ContactResponse?,reInvite :Bool = false) {
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
@@ -1907,8 +2102,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         }else{
             let urlString = self.txtLinkWithCheckOut
-            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
+//            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
             //UIPasteboard.general.string = urlwithString
             //var shareItems: [Any] = [urlwithString]
 
@@ -1985,15 +2180,27 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         controller.dismiss(animated: true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+   
+    @IBAction func deleteContactDoNotShowClick(_ sender: UIButton) {
+        
+        deleteContactDoNotShowButton.isSelected = !deleteContactDoNotShowButton.isSelected
+        Defaults.shared.isDoNotShowAgainDeleteContactPopup = deleteContactDoNotShowButton.isSelected
     }
-    */
+    @IBAction func deleteContactYesClick(_ sender: UIButton) {
+        deleteContactConfirmationView.isHidden = true
+        if selectedContactType == ContactType.mobile{
+            let contact = self.mobileContacts[deleteContactConfirmationView.tag]
+            print(contact.mobile ?? "")
+            self.deleteContact(contact: contact, isEmail: false, index: deleteContactConfirmationView.tag)
+        }else{
+            let contact = self.emailContacts[deleteContactConfirmationView.tag]
+            print(contact.mobile ?? "")
+            self.deleteContact(contact: contact, isEmail: true, index: deleteContactConfirmationView.tag)
+        }
+    }
+    @IBAction func deleteContactNoClick(_ sender: UIButton) {
+        deleteContactConfirmationView.isHidden = true
+    }
 
 }
 extension ContactImportVC:UIScrollViewDelegate{

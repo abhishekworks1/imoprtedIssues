@@ -554,11 +554,7 @@ class Defaults {
         get {
             if isLiteApp {
                 let appMode = AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 1)) ?? .basic
-                if appMode == .advanced || appMode == .professional {
-                    return .basic
-                } else {
                     return appMode
-                }
             } else {
                 return AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
             }
@@ -730,6 +726,17 @@ class Defaults {
         }
     }
     
+    var settingsPreference: Int {
+        //0 for list , 1 for grid
+        get {
+            return appDefaults?.integer(forKey: "settingsPreference") ?? 0
+        }
+        set {
+            appDefaults?.setValue(newValue, forKey: "settingsPreference")
+            userDefaults.synchronize()
+        }
+    }
+    
     var isRegistered: Bool? {
         get {
             return appDefaults?.value(forKey: "isRegistered") as? Bool ?? false
@@ -793,6 +800,14 @@ class Defaults {
         }
     }
     
+    var isDoNotShowAgainDeleteContactPopup: Bool {
+        get {
+            return appDefaults?.value(forKey: "isDoNotShowAgainDeleteContactPopup") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDoNotShowAgainDeleteContactPopup")
+        }
+    }
     var isFirstTimePic2ArtRegistered: Bool? {
         get {
             return appDefaults?.value(forKey: "isFirstTimePic2ArtRegistered") as? Bool ?? true
@@ -1293,7 +1308,8 @@ class Defaults {
     func getbadgesArray() -> [String] {
         
         var imageArray = [String]()
-        print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.badges?[0].toJSON()))")
+//        print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.badges?[0].toJSON()))")
+      //  print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.badges?[0].toJSON()))")
         //Defaults.shared.currentUser?.badges?[0].followingUser?.badges?[0].badge?.code
         if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
             let badgesArray = Defaults.shared.currentUser?.badges

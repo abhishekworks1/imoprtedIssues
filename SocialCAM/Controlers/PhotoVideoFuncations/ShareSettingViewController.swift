@@ -19,6 +19,12 @@ enum EmailType {
 class ShareSettingViewController: UIViewController {
     
     // MARK: - Outlets Declaration
+    @IBOutlet weak var preLunchBadgeImageView: UIImageView!
+    
+    @IBOutlet weak var foundingMergeBadgeImageView: UIImageView!
+    
+    @IBOutlet weak var socialBadgeiconImageView: UIImageView!
+    @IBOutlet weak var subscriptionBadgeiconImageView: UIImageView!
     @IBOutlet weak var lblHyperLink: UILabel!
     @IBOutlet weak var txtLinkWithCheckOut: UITextView!
     @IBOutlet weak var lblReferralLink: UILabel!
@@ -126,6 +132,7 @@ class ShareSettingViewController: UIViewController {
     
     func setUpbadges() {
             let badgearry = Defaults.shared.getbadgesArray()
+        print(badgearry)
             preLunchBadge.isHidden = true
             foundingMergeBadge.isHidden = true
             socialBadgeicon.isHidden = true
@@ -133,20 +140,25 @@ class ShareSettingViewController: UIViewController {
           
             if  badgearry.count >  0 {
                 preLunchBadge.isHidden = false
-//                preLunchBadge.image = UIImage.init(named: badgearry[0])
+                let imageName = badgearry[0]
+                preLunchBadgeImageView.image = UIImage(named: imageName)
             }
             if  badgearry.count >  1 {
                 foundingMergeBadge.isHidden = false
-//                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+                let imageName = badgearry[1]
+                foundingMergeBadgeImageView.image = UIImage(named: imageName)
             }
             if  badgearry.count >  2 {
                 socialBadgeicon.isHidden = false
-//                socialBadgeicon.image = UIImage.init(named: badgearry[2])
+                let imageName = badgearry[2]
+                socialBadgeiconImageView.image = UIImage(named: imageName)
             }
             if  badgearry.count >  3 {
                 subscriptionBadgeicon.isHidden = false
-//                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+                subscriptionBadgeiconImageView.image = UIImage.init(named: badgearry[3])
             }
+        
+        
         }
     
     func setAttributedString() {
@@ -175,10 +187,10 @@ class ShareSettingViewController: UIViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialBadgeicon.isHidden = socialPlatforms.count != 4
+//            self.socialBadgeicon.isHidden = socialPlatforms.count != 4
         } else {
             self.verifiedView.isHidden = true
-            self.socialBadgeicon.isHidden = true
+//            self.socialBadgeicon.isHidden = true
         }
     }
     

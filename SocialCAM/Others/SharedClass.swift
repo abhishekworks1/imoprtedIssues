@@ -1136,6 +1136,7 @@ public struct Paths {
     static let createUser = "user/createUser"
     static let userDelete = "user/deactive"
     static let updateUserProfile = "user/updateProfile"
+    static let updateProfileDetails = "user/updateProfileDetails"
     static let getReferredUsersList = "user/referees"
     static let setAffiliate = "user/setAffiliate"
     static let doNotShowAgain = "user/setFlag"
@@ -1159,7 +1160,7 @@ public struct Paths {
     static let inviteGuesViaMobile = "contact-list/mobile/status"
     static let createContactFroMobile = "contact-list/mobile"
     static let getContactList = "template?type=message-content"
-    
+    static let userNotificationUnreadCount = "notification/unread/count"
 }
 
 struct WebsiteData {

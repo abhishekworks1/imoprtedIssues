@@ -68,6 +68,7 @@ class EditProfilePicViewController: UIViewController {
     private var imagePicker = UIImagePickerController()
     var isSignUpFlow: Bool = false
     var isImageSelected = false
+    var isImageChanged = false
     var imageSource = ""
     var socialPlatforms: [String] = []
     private lazy var storyCameraVC = StoryCameraViewController()
@@ -93,7 +94,7 @@ class EditProfilePicViewController: UIViewController {
         }
         self.setPublicDisplayName()
         btnSelectCountry.isSelected = Defaults.shared.currentUser?.isShowFlags ?? false
-        self.setUpbadges()
+        
         
         DispatchQueue.main.async {
             if let flages = Defaults.shared.currentUser?.userStateFlags,
@@ -131,7 +132,7 @@ class EditProfilePicViewController: UIViewController {
             self.showFlagsView.isHidden = true
         }
         
-       
+        self.setUpbadges()
     }
     
     func settingSocialPlatforms() {
@@ -180,7 +181,8 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        if (isImageSelected || isCountryFlagSelected || isFlagSelected) && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isEditProfileDiscardPopupChecked) {
+        print("btnBackTapped")
+        if (isImageSelected || isCountryFlagSelected || isFlagSelected) && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isEditProfileDiscardPopupChecked) && isImageChanged {
             self.dicardPopupView.isHidden = false
         } else {
             self.setupMethod()
@@ -208,6 +210,7 @@ class EditProfilePicViewController: UIViewController {
         if isImageSelected {
             if let img = imgProfilePic.image {
                 self.updateProfilePic(image: img)
+                self.updateProfileDetails(image: img)
             }
         }
         if isCountryFlagSelected {
@@ -237,6 +240,7 @@ class EditProfilePicViewController: UIViewController {
         }
         if isImageSelected {
             self.imgProfilePic.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
+            self.isImageChanged = true
         }
     }
     
@@ -322,29 +326,29 @@ class EditProfilePicViewController: UIViewController {
     
     
     func setUpbadges() {
-            let badgearry = Defaults.shared.getbadgesArray()
-            preLunchBadge.isHidden = true
-            foundingMergeBadge.isHidden = true
-            socialBadgeicon.isHidden = true
-            subscriptionBadgeicon.isHidden = true
-          
-            if  badgearry.count >  0 {
-                preLunchBadge.isHidden = false
-                preLunchBadge.image = UIImage.init(named: badgearry[0])
-            }
-            if  badgearry.count >  1 {
-                foundingMergeBadge.isHidden = false
-                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-            }
-            if  badgearry.count >  2 {
-                socialBadgeicon.isHidden = false
-                socialBadgeicon.image = UIImage.init(named: badgearry[2])
-            }
-            if  badgearry.count >  3 {
-                subscriptionBadgeicon.isHidden = false
-                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
-            }
+        let badgearry = Defaults.shared.getbadgesArray()
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        subscriptionBadgeicon.isHidden = true
+        
+        if  badgearry.count >  0 {
+            preLunchBadge.isHidden = false
+            preLunchBadge.image = UIImage.init(named: badgearry[0])
         }
+        if  badgearry.count >  1 {
+            foundingMergeBadge.isHidden = false
+            foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            socialBadgeicon.isHidden = false
+            socialBadgeicon.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            subscriptionBadgeicon.isHidden = false
+            subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+        }
+    }
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
@@ -647,7 +651,19 @@ extension EditProfilePicViewController {
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
-    
+    func updateProfileDetails(image: UIImage) {
+        ProManagerApi.updateProfileDetails(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+          
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
     func addSocialPlatform() {
         let previousSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         self.socialPlatforms = socialPlatforms.uniq()
@@ -692,10 +708,10 @@ extension EditProfilePicViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
+//            self.socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
         } else {
             self.socialPlatformStackViewHeightConstraint.constant = 0
-            self.socialBadgeicon.isHidden = true
+//            self.socialBadgeicon.isHidden = true
         }
     
     }

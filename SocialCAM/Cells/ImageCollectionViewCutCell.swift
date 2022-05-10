@@ -308,7 +308,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         let fullTime = "\(newProgressTime) / \(newFinalTime)"
         self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         self.lblVideoDuration.text = fullTime
-//        delegate?.handleTapCutIcons(finalTime: finalTime, width: trimmerView.frame.width)
+        delegate?.handleTapCutIcons(finalTime: finalTime, width: trimmerView.frame.width)
     }
     
     func hideLeftRightHandle() {

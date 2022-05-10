@@ -97,7 +97,7 @@ class User: Codable, Mappable {
     var referralPage: String?
     var subscriptions : Subscriptions?
     var badges : [ParentBadges]?
-   
+    var isOnboardingCompleted: Bool?
     required init?(map: Map) {
         
     }
@@ -204,6 +204,8 @@ class User: Codable, Mappable {
         referralPage <- map["referralPage"]
         subscriptions <- map["subscriptions"]
         badges <- map["badges"]
+        isOnboardingCompleted <- map["isOnboardingCompleted"]
+        
     }
     
 }

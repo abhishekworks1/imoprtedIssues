@@ -152,6 +152,10 @@ extension KeycloakAuthViewController: WKNavigationDelegate {
 extension KeycloakAuthViewController {
     
     func loginWithKeycloak(code: String, redirectUrl: String) {
+        print("***code1***\(code)")
+        print("***redirectUrl1***\(redirectUrl)")
+       // print(code)
+      //  print(redirectUrl)
         ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<LoginResult>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
@@ -185,16 +189,19 @@ extension KeycloakAuthViewController {
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
         #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
-        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, channelId: response.result?.user?.channelId ?? "")
+        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, channelId: response.result?.user?.channelId ?? "",isOnboardingCompleted:response.result?.user?.isOnboardingCompleted ?? false)
         #endif
     }
     
-    func goToHomeScreen(isRefferencingChannelEmpty: Bool, channelId: String) {
+    func goToHomeScreen(isRefferencingChannelEmpty: Bool, channelId: String,isOnboardingCompleted:Bool = false) {
         Defaults.shared.isSignupLoginFlow = true
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
-        if isRefferencingChannelEmpty {
+       // if isRefferencingChannelEmpty {
+      //  print("isRefferencingChannelEmpty \(isRefferencingChannelEmpty)")
+     //   print("isOnboardingCompleted \(isOnboardingCompleted)")
+        if !isOnboardingCompleted && isRefferencingChannelEmpty{
             guard let sessioToken = Defaults.shared.sessionToken, let keycloakURL = URL(string: "\(websiteUrl)\(Paths.onboarding)\(sessioToken)\(Paths.redirect_uri)\(redirectUri)") else {
                 return
             }

@@ -759,6 +759,8 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             
             oldIndexSelected = indexPath
         } else {
+            self.selectedAssets.removeAll()
+            self.orderUpdateCells()
             self.logDelegate?.selectedPhoto(picker: self, at: indexPath.row)
             if selectedAssets.isEmpty {
                 selectionType = asset.assetType

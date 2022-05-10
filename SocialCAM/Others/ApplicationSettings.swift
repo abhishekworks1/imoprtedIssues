@@ -15,6 +15,8 @@ import SafariServices
 class ApplicationSettings {
     
     static let shared = ApplicationSettings()
+    
+    static let appLightBlueColor: UIColor = R.color.appLightBlueColor() ?? UIColor.blue
      
     static let appPrimaryColor: UIColor = R.color.appPrimaryColor() ?? UIColor.blue
     
