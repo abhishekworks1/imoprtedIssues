@@ -1735,6 +1735,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.setupPage()
         }
         else if pageNo == 3 {
+            let rows = itemsTableView.numberOfRows(inSection: 0)
+            if rows == 0 {
+                showAlert(alertMessage: "No text available to send")
+                return
+            }
             pageNo = 4
             self.setupPage()
         }
