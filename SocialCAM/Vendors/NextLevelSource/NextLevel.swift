@@ -998,7 +998,7 @@ extension NextLevel {
                 
                 if input.device.hasMediaType(AVMediaType.video) {
                     self.addCaptureDeviceObservers(input.device)
-                    self.updateVideoOutputSettings()
+                   // self.updateVideoOutputSettings()
                     self._videoInput = input
                 } else {
                     self._audioInput = input
@@ -1059,6 +1059,7 @@ extension NextLevel {
         if let session = self._captureSession, let videoOutput = self._videoOutput {
             if session.canAddOutput(videoOutput) {
                 session.addOutput(videoOutput)
+                self.updateVideoOutputSettings()
                 videoOutput.setSampleBufferDelegate(self, queue: self._sessionQueue)
                 return true
             }

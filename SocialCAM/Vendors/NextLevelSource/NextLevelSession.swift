@@ -539,7 +539,7 @@ extension NextLevelSession {
                             let audioSampleRate = streamBasicDescription.pointee.mSampleRate
                             let audioNumberOfChannels = streamBasicDescription.pointee.mChannelsPerFrame
                            
-                            var frames: Int = 2020
+                            var frames: Int = 480
                             if fastScaleFactor == 3 {
                                 frames = 3040
                             } else if fastScaleFactor == 4 {
