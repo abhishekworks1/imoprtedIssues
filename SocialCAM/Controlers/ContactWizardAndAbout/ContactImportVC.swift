@@ -1476,13 +1476,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                 
-            }else if contact.status == ContactStatus.subscriber {
+            } else if contact.status == ContactStatus.subscriber {
                 cell.inviteBtn.isHidden = true
-            }else{
+            } else if contact.status == ContactStatus.invited {
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
+            } else {
+                cell.inviteBtn.isHidden = true
             }
             return cell
         }else {
