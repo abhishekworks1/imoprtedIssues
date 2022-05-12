@@ -551,7 +551,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.smsMsgListing = resposnse.value as? msgTitleList
-            print(self.smsMsgListing?.list.count)
             if self.isSelectSMS {
                 self.itemsTableView.reloadData()
             }
@@ -570,9 +569,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
-            print("&&&&&&&&&&&&&&&&")
-            print(resposnse.value)
-            print("&&&&&&&&&&&&&&&&")
             self.emailMsgListing = resposnse.value as? msgTitleList
             if !self.isSelectSMS {
                 self.itemsTableView.reloadData()
