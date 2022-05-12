@@ -1885,7 +1885,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
-        
+        self.socialMediaMainView.isHidden = true
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
         } else {
