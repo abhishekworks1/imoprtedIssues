@@ -3393,6 +3393,137 @@
                                     <constraint firstItem="mX0-wS-xam" firstAttribute="centerY" secondItem="CIX-NF-Cdz" secondAttribute="centerY" id="dvx-6j-qsm"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ot8-Jt-5Wh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHz-GQ-LQS">
+                                        <rect key="frame" x="57" y="348" width="300" height="200"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your email app" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMW-ru-JA5">
+                                                <rect key="frame" x="15" y="15" width="270" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJt-gT-kDj">
+                                                <rect key="frame" x="40" y="50" width="100" height="100"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gmailicon" translatesAutoresizingMaskIntoConstraints="NO" id="Xc1-V0-jDx">
+                                                        <rect key="frame" x="27.5" y="17.5" width="45" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="Kgp-sW-UAJ"/>
+                                                            <constraint firstAttribute="width" constant="45" id="iJM-TH-uMP"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gmail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nId-Z2-CA2">
+                                                        <rect key="frame" x="0.0" y="81" width="100" height="17"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6R-0f-QWH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain"/>
+                                                        <connections>
+                                                            <action selector="gmailOptionSelected:" destination="zZw-wm-uWi" eventType="touchUpInside" id="dMN-BZ-lAT"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="nId-Z2-CA2" secondAttribute="trailing" id="2GP-1X-hI6"/>
+                                                    <constraint firstItem="Xc1-V0-jDx" firstAttribute="centerX" secondItem="dJt-gT-kDj" secondAttribute="centerX" id="3YA-iU-bBL"/>
+                                                    <constraint firstAttribute="width" constant="100" id="Ami-hT-8cc"/>
+                                                    <constraint firstItem="t6R-0f-QWH" firstAttribute="leading" secondItem="dJt-gT-kDj" secondAttribute="leading" id="E0e-CU-Xun"/>
+                                                    <constraint firstAttribute="bottom" secondItem="nId-Z2-CA2" secondAttribute="bottom" constant="2" id="Nb3-Bd-3zU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="t6R-0f-QWH" secondAttribute="trailing" id="abX-5b-MIH"/>
+                                                    <constraint firstItem="nId-Z2-CA2" firstAttribute="leading" secondItem="dJt-gT-kDj" secondAttribute="leading" id="fKK-9t-3Lq"/>
+                                                    <constraint firstAttribute="bottom" secondItem="t6R-0f-QWH" secondAttribute="bottom" id="jRQ-gW-gb6"/>
+                                                    <constraint firstAttribute="height" constant="100" id="q92-OT-UDW"/>
+                                                    <constraint firstItem="Xc1-V0-jDx" firstAttribute="centerY" secondItem="dJt-gT-kDj" secondAttribute="centerY" constant="-10" id="vy2-Ia-vwU"/>
+                                                    <constraint firstItem="t6R-0f-QWH" firstAttribute="top" secondItem="dJt-gT-kDj" secondAttribute="top" id="zyG-Bx-azR"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-eW-mPs">
+                                                <rect key="frame" x="160" y="50" width="100" height="100"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appleEmail" translatesAutoresizingMaskIntoConstraints="NO" id="bPB-db-FDR">
+                                                        <rect key="frame" x="27.5" y="17.5" width="45" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="C1G-Bl-loF"/>
+                                                            <constraint firstAttribute="width" constant="45" id="yIo-Ly-KaF"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MO-Ok-9T9">
+                                                        <rect key="frame" x="0.0" y="81" width="100" height="17"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEw-fS-rVd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain"/>
+                                                        <connections>
+                                                            <action selector="appleEmailOptionSelected:" destination="zZw-wm-uWi" eventType="touchUpInside" id="Och-iR-jrA"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="pEw-fS-rVd" firstAttribute="top" secondItem="Ub0-eW-mPs" secondAttribute="top" id="00u-vl-2Ii"/>
+                                                    <constraint firstAttribute="bottom" secondItem="4MO-Ok-9T9" secondAttribute="bottom" constant="2" id="7ck-qo-Wdt"/>
+                                                    <constraint firstItem="pEw-fS-rVd" firstAttribute="leading" secondItem="Ub0-eW-mPs" secondAttribute="leading" id="Ejp-V4-pnI"/>
+                                                    <constraint firstAttribute="width" constant="100" id="FTW-5F-ZxB"/>
+                                                    <constraint firstAttribute="height" constant="100" id="If7-wQ-O51"/>
+                                                    <constraint firstItem="bPB-db-FDR" firstAttribute="centerY" secondItem="Ub0-eW-mPs" secondAttribute="centerY" constant="-10" id="SNx-fX-JqQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="4MO-Ok-9T9" secondAttribute="trailing" id="Vqq-VQ-DcA"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pEw-fS-rVd" secondAttribute="bottom" id="fg1-l2-dDR"/>
+                                                    <constraint firstItem="bPB-db-FDR" firstAttribute="centerX" secondItem="Ub0-eW-mPs" secondAttribute="centerX" id="gJg-vN-k7d"/>
+                                                    <constraint firstItem="4MO-Ok-9T9" firstAttribute="leading" secondItem="Ub0-eW-mPs" secondAttribute="leading" id="mrc-pi-8jN"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pEw-fS-rVd" secondAttribute="trailing" id="pdG-Jp-dsc"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="dJt-gT-kDj" firstAttribute="trailing" secondItem="FHz-GQ-LQS" secondAttribute="centerX" constant="-10" id="0CZ-aU-b9H"/>
+                                            <constraint firstItem="KMW-ru-JA5" firstAttribute="leading" secondItem="FHz-GQ-LQS" secondAttribute="leading" constant="15" id="3XT-bP-SDf"/>
+                                            <constraint firstItem="Ub0-eW-mPs" firstAttribute="centerY" secondItem="FHz-GQ-LQS" secondAttribute="centerY" id="3gR-mK-fuH"/>
+                                            <constraint firstAttribute="width" constant="300" id="B88-YM-udB"/>
+                                            <constraint firstAttribute="trailing" secondItem="KMW-ru-JA5" secondAttribute="trailing" constant="15" id="Ib6-aL-bMq"/>
+                                            <constraint firstItem="KMW-ru-JA5" firstAttribute="top" secondItem="FHz-GQ-LQS" secondAttribute="top" constant="15" id="L1W-4C-URy"/>
+                                            <constraint firstAttribute="height" constant="200" id="eWo-AJ-q83"/>
+                                            <constraint firstItem="dJt-gT-kDj" firstAttribute="centerY" secondItem="FHz-GQ-LQS" secondAttribute="centerY" id="g5K-8I-U97"/>
+                                            <constraint firstItem="Ub0-eW-mPs" firstAttribute="leading" secondItem="FHz-GQ-LQS" secondAttribute="centerX" constant="10" id="kGt-dI-DeS"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="FHz-GQ-LQS" firstAttribute="centerX" secondItem="Ot8-Jt-5Wh" secondAttribute="centerX" id="BOr-KT-ydQ"/>
+                                    <constraint firstItem="FHz-GQ-LQS" firstAttribute="centerY" secondItem="Ot8-Jt-5Wh" secondAttribute="centerY" id="vaA-mT-uA5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9OK-5u-VZy"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -3401,7 +3532,9 @@
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="bottom" secondItem="avT-s4-27w" secondAttribute="bottom" id="4as-M2-ZAo"/>
                             <constraint firstItem="vb4-mf-4aB" firstAttribute="leading" secondItem="9OK-5u-VZy" secondAttribute="leading" id="6hx-cZ-uL0"/>
                             <constraint firstItem="QrJ-L9-QPx" firstAttribute="leading" secondItem="9OK-5u-VZy" secondAttribute="leading" constant="8" id="7YL-E6-LAm"/>
+                            <constraint firstItem="9OK-5u-VZy" firstAttribute="top" secondItem="Ot8-Jt-5Wh" secondAttribute="top" constant="44" id="9Tr-TF-HkE"/>
                             <constraint firstItem="QrJ-L9-QPx" firstAttribute="top" secondItem="9OK-5u-VZy" secondAttribute="top" id="B3q-dp-j8Q"/>
+                            <constraint firstItem="Ot8-Jt-5Wh" firstAttribute="leading" secondItem="9OK-5u-VZy" secondAttribute="leading" id="BOa-ri-ZHH"/>
                             <constraint firstItem="avT-s4-27w" firstAttribute="leading" secondItem="9OK-5u-VZy" secondAttribute="leading" id="CtC-dj-Yee"/>
                             <constraint firstItem="avT-s4-27w" firstAttribute="top" secondItem="QrJ-L9-QPx" secondAttribute="bottom" id="DEM-Y1-S6I"/>
                             <constraint firstItem="aSt-SD-WG4" firstAttribute="leading" secondItem="9OK-5u-VZy" secondAttribute="leading" id="Hnf-7l-1pB"/>
@@ -3415,11 +3548,13 @@
                             <constraint firstItem="aSt-SD-WG4" firstAttribute="bottom" secondItem="9OK-5u-VZy" secondAttribute="bottom" constant="34" id="Yjb-Rd-hqO"/>
                             <constraint firstAttribute="top" secondItem="vb4-mf-4aB" secondAttribute="top" id="ZHc-v3-tDC"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="trailing" secondItem="Bxs-kp-e47" secondAttribute="trailing" id="cct-Qc-The"/>
+                            <constraint firstItem="Ot8-Jt-5Wh" firstAttribute="bottom" secondItem="9OK-5u-VZy" secondAttribute="bottom" constant="34" id="fYL-MK-KmT"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="top" secondItem="Bxs-kp-e47" secondAttribute="top" constant="44" id="g8I-3y-867"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="bottom" secondItem="10s-iv-0Ca" secondAttribute="bottom" id="h9j-4l-GCH"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="top" secondItem="aSt-SD-WG4" secondAttribute="top" constant="44" id="kzK-J9-Rln"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="trailing" secondItem="10s-iv-0Ca" secondAttribute="trailing" id="mwb-QF-Npq"/>
                             <constraint firstItem="CIX-NF-Cdz" firstAttribute="bottom" secondItem="9OK-5u-VZy" secondAttribute="bottom" constant="34" id="p6Y-Bn-xht"/>
+                            <constraint firstItem="9OK-5u-VZy" firstAttribute="trailing" secondItem="Ot8-Jt-5Wh" secondAttribute="trailing" id="pEg-9W-nKZ"/>
                             <constraint firstItem="10s-iv-0Ca" firstAttribute="top" secondItem="QrJ-L9-QPx" secondAttribute="bottom" id="piM-Ix-2ix"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="trailing" secondItem="aSt-SD-WG4" secondAttribute="trailing" id="uEJ-Q7-5rm"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="trailing" secondItem="vb4-mf-4aB" secondAttribute="trailing" id="uuu-1k-8dj"/>
@@ -3429,6 +3564,7 @@
                     </view>
                     <connections>
                         <outlet property="allButton" destination="cM8-hw-T5L" id="f1H-dR-Bdo"/>
+                        <outlet property="appleEmailOptionView" destination="Ub0-eW-mPs" id="lNQ-rn-IiI"/>
                         <outlet property="btnDoNotShowAgain" destination="WxW-mn-YtY" id="pz5-Rc-C7w"/>
                         <outlet property="btnDoNotShowAgainBusinessConfirmPopup" destination="Y7s-Qj-NL1" id="iDL-wz-RKZ"/>
                         <outlet property="btnIncludeProfileImg" destination="PQ3-7r-7gg" id="slG-Ds-KlK"/>
@@ -3445,12 +3581,14 @@
                         <outlet property="deleteContactDoNotShowButton" destination="6ua-B1-5bn" id="Huq-Ug-3UR"/>
                         <outlet property="emailButton" destination="3D0-oP-7Fj" id="mEf-h8-lDc"/>
                         <outlet property="emailContactTableView" destination="EQF-Rk-EpR" id="35A-0m-PUu"/>
+                        <outlet property="emailOptionsMainView" destination="Ot8-Jt-5Wh" id="mER-Tn-yff"/>
                         <outlet property="emailSeperatorView" destination="87D-K1-aoc" id="V1O-PA-R0z"/>
                         <outlet property="emailSeperatorViewHeight" destination="Huv-mm-7Q2" id="p7R-fk-XNB"/>
                         <outlet property="facebookVerifiedView" destination="0mU-c1-6ef" id="NcT-Lj-cy5"/>
                         <outlet property="filterOptionView" destination="H2s-PP-nF9" id="iy2-9e-rHk"/>
                         <outlet property="foundingMergeBadge" destination="YdG-4x-jlk" id="UYs-xI-dcW"/>
                         <outlet property="foundingMergeBadge1" destination="WzK-xB-gFb" id="HxM-55-XAh"/>
+                        <outlet property="gmailOptionView" destination="dJt-gT-kDj" id="r7G-NV-M1e"/>
                         <outlet property="hiddenButton" destination="uQD-SR-Net" id="wi6-SI-6oy"/>
                         <outlet property="imageQrCode" destination="F7c-bD-knR" id="cy3-mJ-2ti"/>
                         <outlet property="imgProfileBadge" destination="TlO-1u-JwI" id="cl3-yg-QKs"/>
@@ -3805,6 +3943,7 @@
         <image name="TextShare" width="500" height="500"/>
         <image name="User_placeholder" width="400" height="400"/>
         <image name="Whatsapp" width="48" height="48"/>
+        <image name="appleEmail" width="512" height="512"/>
         <image name="arrowCircle" width="500" height="500"/>
         <image name="avtarContact" width="23" height="24"/>
         <image name="checkBoxActive" width="20" height="20"/>
@@ -3816,6 +3955,7 @@
         <image name="facebookVerified" width="37" height="38"/>
         <image name="filter" width="512" height="512"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
+        <image name="gmailicon" width="512" height="512"/>
         <image name="iconQuickCam" width="32" height="32"/>
         <image name="iconShare" width="21" height="22"/>
         <image name="instagram" width="45" height="45"/>

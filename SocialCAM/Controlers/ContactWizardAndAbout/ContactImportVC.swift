@@ -178,6 +178,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var hiddenButton: UIButton!
     
     
+    @IBOutlet weak var emailOptionsMainView: UIView!
+    @IBOutlet weak var appleEmailOptionView: UIView!
+    @IBOutlet weak var gmailOptionView: UIView!
+    
+    
     var searchText:String = ""
     var selectedContact:ContactResponse?
     var inviteData:Data?
@@ -285,6 +290,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.manualEmailView.dropShadow()
         self.socialShareView.dropShadow()
         self.businessDashboardView.dropShadow()
+        
+        self.appleEmailOptionView.dropShadow()
+        self.gmailOptionView.dropShadow()
         
         previewImageview.contentMode = .scaleAspectFit
        
@@ -1117,6 +1125,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func filterOptionClicked(sender: UIButton) {
         filterOptionView.isHidden = true
+        
         allButton.backgroundColor = ApplicationSettings.appLightWhiteColor
         recentButton.backgroundColor = ApplicationSettings.appLightWhiteColor
         inviteButton.backgroundColor = ApplicationSettings.appLightWhiteColor
@@ -2188,6 +2197,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func deleteContactNoClick(_ sender: UIButton) {
         deleteContactConfirmationView.isHidden = true
+    }
+    
+    @IBAction func appleEmailOptionSelected(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func gmailOptionSelected(_ sender: UIButton) {
+       
     }
 
 }
