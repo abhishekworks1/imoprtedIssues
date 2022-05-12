@@ -3415,14 +3415,16 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gmail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nId-Z2-CA2">
-                                                        <rect key="frame" x="0.0" y="81" width="100" height="17"/>
+                                                        <rect key="frame" x="0.0" y="73" width="100" height="17"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6R-0f-QWH">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6R-0f-QWH">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="gmailOptionSelected:" destination="zZw-wm-uWi" eventType="touchUpInside" id="dMN-BZ-lAT"/>
                                                         </connections>
@@ -3434,7 +3436,7 @@
                                                     <constraint firstItem="Xc1-V0-jDx" firstAttribute="centerX" secondItem="dJt-gT-kDj" secondAttribute="centerX" id="3YA-iU-bBL"/>
                                                     <constraint firstAttribute="width" constant="100" id="Ami-hT-8cc"/>
                                                     <constraint firstItem="t6R-0f-QWH" firstAttribute="leading" secondItem="dJt-gT-kDj" secondAttribute="leading" id="E0e-CU-Xun"/>
-                                                    <constraint firstAttribute="bottom" secondItem="nId-Z2-CA2" secondAttribute="bottom" constant="2" id="Nb3-Bd-3zU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="nId-Z2-CA2" secondAttribute="bottom" constant="10" id="Nb3-Bd-3zU"/>
                                                     <constraint firstAttribute="trailing" secondItem="t6R-0f-QWH" secondAttribute="trailing" id="abX-5b-MIH"/>
                                                     <constraint firstItem="nId-Z2-CA2" firstAttribute="leading" secondItem="dJt-gT-kDj" secondAttribute="leading" id="fKK-9t-3Lq"/>
                                                     <constraint firstAttribute="bottom" secondItem="t6R-0f-QWH" secondAttribute="bottom" id="jRQ-gW-gb6"/>
@@ -3462,14 +3464,16 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MO-Ok-9T9">
-                                                        <rect key="frame" x="0.0" y="81" width="100" height="17"/>
+                                                        <rect key="frame" x="0.0" y="73" width="100" height="17"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEw-fS-rVd">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="appleEmailOptionSelected:" destination="zZw-wm-uWi" eventType="touchUpInside" id="Och-iR-jrA"/>
                                                         </connections>
@@ -3478,7 +3482,7 @@
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="pEw-fS-rVd" firstAttribute="top" secondItem="Ub0-eW-mPs" secondAttribute="top" id="00u-vl-2Ii"/>
-                                                    <constraint firstAttribute="bottom" secondItem="4MO-Ok-9T9" secondAttribute="bottom" constant="2" id="7ck-qo-Wdt"/>
+                                                    <constraint firstAttribute="bottom" secondItem="4MO-Ok-9T9" secondAttribute="bottom" constant="10" id="7ck-qo-Wdt"/>
                                                     <constraint firstItem="pEw-fS-rVd" firstAttribute="leading" secondItem="Ub0-eW-mPs" secondAttribute="leading" id="Ejp-V4-pnI"/>
                                                     <constraint firstAttribute="width" constant="100" id="FTW-5F-ZxB"/>
                                                     <constraint firstAttribute="height" constant="100" id="If7-wQ-O51"/>
@@ -3991,10 +3995,10 @@
             <color red="0.74500000476837158" green="0.82400000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -204,6 +204,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     let logoImage = UIImage(named:"qr_applogo")
     private var lastContentOffset: CGFloat = 0
     
+    var emailSubjectstr = ""
+    var emailBodystr = ""
+    var toEmailAddress = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -2019,7 +2023,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let str = json.toBase64()
                 let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
                 
-                if MFMailComposeViewController.canSendMail() {
+                if !MFMailComposeViewController.canSendMail() {
                     let mail = MFMailComposeViewController()
                     mail.mailComposeDelegate = self
                     mail.setToRecipients([mobileContact?.email ?? ""])
@@ -2031,18 +2035,35 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     present(mail, animated: true)
                     
                     // Show third party email composer if default Mail app is not present
-                }  else if let emailUrl = createEmailUrl(to: mobileContact?.email ?? "", subject: self.txtDetailForEmail, body: urlwithString) {
-                    UIApplication.shared.open(emailUrl)
+                }  else {
+                    
+                    self.emailSubjectstr = self.txtDetailForEmail
+                    self.emailBodystr = urlwithString
+                    self.toEmailAddress = mobileContact?.email ?? ""
+                    self.emailOptionsMainView.isHidden = false
                 }
             }
             
         }
     }
     
-    private func createEmailUrl(to: String, subject: String, body: String) -> URL? {
+    private func createEmailUrl(to: String, subject: String, body: String,isGmail:Bool) -> URL? {
                 let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
                 let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
                 
+        
+                if isGmail{
+                    let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                    if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
+                        return gmailUrl
+                    }
+                }else{
+                    let defaultUrl = URL(string: "mailto:\(to)?subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                    if let defaultUrl = defaultUrl, UIApplication.shared.canOpenURL(defaultUrl) {
+                        return defaultUrl
+                    }
+                    
+                }
                 let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
         //TODO: In future if need to add other mail options
 //                let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)")
@@ -2212,11 +2233,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func appleEmailOptionSelected(_ sender: UIButton) {
-        
+        self.emailOptionsMainView.isHidden = true
+        if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: false) {
+            UIApplication.shared.open(emailUrl)
+        }
     }
     
     @IBAction func gmailOptionSelected(_ sender: UIButton) {
-       
+        
+        self.emailOptionsMainView.isHidden = true
+        if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: true) {
+            UIApplication.shared.open(emailUrl)
+        }
     }
 
 }
