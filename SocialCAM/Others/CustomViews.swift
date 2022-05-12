@@ -615,7 +615,7 @@ class ColorLabel: UILabel {
 
 class ColorBGLabel: UILabel {
     
-    @IBInspectable var textTintColor: UIColor? = ApplicationSettings.appPrimaryColor {
+    @IBInspectable var textTintColor: UIColor? = .red {//ApplicationSettings.appPrimaryColor {
         didSet {
             setColor()
         }

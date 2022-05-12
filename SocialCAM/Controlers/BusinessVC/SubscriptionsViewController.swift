@@ -44,14 +44,18 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+            lblFreeTrial.text = "Basic"
         }else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "Regular Price  | $2.99/month"
+            lblFreeTrial.text = "Advance"
         }else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "\n Regular Price  | $4.99/month"
+            lblFreeTrial.text = "Pro"
         }else{
             lblpriceTitle.text = "Free |   $0/month \n No subscription required"
+            lblFreeTrial.text = "Free"
 
         }
 //        if Defaults.shared.allowFullAccess == true {
@@ -126,6 +130,7 @@ class SubscriptionsViewController: UIViewController {
             } else {
                 self.lblPrice.text = self.subscriptionType.price
             }
+            self.expiryDateHeightConstraint.constant = 48
         }
         
         if subscriptionType == .basic {
@@ -400,7 +405,8 @@ extension SubscriptionsViewController {
                 Defaults.shared.isDowngradeSubscription = false
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
                 AppEventBus.post("changeMode")
-                self.navigationController?.popViewController(animated: true)
+//                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popToRootViewController(animated: true)
                 //Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
                 Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
             }
@@ -415,6 +421,7 @@ extension SubscriptionsViewController {
     }
     
     func setupForFreeTrial(isFreeTrial: Bool) {
+        return
         expiryDateHeightConstraint.constant = isFreeTrial ? 48 : 0
         lblFreeTrial.isHidden = !isFreeTrial
     }

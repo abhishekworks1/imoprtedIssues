@@ -559,6 +559,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.smsMsgListing = resposnse.value as? msgTitleList
+            print(self.smsMsgListing?.list.count)
             if self.isSelectSMS {
                 self.itemsTableView.reloadData()
             }
@@ -577,6 +578,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
+            print("&&&&&&&&&&&&&&&&")
+            print(resposnse.value)
+            print("&&&&&&&&&&&&&&&&")
             self.emailMsgListing = resposnse.value as? msgTitleList
             if !self.isSelectSMS {
                 self.itemsTableView.reloadData()
@@ -1422,6 +1426,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             var item : Titletext?
             if isSelectSMS {
                 item = self.smsMsgListing?.list[indexPath.row]
+                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                print(item?.content ?? "No Data Found")
+                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
                 cell.setText(text: item?.content ?? "")
                 cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
                 print("isselectsms")
@@ -1767,6 +1774,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.setupPage()
         }
         else if pageNo == 3 {
+            let rows = itemsTableView.numberOfRows(inSection: 0)
+            if rows == 0 {
+                showAlert(alertMessage: "No text available to send")
+                return
+            }
             pageNo = 4
             self.setupPage()
         }
