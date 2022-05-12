@@ -201,7 +201,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var discardSegmentsStackView: UIStackView!
     @IBOutlet weak var discardSegmentButton: UIButton!
     @IBOutlet weak var confirmVideoButton: UIButton!
-   @IBOutlet weak var signupTooltipView: UIView!
+    @IBOutlet weak var signupTooltipView: UIView!
     @IBOutlet weak var quickLinkTooltipView: UIView!
     @IBOutlet weak var lblQuickLinkTooltipView: UILabel!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
@@ -312,7 +312,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                     self.speedSlider.isUserInteractionEnabled = true
                     self.speedSlider.isHidden = false
                     self.speedSliderView.isHidden = false
-//                    self.slowFastVerticalBar.isHidden = true
+                    //                    self.slowFastVerticalBar.isHidden = true
                     self.speedLabel.textColor = UIColor.red
                     self.speedLabel.text = ""
                     self.speedLabel.stopBlink()
@@ -609,7 +609,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         // Do any additional setup after loading the view.
         newCamera = cameraWithPosition(position: currentCameraPosition)
            //Add Pinch Gesture on CameraView.
-             let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
         gestureView?.addGestureRecognizer(pinchRecognizer)
         bottomCameraViews.addGestureRecognizer(pinchRecognizer)
     }
@@ -718,13 +718,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.syncUserModel { _ in
         if Defaults.shared.appMode != .free {
             if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
-                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
+                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
                     if i == 0 {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
-//                        self.speedSlider.isHidden = true
-//                        self.speedSliderView.isHidden = true
-//                        self.verticalLines.isHidden = true
+                        self.cameraSliderView.collectionView.reloadData()
+                            self.speedSlider.isHidden = true
+                            self.speedSliderView.isHidden = true
+                            self.verticalLines.isHidden = true
                     }
                 }
             }
