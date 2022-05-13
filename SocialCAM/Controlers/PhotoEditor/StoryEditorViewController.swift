@@ -1995,7 +1995,7 @@ extension StoryEditorViewController {
             if !isShowToolTipView {
                 openActionSheet()
                 isShowToolTipView = true
-                UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
+//                UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
             }
             
             
