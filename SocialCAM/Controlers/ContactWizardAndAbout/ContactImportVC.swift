@@ -150,8 +150,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var previewMainView: UIView!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var previewImageview: UIImageView!
-    @IBOutlet weak var lblpreviewText: UILabel!
-    @IBOutlet weak var lblpreviewUrl: UILabel!
+//    @IBOutlet weak var lblpreviewText: UILabel!
+    @IBOutlet weak var txtvwpreviewText: UITextView!
+//    @IBOutlet weak var lblpreviewUrl: UILabel!
     @IBOutlet weak var socialSharePopupView: UIView!
     
     fileprivate static let CELL_IDENTIFIER_CONTACT = "contactTableViewCell"
@@ -578,7 +579,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.smsMsgListing = resposnse.value as? msgTitleList
-            print(self.smsMsgListing?.list.count)
             if self.isSelectSMS {
                 self.itemsTableView.reloadData()
             }
@@ -597,9 +597,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
-            print("&&&&&&&&&&&&&&&&")
-            print(resposnse.value)
-            print("&&&&&&&&&&&&&&&&")
             self.emailMsgListing = resposnse.value as? msgTitleList
             if !self.isSelectSMS {
                 self.itemsTableView.reloadData()
@@ -1237,7 +1234,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 return
             }
             DispatchQueue.main.async {
-                self.lblpreviewUrl.text = link
+                self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
+//                self.lblpreviewUrl.text = link
               //  self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
             
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
@@ -1471,7 +1469,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.txtDetailForEmail = item?.subject ?? ""
                 let finalText = "\(txtLinkWithCheckOut)"
                 txtLinkWithCheckOut = finalText
-                self.lblpreviewText.text = self.txtLinkWithCheckOut
+                self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
+//                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
             return cell
 
@@ -1504,13 +1503,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                 
-            }else if contact.status == ContactStatus.subscriber {
+            } else if contact.status == ContactStatus.subscriber {
                 cell.inviteBtn.isHidden = true
-            }else{
+            } else if contact.status == ContactStatus.invited {
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
+            } else {
+                cell.inviteBtn.isHidden = true
             }
             return cell
         }else {
@@ -1643,71 +1644,64 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @available(iOS 13.0, *)
     func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-           if let indexPath = configuration.identifier as? IndexPath, let cell = tableView.cellForRow(at: indexPath)  as? contactTableViewCell{
+        if let indexPath = configuration.identifier as? IndexPath, let cell = tableView.cellForRow(at: indexPath) as? contactTableViewCell{
             
-              let parameters = UIPreviewParameters()
-              parameters.backgroundColor = .clear
+            let parameters = UIPreviewParameters()
+            parameters.backgroundColor = .clear
             return UITargetedPreview(view: cell.contentView, parameters: parameters)
             
-           } else{
-                 return nil
-           }
-     
-           
+        } else{
+            return nil
+        }
     }
+    
       @available(iOS 13.0, *)
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-            return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
-                return UIMenu(title: "", children: [
-                    UIAction(title: "Delete", image: UIImage(systemName: "")) { action in
-                        
-                        if Defaults.shared.isDoNotShowAgainDeleteContactPopup{
-                            self.deleteContactConfirmationView.isHidden = true
-                            if tableView == self.emailContactTableView{
-                                let contact = self.emailContacts[indexPath.row]
-                                print(contact.email ?? "")
-                                self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
-                                
-                            }else if tableView == self.contactTableView{
-                                let contact = self.mobileContacts[indexPath.row]
-                                print(contact.mobile ?? "")
-                                self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
-                            }
-                        }else{
-                            self.deleteContactConfirmationView.tag = indexPath.row
-                            self.deleteContactConfirmationView.isHidden = false
-                        }
-                    },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
+        return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
+            return UIMenu(title: "", children: [
+                UIAction(title: "Delete", image: UIImage(systemName: "")) { action in
+                    
+                    if Defaults.shared.isDoNotShowAgainDeleteContactPopup{
+                        self.deleteContactConfirmationView.isHidden = true
                         if tableView == self.emailContactTableView{
                             let contact = self.emailContacts[indexPath.row]
-                            if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
-                                contactEdit.contact = contact
-                                contactEdit.isEmail = true
-                                contactEdit.delegate = self
-                                
-                                self.present(contactEdit, animated: true, completion: nil)
-                            }
                             print(contact.email ?? "")
+                            self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
+                            
                         }else if tableView == self.contactTableView{
                             let contact = self.mobileContacts[indexPath.row]
-                            if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
-                                contactEdit.contact = contact
-                                contactEdit.isEmail = false
-                                contactEdit.delegate = self
-                                self.present(contactEdit, animated: true, completion: nil)
-                            }
+                            print(contact.mobile ?? "")
+                            self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
                         }
-                        
-                       
-                       
-                        
+                    }else{
+                        self.deleteContactConfirmationView.tag = indexPath.row
+                        self.deleteContactConfirmationView.isHidden = false
                     }
-                ])
+                },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
+                    if tableView == self.emailContactTableView{
+                        let contact = self.emailContacts[indexPath.row]
+                        if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
+                            contactEdit.contact = contact
+                            contactEdit.isEmail = true
+                            contactEdit.delegate = self
+                            
+                            self.present(contactEdit, animated: true, completion: nil)
+                        }
+                        print(contact.email ?? "")
+                    }else if tableView == self.contactTableView{
+                        let contact = self.mobileContacts[indexPath.row]
+                        if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
+                            contactEdit.contact = contact
+                            contactEdit.isEmail = false
+                            contactEdit.delegate = self
+                            self.present(contactEdit, animated: true, completion: nil)
+                        }
+                    }
+                }
+            ])
+        }
     }
-        
-         
-      
-    }
+    
     func didFinishEdit(contact: ContactResponse?) {
         
         if let indexMobile = self.mobileContacts.firstIndex(where: {$0.Id == contact?.Id}){
@@ -1936,18 +1930,45 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            socialSharePopupView.isHidden = false
 //            return
 //        }
-            let urlString = self.txtLinkWithCheckOut
-//            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-            UIPasteboard.general.string = urlwithString
-            var shareItems: [Any] = [urlwithString]
-            //if isIncludeProfileImg {
-            let image = self.profileView.toImage()
-            shareItems.append(image)
-            //}
-            let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-            self.present(shareVC, animated: true, completion: nil)
+//            let urlString = self.txtLinkWithCheckOut
+////            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+//            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+//            UIPasteboard.general.string = urlwithString
+//            var shareItems: [Any] = [urlwithString]
+//            //if isIncludeProfileImg {
+//            let image = self.profileView.toImage()
+//            shareItems.append(image)
+//            //}
+//            let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+//            self.present(shareVC, animated: true, completion: nil)
         //}
+        
+        share(shareText: self.txtLinkWithCheckOut, shareImage: self.profileView.toImage())
+
+    }
+    
+    func share(shareText: String?, shareImage: UIImage?) {
+        var objectsToShare = [Any]()
+      
+//        if let shareImageObj = shareImage{
+//            objectsToShare.append(shareImageObj)
+//        }
+//
+//        print(objectsToShare)
+        
+        if let shareTextObj2 = shareText {
+            objectsToShare.append(shareTextObj2)
+        }
+        
+        print(objectsToShare)
+        
+        if shareText != nil || shareImage != nil{
+            let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            present(activityViewController, animated: true, completion: nil)
+        }else{
+            print("There is nothing to share")
+        }
     }
     
     
