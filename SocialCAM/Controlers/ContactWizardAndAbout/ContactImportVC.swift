@@ -290,11 +290,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.contactTableView.isHidden = false
 
         
-        self.textShareView.dropShadow()
-        self.qrCodeShareView.dropShadow()
-        self.manualEmailView.dropShadow()
-        self.socialShareView.dropShadow()
-        self.businessDashboardView.dropShadow()
+//        self.textShareView.dropShadow()
+//        self.qrCodeShareView.dropShadow()
+//        self.manualEmailView.dropShadow()
+//        self.socialShareView.dropShadow()
+//        self.businessDashboardView.dropShadow()
         
         self.appleEmailOptionView.dropShadow()
         self.gmailOptionView.dropShadow()
