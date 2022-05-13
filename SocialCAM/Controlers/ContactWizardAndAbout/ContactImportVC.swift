@@ -182,6 +182,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var appleEmailOptionView: UIView!
     @IBOutlet weak var gmailOptionView: UIView!
     
+    var isGmailOpened = false
+    var isAppleEmailOpened = false
+    
     
     var searchText:String = ""
     var selectedContact:ContactResponse?
@@ -217,6 +220,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.fetchTitleMessages()
         self.fetchEmailMessages()
       //  self.getContactList()
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector:#selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     // MARK: - UI setup
     func setupUI(){
@@ -344,6 +349,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
         }
         
+    }
+    @objc func appMovedToForeground() {
+        //print("App moved to foreground!")
+        if isGmailOpened{
+            self.contactSentConfirmPopup.isHidden = false
+        }else if isAppleEmailOpened{
+            self.contactSentConfirmPopup.isHidden = false
+        }
+        isGmailOpened = false
+        isAppleEmailOpened = false
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if !filterOptionView.isHidden{
@@ -2235,15 +2250,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func appleEmailOptionSelected(_ sender: UIButton) {
         self.emailOptionsMainView.isHidden = true
         if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: false) {
-            UIApplication.shared.open(emailUrl)
+            UIApplication.shared.open(emailUrl) { sucess in
+                if sucess{
+                    self.isAppleEmailOpened = true
+                }else{
+                    self.isAppleEmailOpened = false
+                }
+            }
         }
     }
     
     @IBAction func gmailOptionSelected(_ sender: UIButton) {
-        
         self.emailOptionsMainView.isHidden = true
         if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: true) {
-            UIApplication.shared.open(emailUrl)
+            UIApplication.shared.open(emailUrl) { sucess in
+                if sucess{
+                    self.isGmailOpened = true
+                }else{
+                    self.isGmailOpened = false
+                }
+            }
         }
     }
 
