@@ -877,9 +877,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
               //  self.showLoader()
                // self.mobileContacts.remove(at:index)
                 if hide{
-                    self.selectedFilter = ContactStatus.hidden
+                  //  self.selectedFilter = ContactStatus.hidden
                 }else{
-                    self.selectedFilter = ContactStatus.all
+                 //   self.selectedFilter = ContactStatus.all
                 }
                // self.selectedFilter = ContactStatus.all
                 self.getContactList(filter:self.selectedFilter,hide:hide)
@@ -2059,7 +2059,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let str = json.toBase64()
                 let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
                 
-                if !MFMailComposeViewController.canSendMail() {
+                if MFMailComposeViewController.canSendMail() {
                     let mail = MFMailComposeViewController()
                     mail.mailComposeDelegate = self
                     mail.setToRecipients([mobileContact?.email ?? ""])
