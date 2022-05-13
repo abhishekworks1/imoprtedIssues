@@ -37,6 +37,8 @@ class SelectLinkViewController: UIViewController {
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.isOpaque = false
+        view.backgroundColor = .clear
         blurBackGroundView.isHidden = true
         SelectLink.selectLinks.removeAll()
         getLinkCells()

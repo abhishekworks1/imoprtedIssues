@@ -1993,9 +1993,10 @@ extension StoryEditorViewController {
                 self.isSettingsChange = true
             }
             if !isShowToolTipView {
+                
                 openActionSheet()
                 isShowToolTipView = true
-//                UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
+                //UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
             }
             
             
@@ -2014,7 +2015,8 @@ extension StoryEditorViewController {
     func openActionSheet() {
         if Constant.Connectivity.isConnectedToInternet {
             if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
-                selectLinkVC.modalPresentationStyle = .fullScreen
+//                selectLinkVC.modalPresentationStyle = .fullScreen
+                selectLinkVC.modalPresentationStyle = .overCurrentContext
                 selectLinkVC.storyEditors = storyEditors
                 navigationController?.present(selectLinkVC, animated: true, completion: {
                     selectLinkVC.backgroundView.isUserInteractionEnabled = true
