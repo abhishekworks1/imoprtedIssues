@@ -374,7 +374,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        print("&&&&&&&&&&&&&&")
 //        print(url.query ?? "NO Image Path Found")
-        imagePath = url.query!
+          imagePath = url.query ?? ""
 //        print("&&&&&&&&&&&&&&")
         
         
