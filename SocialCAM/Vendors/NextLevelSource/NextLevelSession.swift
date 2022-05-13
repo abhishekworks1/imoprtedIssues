@@ -541,11 +541,11 @@ extension NextLevelSession {
                            
                             var frames: Int = 480
                             if fastScaleFactor == 3 {
-                                frames = 3040
+                                frames = 300
                             } else if fastScaleFactor == 4 {
-                                frames = 4080
+                                frames = 220
                             } else if fastScaleFactor == 5 {
-                                frames = 5120
+                                frames = 120
                             }
                             guard let sampleBuffer = CMSampleBuffer.silentAudioBuffer(at: self._lastAudioTimestamp, nFrames: frames , sampleRate: audioSampleRate, numChannels: audioNumberOfChannels) else {
                                 return
