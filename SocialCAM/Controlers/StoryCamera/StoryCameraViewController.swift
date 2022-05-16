@@ -720,9 +720,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
                     if i == 0 {
-                            self.speedSlider.isHidden = true
-                            self.speedSliderView.isHidden = true
-                            self.verticalLines.isHidden = true
+//                            self.speedSlider.isHidden = true
+//                            self.speedSliderView.isHidden = true
+//                            self.verticalLines.isHidden = true
                     }
                 }
             }
