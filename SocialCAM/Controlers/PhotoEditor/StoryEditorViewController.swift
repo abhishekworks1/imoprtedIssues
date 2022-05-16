@@ -449,10 +449,6 @@ class StoryEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setSocialShareView()
-        if  cameraMode == .pic2Art {
-            self.imgFastestEverWatermark.image = R.image.pic2artwatermark()
-            self.imgQuickCamWaterMark.image = R.image.quickcamWatermark()
-        }
         self.imgFastestEverWatermark.isHidden = Defaults.shared.fastestEverWatermarkSetting == .hide
         isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
@@ -476,18 +472,21 @@ class StoryEditorViewController: UIViewController {
             btnSelectAppIdentifierWatermark.isSelected = true
             btnSelectedMadeWithGif.isSelected = true
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if cameraMode == .pic2Art {
-            if Defaults.shared.appMode == .free && Defaults.shared.appMode == .basic {
+        
+        if  cameraMode == .pic2Art {
+            self.imgFastestEverWatermark.image = R.image.pic2artwatermark()
+            self.imgQuickCamWaterMark.image = R.image.quickcamWatermark()
+            if Defaults.shared.appMode == .free || Defaults.shared.appMode == .basic {
                 editOptionView.isHidden = true
             } else {
                 editOptionView.isHidden = false
             }
             btnFastesteverWatermark.setImage(R.image.pic2artwatermark(), for: .normal)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
         videoProgressBar.addTapGesture()
