@@ -32,30 +32,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svy-im-JaM">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svy-im-JaM">
                                 <rect key="frame" x="0.0" y="96" width="414" height="800"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufZ-C2-mJH">
                                         <rect key="frame" x="0.0" y="-20" width="414" height="776"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0J6-CG-hzD">
-                                                <rect key="frame" x="162" y="0.0" width="90" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYT-ji-1C7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="59" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="30"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87y-2C-cnA">
-                                                        <rect key="frame" x="65" y="0.0" width="25" height="30"/>
+                                                        <rect key="frame" x="389" y="0.0" width="25" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="YVm-ka-C95"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="editDisplayName"/>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2J0-c7-Gj7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                         <connections>
                                                             <action selector="editPublicDisplayNameTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="6cI-cE-wn4"/>
                                                         </connections>
@@ -152,15 +152,15 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="BL6-eO-oEA" userLabel="Social Platforms Stack View">
-                                                <rect key="frame" x="124.5" y="576" width="165" height="28"/>
+                                                <rect key="frame" x="124.5" y="576" width="165" height="32"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhu-cN-5sr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="32"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v5e-JI-Wm1">
-                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <rect key="frame" x="1" y="1" width="28" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="28" id="OyO-JS-DI6"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="OyO-JS-DI6"/>
                                                                     <constraint firstAttribute="width" constant="28" id="RRK-I8-Vfa"/>
                                                                 </constraints>
                                                                 <state key="normal" image="facebookVerified"/>
@@ -174,12 +174,12 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yj6-OA-bsE">
-                                                        <rect key="frame" x="45" y="0.0" width="30" height="28"/>
+                                                        <rect key="frame" x="45" y="0.0" width="30" height="32"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gqj-gN-2P0">
-                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <rect key="frame" x="1" y="1" width="28" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="28" id="Vji-tK-fui"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="Vji-tK-fui"/>
                                                                     <constraint firstAttribute="width" constant="28" id="sLe-Og-fO2"/>
                                                                 </constraints>
                                                                 <state key="normal" image="twitterVerified"/>
@@ -192,13 +192,13 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-fR-ceP">
-                                                        <rect key="frame" x="90" y="0.0" width="30" height="28"/>
+                                                        <rect key="frame" x="90" y="0.0" width="30" height="32"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kky-ai-qLY">
-                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <rect key="frame" x="1" y="1" width="28" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="28" id="6aF-3v-jWC"/>
-                                                                    <constraint firstAttribute="height" constant="28" id="D9X-ld-NiJ"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="D9X-ld-NiJ"/>
                                                                 </constraints>
                                                                 <state key="normal" image="snapchatVerified"/>
                                                             </button>
@@ -210,12 +210,12 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fs4-Ze-09K">
-                                                        <rect key="frame" x="135" y="0.0" width="30" height="28"/>
+                                                        <rect key="frame" x="135" y="0.0" width="30" height="32"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGo-ae-Qpe">
-                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <rect key="frame" x="1" y="1" width="28" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="28" id="jf1-iL-az0"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="jf1-iL-az0"/>
                                                                     <constraint firstAttribute="width" constant="28" id="lFW-A5-FoW"/>
                                                                 </constraints>
                                                                 <state key="normal" image="youtubeVerified"/>
@@ -229,11 +229,11 @@
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="28" id="uLn-zh-799"/>
+                                                    <constraint firstAttribute="height" constant="32" id="uLn-zh-799"/>
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="EPY-di-HyD" userLabel="Flags Stack View">
-                                                <rect key="frame" x="207" y="571" width="0.0" height="74"/>
+                                                <rect key="frame" x="25" y="571" width="364" height="74"/>
                                                 <subviews>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugd-Lq-yRf">
                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="73.5"/>
@@ -423,7 +423,7 @@
                                         <color key="backgroundColor" name="shareScreenProfileBadgeView"/>
                                         <constraints>
                                             <constraint firstItem="dvU-ya-Joh" firstAttribute="top" secondItem="Nmp-nu-gTv" secondAttribute="top" id="3vH-Bf-4lQ"/>
-                                            <constraint firstItem="EPY-di-HyD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ufZ-C2-mJH" secondAttribute="leading" priority="251" constant="25" id="7V3-FQ-wn9"/>
+                                            <constraint firstItem="EPY-di-HyD" firstAttribute="leading" secondItem="ufZ-C2-mJH" secondAttribute="leading" priority="251" id="7V3-FQ-wn9"/>
                                             <constraint firstItem="XkW-Yh-sdb" firstAttribute="height" secondItem="Nmp-nu-gTv" secondAttribute="height" id="8vy-zu-3OQ"/>
                                             <constraint firstItem="XkW-Yh-sdb" firstAttribute="centerY" secondItem="Nmp-nu-gTv" secondAttribute="centerY" id="C9q-jI-a2o"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EPY-di-HyD" secondAttribute="trailing" priority="251" constant="25" id="Cpt-BW-M3S"/>
@@ -445,7 +445,7 @@
                                             <constraint firstItem="BL6-eO-oEA" firstAttribute="top" secondItem="tN0-Xq-gwU" secondAttribute="bottom" constant="15" id="j1f-Iz-UxD"/>
                                             <constraint firstItem="EPY-di-HyD" firstAttribute="top" secondItem="tN0-Xq-gwU" secondAttribute="bottom" constant="10" id="kEl-Nj-AjZ"/>
                                             <constraint firstAttribute="trailing" secondItem="Si9-yc-LR4" secondAttribute="trailing" constant="8" id="kbh-Bh-HBO"/>
-                                            <constraint firstItem="0J6-CG-hzD" firstAttribute="width" relation="lessThanOrEqual" secondItem="ufZ-C2-mJH" secondAttribute="width" id="oFB-Tv-k7s"/>
+                                            <constraint firstItem="0J6-CG-hzD" firstAttribute="width" secondItem="ufZ-C2-mJH" secondAttribute="width" id="oFB-Tv-k7s"/>
                                             <constraint firstItem="tN0-Xq-gwU" firstAttribute="centerX" secondItem="BL6-eO-oEA" secondAttribute="centerX" id="scJ-CI-9TS"/>
                                             <constraint firstItem="XkW-Yh-sdb" firstAttribute="width" secondItem="Nmp-nu-gTv" secondAttribute="width" id="u7z-X9-CFg"/>
                                             <constraint firstItem="dvU-ya-Joh" firstAttribute="trailing" secondItem="Nmp-nu-gTv" secondAttribute="trailing" id="xQ3-qe-jUc"/>
@@ -3113,7 +3113,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
