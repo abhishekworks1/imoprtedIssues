@@ -41,22 +41,35 @@ class SubscriptionsViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel.getPackageList()
         setupUI()
+        lblYourCurrentPlan.isHidden = true
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
             lblFreeTrial.text = "Basic"
+            if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+                lblYourCurrentPlan.isHidden = false
+            }
         }else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "Regular Price  | $2.99/month"
             lblFreeTrial.text = "Advance"
+            if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
+                lblYourCurrentPlan.isHidden = false
+            }
         }else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "\n Regular Price  | $4.99/month"
             lblFreeTrial.text = "Pro"
+            if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+                lblYourCurrentPlan.isHidden = false
+            }
         }else{
-            lblpriceTitle.text = "Free |   $0/month \n No subscription required"
+            lblpriceTitle.text = "Free | $0/month \n No subscription required"
             lblFreeTrial.text = "Free"
-
+            if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
+                print(Defaults.shared.subscriptionType?.lowercased())
+                lblYourCurrentPlan.isHidden = false
+            }
         }
 //        if Defaults.shared.allowFullAccess == true {
 //            btnUpgrade.isUserInteractionEnabled = false
@@ -108,7 +121,7 @@ class SubscriptionsViewController: UIViewController {
                 isFreeTrialMode = true
                 setupForFreeTrial(isFreeTrial: true)
             } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
-                lblYourCurrentPlan.isHidden = false
+//                lblYourCurrentPlan.isHidden = false
                 setupForFreeTrial(isFreeTrial: false)
                 expiryDateHeightConstraint.constant = 48
             } else {
@@ -189,6 +202,9 @@ class SubscriptionsViewController: UIViewController {
             self.setDowngradeButton()
         }
         Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
+        if subscriptionType == .free {
+            btnUpgrade.isHidden = true
+        }
     }
     
     private func setDowngradeButton() {
