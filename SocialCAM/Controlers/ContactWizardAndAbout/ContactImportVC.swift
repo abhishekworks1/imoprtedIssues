@@ -1926,35 +1926,34 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-//        if shareType == ShareType.socialShare {
-//            socialSharePopupView.isHidden = false
-//            return
-//        }
-//            let urlString = self.txtLinkWithCheckOut
-////            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-//            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-//            UIPasteboard.general.string = urlwithString
-//            var shareItems: [Any] = [urlwithString]
-//            //if isIncludeProfileImg {
-//            let image = self.profileView.toImage()
-//            shareItems.append(image)
-//            //}
-//            let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-//            self.present(shareVC, animated: true, completion: nil)
+        //        if shareType == ShareType.socialShare {
+        //            socialSharePopupView.isHidden = false
+        //            return
+        //        }
+        let urlString = self.txtLinkWithCheckOut
+        ////            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+        //            UIPasteboard.general.string = urlwithString
+        //            var shareItems: [Any] = [urlwithString]
+        //            //if isIncludeProfileImg {
+        //            let image = self.profileView.toImage()
+        //            shareItems.append(image)
+        //            //}
+        //            let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+        //            self.present(shareVC, animated: true, completion: nil)
         //}
         
-        share(shareText: self.txtLinkWithCheckOut, shareImage: self.profileView.toImage())
-
+                share(shareText: urlwithString, shareImage: self.profileView.toImage())
+        
+        
     }
     
     func share(shareText: String?, shareImage: UIImage?) {
         var objectsToShare = [Any]()
       
-//        if let shareImageObj = shareImage{
-//            objectsToShare.append(shareImageObj)
-//        }
-//
-//        print(objectsToShare)
+        if let shareImageObj = shareImage{
+            objectsToShare.append(shareImageObj)
+        }
         
         if let shareTextObj2 = shareText {
             objectsToShare.append(shareTextObj2)

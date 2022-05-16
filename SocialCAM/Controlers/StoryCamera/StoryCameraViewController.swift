@@ -741,28 +741,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(profilePicTooltip)
         NotificationCenter.default.addObserver(self, selector: #selector(displayLaunchDetails), name: UIApplication.didBecomeActiveNotification, object: nil)
         
-//        self.syncUserModel { isCompleted in
-//            if Defaults.shared.allowFullAccess ?? false {
-//                Defaults.shared.appMode = .professional
-//            } else {
-//                Defaults.shared.appMode = .free
-//            }
-//        }
-        
-
-        self.syncUserModel { _ in
-            if (Defaults.shared.appMode == .basic || Defaults.shared.appMode == .professional) &&  self.isFreshSession{
-                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
-                    if cameraMode.recordingType == .normal{
-                        self.isFreshSession = false
-                        self.cameraSliderView.selectCell = i
-                        self.cameraSliderView.collectionView.reloadData()
-                        break
-                    }
-                }
-            }
-        }
-        
         self.verifyForceUpdate(isForground: false)
         
         getUserSettings()
@@ -787,13 +765,28 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                     var appMode: AppMode = .free
                     appMode = appMode.getTypeFromString(type: Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus ?? "free")
-                    if appMode != AppMode.free {
+//                    if appMode != AppMode.free {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
+//                    }
+                }
+            }
+        }
+        
+        
+        self.syncUserModel { _ in
+            if (Defaults.shared.appMode == .basic || Defaults.shared.appMode == .professional) &&  self.isFreshSession{
+                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
+                    if cameraMode.recordingType == .normal{
+                        self.isFreshSession = false
+                        self.cameraSliderView.selectCell = i
+                        self.cameraSliderView.collectionView.reloadData()
+                        break
                     }
                 }
             }
         }
+        
         enableFaceDetectionIfNeeded()
         swapeControlsIfNeeded()
         UIApplication.shared.isIdleTimerDisabled = true
