@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -158,16 +158,18 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v5e-JI-Wm1">
-                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
+                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="28" id="OyO-JS-DI6"/>
+                                                                    <constraint firstAttribute="width" constant="28" id="RRK-I8-Vfa"/>
+                                                                </constraints>
                                                                 <state key="normal" image="facebookVerified"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="v5e-JI-Wm1" secondAttribute="bottom" id="KOS-nS-pDf"/>
-                                                            <constraint firstAttribute="trailing" secondItem="v5e-JI-Wm1" secondAttribute="trailing" id="SFH-PK-ZDr"/>
-                                                            <constraint firstItem="v5e-JI-Wm1" firstAttribute="top" secondItem="bhu-cN-5sr" secondAttribute="top" id="hIv-WM-s4W"/>
-                                                            <constraint firstItem="v5e-JI-Wm1" firstAttribute="leading" secondItem="bhu-cN-5sr" secondAttribute="leading" id="toS-5X-0dd"/>
+                                                            <constraint firstItem="v5e-JI-Wm1" firstAttribute="centerX" secondItem="bhu-cN-5sr" secondAttribute="centerX" id="WCB-Sb-ttr"/>
+                                                            <constraint firstItem="v5e-JI-Wm1" firstAttribute="centerY" secondItem="bhu-cN-5sr" secondAttribute="centerY" id="XgX-5f-obQ"/>
                                                             <constraint firstAttribute="width" constant="30" id="uYk-MZ-g1c"/>
                                                         </constraints>
                                                     </view>
@@ -175,48 +177,54 @@
                                                         <rect key="frame" x="45" y="0.0" width="30" height="28"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gqj-gN-2P0">
-                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
+                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="28" id="Vji-tK-fui"/>
+                                                                    <constraint firstAttribute="width" constant="28" id="sLe-Og-fO2"/>
+                                                                </constraints>
                                                                 <state key="normal" image="twitterVerified"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="Gqj-gN-2P0" firstAttribute="leading" secondItem="Yj6-OA-bsE" secondAttribute="leading" id="Bzj-Ah-ohe"/>
-                                                            <constraint firstItem="Gqj-gN-2P0" firstAttribute="top" secondItem="Yj6-OA-bsE" secondAttribute="top" id="Q9W-eM-7tK"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Gqj-gN-2P0" secondAttribute="trailing" id="Zpa-Td-nda"/>
-                                                            <constraint firstAttribute="bottom" secondItem="Gqj-gN-2P0" secondAttribute="bottom" id="qgb-Wl-fq0"/>
+                                                            <constraint firstItem="Gqj-gN-2P0" firstAttribute="centerX" secondItem="Yj6-OA-bsE" secondAttribute="centerX" id="evG-oM-pfs"/>
+                                                            <constraint firstItem="Gqj-gN-2P0" firstAttribute="centerY" secondItem="Yj6-OA-bsE" secondAttribute="centerY" id="hg8-af-DR0"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1R2-fR-ceP">
                                                         <rect key="frame" x="90" y="0.0" width="30" height="28"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kky-ai-qLY">
-                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
+                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="28" id="6aF-3v-jWC"/>
+                                                                    <constraint firstAttribute="height" constant="28" id="D9X-ld-NiJ"/>
+                                                                </constraints>
                                                                 <state key="normal" image="snapchatVerified"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="kky-ai-qLY" firstAttribute="leading" secondItem="1R2-fR-ceP" secondAttribute="leading" id="CNH-xm-GuO"/>
-                                                            <constraint firstAttribute="trailing" secondItem="kky-ai-qLY" secondAttribute="trailing" id="JFo-g5-lsN"/>
-                                                            <constraint firstAttribute="bottom" secondItem="kky-ai-qLY" secondAttribute="bottom" id="i7C-rx-Gih"/>
-                                                            <constraint firstItem="kky-ai-qLY" firstAttribute="top" secondItem="1R2-fR-ceP" secondAttribute="top" id="roC-Ue-CPq"/>
+                                                            <constraint firstItem="kky-ai-qLY" firstAttribute="centerY" secondItem="1R2-fR-ceP" secondAttribute="centerY" id="e77-7K-szp"/>
+                                                            <constraint firstItem="kky-ai-qLY" firstAttribute="centerX" secondItem="1R2-fR-ceP" secondAttribute="centerX" id="spc-qR-b10"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fs4-Ze-09K">
                                                         <rect key="frame" x="135" y="0.0" width="30" height="28"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGo-ae-Qpe">
-                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="28"/>
+                                                                <rect key="frame" x="1" y="0.0" width="28" height="28"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="28" id="jf1-iL-az0"/>
+                                                                    <constraint firstAttribute="width" constant="28" id="lFW-A5-FoW"/>
+                                                                </constraints>
                                                                 <state key="normal" image="youtubeVerified"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="mGo-ae-Qpe" firstAttribute="leading" secondItem="fs4-Ze-09K" secondAttribute="leading" id="Ref-Oz-aFk"/>
-                                                            <constraint firstAttribute="bottom" secondItem="mGo-ae-Qpe" secondAttribute="bottom" id="Rre-K8-WGi"/>
-                                                            <constraint firstAttribute="trailing" secondItem="mGo-ae-Qpe" secondAttribute="trailing" id="fWy-b1-bUb"/>
-                                                            <constraint firstItem="mGo-ae-Qpe" firstAttribute="top" secondItem="fs4-Ze-09K" secondAttribute="top" id="zdF-Eb-4ON"/>
+                                                            <constraint firstItem="mGo-ae-Qpe" firstAttribute="centerY" secondItem="fs4-Ze-09K" secondAttribute="centerY" id="EuH-bx-HBK"/>
+                                                            <constraint firstItem="mGo-ae-Qpe" firstAttribute="centerX" secondItem="fs4-Ze-09K" secondAttribute="centerX" id="mQ0-Gs-9nF"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1119,6 +1127,7 @@
                             <constraint firstAttribute="trailing" secondItem="jfS-NO-u5c" secondAttribute="trailing" id="bQp-lB-uYf"/>
                             <constraint firstItem="vKu-ub-lf0" firstAttribute="leading" secondItem="0dB-yk-Da0" secondAttribute="leading" id="fzd-tI-ZA8"/>
                             <constraint firstItem="jfS-NO-u5c" firstAttribute="bottom" secondItem="kzn-v6-T73" secondAttribute="bottom" id="h1A-Nw-Lrl"/>
+                            <constraint firstItem="ufZ-C2-mJH" firstAttribute="width" secondItem="kzn-v6-T73" secondAttribute="width" id="oTx-ju-Nyd"/>
                             <constraint firstAttribute="top" secondItem="jfS-NO-u5c" secondAttribute="top" id="r5d-QH-9x7"/>
                             <constraint firstItem="T4E-7a-dfZ" firstAttribute="trailing" secondItem="Beb-Hq-Yu5" secondAttribute="trailing" id="riV-66-sZv"/>
                             <constraint firstItem="Svy-im-JaM" firstAttribute="leading" secondItem="kzn-v6-T73" secondAttribute="leading" id="tqS-La-ypD"/>
@@ -3104,7 +3113,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>

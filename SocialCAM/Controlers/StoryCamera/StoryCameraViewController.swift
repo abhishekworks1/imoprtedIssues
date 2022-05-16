@@ -1539,14 +1539,10 @@ extension StoryCameraViewController {
                     }
                 }
             case .newNormal:
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                } else {
-                    DispatchQueue.main.async {
-                        self.speedSlider.isHidden = true
-                        self.speedSliderView.isHidden = true
-                        self.verticalLines.isHidden = true
-                    }
+                DispatchQueue.main.async {
+                    self.speedSlider.isHidden = true
+                    self.speedSliderView.isHidden = true
+                    self.verticalLines.isHidden = true
                 }
             case .normal:
                 if self.recordingType == .normal {
