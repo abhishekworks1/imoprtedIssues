@@ -137,7 +137,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         ], range: NSRange(location: 23, length: 7))
         btnSignUP.setAttributedTitle(attributedString, for: .normal)
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
-            delegate.getFCMToken()
+         //   delegate.getFCMToken()
         }
     }
     
