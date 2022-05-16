@@ -230,8 +230,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoogleManager.shared.restorePreviousSignIn()
         
-        registerForPushNitification(application)
-        getFCMToken()
+       // registerForPushNitification(application)
+       // getFCMToken()
         
         InternetConnectionAlert.shared.enable = true
         
@@ -568,13 +568,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
     }
     
-    func getFCMToken() {
+    func getFCMToken(completion:  @escaping (Bool) -> ()) {
         Messaging.messaging().token { (token, error) in
             if let error = error {
                 debugPrint("ERROR FETCHING FCM TOKEN: \(error)")
+                completion(false)
             } else if let token = token {
                 Defaults.shared.deviceToken = token
                 debugPrint("FCM registration Token: \(token)")
+                completion(true)
             }
         }
     }

@@ -163,7 +163,20 @@ extension KeycloakAuthViewController {
             print("***Login1***\(response)")
             if response.status == ResponseType.success {
                 self.goHomeScreen(response)
-                self.setDeviceToken()
+                if let delegate = UIApplication.shared.delegate as? AppDelegate {
+                    delegate.registerForPushNitification(UIApplication.shared)
+                   // delegate.getFCMToken()
+                    delegate.getFCMToken(completion: { (success) -> Void in
+                        if success {
+                            debugPrint("FCM registration Token: \(String(describing: Defaults.shared.deviceToken))")
+                            self.setDeviceToken()
+                        } else {
+                             print("false")
+                        }
+                    })
+                   
+                }
+               
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -237,7 +250,20 @@ extension KeycloakAuthViewController {
                 Defaults.shared.isFromSignup = Defaults.shared.isRegistered
                 Defaults.shared.userCreatedDate = response.result?.user?.created
                 CurrentUser.shared.setActiveUser(response.result?.user)
-                self.setDeviceToken()
+                if let delegate = UIApplication.shared.delegate as? AppDelegate {
+                    delegate.registerForPushNitification(UIApplication.shared)
+                   // delegate.getFCMToken()
+                    delegate.getFCMToken(completion: { (success) -> Void in
+                        if success {
+                            debugPrint("FCM registration Token: \(String(describing: Defaults.shared.deviceToken))")
+                            self.setDeviceToken()
+                        } else {
+                             print("false")
+                        }
+                    })
+                   
+                }
+                //self.setDeviceToken()
                 self.redirectToHomeScreen()
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
@@ -249,6 +275,7 @@ extension KeycloakAuthViewController {
     }
     
     func setDeviceToken() {
+        
         if let deviceToken = Defaults.shared.deviceToken {
             ProManagerApi.setToken(deviceToken: deviceToken, deviceType: "ios").request(Result<SetTokenModel>.self).subscribe(onNext: { [weak self] (response) in
                 guard let `self` = self else {
