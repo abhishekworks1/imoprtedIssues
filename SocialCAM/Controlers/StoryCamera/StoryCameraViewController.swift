@@ -235,6 +235,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
     }
     
+    var selectedCellIndex: Int?
+    
     var isRecording: Bool = false {
         didSet {
             isPageScrollEnable = !isRecording
@@ -716,19 +718,29 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     override func viewWillAppear(_ animated: Bool) {
         self.syncUserModel { _ in
-        if Defaults.shared.appMode != .free {
-            if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
-                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
-                    if i == 0 {
-                            self.speedSlider.isHidden = true
-                            self.speedSliderView.isHidden = true
-                            self.verticalLines.isHidden = true
+            if Defaults.shared.appMode != .free {
+                if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
+                    for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
+                        if i == 0 {
+                            if self.cameraSliderView.stringArray.count == 5 {
+                                self.cameraSliderView.stringArray.remove(at: 0)
+                            }
+                            if cameraMode.recordingType == .newNormal {
+                                self.isFreshSession = false
+                                if self.selectedCellIndex == nil {
+                                    self.cameraSliderView.selectCell = 1
+                                } else {
+                                    self.cameraSliderView.selectCell = self.selectedCellIndex ?? 0
+                                }
+                                
+                                self.cameraSliderView.collectionView.reloadData()
+                            }
+                        }
                     }
                 }
             }
         }
-        }
-
+        
         super.viewWillAppear(animated)
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
@@ -740,28 +752,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
         NotificationCenter.default.addObserver(self, selector: #selector(displayLaunchDetails), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-//        self.syncUserModel { isCompleted in
-//            if Defaults.shared.allowFullAccess ?? false {
-//                Defaults.shared.appMode = .professional
-//            } else {
-//                Defaults.shared.appMode = .free
-//            }
-//        }
-        
-
-        self.syncUserModel { _ in
-            if (Defaults.shared.appMode == .basic || Defaults.shared.appMode == .professional) &&  self.isFreshSession{
-                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
-                    if cameraMode.recordingType == .normal{
-                        self.isFreshSession = false
-                        self.cameraSliderView.selectCell = i
-                        self.cameraSliderView.collectionView.reloadData()
-                        break
-                    }
-                }
-            }
-        }
         
         self.verifyForceUpdate(isForground: false)
         
@@ -787,13 +777,30 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                     var appMode: AppMode = .free
                     appMode = appMode.getTypeFromString(type: Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus ?? "free")
-                    if appMode != AppMode.free {
+                    //                    if appMode != AppMode.free {
+                    if self.cameraSliderView.stringArray.count == 5 {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
+                    }
+                    //                    }
+                }
+            }
+        }
+        
+        
+        self.syncUserModel { _ in
+            if (Defaults.shared.appMode == .basic || Defaults.shared.appMode == .professional) &&  self.isFreshSession{
+                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
+                    if cameraMode.recordingType == .normal{
+                        self.isFreshSession = false
+                        self.cameraSliderView.selectCell = i
+                        self.cameraSliderView.collectionView.reloadData()
+                        break
                     }
                 }
             }
         }
+        
         enableFaceDetectionIfNeeded()
         swapeControlsIfNeeded()
         UIApplication.shared.isIdleTimerDisabled = true
@@ -848,7 +855,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @objc func displayLaunchDetails() {
         let receiveAppdelegate = UIApplication.shared.delegate as! AppDelegate
         if receiveAppdelegate.imagePath != "" {
-//            print(receiveAppdelegate.imagePath)
           let newImage = convertBase64StringToImage(imageBase64String: receiveAppdelegate.imagePath)
             print(newImage)
             Defaults.shared.cameraMode = .pic2Art
@@ -1451,6 +1457,7 @@ extension StoryCameraViewController {
         cameraSliderView.currentCell = { [weak self] (index, currentMode) in
             guard let `self` = self else { return }
             Defaults.shared.cameraMode = currentMode.recordingType
+            self.selectedCellIndex = index
             self.isRecording = false
             
             self.totalDurationOfOneSegment = 0.0
