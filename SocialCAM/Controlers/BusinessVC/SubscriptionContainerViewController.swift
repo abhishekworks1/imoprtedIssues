@@ -34,8 +34,8 @@ class SubscriptionContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupPagingViewController()
-        setupSubscriotion()
+//        setupPagingViewController()
+//        setupSubscriotion()
     }
     
     private func setupPagingViewController() {
