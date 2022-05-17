@@ -235,6 +235,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
     }
     
+    var selectedCellIndex: Int?
+    
     var isRecording: Bool = false {
         didSet {
             isPageScrollEnable = !isRecording
@@ -720,13 +722,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                     for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
                         if i == 0 {
-                            self.speedSlider.isHidden = true
-                            self.speedSliderView.isHidden = true
-                            self.verticalLines.isHidden = true
                             if self.cameraSliderView.stringArray.count == 5 {
                                 self.cameraSliderView.stringArray.remove(at: 0)
                             }
-                            self.cameraSliderView.collectionView.reloadData()
+                            if cameraMode.recordingType == .newNormal {
+                                self.isFreshSession = false
+                                if self.selectedCellIndex == nil {
+                                    self.cameraSliderView.selectCell = 1
+                                } else {
+                                    self.cameraSliderView.selectCell = self.selectedCellIndex ?? 0
+                                }
+                                
+                                self.cameraSliderView.collectionView.reloadData()
+                            }
                         }
                     }
                 }
@@ -847,7 +855,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @objc func displayLaunchDetails() {
         let receiveAppdelegate = UIApplication.shared.delegate as! AppDelegate
         if receiveAppdelegate.imagePath != "" {
-//            print(receiveAppdelegate.imagePath)
           let newImage = convertBase64StringToImage(imageBase64String: receiveAppdelegate.imagePath)
             print(newImage)
             Defaults.shared.cameraMode = .pic2Art
@@ -1450,6 +1457,7 @@ extension StoryCameraViewController {
         cameraSliderView.currentCell = { [weak self] (index, currentMode) in
             guard let `self` = self else { return }
             Defaults.shared.cameraMode = currentMode.recordingType
+            self.selectedCellIndex = index
             self.isRecording = false
             
             self.totalDurationOfOneSegment = 0.0
