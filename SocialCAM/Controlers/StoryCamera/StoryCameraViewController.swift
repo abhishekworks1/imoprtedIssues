@@ -716,19 +716,23 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     override func viewWillAppear(_ animated: Bool) {
         self.syncUserModel { _ in
-        if Defaults.shared.appMode != .free {
-            if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
-                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
-                    if i == 0 {
-//                            self.speedSlider.isHidden = true
-//                            self.speedSliderView.isHidden = true
-//                            self.verticalLines.isHidden = true
+            if Defaults.shared.appMode != .free {
+                if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
+                    for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
+                        if i == 0 {
+                            self.speedSlider.isHidden = true
+                            self.speedSliderView.isHidden = true
+                            self.verticalLines.isHidden = true
+                            if self.cameraSliderView.stringArray.count == 5 {
+                                self.cameraSliderView.stringArray.remove(at: 0)
+                            }
+                            self.cameraSliderView.collectionView.reloadData()
+                        }
                     }
                 }
             }
         }
-        }
-
+        
         super.viewWillAppear(animated)
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
@@ -765,10 +769,12 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                     var appMode: AppMode = .free
                     appMode = appMode.getTypeFromString(type: Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus ?? "free")
-//                    if appMode != AppMode.free {
+                    //                    if appMode != AppMode.free {
+                    if self.cameraSliderView.stringArray.count == 5 {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
-//                    }
+                    }
+                    //                    }
                 }
             }
         }
