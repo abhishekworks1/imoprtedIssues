@@ -42,13 +42,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYT-ji-1C7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87y-2C-cnA">
-                                                        <rect key="frame" x="389" y="0.0" width="25" height="30"/>
+                                                        <rect key="frame" x="374" y="4" width="25" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="YVm-ka-C95"/>
                                                         </constraints>
@@ -63,17 +63,16 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="UYT-ji-1C7" secondAttribute="bottom" id="5JX-da-PVd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="UYT-ji-1C7" secondAttribute="bottom" id="4r2-Xt-aML"/>
                                                     <constraint firstAttribute="trailing" secondItem="2J0-c7-Gj7" secondAttribute="trailing" id="IPy-Dr-EgA"/>
-                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="leading" secondItem="UYT-ji-1C7" secondAttribute="trailing" constant="6" id="NUS-E9-4wb"/>
                                                     <constraint firstItem="2J0-c7-Gj7" firstAttribute="top" secondItem="0J6-CG-hzD" secondAttribute="top" id="WzD-jL-OH8"/>
-                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="leading" secondItem="0J6-CG-hzD" secondAttribute="leading" id="Ycg-qw-3mu"/>
-                                                    <constraint firstAttribute="trailing" secondItem="87y-2C-cnA" secondAttribute="trailing" id="hVN-Cs-2ak"/>
-                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="top" secondItem="0J6-CG-hzD" secondAttribute="top" id="nsn-PR-IlA"/>
+                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="centerY" secondItem="0J6-CG-hzD" secondAttribute="centerY" id="dfV-AI-lSd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="87y-2C-cnA" secondAttribute="trailing" constant="15" id="hVN-Cs-2ak"/>
+                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="top" secondItem="0J6-CG-hzD" secondAttribute="top" id="iAM-Bb-p2A"/>
+                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="leading" secondItem="0J6-CG-hzD" secondAttribute="leading" id="lW1-0d-SXP"/>
                                                     <constraint firstAttribute="bottom" secondItem="2J0-c7-Gj7" secondAttribute="bottom" id="rXJ-7t-HH8"/>
                                                     <constraint firstItem="2J0-c7-Gj7" firstAttribute="leading" secondItem="0J6-CG-hzD" secondAttribute="leading" id="tAg-kx-hbf"/>
-                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="top" secondItem="UYT-ji-1C7" secondAttribute="top" id="vjc-it-0dV"/>
-                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="bottom" secondItem="UYT-ji-1C7" secondAttribute="bottom" id="wZj-YO-OgP"/>
+                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="leading" secondItem="UYT-ji-1C7" secondAttribute="trailing" id="uk2-q1-nsg"/>
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3WO-30-aTw">
@@ -3113,7 +3112,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
