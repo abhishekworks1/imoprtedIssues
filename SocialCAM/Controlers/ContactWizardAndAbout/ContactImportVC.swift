@@ -2395,6 +2395,11 @@ extension ContactImportVC:UIScrollViewDelegate{
             if self.loadingStatus{
                 return
             }
+            if emailContactTableView.contentSize.height > (84.0 + 50.0 + self.emailContactTableView.frame.size.height){
+                
+            }else{
+               return
+            }
         if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
                 UIView.animate(withDuration: 0.5, animations: {
