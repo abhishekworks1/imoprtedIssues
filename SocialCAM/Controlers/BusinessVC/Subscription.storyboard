@@ -48,6 +48,9 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="x0e-xk-Vq1"/>
                                         </constraints>
                                         <state key="normal" image="icoBack"/>
+                                        <connections>
+                                            <action selector="btnBackTapped:" destination="lTW-Ha-8HU" eventType="touchUpInside" id="1Ga-Bk-lI3"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -59,13 +62,38 @@
                                     <constraint firstAttribute="height" constant="44" id="zgi-1p-voX"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TyA-DZ-Ecr">
+                                <rect key="frame" x="10" y="54" width="300" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAH-s3-NBJ">
+                                        <rect key="frame" x="10" y="10" width="81.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="hashtag_lightGold"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="18M-IV-a2Y"/>
+                                    <constraint firstItem="WAH-s3-NBJ" firstAttribute="leading" secondItem="TyA-DZ-Ecr" secondAttribute="leading" constant="10" id="iAq-b6-LgH"/>
+                                    <constraint firstItem="WAH-s3-NBJ" firstAttribute="top" secondItem="TyA-DZ-Ecr" secondAttribute="top" constant="10" id="v1g-qL-ky3"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Lqg-K3-9a1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="AhA-bR-90t" firstAttribute="leading" secondItem="Lqg-K3-9a1" secondAttribute="leading" id="GVs-N6-f1l"/>
+                            <constraint firstItem="TyA-DZ-Ecr" firstAttribute="top" secondItem="AhA-bR-90t" secondAttribute="bottom" constant="10" id="IoR-CS-5tj"/>
                             <constraint firstItem="AhA-bR-90t" firstAttribute="top" secondItem="Lqg-K3-9a1" secondAttribute="top" id="gZ5-kX-5f4"/>
                             <constraint firstItem="Lqg-K3-9a1" firstAttribute="trailing" secondItem="AhA-bR-90t" secondAttribute="trailing" id="h9J-hN-75e"/>
+                            <constraint firstItem="TyA-DZ-Ecr" firstAttribute="leading" secondItem="Lqg-K3-9a1" secondAttribute="leading" constant="10" id="s86-dO-Adq"/>
+                            <constraint firstItem="Lqg-K3-9a1" firstAttribute="trailing" secondItem="TyA-DZ-Ecr" secondAttribute="trailing" constant="10" id="y8R-h7-xi0"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -600,6 +628,9 @@ Regular Price  | $2.99/month (after 3 months)</string>
         </namedColor>
         <namedColor name="currentPlanButtonColor">
             <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="hashtag_lightGold">
+            <color red="0.98039215686274506" green="0.85098039215686272" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
             <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

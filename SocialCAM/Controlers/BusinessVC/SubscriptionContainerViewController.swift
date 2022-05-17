@@ -104,10 +104,10 @@ class SubscriptionContainerViewController: UIViewController {
     // MARK: - Button Action Methods
     
     @IBAction func btnBackTapped(_ sender: Any) {
-        if Defaults.shared.isSubscriptionApiCalled == false {
-            subscriptionDelegate?.backFromSubscription()
+//        if Defaults.shared.isSubscriptionApiCalled == false {
+//            subscriptionDelegate?.backFromSubscription()
             self.navigationController?.popViewController(animated: true)
-        }
+//        }
     }
     
 }
