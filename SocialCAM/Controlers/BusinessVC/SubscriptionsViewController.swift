@@ -38,7 +38,7 @@ class SubscriptionsViewController: UIViewController {
         return viewModel.subscriptionPlanData
     }
     var isFreeTrialMode = false
-    var didTryToCancel = false
+    var cancelInProgressSubscriptionType:AppMode = .free
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +65,6 @@ class SubscriptionsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     @objc func appMovedToForeground() {
-        if self.subscriptionType = 
         callCancelSubscriptionApi()
         }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
@@ -427,6 +426,7 @@ class SubscriptionsViewController: UIViewController {
             guard let url = URL(string: "https://apps.apple.com/account/subscriptions") else {
                 return
             }
+            self.cancelInProgressSubscriptionType = Defaults.shared.appMode
             UIApplication.shared.open(url)
             
         } else {
