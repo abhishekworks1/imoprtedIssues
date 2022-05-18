@@ -66,7 +66,7 @@ class SubscriptionsViewController: UIViewController {
     }
     @objc func appMovedToForeground() {
         callCancelSubscriptionApi()
-        }
+    }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
@@ -385,6 +385,7 @@ class SubscriptionsViewController: UIViewController {
             }
             self.dismissHUD()
             if response.status == ResponseType.success {
+                self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
                 Defaults.shared.appMode = .free // because all subscriptions have been cancelled
                 self.cancelConfirmedPopupView.isHidden = false
             }
@@ -439,6 +440,7 @@ class SubscriptionsViewController: UIViewController {
     }
     @IBAction func cancelSubscriptionConfirmPopupContinueClick(_ sender: UIButton) {
         self.cancelConfirmedPopupView.isHidden = true
+        self.enableMode(appMode:self.subscriptionType)
         
     }
     func setCancelSubscriptionPopup(subsriptionType:AppMode){
@@ -462,7 +464,29 @@ class SubscriptionsViewController: UIViewController {
         self.lblcancelSubscriptionPopupTitle.text = "Upgrading from \(currentsubscription) to \(subsriptiontype) requires that you first cancel your \(currentsubscription) subscription then subscribe to \(subsriptiontype)."
         
     }
-    
+    func setCancelSubscriptionConfirmPopup(subsriptionType:AppMode){
+        var currentsubscription = "Basic"
+        if Defaults.shared.appMode == .basic {
+            currentsubscription = "Basic"
+        }else if Defaults.shared.appMode == .advanced{
+            currentsubscription = "Advanced"
+        }else if Defaults.shared.appMode == .professional{
+            currentsubscription = "Professional"
+        }
+        var subsriptiontype = "Basic"
+        if subsriptionType == .basic{
+            subsriptiontype = "Basic"
+        }else if subsriptionType == .advanced{
+            subsriptiontype = "Advanced"
+        }else if subsriptionType == .professional{
+            subsriptiontype = "Professional"
+        }
+        
+        
+        self.lblcancelConfirmedPopupTitle.text = "Your \(currentsubscription) has been cancelled and your account is ready to be upgraded to \(subsriptiontype)."
+        
+        
+    }
     
 }
 extension SubscriptionsViewController: UITableViewDataSource {
