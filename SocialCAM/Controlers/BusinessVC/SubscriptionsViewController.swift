@@ -405,13 +405,19 @@ class SubscriptionsViewController: UIViewController {
                 self.view.isUserInteractionEnabled = true
                 self.cancelAPItimer.invalidate()
             } else {
+                if self.cancelAPItimerIteration == 4{
+                    Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
+                    self.view.isUserInteractionEnabled = true
+                }
+               
+            }
+        }, onError: { error in
+            
+            if self.cancelAPItimerIteration == 4{
+                self.dismissHUD()
                 Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
                 self.view.isUserInteractionEnabled = true
             }
-        }, onError: { error in
-            self.dismissHUD()
-            Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
-            self.view.isUserInteractionEnabled = true
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
