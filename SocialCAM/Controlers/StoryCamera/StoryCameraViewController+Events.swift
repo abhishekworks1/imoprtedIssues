@@ -131,6 +131,12 @@ extension StoryCameraViewController {
         let blurView1 = UIVisualEffectView(frame: previewView?.bounds ?? self.view.bounds)
         blurView1.effect = UIBlurEffect.init(style: .light)
         previewView?.addSubview(blurView1)
+        
+            self.flipButton.transform = CGAffineTransform(rotationAngle: 0)
+            UIView.animate(withDuration: 0.8) {
+                self.flipButton.transform = CGAffineTransform(rotationAngle: .pi)
+            }
+        
         UIView.transition(with: previewView ?? self.view,
                           duration: 0.8,
                           options: .transitionFlipFromBottom,
@@ -140,8 +146,10 @@ extension StoryCameraViewController {
             blurView1.removeFromSuperview()
             if  (self.currentCameraPosition == .front){
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_rear)
+
             }else{
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_front)
+               
             }
 //            Defaults.shared.callHapticFeedback(isHeavy: false)
             self.flipButton.isSelected = !self.flipButton.isSelected
