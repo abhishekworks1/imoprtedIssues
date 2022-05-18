@@ -421,18 +421,21 @@ extension SubscriptionsViewController {
             guard let `self` = self else { return }
             self.dismissHUD()
             if isSuccess {
-                let user = Defaults.shared.currentUser
-                user?.subscriptionStatus = appMode.getType
-                user?.isTempSubscription = false
-                Defaults.shared.currentUser = user
-                Defaults.shared.isSubscriptionApiCalled = false
-                Defaults.shared.isDowngradeSubscription = false
-                SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
-                AppEventBus.post("changeMode")
-//                self.navigationController?.popViewController(animated: true)
-                self.navigationController?.popToRootViewController(animated: true)
-                //Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
-                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
+                self.syncUserModel { _ in
+                    let user = Defaults.shared.currentUser
+                    user?.subscriptionStatus = appMode.getType
+                    user?.isTempSubscription = false
+                    Defaults.shared.currentUser = user
+                    Defaults.shared.isSubscriptionApiCalled = false
+                    Defaults.shared.isDowngradeSubscription = false
+                    SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
+                    AppEventBus.post("changeMode")
+    //                self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popToRootViewController(animated: true)
+                    //Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
+                    Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
+                }
+               
             }
             self.showAlert(alertMessage: message)
         }
@@ -442,6 +445,35 @@ extension SubscriptionsViewController {
             self.dismissHUD()
             self.showAlert(alertMessage: message)
         }
+    }
+    
+    func syncUserModel(completion: @escaping (_ isCompleted: Bool?) -> Void) {
+        //print("***syncUserModel***")
+        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                //print("***userSync***\(response)")
+                Defaults.shared.currentUser = response.result?.user
+                Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
+                Defaults.shared.userCreatedDate = response.result?.user?.created
+                Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
+                Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
+                Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
+                Defaults.shared.subscriptionType = response.result?.userSubscription?.subscriptionType
+                Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
+                Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
+                Defaults.shared.publicDisplayName = response.result?.user?.publicDisplayName
+                Defaults.shared.emailAddress = response.result?.user?.email
+                Defaults.shared.privateDisplayName = response.result?.user?.privateDisplayName
+                if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
+                    Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
+                }
+                Defaults.shared.referredByData = response.result?.user?.refferedBy
+                
+                completion(true)
+            }
+        }, onError: { error in
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
     }
     
     func setupForFreeTrial(isFreeTrial: Bool) {
