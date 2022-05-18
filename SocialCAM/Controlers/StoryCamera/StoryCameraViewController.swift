@@ -722,9 +722,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                     for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
                         if i == 0 {
-                            if self.cameraSliderView.stringArray.count == 5 {
-                                self.cameraSliderView.stringArray.remove(at: 0)
-                            }
                             if cameraMode.recordingType == .newNormal {
                                 self.isFreshSession = false
                                 if self.selectedCellIndex == nil {
@@ -775,14 +772,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             
             if Defaults.shared.appMode != .free {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
-                    var appMode: AppMode = .free
-                    appMode = appMode.getTypeFromString(type: Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus ?? "free")
-                    //                    if appMode != AppMode.free {
-                    if self.cameraSliderView.stringArray.count == 5 {
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial"{
+                            self.cameraSliderView.stringArray.remove(at: 0)
+                            self.cameraSliderView.collectionView.reloadData()
+                        }
+                    }
+                }
+            } else {
+                if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                    if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial"{
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
                     }
-                    //                    }
                 }
             }
         }
@@ -846,7 +848,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if Defaults.shared.cameraMode == .pic2Art {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.selectCell = self.cameraSliderView.stringArray.count - 1 //4
             self.cameraSliderView.collectionView.reloadData()
         }
         
@@ -887,7 +889,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if isfromPicsArt {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.selectCell = self.cameraSliderView.stringArray.count - 1
             self.cameraSliderView.collectionView.reloadData()
             isfromPicsArt = false
         }
@@ -2970,7 +2972,7 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-//        Defaults.shared.allowFullAccess = true
+        Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){
