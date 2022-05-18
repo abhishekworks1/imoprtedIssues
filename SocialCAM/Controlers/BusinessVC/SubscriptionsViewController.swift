@@ -339,7 +339,7 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if isQuickApp && appMode != .free  && (self.subscriptionType != Defaults.shared.appMode){
+        if isQuickApp && appMode != .free  && (self.subscriptionType != Defaults.shared.appMode) && Defaults.shared.numberOfFreeTrialDays ?? 0 == 0 && Defaults.shared.appMode != .free{
             print(appMode)
             print(self.subscriptionType)
             print(Defaults.shared.appMode)
