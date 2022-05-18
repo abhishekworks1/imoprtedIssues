@@ -42,7 +42,7 @@ class SubscriptionsViewController: UIViewController {
         return viewModel.subscriptionPlanData
     }
     var isFreeTrialMode = false
-    
+    var cancelInProgressSubscriptionType:AppMode = .free
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.getPackageList()
@@ -402,6 +402,7 @@ class SubscriptionsViewController: UIViewController {
             guard let url = URL(string: "https://apps.apple.com/account/subscriptions") else {
                 return
             }
+            self.cancelInProgressSubscriptionType = Defaults.shared.appMode
             UIApplication.shared.open(url)
         } else {
             if let subscriptionId = Defaults.shared.subscriptionId {
