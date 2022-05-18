@@ -22,6 +22,12 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var expiryDateHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var downgradePopupView: UIView!
     
+    @IBOutlet weak var cancelSubscriptionPopupView: UIView!
+    @IBOutlet weak var lblcancelSubscriptionPopupTitle: UILabel!
+    @IBOutlet weak var cancelConfirmedPopupView: UIView!
+    @IBOutlet weak var lblcancelConfirmedPopupTitle: UILabel!
+    
+    
     @IBOutlet weak var lblpriceTitle: UILabel!
 
     
@@ -329,7 +335,14 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if isQuickApp{
+        if isQuickApp && appMode != .free  && (self.subscriptionType != Defaults.shared.appMode){
+            print(appMode)
+            print(self.subscriptionType)
+            print(Defaults.shared.appMode)
+            self.setCancelSubscriptionPopup(subsriptionType: self.subscriptionType)
+            self.cancelSubscriptionPopupView.isHidden = false
+        }else if isQuickApp{
+            
             var productid = Constant.IAPProductIds.quickCamLiteBasic
             if appMode == .basic{
                 productid = Constant.IAPProductIds.quickCamLiteBasic
@@ -372,6 +385,50 @@ class SubscriptionsViewController: UIViewController {
         }).disposed(by: self.rx.disposeBag)
         
     }
+    @IBAction func cancelSubscriptionPopupCancelClick(_ sender: UIButton) {
+        self.cancelSubscriptionPopupView.isHidden = true
+    }
+    @IBAction func cancelSubscriptionPopupContinueClick(_ sender: UIButton) {
+        self.cancelSubscriptionPopupView.isHidden = true
+        if Defaults.shared.releaseType != .store {
+            guard let url = URL(string: "https://apps.apple.com/account/subscriptions") else {
+                return
+            }
+            UIApplication.shared.open(url)
+        } else {
+            if let subscriptionId = Defaults.shared.subscriptionId {
+                self.downgradeSubscription(subscriptionId)
+            } else {
+                Defaults.shared.isSubscriptionApiCalled = false
+            }
+        }
+    }
+    @IBAction func cancelSubscriptionConfirmPopupContinueClick(_ sender: UIButton) {
+        self.cancelConfirmedPopupView.isHidden = true
+        
+    }
+    func setCancelSubscriptionPopup(subsriptionType:AppMode){
+        var currentsubscription = "Basic"
+        if Defaults.shared.appMode == .basic{
+            currentsubscription = "Basic"
+        }else if Defaults.shared.appMode == .advanced{
+            currentsubscription = "Advanced"
+        }else if Defaults.shared.appMode == .professional{
+            currentsubscription = "Professional"
+        }
+        var subsriptiontype = "Basic"
+        if subsriptionType == .basic{
+            subsriptiontype = "Basic"
+        }else if subsriptionType == .advanced{
+            subsriptiontype = "Advanced"
+        }else if subsriptionType == .professional{
+            subsriptiontype = "Professional"
+        }
+        
+        self.lblcancelSubscriptionPopupTitle.text = "Upgrading from \(currentsubscription) to \(subsriptiontype) requires that you first cancel your \(currentsubscription) subscription then subscribe to \(subsriptiontype)."
+        
+    }
+    
     
 }
 
