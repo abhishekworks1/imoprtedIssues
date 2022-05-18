@@ -39,7 +39,9 @@ class SubscriptionsViewController: UIViewController {
     }
     var isFreeTrialMode = false
     var cancelInProgressSubscriptionType:AppMode = .free
-    
+    var cancelAPItimer = Timer()
+    var cancelAPItimerIteration:Int = 0;
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.getPackageList()
@@ -66,8 +68,17 @@ class SubscriptionsViewController: UIViewController {
     }
     @objc func appMovedToForeground() {
         if self.cancelInProgressSubscriptionType == self.subscriptionType{
+            cancelAPItimer = Timer.scheduledTimer(timeInterval:5.0, target: self, selector: #selector(cancelAPItimerAction), userInfo: nil, repeats: true)
             callCancelSubscriptionApi()
         }
+    }
+    @objc func cancelAPItimerAction() {
+        cancelAPItimerIteration += 1
+        if cancelAPItimerIteration > 4{
+            cancelAPItimer.invalidate()
+            return
+        }
+        callCancelSubscriptionApi()
     }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
@@ -390,6 +401,7 @@ class SubscriptionsViewController: UIViewController {
                 self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
                 Defaults.shared.appMode = .free // because all subscriptions have been cancelled
                 self.cancelConfirmedPopupView.isHidden = false
+                self.cancelAPItimer.invalidate()
             }
         }, onError: { error in
             self.dismissHUD()
