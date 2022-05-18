@@ -65,7 +65,9 @@ class SubscriptionsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     @objc func appMovedToForeground() {
-        callCancelSubscriptionApi()
+        if self.cancelInProgressSubscriptionType == self.subscriptionType{
+            callCancelSubscriptionApi()
+        }
     }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
