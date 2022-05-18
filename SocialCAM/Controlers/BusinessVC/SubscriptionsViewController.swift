@@ -54,7 +54,14 @@ class SubscriptionsViewController: UIViewController {
 //            lblFreeTrial.isHidden = true
 //        }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
+    }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
@@ -76,10 +83,7 @@ class SubscriptionsViewController: UIViewController {
     @IBAction func btnOkDowngradeTapped(_ sender: UIButton) {
         self.downgradePopupView.isHidden = true
         if Defaults.shared.releaseType == .store {
-            guard let url = URL(string: Constant.SubscriptionUrl.cancelSubscriptionUrl) else {
-                return
-            }
-            UIApplication.shared.open(url)
+           openAppleCancelSubscriptionScreen()
         } else {
             if let subscriptionId = Defaults.shared.subscriptionId {
                 self.downgradeSubscription(subscriptionId)
@@ -361,7 +365,12 @@ class SubscriptionsViewController: UIViewController {
             self.present(objAlert, animated: true, completion: nil)
         }
     }
-    
+    func openAppleCancelSubscriptionScreen(){
+        guard let url = URL(string: Constant.SubscriptionUrl.cancelSubscriptionUrl) else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
     func callSubscriptionApi(appMode: AppMode, code: String, successMessage: String?) {
         ProManagerApi.setSubscription(type: appMode.getType, code: code).request(Result<User>.self).subscribe(onNext: { (response) in
             self.dismissHUD()
@@ -383,7 +392,6 @@ class SubscriptionsViewController: UIViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
-        
     }
     @IBAction func cancelSubscriptionPopupCancelClick(_ sender: UIButton) {
         self.cancelSubscriptionPopupView.isHidden = true
@@ -431,7 +439,6 @@ class SubscriptionsViewController: UIViewController {
     
     
 }
-
 extension SubscriptionsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
