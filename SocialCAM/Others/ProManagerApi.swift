@@ -70,6 +70,7 @@ public enum ProManagerApi {
     case addReferral(refferingChannel: String)
     case subscriptionList
     case buySubscription(param: [String:Any])
+    case cancelledSubscriptions
     case userSync
     case downgradeSubscription(subscriptionId: String)
     case getToken(appName: String)
@@ -268,6 +269,8 @@ extension ProManagerApi: TargetType {
             return Paths.addReferral
         case .buySubscription:
             return Paths.buySubscription
+        case .cancelledSubscriptions:
+            return Paths.cancelledSubscriptions
         case .subscriptionList:
             return Paths.subsciptionList
         case .userSync:
@@ -325,7 +328,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList,.cancelledSubscriptions, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -668,6 +671,8 @@ extension ProManagerApi: TargetType {
             break
         case .buySubscription(let parameters):
             param = parameters
+        case .cancelledSubscriptions:
+            break
         case .userSync:
             param = ["platformType":"ios"]
             break
@@ -733,7 +738,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList,.cancelledSubscriptions, .userSync, .getReferredUserList, .getReferralNotification, .getNotification, .userNotificationUnreadCount:
             return URLEncoding.default
         default:
             return JSONEncoding.default
