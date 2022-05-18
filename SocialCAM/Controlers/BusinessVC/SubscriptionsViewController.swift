@@ -40,6 +40,9 @@ class SubscriptionsViewController: UIViewController {
     var isFreeTrialMode = false
     var cancelInProgressSubscriptionType:AppMode = .free
     
+    var cancelAPItimer = Timer()
+    var cancelAPItimerIteration:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.getPackageList()
@@ -65,9 +68,18 @@ class SubscriptionsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     @objc func appMovedToForeground() {
-        if self.cancelInProgressSubscriptionType == self.subscriptionType{
-            callCancelSubscriptionApi()
+            if self.cancelInProgressSubscriptionType == self.subscriptionType{
+                cancelAPItimer = Timer.scheduledTimer(timeInterval:5.0, target: self, selector: #selector(cancelAPItimerAction), userInfo: nil, repeats: true)
+                callCancelSubscriptionApi()
+            }
+    }
+    @objc func cancelAPItimerAction() {
+        cancelAPItimerIteration += 1
+        if cancelAPItimerIteration > 4{
+            cancelAPItimer.invalidate()
+            return
         }
+        callCancelSubscriptionApi()
     }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
@@ -391,6 +403,7 @@ class SubscriptionsViewController: UIViewController {
                 Defaults.shared.appMode = .free // because all subscriptions have been cancelled
                 self.cancelConfirmedPopupView.isHidden = false
                 self.view.isUserInteractionEnabled = true
+                self.cancelAPItimer.invalidate()
             } else {
                 Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
                 self.view.isUserInteractionEnabled = true
