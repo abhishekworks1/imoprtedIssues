@@ -44,9 +44,10 @@ class SubscriptionContainerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
     }
+    
     private func setupPagingViewController() {
         guard let freeSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let basicSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let advancedSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let proSubscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
-        
+      
         freeSubscriptionVc.subscriptionType = .free
         basicSubscriptionVc.subscriptionType = .basic
         advancedSubscriptionVc.subscriptionType = .advanced
@@ -107,18 +108,7 @@ class SubscriptionContainerViewController: UIViewController {
         }
         subscriptionImgV.image = UIImage.init(named: imgStr)
     }
-    func callCancelSubscriptionApi() {
-        ProManagerApi.cancelledSubscriptions.request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else {
-                return
-            }
-            self.dismissHUD()
-        }, onError: { error in
-            self.dismissHUD()
-            self.view.isUserInteractionEnabled = true
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag)
-}
+  
     // MARK: -
     // MARK: - Button Action Methods
     

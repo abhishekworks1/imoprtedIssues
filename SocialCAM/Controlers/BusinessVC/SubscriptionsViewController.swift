@@ -9,7 +9,6 @@
 import UIKit
 
 class SubscriptionsViewController: UIViewController {
-    
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var btnUpgrade: UIButton!
@@ -26,10 +25,7 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var lblcancelSubscriptionPopupTitle: UILabel!
     @IBOutlet weak var cancelConfirmedPopupView: UIView!
     @IBOutlet weak var lblcancelConfirmedPopupTitle: UILabel!
-    
-    
     @IBOutlet weak var lblpriceTitle: UILabel!
-
     
     internal var subscriptionType = AppMode.free {
         didSet {
@@ -42,12 +38,15 @@ class SubscriptionsViewController: UIViewController {
         return viewModel.subscriptionPlanData
     }
     var isFreeTrialMode = false
+    var didTryToCancel = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.getPackageList()
         setupUI()
-       
+        let notificationCenter = NotificationCenter.default
+                notificationCenter.addObserver(self, selector:#selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+   
 //        if Defaults.shared.allowFullAccess == true {
 //            btnUpgrade.isUserInteractionEnabled = false
 //            expiryDateHeightConstraint.constant = 0
@@ -62,6 +61,13 @@ class SubscriptionsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
     }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    @objc func appMovedToForeground() {
+        if self.subscriptionType = 
+        callCancelSubscriptionApi()
+        }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
@@ -218,7 +224,8 @@ class SubscriptionsViewController: UIViewController {
                lblYourCurrentPlan.isHidden = false
             }
         }
-        
+      
+        btnUpgrade.isHidden = !lblYourCurrentPlan.isHidden //if lable is visible, button will be hidden
     }
     
     private func setDowngradeButton() {
@@ -371,6 +378,24 @@ class SubscriptionsViewController: UIViewController {
         }
         UIApplication.shared.open(url)
     }
+    func callCancelSubscriptionApi() {
+        showHUD()
+        ProManagerApi.cancelledSubscriptions.request(Result<CancelSubscriptionModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                Defaults.shared.appMode = .free // because all subscriptions have been cancelled
+                self.cancelConfirmedPopupView.isHidden = false
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
     func callSubscriptionApi(appMode: AppMode, code: String, successMessage: String?) {
         ProManagerApi.setSubscription(type: appMode.getType, code: code).request(Result<User>.self).subscribe(onNext: { (response) in
             self.dismissHUD()
@@ -403,6 +428,7 @@ class SubscriptionsViewController: UIViewController {
                 return
             }
             UIApplication.shared.open(url)
+            
         } else {
             if let subscriptionId = Defaults.shared.subscriptionId {
                 self.downgradeSubscription(subscriptionId)
@@ -417,7 +443,7 @@ class SubscriptionsViewController: UIViewController {
     }
     func setCancelSubscriptionPopup(subsriptionType:AppMode){
         var currentsubscription = "Basic"
-        if Defaults.shared.appMode == .basic{
+        if Defaults.shared.appMode == .basic {
             currentsubscription = "Basic"
         }else if Defaults.shared.appMode == .advanced{
             currentsubscription = "Advanced"
