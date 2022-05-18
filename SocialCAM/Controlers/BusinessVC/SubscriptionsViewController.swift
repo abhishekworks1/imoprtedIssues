@@ -390,6 +390,10 @@ class SubscriptionsViewController: UIViewController {
                 self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
                 Defaults.shared.appMode = .free // because all subscriptions have been cancelled
                 self.cancelConfirmedPopupView.isHidden = false
+                self.view.isUserInteractionEnabled = true
+            } else {
+                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
+                self.view.isUserInteractionEnabled = true
             }
         }, onError: { error in
             self.dismissHUD()
