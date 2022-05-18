@@ -37,10 +37,17 @@ class SubscriptionContainerViewController: UIViewController {
         setupPagingViewController()
         setupSubscriotion()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
+    }
     
     private func setupPagingViewController() {
         guard let freeSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let basicSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let advancedSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let proSubscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
-        
+      
         freeSubscriptionVc.subscriptionType = .free
         basicSubscriptionVc.subscriptionType = .basic
         advancedSubscriptionVc.subscriptionType = .advanced
@@ -74,6 +81,7 @@ class SubscriptionContainerViewController: UIViewController {
             pagingViewController.view.topAnchor.constraint(equalTo: containerView.topAnchor)
         ])
     }
+    
     func setupSubscriotion(){
         var imgStr = "free-user-icon"
         if Defaults.shared.allowFullAccess ?? false == true{
@@ -100,6 +108,7 @@ class SubscriptionContainerViewController: UIViewController {
         }
         subscriptionImgV.image = UIImage.init(named: imgStr)
     }
+  
     // MARK: -
     // MARK: - Button Action Methods
     
@@ -109,7 +118,6 @@ class SubscriptionContainerViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
-    
 }
 
 // MARK: - SubscriptionScreenDelegateDelegate

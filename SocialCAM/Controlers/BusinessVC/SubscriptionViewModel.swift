@@ -46,7 +46,7 @@ class SubscriptionViewModel {
         PurchaseHelper.shared.fetchAvailableProducts { }
     }
     
-    internal func getPackageList() {
+    internal func getPackageList(){
         ProManagerApi.subscriptionList.request(Result<SubscriptionList>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
                 guard let subscriptionsList = response.result?.subscriptions else {

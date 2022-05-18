@@ -458,22 +458,6 @@ Regular Price  | $2.99/month (after 3 months)</string>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="npZ-x8-Pna">
                                 <rect key="frame" x="48" y="492" width="224" height="49"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idw-jz-Jyg">
-                                        <rect key="frame" x="0.0" y="0.0" width="224" height="49"/>
-                                        <color key="backgroundColor" name="currentPlanButtonColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="49" id="EHL-ug-hOO"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="20"/>
-                                        <state key="normal" title="Your Current Plan">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                <real key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Current Plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RE-XD-bMp">
                                         <rect key="frame" x="0.0" y="0.0" width="224" height="40"/>
                                         <constraints>
@@ -515,6 +499,145 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kae-jM-CWm" userLabel="Cancel Subscription Popup">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l3W-AH-qDd">
+                                        <rect key="frame" x="32" y="161" width="256" height="246.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QB3-hW-1lL">
+                                                <rect key="frame" x="20" y="20" width="216" height="125.5"/>
+                                                <string key="text">Upgrading from &lt;current subscription&gt; to &lt;new subscription&gt; requires that you first cancel your &lt;current subscription&gt; subscription then subscribe to &lt;new subscription&gt;.</string>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="csI-mA-uim">
+                                                <rect key="frame" x="40" y="170.5" width="176" height="36"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vK-Rp-QIV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="81.5" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="cancelSubscriptionPopupCancelClick:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="buO-ee-Tat"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDN-Cj-BjH">
+                                                        <rect key="frame" x="94.5" y="0.0" width="81.5" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="36" id="rVc-wH-hry"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Continue">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="cancelSubscriptionPopupContinueClick:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="zpb-3T-Mrt"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="QB3-hW-1lL" firstAttribute="leading" secondItem="l3W-AH-qDd" secondAttribute="leading" constant="20" id="IS9-vp-UKW"/>
+                                            <constraint firstItem="csI-mA-uim" firstAttribute="top" secondItem="QB3-hW-1lL" secondAttribute="bottom" constant="25" id="JfS-4O-p2J"/>
+                                            <constraint firstItem="QB3-hW-1lL" firstAttribute="top" secondItem="l3W-AH-qDd" secondAttribute="top" constant="20" id="JoT-t8-ygI"/>
+                                            <constraint firstItem="csI-mA-uim" firstAttribute="trailing" secondItem="QB3-hW-1lL" secondAttribute="trailing" constant="-20" id="MwY-Xo-4oQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="QB3-hW-1lL" secondAttribute="trailing" constant="20" id="VJH-o2-X2Q"/>
+                                            <constraint firstAttribute="bottom" secondItem="csI-mA-uim" secondAttribute="bottom" constant="40" id="Z9h-5N-jZY"/>
+                                            <constraint firstItem="csI-mA-uim" firstAttribute="leading" secondItem="QB3-hW-1lL" secondAttribute="leading" constant="20" id="zK7-Cw-KSd"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="l3W-AH-qDd" firstAttribute="centerX" secondItem="kae-jM-CWm" secondAttribute="centerX" id="3Us-Ym-s03"/>
+                                    <constraint firstItem="l3W-AH-qDd" firstAttribute="centerY" secondItem="kae-jM-CWm" secondAttribute="centerY" id="igP-SY-3xf"/>
+                                    <constraint firstItem="l3W-AH-qDd" firstAttribute="width" secondItem="kae-jM-CWm" secondAttribute="width" multiplier="0.8" id="l6w-ds-ojc"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiL-XG-bp1" userLabel="Cancel Confirmed Popup">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZP-0h-2J0">
+                                        <rect key="frame" x="32" y="178.5" width="256" height="211"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your &lt;old subscription&gt; has been cancelled and your account is ready to be upgraded to &lt;new subscription&gt;." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjx-kQ-hVk">
+                                                <rect key="frame" x="20" y="20" width="216" height="90"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="yrA-GD-N6n">
+                                                <rect key="frame" x="40" y="135" width="176" height="36"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zn2-fw-IkH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="36" id="Hvi-8q-KVR"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Continue">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="cancelSubscriptionConfirmPopupContinueClick:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="1EC-Uy-xRd"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="rjx-kQ-hVk" firstAttribute="leading" secondItem="6ZP-0h-2J0" secondAttribute="leading" constant="20" id="OT0-zA-gpA"/>
+                                            <constraint firstAttribute="bottom" secondItem="yrA-GD-N6n" secondAttribute="bottom" constant="40" id="QVI-9w-52Z"/>
+                                            <constraint firstItem="yrA-GD-N6n" firstAttribute="top" secondItem="rjx-kQ-hVk" secondAttribute="bottom" constant="25" id="TeU-fQ-qM9"/>
+                                            <constraint firstItem="yrA-GD-N6n" firstAttribute="leading" secondItem="rjx-kQ-hVk" secondAttribute="leading" constant="20" id="Wqe-Om-ro8"/>
+                                            <constraint firstItem="yrA-GD-N6n" firstAttribute="trailing" secondItem="rjx-kQ-hVk" secondAttribute="trailing" constant="-20" id="iaS-3z-z77"/>
+                                            <constraint firstAttribute="trailing" secondItem="rjx-kQ-hVk" secondAttribute="trailing" constant="20" id="nq3-aY-3oD"/>
+                                            <constraint firstItem="rjx-kQ-hVk" firstAttribute="top" secondItem="6ZP-0h-2J0" secondAttribute="top" constant="20" id="ppK-lK-EZl"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="6ZP-0h-2J0" firstAttribute="width" secondItem="fiL-XG-bp1" secondAttribute="width" multiplier="0.8" id="RXu-gc-3K2"/>
+                                    <constraint firstItem="6ZP-0h-2J0" firstAttribute="centerX" secondItem="fiL-XG-bp1" secondAttribute="centerX" id="ghZ-2a-gfU"/>
+                                    <constraint firstItem="6ZP-0h-2J0" firstAttribute="centerY" secondItem="fiL-XG-bp1" secondAttribute="centerY" id="o1G-Rg-kDM"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="d2c-p1-I8a"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -523,7 +646,15 @@ Regular Price  | $2.99/month (after 3 months)</string>
                             <constraint firstItem="JpW-fA-Nvp" firstAttribute="trailing" secondItem="d2c-p1-I8a" secondAttribute="trailing" id="1yl-e0-TIx"/>
                             <constraint firstItem="JpW-fA-Nvp" firstAttribute="leading" secondItem="d2c-p1-I8a" secondAttribute="leading" id="H4D-e0-Koz"/>
                             <constraint firstItem="npZ-x8-Pna" firstAttribute="top" secondItem="jxV-sn-mVE" secondAttribute="bottom" constant="10" id="JOm-JI-X3p"/>
+                            <constraint firstItem="d2c-p1-I8a" firstAttribute="top" secondItem="kae-jM-CWm" secondAttribute="top" id="MsX-MR-zHZ"/>
+                            <constraint firstItem="fiL-XG-bp1" firstAttribute="top" secondItem="YUy-ER-ojh" secondAttribute="top" id="NMo-WS-xXt"/>
+                            <constraint firstItem="kae-jM-CWm" firstAttribute="bottom" secondItem="YUy-ER-ojh" secondAttribute="bottom" id="Vht-nf-JOE"/>
+                            <constraint firstAttribute="bottom" secondItem="fiL-XG-bp1" secondAttribute="bottom" id="Wor-IU-PDS"/>
+                            <constraint firstItem="fiL-XG-bp1" firstAttribute="trailing" secondItem="d2c-p1-I8a" secondAttribute="trailing" id="Ypd-Kg-uxU"/>
                             <constraint firstItem="npZ-x8-Pna" firstAttribute="leading" secondItem="d2c-p1-I8a" secondAttribute="leading" constant="48" id="ZcG-gJ-jlp"/>
+                            <constraint firstItem="fiL-XG-bp1" firstAttribute="leading" secondItem="d2c-p1-I8a" secondAttribute="leading" id="gxy-Ht-Xwu"/>
+                            <constraint firstItem="kae-jM-CWm" firstAttribute="leading" secondItem="d2c-p1-I8a" secondAttribute="leading" id="i62-LU-Wgs"/>
+                            <constraint firstItem="kae-jM-CWm" firstAttribute="trailing" secondItem="d2c-p1-I8a" secondAttribute="trailing" id="j6G-zi-Rfq"/>
                             <constraint firstItem="npZ-x8-Pna" firstAttribute="bottom" secondItem="JpW-fA-Nvp" secondAttribute="bottom" constant="-27" id="jF1-Tt-GzQ"/>
                             <constraint firstItem="JpW-fA-Nvp" firstAttribute="bottom" secondItem="d2c-p1-I8a" secondAttribute="bottom" id="qzI-94-lvd"/>
                             <constraint firstItem="d2c-p1-I8a" firstAttribute="trailing" secondItem="npZ-x8-Pna" secondAttribute="trailing" constant="48" id="wVF-zg-kuQ"/>
@@ -531,6 +662,8 @@ Regular Price  | $2.99/month (after 3 months)</string>
                     </view>
                     <connections>
                         <outlet property="btnUpgrade" destination="a9w-D1-Q4W" id="PZY-PS-31E"/>
+                        <outlet property="cancelConfirmedPopupView" destination="fiL-XG-bp1" id="rY5-S2-5fp"/>
+                        <outlet property="cancelSubscriptionPopupView" destination="kae-jM-CWm" id="qCg-KZ-m0c"/>
                         <outlet property="downgradePopupView" destination="vK3-EF-vu0" id="Qti-8F-eIl"/>
                         <outlet property="expiryDateHeightConstraint" destination="le0-iN-04c" id="cfp-Iv-TcE"/>
                         <outlet property="freeModeAlertBlurView" destination="m0z-cb-MFl" id="5LO-6z-Iqa"/>
@@ -540,6 +673,8 @@ Regular Price  | $2.99/month (after 3 months)</string>
                         <outlet property="lblPrice" destination="xnQ-aO-Vug" id="0GM-2X-RhL"/>
                         <outlet property="lblTitle" destination="b0P-zp-94a" id="4bO-Mm-2GW"/>
                         <outlet property="lblYourCurrentPlan" destination="1RE-XD-bMp" id="YUe-ZY-8Ft"/>
+                        <outlet property="lblcancelConfirmedPopupTitle" destination="rjx-kQ-hVk" id="MGJ-uY-53M"/>
+                        <outlet property="lblcancelSubscriptionPopupTitle" destination="QB3-hW-1lL" id="lHc-Cs-Wbe"/>
                         <outlet property="lblpriceTitle" destination="Ypi-so-nf2" id="ZVK-PK-aRP"/>
                         <outlet property="tableView" destination="jxV-sn-mVE" id="nA9-cW-qh4"/>
                     </connections>
@@ -554,13 +689,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
         <image name="storyBack" width="19" height="19"/>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="currentPlanButtonColor">
-            <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
-            <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23899999260902405" green="0.77300000190734863" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

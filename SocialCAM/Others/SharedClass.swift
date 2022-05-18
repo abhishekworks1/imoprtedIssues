@@ -1128,6 +1128,7 @@ public struct Paths {
     static let logoutWithKeycloak = "user/logout"
     static let addReferral = "user/addReferral"
     static let buySubscription = "subscription/buySubscription"
+    static let cancelledSubscriptions = "subscription/cancelledSubscriptions"
     static let subsciptionList = "subscriptions"
     static let userSync = "user/userSync"
     static let downgradeSubscription = "subscription/downgrade"
