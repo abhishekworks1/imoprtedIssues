@@ -1926,25 +1926,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        //        if shareType == ShareType.socialShare {
-        //            socialSharePopupView.isHidden = false
-        //            return
-        //        }
+        
         let urlString = self.txtLinkWithCheckOut
-        ////            let channelId = Defaults.shared.currentUser?.channelId ?? ""
         let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-        //            UIPasteboard.general.string = urlwithString
-        //            var shareItems: [Any] = [urlwithString]
-        //            //if isIncludeProfileImg {
-        //            let image = self.profileView.toImage()
-        //            shareItems.append(image)
-        //            //}
-        //            let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-        //            self.present(shareVC, animated: true, completion: nil)
-        //}
-        
         share(shareText: urlwithString, shareImage: self.profileView.toImage())
-        
         
     }
     
