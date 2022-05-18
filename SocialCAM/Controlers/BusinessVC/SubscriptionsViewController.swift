@@ -56,7 +56,6 @@ class SubscriptionsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
@@ -65,7 +64,9 @@ class SubscriptionsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     @objc func appMovedToForeground() {
-        callCancelSubscriptionApi()
+        if self.cancelInProgressSubscriptionType == self.subscriptionType {
+            callCancelSubscriptionApi()
+        }
     }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
@@ -73,7 +74,6 @@ class SubscriptionsViewController: UIViewController {
             self.enableMode(appMode: self.subscriptionType)
         }
     }
-    
     @IBAction func btnOkayTapped(_ sender: UIButton) {
         freeModeAlertBlurView.isHidden = true
         freeModeAlertView.isHidden = true
