@@ -397,15 +397,19 @@ class SubscriptionsViewController: UIViewController {
             guard let `self` = self else {
                 return
             }
-            self.dismissHUD()
             if response.status == ResponseType.success {
-                self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
-                Defaults.shared.appMode = .free // because all subscriptions have been cancelled
-                self.cancelConfirmedPopupView.isHidden = false
-                self.view.isUserInteractionEnabled = true
+                self.dismissHUD()
+                DispatchQueue.main.async {
+                    self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
+                    Defaults.shared.appMode = .free // because all subscriptions have been cancelled
+//                    self.cancelConfirmedPopupView.isHidden = false
+                    self.view.isUserInteractionEnabled = true
+                    self.enableMode(appMode:self.subscriptionType)
+                }
                 self.cancelAPItimer.invalidate()
             } else {
                 if self.cancelAPItimerIteration == 4{
+                    self.dismissHUD()
                     Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
                     self.view.isUserInteractionEnabled = true
                 }

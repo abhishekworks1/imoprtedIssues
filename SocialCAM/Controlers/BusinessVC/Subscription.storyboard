@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -577,7 +577,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                     <constraint firstItem="l3W-AH-qDd" firstAttribute="width" secondItem="kae-jM-CWm" secondAttribute="width" multiplier="0.8" id="l6w-ds-ojc"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiL-XG-bp1" userLabel="Cancel Subscription Popup">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiL-XG-bp1" userLabel="Cancel Confirmed Popup">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZP-0h-2J0">
@@ -662,7 +662,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                     </view>
                     <connections>
                         <outlet property="btnUpgrade" destination="a9w-D1-Q4W" id="PZY-PS-31E"/>
-                        <outlet property="cancelConfirmedPopupView" destination="fiL-XG-bp1" id="ydR-6b-2zm"/>
+                        <outlet property="cancelConfirmedPopupView" destination="fiL-XG-bp1" id="rY5-S2-5fp"/>
                         <outlet property="cancelSubscriptionPopupView" destination="kae-jM-CWm" id="qCg-KZ-m0c"/>
                         <outlet property="downgradePopupView" destination="vK3-EF-vu0" id="Qti-8F-eIl"/>
                         <outlet property="expiryDateHeightConstraint" destination="le0-iN-04c" id="cfp-Iv-TcE"/>
@@ -689,10 +689,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
         <image name="storyBack" width="19" height="19"/>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
-            <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23899999260902405" green="0.77300000190734863" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
