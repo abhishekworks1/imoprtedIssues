@@ -846,7 +846,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if Defaults.shared.cameraMode == .pic2Art {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.selectCell = self.cameraSliderView.stringArray.count - 1 //4
             self.cameraSliderView.collectionView.reloadData()
         }
         
@@ -887,7 +887,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if isfromPicsArt {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.selectCell = self.cameraSliderView.stringArray.count - 1
             self.cameraSliderView.collectionView.reloadData()
             isfromPicsArt = false
         }
@@ -2970,7 +2970,7 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-//        Defaults.shared.allowFullAccess = true
+        Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){
