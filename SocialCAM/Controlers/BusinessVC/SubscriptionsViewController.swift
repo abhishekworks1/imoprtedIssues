@@ -9,7 +9,6 @@
 import UIKit
 
 class SubscriptionsViewController: UIViewController {
-    
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var btnUpgrade: UIButton!
@@ -22,8 +21,11 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var expiryDateHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var downgradePopupView: UIView!
     
+    @IBOutlet weak var cancelSubscriptionPopupView: UIView!
+    @IBOutlet weak var lblcancelSubscriptionPopupTitle: UILabel!
+    @IBOutlet weak var cancelConfirmedPopupView: UIView!
+    @IBOutlet weak var lblcancelConfirmedPopupTitle: UILabel!
     @IBOutlet weak var lblpriceTitle: UILabel!
-
     
     internal var subscriptionType = AppMode.free {
         didSet {
@@ -36,19 +38,49 @@ class SubscriptionsViewController: UIViewController {
         return viewModel.subscriptionPlanData
     }
     var isFreeTrialMode = false
+    var cancelInProgressSubscriptionType:AppMode = .free
+    
+    var cancelAPItimer = Timer()
+    var cancelAPItimerIteration:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.getPackageList()
         setupUI()
-       
+        let notificationCenter = NotificationCenter.default
+                notificationCenter.addObserver(self, selector:#selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+   
 //        if Defaults.shared.allowFullAccess == true {
 //            btnUpgrade.isUserInteractionEnabled = false
 //            expiryDateHeightConstraint.constant = 0
 //            lblFreeTrial.isHidden = true
 //        }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    @objc func appMovedToForeground() {
+            if self.cancelInProgressSubscriptionType == self.subscriptionType{
+                cancelAPItimer = Timer.scheduledTimer(timeInterval:5.0, target: self, selector: #selector(cancelAPItimerAction), userInfo: nil, repeats: true)
+                callCancelSubscriptionApi()
+            }
+    }
+    @objc func cancelAPItimerAction() {
+        cancelAPItimerIteration += 1
+        if cancelAPItimerIteration > 4{
+            cancelAPItimer.invalidate()
+            return
+        }
+        callCancelSubscriptionApi()
+    }
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
@@ -70,10 +102,7 @@ class SubscriptionsViewController: UIViewController {
     @IBAction func btnOkDowngradeTapped(_ sender: UIButton) {
         self.downgradePopupView.isHidden = true
         if Defaults.shared.releaseType == .store {
-            guard let url = URL(string: Constant.SubscriptionUrl.cancelSubscriptionUrl) else {
-                return
-            }
-            UIApplication.shared.open(url)
+           openAppleCancelSubscriptionScreen()
         } else {
             if let subscriptionId = Defaults.shared.subscriptionId {
                 self.downgradeSubscription(subscriptionId)
@@ -208,7 +237,8 @@ class SubscriptionsViewController: UIViewController {
                lblYourCurrentPlan.isHidden = false
             }
         }
-        
+      
+        btnUpgrade.isHidden = !lblYourCurrentPlan.isHidden //if lable is visible, button will be hidden
     }
     
     private func setDowngradeButton() {
@@ -329,7 +359,14 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if isQuickApp{
+        if isQuickApp && appMode != .free  && (self.subscriptionType != Defaults.shared.appMode) && Defaults.shared.numberOfFreeTrialDays ?? 0 == 0 && Defaults.shared.appMode != .free{
+            print(appMode)
+            print(self.subscriptionType)
+            print(Defaults.shared.appMode)
+            self.setCancelSubscriptionPopup(subsriptionType: self.subscriptionType)
+            self.cancelSubscriptionPopupView.isHidden = false
+        }else if isQuickApp{
+            
             var productid = Constant.IAPProductIds.quickCamLiteBasic
             if appMode == .basic{
                 productid = Constant.IAPProductIds.quickCamLiteBasic
@@ -348,7 +385,46 @@ class SubscriptionsViewController: UIViewController {
             self.present(objAlert, animated: true, completion: nil)
         }
     }
-    
+    func openAppleCancelSubscriptionScreen(){
+        guard let url = URL(string: Constant.SubscriptionUrl.cancelSubscriptionUrl) else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
+    func callCancelSubscriptionApi() {
+        showHUD()
+        ProManagerApi.cancelledSubscriptions.request(Result<CancelSubscriptionModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                self.dismissHUD()
+                DispatchQueue.main.async {
+                    self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
+                    Defaults.shared.appMode = .free // because all subscriptions have been cancelled
+//                    self.cancelConfirmedPopupView.isHidden = false
+                    self.view.isUserInteractionEnabled = true
+                    self.enableMode(appMode:self.subscriptionType)
+                }
+                self.cancelAPItimer.invalidate()
+            } else {
+                if self.cancelAPItimerIteration == 4{
+                    self.dismissHUD()
+                    Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
+                    self.view.isUserInteractionEnabled = true
+                }
+               
+            }
+        }, onError: { error in
+            
+            if self.cancelAPItimerIteration == 4{
+                self.dismissHUD()
+                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
+                self.view.isUserInteractionEnabled = true
+            }
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
     func callSubscriptionApi(appMode: AppMode, code: String, successMessage: String?) {
         ProManagerApi.setSubscription(type: appMode.getType, code: code).request(Result<User>.self).subscribe(onNext: { (response) in
             self.dismissHUD()
@@ -370,11 +446,78 @@ class SubscriptionsViewController: UIViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    @IBAction func cancelSubscriptionPopupCancelClick(_ sender: UIButton) {
+        self.cancelSubscriptionPopupView.isHidden = true
+    }
+    @IBAction func cancelSubscriptionPopupContinueClick(_ sender: UIButton) {
+        self.cancelSubscriptionPopupView.isHidden = true
+        if Defaults.shared.releaseType != .store {
+            guard let url = URL(string: "https://apps.apple.com/account/subscriptions") else {
+                return
+            }
+            self.cancelInProgressSubscriptionType = Defaults.shared.appMode
+            UIApplication.shared.open(url)
+            
+        } else {
+            if let subscriptionId = Defaults.shared.subscriptionId {
+                self.downgradeSubscription(subscriptionId)
+            } else {
+                Defaults.shared.isSubscriptionApiCalled = false
+            }
+        }
+    }
+    @IBAction func cancelSubscriptionConfirmPopupContinueClick(_ sender: UIButton) {
+        self.cancelConfirmedPopupView.isHidden = true
+        self.enableMode(appMode:self.subscriptionType)
+        
+    }
+    func setCancelSubscriptionPopup(subsriptionType:AppMode){
+        var currentsubscription = "Basic"
+        if Defaults.shared.appMode == .basic {
+            currentsubscription = "Basic"
+        }else if Defaults.shared.appMode == .advanced{
+            currentsubscription = "Advanced"
+        }else if Defaults.shared.appMode == .professional{
+            currentsubscription = "Professional"
+        }
+        var subsriptiontype = "Basic"
+        if subsriptionType == .basic{
+            subsriptiontype = "Basic"
+        }else if subsriptionType == .advanced{
+            subsriptiontype = "Advanced"
+        }else if subsriptionType == .professional{
+            subsriptiontype = "Professional"
+        }
+        
+        self.lblcancelSubscriptionPopupTitle.text = "Upgrading from \(currentsubscription) to \(subsriptiontype) requires that you first cancel your \(currentsubscription) subscription then subscribe to \(subsriptiontype)."
+        
+    }
+    func setCancelSubscriptionConfirmPopup(subsriptionType:AppMode){
+        var currentsubscription = "Basic"
+        if Defaults.shared.appMode == .basic {
+            currentsubscription = "Basic"
+        }else if Defaults.shared.appMode == .advanced{
+            currentsubscription = "Advanced"
+        }else if Defaults.shared.appMode == .professional{
+            currentsubscription = "Professional"
+        }
+        var subsriptiontype = "Basic"
+        if subsriptionType == .basic{
+            subsriptiontype = "Basic"
+        }else if subsriptionType == .advanced{
+            subsriptiontype = "Advanced"
+        }else if subsriptionType == .professional{
+            subsriptiontype = "Professional"
+        }
+        
+        
+        self.lblcancelConfirmedPopupTitle.text = "Your \(currentsubscription) has been cancelled and your account is ready to be upgraded to \(subsriptiontype)."
+        
         
     }
     
 }
-
 extension SubscriptionsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
