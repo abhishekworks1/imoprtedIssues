@@ -42,11 +42,13 @@ class SubscriptionsViewController: UIViewController {
     
     var cancelAPItimer = Timer()
     var cancelAPItimerIteration:Int = 0
+    var isCancelInprogress = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.getPackageList()
         setupUI()
+        
         let notificationCenter = NotificationCenter.default
                 notificationCenter.addObserver(self, selector:#selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
    
@@ -59,7 +61,7 @@ class SubscriptionsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
-        
+
     }
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
@@ -68,9 +70,12 @@ class SubscriptionsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     @objc func appMovedToForeground() {
-        if self.cancelInProgressSubscriptionType == self.subscriptionType || self.subscriptionType == .free{
+        if self.cancelInProgressSubscriptionType == self.subscriptionType {
+            if isCancelInprogress{
             cancelAPItimer = Timer.scheduledTimer(timeInterval:5.0, target: self, selector: #selector(cancelAPItimerAction), userInfo: nil, repeats: true)
             callCancelSubscriptionApi()
+                isCancelInprogress = false
+            }
         }
     }
     @objc func cancelAPItimerAction() {
@@ -398,7 +403,6 @@ class SubscriptionsViewController: UIViewController {
     }
     func callCancelSubscriptionApi() {
         showHUD()
-        
         ProManagerApi.cancelledSubscriptions.request(Result<CancelSubscriptionModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
@@ -409,41 +413,30 @@ class SubscriptionsViewController: UIViewController {
                     self.view.isUserInteractionEnabled = true
                     self.syncUserModel { _ in
                     }
-                    if self.subscriptionType == .free{
+                    if self.subscriptionType == .free {
                         Defaults.shared.isSubscriptionApiCalled = false
                         return
                     }
                     self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
-                    Defaults.shared.appMode = .free // because all subscriptions have been cancelled
-                    self.cancelConfirmedPopupView.isHidden = false
                     self.view.isUserInteractionEnabled = true
-                    if self.subscriptionType != .free{
-                      //  self.enableMode(appMode:self.subscriptionType)
-                    }
-                   
                 }
                 self.cancelAPItimer.invalidate()
             } else {
-                if self.cancelAPItimerIteration == 4{
-                    self.dismissHUD()
-                 
-                    Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
-                    self.view.isUserInteractionEnabled = true
-                    Defaults.shared.isSubscriptionApiCalled = false
-                }
-               
+                self.cancelSubAPIFailure()
             }
         }, onError: { error in
-            
-            if self.cancelAPItimerIteration == 4{
-                self.dismissHUD()
-                
-                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
-                self.view.isUserInteractionEnabled = true
-                Defaults.shared.isSubscriptionApiCalled = false
-            }
+            self.cancelSubAPIFailure()
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    func cancelSubAPIFailure() {
+        if self.cancelAPItimerIteration == 4{
+            self.dismissHUD()
+            Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
+            self.view.isUserInteractionEnabled = true
+            Defaults.shared.isSubscriptionApiCalled = false
+            self.cancelAPItimer.invalidate()
+        }
     }
     func callSubscriptionApi(appMode: AppMode, code: String, successMessage: String?) {
         ProManagerApi.setSubscription(type: appMode.getType, code: code).request(Result<User>.self).subscribe(onNext: { (response) in
@@ -471,12 +464,13 @@ class SubscriptionsViewController: UIViewController {
         self.cancelSubscriptionPopupView.isHidden = true
     }
     @IBAction func cancelSubscriptionPopupContinueClick(_ sender: UIButton) {
-        self.cancelSubscriptionPopupView.isHidden = true
+        cancelSubscriptionPopupView.isHidden = true
         if Defaults.shared.releaseType != .store {
             guard let url = URL(string: "https://apps.apple.com/account/subscriptions") else {
                 return
             }
-            self.cancelInProgressSubscriptionType = Defaults.shared.appMode
+            isCancelInprogress = true
+            cancelInProgressSubscriptionType = self.subscriptionType
             UIApplication.shared.open(url)
             
         } else {
@@ -545,7 +539,8 @@ class SubscriptionsViewController: UIViewController {
         
         
         self.lblcancelConfirmedPopupTitle.text = "Your \(currentsubscription) has been cancelled and your account is ready to be upgraded to \(subsriptiontype)."
-        
+        self.cancelConfirmedPopupView.isHidden = false
+        self.view.bringSubviewToFront(self.cancelConfirmedPopupView)
         
     }
     
