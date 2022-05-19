@@ -514,7 +514,7 @@ class SubscriptionsViewController: UIViewController {
         }
         
         if subsriptionType == .free{
-            self.lblcancelSubscriptionPopupTitle.text = "You are \(upgradeStr) from \(currentsubscription) to \(subsriptiontype)."
+            self.lblcancelSubscriptionPopupTitle.text = "You are \(upgradeStr) from \(currentsubscription) to Free."
         }else{
             self.lblcancelSubscriptionPopupTitle.text = "\(upgradeStr) from \(currentsubscription) to \(subsriptiontype) requires that you first cancel your \(currentsubscription) subscription then subscribe to \(subsriptiontype)."
         }
