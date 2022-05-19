@@ -68,10 +68,10 @@ class SubscriptionsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     @objc func appMovedToForeground() {
-            if self.cancelInProgressSubscriptionType == self.subscriptionType{
-                cancelAPItimer = Timer.scheduledTimer(timeInterval:5.0, target: self, selector: #selector(cancelAPItimerAction), userInfo: nil, repeats: true)
-                callCancelSubscriptionApi()
-            }
+        if self.cancelInProgressSubscriptionType == self.subscriptionType || self.subscriptionType == .free{
+            cancelAPItimer = Timer.scheduledTimer(timeInterval:5.0, target: self, selector: #selector(cancelAPItimerAction), userInfo: nil, repeats: true)
+            callCancelSubscriptionApi()
+        }
     }
     @objc func cancelAPItimerAction() {
         cancelAPItimerIteration += 1
@@ -359,12 +359,17 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if isQuickApp && appMode != .free  && (self.subscriptionType != Defaults.shared.appMode) && Defaults.shared.numberOfFreeTrialDays ?? 0 == 0 && Defaults.shared.appMode != .free{
+        if isQuickApp && (self.subscriptionType != Defaults.shared.appMode) && Defaults.shared.numberOfFreeTrialDays ?? 0 == 0 //&& Defaults.shared.appMode != .free  && appMode != .free
+        {
             print(appMode)
             print(self.subscriptionType)
             print(Defaults.shared.appMode)
             self.setCancelSubscriptionPopup(subsriptionType: self.subscriptionType)
             self.cancelSubscriptionPopupView.isHidden = false
+          
+        }else  if isQuickApp && appMode == .free && Defaults.shared.appMode == .free{
+            print(appMode)
+            return
         }else if isQuickApp{
             
             var productid = Constant.IAPProductIds.quickCamLiteBasic
@@ -393,6 +398,7 @@ class SubscriptionsViewController: UIViewController {
     }
     func callCancelSubscriptionApi() {
         showHUD()
+        
         ProManagerApi.cancelledSubscriptions.request(Result<CancelSubscriptionModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
@@ -400,18 +406,27 @@ class SubscriptionsViewController: UIViewController {
             if response.status == ResponseType.success {
                 self.dismissHUD()
                 DispatchQueue.main.async {
+                    self.view.isUserInteractionEnabled = true
+                    if self.subscriptionType == .free{
+                        return
+                    }
                     self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
                     Defaults.shared.appMode = .free // because all subscriptions have been cancelled
-//                    self.cancelConfirmedPopupView.isHidden = false
+                    self.cancelConfirmedPopupView.isHidden = false
                     self.view.isUserInteractionEnabled = true
-                    self.enableMode(appMode:self.subscriptionType)
+                    if self.subscriptionType != .free{
+                      //  self.enableMode(appMode:self.subscriptionType)
+                    }
+                   
                 }
                 self.cancelAPItimer.invalidate()
             } else {
                 if self.cancelAPItimerIteration == 4{
                     self.dismissHUD()
+                 
                     Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
                     self.view.isUserInteractionEnabled = true
+                    Defaults.shared.isSubscriptionApiCalled = false
                 }
                
             }
@@ -419,8 +434,10 @@ class SubscriptionsViewController: UIViewController {
             
             if self.cancelAPItimerIteration == 4{
                 self.dismissHUD()
+                
                 Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: "It seems you have not cancelled subscription from Apple store. Please try again later. ")
                 self.view.isUserInteractionEnabled = true
+                Defaults.shared.isSubscriptionApiCalled = false
             }
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
@@ -469,17 +486,19 @@ class SubscriptionsViewController: UIViewController {
     }
     @IBAction func cancelSubscriptionConfirmPopupContinueClick(_ sender: UIButton) {
         self.cancelConfirmedPopupView.isHidden = true
-        self.enableMode(appMode:self.subscriptionType)
-        
+        if self.subscriptionType != .free{
+            self.enableMode(appMode:self.subscriptionType)
+        }
     }
     func setCancelSubscriptionPopup(subsriptionType:AppMode){
+        var upgradeStr = "Upgrading"
         var currentsubscription = "Basic"
         if Defaults.shared.appMode == .basic {
             currentsubscription = "Basic"
         }else if Defaults.shared.appMode == .advanced{
             currentsubscription = "Advanced"
         }else if Defaults.shared.appMode == .professional{
-            currentsubscription = "Professional"
+            currentsubscription = "Pro"
         }
         var subsriptiontype = "Basic"
         if subsriptionType == .basic{
@@ -487,10 +506,20 @@ class SubscriptionsViewController: UIViewController {
         }else if subsriptionType == .advanced{
             subsriptiontype = "Advanced"
         }else if subsriptionType == .professional{
-            subsriptiontype = "Professional"
+            subsriptiontype = "Pro"
         }
         
-        self.lblcancelSubscriptionPopupTitle.text = "Upgrading from \(currentsubscription) to \(subsriptiontype) requires that you first cancel your \(currentsubscription) subscription then subscribe to \(subsriptiontype)."
+        if (currentsubscription == "Advanced" && subsriptiontype == "Basic") || (currentsubscription == "Pro" && subsriptiontype == "Basic") || (currentsubscription == "Pro" && subsriptiontype == "Advanced") || subsriptionType == .free{
+            upgradeStr = "Downgrading"
+        }
+        
+        if subsriptionType == .free{
+            self.lblcancelSubscriptionPopupTitle.text = "You are \(upgradeStr) from \(currentsubscription) to \(subsriptiontype)."
+        }else{
+            self.lblcancelSubscriptionPopupTitle.text = "\(upgradeStr) from \(currentsubscription) to \(subsriptiontype) requires that you first cancel your \(currentsubscription) subscription then subscribe to \(subsriptiontype)."
+        }
+        
+        
         
     }
     func setCancelSubscriptionConfirmPopup(subsriptionType:AppMode){
@@ -500,7 +529,7 @@ class SubscriptionsViewController: UIViewController {
         }else if Defaults.shared.appMode == .advanced{
             currentsubscription = "Advanced"
         }else if Defaults.shared.appMode == .professional{
-            currentsubscription = "Professional"
+            currentsubscription = "Pro"
         }
         var subsriptiontype = "Basic"
         if subsriptionType == .basic{
@@ -508,7 +537,7 @@ class SubscriptionsViewController: UIViewController {
         }else if subsriptionType == .advanced{
             subsriptiontype = "Advanced"
         }else if subsriptionType == .professional{
-            subsriptiontype = "Professional"
+            subsriptiontype = "Pro"
         }
         
         
