@@ -359,7 +359,7 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if isQuickApp && (self.subscriptionType != Defaults.shared.appMode) && Defaults.shared.numberOfFreeTrialDays ?? 0 == 0 //&& Defaults.shared.appMode != .free  && appMode != .free
+        if isQuickApp && (self.subscriptionType != Defaults.shared.appMode) && Defaults.shared.numberOfFreeTrialDays ?? 0 == 0 && !(Defaults.shared.appMode == .free && self.subscriptionType != .free) //&& Defaults.shared.appMode != .free  && appMode != .free
         {
             print(appMode)
             print(self.subscriptionType)
@@ -407,7 +407,10 @@ class SubscriptionsViewController: UIViewController {
                 self.dismissHUD()
                 DispatchQueue.main.async {
                     self.view.isUserInteractionEnabled = true
+                    self.syncUserModel { _ in
+                    }
                     if self.subscriptionType == .free{
+                        Defaults.shared.isSubscriptionApiCalled = false
                         return
                     }
                     self.setCancelSubscriptionConfirmPopup(subsriptionType: self.subscriptionType)
