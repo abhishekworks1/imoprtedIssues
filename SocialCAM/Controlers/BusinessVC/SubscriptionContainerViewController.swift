@@ -38,6 +38,24 @@ class SubscriptionContainerViewController: UIViewController {
 //        setupSubscriotion()
     }
     
+    
+    @IBAction func didTapPremiumButton(_ sender: UIButton) {
+        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+        navigationController?.pushViewController(subscriptionVc, animated: true)
+    }
+    
+    
+    @IBAction func didTapAdvancedButton(_ sender: UIButton) {
+    }
+    
+    @IBAction func didTapBasicButton(_ sender: UIButton) {
+    }
+    
+    
+    @IBAction func didTapFreeButton(_ sender: UIButton) {
+    }
+    
+    
     private func setupPagingViewController() {
         guard let freeSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let basicSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let advancedSubscriptionVc = R.storyboard.subscription.subscriptionsViewController(), let proSubscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         
