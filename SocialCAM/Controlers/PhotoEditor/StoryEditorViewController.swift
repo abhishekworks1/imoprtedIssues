@@ -2864,9 +2864,11 @@ extension StoryEditorViewController {
                     loadingView.showTotalCount = false
                 }
                 loadingView.show(on: self.view, completion: {
+                    loadingView.startAdvertisementTimer()
                     loadingView.cancelClick = { _ in
                         exportSession.cancelExporting()
                         loadingView.hide()
+                        loadingView.advertiseTimer?.invalidate()
                     }
                 })
             }
@@ -2967,7 +2969,6 @@ extension StoryEditorViewController {
                 loadingView.shouldDescriptionTextShow = true
                 loadingView.shouldCancelShow = true
                 loadingView.show(on: self.view, completion: {
-                    
                 })
             }
         }

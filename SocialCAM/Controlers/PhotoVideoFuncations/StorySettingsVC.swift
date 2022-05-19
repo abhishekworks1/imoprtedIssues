@@ -245,7 +245,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
-        setUpProfileHeader()
        
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         longpress.minimumPressDuration = 0.5
@@ -274,7 +273,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.settingsTableView.reloadData()
+        setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
+            
         }
     }
     
