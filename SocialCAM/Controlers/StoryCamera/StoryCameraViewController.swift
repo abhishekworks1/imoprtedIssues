@@ -1049,6 +1049,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
             DispatchQueue.main.async {
                 if self.recordingType == .newNormal || self.recordingType == .pic2Art {
+                    self.speedLabel.text = ""
+                    self.speedLabel.stopBlink()
                     self.speedSlider.isHidden = true
                     self.speedSliderView.isHidden = true
                     self.verticalLines.isHidden = true
@@ -1573,6 +1575,8 @@ extension StoryCameraViewController {
                 }
             case .newNormal:
                 DispatchQueue.main.async {
+                    self.speedLabel.text = ""
+                    self.speedLabel.stopBlink()
                     self.speedSlider.isHidden = true
                     self.speedSliderView.isHidden = true
                     self.verticalLines.isHidden = true

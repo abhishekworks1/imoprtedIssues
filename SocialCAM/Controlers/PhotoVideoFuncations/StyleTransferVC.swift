@@ -371,7 +371,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         for segment in images {
             slideShowImages.append(segment.image ?? UIImage())
         }
-        guard slideShowImages.count > 2 else {
+        guard slideShowImages.count >= 2 else {
             self.showAlert(alertMessage: R.string.localizable.minimumThreeImagesRequiredForSlideshowVideo())
             return
         }
@@ -896,7 +896,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
                 return UICollectionViewCell()
             }
 
-            let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
+            let borderColor: CGColor! = ApplicationSettings.appWhiteColor.cgColor
             let borderWidth: CGFloat = 3
 
             cell.imagesStackView.tag = indexPath.item
