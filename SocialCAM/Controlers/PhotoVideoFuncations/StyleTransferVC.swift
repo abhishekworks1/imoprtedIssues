@@ -789,25 +789,25 @@ extension StyleTransferVC: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView == self.scrollView {
+        if scrollView == self.scrollView {
 //            let totalCells = self.styleData.count * self.multiplier(estimatedItemSize: collectionView.infiniteLayout.itemSize, enabled: collectionView.infiniteLayout.isEnabled)
-//            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
-//                selectedIndex = selectedIndex == 0 ? totalCells - 1 : selectedIndex - 1
-//            } else {
-//                selectedIndex = selectedIndex == totalCells - 1 ? 0 : selectedIndex + 1
-//            }
-//            guard !self.isProcessing else {
-//                return
-//            }
-//            for (index, style) in self.styleData.enumerated() {
-//                style.isSelected = (index == selectedIndex)
-//            }
+            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
+                selectedIndex = selectedIndex == 0 ? (self.selectedIndex % self.styleData.count) - 1 : selectedIndex - 1
+            } else {
+                selectedIndex = selectedIndex == (self.selectedIndex % self.styleData.count) - 1 ? 0 : selectedIndex + 1
+            }
+            guard !self.isProcessing else {
+                return
+            }
+            for (index, style) in self.styleData.enumerated() {
+                style.isSelected = (index == selectedIndex)
+            }
 //            self.collectionView.reloadData()
 //            self.collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0),
 //                                             at: .centeredHorizontally,
 //                                             animated: true)
-//            self.applyStyle(index: selectedIndex)
-//        }
+            self.applyStyle(index: selectedIndex)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
