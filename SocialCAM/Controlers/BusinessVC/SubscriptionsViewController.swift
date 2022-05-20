@@ -231,7 +231,7 @@ class SubscriptionsViewController: UIViewController {
         }else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "\n Regular Price  | $4.99/month"
-            lblFreeTrial.text = "Pro"
+            lblFreeTrial.text = "Premium"
             if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
                 lblYourCurrentPlan.isHidden = false
             }
@@ -495,7 +495,7 @@ class SubscriptionsViewController: UIViewController {
         }else if Defaults.shared.appMode == .advanced{
             currentsubscription = "Advanced"
         }else if Defaults.shared.appMode == .professional{
-            currentsubscription = "Pro"
+            currentsubscription = "Premium"
         }
         var subsriptiontype = "Basic"
         if subsriptionType == .basic{
@@ -503,10 +503,10 @@ class SubscriptionsViewController: UIViewController {
         }else if subsriptionType == .advanced{
             subsriptiontype = "Advanced"
         }else if subsriptionType == .professional{
-            subsriptiontype = "Pro"
+            subsriptiontype = "Premium"
         }
         
-        if (currentsubscription == "Advanced" && subsriptiontype == "Basic") || (currentsubscription == "Pro" && subsriptiontype == "Basic") || (currentsubscription == "Pro" && subsriptiontype == "Advanced") || subsriptionType == .free{
+        if (currentsubscription == "Advanced" && subsriptiontype == "Basic") || (currentsubscription == "Premium" && subsriptiontype == "Basic") || (currentsubscription == "Premium" && subsriptiontype == "Advanced") || subsriptionType == .free{
             upgradeStr = "Downgrading"
         }
         
@@ -526,7 +526,7 @@ class SubscriptionsViewController: UIViewController {
         }else if Defaults.shared.appMode == .advanced{
             currentsubscription = "Advanced"
         }else if Defaults.shared.appMode == .professional{
-            currentsubscription = "Pro"
+            currentsubscription = "Premium"
         }
         var subsriptiontype = "Basic"
         if subsriptionType == .basic{
@@ -534,9 +534,8 @@ class SubscriptionsViewController: UIViewController {
         }else if subsriptionType == .advanced{
             subsriptiontype = "Advanced"
         }else if subsriptionType == .professional{
-            subsriptiontype = "Pro"
+            subsriptiontype = "Premium"
         }
-        
         
         self.lblcancelConfirmedPopupTitle.text = "Your \(currentsubscription) has been cancelled and your account is ready to be upgraded to \(subsriptiontype)."
         self.cancelConfirmedPopupView.isHidden = false

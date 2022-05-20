@@ -611,7 +611,7 @@ enum AppMode: Int, AppMode_Enum {
         case .advanced:
             return "Advanced"
         case .professional:
-            return "Pro"
+            return "Premium"
         }
     }
     
