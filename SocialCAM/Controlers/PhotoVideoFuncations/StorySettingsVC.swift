@@ -590,7 +590,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
-            hideUnhideImgButton(cell, R.image.settings_ShareYourRefereralLink())
+            hideUnhideImgButton(cell, R.image.referralWizard())
         }else if settingTitle.settingsType == .qrcode {
             hideUnhideImgButton(cell, R.image.settings_QRCode())
         }else if settingTitle.settingsType == .accountSettings {
@@ -1392,7 +1392,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
-            cell.socialImageView?.image = R.image.settings_ShareYourRefereralLink()
+            cell.socialImageView?.image = R.image.referralWizard()
         }else if settingTitle.settingsType == .qrcode {
             cell.socialImageView?.image =  R.image.settings_QRCode()
         }else if settingTitle.settingsType == .accountSettings {
