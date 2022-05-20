@@ -1085,10 +1085,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuw-M7-7ET">
-                                <rect key="frame" x="0.0" y="64" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IPhone: 4.99/month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-5T-6cw">
-                                        <rect key="frame" x="20" y="40.5" width="154.5" height="19.5"/>
+                                        <rect key="frame" x="20" y="30.5" width="154.5" height="19.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1098,7 +1098,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                 <constraints>
                                     <constraint firstItem="YBC-5T-6cw" firstAttribute="leading" secondItem="cuw-M7-7ET" secondAttribute="leading" constant="20" id="JdL-fU-okQ"/>
                                     <constraint firstItem="YBC-5T-6cw" firstAttribute="centerY" secondItem="cuw-M7-7ET" secondAttribute="centerY" id="RSh-Tb-KSo"/>
-                                    <constraint firstAttribute="height" constant="100" id="qWG-XC-8u4"/>
+                                    <constraint firstAttribute="height" constant="80" id="qWG-XC-8u4"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJv-Vq-jM4">
@@ -1164,10 +1164,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NAg-Ea-48o">
-                                <rect key="frame" x="0.0" y="164" width="320" height="329"/>
+                                <rect key="frame" x="0.0" y="144" width="320" height="349"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TDP-IX-sOQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="329"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="Qdf-E2-leO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="360"/>
@@ -1179,20 +1179,69 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XK-th-YDK">
-                                                    <rect key="frame" x="30" y="45.5" width="280" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XK-th-YDK">
+                                                    <rect key="frame" x="30" y="45.5" width="280" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pic2Art (iPhone Only)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-0J-dp8">
+                                                    <rect key="frame" x="20" y="83.5" width="172" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1N-NH-SvP">
+                                                    <rect key="frame" x="30" y="109" width="280" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video Editor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9y4-35-Utw">
+                                                    <rect key="frame" x="20" y="147" width="97.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhb-nA-d7n">
+                                                    <rect key="frame" x="30" y="172.5" width="37" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Referral Duplication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTm-nk-haf">
+                                                    <rect key="frame" x="20" y="210.5" width="157.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ngf-hk-oL5">
+                                                    <rect key="frame" x="30" y="236" width="37" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
+                                                <constraint firstItem="Q1N-NH-SvP" firstAttribute="top" secondItem="Fsn-0J-dp8" secondAttribute="bottom" constant="5" id="3M2-23-iwh"/>
+                                                <constraint firstItem="Ngf-hk-oL5" firstAttribute="top" secondItem="dTm-nk-haf" secondAttribute="bottom" constant="5" id="4cw-HR-6OE"/>
+                                                <constraint firstItem="Zhb-nA-d7n" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="30" id="7E0-2f-E6G"/>
+                                                <constraint firstItem="dTm-nk-haf" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="20" id="Dwq-q6-0lh"/>
+                                                <constraint firstItem="Ngf-hk-oL5" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="30" id="EEU-KI-ceS"/>
+                                                <constraint firstAttribute="trailing" secondItem="Q1N-NH-SvP" secondAttribute="trailing" constant="10" id="ICg-Ch-btS"/>
+                                                <constraint firstItem="9y4-35-Utw" firstAttribute="top" secondItem="Q1N-NH-SvP" secondAttribute="bottom" constant="20" id="K6i-WR-Q7W"/>
                                                 <constraint firstItem="jpb-93-GPa" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="20" id="KIl-Zc-4FJ"/>
+                                                <constraint firstItem="Q1N-NH-SvP" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="30" id="MA2-2K-yh6"/>
                                                 <constraint firstItem="1XK-th-YDK" firstAttribute="top" secondItem="jpb-93-GPa" secondAttribute="bottom" constant="5" id="R4g-Db-y6g"/>
                                                 <constraint firstAttribute="trailing" secondItem="1XK-th-YDK" secondAttribute="trailing" constant="10" id="TJn-lK-q7T"/>
+                                                <constraint firstItem="Fsn-0J-dp8" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="20" id="Yrw-Rs-t5U"/>
+                                                <constraint firstItem="9y4-35-Utw" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="20" id="c8L-OH-X4q"/>
                                                 <constraint firstItem="jpb-93-GPa" firstAttribute="top" secondItem="Qdf-E2-leO" secondAttribute="top" constant="20" id="cM7-0f-QFc"/>
+                                                <constraint firstItem="Fsn-0J-dp8" firstAttribute="top" secondItem="1XK-th-YDK" secondAttribute="bottom" constant="20" id="cWz-d7-ysg"/>
+                                                <constraint firstItem="Zhb-nA-d7n" firstAttribute="top" secondItem="9y4-35-Utw" secondAttribute="bottom" constant="5" id="nU6-F0-qoH"/>
                                                 <constraint firstItem="1XK-th-YDK" firstAttribute="leading" secondItem="Qdf-E2-leO" secondAttribute="leading" constant="30" id="oqf-ct-RuO"/>
+                                                <constraint firstItem="dTm-nk-haf" firstAttribute="top" secondItem="Zhb-nA-d7n" secondAttribute="bottom" constant="20" id="s4c-Sf-UMe"/>
                                             </constraints>
                                         </view>
                                     </tableView>
@@ -1229,6 +1278,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
                     <connections>
                         <outlet property="lblPrice" destination="YBC-5T-6cw" id="QJf-u0-0e0"/>
                         <outlet property="lblTitle" destination="yrf-Nb-E3a" id="HkP-u2-H6h"/>
+                        <outlet property="pic2ArtSubTitleLabel" destination="Q1N-NH-SvP" id="XEv-Wk-CYL"/>
+                        <outlet property="quickCamModeSubTitles" destination="1XK-th-YDK" id="8N7-Zc-6C7"/>
+                        <outlet property="referralDupSubTitlesLabel" destination="Ngf-hk-oL5" id="jWT-1s-Ssc"/>
+                        <outlet property="videoEditorSubTitlesLabel" destination="Zhb-nA-d7n" id="5UI-r5-RxK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KoS-zL-goD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

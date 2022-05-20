@@ -12,7 +12,12 @@ class SubscriptionsViewController: UIViewController {
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
-//    @IBOutlet weak var btnUpgrade: UIButton!
+    @IBOutlet weak var quickCamModeSubTitles: UILabel!
+    @IBOutlet weak var pic2ArtSubTitleLabel: UILabel!
+    @IBOutlet weak var videoEditorSubTitlesLabel: UILabel!
+    @IBOutlet weak var referralDupSubTitlesLabel: UILabel!
+    
+    //    @IBOutlet weak var btnUpgrade: UIButton!
 //    @IBOutlet weak var lblYourCurrentPlan: UILabel!
 //    @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var freeModeAlertView: UIView!
@@ -39,6 +44,12 @@ class SubscriptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        quickCamModeSubTitles.text = "- Record in normal speed\n- Record in 2x, 3x, 4x and 5x fast motion\n- Record in -2x, -3x, -4x and -5x slow motion\n- Record up to 3 minutes\n- Save Mode"
+        pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
+        videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermark\n- Referral link\n- Share on all supported social media"
+        referralDupSubTitlesLabel.text = "- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Pro  Subscriber Badge or\n- iPhone Pro  Subscriber Badge"
+//        Referral Duplication
 //        self.viewModel.getPackageList()
 //        setupUI()
 //        lblYourCurrentPlan.isHidden = true
