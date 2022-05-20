@@ -20,6 +20,7 @@ class StorySettingsCell: UITableViewCell {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var imgSettingsIcon: UIImageView!
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var imgSubscribeBadge: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

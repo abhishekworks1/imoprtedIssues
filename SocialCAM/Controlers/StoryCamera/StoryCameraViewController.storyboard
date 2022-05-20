@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2963,7 +2963,7 @@ Countdown</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usu-Hs-5ix">
-                                                            <rect key="frame" x="45" y="0.0" width="270" height="34"/>
+                                                            <rect key="frame" x="45" y="0.0" width="226" height="34"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="ceB-GZ-mrO"/>
                                                             </constraints>
@@ -2971,6 +2971,13 @@ Countdown</string>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gmp-R7-o5v">
+                                                            <rect key="frame" x="281" y="0.0" width="34" height="34"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="Gmp-R7-o5v" secondAttribute="height" multiplier="1:1" id="US7-Hk-F6f"/>
+                                                                <constraint firstAttribute="width" constant="34" id="VaL-eg-Px1"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                 </stackView>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGI-uf-G3N" customClass="RoundedView" customModule="BoomiCam" customModuleProvider="target">
@@ -3032,6 +3039,7 @@ Countdown</string>
                                         <connections>
                                             <outlet property="badgesCountLabel" destination="Yjn-V5-Enj" id="FFq-2s-qrU"/>
                                             <outlet property="detailButton" destination="4NA-le-UqP" id="vpl-oT-6qu"/>
+                                            <outlet property="imgSubscribeBadge" destination="Gmp-R7-o5v" id="mnq-C7-mSU"/>
                                             <outlet property="onOffButton" destination="eiX-DR-pOS" id="WS9-Ef-7ma"/>
                                             <outlet property="roundedView" destination="DGI-uf-G3N" id="b73-jj-Yuu"/>
                                             <outlet property="settingsName" destination="usu-Hs-5ix" id="MqX-1E-OaG"/>

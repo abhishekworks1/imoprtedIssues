@@ -299,43 +299,57 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     // MARK: - Setup UI Methods
-    func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
+    func setUpbadgesTop() {
+        var badgearry = Defaults.shared.getbadgesArray()
+        badgearry = badgearry.filter { $0 != "iosbadge" && $0 != "androidbadge"}
         imgprelaunch.isHidden = true
         imgfoundingMember.isHidden = true
         imgSocialMediaBadge.isHidden = true
         imgSubscribeBadge.isHidden = true
+        
+        if  badgearry.count >  0 {
+            imgprelaunch.isHidden = false
+            imgprelaunch.image = UIImage.init(named: badgearry[0])
+        }
+        if  badgearry.count >  1 {
+            imgfoundingMember.isHidden = false
+            imgfoundingMember.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            imgSocialMediaBadge.isHidden = false
+            imgSocialMediaBadge.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            imgSubscribeBadge.isHidden = false
+            imgSubscribeBadge.image = UIImage.init(named: badgearry[3])
+        }
+    }
+    
+    func setUpbadgesPopUp() {
+        let badgearry = Defaults.shared.getbadgesArray()
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
         subscriptionBadgeicon.isHidden = true
         
         if  badgearry.count >  0 {
-            imgprelaunch.isHidden = false
             preLunchBadge.isHidden = false
-            imgprelaunch.image = UIImage.init(named: badgearry[0])
             preLunchBadge.image = UIImage.init(named: badgearry[0])
         }
         if  badgearry.count >  1 {
-            imgfoundingMember.isHidden = false
             foundingMergeBadge.isHidden = false
-            imgfoundingMember.image = UIImage.init(named: badgearry[1])
             foundingMergeBadge.image = UIImage.init(named: badgearry[1])
         }
         if  badgearry.count >  2 {
-            imgSocialMediaBadge.isHidden = false
             socialBadgeicon.isHidden = false
-            imgSocialMediaBadge.image = UIImage.init(named: badgearry[2])
             socialBadgeicon.image = UIImage.init(named: badgearry[2])
         }
         if  badgearry.count >  3 {
-            imgSubscribeBadge.isHidden = false
             subscriptionBadgeicon.isHidden = false
-            imgSubscribeBadge.image = UIImage.init(named: badgearry[3])
             subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
         }
     }
-  
+    
     func setUpProfileHeader() {
         userImage.layer.cornerRadius = userImage.bounds.width / 2
 //        if settingTitle.settingsType == .userDashboard {
@@ -349,8 +363,8 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
-        setUpbadges()
-//        setUpbadgesTop()
+        setUpbadgesTop()
+//        setUpbadgesPopUp()
       
        /* } else {
             blueBgImg.isHidden = true
@@ -469,7 +483,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     @IBAction func showProfileAction(_ sender: Any) {
         getVerifiedSocialPlatforms()
-        setUpbadges()
+        setUpbadgesPopUp()
         profileDisplayView.isHidden = false
         let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
         nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
@@ -561,6 +575,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
         cell.roundedView.isHidden = true
+        cell.imgSubscribeBadge.isHidden = true
         if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -603,6 +618,17 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_ReferringChannel())
         } else if settingTitle.settingsType == .subscription {
             hideUnhideImgButton(cell, R.image.settings_Subscription())
+            let badgearry = Defaults.shared.getbadgesArray()
+            if badgearry.contains("iosbadge") {
+                cell.imgSubscribeBadge.image = R.image.newIosBadge()
+                cell.imgSubscribeBadge.isHidden = false
+            } else if badgearry.contains("androidbadge") {
+                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
+                cell.imgSubscribeBadge.isHidden = false
+            } else if badgearry.contains("webbadge") {
+                cell.imgSubscribeBadge.image = R.image.webbadge()
+                cell.imgSubscribeBadge.isHidden = false
+            }
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
@@ -700,7 +726,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
             self?.getVerifiedSocialPlatforms()
-            self?.setUpbadges()
+            self?.setUpbadgesTop()
+            self?.setUpbadgesPopUp()
             headerView.badgeIconHeightConstraint.constant = 45
             self?.profileDisplayView.isHidden = false
             let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
