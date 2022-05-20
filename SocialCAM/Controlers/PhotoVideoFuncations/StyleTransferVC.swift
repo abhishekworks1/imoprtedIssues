@@ -58,7 +58,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     var isShowHideMode: Bool = false {
         didSet {
             btnDropDown.isHidden = isShowHideMode
-            btnSlideShow.isHidden = !isShowHideMode
+            btnSlideShow.isHidden = true//!isShowHideMode
             btnCollage.isHidden = !isShowHideMode
         }
     }
