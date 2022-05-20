@@ -152,8 +152,8 @@ public class LoadingView: UIView {
         super.init(frame: frame)
         setup()
     }
-    
-    func advertisementTimer() {
+   
+    func startAdvertisementTimer() {
         if imgAdvertisementArray.count == 0 {
             imgAdvertise.isHidden = true
         } else {
@@ -162,12 +162,14 @@ public class LoadingView: UIView {
         if currentSelectedImg < imgAdvertisementArray.count {
             imgAdvertise.image = imgAdvertisementArray[currentSelectedImg]
         }
-        advertiseTimer =  Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] (_) in
+        advertiseTimer =  Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self] (_) in
             guard let `self` = self else {
                 return
             }
             self.manageAdvertisement()
         }
+        advertiseTimer?.tolerance = 0.1
+        
     }
     
     func manageAdvertisement() {
@@ -178,9 +180,7 @@ public class LoadingView: UIView {
             currentSelectedImg = 0
         }
         if currentSelectedImg < imgAdvertisementArray.count {
-            DispatchQueue.main.async {
-                self.imgAdvertise.image = self.imgAdvertisementArray[self.currentSelectedImg]
-            }
+            self.imgAdvertise.image = self.imgAdvertisementArray[self.currentSelectedImg]
         }
     }
     
@@ -236,7 +236,6 @@ public class LoadingView: UIView {
             }
         }
         imgAdvertisementArray.shuffle()
-        advertisementTimer()
     }
     
     func checkForBanners(bannerImg: UIImage?) {

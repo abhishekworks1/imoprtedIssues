@@ -701,7 +701,7 @@ class Defaults {
     
     var cameraGuidelineActiveColor: UIColor {
         get {
-            return appDefaults?.getColor(forKey: "cameraGuidelineActiveColor") ?? R.color.active5()!
+            return appDefaults?.getColor(forKey: "cameraGuidelineActiveColor") ?? R.color.active1()!
         }
         set {
             appDefaults?.setColor(newValue, forKey: "cameraGuidelineActiveColor")
@@ -710,7 +710,7 @@ class Defaults {
     
     var cameraGuidelineInActiveColor: UIColor {
         get {
-            return appDefaults?.getColor(forKey: "cameraGuidelineInActiveColor") ?? R.color.inActive6()!
+            return appDefaults?.getColor(forKey: "cameraGuidelineInActiveColor") ?? R.color.inActive7()!
         }
         set {
             appDefaults?.setColor(newValue, forKey: "cameraGuidelineInActiveColor")

@@ -483,7 +483,7 @@ enum GuidelineActiveColors: Int {
         case "#FF1BE3":
             return .active8
         default:
-            return .active6
+            return .active4
         }
     }
     
@@ -539,7 +539,7 @@ enum GuidelineInActiveColors: Int {
         case "#FF1BE3":
             return .inActive8
         default:
-            return .inActive6
+            return .inActive7
         }
     }
     
@@ -611,7 +611,7 @@ enum AppMode: Int, AppMode_Enum {
         case .advanced:
             return "Advanced"
         case .professional:
-            return "Pro"
+            return "Premium"
         }
     }
     

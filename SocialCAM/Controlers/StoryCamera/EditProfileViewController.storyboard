@@ -42,15 +42,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYT-ji-1C7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                                        <rect key="frame" x="177.5" y="2" width="59" height="26.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87y-2C-cnA">
-                                                        <rect key="frame" x="374" y="4" width="25" height="22"/>
+                                                        <rect key="frame" x="246.5" y="2.5" width="25" height="25"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="25" id="YVm-ka-C95"/>
+                                                            <constraint firstAttribute="width" constant="25" id="p58-cK-sy4"/>
+                                                            <constraint firstAttribute="height" constant="25" id="wiN-AN-pwj"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="editDisplayName"/>
                                                     </button>
@@ -63,16 +64,14 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="UYT-ji-1C7" secondAttribute="bottom" id="4r2-Xt-aML"/>
                                                     <constraint firstAttribute="trailing" secondItem="2J0-c7-Gj7" secondAttribute="trailing" id="IPy-Dr-EgA"/>
+                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="leading" secondItem="UYT-ji-1C7" secondAttribute="trailing" constant="10" id="K2d-jr-wM9"/>
+                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="centerX" secondItem="0J6-CG-hzD" secondAttribute="centerX" id="SV6-tZ-mKn"/>
                                                     <constraint firstItem="2J0-c7-Gj7" firstAttribute="top" secondItem="0J6-CG-hzD" secondAttribute="top" id="WzD-jL-OH8"/>
-                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="centerY" secondItem="0J6-CG-hzD" secondAttribute="centerY" id="dfV-AI-lSd"/>
-                                                    <constraint firstAttribute="trailing" secondItem="87y-2C-cnA" secondAttribute="trailing" constant="15" id="hVN-Cs-2ak"/>
-                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="top" secondItem="0J6-CG-hzD" secondAttribute="top" id="iAM-Bb-p2A"/>
-                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="leading" secondItem="0J6-CG-hzD" secondAttribute="leading" id="lW1-0d-SXP"/>
+                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="centerY" secondItem="0J6-CG-hzD" secondAttribute="centerY" id="aqf-EX-AZY"/>
                                                     <constraint firstAttribute="bottom" secondItem="2J0-c7-Gj7" secondAttribute="bottom" id="rXJ-7t-HH8"/>
                                                     <constraint firstItem="2J0-c7-Gj7" firstAttribute="leading" secondItem="0J6-CG-hzD" secondAttribute="leading" id="tAg-kx-hbf"/>
-                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="leading" secondItem="UYT-ji-1C7" secondAttribute="trailing" id="uk2-q1-nsg"/>
+                                                    <constraint firstItem="UYT-ji-1C7" firstAttribute="centerY" secondItem="0J6-CG-hzD" secondAttribute="centerY" id="yO8-ou-gIb"/>
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3WO-30-aTw">

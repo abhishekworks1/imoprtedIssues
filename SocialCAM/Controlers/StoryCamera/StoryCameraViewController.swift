@@ -773,7 +773,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             if Defaults.shared.appMode != .free {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                     if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                        if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial"{
+                        if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
                             self.cameraSliderView.stringArray.remove(at: 0)
                             self.cameraSliderView.collectionView.reloadData()
                         }
@@ -781,7 +781,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 }
             } else {
                 if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                    if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial"{
+                    if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
                     }
@@ -972,14 +972,38 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = 3
         default:
-            speedOptions.append(contentsOf: ["4x", "5x"])
-            speedOptions.insert(contentsOf: [recordingType == .fastMotion ? "" : "-5x", recordingType == .fastMotion ? "" : "-4x"], at: 0)
-            verticalLines.numberOfViews = .speed5x
-            speedSliderLabels.names = speedOptions
-            speedSliderLabels.value = 4
-            speedSlider.ticksListener = speedSliderLabels
-            speedSlider.tickCount = speedOptions.count
-            speedSlider.value = 4
+            if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue == "trial" && self.selectedCellIndex == 0 {
+                    speedOptions = ["", "", "1x", "2x", "3x"]
+                    verticalLines.numberOfViews = .speed3x
+                    speedSliderLabels.names = speedOptions
+                    speedSliderLabels.value = 2
+                    speedSlider.ticksListener = speedSliderLabels
+                    speedSlider.tickCount = speedOptions.count
+                    speedSlider.value = 2
+                    
+                } else {
+                    speedOptions.append(contentsOf: ["4x", "5x"])
+                    speedOptions.insert(contentsOf: [recordingType == .fastMotion ? "" : "-5x", recordingType == .fastMotion ? "" : "-4x"], at: 0)
+                    verticalLines.numberOfViews = .speed5x
+                    
+                    speedSliderLabels.names = speedOptions
+                    speedSliderLabels.value = 4
+                    speedSlider.ticksListener = speedSliderLabels
+                    speedSlider.tickCount = speedOptions.count
+                    speedSlider.value = 4
+                }
+            } else {
+                speedOptions.append(contentsOf: ["4x", "5x"])
+                speedOptions.insert(contentsOf: [recordingType == .fastMotion ? "" : "-5x", recordingType == .fastMotion ? "" : "-4x"], at: 0)
+                verticalLines.numberOfViews = .speed5x
+                
+                speedSliderLabels.names = speedOptions
+                speedSliderLabels.value = 4
+                speedSlider.ticksListener = speedSliderLabels
+                speedSlider.tickCount = speedOptions.count
+                speedSlider.value = 4
+            }
         }
         if recordingType == .fastMotion {
             verticalLines.visibleLeftSideViews = false
