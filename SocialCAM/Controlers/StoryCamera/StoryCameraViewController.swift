@@ -729,12 +729,15 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                 } else {
                                     self.cameraSliderView.selectCell = self.selectedCellIndex ?? 0
                                 }
-                                
                                 self.cameraSliderView.collectionView.reloadData()
                             }
                         }
                     }
                 }
+            } else {
+                self.isFreshSession = false
+                self.cameraSliderView.selectCell = 0
+                self.cameraSliderView.collectionView.reloadData()
             }
         }
         
