@@ -94,6 +94,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             recordButtonCenterPoint = circularProgress.center
             startRecording()
             onStartRecordSetSpeed()
+            if recordingType == .newNormal {
+                self.speedLabel.text = ""
+                self.speedLabel.stopBlink()
+            }
             isRecording = true
 //            self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
 //            if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
