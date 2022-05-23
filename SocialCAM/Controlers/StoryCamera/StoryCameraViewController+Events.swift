@@ -132,39 +132,26 @@ extension StoryCameraViewController {
         blurView1.effect = UIBlurEffect.init(style: .light)
         previewView?.addSubview(blurView1)
         
-            self.flipButton.transform = CGAffineTransform(rotationAngle: 0)
-            UIView.animate(withDuration: 0.4) {
-                self.flipButton.transform = CGAffineTransform(rotationAngle: .pi)
-                UIView.animate(withDuration: 0.4) {
-                    self.flipButton.transform = CGAffineTransform(rotationAngle: .pi)
-                    UIView.animate(withDuration: 0.2) {
-                        self.flipButton.transform = CGAffineTransform(rotationAngle: 0)
-                    }
-                }
-                
+        UIView.animate(withDuration: 0.8) { [self] in
+            if self.currentCameraPosition == .front {
+                self.flipButton.transform = CGAffineTransform(scaleX: -1, y: 1)
+            } else {
+                self.flipButton.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
-        
-        UIView.transition(with: previewView ?? self.view,
-                          duration: 0.8,
-                          options: .transitionFlipFromBottom,
-                          animations: {
-                            self.nextLevel.flipCaptureDevicePosition()
-        }, completion: { (_) in
+        } completion: { (_) in
+            self.nextLevel.flipCaptureDevicePosition()
             blurView1.removeFromSuperview()
             if  (self.currentCameraPosition == .front){
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_rear)
-
             }else{
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_front)
-               
             }
 //            Defaults.shared.callHapticFeedback(isHeavy: false)
             self.flipButton.isSelected = !self.flipButton.isSelected
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
             self.setCameraPositionUI()
             Defaults.shared.cameraPosition = self.currentCameraPosition.rawValue
-           
-        })
+        }
     }
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {

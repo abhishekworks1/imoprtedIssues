@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1202,7 +1202,7 @@
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pa1-CV-4dq">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="47.333333333333336" height="68"/>
-                                                                                <state key="normal" image="cameraFlip"/>
+                                                                                <state key="normal" image="cameraFlip_New1"/>
                                                                                 <connections>
                                                                                     <action selector="flipButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="B4R-cp-qwl"/>
                                                                                 </connections>
@@ -4718,10 +4718,10 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuildlineIconPositionTableViewCell" id="j7I-aS-qpA" customClass="GuildlineIconPositionTableViewCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="714" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="714" width="359" height="205"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j7I-aS-qpA" id="XwH-N4-03v">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="205"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="daN-Le-8lz">
@@ -4740,14 +4740,14 @@ Countdown</string>
                                                     <color key="textColor" name="AppPrimaryColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3yM-td-Ffl">
-                                                    <rect key="frame" x="10" y="48" width="339" height="0.0"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3yM-td-Ffl">
+                                                    <rect key="frame" x="10" y="48" width="339" height="132"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-j3-8vH">
-                                                            <rect key="frame" x="0.0" y="-25" width="81.666666666666671" height="25"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-j3-8vH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="132"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oZM-te-4Fr">
-                                                                    <rect key="frame" x="12.333333333333332" y="5" width="57.333333333333343" height="20"/>
+                                                                    <rect key="frame" x="12.333333333333332" y="112" width="57.333333333333343" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioSelected" translatesAutoresizingMaskIntoConstraints="NO" id="oZ7-qa-TpJ">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -4765,10 +4765,10 @@ Countdown</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solidLine" translatesAutoresizingMaskIntoConstraints="NO" id="nO1-KO-mzp">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="107"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz1-R4-uOj">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="132"/>
                                                                     <connections>
                                                                         <action selector="btnSoldTapped:" destination="j7I-aS-qpA" eventType="touchUpInside" id="UGF-Dq-ehl"/>
                                                                     </connections>
@@ -4788,11 +4788,11 @@ Countdown</string>
                                                                 <constraint firstItem="xz1-R4-uOj" firstAttribute="centerX" secondItem="lhI-j3-8vH" secondAttribute="centerX" id="zvM-BO-q58"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OiU-H1-LqU">
-                                                            <rect key="frame" x="85.666666666666671" y="-25" width="82.000000000000014" height="25"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OiU-H1-LqU">
+                                                            <rect key="frame" x="85.666666666666671" y="0.0" width="82.000000000000014" height="132"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ikq-pv-Avw">
-                                                                    <rect key="frame" x="6.3333333333333286" y="5" width="69.333333333333329" height="20"/>
+                                                                    <rect key="frame" x="6.3333333333333286" y="112" width="69.333333333333329" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="28M-qw-THE">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -4810,10 +4810,10 @@ Countdown</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dottedLine" translatesAutoresizingMaskIntoConstraints="NO" id="4nZ-VK-2BU">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="107"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmG-lE-NCg">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="132"/>
                                                                     <connections>
                                                                         <action selector="btnDottedTapped:" destination="j7I-aS-qpA" eventType="touchUpInside" id="3Be-s1-8At"/>
                                                                     </connections>
@@ -4833,11 +4833,11 @@ Countdown</string>
                                                                 <constraint firstItem="4nZ-VK-2BU" firstAttribute="leading" secondItem="OiU-H1-LqU" secondAttribute="leading" id="zrV-BE-O5d"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJ8-ez-Chd">
-                                                            <rect key="frame" x="171.66666666666666" y="-25" width="81.666666666666657" height="25"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJ8-ez-Chd">
+                                                            <rect key="frame" x="171.66666666666666" y="0.0" width="81.666666666666657" height="132"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7Bq-jc-eJf">
-                                                                    <rect key="frame" x="3.6666666666666856" y="5" width="74.333333333333329" height="20"/>
+                                                                    <rect key="frame" x="3.6666666666666856" y="112" width="74.333333333333329" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="p1L-Ab-GtA">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -4855,10 +4855,10 @@ Countdown</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dashedLine" translatesAutoresizingMaskIntoConstraints="NO" id="9GK-Ta-kTu">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="107"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAQ-zs-Oh1">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="132"/>
                                                                     <connections>
                                                                         <action selector="btnDashedTapped:" destination="j7I-aS-qpA" eventType="touchUpInside" id="iie-al-CQ3"/>
                                                                     </connections>
@@ -4878,11 +4878,11 @@ Countdown</string>
                                                                 <constraint firstAttribute="trailing" secondItem="9GK-Ta-kTu" secondAttribute="trailing" id="yh9-q7-1dh"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O2w-rQ-eZf">
-                                                            <rect key="frame" x="257.33333333333331" y="-25" width="81.666666666666686" height="25"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O2w-rQ-eZf">
+                                                            <rect key="frame" x="257.33333333333331" y="0.0" width="81.666666666666686" height="132"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Wnu-ls-70b">
-                                                                    <rect key="frame" x="13.333333333333371" y="5" width="55" height="20"/>
+                                                                    <rect key="frame" x="13.333333333333371" y="112" width="55" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="xjj-Od-Yv1">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -4900,10 +4900,10 @@ Countdown</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCR-l9-MfW">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="107"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="us5-wL-lqs">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="132"/>
                                                                     <connections>
                                                                         <action selector="btnHideTapped:" destination="j7I-aS-qpA" eventType="touchUpInside" id="J2z-cX-q3A"/>
                                                                     </connections>
@@ -4955,7 +4955,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ColorPickCell" id="AcL-i8-6c0" customClass="ColorPickCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="758" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="919" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AcL-i8-6c0" id="bvI-D0-q7c">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -5143,7 +5143,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SystemSettingsCell" id="LNm-N2-7nK" userLabel="SystemSettingsCell" customClass="SystemSettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="802" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="963" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LNm-N2-7nK" id="7Ze-JY-kNK">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -8830,7 +8830,7 @@ Countdown</string>
         <image name="blueBg" width="786" height="276"/>
         <image name="businessCenter" width="80" height="121"/>
         <image name="calculatorHelp" width="12" height="12"/>
-        <image name="cameraFlip" width="32" height="32"/>
+        <image name="cameraFlip_New1" width="30" height="25"/>
         <image name="cameraOptionSet" width="82" height="167"/>
         <image name="cancelDownload" width="16" height="16"/>
         <image name="chatOption" width="82" height="167"/>
