@@ -724,7 +724,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         if i == 0 {
                             if cameraMode.recordingType == .newNormal {
                                 self.isFreshSession = false
-                                if self.selectedCellIndex == nil {
+                                if self.selectedCellIndex == nil || self.selectedCellIndex == 0 {
                                     self.cameraSliderView.selectCell = 1
                                 } else {
                                     self.cameraSliderView.selectCell = self.selectedCellIndex ?? 0
