@@ -143,6 +143,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var outtakesButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
+            settingsButton.tintColor = .white
             settingsButton.setImage(R.image.mobiledashboard()!, for: .normal)
             settingsButton.setImage(R.image.storyBack()!, for: .selected)
         }
