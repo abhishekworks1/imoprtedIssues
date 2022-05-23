@@ -2516,10 +2516,10 @@ extension StoryCameraViewController {
         switch self.currentCameraPosition {
         case .front:
             self.flipLabel.text = R.string.localizable.selfie()
-            self.flipButton.setImage(R.image.cameraFlip_New(), for: UIControl.State.normal)
+            self.flipButton.setImage(R.image.cameraFlip_New1(), for: UIControl.State.normal)
         case .back:
             self.flipLabel.text = R.string.localizable.rear()
-            self.flipButton.setImage(R.image.cameraFlip_New(), for: UIControl.State.normal)
+            self.flipButton.setImage(R.image.cameraFlip_New1(), for: UIControl.State.normal)
         default:
             break
         }

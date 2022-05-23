@@ -133,8 +133,15 @@ extension StoryCameraViewController {
         previewView?.addSubview(blurView1)
         
             self.flipButton.transform = CGAffineTransform(rotationAngle: 0)
-            UIView.animate(withDuration: 0.8) {
+            UIView.animate(withDuration: 0.4) {
                 self.flipButton.transform = CGAffineTransform(rotationAngle: .pi)
+                UIView.animate(withDuration: 0.4) {
+                    self.flipButton.transform = CGAffineTransform(rotationAngle: .pi)
+                    UIView.animate(withDuration: 0.2) {
+                        self.flipButton.transform = CGAffineTransform(rotationAngle: 0)
+                    }
+                }
+                
             }
         
         UIView.transition(with: previewView ?? self.view,
