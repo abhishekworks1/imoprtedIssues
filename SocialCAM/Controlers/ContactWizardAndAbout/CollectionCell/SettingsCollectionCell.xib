@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -66,6 +66,47 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7D-vm-SIX">
+                                <rect key="frame" x="65" y="12" width="91" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-1f-bzZ">
+                                        <rect key="frame" x="45.5" y="0.0" width="0.0" height="50"/>
+                                        <subviews>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-bF-b12">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="K0J-32-5zD"/>
+                                                    <constraint firstAttribute="width" constant="40" id="lro-3H-EH0"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VIQ-gU-gsh">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="F8D-b9-iIV"/>
+                                                    <constraint firstAttribute="width" constant="40" id="yHd-VT-1un"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kIx-7x-dmJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="DJk-1W-Rhe"/>
+                                                    <constraint firstAttribute="height" constant="50" id="xk1-Dt-w4N"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="vIy-4v-vFw"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="mmt-qa-UQa"/>
+                                    <constraint firstItem="nlh-1f-bzZ" firstAttribute="centerY" secondItem="p7D-vm-SIX" secondAttribute="centerY" id="v8j-GZ-cIY"/>
+                                    <constraint firstItem="nlh-1f-bzZ" firstAttribute="centerX" secondItem="p7D-vm-SIX" secondAttribute="centerX" id="wXE-Ne-yIZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -77,7 +118,10 @@
                             <constraint firstAttribute="bottom" secondItem="f9i-pL-2RJ" secondAttribute="bottom" constant="12" id="OIT-WL-BXe"/>
                             <constraint firstItem="ZXV-yB-aJp" firstAttribute="leading" secondItem="eQq-KK-1vL" secondAttribute="leading" constant="15" id="OqI-L1-s8f"/>
                             <constraint firstItem="XEw-7i-Cp9" firstAttribute="top" secondItem="eQq-KK-1vL" secondAttribute="top" constant="12" id="Tpn-0R-0xY"/>
+                            <constraint firstAttribute="trailing" secondItem="p7D-vm-SIX" secondAttribute="trailing" id="j6y-x0-dax"/>
                             <constraint firstItem="f9i-pL-2RJ" firstAttribute="leading" secondItem="eQq-KK-1vL" secondAttribute="leading" constant="12" id="lrl-Kx-BNw"/>
+                            <constraint firstItem="p7D-vm-SIX" firstAttribute="top" secondItem="ZXV-yB-aJp" secondAttribute="top" id="ov8-eH-CQc"/>
+                            <constraint firstItem="p7D-vm-SIX" firstAttribute="leading" secondItem="ZXV-yB-aJp" secondAttribute="trailing" id="rU8-ht-17V"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
@@ -102,6 +146,7 @@
             <size key="customSize" width="176" height="171"/>
             <connections>
                 <outlet property="countLabel" destination="F1j-ae-V5Q" id="GM7-Pe-nAC"/>
+                <outlet property="imgSubscribeBadge" destination="gpB-bF-b12" id="9va-dV-zgZ"/>
                 <outlet property="roundedView" destination="XEw-7i-Cp9" id="X7N-yw-C5A"/>
                 <outlet property="settingsName" destination="f9i-pL-2RJ" id="x4h-C1-on5"/>
                 <outlet property="socialImageView" destination="ZXV-yB-aJp" id="Tzn-qa-67t"/>
@@ -112,7 +157,7 @@
     <resources>
         <image name="Settings_Notifications" width="120" height="120"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
