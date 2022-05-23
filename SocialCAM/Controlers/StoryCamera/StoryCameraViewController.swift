@@ -2516,10 +2516,14 @@ extension StoryCameraViewController {
         switch self.currentCameraPosition {
         case .front:
             self.flipLabel.text = R.string.localizable.selfie()
-            self.flipButton.setImage(R.image.cameraFlip_New1(), for: UIControl.State.normal)
+//            if let cgimg = R.image.cameraFlip_New1()?.cgImage {
+//                let image = UIImage(cgImage:cgimg, scale: 1.0, orientation: .downMirrored)
+//            self.flipButton.setImage(image, for: UIControl.State.normal)
+//            }
         case .back:
             self.flipLabel.text = R.string.localizable.rear()
-            self.flipButton.setImage(R.image.cameraFlip_New1(), for: UIControl.State.normal)
+//            self.flipButton.setImage(R.image.cameraFlip_New1(), for: UIControl.State.normal)
+//            UIView.transition(with: self.flipButton, duration: 2, options: .transitionFlipFromRight, animations: nil, completion: nil)
         default:
             break
         }
