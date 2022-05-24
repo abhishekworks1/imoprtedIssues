@@ -24,7 +24,7 @@ class StorySettingsCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        shadowView.dropShadow(color: .lightGray, opacity: 0.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: true)
+        shadowView.dropShadowNew()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
