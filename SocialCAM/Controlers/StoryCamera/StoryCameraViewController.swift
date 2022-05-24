@@ -143,7 +143,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var outtakesButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
-            settingsButton.setImage(R.image.storySettings()!, for: .normal)
+            settingsButton.tintColor = .white
+            settingsButton.setImage(R.image.mobiledashboard()!, for: .normal)
             settingsButton.setImage(R.image.storyBack()!, for: .selected)
         }
     }
@@ -724,17 +725,20 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         if i == 0 {
                             if cameraMode.recordingType == .newNormal {
                                 self.isFreshSession = false
-                                if self.selectedCellIndex == nil {
+                                if self.selectedCellIndex == nil || self.selectedCellIndex == 0 {
                                     self.cameraSliderView.selectCell = 1
                                 } else {
                                     self.cameraSliderView.selectCell = self.selectedCellIndex ?? 0
                                 }
-                                
                                 self.cameraSliderView.collectionView.reloadData()
                             }
                         }
                     }
                 }
+            } else {
+                self.isFreshSession = false
+                self.cameraSliderView.selectCell = 0
+                self.cameraSliderView.collectionView.reloadData()
             }
         }
         
@@ -2513,10 +2517,14 @@ extension StoryCameraViewController {
         switch self.currentCameraPosition {
         case .front:
             self.flipLabel.text = R.string.localizable.selfie()
-            self.flipButton.setImage(R.image.cameraFlip_New(), for: UIControl.State.normal)
+//            if let cgimg = R.image.cameraFlip_New1()?.cgImage {
+//                let image = UIImage(cgImage:cgimg, scale: 1.0, orientation: .downMirrored)
+//            self.flipButton.setImage(image, for: UIControl.State.normal)
+//            }
         case .back:
             self.flipLabel.text = R.string.localizable.rear()
-            self.flipButton.setImage(R.image.cameraFlip_New(), for: UIControl.State.normal)
+//            self.flipButton.setImage(R.image.cameraFlip_New1(), for: UIControl.State.normal)
+//            UIView.transition(with: self.flipButton, duration: 2, options: .transitionFlipFromRight, animations: nil, completion: nil)
         default:
             break
         }
