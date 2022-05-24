@@ -24,9 +24,9 @@ class TooltipViewController: UIViewController {
     var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip6", "Tooltip4", "Tooltip5"]
     var cameraGifArray = ["CameraTooltip"]
     var pic2ArtGifArray = ["Pic2ArtTooltip"]
-    var editGifArray = ["EditScreenTooltip1", "EditScreenTooltip2", "EditScreenTooltip3"]
+    var editGifArray = ["EditTooltip1", "EditTooltip2", "EditTooltip3"]
    
-    var editTooltipOld = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7", "editTooltip8", "editTooltip9"]
+    var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7", "editTooltip8", "editTooltip9"]
     var quickLinkGifArray = ["QuickLinkTooltip1", "QuickLinkTooltip2"]
     var gifCount = 0
     var pushFromSettingScreen = false
@@ -43,7 +43,7 @@ class TooltipViewController: UIViewController {
             btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
             btnPic2ArtSkip.isHidden = true
         } else if isEditScreenTooltip {
-            hideButtonsForEditTooltip()
+//            hideButtonsForEditTooltip()
 //            addEditTooltipToImgView(imgName: editTooltip.first ?? R.string.localizable.editTooltip1())
             hideShowSkipNextButton(shouldShow: true)
             addGifToImageView(gifName: editGifArray.first ?? R.string.localizable.pic2ArtTooltip1())
@@ -52,7 +52,7 @@ class TooltipViewController: UIViewController {
             addGifToImageView(gifName: quickLinkGifArray.first ?? R.string.localizable.quickLinkTooltip1())
         } else {
             hideShowSkipNextButton(shouldShow: false)
-            addGifToImageView(gifName: cameraGifArray.first ?? R.string.localizable.tooltip1())
+            addGifToImageView(gifName: gifArray.first ?? R.string.localizable.tooltip1())
             btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
             btnPic2ArtSkip.isHidden = true
         }
@@ -100,7 +100,6 @@ class TooltipViewController: UIViewController {
     
     @IBAction func btnNextClicked(_ sender: UIButton) {
         gifCount += 1
-        print("gifCount \(gifCount)")
         if isPic2ArtGif {
             btnSkipClicked(sender)
         } else if isQuickLinkTooltip {
@@ -113,18 +112,7 @@ class TooltipViewController: UIViewController {
                     btnPic2ArtSkip.isHidden = true
                 }
             }
-        } else if isEditScreenTooltip {
-            if gifCount == 3 {
-                btnSkipClicked(sender)
-            } else {
-                addGifToImageView(gifName: editGifArray[gifCount])
-                if gifCount == 2 {
-                    btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
-                    btnPic2ArtSkip.isHidden = true
-                }
-            }
-        }
-        else {
+        } else {
             btnSkipClicked(sender)
         }
     }
@@ -135,8 +123,7 @@ class TooltipViewController: UIViewController {
             if (gifCount == 3) {
                 navigationController?.popViewController(animated: true)
             } else {
-                addGifToImageView(gifName: editGifArray[gifCount])
-//                addEditTooltipToImgView(imgName: editTooltip[gifCount])
+                addEditTooltipToImgView(imgName: editTooltip[gifCount])
                 if gifCount == 2 {
                     btnSkipEditTooltip.isHidden = true
                 }
