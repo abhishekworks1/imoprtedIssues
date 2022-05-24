@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -83,9 +83,6 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
                                 <real key="value" value="7"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
-                                <real key="value" value="3"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
                                 <color key="value" white="0.67000000000000004" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
@@ -101,6 +98,7 @@
             </collectionViewCellContentView>
             <size key="customSize" width="176" height="171"/>
             <connections>
+                <outlet property="containerView" destination="eQq-KK-1vL" id="Hba-PJ-aNn"/>
                 <outlet property="countLabel" destination="F1j-ae-V5Q" id="GM7-Pe-nAC"/>
                 <outlet property="roundedView" destination="XEw-7i-Cp9" id="X7N-yw-C5A"/>
                 <outlet property="settingsName" destination="f9i-pL-2RJ" id="x4h-C1-on5"/>

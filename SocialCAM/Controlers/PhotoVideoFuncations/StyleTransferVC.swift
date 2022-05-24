@@ -758,7 +758,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                                 self.filteredImage = UIImage(cgImage: tempImage!)
                                 self.applyFilter()
                                 self.collectionView.reloadData()
-                                self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex-2, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                                 self.styleData[self.selectedIndex].isSelected = true
                             } catch let error as NSError {
                                 print("CoreML Model Error: \(error)")
