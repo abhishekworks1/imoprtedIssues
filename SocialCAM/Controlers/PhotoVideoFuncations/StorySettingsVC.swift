@@ -566,8 +566,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsCell.identifier, for: indexPath) as? StorySettingsCell else {
-            fatalError("\(R.reuseIdentifier.storySettingsCell.identifier) Not Found")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: StorySettingsListCell.identifier, for: indexPath) as? StorySettingsListCell else {
+            fatalError("\(StorySettingsListCell.identifier) Not Found")
         }
         let settingTitle = StorySettings.storySettings[indexPath.section]
         let settings = settingTitle.settings[indexPath.row]
@@ -664,6 +664,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func hideUnhideImgButton(_ cell: StorySettingsCell, _ image: UIImage?) {
+        cell.onOffButton.isHidden = true
+        cell.socialImageView?.isHidden = false
+        cell.socialImageView?.image = image
+    }
+    func hideUnhideImgButton(_ cell: StorySettingsListCell, _ image: UIImage?) {
         cell.onOffButton.isHidden = true
         cell.socialImageView?.isHidden = false
         cell.socialImageView?.image = image

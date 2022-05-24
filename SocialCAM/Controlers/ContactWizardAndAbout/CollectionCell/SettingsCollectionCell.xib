@@ -67,42 +67,120 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7D-vm-SIX">
-                                <rect key="frame" x="65" y="12" width="91" height="50"/>
+                                <rect key="frame" x="65" y="12" width="91" height="30"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-1f-bzZ">
-                                        <rect key="frame" x="45.5" y="0.0" width="0.0" height="50"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-1f-bzZ">
+                                        <rect key="frame" x="30.5" y="0.0" width="30" height="30"/>
                                         <subviews>
-                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-bF-b12">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEa-vj-puh" userLabel="Apple Badge">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-bF-b12">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    </imageView>
+                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7xa-a4-Szk">
+                                                        <rect key="frame" x="7.5" y="7.5" width="15" height="15"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="15" id="D4t-Th-bdQ"/>
+                                                            <constraint firstAttribute="height" constant="15" id="bBj-Eu-Lu2"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-p2-95d">
+                                                        <rect key="frame" x="13" y="11" width="4.5" height="8.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="7"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="K0J-32-5zD"/>
-                                                    <constraint firstAttribute="width" constant="40" id="lro-3H-EH0"/>
+                                                    <constraint firstItem="gpB-bF-b12" firstAttribute="leading" secondItem="LEa-vj-puh" secondAttribute="leading" id="BKb-9G-AIb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gpB-bF-b12" secondAttribute="trailing" id="CCD-k9-dt3"/>
+                                                    <constraint firstAttribute="width" constant="30" id="IM6-9V-ltt"/>
+                                                    <constraint firstItem="DYL-p2-95d" firstAttribute="centerX" secondItem="LEa-vj-puh" secondAttribute="centerX" id="J2i-Wl-aqO"/>
+                                                    <constraint firstItem="7xa-a4-Szk" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" id="Nmh-Ms-KAP"/>
+                                                    <constraint firstItem="DYL-p2-95d" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" id="So5-RP-NNE"/>
+                                                    <constraint firstItem="7xa-a4-Szk" firstAttribute="centerX" secondItem="LEa-vj-puh" secondAttribute="centerX" id="V5R-P3-dq1"/>
+                                                    <constraint firstItem="gpB-bF-b12" firstAttribute="top" secondItem="LEa-vj-puh" secondAttribute="top" id="n1o-9h-UKw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gpB-bF-b12" secondAttribute="bottom" id="p4s-Ml-W6P"/>
                                                 </constraints>
-                                            </imageView>
-                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VIQ-gU-gsh">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7D-sE-QXK" userLabel="Android Badge">
+                                                <rect key="frame" x="0.0" y="-17" width="30" height="64"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="iiO-RH-3Me">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="9oP-Nl-Gzc">
+                                                        <rect key="frame" x="7.5" y="24.5" width="15" height="15"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="15" id="iwy-Pj-9XK"/>
+                                                            <constraint firstAttribute="height" constant="15" id="l87-9A-Jjv"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYT-cB-E0d">
+                                                        <rect key="frame" x="13" y="28" width="4.5" height="8.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="7"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="F8D-b9-iIV"/>
-                                                    <constraint firstAttribute="width" constant="40" id="yHd-VT-1un"/>
+                                                    <constraint firstItem="9oP-Nl-Gzc" firstAttribute="centerX" secondItem="x7D-sE-QXK" secondAttribute="centerX" id="FXr-Dc-L34"/>
+                                                    <constraint firstItem="SYT-cB-E0d" firstAttribute="centerX" secondItem="x7D-sE-QXK" secondAttribute="centerX" id="IDJ-aQ-K1U"/>
+                                                    <constraint firstItem="iiO-RH-3Me" firstAttribute="leading" secondItem="x7D-sE-QXK" secondAttribute="leading" id="JCc-GT-kav"/>
+                                                    <constraint firstAttribute="width" constant="30" id="KZH-xm-MKv"/>
+                                                    <constraint firstItem="iiO-RH-3Me" firstAttribute="top" secondItem="x7D-sE-QXK" secondAttribute="top" id="NH4-Uk-lHX"/>
+                                                    <constraint firstAttribute="bottom" secondItem="iiO-RH-3Me" secondAttribute="bottom" id="X7j-mK-nNd"/>
+                                                    <constraint firstItem="SYT-cB-E0d" firstAttribute="centerY" secondItem="x7D-sE-QXK" secondAttribute="centerY" id="Ydg-S2-n6u"/>
+                                                    <constraint firstAttribute="trailing" secondItem="iiO-RH-3Me" secondAttribute="trailing" id="czA-iw-57V"/>
+                                                    <constraint firstItem="9oP-Nl-Gzc" firstAttribute="centerY" secondItem="x7D-sE-QXK" secondAttribute="centerY" id="tFn-CE-8Xa"/>
                                                 </constraints>
-                                            </imageView>
-                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kIx-7x-dmJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gk0-sU-yV5" userLabel="Web Badge">
+                                                <rect key="frame" x="0.0" y="-17" width="30" height="64"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="hjK-ce-751">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Fj2-Ga-8N1">
+                                                        <rect key="frame" x="7.5" y="24.5" width="15" height="15"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="15" id="T08-Kd-cwc"/>
+                                                            <constraint firstAttribute="height" constant="15" id="sEB-Ls-bsO"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC0-kT-job">
+                                                        <rect key="frame" x="13" y="28" width="4.5" height="8.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="7"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="DJk-1W-Rhe"/>
-                                                    <constraint firstAttribute="height" constant="50" id="xk1-Dt-w4N"/>
+                                                    <constraint firstItem="hC0-kT-job" firstAttribute="centerX" secondItem="gk0-sU-yV5" secondAttribute="centerX" id="64W-qP-d70"/>
+                                                    <constraint firstItem="hC0-kT-job" firstAttribute="centerY" secondItem="gk0-sU-yV5" secondAttribute="centerY" id="Qxp-Yl-H6Z"/>
+                                                    <constraint firstAttribute="width" constant="30" id="VTg-5a-PzB"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hjK-ce-751" secondAttribute="trailing" id="YPA-8L-zd6"/>
+                                                    <constraint firstItem="hjK-ce-751" firstAttribute="top" secondItem="gk0-sU-yV5" secondAttribute="top" id="ZNd-u2-c6Z"/>
+                                                    <constraint firstItem="Fj2-Ga-8N1" firstAttribute="centerY" secondItem="gk0-sU-yV5" secondAttribute="centerY" id="amZ-Rn-yc1"/>
+                                                    <constraint firstItem="Fj2-Ga-8N1" firstAttribute="centerX" secondItem="gk0-sU-yV5" secondAttribute="centerX" id="dGh-Ov-ftn"/>
+                                                    <constraint firstItem="hjK-ce-751" firstAttribute="leading" secondItem="gk0-sU-yV5" secondAttribute="leading" id="kXg-Ki-IOb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="hjK-ce-751" secondAttribute="bottom" id="on9-cM-8SP"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="vIy-4v-vFw"/>
+                                            <constraint firstAttribute="height" constant="30" id="vIy-4v-vFw"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="mmt-qa-UQa"/>
+                                    <constraint firstAttribute="height" constant="30" id="mmt-qa-UQa"/>
                                     <constraint firstItem="nlh-1f-bzZ" firstAttribute="centerY" secondItem="p7D-vm-SIX" secondAttribute="centerY" id="v8j-GZ-cIY"/>
                                     <constraint firstItem="nlh-1f-bzZ" firstAttribute="centerX" secondItem="p7D-vm-SIX" secondAttribute="centerX" id="wXE-Ne-yIZ"/>
                                 </constraints>
@@ -145,19 +223,34 @@
             </collectionViewCellContentView>
             <size key="customSize" width="176" height="171"/>
             <connections>
+                <outlet property="androidBadgeView" destination="x7D-sE-QXK" id="hY7-Fs-moj"/>
+                <outlet property="androidIconImageview" destination="9oP-Nl-Gzc" id="ZgE-hs-Ujr"/>
+                <outlet property="androidSheildImageview" destination="iiO-RH-3Me" id="Sl7-TK-lZR"/>
                 <outlet property="countLabel" destination="F1j-ae-V5Q" id="GM7-Pe-nAC"/>
                 <outlet property="imgSubscribeBadge" destination="gpB-bF-b12" id="9va-dV-zgZ"/>
+                <outlet property="iosBadgeView" destination="LEa-vj-puh" id="vdt-qh-2G5"/>
+                <outlet property="iosIconImageview" destination="7xa-a4-Szk" id="T7C-JM-v51"/>
+                <outlet property="lblandroidDaysRemains" destination="SYT-cB-E0d" id="W9W-0w-E0g"/>
+                <outlet property="lbliosDaysRemains" destination="DYL-p2-95d" id="Fvi-Dm-MWV"/>
+                <outlet property="lblwebDaysRemains" destination="hC0-kT-job" id="bqG-Wi-GKS"/>
                 <outlet property="roundedView" destination="XEw-7i-Cp9" id="X7N-yw-C5A"/>
                 <outlet property="settingsName" destination="f9i-pL-2RJ" id="x4h-C1-on5"/>
                 <outlet property="socialImageView" destination="ZXV-yB-aJp" id="Tzn-qa-67t"/>
+                <outlet property="webBadgeView" destination="gk0-sU-yV5" id="YeP-3P-pqD"/>
+                <outlet property="webIconImageview" destination="Fj2-Ga-8N1" id="7FC-AR-oAV"/>
+                <outlet property="webSheildImageview" destination="hjK-ce-751" id="iem-so-Wpx"/>
             </connections>
             <point key="canvasLocation" x="169.56521739130437" y="-17.075892857142858"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="Settings_Notifications" width="120" height="120"/>
+        <image name="advancedBadge" width="64" height="64"/>
+        <image name="androidBadge" width="64" height="64"/>
+        <image name="basicBadge" width="64" height="64"/>
+        <image name="proBadge" width="64" height="64"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

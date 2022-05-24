@@ -35,6 +35,37 @@ class StorySettingsCell: UITableViewCell {
 
 }
 
+class StorySettingsListCell: UITableViewCell {
+
+    static let identifier = "StorySettingsListCell"
+    @IBOutlet weak var badgesCountLabel: ColorBGLabel!
+    @IBOutlet weak var roundedView: RoundedView!
+    @IBOutlet weak var detailButton: UIButton!
+    @IBOutlet weak var onOffButton: UIButton!
+    @IBOutlet weak var settingsName: UILabel!
+    @IBOutlet weak var socialImageView: UIImageView?
+    @IBOutlet weak var lblPremiumVersionOnly: UILabel!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var imgSettingsIcon: UIImageView!
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var imgSubscribeBadge: UIImageView!
+    @IBOutlet weak var containerView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+      //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
+        
+        shadowView.addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
+        
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}
 
 class AppOpenSettingsCell: UITableViewCell {
 
@@ -83,4 +114,21 @@ class AppOpenSettingsCell: UITableViewCell {
         }
     }
     
+}
+
+extension UIView{
+    func addShadow(cornerRadius:CGFloat = 0.0 , borderWidth:CGFloat = 0.0 , shadowOpacity:Float = 0.0 , shadowRadius:CGFloat = 0.0){
+        // border radius
+        self.layer.cornerRadius = cornerRadius
+
+        // border
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderWidth = borderWidth
+
+        // drop shadow
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = shadowOpacity
+        self.layer.shadowRadius = shadowRadius
+        self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+    }
 }
