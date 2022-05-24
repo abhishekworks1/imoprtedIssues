@@ -949,9 +949,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     func dynamicSetSlowFastVerticalBar() {
-        print("&&&&&&&&&&&&&&&&&&&&&")
-        print(Defaults.shared.appMode)
-        print("&&&&&&&&&&&&&&&&&&&&&")
         
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
         if recordingType == .fastMotion {
@@ -1019,9 +1016,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if recordingType == .normal || recordingType == .capture {
             if isLiteApp {
                 if Defaults.shared.appMode == .professional {
-                    verticalLines.visibleLeftSideViews = true
+//                    verticalLines.visibleLeftSideViews = true
+                    if recordingType == .normal {
+                        verticalLines.visibleLeftSideViews = false
+                    } else {
+                        verticalLines.visibleLeftSideViews = true
+                    }
                 } else {
-                    verticalLines.visibleLeftSideViews = true
+//                    verticalLines.visibleLeftSideViews = true
+                    if recordingType == .normal {
+                        verticalLines.visibleLeftSideViews = false
+                    } else {
+                        verticalLines.visibleLeftSideViews = true
+                    }
                     verticalLines.numberOfViews = .speed3x
                     speedSliderLabels.names = speedOptions
                     speedSliderLabels.value = 2
@@ -1034,6 +1041,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 verticalLines.visibleLeftSideViews = true
             }
         }
+        
         if recordingType == .promo && Defaults.shared.appMode != .professional {
             timerValueView.isHidden = true
             verticalLines.visibleLeftSideViews = false

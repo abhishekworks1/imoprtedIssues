@@ -130,6 +130,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                     }
                 }
             } else if recordingType == .newNormal {
+                self.speedLabel.text = ""
+                self.speedLabel.stopBlink()
                 self.circularProgress.center = CGPoint(x: circularProgress.center.x ,y: circularProgress.center.y + translation.y - 35)
             } else{
                 self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
