@@ -244,6 +244,12 @@ class SubscriptionsViewController: UIViewController {
         }
       
         btnUpgrade.isHidden = !lblYourCurrentPlan.isHidden //if lable is visible, button will be hidden
+        btnUpgrade.isEnabled = true
+        if (Defaults.shared.subscriptionType?.lowercased() == "basic") || (Defaults.shared.subscriptionType?.lowercased() == "advance") || (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            btnUpgrade.isEnabled = false
+            btnUpgrade.backgroundColor = UIColor.gray
+        }
+
     }
     
     private func setDowngradeButton() {
