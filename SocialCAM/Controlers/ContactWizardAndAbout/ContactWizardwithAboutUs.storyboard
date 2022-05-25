@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -3495,6 +3495,18 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jse-GK-yAd">
+                                                <rect key="frame" x="59.5" y="165" width="181" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="   Set default email app." image="checkBoxInActive">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="selected" image="checkBoxActive"/>
+                                                <connections>
+                                                    <action selector="setDefaultEmailAppAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="PIh-u1-w35"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -3502,6 +3514,8 @@
                                             <constraint firstItem="KMW-ru-JA5" firstAttribute="leading" secondItem="FHz-GQ-LQS" secondAttribute="leading" constant="15" id="3XT-bP-SDf"/>
                                             <constraint firstItem="Ub0-eW-mPs" firstAttribute="centerY" secondItem="FHz-GQ-LQS" secondAttribute="centerY" id="3gR-mK-fuH"/>
                                             <constraint firstAttribute="width" constant="300" id="B88-YM-udB"/>
+                                            <constraint firstAttribute="bottom" secondItem="Jse-GK-yAd" secondAttribute="bottom" constant="15" id="DuT-WL-xtQ"/>
+                                            <constraint firstItem="Jse-GK-yAd" firstAttribute="centerX" secondItem="FHz-GQ-LQS" secondAttribute="centerX" id="H66-5r-Llj"/>
                                             <constraint firstAttribute="trailing" secondItem="KMW-ru-JA5" secondAttribute="trailing" constant="15" id="Ib6-aL-bMq"/>
                                             <constraint firstItem="KMW-ru-JA5" firstAttribute="top" secondItem="FHz-GQ-LQS" secondAttribute="top" constant="15" id="L1W-4C-URy"/>
                                             <constraint firstAttribute="height" constant="200" id="eWo-AJ-q83"/>
@@ -3625,6 +3639,7 @@
                         <outlet property="recentButton" destination="4ou-7x-ZTJ" id="eAC-91-5a9"/>
                         <outlet property="searchBar" destination="JNL-Ux-pG3" id="1T0-XB-Mtn"/>
                         <outlet property="segmentViewHeight" destination="Wv2-hj-EWY" id="8xj-rJ-10Q"/>
+                        <outlet property="setDefaultEmailAppButton" destination="Jse-GK-yAd" id="YI4-Nx-Qnd"/>
                         <outlet property="signedupButton" destination="3sT-vu-KIg" id="zjv-2S-AXe"/>
                         <outlet property="snapchatVerifiedView" destination="Mah-m9-len" id="eJx-7l-Xg5"/>
                         <outlet property="socialBadgeicon" destination="Fdn-2X-qia" id="HWg-LM-8ra"/>
@@ -3987,10 +4002,10 @@
             <color red="0.74500000476837158" green="0.82400000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

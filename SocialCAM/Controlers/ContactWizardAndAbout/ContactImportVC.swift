@@ -182,6 +182,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var emailOptionsMainView: UIView!
     @IBOutlet weak var appleEmailOptionView: UIView!
     @IBOutlet weak var gmailOptionView: UIView!
+    @IBOutlet weak var setDefaultEmailAppButton: UIButton!
     
     var isGmailOpened = false
     var isAppleEmailOpened = false
@@ -2062,7 +2063,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.emailSubjectstr = self.txtDetailForEmail
                     self.emailBodystr = urlwithString
                     self.toEmailAddress = mobileContact?.email ?? ""
-                    self.emailOptionsMainView.isHidden = false
+                    let defaulEmail = Defaults.shared.defaultEmailApp
+                    if defaulEmail?.lowercased()  == "gmail" {
+                        gmailOptionSelected(UIButton())
+                    } else if defaulEmail?.lowercased()  == "apple" {
+                        appleEmailOptionSelected(UIButton())
+                    } else {
+                        self.emailOptionsMainView.isHidden = false
+                    }
                 }
             }
             
@@ -2255,6 +2263,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func appleEmailOptionSelected(_ sender: UIButton) {
+        if setDefaultEmailAppButton.isSelected {
+            Defaults.shared.defaultEmailApp = "apple"
+        }
         self.emailOptionsMainView.isHidden = true
         if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: false) {
             UIApplication.shared.open(emailUrl) { sucess in
@@ -2268,6 +2279,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func gmailOptionSelected(_ sender: UIButton) {
+        if setDefaultEmailAppButton.isSelected {
+            Defaults.shared.defaultEmailApp = "gmail"
+        }
         self.emailOptionsMainView.isHidden = true
         if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: true) {
             UIApplication.shared.open(emailUrl) { sucess in
@@ -2280,6 +2294,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
 
+    @IBAction func setDefaultEmailAppAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
 }
 extension ContactImportVC:UIScrollViewDelegate{
     //Pagination
