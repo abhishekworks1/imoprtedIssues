@@ -650,7 +650,7 @@ extension PhotoEditorViewController {
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         if let _ = self.storyId, publish == PublishMode.unPublish.rawValue, !storyRePost {
-            let alert = UIAlertController(title: "Conform", message: "Do you want to save unPublish Image/Video?", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "Conform", message: "Do you want to save unPublish Image/quickie?", preferredStyle: .actionSheet)
             
             let yesAction = UIAlertAction(title: "Yes", style: .default, handler: handleUnPublishSave)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: handleDismiss)

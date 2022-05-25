@@ -403,14 +403,14 @@ public struct Constant {
     
     struct EditTooltip {
         static let editTooltipTextArray = ["Click on Hide icon to hide icons",
-                                           "Click on Save to save your videos. Long press to save all video segments",
-                                           "Click on Bitmoji to add your Bitmojis in the video",
+                                           "Click on Save to save your quickie. Long press to save all quickie segments",
+                                           "Click on Bitmoji to add your Bitmojis in the quickie",
                                            "Click on Hashtag to add hashtag",
                                            "Click on Sound to mute/unmute",
-                                           "Click on Crop to crop video",
-                                           "Click on Trim to trim or split the video",
-                                           "Click on Link to add your affiliate link to your videos",
-                                           "Click on Promote to add watermarks and protect your videos"]
+                                           "Click on Crop to crop quickie",
+                                           "Click on Trim to trim or split the quickie",
+                                           "Click on Link to add your affiliate link to your quickies",
+                                           "Click on Promote to add watermarks and protect your quickies"]
     }
     
     struct WebviewUserAgent {
