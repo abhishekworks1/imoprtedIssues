@@ -52,7 +52,7 @@ class TooltipViewController: UIViewController {
             addGifToImageView(gifName: quickLinkGifArray.first ?? R.string.localizable.quickLinkTooltip1())
         } else {
             hideShowSkipNextButton(shouldShow: false)
-            addGifToImageView(gifName: gifArray.first ?? R.string.localizable.tooltip1())
+            addGifToImageView(gifName: cameraGifArray.first ?? R.string.localizable.tooltip1())
             btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
             btnPic2ArtSkip.isHidden = true
         }
