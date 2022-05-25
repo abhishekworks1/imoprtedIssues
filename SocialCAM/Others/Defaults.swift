@@ -1236,7 +1236,14 @@ class Defaults {
             appDefaults?.set(newValue, forKey: StaticKeys.isShareScreenDiscardPopupChecked)
         }
     }
-    
+    var defaultEmailApp: String? {
+        get {
+            return appDefaults?.string(forKey: "defaultEmailApp")
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "defaultEmailApp")
+        }
+    }
     var isEditSoundOff: Bool {
         get {
             return appDefaults?.bool(forKey: "isEditSoundOff") ?? false
