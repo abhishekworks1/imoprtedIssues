@@ -24,7 +24,7 @@ class StorySettingsCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        shadowView.dropShadowNew()
+       // shadowView.dropShadowNew()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
