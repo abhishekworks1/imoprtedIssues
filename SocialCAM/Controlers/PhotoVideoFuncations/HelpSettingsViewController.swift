@@ -117,7 +117,9 @@ extension HelpSettingsViewController: UITableViewDelegate {
                 navigationController?.pushViewController(tooltipViewController, animated: true)
             }
         } else if settingTitle.settingsType == .edit {
-            if let tooltipViewController = R.storyboard.editTooltipViewController.editTooltipViewController() {
+            if let tooltipViewController =  R.storyboard.loginViewController.tooltipViewController() {
+                tooltipViewController.pushFromSettingScreen = true
+                tooltipViewController.isEditScreenTooltip = true
                 navigationController?.pushViewController(tooltipViewController, animated: true)
             }
         } else if settingTitle.settingsType == .quickLink {
