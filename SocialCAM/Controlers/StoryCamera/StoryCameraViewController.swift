@@ -1542,7 +1542,12 @@ extension StoryCameraViewController {
             case .capture:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_Capture)
                 if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if  subscriptionStatusValue == "expired" {
+                            self.showAlertForUpgradeSubscription()
+                        }} else {
+                            self.showAlertForUpgradeSubscription()
+                        }
                 }
                 self.circularProgress.centerImage = R.image.iconSaveMode()
                 self.timerValueView.isHidden = true
@@ -1561,7 +1566,12 @@ extension StoryCameraViewController {
             case .pic2Art:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
                 if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if  subscriptionStatusValue == "expired" {
+                            self.showAlertForUpgradeSubscription()
+                        }} else {
+                            self.showAlertForUpgradeSubscription()
+                        }
                 } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                         if isPic2ArtShowed {
@@ -1594,7 +1604,13 @@ extension StoryCameraViewController {
                 }
                 
                 if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                    
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if  subscriptionStatusValue == "expired" {
+                            self.showAlertForUpgradeSubscription()
+                        }} else {
+                            self.showAlertForUpgradeSubscription()
+                        }
                 }
 
             default:
