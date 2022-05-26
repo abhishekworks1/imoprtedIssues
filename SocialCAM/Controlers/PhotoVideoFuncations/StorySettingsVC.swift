@@ -10,6 +10,7 @@ import UIKit
 import GoogleSignIn
 import SafariServices
 import Alamofire
+import SDWebImage
 
 enum SettingsMode: Int {
     case subscriptions = 0
@@ -354,6 +355,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         userImage.layer.cornerRadius = userImage.bounds.width / 2
 //        if settingTitle.settingsType == .userDashboard {
           if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                 userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 userImage.image = ApplicationSettings.userPlaceHolder
