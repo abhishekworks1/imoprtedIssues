@@ -119,13 +119,12 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             if (recordingType == .promo) && isLiteApp {
                 if Defaults.shared.appMode == .professional {
                     if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                        if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue == "trial" && self.selectedCellIndex == 0 {
+                        if self.cameraSliderView.stringArray.count == 5 && (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") && self.selectedCellIndex == 0 {
                             let centerPoint1x = UIScreen.width / 2   // 1X point
                             let centerPoint3x =  UIScreen.width - (UIScreen.width / 6) // 3X point
                             let newX = circularProgress.center.x + translation.x - 35
                             if newX < centerPoint1x || newX > centerPoint3x{
                                 self.circularProgress.center = CGPoint(x: circularProgress.center.x,y: circularProgress.center.y)
-                                self.setNormalSpeed(selectedValue: 2)
                             }else{
                                 self.circularProgress.center = CGPoint(x: newX,y: circularProgress.center.y)
                             }
@@ -157,7 +156,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             switch Defaults.shared.appMode {
             case .free:
                 if videoSpeedType != VideoSpeedType.normal {
-                    self.setNormalSpeed(selectedValue: 2)
+                    if !isLiteApp {
+                        self.setNormalSpeed(selectedValue: 2)
+                    }
                 }
                 //return
             default:
@@ -174,18 +175,21 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             if isLiteApp {
                 if Defaults.shared.appMode == .professional {
                     if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                        if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue == "trial" && self.selectedCellIndex == 0 {
-                            speedOptions = [.normal, .normal, .normal, .fast2x, .fast3x]
+                        if self.cameraSliderView.stringArray.count == 5 && (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") && self.selectedCellIndex == 0 {
+                            speedOptions = [.normal, .normal, .normal, .normal, .fast2x, .fast3x]
                         } else {
                             speedOptions.append(contentsOf: [.fast4x, .fast5x])
                             speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
                         }
+                    } else {
+                        speedOptions.append(contentsOf: [.fast4x, .fast5x])
+                        speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
                     }
                 } else {
-                speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
-                if recordingType == .newNormal {
-                    speedOptions = [.normal, .normal, .normal, .normal, .normal, .normal]
-                }
+                    speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
+                    if recordingType == .newNormal {
+                        speedOptions = [.normal, .normal, .normal, .normal, .normal, .normal]
+                    }
                 }
             } else {
                 switch Defaults.shared.appMode {

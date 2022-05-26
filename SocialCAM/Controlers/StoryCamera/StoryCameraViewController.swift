@@ -978,7 +978,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             speedSlider.value = 3
         default:
             if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue == "trial" && self.selectedCellIndex == 0 {
+                if self.cameraSliderView.stringArray.count == 5 && (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") && self.selectedCellIndex == 0 {
                     verticalLines.visibleLeftSideViews = false
                     speedOptions = ["", "", "1x", "2x", "3x"]
                     verticalLines.numberOfViews = .speed3x
