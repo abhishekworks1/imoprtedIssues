@@ -14,6 +14,7 @@ class SubscriptionContainerViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
 
+    @IBOutlet weak var navigationBarView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var subscriptionImgV: UIImageView!
@@ -38,21 +39,35 @@ class SubscriptionContainerViewController: UIViewController {
 //        setupSubscriotion()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        navigationBarView.addBottomShadow()
+    }
     
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+        subscriptionVc.appMode = .professional
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
     
     @IBAction func didTapAdvancedButton(_ sender: UIButton) {
+        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+        subscriptionVc.appMode = .advanced
+        navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
     @IBAction func didTapBasicButton(_ sender: UIButton) {
+        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+        subscriptionVc.appMode = .basic
+        navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
     
     @IBAction func didTapFreeButton(_ sender: UIButton) {
+        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+        subscriptionVc.appMode = .free
+        navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
     
@@ -135,4 +150,18 @@ class SubscriptionContainerViewController: UIViewController {
 public protocol SubscriptionScreenDelegate: AnyObject {
 
     func backFromSubscription()
+}
+
+extension UIView {
+func addBottomShadow() {
+    layer.masksToBounds = false
+    layer.shadowRadius = 4
+    layer.shadowOpacity = 1
+    layer.shadowColor = UIColor.gray.cgColor
+    layer.shadowOffset = CGSize(width: 0 , height: 2)
+    layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                 y: bounds.maxY - layer.shadowRadius,
+                                                 width: bounds.width,
+                                                 height: layer.shadowRadius)).cgPath
+}
 }

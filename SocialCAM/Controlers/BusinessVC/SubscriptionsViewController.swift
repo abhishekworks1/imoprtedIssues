@@ -10,13 +10,16 @@ import UIKit
 
 class SubscriptionsViewController: UIViewController {
     
+    @IBOutlet weak var subScriptionTypeLabel: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var quickCamModeSubTitles: UILabel!
     @IBOutlet weak var pic2ArtSubTitleLabel: UILabel!
     @IBOutlet weak var videoEditorSubTitlesLabel: UILabel!
-    @IBOutlet weak var referralDupSubTitlesLabel: UILabel!
+    @IBOutlet weak var mobileDashboardSubTitlesLabel: UILabel!
+    @IBOutlet weak var businessDashboardSubTitleLabel: UILabel!
     
+    @IBOutlet weak var navigationBarView: UIView!
     //    @IBOutlet weak var btnUpgrade: UIButton!
 //    @IBOutlet weak var lblYourCurrentPlan: UILabel!
 //    @IBOutlet weak var tableView: UITableView!
@@ -45,10 +48,18 @@ class SubscriptionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        quickCamModeSubTitles.text = "- Record in normal speed\n- Record in 2x, 3x, 4x and 5x fast motion\n- Record in -2x, -3x, -4x and -5x slow motion\n- Record up to 3 minutes\n- Save Mode"
-        pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
-        videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermark\n- Referral link\n- Share on all supported social media"
-        referralDupSubTitlesLabel.text = "- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Pro  Subscriber Badge or\n- iPhone Pro  Subscriber Badge"
+//        switch appMode {
+//        case .professional:
+            subScriptionTypeLabel.text = "Premium"
+            quickCamModeSubTitles.text = "-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record in normal speed\n-  Record up to 3 minutes\n- Save Mode"
+            pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
+            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Premium  Subscriber Badge or\n- iPhone Premium Subscriber Badge Business Dashboard (Web access)"
+            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+//        default:
+//            break
+//        }
+      
 //        Referral Duplication
 //        self.viewModel.getPackageList()
 //        setupUI()
@@ -89,11 +100,21 @@ class SubscriptionsViewController: UIViewController {
 //        }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        navigationBarView.addBottomShadow()
+    }
+    
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
             self.enableMode(appMode: self.subscriptionType)
         }
+    }
+    
+    
+    @IBAction func didTapBackButton(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnOkayTapped(_ sender: UIButton) {
