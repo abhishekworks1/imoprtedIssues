@@ -266,7 +266,7 @@ class ParentBadges: Codable,Mappable {
     var updatedAt: String?
     var V: Int?
     var badge: Badge?
-
+    var meta: Meta?
     required init?(map: Map){
     }
 
@@ -278,6 +278,7 @@ class ParentBadges: Codable,Mappable {
         updatedAt <- map["updatedAt"]
         V <- map["__v"]
         badge <- map["badge"]
+        meta <- map["meta"]
     }
 }
 
@@ -290,7 +291,7 @@ class Badge: Codable,Mappable {
     var createdAt: String?
     var updatedAt: String?
     var V: Int?
-    var meta: Meta?
+   
 
     required init?(map: Map){
     }
@@ -303,19 +304,23 @@ class Badge: Codable,Mappable {
         createdAt <- map["createdAt"]
         updatedAt <- map["updatedAt"]
         V <- map["__v"]
-        meta <- map["meta"]
+       
     }
 }
 
 class Meta: Codable,Mappable {
 
-    var date: String?
+    //var date: String?
+    var subscriptionType: String?
+    var freeTrialDay: Int?
 
     required init?(map: Map){
     }
 
     func mapping(map: Map) {
-        date <- map["date"]
+//        date <- map["date"]
+        subscriptionType <- map["subscriptionType"]
+        freeTrialDay <- map["freeTrialDay"]
     }
 }
 /*

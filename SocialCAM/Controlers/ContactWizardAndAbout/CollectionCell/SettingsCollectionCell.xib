@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -70,7 +70,7 @@
                                 <rect key="frame" x="65" y="12" width="91" height="30"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-1f-bzZ">
-                                        <rect key="frame" x="30.5" y="0.0" width="30" height="30"/>
+                                        <rect key="frame" x="10.5" y="0.0" width="70" height="30"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEa-vj-puh" userLabel="Apple Badge">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -78,14 +78,14 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-bF-b12">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                     </imageView>
-                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7xa-a4-Szk">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7xa-a4-Szk">
                                                         <rect key="frame" x="7.5" y="7.5" width="15" height="15"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="15" id="D4t-Th-bdQ"/>
                                                             <constraint firstAttribute="height" constant="15" id="bBj-Eu-Lu2"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-p2-95d">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-p2-95d">
                                                         <rect key="frame" x="13" y="11" width="4.5" height="8.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="7"/>
                                                         <nil key="textColor"/>
@@ -105,21 +105,21 @@
                                                     <constraint firstAttribute="bottom" secondItem="gpB-bF-b12" secondAttribute="bottom" id="p4s-Ml-W6P"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7D-sE-QXK" userLabel="Android Badge">
-                                                <rect key="frame" x="0.0" y="-17" width="30" height="64"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7D-sE-QXK" userLabel="Android Badge">
+                                                <rect key="frame" x="20" y="0.0" width="30" height="30"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="iiO-RH-3Me">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="9oP-Nl-Gzc">
-                                                        <rect key="frame" x="7.5" y="24.5" width="15" height="15"/>
+                                                        <rect key="frame" x="7.5" y="7.5" width="15" height="15"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="15" id="iwy-Pj-9XK"/>
                                                             <constraint firstAttribute="height" constant="15" id="l87-9A-Jjv"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYT-cB-E0d">
-                                                        <rect key="frame" x="13" y="28" width="4.5" height="8.5"/>
+                                                        <rect key="frame" x="13" y="11" width="4.5" height="8.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="7"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -138,21 +138,21 @@
                                                     <constraint firstItem="9oP-Nl-Gzc" firstAttribute="centerY" secondItem="x7D-sE-QXK" secondAttribute="centerY" id="tFn-CE-8Xa"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gk0-sU-yV5" userLabel="Web Badge">
-                                                <rect key="frame" x="0.0" y="-17" width="30" height="64"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gk0-sU-yV5" userLabel="Web Badge">
+                                                <rect key="frame" x="40" y="0.0" width="30" height="30"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="hjK-ce-751">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Fj2-Ga-8N1">
-                                                        <rect key="frame" x="7.5" y="24.5" width="15" height="15"/>
+                                                        <rect key="frame" x="7.5" y="7.5" width="15" height="15"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="15" id="T08-Kd-cwc"/>
                                                             <constraint firstAttribute="height" constant="15" id="sEB-Ls-bsO"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC0-kT-job">
-                                                        <rect key="frame" x="13" y="28" width="4.5" height="8.5"/>
+                                                        <rect key="frame" x="13" y="11" width="4.5" height="8.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="7"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -226,11 +226,12 @@
                 <outlet property="androidBadgeView" destination="x7D-sE-QXK" id="hY7-Fs-moj"/>
                 <outlet property="androidIconImageview" destination="9oP-Nl-Gzc" id="ZgE-hs-Ujr"/>
                 <outlet property="androidSheildImageview" destination="iiO-RH-3Me" id="Sl7-TK-lZR"/>
+                <outlet property="badgeView" destination="p7D-vm-SIX" id="hrD-oV-dcj"/>
                 <outlet property="containerView" destination="Dyk-wG-SeW" id="6kG-tU-3FD"/>
                 <outlet property="countLabel" destination="F1j-ae-V5Q" id="GM7-Pe-nAC"/>
-                <outlet property="imgSubscribeBadge" destination="gpB-bF-b12" id="9va-dV-zgZ"/>
                 <outlet property="iosBadgeView" destination="LEa-vj-puh" id="vdt-qh-2G5"/>
                 <outlet property="iosIconImageview" destination="7xa-a4-Szk" id="T7C-JM-v51"/>
+                <outlet property="iosSheildImageview" destination="gpB-bF-b12" id="WSZ-8e-4nM"/>
                 <outlet property="lblandroidDaysRemains" destination="SYT-cB-E0d" id="W9W-0w-E0g"/>
                 <outlet property="lbliosDaysRemains" destination="DYL-p2-95d" id="Fvi-Dm-MWV"/>
                 <outlet property="lblwebDaysRemains" destination="hC0-kT-job" id="bqG-Wi-GKS"/>

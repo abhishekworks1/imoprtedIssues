@@ -1392,7 +1392,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         let settings = settingTitle.settings[0]
         cell.settingsName.text = settings.name
         cell.roundedView.isHidden = true
-        cell.imgSubscribeBadge.isHidden = true
+        cell.badgeView.isHidden = true
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
@@ -1427,18 +1427,21 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .referringChannel {
             cell.socialImageView?.image = R.image.settings_ReferringChannel()
         } else if settingTitle.settingsType == .subscription {
-            cell.socialImageView?.image = R.image.settings_Subscription()
-            let badgearry = Defaults.shared.getbadgesArray()
-            if badgearry.contains("iosbadge") {
-                cell.imgSubscribeBadge.image = R.image.newIosBadge()
-                cell.imgSubscribeBadge.isHidden = false
-            } else if badgearry.contains("androidbadge") {
-                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
-                cell.imgSubscribeBadge.isHidden = false
-            } else if badgearry.contains("webbadge") {
-                cell.imgSubscribeBadge.image = R.image.webbadge()
-                cell.imgSubscribeBadge.isHidden = false
-            }
+            cell.badgeView.isHidden = true
+            
+            
+//            cell.socialImageView?.image = R.image.settings_Subscription()
+//            let badgearry = Defaults.shared.getbadgesArray()
+//            if badgearry.contains("iosbadge") {
+//                cell.imgSubscribeBadge.image = R.image.newIosBadge()
+//                cell.imgSubscribeBadge.isHidden = false
+//            } else if badgearry.contains("androidbadge") {
+//                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
+//                cell.imgSubscribeBadge.isHidden = false
+//            } else if badgearry.contains("webbadge") {
+//                cell.imgSubscribeBadge.image = R.image.webbadge()
+//                cell.imgSubscribeBadge.isHidden = false
+//            }
         }
         return cell
     }
