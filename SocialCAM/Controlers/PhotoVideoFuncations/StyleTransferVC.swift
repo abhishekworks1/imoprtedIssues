@@ -732,6 +732,11 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                 if (selectedIndex % styleData.count) == 0 {
                     self.filteredImage = image
                     self.applyFilter()
+                    if self.selectedIndex >= self.styleData.count {
+                        self.collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                        self.selectedIndex = 0
+                        self.styleData[self.selectedIndex].isSelected = true
+                    }
                     return
                 }
                 guard !self.isProcessing else {
@@ -759,7 +764,13 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                                 self.applyFilter()
                                 self.collectionView.reloadData()
                                 self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex-2, section: 0), animated: false, scrollPosition: .centeredHorizontally)
-                                self.styleData[self.selectedIndex].isSelected = true
+                                if self.selectedIndex == -1 {
+                                    self.collectionView.selectItem(at: IndexPath(item: self.styleData.count - 1, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                    self.selectedIndex = self.styleData.count - 1
+                                    self.styleData[self.selectedIndex].isSelected = true
+                                } else {
+                                    self.styleData[self.selectedIndex].isSelected = true
+                                }
                             } catch let error as NSError {
                                 print("CoreML Model Error: \(error)")
                             }

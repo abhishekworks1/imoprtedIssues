@@ -2192,7 +2192,11 @@ extension StoryCameraViewController {
                         } else if isQuickApp && Defaults.shared.appMode == .basic {
                             totalSeconds = 60
                         } else {
-                            totalSeconds = 3600
+                            if isLiteApp {
+                                totalSeconds = 60
+                            } else {
+                                totalSeconds = 3600
+                            }
                         }
                     } else if isPic2ArtApp {
                         totalSeconds = 5
