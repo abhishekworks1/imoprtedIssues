@@ -1321,7 +1321,6 @@ class Defaults {
         if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
             let badgesArray = Defaults.shared.currentUser?.badges
             print("badgesArray \(imageArray)")
-            print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.toJSON()))")
             for i in 0 ..< (badgesArray?.count ?? 0){
                 let badge = badgesArray![i] as ParentBadges
                 let badImgname = self.imageNameBasedOnCode(code : badge.badge?.code ?? "")
