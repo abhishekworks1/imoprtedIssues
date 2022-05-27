@@ -577,8 +577,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
         cell.roundedView.isHidden = true
-        cell.imgSubscribeBadge.isHidden = true
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
+       if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             } else if settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
@@ -620,7 +619,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_ReferringChannel())
         } else if settingTitle.settingsType == .subscription {
             hideUnhideImgButton(cell, R.image.settings_Subscription())
-            let badgearry = Defaults.shared.getbadgesArray()
+            cell.setUpSubscriptionBadges()
+            /*let badgearry = Defaults.shared.getbadgesArray()
             if badgearry.contains("iosbadge") {
                 cell.imgSubscribeBadge.image = R.image.newIosBadge()
                 cell.imgSubscribeBadge.isHidden = false
@@ -630,7 +630,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             } else if badgearry.contains("webbadge") {
                 cell.imgSubscribeBadge.image = R.image.webbadge()
                 cell.imgSubscribeBadge.isHidden = false
-            }
+            } */
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
