@@ -610,15 +610,8 @@ extension StoryCameraViewController {
                 if let asset = self.getRecordSession(videoModel: takenVideoUrls) as? AVURLAsset {
                     SCAlbum.shared.saveMovieToLibrary(movieURL: asset.url)
                 } else {
-                    var avAssetArray = [AVAsset]()
                     let asset = self.getRecordSession(videoModel: takenVideoUrls)
-                    avAssetArray.removeAll()
-                    avAssetArray.append(asset)
-                    MeargeVide.mergeVideoArray(arrayVideos: avAssetArray) { (urlMeargeVide, error) in
-                        if let mergedVideoUrl = urlMeargeVide {
-                            SCAlbum.shared.saveMovieToLibrary(movieURL: mergedVideoUrl)
-                        }
-                    }
+                    SCAlbum.shared.saveAssetToLibrary(asset: asset)
                 }
             }
             self.openStoryEditor(segementedVideos: takenVideoUrls)
