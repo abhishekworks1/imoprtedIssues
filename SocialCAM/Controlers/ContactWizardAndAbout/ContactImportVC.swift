@@ -1930,7 +1930,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         let urlString = self.txtLinkWithCheckOut
         let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-        share(shareText: urlwithString, shareImage: self.profileView.toImage())
+        share(shareText: urlwithString, shareImage: self.imgProfilePic.image)
         
     }
     
