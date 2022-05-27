@@ -44,5 +44,95 @@ class SettingsCollectionCell: UICollectionViewCell {
         //containerView.dropShadowNew()
        
     }
-
+    func setUpSubscriptionBadges() {
+        iosBadgeView.isHidden = true
+        androidBadgeView.isHidden = true
+        webBadgeView.isHidden = true
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                
+                // Setup For iOS Badge
+                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
+                {
+                    iosBadgeView.isHidden = false
+                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
+                        lbliosDaysRemains.text = "\(freeTrialDay)"
+                        iosSheildImageview.image = R.image.freeBadge()
+                    } else {
+                        //iOS shield hide
+                        //square badge show
+                        lbliosDaysRemains.text = ""
+                        iosSheildImageview.image = R.image.squareBadge()
+                    }
+                    
+                    if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        iosSheildImageview.image = R.image.basicBadge()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        iosSheildImageview.image = R.image.advancedBadge()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        iosSheildImageview.image = R.image.proBadge()
+                    }
+                }
+                
+                if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
+                {
+                    androidBadgeView.isHidden = false
+                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
+                        lblandroidDaysRemains.text = "\(freeTrialDay)"
+                        androidSheildImageview.image = R.image.freeBadge()
+                    } else {
+                        lblandroidDaysRemains.text = ""
+                        androidSheildImageview.image = R.image.squareBadge()
+                    }
+                    
+                    if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        androidSheildImageview.image = R.image.basicBadge()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        androidSheildImageview.image = R.image.advancedBadge()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        androidSheildImageview.image = R.image.proBadge()
+                    }
+                }
+                
+                if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
+                {
+                    webBadgeView.isHidden = false
+                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
+                        lblwebDaysRemains.text = "\(freeTrialDay)"
+                        webSheildImageview.image = R.image.freeBadge()
+                    } else {
+                        lblwebDaysRemains.text = ""
+                        webSheildImageview.image = R.image.squareBadge()
+                    }
+                    
+                    if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        webSheildImageview.image = R.image.basicBadge()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        webSheildImageview.image = R.image.advancedBadge()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        webSheildImageview.image = R.image.proBadge()
+                    }
+                }
+                
+            }
+        }
+    }
 }

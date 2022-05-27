@@ -787,7 +787,12 @@ enum Badges: String {
     case SUBSCRIBER_ANDROID = "subscriber-android"
     case SUBSCRIBER_WEB = "subscriber-web"
 }
-
+enum SubscriptionTypeForBadge: String {
+    case BASIC = "basic"
+    case FREE = "trial"
+    case ADVANCE = "advance"
+    case PRO = "pro"
+  }
 enum FileExtension: String {
     case jpg = ".jpg"
     case png = ".png"
