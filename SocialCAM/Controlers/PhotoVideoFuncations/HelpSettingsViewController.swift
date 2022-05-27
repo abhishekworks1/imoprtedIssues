@@ -108,6 +108,7 @@ extension HelpSettingsViewController: UITableViewDelegate {
         if settingTitle.settingsType == .instruction {
             if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
                 tooltipViewController.pushFromSettingScreen = true
+                tooltipViewController.isCameraGif = true
                 navigationController?.pushViewController(tooltipViewController, animated: true)
             }
         } else if settingTitle.settingsType == .pic2Art {

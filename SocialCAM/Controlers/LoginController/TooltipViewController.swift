@@ -22,9 +22,9 @@ class TooltipViewController: UIViewController {
     
     // MARK: - Variables declaration
     var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip6", "Tooltip4", "Tooltip5"]
-    var cameraGifArray = ["CameraTooltip"]
+    var cameraGifArray = ["CameraTooltip1","CameraTooltip2","CameraTooltip3","CameraTooltip4",]
     var pic2ArtGifArray = ["Pic2ArtTooltip"]
-    var editGifArray = ["EditTooltip1", "EditTooltip2", "EditTooltip3"]
+    var editGifArray = ["EditTooltip1"]
    
     var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7", "editTooltip8", "editTooltip9"]
     var quickLinkGifArray = ["QuickLinkTooltip1", "QuickLinkTooltip2"]
@@ -33,6 +33,7 @@ class TooltipViewController: UIViewController {
     var isPic2ArtGif = false
     var isEditScreenTooltip = false
     var isQuickLinkTooltip = false
+    var isCameraGif = false
     
     // MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -45,16 +46,16 @@ class TooltipViewController: UIViewController {
         } else if isEditScreenTooltip {
 //            hideButtonsForEditTooltip()
 //            addEditTooltipToImgView(imgName: editTooltip.first ?? R.string.localizable.editTooltip1())
-            hideShowSkipNextButton(shouldShow: true)
-            addGifToImageView(gifName: editGifArray.first ?? R.string.localizable.pic2ArtTooltip1())
+            hideShowSkipNextButton(shouldShow: false)
+            addGifToImageView(gifName: editGifArray.first ?? R.string.localizable.tooltip1())
+            btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
+            btnPic2ArtSkip.isHidden = true
         } else if isQuickLinkTooltip {
             hideShowSkipNextButton(shouldShow: false)
             addGifToImageView(gifName: quickLinkGifArray.first ?? R.string.localizable.quickLinkTooltip1())
         } else {
-            hideShowSkipNextButton(shouldShow: false)
-            addGifToImageView(gifName: cameraGifArray.first ?? R.string.localizable.tooltip1())
-            btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
-            btnPic2ArtSkip.isHidden = true
+            hideShowSkipNextButton(shouldShow: true)
+            addGifToImageView(gifName: cameraGifArray.first ?? R.string.localizable.pic2ArtTooltip1())
         }
         blurView.isHidden = true
     }
@@ -112,12 +113,12 @@ class TooltipViewController: UIViewController {
                     btnPic2ArtSkip.isHidden = true
                 }
             }
-        } else if isEditScreenTooltip {
-            if gifCount == 3 {
+        } else if isCameraGif {
+            if gifCount == 4 {
                 btnSkipClicked(sender)
             } else {
-                addGifToImageView(gifName: editGifArray[gifCount])
-                if gifCount == 2 {
+                addGifToImageView(gifName: cameraGifArray[gifCount])
+                if gifCount == 3 {
                     btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
                     btnPic2ArtSkip.isHidden = true
                 }
@@ -128,13 +129,13 @@ class TooltipViewController: UIViewController {
     }
     
     @IBAction func tooltipTapView(_ sender: UITapGestureRecognizer) {
-        if isEditScreenTooltip {
+        if  isCameraGif{
             gifCount += 1
-            if gifCount == 3 {
+            if gifCount == 4 {
                 btnSkipClicked(UIButton())
             } else {
-                addGifToImageView(gifName: editGifArray[gifCount])
-                if gifCount == 2 {
+                addGifToImageView(gifName: cameraGifArray[gifCount])
+                if gifCount == 3 {
                     btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
                     btnPic2ArtSkip.isHidden = true
                 }

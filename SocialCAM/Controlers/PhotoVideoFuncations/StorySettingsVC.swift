@@ -577,6 +577,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
         cell.roundedView.isHidden = true
+        cell.badgeView.isHidden = true
        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
