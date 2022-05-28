@@ -18,8 +18,22 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var videoEditorSubTitlesLabel: UILabel!
     @IBOutlet weak var mobileDashboardSubTitlesLabel: UILabel!
     @IBOutlet weak var businessDashboardSubTitleLabel: UILabel!
-    
     @IBOutlet weak var navigationBarView: UIView!
+    @IBOutlet weak var monthlyPriceView: UIView!
+    @IBOutlet weak var subScriptionBadgeImageView: UIImageView!
+    @IBOutlet weak var appleIconImageView: UIImageView!
+    @IBOutlet weak var trialPackExpireLabel: UILabel!
+    @IBOutlet weak var planActiveView: UIView!
+    @IBOutlet weak var yourPlanActiveLabel: UILabel!
+    @IBOutlet weak var upGradeButtonView: UIView!
+    @IBOutlet weak var upGradeButton: UIButton!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var pic2ArtTitleLabel: UILabel!
+    
+    @IBOutlet weak var days7TrialSubTitleLabel: UILabel!
+    @IBOutlet weak var days7TrialTitleLabel: UILabel!
+    
+    
     //    @IBOutlet weak var btnUpgrade: UIButton!
 //    @IBOutlet weak var lblYourCurrentPlan: UILabel!
 //    @IBOutlet weak var tableView: UITableView!
@@ -48,17 +62,71 @@ class SubscriptionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        switch appMode {
-//        case .professional:
+        switch appMode {
+        case .professional:
+            days7TrialTitleLabel.isHidden = true
+            days7TrialSubTitleLabel.isHidden = true
+            pic2ArtTitleLabel.isHidden = false
+            pic2ArtSubTitleLabel.isHidden = false
             subScriptionTypeLabel.text = "Premium"
+            subScriptionTypeLabel.textColor = UIColor.init(hexString: "5092D0")
             quickCamModeSubTitles.text = "-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record in normal speed\n-  Record up to 3 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
             mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Premium  Subscriber Badge or\n- iPhone Premium Subscriber Badge Business Dashboard (Web access)"
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
-//        default:
-//            break
-//        }
+        case .advanced:
+            pic2ArtTitleLabel.isHidden = false
+            pic2ArtSubTitleLabel.isHidden = false
+            days7TrialTitleLabel.isHidden = true
+            days7TrialSubTitleLabel.isHidden = true
+            subScriptionTypeLabel.text = "Advanced"
+            subScriptionTypeLabel.textColor = UIColor.init(hexString: "77C159")
+            quickCamModeSubTitles.text = "-  Record in 2x, 3x and 4x fast motion\n-  Record in -2x, -3x and -4x slow motion\n-  Record in normal speed\n-  Record up to 2 minutes\n- Save Mode"
+            
+            pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
+            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 2 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
+            
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Advanced Subscriber Badge or\n- iPhone Advanced Subscriber Badge Business Dashboard (Web access)"
+            
+            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+            
+        case .basic:
+            subScriptionTypeLabel.text = "Basic"
+            subScriptionTypeLabel.textColor = UIColor.init(hexString: "EAB140")
+            
+            pic2ArtTitleLabel.isHidden = true
+            pic2ArtSubTitleLabel.isHidden = true
+            days7TrialTitleLabel.isHidden = true
+            days7TrialSubTitleLabel.isHidden = true
+            quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Record in normal speed\n-  Record up to 1 minute"
+            
+            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
+            
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Basic Subscriber Badge or\n- iPhone Basic Subscriber Badge Business Dashboard (Web access)"
+            
+            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+            
+        case .free:
+            
+            pic2ArtTitleLabel.isHidden = true
+            pic2ArtSubTitleLabel.isHidden = true
+            days7TrialTitleLabel.isHidden = false
+            days7TrialSubTitleLabel.isHidden = false
+            subScriptionTypeLabel.text = "Free"
+            subScriptionTypeLabel.textColor = UIColor.init(hexString: "000000")
+            days7TrialSubTitleLabel.text = "-  Access to all Premium Features\n-  No credit card required"
+            
+            quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Record in normal speed\n-  Record up to 1 minute"
+            
+            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
+            
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Basic Subscriber Badge or\n- iPhone Basic Subscriber Badge Business Dashboard (Web access)"
+            
+            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+        default:
+            break
+        }
       
 //        Referral Duplication
 //        self.viewModel.getPackageList()
@@ -103,6 +171,7 @@ class SubscriptionsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationBarView.addBottomShadow()
+        bottomView.addShadow(location: .top)
     }
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {
