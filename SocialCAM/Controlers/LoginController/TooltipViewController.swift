@@ -52,7 +52,7 @@ class TooltipViewController: UIViewController {
             addGifToImageView(gifName: quickLinkGifArray.first ?? R.string.localizable.quickLinkTooltip1())
         } else {
             hideShowSkipNextButton(shouldShow: false)
-            addGifToImageView(gifName: gifArray.first ?? R.string.localizable.tooltip1())
+            addGifToImageView(gifName: cameraGifArray.first ?? R.string.localizable.tooltip1())
             btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
             btnPic2ArtSkip.isHidden = true
         }
@@ -112,6 +112,16 @@ class TooltipViewController: UIViewController {
                     btnPic2ArtSkip.isHidden = true
                 }
             }
+        } else if isEditScreenTooltip {
+            if gifCount == 3 {
+                btnSkipClicked(sender)
+            } else {
+                addGifToImageView(gifName: editGifArray[gifCount])
+                if gifCount == 2 {
+                    btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
+                    btnPic2ArtSkip.isHidden = true
+                }
+            }
         } else {
             btnSkipClicked(sender)
         }
@@ -120,12 +130,13 @@ class TooltipViewController: UIViewController {
     @IBAction func tooltipTapView(_ sender: UITapGestureRecognizer) {
         if isEditScreenTooltip {
             gifCount += 1
-            if (gifCount == 3) {
-                navigationController?.popViewController(animated: true)
+            if gifCount == 3 {
+                btnSkipClicked(UIButton())
             } else {
-                addEditTooltipToImgView(imgName: editTooltip[gifCount])
+                addGifToImageView(gifName: editGifArray[gifCount])
                 if gifCount == 2 {
-                    btnSkipEditTooltip.isHidden = true
+                    btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
+                    btnPic2ArtSkip.isHidden = true
                 }
             }
         }

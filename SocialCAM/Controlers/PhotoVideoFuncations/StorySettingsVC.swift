@@ -10,6 +10,7 @@ import UIKit
 import GoogleSignIn
 import SafariServices
 import Alamofire
+import SDWebImage
 
 enum SettingsMode: Int {
     case subscriptions = 0
@@ -136,11 +137,11 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
                                 StorySettings(name: "",
@@ -354,6 +355,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         userImage.layer.cornerRadius = userImage.bounds.width / 2
 //        if settingTitle.settingsType == .userDashboard {
           if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                 userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 userImage.image = ApplicationSettings.userPlaceHolder
