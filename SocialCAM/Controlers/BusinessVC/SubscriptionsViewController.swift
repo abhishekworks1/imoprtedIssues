@@ -64,8 +64,8 @@ class SubscriptionsViewController: UIViewController {
         
         setupView()
         
-//        self.viewModel.getPackageList()
-//        setupUI()
+        self.viewModel.getPackageList()
+        setupUI()
         
 //        planActiveView.isHidden = true
 //        if subscriptionType == .basic {
