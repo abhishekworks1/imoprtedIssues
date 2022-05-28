@@ -1650,7 +1650,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuw-M7-7ET">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="64" width="420" height="80"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IPhone: 4.99/month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-5T-6cw">
                                                 <rect key="frame" x="20" y="30.5" width="154.5" height="19.5"/>
@@ -1659,7 +1659,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.30196078431372547" green="0.51372549019607838" blue="0.83137254901960778" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="YBC-5T-6cw" firstAttribute="leading" secondItem="cuw-M7-7ET" secondAttribute="leading" constant="20" id="JdL-fU-okQ"/>
                                             <constraint firstItem="YBC-5T-6cw" firstAttribute="centerY" secondItem="cuw-M7-7ET" secondAttribute="centerY" id="RSh-Tb-KSo"/>
@@ -1844,8 +1844,8 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                 <rect key="frame" x="30" y="10" width="260" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Active Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXf-iw-Nbo">
-                                                        <rect key="frame" x="64" y="25" width="132" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <rect key="frame" x="54" y="23" width="152" height="24"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -1871,6 +1871,9 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                         <buttonConfiguration key="configuration" style="plain" title="Button">
                                                             <color key="baseForegroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="btnUpgradeTapped:" destination="q1U-v2-lvx" eventType="touchUpInside" id="vgP-fy-KMZ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.52549019607843139" green="0.72941176470588232" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
@@ -1916,7 +1919,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                     <constraint firstItem="yYw-c1-eer" firstAttribute="top" secondItem="JYK-jE-qgu" secondAttribute="top" id="Y7r-mR-lFo"/>
                                     <constraint firstAttribute="bottom" secondItem="d54-4M-4xu" secondAttribute="bottom" id="ZjR-5s-stD"/>
                                     <constraint firstAttribute="trailing" secondItem="yYw-c1-eer" secondAttribute="trailing" id="avD-yf-M7h"/>
-                                    <constraint firstAttribute="trailing" secondItem="cuw-M7-7ET" secondAttribute="trailing" id="e2l-3f-TjZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="cuw-M7-7ET" secondAttribute="trailing" constant="-100" id="e2l-3f-TjZ"/>
                                     <constraint firstAttribute="trailing" secondItem="NAg-Ea-48o" secondAttribute="trailing" id="f2b-dm-lbL"/>
                                     <constraint firstItem="cuw-M7-7ET" firstAttribute="top" secondItem="yYw-c1-eer" secondAttribute="bottom" constant="20" id="iUp-SO-gMo"/>
                                     <constraint firstItem="cuw-M7-7ET" firstAttribute="leading" secondItem="JYK-jE-qgu" secondAttribute="leading" id="iki-UB-t1g"/>
@@ -1997,7 +2000,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
             <color red="0.30199998617172241" green="0.51399999856948853" blue="0.83099997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
-            <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23899999260902405" green="0.77300000190734863" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -62,6 +62,57 @@ class SubscriptionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupView()
+        
+//        self.viewModel.getPackageList()
+//        setupUI()
+        
+//        planActiveView.isHidden = true
+//        if subscriptionType == .basic {
+//            bindViewModel(appMode: appMode ?? .basic)
+//            lblPrice.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+//            subScriptionTypeLabel.text = "Basic"
+//            if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+//                planActiveView.isHidden = false
+//            }
+//        }
+//        else if subscriptionType == .advanced {
+//            bindViewModel(appMode: appMode ?? .basic)
+//            lblPrice.text = "Regular Price  | $2.99/month"
+//            subScriptionTypeLabel.text = "Advance"
+//            if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
+//                planActiveView.isHidden = false
+//            }
+//        }
+//        else if subscriptionType == .professional {
+//            bindViewModel(appMode: appMode ?? .basic)
+//            lblPrice.text = "\n Regular Price  | $4.99/month"
+//            subScriptionTypeLabel.text = "Premium"
+//            if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+//                planActiveView.isHidden = false
+//            }
+//        }else{
+//            lblPrice.text = "Free | $0/month \n No subscription required"
+//            subScriptionTypeLabel.text = "Free"
+//            if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
+//                print(Defaults.shared.subscriptionType?.lowercased())
+//                planActiveView.isHidden = false
+//            }
+//        }
+//        if Defaults.shared.allowFullAccess == true {
+//            btnUpgrade.isUserInteractionEnabled = false
+//            expiryDateHeightConstraint.constant = 0
+//            lblPrice.isHidden = true
+//        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        navigationBarView.addBottomShadow()
+        bottomView.addShadow(location: .top)
+    }
+    
+    func setupView() {
         switch appMode {
         case .professional:
             days7TrialTitleLabel.isHidden = true
@@ -70,6 +121,15 @@ class SubscriptionsViewController: UIViewController {
             pic2ArtSubTitleLabel.isHidden = false
             subScriptionTypeLabel.text = "Premium"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "5092D0")
+            subScriptionBadgeImageView.image = R.image.priBadgeBG()
+            appleIconImageView.image = R.image.preAppleIcon()
+            let firstColor = UIColor.init(hexString: "4D83D4")
+            let secondColor = UIColor.init(hexString: "92C5F4")
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
+            upGradeButtonView.backgroundColor = firstColor
+            yourPlanActiveLabel.textColor = firstColor
+            planActiveView.isHidden = false
+            upGradeButtonView.isHidden = true
             quickCamModeSubTitles.text = "-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record in normal speed\n-  Record up to 3 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
@@ -81,40 +141,58 @@ class SubscriptionsViewController: UIViewController {
             days7TrialTitleLabel.isHidden = true
             days7TrialSubTitleLabel.isHidden = true
             subScriptionTypeLabel.text = "Advanced"
+            subScriptionBadgeImageView.image = R.image.advBadgeBG()
+            appleIconImageView.image = R.image.advancedAppleIcon()
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "77C159")
+            let firstColor = UIColor.init(hexString: "77C159")
+            let secondColor = UIColor.init(hexString: "BADDAB")
+            upGradeButtonView.backgroundColor = firstColor
+            yourPlanActiveLabel.textColor = firstColor
+            planActiveView.isHidden = true
+            upGradeButtonView.isHidden = false
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             quickCamModeSubTitles.text = "-  Record in 2x, 3x and 4x fast motion\n-  Record in -2x, -3x and -4x slow motion\n-  Record in normal speed\n-  Record up to 2 minutes\n- Save Mode"
-            
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 2 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            
             mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Advanced Subscriber Badge or\n- iPhone Advanced Subscriber Badge Business Dashboard (Web access)"
-            
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
-            
         case .basic:
             subScriptionTypeLabel.text = "Basic"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "EAB140")
+            subScriptionBadgeImageView.image = R.image.basicBadgeBG()
+            appleIconImageView.image = R.image.basicAppleIcon()
             
+            let firstColor = UIColor.init(hexString: "FDE774")
+            let secondColor = UIColor.init(hexString: "FDDC66")
+            planActiveView.isHidden = true
+            upGradeButtonView.isHidden = false
+            upGradeButtonView.backgroundColor = firstColor
+            yourPlanActiveLabel.textColor = firstColor
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             pic2ArtTitleLabel.isHidden = true
             pic2ArtSubTitleLabel.isHidden = true
             days7TrialTitleLabel.isHidden = true
             days7TrialSubTitleLabel.isHidden = true
             quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Record in normal speed\n-  Record up to 1 minute"
-            
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            
             mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Basic Subscriber Badge or\n- iPhone Basic Subscriber Badge Business Dashboard (Web access)"
-            
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
-            
         case .free:
-            
             pic2ArtTitleLabel.isHidden = true
             pic2ArtSubTitleLabel.isHidden = true
             days7TrialTitleLabel.isHidden = false
             days7TrialSubTitleLabel.isHidden = false
             subScriptionTypeLabel.text = "Free"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "000000")
+            subScriptionBadgeImageView.image = R.image.freeBadgeBG()
+            appleIconImageView.image = R.image.freeAppleIcon()
+            let firstColor = UIColor.init(hexString: "C3C3C3")
+            let secondColor = UIColor.init(hexString: "D7D7D7")
+            upGradeButtonView.backgroundColor = firstColor
+            yourPlanActiveLabel.textColor = firstColor
+            planActiveView.isHidden = true
+            upGradeButtonView.isHidden = false
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             days7TrialSubTitleLabel.text = "-  Access to all Premium Features\n-  No credit card required"
             
             quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Record in normal speed\n-  Record up to 1 minute"
@@ -127,54 +205,21 @@ class SubscriptionsViewController: UIViewController {
         default:
             break
         }
-      
-//        Referral Duplication
-//        self.viewModel.getPackageList()
-//        setupUI()
-//        lblYourCurrentPlan.isHidden = true
-//        if subscriptionType == .basic {
-//            bindViewModel(appMode: appMode ?? .basic)
-//            lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
-//            lblFreeTrial.text = "Basic"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
-//                lblYourCurrentPlan.isHidden = false
-//            }
-//        }else if subscriptionType == .advanced {
-//            bindViewModel(appMode: appMode ?? .basic)
-//            lblpriceTitle.text = "Regular Price  | $2.99/month"
-//            lblFreeTrial.text = "Advance"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
-//                lblYourCurrentPlan.isHidden = false
-//            }
-//        }else if subscriptionType == .professional {
-//            bindViewModel(appMode: appMode ?? .basic)
-//            lblpriceTitle.text = "\n Regular Price  | $4.99/month"
-//            lblFreeTrial.text = "Pro"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
-//                lblYourCurrentPlan.isHidden = false
-//            }
-//        }else{
-//            lblpriceTitle.text = "Free | $0/month \n No subscription required"
-//            lblFreeTrial.text = "Free"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
-//                print(Defaults.shared.subscriptionType?.lowercased())
-//                lblYourCurrentPlan.isHidden = false
-//            }
-//        }
-//        if Defaults.shared.allowFullAccess == true {
-//            btnUpgrade.isUserInteractionEnabled = false
-//            expiryDateHeightConstraint.constant = 0
-//            lblFreeTrial.isHidden = true
-//        }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        navigationBarView.addBottomShadow()
-        bottomView.addShadow(location: .top)
-    }
-    
-    @IBAction func btnUpgradeTapped(_ sender: Any) {
+    @IBAction func btnUpgradeTapped(_ sender: UIButton) {
+//        switch appMode {
+//        case .professional:
+//            print("premium")
+//        case .advanced:
+//            print("Advanced")
+//        case .basic:
+//            print("Basic")
+//        case .free:
+//            print("free")
+//        default:
+//            break
+//        }
         if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
             self.enableMode(appMode: self.subscriptionType)
@@ -213,84 +258,84 @@ class SubscriptionsViewController: UIViewController {
 //        }
     }
     
-//    private func setupUI() {
-//        let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
-//        if let currentUser = Defaults.shared.currentUser {
+    private func setupUI() {
+        let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
+        if let currentUser = Defaults.shared.currentUser {
 //            lblExpiryDate.text = R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
-//            //if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
-//            if (Defaults.shared.subscriptionType == "trial") && subscriptionType != .free && Defaults.shared.appMode != .free {
-//                isFreeTrialMode = true
-//                setupForFreeTrial(isFreeTrial: true)
-//            } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
-////                lblYourCurrentPlan.isHidden = false
-//                setupForFreeTrial(isFreeTrial: false)
+            //if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
+            if (Defaults.shared.subscriptionType == "trial") && subscriptionType != .free && Defaults.shared.appMode != .free {
+                isFreeTrialMode = true
+                setupForFreeTrial(isFreeTrial: true)
+            } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
+//                lblYourCurrentPlan.isHidden = false
+                setupForFreeTrial(isFreeTrial: false)
 //                expiryDateHeightConstraint.constant = 48
-//            } else {
-//                setupForFreeTrial(isFreeTrial: false)
-//                if Defaults.shared.numberOfFreeTrialDays != 0 && subscriptionType != .free && Defaults.shared.appMode != .free {
+            } else {
+                setupForFreeTrial(isFreeTrial: false)
+                if Defaults.shared.numberOfFreeTrialDays != 0 && subscriptionType != .free && Defaults.shared.appMode != .free {
 //                    expiryDateHeightConstraint.constant = 48
-//                }
-//            }
-//            //if (currentUser.isTempSubscription == true && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
-//            if ((Defaults.shared.subscriptionType == "trial") && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
+                }
+            }
+            //if (currentUser.isTempSubscription == true && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
+            if ((Defaults.shared.subscriptionType == "trial") && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
 //                btnUpgrade.isHidden = true
-//            }
-//        }
-//        self.lblTitle.text = self.subscriptionType.description
-//        DispatchQueue.main.async {
-//            if let price = subscriptionData.first?.price,
-//               price == 1.99 {
-//                self.lblPrice.text = (self.subscriptionType != .free) ? "$\(price)/Month" : self.subscriptionType.price
-//            } else {
-//                self.lblPrice.text = self.subscriptionType.price
-//            }
+            }
+        }
+        self.lblTitle.text = self.subscriptionType.description
+        DispatchQueue.main.async {
+            if let price = subscriptionData.first?.price,
+               price == 1.99 {
+                self.lblPrice.text = (self.subscriptionType != .free) ? "$\(price)/Month" : self.subscriptionType.price
+            } else {
+                self.lblPrice.text = self.subscriptionType.price
+            }
 //            self.expiryDateHeightConstraint.constant = 48
-//        }
-//
-//        if subscriptionType == .basic {
-//            print("basic")
-//        }else{
-//            print("free")
-//        }
-//
-//
-////        var isSubscriptionCondition = true
-////        if (Defaults.shared.subscriptionType == "trial"){
-////            if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
-////                isFreeTrialMode = false  // need to purchase manually
-////                setupForFreeTrial(isFreeTrial: true)
-////            }else {
-////                isFreeTrialMode = false
-////            }
-////        }else if(Defaults.shared.subscriptionType == "basic")
-////        {
-////            isSubscriptionCondition = false
-////            if(Defaults.shared.isDowngradeSubscription ?? false == true){
-////                btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
-////                btnUpgrade.backgroundColor = R.color.appPrimaryColor()
-////            }else{
-////                lblYourCurrentPlan.isHidden = false
-////                self.setDowngradeButton()
-////            }
-////        }else{
-////            isFreeTrialMode = false
-////        }
-////
-////        if (isSubscriptionCondition) {
-////            btnUpgrade.setTitle( R.string.localizable.upgradeNow(), for: .normal)
-////            btnUpgrade.backgroundColor =  R.color.appPrimaryColor()
-////            btnUpgrade.isHidden = (subscriptionType == .free) ? false : true //!isFreeTrialMode
-////            lblYourCurrentPlan.isHidden = (subscriptionType == .free) ? false : true //isFreeTrialMode
-////            if !isFreeTrialMode {
-////                btnUpgrade.titleLabel?.font = R.font.sfuiTextRegular(size: 20)
-////            }
-////        }
-//
-//        if Defaults.shared.appMode == self.subscriptionType {
-//            if Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free {
+        }
+
+        if subscriptionType == .basic {
+            print("basic")
+        }else{
+            print("free")
+        }
+
+
+//        var isSubscriptionCondition = true
+//        if (Defaults.shared.subscriptionType == "trial"){
+//            if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+//                isFreeTrialMode = false  // need to purchase manually
+//                setupForFreeTrial(isFreeTrial: true)
+//            }else {
+//                isFreeTrialMode = false
+//            }
+//        }else if(Defaults.shared.subscriptionType == "basic")
+//        {
+//            isSubscriptionCondition = false
+//            if(Defaults.shared.isDowngradeSubscription ?? false == true){
 //                btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
 //                btnUpgrade.backgroundColor = R.color.appPrimaryColor()
-//            } else {
+//            }else{
+//                lblYourCurrentPlan.isHidden = false
+//                self.setDowngradeButton()
+//            }
+//        }else{
+//            isFreeTrialMode = false
+//        }
+//
+//        if (isSubscriptionCondition) {
+//            btnUpgrade.setTitle( R.string.localizable.upgradeNow(), for: .normal)
+//            btnUpgrade.backgroundColor =  R.color.appPrimaryColor()
+//            btnUpgrade.isHidden = (subscriptionType == .free) ? false : true //!isFreeTrialMode
+//            lblYourCurrentPlan.isHidden = (subscriptionType == .free) ? false : true //isFreeTrialMode
+//            if !isFreeTrialMode {
+//                btnUpgrade.titleLabel?.font = R.font.sfuiTextRegular(size: 20)
+//            }
+//        }
+
+        if Defaults.shared.appMode == self.subscriptionType {
+            if Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free {
+//                btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
+//                btnUpgrade.backgroundColor = R.color.appPrimaryColor()
+            } else {
 //                btnUpgrade.setTitle(isFreeTrialMode ? R.string.localizable.upgradeNow() : R.string.localizable.yourCurrentPlan(), for: .normal)
 //                btnUpgrade.backgroundColor = isFreeTrialMode ? R.color.appPrimaryColor() : R.color.currentPlanButtonColor()
 //                btnUpgrade.isHidden = !isFreeTrialMode
@@ -298,16 +343,16 @@ class SubscriptionsViewController: UIViewController {
 //                if !isFreeTrialMode {
 //                    btnUpgrade.titleLabel?.font = R.font.sfuiTextRegular(size: 20)
 //                }
-//            }
-//        } else {
-//            self.setDowngradeButton()
-//        }
-//        Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
-//        if subscriptionType == .free {
+            }
+        } else {
+            self.setDowngradeButton()
+        }
+        Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
+        if subscriptionType == .free {
 //            btnUpgrade.isHidden = true
-//        }
-//    }
-    
+        }
+    }
+
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {
         case .free:
