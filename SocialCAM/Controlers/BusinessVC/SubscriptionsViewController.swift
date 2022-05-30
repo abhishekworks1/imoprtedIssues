@@ -66,39 +66,42 @@ class SubscriptionsViewController: UIViewController {
         
         self.viewModel.getPackageList()
         setupUI()
-        
-//        planActiveView.isHidden = true
-//        if subscriptionType == .basic {
-//            bindViewModel(appMode: appMode ?? .basic)
-//            lblPrice.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
-//            subScriptionTypeLabel.text = "Basic"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
-//                planActiveView.isHidden = false
-//            }
-//        }
-//        else if subscriptionType == .advanced {
-//            bindViewModel(appMode: appMode ?? .basic)
-//            lblPrice.text = "Regular Price  | $2.99/month"
-//            subScriptionTypeLabel.text = "Advance"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
-//                planActiveView.isHidden = false
-//            }
-//        }
-//        else if subscriptionType == .professional {
-//            bindViewModel(appMode: appMode ?? .basic)
-//            lblPrice.text = "\n Regular Price  | $4.99/month"
-//            subScriptionTypeLabel.text = "Premium"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
-//                planActiveView.isHidden = false
-//            }
-//        }else{
-//            lblPrice.text = "Free | $0/month \n No subscription required"
-//            subScriptionTypeLabel.text = "Free"
-//            if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
-//                print(Defaults.shared.subscriptionType?.lowercased())
-//                planActiveView.isHidden = false
-//            }
-//        }
+        print(subscriptionType)
+        print("subscriptionType")
+        print(Defaults.shared.appMode)
+        print("Defaults.shared.appMode")
+        planActiveView.isHidden = true
+        if subscriptionType == .basic {
+            bindViewModel(appMode: appMode ?? .basic)
+            lblPrice.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+            subScriptionTypeLabel.text = "Basic"
+            if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+                planActiveView.isHidden = false
+            }
+        }
+        else if subscriptionType == .advanced {
+            bindViewModel(appMode: appMode ?? .basic)
+            lblPrice.text = "Regular Price  | $2.99/month"
+            subScriptionTypeLabel.text = "Advance"
+            if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
+                planActiveView.isHidden = false
+            }
+        }
+        else if subscriptionType == .professional {
+            bindViewModel(appMode: appMode ?? .basic)
+            lblPrice.text = "Regular Price  | $4.99/month"
+            subScriptionTypeLabel.text = "Premium"
+            if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+                planActiveView.isHidden = false
+            }
+        }else{
+            lblPrice.text = "Free | $0/month \n No subscription required"
+            subScriptionTypeLabel.text = "Free"
+            if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
+                print(Defaults.shared.subscriptionType?.lowercased())
+                planActiveView.isHidden = false
+            }
+        }
 //        if Defaults.shared.allowFullAccess == true {
 //            btnUpgrade.isUserInteractionEnabled = false
 //            expiryDateHeightConstraint.constant = 0
@@ -224,6 +227,7 @@ class SubscriptionsViewController: UIViewController {
             Defaults.shared.isSubscriptionApiCalled = true
             self.enableMode(appMode: self.subscriptionType)
         }
+        
     }
     
     
@@ -282,7 +286,8 @@ class SubscriptionsViewController: UIViewController {
             }
         }
         self.lblTitle.text = self.subscriptionType.description
-        DispatchQueue.main.async {
+        //Comment by Navroz
+       /* DispatchQueue.main.async {
             if let price = subscriptionData.first?.price,
                price == 1.99 {
                 self.lblPrice.text = (self.subscriptionType != .free) ? "$\(price)/Month" : self.subscriptionType.price
@@ -291,7 +296,7 @@ class SubscriptionsViewController: UIViewController {
             }
 //            self.expiryDateHeightConstraint.constant = 48
         }
-
+        */
         if subscriptionType == .basic {
             print("basic")
         }else{
@@ -350,6 +355,10 @@ class SubscriptionsViewController: UIViewController {
         Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
         if subscriptionType == .free {
 //            btnUpgrade.isHidden = true
+        }
+        print(Defaults.shared.subscriptionType?.lowercased())
+        if (Defaults.shared.subscriptionType?.lowercased() == "basic") || (Defaults.shared.subscriptionType?.lowercased() == "advance") || (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            upGradeButtonView.isHidden = true
         }
     }
 
@@ -476,6 +485,11 @@ class SubscriptionsViewController: UIViewController {
             }else if appMode == .professional{
                 productid = Constant.IAPProductIds.quickCamLitePro
             }
+            print("subscriptionsList")
+            print(subscriptionsList)
+            print(subscriptionsList.map({$0.productId}))
+            print("productid")
+            print(productid)
             let subscriptionData = subscriptionsList.filter({$0.productId == productid})
             self.purchaseProduct(productIdentifire: subscriptionData.first?.productId ?? "", productServerID: subscriptionData.first?.id ?? "")
             self.appMode = appMode
@@ -531,6 +545,8 @@ extension SubscriptionsViewController: UITableViewDataSource {
 extension SubscriptionsViewController {
     
     internal func purchaseProduct(productIdentifire: String, productServerID: String) {
+        print("PurchaseHelper.shared.iapProducts\(PurchaseHelper.shared.iapProducts)")
+        print("productIdentifire\(productIdentifire)")
         guard let selectedProduct = PurchaseHelper.shared.iapProducts.filter({$0.productIdentifier == productIdentifire}).first else {
             Defaults.shared.isSubscriptionApiCalled = false
             return

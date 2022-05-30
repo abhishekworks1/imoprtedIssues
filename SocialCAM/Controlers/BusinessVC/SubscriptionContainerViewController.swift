@@ -18,6 +18,18 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var subscriptionImgV: UIImageView!
+    
+    @IBOutlet weak var activeFreeView: UIView!
+    @IBOutlet weak var viewDetailFreeView: UIView!
+    
+    @IBOutlet weak var activeBasicView: UIView!
+    @IBOutlet weak var viewDetailBasicView: UIView!
+    
+    @IBOutlet weak var activeAdvancedView: UIView!
+    @IBOutlet weak var viewDetailAdvancedView: UIView!
+    
+    @IBOutlet weak var activeProView: UIView!
+    @IBOutlet weak var viewDetailProView: UIView!
 
     // MARK: -
     // MARK: - Variables
@@ -37,6 +49,34 @@ class SubscriptionContainerViewController: UIViewController {
         super.viewDidLoad()
 //        setupPagingViewController()
 //        setupSubscriotion()
+        
+        viewDetailFreeView.isHidden = false
+        viewDetailBasicView.isHidden = false
+        viewDetailAdvancedView.isHidden = false
+        viewDetailProView.isHidden = false
+        
+        
+        activeFreeView.isHidden = true
+        activeBasicView.isHidden = true
+        activeAdvancedView.isHidden = true
+        activeProView.isHidden = true
+        
+        
+        if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+            viewDetailBasicView.isHidden = true
+            activeBasicView.isHidden = false
+        }else if(Defaults.shared.subscriptionType?.lowercased() == "advance"){
+            viewDetailAdvancedView.isHidden = true
+            activeAdvancedView.isHidden = false
+        }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            viewDetailProView.isHidden = true
+            activeProView.isHidden = false
+        }else if(Defaults.shared.subscriptionType?.lowercased() == "free"){
+            viewDetailFreeView.isHidden = true
+            activeFreeView.isHidden = false
+            
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -47,6 +87,7 @@ class SubscriptionContainerViewController: UIViewController {
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .professional
+        subscriptionVc.subscriptionType = .professional
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -54,12 +95,14 @@ class SubscriptionContainerViewController: UIViewController {
     @IBAction func didTapAdvancedButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .advanced
+        subscriptionVc.subscriptionType = .advanced
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
     @IBAction func didTapBasicButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .basic
+        subscriptionVc.subscriptionType = .basic
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -67,6 +110,7 @@ class SubscriptionContainerViewController: UIViewController {
     @IBAction func didTapFreeButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .free
+        subscriptionVc.subscriptionType = .free
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
