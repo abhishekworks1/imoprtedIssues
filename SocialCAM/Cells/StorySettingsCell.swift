@@ -82,6 +82,7 @@ class StorySettingsListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func setUpSubscriptionBadges() {
+        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
