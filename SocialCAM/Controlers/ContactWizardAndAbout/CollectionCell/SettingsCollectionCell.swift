@@ -36,12 +36,12 @@ class SettingsCollectionCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        containerView.addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
+//        containerView.addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        //containerView.dropShadowNew()
+        containerView.dropShadowNew()
        
     }
     func setUpSubscriptionBadges() {

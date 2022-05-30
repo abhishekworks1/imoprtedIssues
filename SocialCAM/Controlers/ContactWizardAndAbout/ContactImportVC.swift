@@ -1930,11 +1930,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         let urlString = self.txtLinkWithCheckOut
         let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-        share(shareText: urlwithString, shareImage: self.imgProfilePic.image)
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            var imageUrl = URL(string: userImageURL)
+            share(shareText: urlwithString, shareImage: imageUrl)
+        }
+        
         
     }
     
-    func share(shareText: String?, shareImage: UIImage?) {
+    func share(shareText: String?, shareImage: URL?) {
         var objectsToShare = [Any]()
       
         if let shareImageObj = shareImage{

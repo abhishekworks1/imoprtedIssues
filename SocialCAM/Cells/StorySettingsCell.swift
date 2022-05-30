@@ -69,9 +69,10 @@ class StorySettingsListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
-        
-        shadowView.addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
+      //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
+        shadowView.layer.cornerRadius = 7
+        shadowView.dropShadowNew()
+//        addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
         
     }
     
@@ -81,7 +82,6 @@ class StorySettingsListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func setUpSubscriptionBadges() {
-        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
