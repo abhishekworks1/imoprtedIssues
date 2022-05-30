@@ -1342,12 +1342,14 @@ class Defaults {
             imageName = "foundingMemberBadge"
         case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
             imageName = "socialBadge"
-        case Badges.SUBSCRIBER_IOS.rawValue:
+            //As subscription badges have to removed from header and other places
+            //Now subscription badges are added in Settings List and Grid
+      /*  case Badges.SUBSCRIBER_IOS.rawValue:
             imageName = "iosbadge"
         case Badges.SUBSCRIBER_ANDROID.rawValue:
             imageName = "androidbadge"
         case Badges.SUBSCRIBER_WEB.rawValue:
-            imageName = "webbadge"
+            imageName = "webbadge" */
         default:
             imageName = ""
         }

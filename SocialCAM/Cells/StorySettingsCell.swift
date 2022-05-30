@@ -69,15 +69,15 @@ class StorySettingsListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-      //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
+        //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
         
         shadowView.addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
         
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     func setUpSubscriptionBadges() {
@@ -95,14 +95,20 @@ class StorySettingsListCell: UITableViewCell {
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
                     iosBadgeView.isHidden = false
-                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                        lbliosDaysRemains.text = "\(freeTrialDay)"
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        lbliosDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         iosSheildImageview.image = R.image.freeBadge()
-                    } else {
-                        //iOS shield hide
-                        //square badge show
-                        lbliosDaysRemains.text = ""
-                        iosSheildImageview.image = R.image.squareBadge()
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lbliosDaysRemains.text = "\(freeTrialDay)"
+                            iosSheildImageview.image = R.image.freeBadge()
+                        } else {
+                            //iOS shield hide
+                            //square badge show
+                            lbliosDaysRemains.text = ""
+                            iosSheildImageview.image = R.image.squareBadge()
+                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -122,14 +128,19 @@ class StorySettingsListCell: UITableViewCell {
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
                 {
                     androidBadgeView.isHidden = false
-                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                        lblandroidDaysRemains.text = "\(freeTrialDay)"
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        lblandroidDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         androidSheildImageview.image = R.image.freeBadge()
-                    } else {
-                        lblandroidDaysRemains.text = ""
-                        androidSheildImageview.image = R.image.squareBadge()
                     }
-                    
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lblandroidDaysRemains.text = "\(freeTrialDay)"
+                            androidSheildImageview.image = R.image.freeBadge()
+                        } else {
+                            lblandroidDaysRemains.text = ""
+                            androidSheildImageview.image = R.image.squareBadge()
+                        }
+                    }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         androidSheildImageview.image = R.image.basicBadge()
@@ -147,12 +158,18 @@ class StorySettingsListCell: UITableViewCell {
                 if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
                 {
                     webBadgeView.isHidden = false
-                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                        lblwebDaysRemains.text = "\(freeTrialDay)"
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        lblwebDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         webSheildImageview.image = R.image.freeBadge()
-                    } else {
-                        lblwebDaysRemains.text = ""
-                        webSheildImageview.image = R.image.squareBadge()
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lblwebDaysRemains.text = "\(freeTrialDay)"
+                            webSheildImageview.image = R.image.freeBadge()
+                        } else {
+                            lblwebDaysRemains.text = ""
+                            webSheildImageview.image = R.image.squareBadge()
+                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -172,9 +189,9 @@ class StorySettingsListCell: UITableViewCell {
             }
         }
     }
-
+}
 class AppOpenSettingsCell: UITableViewCell {
-
+    
     @IBOutlet var dashBoardView: ScreenSelectionView!
     @IBOutlet var chatView: ScreenSelectionView!
     @IBOutlet var cameraView: ScreenSelectionView!
@@ -226,11 +243,11 @@ extension UIView{
     func addShadow(cornerRadius:CGFloat = 0.0 , borderWidth:CGFloat = 0.0 , shadowOpacity:Float = 0.0 , shadowRadius:CGFloat = 0.0){
         // border radius
         self.layer.cornerRadius = cornerRadius
-
+        
         // border
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = borderWidth
-
+        
         // drop shadow
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = shadowOpacity

@@ -789,7 +789,8 @@ enum Badges: String {
 }
 enum SubscriptionTypeForBadge: String {
     case BASIC = "basic"
-    case FREE = "trial"
+    case FREE = "free"
+    case TRIAL = "trial"
     case ADVANCE = "advance"
     case PRO = "pro"
   }

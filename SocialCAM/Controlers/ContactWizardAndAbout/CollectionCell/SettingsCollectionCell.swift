@@ -59,14 +59,20 @@ class SettingsCollectionCell: UICollectionViewCell {
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
                     iosBadgeView.isHidden = false
-                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                        lbliosDaysRemains.text = "\(freeTrialDay)"
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        lbliosDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         iosSheildImageview.image = R.image.freeBadge()
-                    } else {
-                        //iOS shield hide
-                        //square badge show
-                        lbliosDaysRemains.text = ""
-                        iosSheildImageview.image = R.image.squareBadge()
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lbliosDaysRemains.text = "\(freeTrialDay)"
+                            iosSheildImageview.image = R.image.freeBadge()
+                        } else {
+                            //iOS shield hide
+                            //square badge show
+                            lbliosDaysRemains.text = ""
+                            iosSheildImageview.image = R.image.squareBadge()
+                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -86,14 +92,19 @@ class SettingsCollectionCell: UICollectionViewCell {
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
                 {
                     androidBadgeView.isHidden = false
-                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                        lblandroidDaysRemains.text = "\(freeTrialDay)"
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        lblandroidDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         androidSheildImageview.image = R.image.freeBadge()
-                    } else {
-                        lblandroidDaysRemains.text = ""
-                        androidSheildImageview.image = R.image.squareBadge()
                     }
-                    
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lblandroidDaysRemains.text = "\(freeTrialDay)"
+                            androidSheildImageview.image = R.image.freeBadge()
+                        } else {
+                            lblandroidDaysRemains.text = ""
+                            androidSheildImageview.image = R.image.squareBadge()
+                        }
+                    }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         androidSheildImageview.image = R.image.basicBadge()
@@ -111,12 +122,18 @@ class SettingsCollectionCell: UICollectionViewCell {
                 if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
                 {
                     webBadgeView.isHidden = false
-                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                        lblwebDaysRemains.text = "\(freeTrialDay)"
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        lblwebDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         webSheildImageview.image = R.image.freeBadge()
-                    } else {
-                        lblwebDaysRemains.text = ""
-                        webSheildImageview.image = R.image.squareBadge()
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lblwebDaysRemains.text = "\(freeTrialDay)"
+                            webSheildImageview.image = R.image.freeBadge()
+                        } else {
+                            lblwebDaysRemains.text = ""
+                            webSheildImageview.image = R.image.squareBadge()
+                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
