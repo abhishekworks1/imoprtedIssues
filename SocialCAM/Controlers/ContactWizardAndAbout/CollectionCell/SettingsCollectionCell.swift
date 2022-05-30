@@ -45,6 +45,7 @@ class SettingsCollectionCell: UICollectionViewCell {
        
     }
     func setUpSubscriptionBadges() {
+        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true

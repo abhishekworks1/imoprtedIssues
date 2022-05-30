@@ -172,7 +172,6 @@ class StorySettingsListCell: UITableViewCell {
             }
         }
     }
-}
 
 class AppOpenSettingsCell: UITableViewCell {
 
