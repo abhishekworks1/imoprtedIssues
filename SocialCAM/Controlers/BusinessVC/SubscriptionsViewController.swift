@@ -604,7 +604,10 @@ extension SubscriptionsViewController {
                     SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
                     AppEventBus.post("changeMode")
     //                self.navigationController?.popViewController(animated: true)
-                    self.navigationController?.popToRootViewController(animated: true)
+                   // self.navigationController?.popToRootViewController(animated: true)
+                    self.navigationController?.popViewController(animated: true, completion: {
+                        self.navigationController?.popViewController(animated: false)
+                    })
                     //Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
                     Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
                 }
