@@ -82,7 +82,6 @@ class StorySettingsListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func setUpSubscriptionBadges() {
-        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
@@ -93,21 +92,18 @@ class StorySettingsListCell: UITableViewCell {
                 let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
                 
                 // Setup For iOS Badge
-                
-                if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                    iosBadgeView.isHidden = false
-                    lbliosDaysRemains.text = "\(freeTrialDay)"
-                    iosSheildImageview.image = R.image.freeBadge()
-                } else {
-                    //iOS shield hide
-                    //square badge show
-                    iosBadgeView.isHidden = false
-                    lbliosDaysRemains.text = ""
-                    iosSheildImageview.image = R.image.squareBadge()
-                }
-                
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
+                    iosBadgeView.isHidden = false
+                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
+                        lbliosDaysRemains.text = "\(freeTrialDay)"
+                        iosSheildImageview.image = R.image.freeBadge()
+                    } else {
+                        //iOS shield hide
+                        //square badge show
+                        lbliosDaysRemains.text = ""
+                        iosSheildImageview.image = R.image.squareBadge()
+                    }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
