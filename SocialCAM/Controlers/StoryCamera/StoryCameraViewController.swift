@@ -1735,6 +1735,9 @@ extension StoryCameraViewController {
         } else {
             enableMicrophoneButton.setTitleColor(R.color.appPrimaryColor(), for: .normal)
         }
+        if ApplicationSettings.isCameraEnabled && ApplicationSettings.isMicrophoneEnabled {
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.registerForPushNitification(UIApplication.shared)} }
     }
     
     func checkPermissions() {

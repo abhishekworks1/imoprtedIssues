@@ -164,7 +164,7 @@ extension KeycloakAuthViewController {
             if response.status == ResponseType.success {
                 self.goHomeScreen(response)
                 if let delegate = UIApplication.shared.delegate as? AppDelegate {
-                    delegate.registerForPushNitification(UIApplication.shared)
+//                    delegate.registerForPushNitification(UIApplication.shared)
                    // delegate.getFCMToken()
                     delegate.getFCMToken(completion: { (success) -> Void in
                         if success {
