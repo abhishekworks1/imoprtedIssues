@@ -136,7 +136,7 @@ class SubscriptionsViewController: UIViewController {
             quickCamModeSubTitles.text = "-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record in normal speed\n-  Record up to 3 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Premium  Subscriber Badge or\n- iPhone Premium Subscriber Badge Business Dashboard (Web access)"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Premium Subscriber Badge Business Dashboard (Web access)"
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
         case .advanced:
             pic2ArtTitleLabel.isHidden = false
@@ -157,7 +157,7 @@ class SubscriptionsViewController: UIViewController {
             quickCamModeSubTitles.text = "-  Record in 2x, 3x and 4x fast motion\n-  Record in -2x, -3x and -4x slow motion\n-  Record in normal speed\n-  Record up to 2 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 2 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Advanced Subscriber Badge or\n- iPhone Advanced Subscriber Badge Business Dashboard (Web access)"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Advanced Subscriber Badge Business Dashboard (Web access)"
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
         case .basic:
             subScriptionTypeLabel.text = "Basic"
@@ -178,7 +178,7 @@ class SubscriptionsViewController: UIViewController {
             days7TrialSubTitleLabel.isHidden = true
             quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Record in normal speed\n-  Record up to 1 minute"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Basic Subscriber Badge or\n- iPhone Basic Subscriber Badge Business Dashboard (Web access)"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Basic Subscriber Badge Business Dashboard (Web access)"
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
         case .free:
             pic2ArtTitleLabel.isHidden = true
@@ -202,7 +202,7 @@ class SubscriptionsViewController: UIViewController {
             
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
             
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Basic Subscriber Badge or\n- iPhone Basic Subscriber Badge Business Dashboard (Web access)"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge"
             
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
         default:
