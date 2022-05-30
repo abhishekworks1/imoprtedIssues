@@ -70,8 +70,9 @@ class StorySettingsListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
       //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
-        
-        shadowView.addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
+        shadowView.layer.cornerRadius = 7
+        shadowView.dropShadowNew()
+//        addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
         
     }
 
@@ -92,18 +93,21 @@ class StorySettingsListCell: UITableViewCell {
                 let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
                 
                 // Setup For iOS Badge
+                
+                if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
+                    iosBadgeView.isHidden = false
+                    lbliosDaysRemains.text = "\(freeTrialDay)"
+                    iosSheildImageview.image = R.image.freeBadge()
+                } else {
+                    //iOS shield hide
+                    //square badge show
+                    iosBadgeView.isHidden = false
+                    lbliosDaysRemains.text = ""
+                    iosSheildImageview.image = R.image.squareBadge()
+                }
+                
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                    iosBadgeView.isHidden = false
-                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue && freeTrialDay > 0 {
-                        lbliosDaysRemains.text = "\(freeTrialDay)"
-                        iosSheildImageview.image = R.image.freeBadge()
-                    } else {
-                        //iOS shield hide
-                        //square badge show
-                        lbliosDaysRemains.text = ""
-                        iosSheildImageview.image = R.image.squareBadge()
-                    }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
