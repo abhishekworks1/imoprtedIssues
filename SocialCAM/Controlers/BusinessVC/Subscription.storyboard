@@ -1660,8 +1660,8 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuw-M7-7ET">
                                         <rect key="frame" x="0.0" y="64" width="420" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IPhone: 4.99/month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-5T-6cw">
-                                                <rect key="frame" x="20" y="30.5" width="154.5" height="19.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IPhone: 4.99/month" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-5T-6cw">
+                                                <rect key="frame" x="20" y="30.5" width="190" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1929,6 +1929,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                     <constraint firstAttribute="trailing" secondItem="yYw-c1-eer" secondAttribute="trailing" id="avD-yf-M7h"/>
                                     <constraint firstAttribute="trailing" secondItem="cuw-M7-7ET" secondAttribute="trailing" constant="-100" id="e2l-3f-TjZ"/>
                                     <constraint firstAttribute="trailing" secondItem="NAg-Ea-48o" secondAttribute="trailing" id="f2b-dm-lbL"/>
+                                    <constraint firstItem="AJv-Vq-jM4" firstAttribute="leading" secondItem="YBC-5T-6cw" secondAttribute="trailing" constant="10" id="hAJ-mK-X7B"/>
                                     <constraint firstItem="cuw-M7-7ET" firstAttribute="top" secondItem="yYw-c1-eer" secondAttribute="bottom" constant="20" id="iUp-SO-gMo"/>
                                     <constraint firstItem="cuw-M7-7ET" firstAttribute="leading" secondItem="JYK-jE-qgu" secondAttribute="leading" id="iki-UB-t1g"/>
                                     <constraint firstItem="cuw-M7-7ET" firstAttribute="top" secondItem="AJv-Vq-jM4" secondAttribute="bottom" constant="-50" id="lgi-D3-9rx"/>
@@ -1999,7 +2000,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <image name="viewDetailsRightArrow" width="6" height="12"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="currentPlanButtonColor">
             <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
