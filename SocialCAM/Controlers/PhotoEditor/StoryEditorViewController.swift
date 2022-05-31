@@ -378,6 +378,7 @@ class StoryEditorViewController: UIViewController {
         super.viewDidLoad()
 //        videoProgressBar.timeSlider.layer.cornerRadius = videoProgressBar.timeSlider.frame.height/2
         isShowToolTipView = UserDefaults.standard.bool(forKey: "isShowToolTipView")
+        Defaults.shared.isVideoSavedAfterEditing = true
         socialMediaViewTapGesture()
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
@@ -1415,7 +1416,7 @@ extension StoryEditorViewController {
     }
     
     func handleQuickCamVideoSave() {
-        if Defaults.shared.isVideoSavedAfterRecording == false && Defaults.shared.isVideoSavedAfterEditing == false {
+        if Defaults.shared.isVideoSavedAfterEditing == false {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
             alert.addAction(UIAlertAction(title: R.string.localizable.saveVideoThisTimeOnly(), style: .default, handler:{(UIAlertAction)in
@@ -1436,12 +1437,12 @@ extension StoryEditorViewController {
             })
         }
         else {
-//            if Defaults.shared.isVideoSavedAfterRecording == false {
+            if Defaults.shared.isVideoSavedAfterRecording == false {
                     self.saveVideoInQuickCamFolder()
-//            }
-//            else {
+            }
+            else {
                 self.navigationController?.popViewController(animated: true) //confirm once with Krushali
-//            }
+            }
         }
     }
     

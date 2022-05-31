@@ -3735,11 +3735,19 @@ Countdown</string>
                                                     </constraints>
                                                     <state key="normal" image="storyShowMore"/>
                                                 </button>
+                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="editProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="egq-Dh-0eD">
+                                                    <rect key="frame" x="315" y="25" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="V4r-5q-SEw"/>
+                                                        <constraint firstAttribute="width" constant="40" id="rk9-t0-Onf"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="kMH-eJ-gvR" firstAttribute="centerY" secondItem="T84-c5-DCe" secondAttribute="centerY" id="0yP-le-bVY"/>
                                                 <constraint firstItem="nG1-g7-Ls5" firstAttribute="top" secondItem="T84-c5-DCe" secondAttribute="top" constant="5" id="BCq-2U-0DX"/>
                                                 <constraint firstItem="R8R-Af-9Ma" firstAttribute="leading" secondItem="T84-c5-DCe" secondAttribute="leading" constant="10" id="EFR-x6-kLz"/>
+                                                <constraint firstItem="egq-Dh-0eD" firstAttribute="centerY" secondItem="T84-c5-DCe" secondAttribute="centerY" id="Jfu-Nr-p1Q"/>
                                                 <constraint firstItem="JgF-td-y8h" firstAttribute="top" secondItem="T84-c5-DCe" secondAttribute="top" id="MNL-tj-Pg0"/>
                                                 <constraint firstAttribute="trailing" secondItem="JgF-td-y8h" secondAttribute="trailing" constant="10" id="Ndb-P4-XME"/>
                                                 <constraint firstItem="Y0u-OU-xRq" firstAttribute="leading" secondItem="T84-c5-DCe" secondAttribute="leading" constant="12" id="OV0-oG-vku"/>
@@ -3747,6 +3755,7 @@ Countdown</string>
                                                 <constraint firstAttribute="trailing" secondItem="Y0u-OU-xRq" secondAttribute="trailing" constant="12" id="RvV-6c-vfR"/>
                                                 <constraint firstAttribute="bottom" secondItem="R8R-Af-9Ma" secondAttribute="bottom" constant="7" id="TSD-9V-0Xh"/>
                                                 <constraint firstItem="kMH-eJ-gvR" firstAttribute="leading" secondItem="T84-c5-DCe" secondAttribute="leading" constant="25" id="ZMe-gy-sZQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="egq-Dh-0eD" secondAttribute="trailing" constant="20" id="ciL-s1-f7z"/>
                                                 <constraint firstAttribute="trailing" secondItem="R8R-Af-9Ma" secondAttribute="trailing" constant="10" id="f3X-gV-gPo"/>
                                                 <constraint firstItem="JgF-td-y8h" firstAttribute="leading" secondItem="kMH-eJ-gvR" secondAttribute="trailing" constant="15" id="gTl-3N-hsr"/>
                                                 <constraint firstItem="nG1-g7-Ls5" firstAttribute="leading" secondItem="T84-c5-DCe" secondAttribute="leading" constant="40" id="gwB-Lu-gS2"/>
@@ -3770,6 +3779,7 @@ Countdown</string>
                                             <outlet property="lblandroidDaysRemains" destination="g6i-bQ-rW4" id="8MP-Sz-4LH"/>
                                             <outlet property="lbliosDaysRemains" destination="6a6-7q-cfT" id="GWz-OE-foh"/>
                                             <outlet property="lblwebDaysRemains" destination="DUF-wk-Mtb" id="sai-Cf-sjE"/>
+                                            <outlet property="newBadgesImageView" destination="egq-Dh-0eD" id="tej-Yz-fid"/>
                                             <outlet property="onOffButton" destination="2gv-Sv-bzg" id="PgG-3O-gbI"/>
                                             <outlet property="roundedView" destination="nG1-g7-Ls5" id="bNE-50-Dox"/>
                                             <outlet property="settingsName" destination="CWY-pP-68E" id="8d2-e7-Xkj"/>
@@ -9148,6 +9158,7 @@ Countdown</string>
         <image name="dashedLine" width="2" height="105"/>
         <image name="dimond" width="36" height="20"/>
         <image name="dottedLine" width="4" height="106"/>
+        <image name="editProfileBadge" width="512" height="512"/>
         <image name="facebookVerified" width="37" height="38"/>
         <image name="fastestevercontestWatermarkPopupOption" width="67" height="17"/>
         <image name="flashOff" width="33" height="34"/>

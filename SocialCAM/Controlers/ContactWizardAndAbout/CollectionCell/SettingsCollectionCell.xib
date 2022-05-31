@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -185,6 +185,13 @@
                                     <constraint firstItem="nlh-1f-bzZ" firstAttribute="centerX" secondItem="p7D-vm-SIX" secondAttribute="centerX" id="wXE-Ne-yIZ"/>
                                 </constraints>
                             </view>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="editProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="AIq-6Q-Pdn">
+                                <rect key="frame" x="106" y="10" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="bbL-hh-Odh"/>
+                                    <constraint firstAttribute="height" constant="40" id="e5l-3i-xQP"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -192,6 +199,7 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZXV-yB-aJp" secondAttribute="trailing" constant="12" id="7US-qz-GKH"/>
                             <constraint firstItem="ZXV-yB-aJp" firstAttribute="top" secondItem="eQq-KK-1vL" secondAttribute="top" constant="12" id="BQa-uu-UD0"/>
                             <constraint firstItem="XEw-7i-Cp9" firstAttribute="leading" secondItem="eQq-KK-1vL" secondAttribute="leading" constant="40" id="KN9-8G-zXr"/>
+                            <constraint firstItem="AIq-6Q-Pdn" firstAttribute="top" secondItem="eQq-KK-1vL" secondAttribute="top" constant="10" id="LPz-RO-2hO"/>
                             <constraint firstAttribute="trailing" secondItem="f9i-pL-2RJ" secondAttribute="trailing" constant="12" id="Mk4-Cc-4lG"/>
                             <constraint firstAttribute="bottom" secondItem="f9i-pL-2RJ" secondAttribute="bottom" constant="12" id="OIT-WL-BXe"/>
                             <constraint firstItem="ZXV-yB-aJp" firstAttribute="leading" secondItem="eQq-KK-1vL" secondAttribute="leading" constant="15" id="OqI-L1-s8f"/>
@@ -199,6 +207,7 @@
                             <constraint firstAttribute="trailing" secondItem="p7D-vm-SIX" secondAttribute="trailing" id="j6y-x0-dax"/>
                             <constraint firstItem="f9i-pL-2RJ" firstAttribute="leading" secondItem="eQq-KK-1vL" secondAttribute="leading" constant="12" id="lrl-Kx-BNw"/>
                             <constraint firstItem="p7D-vm-SIX" firstAttribute="top" secondItem="ZXV-yB-aJp" secondAttribute="top" id="ov8-eH-CQc"/>
+                            <constraint firstAttribute="trailing" secondItem="AIq-6Q-Pdn" secondAttribute="trailing" constant="10" id="pRi-el-gjn"/>
                             <constraint firstItem="p7D-vm-SIX" firstAttribute="leading" secondItem="ZXV-yB-aJp" secondAttribute="trailing" id="rU8-ht-17V"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -235,6 +244,7 @@
                 <outlet property="lblandroidDaysRemains" destination="SYT-cB-E0d" id="W9W-0w-E0g"/>
                 <outlet property="lbliosDaysRemains" destination="DYL-p2-95d" id="Fvi-Dm-MWV"/>
                 <outlet property="lblwebDaysRemains" destination="hC0-kT-job" id="bqG-Wi-GKS"/>
+                <outlet property="newBadgesImageView" destination="AIq-6Q-Pdn" id="sUs-xe-b2g"/>
                 <outlet property="roundedView" destination="XEw-7i-Cp9" id="X7N-yw-C5A"/>
                 <outlet property="settingsName" destination="f9i-pL-2RJ" id="x4h-C1-on5"/>
                 <outlet property="socialImageView" destination="ZXV-yB-aJp" id="Tzn-qa-67t"/>
@@ -250,6 +260,7 @@
         <image name="advancedBadge" width="64" height="64"/>
         <image name="androidBadge" width="64" height="64"/>
         <image name="basicBadge" width="64" height="64"/>
+        <image name="editProfileBadge" width="512" height="512"/>
         <image name="icoApple" width="32" height="40"/>
         <image name="proBadge" width="64" height="64"/>
         <image name="webBadge" width="512" height="512"/>
