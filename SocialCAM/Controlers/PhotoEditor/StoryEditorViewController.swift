@@ -1239,7 +1239,7 @@ extension StoryEditorViewController {
         if isPic2ArtApp || cameraMode == .pic2Art {
             discardPopUpMessageLabel.text = "Are you sure you want to discard your Pic2Art?"
         } else {
-            discardPopUpMessageLabel.text = "Are you sure you want to discard your video?"
+            discardPopUpMessageLabel.text = "Are you sure you want to discard your quickie?"
         }
         if Defaults.shared.isShowAllPopUpChecked == true {
             self.hideShowDiscardVideoPopup(shouldShow: true)
@@ -1415,7 +1415,7 @@ extension StoryEditorViewController {
     }
     
     func handleQuickCamVideoSave() {
-        if Defaults.shared.isVideoSavedAfterRecording == false {
+        if Defaults.shared.isVideoSavedAfterRecording == false && Defaults.shared.isVideoSavedAfterEditing == false {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
             alert.addAction(UIAlertAction(title: R.string.localizable.saveVideoThisTimeOnly(), style: .default, handler:{(UIAlertAction)in
@@ -1436,12 +1436,12 @@ extension StoryEditorViewController {
             })
         }
         else {
-            if Defaults.shared.isVideoSavedAfterRecording == false {
+//            if Defaults.shared.isVideoSavedAfterRecording == false {
                     self.saveVideoInQuickCamFolder()
-            }
-            else {
+//            }
+//            else {
                 self.navigationController?.popViewController(animated: true) //confirm once with Krushali
-            }
+//            }
         }
     }
     
@@ -2864,9 +2864,11 @@ extension StoryEditorViewController {
                     loadingView.showTotalCount = false
                 }
                 loadingView.show(on: self.view, completion: {
+                    loadingView.startAdvertisementTimer()
                     loadingView.cancelClick = { _ in
                         exportSession.cancelExporting()
                         loadingView.hide()
+                        loadingView.advertiseTimer?.invalidate()
                     }
                 })
             }
@@ -2967,7 +2969,6 @@ extension StoryEditorViewController {
                 loadingView.shouldDescriptionTextShow = true
                 loadingView.shouldCancelShow = true
                 loadingView.show(on: self.view, completion: {
-                    
                 })
             }
         }

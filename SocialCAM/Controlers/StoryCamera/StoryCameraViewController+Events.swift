@@ -131,12 +131,15 @@ extension StoryCameraViewController {
         let blurView1 = UIVisualEffectView(frame: previewView?.bounds ?? self.view.bounds)
         blurView1.effect = UIBlurEffect.init(style: .light)
         previewView?.addSubview(blurView1)
-        UIView.transition(with: previewView ?? self.view,
-                          duration: 0.8,
-                          options: .transitionFlipFromBottom,
-                          animations: {
-                            self.nextLevel.flipCaptureDevicePosition()
-        }, completion: { (_) in
+        
+        UIView.animate(withDuration: 0.8) { [self] in
+            if self.currentCameraPosition == .front {
+                self.flipButton.transform = CGAffineTransform(scaleX: -1, y: 1)
+            } else {
+                self.flipButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+        } completion: { (_) in
+            self.nextLevel.flipCaptureDevicePosition()
             blurView1.removeFromSuperview()
             if  (self.currentCameraPosition == .front){
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_rear)
@@ -148,8 +151,7 @@ extension StoryCameraViewController {
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
             self.setCameraPositionUI()
             Defaults.shared.cameraPosition = self.currentCameraPosition.rawValue
-           
-        })
+        }
     }
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
@@ -608,15 +610,8 @@ extension StoryCameraViewController {
                 if let asset = self.getRecordSession(videoModel: takenVideoUrls) as? AVURLAsset {
                     SCAlbum.shared.saveMovieToLibrary(movieURL: asset.url)
                 } else {
-                    var avAssetArray = [AVAsset]()
                     let asset = self.getRecordSession(videoModel: takenVideoUrls)
-                    avAssetArray.removeAll()
-                    avAssetArray.append(asset)
-                    MeargeVide.mergeVideoArray(arrayVideos: avAssetArray) { (urlMeargeVide, error) in
-                        if let mergedVideoUrl = urlMeargeVide {
-                            SCAlbum.shared.saveMovieToLibrary(movieURL: mergedVideoUrl)
-                        }
-                    }
+                    SCAlbum.shared.saveAssetToLibrary(asset: asset)
                 }
             }
             self.openStoryEditor(segementedVideos: takenVideoUrls)

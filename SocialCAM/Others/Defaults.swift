@@ -701,7 +701,7 @@ class Defaults {
     
     var cameraGuidelineActiveColor: UIColor {
         get {
-            return appDefaults?.getColor(forKey: "cameraGuidelineActiveColor") ?? R.color.active5()!
+            return appDefaults?.getColor(forKey: "cameraGuidelineActiveColor") ?? R.color.active1()!
         }
         set {
             appDefaults?.setColor(newValue, forKey: "cameraGuidelineActiveColor")
@@ -710,7 +710,7 @@ class Defaults {
     
     var cameraGuidelineInActiveColor: UIColor {
         get {
-            return appDefaults?.getColor(forKey: "cameraGuidelineInActiveColor") ?? R.color.inActive6()!
+            return appDefaults?.getColor(forKey: "cameraGuidelineInActiveColor") ?? R.color.inActive7()!
         }
         set {
             appDefaults?.setColor(newValue, forKey: "cameraGuidelineInActiveColor")
@@ -1236,7 +1236,14 @@ class Defaults {
             appDefaults?.set(newValue, forKey: StaticKeys.isShareScreenDiscardPopupChecked)
         }
     }
-    
+    var defaultEmailApp: String? {
+        get {
+            return appDefaults?.string(forKey: "defaultEmailApp")
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "defaultEmailApp")
+        }
+    }
     var isEditSoundOff: Bool {
         get {
             return appDefaults?.bool(forKey: "isEditSoundOff") ?? false
@@ -1314,7 +1321,6 @@ class Defaults {
         if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
             let badgesArray = Defaults.shared.currentUser?.badges
             print("badgesArray \(imageArray)")
-            print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.toJSON()))")
             for i in 0 ..< (badgesArray?.count ?? 0){
                 let badge = badgesArray![i] as ParentBadges
                 let badImgname = self.imageNameBasedOnCode(code : badge.badge?.code ?? "")
@@ -1336,12 +1342,14 @@ class Defaults {
             imageName = "foundingMemberBadge"
         case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
             imageName = "socialBadge"
-        case Badges.SUBSCRIBER_IOS.rawValue:
+            //As subscription badges have to removed from header and other places
+            //Now subscription badges are added in Settings List and Grid
+      /*  case Badges.SUBSCRIBER_IOS.rawValue:
             imageName = "iosbadge"
         case Badges.SUBSCRIBER_ANDROID.rawValue:
             imageName = "androidbadge"
         case Badges.SUBSCRIBER_WEB.rawValue:
-            imageName = "webbadge"
+            imageName = "webbadge" */
         default:
             imageName = ""
         }

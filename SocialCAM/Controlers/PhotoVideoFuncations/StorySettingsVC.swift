@@ -10,6 +10,7 @@ import UIKit
 import GoogleSignIn
 import SafariServices
 import Alamofire
+import SDWebImage
 
 enum SettingsMode: Int {
     case subscriptions = 0
@@ -126,7 +127,7 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard),
+                                              settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
                                 StorySettings(name: "",
@@ -134,13 +135,13 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
+                                              settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
                                 StorySettings(name: "",
@@ -245,7 +246,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
-        setUpProfileHeader()
        
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         longpress.minimumPressDuration = 0.5
@@ -274,7 +274,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.settingsTableView.reloadData()
+        setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
+            
         }
     }
     
@@ -298,47 +300,62 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     // MARK: - Setup UI Methods
-    func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
+    func setUpbadgesTop() {
+        var badgearry = Defaults.shared.getbadgesArray()
+        badgearry = badgearry.filter { $0 != "iosbadge" && $0 != "androidbadge"}
         imgprelaunch.isHidden = true
         imgfoundingMember.isHidden = true
         imgSocialMediaBadge.isHidden = true
         imgSubscribeBadge.isHidden = true
+        
+        if  badgearry.count >  0 {
+            imgprelaunch.isHidden = false
+            imgprelaunch.image = UIImage.init(named: badgearry[0])
+        }
+        if  badgearry.count >  1 {
+            imgfoundingMember.isHidden = false
+            imgfoundingMember.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            imgSocialMediaBadge.isHidden = false
+            imgSocialMediaBadge.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            imgSubscribeBadge.isHidden = false
+            imgSubscribeBadge.image = UIImage.init(named: badgearry[3])
+        }
+    }
+    
+    func setUpbadgesPopUp() {
+        let badgearry = Defaults.shared.getbadgesArray()
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
         subscriptionBadgeicon.isHidden = true
         
         if  badgearry.count >  0 {
-            imgprelaunch.isHidden = false
             preLunchBadge.isHidden = false
-            imgprelaunch.image = UIImage.init(named: badgearry[0])
             preLunchBadge.image = UIImage.init(named: badgearry[0])
         }
         if  badgearry.count >  1 {
-            imgfoundingMember.isHidden = false
             foundingMergeBadge.isHidden = false
-            imgfoundingMember.image = UIImage.init(named: badgearry[1])
             foundingMergeBadge.image = UIImage.init(named: badgearry[1])
         }
         if  badgearry.count >  2 {
-            imgSocialMediaBadge.isHidden = false
             socialBadgeicon.isHidden = false
-            imgSocialMediaBadge.image = UIImage.init(named: badgearry[2])
             socialBadgeicon.image = UIImage.init(named: badgearry[2])
         }
         if  badgearry.count >  3 {
-            imgSubscribeBadge.isHidden = false
             subscriptionBadgeicon.isHidden = false
-            imgSubscribeBadge.image = UIImage.init(named: badgearry[3])
             subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
         }
     }
-  
+    
     func setUpProfileHeader() {
         userImage.layer.cornerRadius = userImage.bounds.width / 2
 //        if settingTitle.settingsType == .userDashboard {
           if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
                 userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 userImage.image = ApplicationSettings.userPlaceHolder
@@ -348,8 +365,8 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
-        setUpbadges()
-//        setUpbadgesTop()
+        setUpbadgesTop()
+//        setUpbadgesPopUp()
       
        /* } else {
             blueBgImg.isHidden = true
@@ -468,7 +485,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     @IBAction func showProfileAction(_ sender: Any) {
         getVerifiedSocialPlatforms()
-        setUpbadges()
+        setUpbadgesPopUp()
         profileDisplayView.isHidden = false
         let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
         nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
@@ -551,8 +568,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsCell.identifier, for: indexPath) as? StorySettingsCell else {
-            fatalError("\(R.reuseIdentifier.storySettingsCell.identifier) Not Found")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: StorySettingsListCell.identifier, for: indexPath) as? StorySettingsListCell else {
+            fatalError("\(StorySettingsListCell.identifier) Not Found")
         }
         let settingTitle = StorySettings.storySettings[indexPath.section]
         let settings = settingTitle.settings[indexPath.row]
@@ -560,7 +577,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
         cell.roundedView.isHidden = true
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
+        cell.badgeView.isHidden = true
+       if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             } else if settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
@@ -574,7 +592,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
-            hideUnhideImgButton(cell, R.image.settings_ShareYourRefereralLink())
+            hideUnhideImgButton(cell, R.image.referralWizard())
         }else if settingTitle.settingsType == .qrcode {
             hideUnhideImgButton(cell, R.image.settings_QRCode())
         }else if settingTitle.settingsType == .accountSettings {
@@ -602,6 +620,18 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_ReferringChannel())
         } else if settingTitle.settingsType == .subscription {
             hideUnhideImgButton(cell, R.image.settings_Subscription())
+            cell.setUpSubscriptionBadges()
+            /*let badgearry = Defaults.shared.getbadgesArray()
+            if badgearry.contains("iosbadge") {
+                cell.imgSubscribeBadge.image = R.image.newIosBadge()
+                cell.imgSubscribeBadge.isHidden = false
+            } else if badgearry.contains("androidbadge") {
+                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
+                cell.imgSubscribeBadge.isHidden = false
+            } else if badgearry.contains("webbadge") {
+                cell.imgSubscribeBadge.image = R.image.webbadge()
+                cell.imgSubscribeBadge.isHidden = false
+            } */
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
@@ -637,6 +667,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func hideUnhideImgButton(_ cell: StorySettingsCell, _ image: UIImage?) {
+        cell.onOffButton.isHidden = true
+        cell.socialImageView?.isHidden = false
+        cell.socialImageView?.image = image
+    }
+    func hideUnhideImgButton(_ cell: StorySettingsListCell, _ image: UIImage?) {
         cell.onOffButton.isHidden = true
         cell.socialImageView?.isHidden = false
         cell.socialImageView?.image = image
@@ -699,7 +734,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
             self?.getVerifiedSocialPlatforms()
-            self?.setUpbadges()
+            self?.setUpbadgesTop()
+            self?.setUpbadgesPopUp()
             headerView.badgeIconHeightConstraint.constant = 45
             self?.profileDisplayView.isHidden = false
             let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
@@ -1357,6 +1393,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         let settings = settingTitle.settings[0]
         cell.settingsName.text = settings.name
         cell.roundedView.isHidden = true
+        cell.badgeView.isHidden = true
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
@@ -1364,7 +1401,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
-            cell.socialImageView?.image = R.image.settings_ShareYourRefereralLink()
+            cell.socialImageView?.image = R.image.referralWizard()
         }else if settingTitle.settingsType == .qrcode {
             cell.socialImageView?.image =  R.image.settings_QRCode()
         }else if settingTitle.settingsType == .accountSettings {
@@ -1391,7 +1428,20 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .referringChannel {
             cell.socialImageView?.image = R.image.settings_ReferringChannel()
         } else if settingTitle.settingsType == .subscription {
-            cell.socialImageView?.image = R.image.settings_Subscription()
+            cell.setUpSubscriptionBadges()
+            
+//            cell.socialImageView?.image = R.image.settings_Subscription()
+//            let badgearry = Defaults.shared.getbadgesArray()
+//            if badgearry.contains("iosbadge") {
+//                cell.imgSubscribeBadge.image = R.image.newIosBadge()
+//                cell.imgSubscribeBadge.isHidden = false
+//            } else if badgearry.contains("androidbadge") {
+//                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
+//                cell.imgSubscribeBadge.isHidden = false
+//            } else if badgearry.contains("webbadge") {
+//                cell.imgSubscribeBadge.image = R.image.webbadge()
+//                cell.imgSubscribeBadge.isHidden = false
+//            }
         }
         return cell
     }

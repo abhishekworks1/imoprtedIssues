@@ -182,6 +182,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var emailOptionsMainView: UIView!
     @IBOutlet weak var appleEmailOptionView: UIView!
     @IBOutlet weak var gmailOptionView: UIView!
+    @IBOutlet weak var setDefaultEmailAppButton: UIButton!
     
     var isGmailOpened = false
     var isAppleEmailOpened = false
@@ -295,11 +296,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.contactTableView.isHidden = false
 
         
-//        self.textShareView.dropShadow()
-//        self.qrCodeShareView.dropShadow()
-//        self.manualEmailView.dropShadow()
-//        self.socialShareView.dropShadow()
-//        self.businessDashboardView.dropShadow()
+        self.textShareView.dropShadowNew()
+        self.qrCodeShareView.dropShadowNew()
+        self.manualEmailView.dropShadowNew()
+        self.socialShareView.dropShadowNew()
+        self.businessDashboardView.dropShadowNew()
         
         self.appleEmailOptionView.dropShadow()
         self.gmailOptionView.dropShadow()
@@ -1926,44 +1927,35 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        //        if shareType == ShareType.socialShare {
-        //            socialSharePopupView.isHidden = false
-        //            return
-        //        }
-        let urlString = self.txtLinkWithCheckOut
-        ////            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-        //            UIPasteboard.general.string = urlwithString
-        //            var shareItems: [Any] = [urlwithString]
-        //            //if isIncludeProfileImg {
-        //            let image = self.profileView.toImage()
-        //            shareItems.append(image)
-        //            //}
-        //            let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-        //            self.present(shareVC, animated: true, completion: nil)
-        //}
         
-                share(shareText: urlwithString, shareImage: self.profileView.toImage())
+        let urlString = self.txtLinkWithCheckOut
+        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            var imageUrl = URL(string: userImageURL)
+            share(shareText: urlwithString, shareImage: imageUrl)
+        }
         
         
     }
     
-    func share(shareText: String?, shareImage: UIImage?) {
+    func share(shareText: String?, shareImage: URL?) {
         var objectsToShare = [Any]()
       
         if let shareImageObj = shareImage{
             objectsToShare.append(shareImageObj)
         }
         
-        if let shareTextObj2 = shareText {
-            objectsToShare.append(shareTextObj2)
-        }
-        
-        print(objectsToShare)
+        UIPasteboard.general.string = shareText
+//        if let shareTextObj2 = shareText {
+//            objectsToShare.append(shareTextObj2)
+//        }
+//
+//        print(objectsToShare)
         
         if shareText != nil || shareImage != nil{
             let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
+            activityViewController.showToast("Paste Your text on clipboard")
             present(activityViewController, animated: true, completion: nil)
         }else{
             print("There is nothing to share")
@@ -2075,7 +2067,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.emailSubjectstr = self.txtDetailForEmail
                     self.emailBodystr = urlwithString
                     self.toEmailAddress = mobileContact?.email ?? ""
-                    self.emailOptionsMainView.isHidden = false
+                    let defaulEmail = Defaults.shared.defaultEmailApp
+                    if defaulEmail?.lowercased()  == "gmail" {
+                        gmailOptionSelected(UIButton())
+                    } else if defaulEmail?.lowercased()  == "apple" {
+                        appleEmailOptionSelected(UIButton())
+                    } else {
+                        self.emailOptionsMainView.isHidden = false
+                    }
                 }
             }
             
@@ -2268,6 +2267,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func appleEmailOptionSelected(_ sender: UIButton) {
+        if setDefaultEmailAppButton.isSelected {
+            Defaults.shared.defaultEmailApp = "apple"
+        }
         self.emailOptionsMainView.isHidden = true
         if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: false) {
             UIApplication.shared.open(emailUrl) { sucess in
@@ -2281,6 +2283,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func gmailOptionSelected(_ sender: UIButton) {
+        if setDefaultEmailAppButton.isSelected {
+            Defaults.shared.defaultEmailApp = "gmail"
+        }
         self.emailOptionsMainView.isHidden = true
         if let emailUrl = createEmailUrl(to:self.toEmailAddress, subject:self.emailSubjectstr, body: self.emailBodystr, isGmail: true) {
             UIApplication.shared.open(emailUrl) { sucess in
@@ -2293,6 +2298,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
 
+    @IBAction func setDefaultEmailAppAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
 }
 extension ContactImportVC:UIScrollViewDelegate{
     //Pagination
@@ -2393,6 +2401,11 @@ extension ContactImportVC:UIScrollViewDelegate{
             */
             if self.loadingStatus{
                 return
+            }
+            if emailContactTableView.contentSize.height > (84.0 + 50.0 + self.emailContactTableView.frame.size.height){
+                
+            }else{
+               return
             }
         if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up

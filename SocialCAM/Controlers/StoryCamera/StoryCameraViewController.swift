@@ -143,7 +143,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var outtakesButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
-            settingsButton.setImage(R.image.storySettings()!, for: .normal)
+            settingsButton.tintColor = .white
+            settingsButton.setImage(R.image.mobiledashboard()!, for: .normal)
             settingsButton.setImage(R.image.storyBack()!, for: .selected)
         }
     }
@@ -234,6 +235,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.stopMotionCollectionView.isMovable = !isDisableResequence
         }
     }
+    
+    var selectedCellIndex: Int?
     
     var isRecording: Bool = false {
         didSet {
@@ -720,16 +723,22 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                     for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated() {
                         if i == 0 {
-                            self.speedSlider.isHidden = true
-                            self.speedSliderView.isHidden = true
-                            self.verticalLines.isHidden = true
-                            if self.cameraSliderView.stringArray.count == 5 {
-                                self.cameraSliderView.stringArray.remove(at: 0)
+                            if cameraMode.recordingType == .newNormal {
+                                self.isFreshSession = false
+                                if self.selectedCellIndex == nil || self.selectedCellIndex == 0 {
+                                    self.cameraSliderView.selectCell = 1
+                                } else {
+                                    self.cameraSliderView.selectCell = self.selectedCellIndex ?? 0
+                                }
+                                self.cameraSliderView.collectionView.reloadData()
                             }
-                            self.cameraSliderView.collectionView.reloadData()
                         }
                     }
                 }
+            } else {
+                self.isFreshSession = false
+                self.cameraSliderView.selectCell = 0
+                self.cameraSliderView.collectionView.reloadData()
             }
         }
         
@@ -767,14 +776,23 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             
             if Defaults.shared.appMode != .free {
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
-                    var appMode: AppMode = .free
-                    appMode = appMode.getTypeFromString(type: Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus ?? "free")
-                    //                    if appMode != AppMode.free {
-                    if self.cameraSliderView.stringArray.count == 5 {
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
+                            self.cameraSliderView.stringArray.remove(at: 0)
+                            self.cameraSliderView.collectionView.reloadData()
+                            self.cameraSliderView.selectCell = 1
+                            self.cameraSliderView.collectionView.reloadData()
+                        }
+                    }
+                }
+            } else {
+                if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                    if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
+                        self.cameraSliderView.selectCell = 1
+                        self.cameraSliderView.collectionView.reloadData()
                     }
-                    //                    }
                 }
             }
         }
@@ -838,7 +856,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if Defaults.shared.cameraMode == .pic2Art {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.selectCell = self.cameraSliderView.stringArray.count - 1 //4
             self.cameraSliderView.collectionView.reloadData()
         }
         
@@ -847,7 +865,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @objc func displayLaunchDetails() {
         let receiveAppdelegate = UIApplication.shared.delegate as! AppDelegate
         if receiveAppdelegate.imagePath != "" {
-//            print(receiveAppdelegate.imagePath)
           let newImage = convertBase64StringToImage(imageBase64String: receiveAppdelegate.imagePath)
             print(newImage)
             Defaults.shared.cameraMode = .pic2Art
@@ -880,7 +897,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if isfromPicsArt {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 4
+            self.cameraSliderView.selectCell = self.cameraSliderView.stringArray.count - 1
             self.cameraSliderView.collectionView.reloadData()
             isfromPicsArt = false
         }
@@ -936,9 +953,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     func dynamicSetSlowFastVerticalBar() {
-        print("&&&&&&&&&&&&&&&&&&&&&")
-        print(Defaults.shared.appMode)
-        print("&&&&&&&&&&&&&&&&&&&&&")
         
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
         if recordingType == .fastMotion {
@@ -963,14 +977,39 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = 3
         default:
-            speedOptions.append(contentsOf: ["4x", "5x"])
-            speedOptions.insert(contentsOf: [recordingType == .fastMotion ? "" : "-5x", recordingType == .fastMotion ? "" : "-4x"], at: 0)
-            verticalLines.numberOfViews = .speed5x
-            speedSliderLabels.names = speedOptions
-            speedSliderLabels.value = 4
-            speedSlider.ticksListener = speedSliderLabels
-            speedSlider.tickCount = speedOptions.count
-            speedSlider.value = 4
+            if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                if self.cameraSliderView.stringArray.count == 5 && (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") && self.selectedCellIndex == 0 {
+                    verticalLines.visibleLeftSideViews = false
+                    speedOptions = ["", "", "1x", "2x", "3x"]
+                    verticalLines.numberOfViews = .speed3x
+                    speedSliderLabels.names = speedOptions
+                    speedSliderLabels.value = 2
+                    speedSlider.ticksListener = speedSliderLabels
+                    speedSlider.tickCount = speedOptions.count
+                    speedSlider.value = 2
+                    
+                } else {
+                    speedOptions.append(contentsOf: ["4x", "5x"])
+                    speedOptions.insert(contentsOf: [recordingType == .fastMotion ? "" : "-5x", recordingType == .fastMotion ? "" : "-4x"], at: 0)
+                    verticalLines.numberOfViews = .speed5x
+                    
+                    speedSliderLabels.names = speedOptions
+                    speedSliderLabels.value = 4
+                    speedSlider.ticksListener = speedSliderLabels
+                    speedSlider.tickCount = speedOptions.count
+                    speedSlider.value = 4
+                }
+            } else {
+                speedOptions.append(contentsOf: ["4x", "5x"])
+                speedOptions.insert(contentsOf: [recordingType == .fastMotion ? "" : "-5x", recordingType == .fastMotion ? "" : "-4x"], at: 0)
+                verticalLines.numberOfViews = .speed5x
+                
+                speedSliderLabels.names = speedOptions
+                speedSliderLabels.value = 4
+                speedSlider.ticksListener = speedSliderLabels
+                speedSlider.tickCount = speedOptions.count
+                speedSlider.value = 4
+            }
         }
         if recordingType == .fastMotion {
             verticalLines.visibleLeftSideViews = false
@@ -997,6 +1036,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 verticalLines.visibleLeftSideViews = true
             }
         }
+        
         if recordingType == .promo && Defaults.shared.appMode != .professional {
             timerValueView.isHidden = true
             verticalLines.visibleLeftSideViews = false
@@ -1016,6 +1056,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
             DispatchQueue.main.async {
                 if self.recordingType == .newNormal || self.recordingType == .pic2Art {
+                    self.speedLabel.text = ""
+                    self.speedLabel.stopBlink()
                     self.speedSlider.isHidden = true
                     self.speedSliderView.isHidden = true
                     self.verticalLines.isHidden = true
@@ -1450,6 +1492,7 @@ extension StoryCameraViewController {
         cameraSliderView.currentCell = { [weak self] (index, currentMode) in
             guard let `self` = self else { return }
             Defaults.shared.cameraMode = currentMode.recordingType
+            self.selectedCellIndex = index
             self.isRecording = false
             
             self.totalDurationOfOneSegment = 0.0
@@ -1499,7 +1542,12 @@ extension StoryCameraViewController {
             case .capture:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_Capture)
                 if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if  subscriptionStatusValue == "expired" {
+                            self.showAlertForUpgradeSubscription()
+                        }} else {
+                            self.showAlertForUpgradeSubscription()
+                        }
                 }
                 self.circularProgress.centerImage = R.image.iconSaveMode()
                 self.timerValueView.isHidden = true
@@ -1518,7 +1566,12 @@ extension StoryCameraViewController {
             case .pic2Art:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
                 if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if  subscriptionStatusValue == "expired" {
+                            self.showAlertForUpgradeSubscription()
+                        }} else {
+                            self.showAlertForUpgradeSubscription()
+                        }
                 } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                         if isPic2ArtShowed {
@@ -1539,6 +1592,8 @@ extension StoryCameraViewController {
                 }
             case .newNormal:
                 DispatchQueue.main.async {
+                    self.speedLabel.text = ""
+                    self.speedLabel.stopBlink()
                     self.speedSlider.isHidden = true
                     self.speedSliderView.isHidden = true
                     self.verticalLines.isHidden = true
@@ -1549,7 +1604,13 @@ extension StoryCameraViewController {
                 }
                 
                 if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                    
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if  subscriptionStatusValue == "expired" {
+                            self.showAlertForUpgradeSubscription()
+                        }} else {
+                            self.showAlertForUpgradeSubscription()
+                        }
                 }
 
             default:
@@ -1674,6 +1735,9 @@ extension StoryCameraViewController {
         } else {
             enableMicrophoneButton.setTitleColor(R.color.appPrimaryColor(), for: .normal)
         }
+        if ApplicationSettings.isCameraEnabled && ApplicationSettings.isMicrophoneEnabled {
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.registerForPushNitification(UIApplication.shared)} }
     }
     
     func checkPermissions() {
@@ -2131,7 +2195,11 @@ extension StoryCameraViewController {
                         } else if isQuickApp && Defaults.shared.appMode == .basic {
                             totalSeconds = 60
                         } else {
-                            totalSeconds = 3600
+                            if isLiteApp {
+                                totalSeconds = 60
+                            } else {
+                                totalSeconds = 3600
+                            }
                         }
                     } else if isPic2ArtApp {
                         totalSeconds = 5
@@ -2475,10 +2543,14 @@ extension StoryCameraViewController {
         switch self.currentCameraPosition {
         case .front:
             self.flipLabel.text = R.string.localizable.selfie()
-            self.flipButton.setImage(R.image.cameraFlip(), for: UIControl.State.normal)
+//            if let cgimg = R.image.cameraFlip_New1()?.cgImage {
+//                let image = UIImage(cgImage:cgimg, scale: 1.0, orientation: .downMirrored)
+//            self.flipButton.setImage(image, for: UIControl.State.normal)
+//            }
         case .back:
             self.flipLabel.text = R.string.localizable.rear()
-            self.flipButton.setImage(R.image.cameraFlipBack(), for: UIControl.State.normal)
+//            self.flipButton.setImage(R.image.cameraFlip_New1(), for: UIControl.State.normal)
+//            UIView.transition(with: self.flipButton, duration: 2, options: .transitionFlipFromRight, animations: nil, completion: nil)
         default:
             break
         }
@@ -2962,7 +3034,7 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-//        Defaults.shared.allowFullAccess = true
+       //   Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .professional
             }else if (Defaults.shared.subscriptionType == "trial"){

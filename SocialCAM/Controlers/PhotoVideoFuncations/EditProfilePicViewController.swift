@@ -696,7 +696,7 @@ extension EditProfilePicViewController {
         self.youtubeVerifiedView.isHidden = true
         if let socialPlatforms = Defaults.shared.socialPlatforms {
             self.socialPlatformStackViewHeightConstraint.constant = 32
-            for socialPlatform in socialPlatforms {
+         for socialPlatform in socialPlatforms {
                 if socialPlatform == R.string.localizable.facebook().lowercased() {
                     self.facebookVerifiedView.isHidden = false
                 } else if socialPlatform == R.string.localizable.twitter().lowercased() {

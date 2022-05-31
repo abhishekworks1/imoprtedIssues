@@ -132,6 +132,16 @@ class SCAlbum: NSObject {
             completion?(isSuccess)
         })
     }
+    
+    func saveAssetToLibrary(asset: AVAsset) {
+        let exportURL = Utils.getLocalPath("\(String.fileName).mov")
+        let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality)
+        exporter?.outputFileType = AVFileType.mov
+        exporter?.outputURL = exportURL
+        exporter?.exportAsynchronously(completionHandler: {
+            self.saveMovieToLibrary(movieURL: exportURL)
+        })
+    }
 }
 
 class MeargeVide {

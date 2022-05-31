@@ -483,7 +483,7 @@ enum GuidelineActiveColors: Int {
         case "#FF1BE3":
             return .active8
         default:
-            return .active6
+            return .active4
         }
     }
     
@@ -539,7 +539,7 @@ enum GuidelineInActiveColors: Int {
         case "#FF1BE3":
             return .inActive8
         default:
-            return .inActive6
+            return .inActive7
         }
     }
     
@@ -611,7 +611,7 @@ enum AppMode: Int, AppMode_Enum {
         case .advanced:
             return "Advanced"
         case .professional:
-            return "Pro"
+            return "Premium"
         }
     }
     
@@ -787,7 +787,13 @@ enum Badges: String {
     case SUBSCRIBER_ANDROID = "subscriber-android"
     case SUBSCRIBER_WEB = "subscriber-web"
 }
-
+enum SubscriptionTypeForBadge: String {
+    case BASIC = "basic"
+    case FREE = "free"
+    case TRIAL = "trial"
+    case ADVANCE = "advance"
+    case PRO = "pro"
+  }
 enum FileExtension: String {
     case jpg = ".jpg"
     case png = ".png"
@@ -1128,6 +1134,7 @@ public struct Paths {
     static let logoutWithKeycloak = "user/logout"
     static let addReferral = "user/addReferral"
     static let buySubscription = "subscription/buySubscription"
+    static let cancelledSubscriptions = "subscription/cancelledSubscriptions"
     static let subsciptionList = "subscriptions"
     static let userSync = "user/userSync"
     static let downgradeSubscription = "subscription/downgrade"

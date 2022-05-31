@@ -58,7 +58,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     var isShowHideMode: Bool = false {
         didSet {
             btnDropDown.isHidden = isShowHideMode
-            btnSlideShow.isHidden = !isShowHideMode
+            btnSlideShow.isHidden = true//!isShowHideMode
             btnCollage.isHidden = !isShowHideMode
         }
     }
@@ -371,7 +371,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         for segment in images {
             slideShowImages.append(segment.image ?? UIImage())
         }
-        guard slideShowImages.count > 2 else {
+        guard slideShowImages.count >= 2 else {
             self.showAlert(alertMessage: R.string.localizable.minimumThreeImagesRequiredForSlideshowVideo())
             return
         }
@@ -732,6 +732,11 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                 if (selectedIndex % styleData.count) == 0 {
                     self.filteredImage = image
                     self.applyFilter()
+                    if self.selectedIndex >= self.styleData.count {
+                        self.collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                        self.selectedIndex = 0
+                        self.styleData[self.selectedIndex].isSelected = true
+                    }
                     return
                 }
                 guard !self.isProcessing else {
@@ -758,8 +763,14 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                                 self.filteredImage = UIImage(cgImage: tempImage!)
                                 self.applyFilter()
                                 self.collectionView.reloadData()
-                                self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex, section: 0), animated: false, scrollPosition: .centeredHorizontally)
-                                self.styleData[self.selectedIndex].isSelected = true
+                                self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex-2, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                if self.selectedIndex == -1 {
+                                    self.collectionView.selectItem(at: IndexPath(item: self.styleData.count - 1, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                    self.selectedIndex = self.styleData.count - 1
+                                    self.styleData[self.selectedIndex].isSelected = true
+                                } else {
+                                    self.styleData[self.selectedIndex].isSelected = true
+                                }
                             } catch let error as NSError {
                                 print("CoreML Model Error: \(error)")
                             }
@@ -789,25 +800,25 @@ extension StyleTransferVC: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView == self.scrollView {
+        if scrollView == self.scrollView {
 //            let totalCells = self.styleData.count * self.multiplier(estimatedItemSize: collectionView.infiniteLayout.itemSize, enabled: collectionView.infiniteLayout.isEnabled)
-//            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
-//                selectedIndex = selectedIndex == 0 ? totalCells - 1 : selectedIndex - 1
-//            } else {
-//                selectedIndex = selectedIndex == totalCells - 1 ? 0 : selectedIndex + 1
-//            }
-//            guard !self.isProcessing else {
-//                return
-//            }
-//            for (index, style) in self.styleData.enumerated() {
-//                style.isSelected = (index == selectedIndex)
-//            }
+            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
+                selectedIndex = selectedIndex == 0 ? (self.selectedIndex % self.styleData.count) - 1 : selectedIndex - 1
+            } else {
+                selectedIndex = selectedIndex == (self.selectedIndex % self.styleData.count) - 1 ? 0 : selectedIndex + 1
+            }
+            guard !self.isProcessing else {
+                return
+            }
+            for (index, style) in self.styleData.enumerated() {
+                style.isSelected = (index == selectedIndex)
+            }
 //            self.collectionView.reloadData()
 //            self.collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0),
 //                                             at: .centeredHorizontally,
 //                                             animated: true)
-//            self.applyStyle(index: selectedIndex)
-//        }
+            self.applyStyle(index: selectedIndex)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -896,7 +907,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
                 return UICollectionViewCell()
             }
 
-            let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
+            let borderColor: CGColor! = ApplicationSettings.appWhiteColor.cgColor
             let borderWidth: CGFloat = 3
 
             cell.imagesStackView.tag = indexPath.item
