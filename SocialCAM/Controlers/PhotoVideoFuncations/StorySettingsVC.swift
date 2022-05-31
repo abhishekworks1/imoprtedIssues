@@ -578,6 +578,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.textColor = R.color.appBlackColor()
         cell.roundedView.isHidden = true
         cell.badgeView.isHidden = true
+        cell.newBadgesImageView.isHidden = true
        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -589,12 +590,18 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_Dashboard())
         }else if settingTitle.settingsType == .editProfileCard {
             hideUnhideImgButton(cell, R.image.settings_EditProfileCard())
+            cell.newBadgesImageView.isHidden = false
+            cell.newBadgesImageView.image = R.image.editProfileBadge()
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
             hideUnhideImgButton(cell, R.image.referralWizard())
+            cell.newBadgesImageView.isHidden = false
+            cell.newBadgesImageView.image = R.image.referralWizardBadge()
         }else if settingTitle.settingsType == .qrcode {
             hideUnhideImgButton(cell, R.image.settings_QRCode())
+            cell.newBadgesImageView.isHidden = false
+            cell.newBadgesImageView.image = R.image.qrCodeBadge()
         }else if settingTitle.settingsType == .accountSettings {
             hideUnhideImgButton(cell, R.image.settings_Account())
         } else if settingTitle.settingsType == .cameraSettings {
