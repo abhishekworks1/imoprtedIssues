@@ -71,10 +71,9 @@ class SubscriptionContainerViewController: UIViewController {
         }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
             viewDetailProView.isHidden = true
             activeProView.isHidden = false
-        }else if(Defaults.shared.subscriptionType?.lowercased() == "free"){
+        }else{
             viewDetailFreeView.isHidden = true
             activeFreeView.isHidden = false
-            
         }
         
     }

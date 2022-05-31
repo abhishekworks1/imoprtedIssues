@@ -356,8 +356,11 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .free {
 //            btnUpgrade.isHidden = true
         }
-        print(Defaults.shared.subscriptionType?.lowercased())
+     
         if (Defaults.shared.subscriptionType?.lowercased() == "basic") || (Defaults.shared.subscriptionType?.lowercased() == "advance") || (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+             upGradeButtonView.isHidden = true
+        }
+        if appMode == .free{
             upGradeButtonView.isHidden = true
         }
     }
