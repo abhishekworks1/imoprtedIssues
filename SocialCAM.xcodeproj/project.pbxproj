@@ -5673,6 +5673,10 @@
 		8440D9A928058A8700DFB3C6 /* ReferSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */; };
 		8440D9AA28058A8700DFB3C6 /* ReferSuccessVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */; };
 		8440D9AB28058A8700DFB3C6 /* ReferSuccessVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */; };
+		846AE87A2846393800CA6645 /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AE8782846393700CA6645 /* EasyTipView.swift */; };
+		846AE87B2846393800CA6645 /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AE8782846393700CA6645 /* EasyTipView.swift */; };
+		846AE87C2846393800CA6645 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AE8792846393700CA6645 /* UIKitExtensions.swift */; };
+		846AE87D2846393800CA6645 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AE8792846393700CA6645 /* UIKitExtensions.swift */; };
 		84702BFC2835002900508090 /* CancelSubscriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84702BFB2835002800508090 /* CancelSubscriptionModel.swift */; };
 		84702BFD2835042900508090 /* CancelSubscriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84702BFB2835002800508090 /* CancelSubscriptionModel.swift */; };
 		848A4F082841045B00A8BFC3 /* CameraTooltip1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 848A4F042841045300A8BFC3 /* CameraTooltip1.gif */; };
@@ -16297,6 +16301,8 @@
 		8421F131283BB53C009E16C9 /* EditTooltip3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EditTooltip3.gif; sourceTree = "<group>"; };
 		8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferSuccessVC.swift; sourceTree = "<group>"; };
 		8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReferSuccessVC.xib; sourceTree = "<group>"; };
+		846AE8782846393700CA6645 /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
+		846AE8792846393700CA6645 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		84702BFB2835002800508090 /* CancelSubscriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelSubscriptionModel.swift; sourceTree = "<group>"; };
 		848A4F042841045300A8BFC3 /* CameraTooltip1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = CameraTooltip1.gif; sourceTree = "<group>"; };
 		848A4F052841045700A8BFC3 /* CameraTooltip2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = CameraTooltip2.gif; sourceTree = "<group>"; };
@@ -17174,6 +17180,7 @@
 		8205FA78236C0F52002B2603 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				846AE8772846393700CA6645 /* EasyTipView */,
 				828F3B36258B53D9001F4500 /* Recorder */,
 				827C711B25302F26006D1EB6 /* LetterImageGenerator.swift */,
 				F6B76C74251DBA31007EBA98 /* AppleSignInManager.swift */,
@@ -18933,6 +18940,15 @@
 				82E4D683259B466D005B41C1 /* Info.plist */,
 			);
 			path = QuickCamLiteExtensionSetupUI;
+			sourceTree = "<group>";
+		};
+		846AE8772846393700CA6645 /* EasyTipView */ = {
+			isa = PBXGroup;
+			children = (
+				846AE8782846393700CA6645 /* EasyTipView.swift */,
+				846AE8792846393700CA6645 /* UIKitExtensions.swift */,
+			);
+			path = EasyTipView;
 			sourceTree = "<group>";
 		};
 		849EEC2528169D330044DF13 /* CollectionCell */ = {
@@ -26893,6 +26909,7 @@
 				8205FD82236C3B06002B2603 /* BlurredMosaicView.swift in Sources */,
 				82D1EBC9236FEE9A00A680E7 /* FrameCollectionViewCell.swift in Sources */,
 				8205FD75236C3B06002B2603 /* AdjustmentControlView.swift in Sources */,
+				846AE87A2846393800CA6645 /* EasyTipView.swift in Sources */,
 				8205FD55236C3B06002B2603 /* FilterContrast.swift in Sources */,
 				8205FD50236C3B06002B2603 /* FilterTemperature.swift in Sources */,
 				952EC29C244865F00020992A /* ChannelManagment.swift in Sources */,
@@ -26992,6 +27009,7 @@
 				C22C45B7261DE21700B86943 /* WatermarkSettingsViewController.swift in Sources */,
 				8203868726FDD6BE001FB6BB /* UserDetailsVC.swift in Sources */,
 				827106E924A45EFB00C53521 /* AMColorPickerTableViewCell.swift in Sources */,
+				846AE87C2846393800CA6645 /* UIKitExtensions.swift in Sources */,
 				821CF9FD248784E000EC1503 /* UIViewController+STPopup.m in Sources */,
 				3546EAF628082C8C0043CA9B /* DefaultPreviewView.swift in Sources */,
 				8243DCD8271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */,
@@ -33600,6 +33618,7 @@
 				C2F9324B264AA0CA006CA527 /* BaseLineView.swift in Sources */,
 				C2F9324C264AA0CA006CA527 /* BasePopOverMenu.swift in Sources */,
 				C2F9324D264AA0CA006CA527 /* ReactionTypeEnum.swift in Sources */,
+				846AE87B2846393800CA6645 /* EasyTipView.swift in Sources */,
 				49DE09FE26F36BB800E7FC65 /* SetTokenModel.swift in Sources */,
 				C2F9324E264AA0CA006CA527 /* StyleTransferVC.swift in Sources */,
 				C2F9324F264AA0CA006CA527 /* CollageViewT204.swift in Sources */,
@@ -34004,6 +34023,7 @@
 				C2F933A2264AA0CA006CA527 /* SearchDropDown.swift in Sources */,
 				C2F933A3264AA0CA006CA527 /* StroyCameraViewController+CollectionView.swift in Sources */,
 				C2F933A4264AA0CA006CA527 /* NextLevelBufferRenderer.swift in Sources */,
+				846AE87D2846393800CA6645 /* UIKitExtensions.swift in Sources */,
 				C2F933A5264AA0CA006CA527 /* CGAngle.swift in Sources */,
 				C26FD27E26E8DDA1006DAE1B /* EditProfileCropViewController.swift in Sources */,
 				C2F933A6264AA0CA006CA527 /* MMPlayerPassViewPresentConfig.swift in Sources */,

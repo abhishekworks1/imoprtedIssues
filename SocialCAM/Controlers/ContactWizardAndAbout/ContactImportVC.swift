@@ -41,7 +41,7 @@ struct ContactStatus{
 protocol ContactImportDelegate {
     func didFinishEdit(contact:ContactResponse?)
 }
-class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate,ContactImportDelegate {
+class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate,ContactImportDelegate{
     
     var shareType:ShareType = ShareType.textShare
     @IBOutlet weak var line1: UILabel!
@@ -306,7 +306,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.gmailOptionView.dropShadow()
         
         previewImageview.contentMode = .scaleAspectFit
-       
+        
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont.systemFont(ofSize: 13)
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor.gray79
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+        EasyTipView.globalPreferences = preferences
     }
     func setupUIBasedOnUrlToShare() {
         //        if let referralPage = Defaults.shared.currentUser?.referralPage {
@@ -437,6 +443,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func setupPage(){
         self.searchBar.endEditing(true)
+        for view in page0view.subviews {
+            if view is EasyTipView {
+                view.removeFromSuperview()
+            }
+        }
         if pageNo == 1 {
             page0view.isHidden = false
             page1view.isHidden = true
@@ -1828,6 +1839,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
+        
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }
@@ -1875,6 +1887,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
+    @IBAction func showTooltipAction(_ sender: UIButton) {
+        for view in page0view.subviews {
+            if view is EasyTipView {
+                view.removeFromSuperview()
+            }
+        }
+        if sender.tag == 101 {
+            EasyTipView.show(forView: sender,
+                             withinSuperview: page0view,
+                             text: R.string.localizable.referralTooltip(),
+                             delegate: self)
+        }
+        else if sender.tag == 102 {
+            EasyTipView.show(forView: sender,
+                             withinSuperview: page0view,
+                             text: R.string.localizable.quickstartTooltip(),
+                             delegate: self)
+        }
+    }
+    
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
         businessDashbardConfirmPopupView.isHidden = false
     }
@@ -1927,15 +1959,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        
         let urlString = self.txtLinkWithCheckOut
         let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
             var imageUrl = URL(string: userImageURL)
             share(shareText: urlwithString, shareImage: imageUrl)
         }
-        
-        
     }
     
     func share(shareText: String?, shareImage: URL?) {
@@ -2429,6 +2458,15 @@ extension ContactImportVC:UIScrollViewDelegate{
              
         }
       
+    }
+}
+extension ContactImportVC:EasyTipViewDelegate {
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+        
+    }
+    
+    func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+        
     }
 }
 extension UISwipeActionsConfiguration {

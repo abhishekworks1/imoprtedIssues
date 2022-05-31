@@ -102,7 +102,7 @@ extension CGSize {
 }
 
 extension CGRect {
-    var center: CGPoint { return CGPoint(x: midX, y: midY).checked}
+    var centerETV: CGPoint { return CGPoint(x: midX, y: midY).checked}
     var hasNaN: Bool {return size.hasNaN || origin.hasNaN}
     var checked: CGRect {
         guard !hasNaN else {
