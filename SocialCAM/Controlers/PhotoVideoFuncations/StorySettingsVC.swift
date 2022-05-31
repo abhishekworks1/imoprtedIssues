@@ -1401,16 +1401,23 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         cell.settingsName.text = settings.name
         cell.roundedView.isHidden = true
         cell.badgeView.isHidden = true
+        cell.newBadgesImageView.isHidden = true
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
             cell.socialImageView?.image = R.image.settings_EditProfileCard()
+            cell.newBadgesImageView.isHidden = false
+            cell.newBadgesImageView.image = R.image.editProfileBadge()
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
             cell.socialImageView?.image = R.image.referralWizard()
+            cell.newBadgesImageView.isHidden = false
+            cell.newBadgesImageView.image = R.image.referralWizardBadge()
         }else if settingTitle.settingsType == .qrcode {
             cell.socialImageView?.image =  R.image.settings_QRCode()
+            cell.newBadgesImageView.isHidden = false
+            cell.newBadgesImageView.image = R.image.qrCodeBadge()
         }else if settingTitle.settingsType == .accountSettings {
             cell.socialImageView?.image = R.image.settings_Account()
         } else if settingTitle.settingsType == .cameraSettings {

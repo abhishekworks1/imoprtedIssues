@@ -18,6 +18,7 @@ class SettingsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var roundedView: RoundedView!
     
     
+    @IBOutlet weak var newBadgesImageView: UIImageView!
     @IBOutlet weak var badgeView: UIView!
     @IBOutlet weak var iosBadgeView: UIView!
     @IBOutlet weak var iosSheildImageview: UIImageView!
