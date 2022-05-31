@@ -30,6 +30,14 @@ class SubscriptionContainerViewController: UIViewController {
     
     @IBOutlet weak var activeProView: UIView!
     @IBOutlet weak var viewDetailProView: UIView!
+    
+    
+    @IBOutlet weak var lblBadgeFree: UILabel!
+    @IBOutlet weak var lblBadgeBasic: UILabel!
+    @IBOutlet weak var lblBadgeAdvanced: UILabel!
+    @IBOutlet weak var lblBadgePro: UILabel!
+    @IBOutlet weak var lbltrialDays: UILabel!
+  
 
     // MARK: -
     // MARK: - Variables
@@ -75,7 +83,7 @@ class SubscriptionContainerViewController: UIViewController {
             viewDetailFreeView.isHidden = true
             activeFreeView.isHidden = false
         }
-        
+        setSubscriptionBadgeDetails()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -184,7 +192,53 @@ class SubscriptionContainerViewController: UIViewController {
         }
         subscriptionImgV.image = UIImage.init(named: imgStr)
     }
-  
+    private func setSubscriptionBadgeDetails(){
+        lblBadgeFree.text = ""
+        lblBadgeBasic.text = ""
+        lblBadgeAdvanced.text = ""
+        lblBadgePro.text = ""
+        lbltrialDays.text = ""
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                
+                // Setup For iOS Badge
+                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
+                {
+                   if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                       if freeTrialDay > 0{
+                           let trialDayText = "You have \(freeTrialDay) days left on your free trial."
+                           lbltrialDays.text = trialDayText
+                       }
+                        lblBadgeFree.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
+                       
+                      // You have 0 days left on your free trial.
+                    }else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lblBadgeFree.text = "\(freeTrialDay)"
+                        } else {
+                            //iOS shield hide
+                            //square badge show
+                            lblBadgeFree.text = ""
+                        }
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        lblBadgeBasic.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        lblBadgeAdvanced.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        lblBadgePro.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                    }
+                }
+                
+            }
+        }
+        
+    }
     // MARK: -
     // MARK: - Button Action Methods
     

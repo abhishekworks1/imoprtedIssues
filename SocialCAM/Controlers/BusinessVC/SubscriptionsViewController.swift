@@ -30,6 +30,8 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var pic2ArtTitleLabel: UILabel!
     
+    @IBOutlet weak var lblBadgeRemainingDays: UILabel!
+    
     @IBOutlet weak var days7TrialSubTitleLabel: UILabel!
     @IBOutlet weak var days7TrialTitleLabel: UILabel!
     
@@ -73,7 +75,7 @@ class SubscriptionsViewController: UIViewController {
         planActiveView.isHidden = true
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+            lblPrice.text = "Introductory Price  | $1.99/month (3 months) \n Early-Bird Price  | $2.99/month (after 3 months)"
             subScriptionTypeLabel.text = "Basic"
             if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
                 planActiveView.isHidden = false
@@ -81,15 +83,15 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Regular Price  | $2.99/month"
-            subScriptionTypeLabel.text = "Advance"
+            lblPrice.text = "Early-Bird Price  | $2.99/month"
+            subScriptionTypeLabel.text = "Advanced"
             if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
                 planActiveView.isHidden = false
             }
         }
         else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Regular Price  | $4.99/month"
+            lblPrice.text = "Early-Bird Price  | $4.99/month"
             subScriptionTypeLabel.text = "Premium"
             if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
                 planActiveView.isHidden = false
@@ -107,6 +109,8 @@ class SubscriptionsViewController: UIViewController {
 //            expiryDateHeightConstraint.constant = 0
 //            lblPrice.isHidden = true
 //        }
+        
+        setSubscriptionBadgeDetails()
     }
     
     override func viewDidLayoutSubviews() {
@@ -136,8 +140,10 @@ class SubscriptionsViewController: UIViewController {
             quickCamModeSubTitles.text = "-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record in normal speed\n-  Record up to 3 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Premium Subscriber Badge Business Dashboard (Web access)"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Premium Subscriber Badge"
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+            
+            //"- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Premium Subscriber Badge Business Dashboard (Web access)"
         case .advanced:
             pic2ArtTitleLabel.isHidden = false
             pic2ArtSubTitleLabel.isHidden = false
@@ -157,7 +163,7 @@ class SubscriptionsViewController: UIViewController {
             quickCamModeSubTitles.text = "-  Record in 2x, 3x and 4x fast motion\n-  Record in -2x, -3x and -4x slow motion\n-  Record in normal speed\n-  Record up to 2 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 2 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Advanced Subscriber Badge Business Dashboard (Web access)"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Advanced Subscriber Badge"
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
         case .basic:
             subScriptionTypeLabel.text = "Basic"
@@ -167,10 +173,11 @@ class SubscriptionsViewController: UIViewController {
             
             let firstColor = UIColor.init(hexString: "FDE774")
             let secondColor = UIColor.init(hexString: "FDDC66")
+            //DCAF54
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
             upGradeButtonView.backgroundColor = firstColor
-            yourPlanActiveLabel.textColor = firstColor
+            yourPlanActiveLabel.textColor =  UIColor.init(hexString: "DCAF54")
             monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             pic2ArtTitleLabel.isHidden = true
             pic2ArtSubTitleLabel.isHidden = true
@@ -178,7 +185,7 @@ class SubscriptionsViewController: UIViewController {
             days7TrialSubTitleLabel.isHidden = true
             quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Record in normal speed\n-  Record up to 1 minute"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Basic Subscriber Badge Business Dashboard (Web access)"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Basic Subscriber Badge"
             businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
         case .free:
             pic2ArtTitleLabel.isHidden = true
@@ -286,6 +293,8 @@ class SubscriptionsViewController: UIViewController {
             }
         }
         self.lblTitle.text = self.subscriptionType.description
+        print(self.subscriptionType.description)
+        print("self.subscriptionType.description")
         //Comment by Navroz
        /* DispatchQueue.main.async {
             if let price = subscriptionData.first?.price,
@@ -364,7 +373,49 @@ class SubscriptionsViewController: UIViewController {
             upGradeButtonView.isHidden = true
         }
     }
-
+    func setSubscriptionBadgeDetails(){
+        lblBadgeRemainingDays.text =  ""
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                
+                // Setup For iOS Badge
+                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
+                {
+                   
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        lblBadgeRemainingDays.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
+                      
+                    }else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            lblBadgeRemainingDays.text = "\(freeTrialDay)"
+                            
+                        } else {
+                            //iOS shield hide
+                            //square badge show
+                            lblBadgeRemainingDays.text = ""
+                           
+                        }
+                    }else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue && self.subscriptionType == .basic {
+                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                       
+                    }else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue && self.subscriptionType == .advanced {
+                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                       
+                    }else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue && self.subscriptionType == .professional {
+                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        
+                    }
+                }
+                
+               
+              
+                
+            }
+        }
+    }
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {
         case .free:

@@ -1062,6 +1062,11 @@
                         <outlet property="activeBasicView" destination="uQh-y3-Otc" id="QJC-sC-xVs"/>
                         <outlet property="activeFreeView" destination="U7c-iR-Uzt" id="EYU-dR-Bcx"/>
                         <outlet property="activeProView" destination="v4D-Cc-ulL" id="RVY-Ug-qtp"/>
+                        <outlet property="lblBadgeAdvanced" destination="U0f-JI-qHD" id="7Uj-1z-EqL"/>
+                        <outlet property="lblBadgeBasic" destination="war-Fs-tbx" id="cdD-G0-AzY"/>
+                        <outlet property="lblBadgeFree" destination="qwa-X3-zQa" id="vYQ-Uw-Pdu"/>
+                        <outlet property="lblBadgePro" destination="jxB-Bs-2R5" id="koU-BB-9qM"/>
+                        <outlet property="lbltrialDays" destination="oWd-RK-lsr" id="dy0-tE-q6H"/>
                         <outlet property="navigationBarView" destination="AhA-bR-90t" id="Oqk-4N-1jN"/>
                         <outlet property="viewDetailAdvancedView" destination="Sxd-Fp-84v" id="0b8-Mq-uCt"/>
                         <outlet property="viewDetailBasicView" destination="ed6-ce-Ngg" id="dRx-xD-Q1T"/>
@@ -1660,21 +1665,21 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuw-M7-7ET">
                                         <rect key="frame" x="0.0" y="64" width="420" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IPhone: 4.99/month" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-5T-6cw">
-                                                <rect key="frame" x="20" y="30.5" width="190" height="19.5"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IPhone: 4.99/month" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-5T-6cw">
+                                                <rect key="frame" x="20" y="31" width="190" height="18"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="YBC-5T-6cw" firstAttribute="leading" secondItem="cuw-M7-7ET" secondAttribute="leading" constant="20" id="JdL-fU-okQ"/>
                                             <constraint firstItem="YBC-5T-6cw" firstAttribute="centerY" secondItem="cuw-M7-7ET" secondAttribute="centerY" id="RSh-Tb-KSo"/>
                                             <constraint firstAttribute="height" constant="80" id="qWG-XC-8u4"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJv-Vq-jM4">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJv-Vq-jM4" userLabel="Badge View">
                                         <rect key="frame" x="220" y="14" width="90" height="100"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priBadgeBG" translatesAutoresizingMaskIntoConstraints="NO" id="FLh-A1-GTV">
@@ -1756,10 +1761,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rDv-mX-psa">
-                                                                    <rect key="frame" x="0.0" y="127" width="172" height="43.5"/>
+                                                                    <rect key="frame" x="0.0" y="127" width="59.5" height="43.5"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pic2Art (iPhone Only)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-0J-dp8">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="172" height="20.5"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pic2Art" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-0J-dp8">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="59.5" height="20.5"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -1851,10 +1856,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L9C-zb-Krc">
                                                 <rect key="frame" x="30" y="10" width="260" height="70"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Active Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXf-iw-Nbo">
-                                                        <rect key="frame" x="54" y="23" width="152" height="24"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXf-iw-Nbo">
+                                                        <rect key="frame" x="78" y="23" width="104.5" height="24"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" red="0.86274509803921573" green="0.68627452850000004" blue="0.32941177490000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -1957,6 +1962,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                         <outlet property="businessDashboardSubTitleLabel" destination="ybh-7L-UMs" id="fVz-VU-XaN"/>
                         <outlet property="days7TrialSubTitleLabel" destination="Ahs-az-2Ut" id="06W-77-BDk"/>
                         <outlet property="days7TrialTitleLabel" destination="2QS-zZ-uZ4" id="i84-7a-j3R"/>
+                        <outlet property="lblBadgeRemainingDays" destination="G6e-H2-LbT" id="YVc-De-EN8"/>
                         <outlet property="lblPrice" destination="YBC-5T-6cw" id="QJf-u0-0e0"/>
                         <outlet property="lblTitle" destination="yrf-Nb-E3a" id="HkP-u2-H6h"/>
                         <outlet property="mobileDashboardSubTitlesLabel" destination="Ngf-hk-oL5" id="U0H-OF-b5h"/>
@@ -2000,7 +2006,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <image name="viewDetailsRightArrow" width="6" height="12"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="currentPlanButtonColor">
             <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2009,7 +2015,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
             <color red="0.30199998617172241" green="0.51399999856948853" blue="0.83099997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
-            <color red="0.23899999260902405" green="0.77300000190734863" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
