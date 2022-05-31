@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -295,6 +294,18 @@
                                                                             <action selector="didTapQuickStartButton:" destination="zZw-wm-uWi" eventType="touchUpInside" id="8qp-wA-9iq"/>
                                                                         </connections>
                                                                     </button>
+                                                                    <button toolTip="12345" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xh4-K2-h4i">
+                                                                        <rect key="frame" x="187.5" y="32.5" width="25" height="25"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="25" id="Ko3-HU-mqf"/>
+                                                                            <constraint firstAttribute="height" constant="25" id="tvf-q7-xjk"/>
+                                                                        </constraints>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" image="circleHelpQuestionMark"/>
+                                                                        <connections>
+                                                                            <action selector="showTooltipAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="ZcI-gi-Oly"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
@@ -303,6 +314,7 @@
                                                                     <constraint firstItem="roi-EZ-sxY" firstAttribute="centerY" secondItem="XBP-Xb-qtE" secondAttribute="centerY" id="A0e-ZI-EBK"/>
                                                                     <constraint firstItem="t11-hR-hqR" firstAttribute="centerY" secondItem="XBP-Xb-qtE" secondAttribute="centerY" id="CDN-fY-CQE"/>
                                                                     <constraint firstAttribute="bottom" secondItem="494-WD-4Vo" secondAttribute="bottom" id="NNT-09-WcM"/>
+                                                                    <constraint firstItem="Xh4-K2-h4i" firstAttribute="leading" secondItem="mBw-HI-1Ss" secondAttribute="trailing" constant="12" id="aIm-ot-HM9"/>
                                                                     <constraint firstItem="494-WD-4Vo" firstAttribute="top" secondItem="XBP-Xb-qtE" secondAttribute="top" id="alK-iW-26C"/>
                                                                     <constraint firstItem="roi-EZ-sxY" firstAttribute="centerY" secondItem="XBP-Xb-qtE" secondAttribute="centerY" id="dPx-EZ-sOe"/>
                                                                     <constraint firstAttribute="trailing" secondItem="494-WD-4Vo" secondAttribute="trailing" id="dQ6-A4-JS1"/>
@@ -310,6 +322,7 @@
                                                                     <constraint firstAttribute="height" constant="90" id="nYI-iZ-gN9"/>
                                                                     <constraint firstItem="t11-hR-hqR" firstAttribute="leading" secondItem="XBP-Xb-qtE" secondAttribute="leading" constant="10" id="pf8-ZQ-0LC"/>
                                                                     <constraint firstItem="494-WD-4Vo" firstAttribute="leading" secondItem="XBP-Xb-qtE" secondAttribute="leading" id="qGs-pM-lSj"/>
+                                                                    <constraint firstItem="Xh4-K2-h4i" firstAttribute="centerY" secondItem="XBP-Xb-qtE" secondAttribute="centerY" id="zOH-iR-ArT"/>
                                                                 </constraints>
                                                             </view>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POv-5a-om6">
@@ -422,11 +435,25 @@
                                                                             <action selector="didTapReferalButtonClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="W9p-UG-hTP"/>
                                                                         </connections>
                                                                     </button>
+                                                                    <button toolTip="12345" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IwG-il-zjK">
+                                                                        <rect key="frame" x="209" y="32.5" width="25" height="25"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="25" id="4XF-Su-vq3"/>
+                                                                            <constraint firstAttribute="width" constant="25" id="o0Q-YA-Olw"/>
+                                                                        </constraints>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" image="circleHelpQuestionMark"/>
+                                                                        <connections>
+                                                                            <action selector="showTooltipAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="kC0-gL-HKF"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="FDe-Gy-219" firstAttribute="centerY" secondItem="sIq-Ar-Nnn" secondAttribute="centerY" id="2LU-cg-KqC"/>
+                                                                    <constraint firstItem="IwG-il-zjK" firstAttribute="centerY" secondItem="sIq-Ar-Nnn" secondAttribute="centerY" id="A0q-Fh-G2h"/>
                                                                     <constraint firstAttribute="trailing" secondItem="i6G-yC-bgX" secondAttribute="trailing" constant="10" id="GzN-ro-9VV"/>
+                                                                    <constraint firstItem="IwG-il-zjK" firstAttribute="leading" secondItem="FDe-Gy-219" secondAttribute="trailing" constant="12" id="KfC-MD-JM1"/>
                                                                     <constraint firstItem="i6G-yC-bgX" firstAttribute="centerY" secondItem="sIq-Ar-Nnn" secondAttribute="centerY" id="RrI-Ry-8uX"/>
                                                                     <constraint firstAttribute="bottom" secondItem="6ni-6r-SKM" secondAttribute="bottom" id="ai0-UC-3BH"/>
                                                                     <constraint firstAttribute="trailing" secondItem="6ni-6r-SKM" secondAttribute="trailing" id="bp6-Sw-JeQ"/>
@@ -1367,7 +1394,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Profile Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-qK-xQi">
-                                                                                <rect key="frame" x="42" y="11" width="142.5" height="20"/>
+                                                                                <rect key="frame" x="42" y="11" width="131.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1382,7 +1409,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-cf-NbA">
-                                                                                <rect key="frame" x="227" y="11" width="88.5" height="20"/>
+                                                                                <rect key="frame" x="227" y="11" width="85.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1682,7 +1709,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="649"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBq-W3-UUF">
-                                                                <rect key="frame" x="171" y="20" width="72" height="23.5"/>
+                                                                <rect key="frame" x="172" y="20" width="70.5" height="23.5"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="20"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -2324,7 +2351,7 @@
                                         <rect key="frame" x="57" y="378" width="300" height="140"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ek-so-tRU">
-                                                <rect key="frame" x="15" y="24" width="270" height="20.5"/>
+                                                <rect key="frame" x="15" y="24" width="270" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="270" id="al7-Hs-2EL"/>
                                                 </constraints>
@@ -2430,13 +2457,13 @@
                                         <rect key="frame" x="20" y="279.5" width="374" height="215"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The QuickCam Business Dashboard Sharing will open in your default browser." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZ9-uj-XLj">
-                                                <rect key="frame" x="15" y="25" width="344" height="41"/>
+                                                <rect key="frame" x="15" y="25" width="344" height="40"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" name="AppBlackColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XeA-xI-3ji">
-                                                <rect key="frame" x="0.0" y="66" width="374" height="120"/>
+                                                <rect key="frame" x="0.0" y="65" width="374" height="120"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECQ-JQ-hzo">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
@@ -2456,7 +2483,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXZ-gP-Pzx">
-                                                                <rect key="frame" x="55" y="20" width="310" height="20.5"/>
+                                                                <rect key="frame" x="55" y="20" width="310" height="20"/>
                                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="17"/>
                                                                 <color key="textColor" name="AppBlackColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -2584,7 +2611,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNc-lo-SsS">
-                                                        <rect key="frame" x="100" y="13" width="60" height="19"/>
+                                                        <rect key="frame" x="100" y="13" width="60.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -3163,7 +3190,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjp-yL-3si">
-                                                <rect key="frame" x="73" y="65" width="137.5" height="0.0"/>
+                                                <rect key="frame" x="73" y="65" width="129.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3271,7 +3298,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyq-4q-TGt">
-                                                <rect key="frame" x="73" y="85" width="137.5" height="30"/>
+                                                <rect key="frame" x="73" y="85" width="129.5" height="30"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3356,7 +3383,7 @@
                                         <rect key="frame" x="57" y="348" width="300" height="200"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your email app" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMW-ru-JA5">
-                                                <rect key="frame" x="15" y="15" width="270" height="20.5"/>
+                                                <rect key="frame" x="15" y="15" width="270" height="20"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -3371,7 +3398,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gmail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nId-Z2-CA2">
-                                                        <rect key="frame" x="0.0" y="73" width="100" height="17"/>
+                                                        <rect key="frame" x="0.0" y="73.5" width="100" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -3420,7 +3447,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MO-Ok-9T9">
-                                                        <rect key="frame" x="0.0" y="73" width="100" height="17"/>
+                                                        <rect key="frame" x="0.0" y="73.5" width="100" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -3921,6 +3948,7 @@
         <image name="avtarContact" width="23" height="24"/>
         <image name="checkBoxActive" width="20" height="20"/>
         <image name="checkBoxInActive" width="20" height="20"/>
+        <image name="circleHelpQuestionMark" width="16" height="16"/>
         <image name="closeContact" width="16" height="16"/>
         <image name="copyIcon" width="500" height="615"/>
         <image name="emailContact" width="23" height="16"/>

@@ -41,7 +41,7 @@ struct ContactStatus{
 protocol ContactImportDelegate {
     func didFinishEdit(contact:ContactResponse?)
 }
-class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate,ContactImportDelegate {
+class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate,ContactImportDelegate{
     
     var shareType:ShareType = ShareType.textShare
     @IBOutlet weak var line1: UILabel!
@@ -212,7 +212,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var emailSubjectstr = ""
     var emailBodystr = ""
     var toEmailAddress = ""
-    
+    weak var tooltipView: EasyTipView?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -306,7 +306,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.gmailOptionView.dropShadow()
         
         previewImageview.contentMode = .scaleAspectFit
-       
+        
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont.systemFont(ofSize: 13)
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor.gray79
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+        EasyTipView.globalPreferences = preferences
     }
     func setupUIBasedOnUrlToShare() {
         //        if let referralPage = Defaults.shared.currentUser?.referralPage {
@@ -457,6 +463,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum5.backgroundColor = .white
         }
         else if pageNo == 2 {
+            if let tipView = tooltipView {
+                tipView.dismiss(withCompletion: {
+                    print("Completion called!")
+                })
+            }
             page0view.isHidden = true
             page1view.isHidden = false
             page2view.isHidden = true
@@ -476,6 +487,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum5.backgroundColor = .white
         }
         else if pageNo == 3 {
+            if let tipView = tooltipView {
+                tipView.dismiss(withCompletion: {
+                    print("Completion called!")
+                })
+            }
             page0view.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = false
@@ -496,6 +512,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             itemsTableView.reloadData()
         }
         else if pageNo == 4 {
+            if let tipView = tooltipView {
+                tipView.dismiss(withCompletion: {
+                    print("Completion called!")
+                })
+            }
             page0view.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = true
@@ -533,6 +554,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.previewMainView.isHidden = false
         }
         else if pageNo == 5 {
+            if let tipView = tooltipView {
+                tipView.dismiss(withCompletion: {
+                    print("Completion called!")
+                })
+            }
             page0view.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = true
@@ -1875,6 +1901,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
+    @IBAction func showTooltipAction(_ sender: UIButton) {
+        if let tooltp = tooltipView {
+            if sender.tag == 101 {
+                tooltp.show(forView: sender,
+                            withinSuperview: self.navigationController?.view,
+                            text: "Send your QuickStart referral link to your contacts who need minimum information to sign up as quickly as possible.",
+                            delegate: self)
+            }
+            else if sender.tag == 102 {
+                tooltp.show(forView: sender,
+                            withinSuperview: self.navigationController?.view,
+                            text: "Send your Referral Page link to your contacts who need more information before signing up.",
+                            delegate: self)
+            }
+        }
+    }
+    
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
         businessDashbardConfirmPopupView.isHidden = false
     }
@@ -2429,6 +2472,15 @@ extension ContactImportVC:UIScrollViewDelegate{
              
         }
       
+    }
+}
+extension ContactImportVC:EasyTipViewDelegate {
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+        
+    }
+    
+    func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+        
     }
 }
 extension UISwipeActionsConfiguration {
