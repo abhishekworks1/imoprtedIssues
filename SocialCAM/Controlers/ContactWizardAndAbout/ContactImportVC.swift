@@ -1882,7 +1882,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.itemsTableView.reloadData()
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
-        print("Click on QR")
         self.shareType = ShareType.qrcode
         if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
             navigationController?.pushViewController(qrViewController, animated: true)
