@@ -387,7 +387,10 @@ class SubscriptionsViewController: UIViewController {
                    
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         lblBadgeRemainingDays.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
-                      
+                        if freeTrialDay == 1{
+                            lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now before it expires to continue using the premium features and get your Subscription badge."
+                        }
+                        
                     }else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         if freeTrialDay > 0 {
                             lblBadgeRemainingDays.text = "\(freeTrialDay)"
@@ -409,12 +412,9 @@ class SubscriptionsViewController: UIViewController {
                         
                     }
                 }
-                
-               
-              
-                
             }
         }
+        
     }
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {

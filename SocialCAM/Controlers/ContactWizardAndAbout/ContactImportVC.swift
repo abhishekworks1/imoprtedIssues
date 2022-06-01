@@ -1239,6 +1239,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
         
+        OpenGraphDataDownloader.shared.fetchOGData(urlString: link) { result in
+            switch result {
+            case let .success(data, isExpired):
+                self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.user_placeholder())
+                break
+                // do something
+            case let .failure(error, isExpired): break
+                // do something
+            }
+        }
+        
         OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
             guard let `self` = self else { return }
             if let _ = error {
@@ -1246,59 +1257,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
-//                self.lblpreviewUrl.text = link
-              //  self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
-            
-//                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
 //            if ogData.imageUrl != nil {
-               self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
+             //  self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
+           
 //            }
         }
-        /* if #available(iOS 13.0, *) {
-        guard let url = URL(string: link) else {
-            return
-        }
-            let provider = LPMetadataProvider()
-            provider.startFetchingMetadata(for: url) { [weak self] metaData, error in
-                guard let `self` = self else {
-                    return
-                }
-                guard let data = metaData, error == nil else {
-                    if let previewImage = R.image.ssuQuickCam() {
-                        completionHandler(previewImage)
-                    }
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self.lblpreviewUrl.text = data.url?.absoluteString ?? ""
-                    self.lblpreviewText.text = data.title ?? ""
-                }
-                self.getImage(data: data) { [weak self] image in
-                    guard self != nil else { return }
-                    DispatchQueue.main.async {
-                        self?.previewImageview.image = image
-                        completionHandler(image)
-                    }
-                }
-            }
-        }*/
+        
     }
-  /*  @available(iOS 13.0, *)
-    func getImage(data: LPLinkMetadata, handler: @escaping (UIImage) -> Void) {
-        data.iconProvider?.loadDataRepresentation(forTypeIdentifier: data.iconProvider!.registeredTypeIdentifiers[0], completionHandler: { (data, error) in
-            guard let imageData = data else {
-                return
-            }
-            if error != nil {
-                self.showAlert(alertMessage: error?.localizedDescription ?? "Error")
-            }
-            if let previewImage = UIImage(data: imageData) {
-                handler(previewImage)
-            }
-        })
-    } */
     
     @IBAction func textMessageSelected(sender: UIButton) {
         self.shareType = ShareType.textShare
