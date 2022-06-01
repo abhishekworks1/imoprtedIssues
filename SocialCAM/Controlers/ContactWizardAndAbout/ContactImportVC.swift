@@ -1926,14 +1926,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let urlString = self.txtLinkWithCheckOut
         let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            var imageUrl = URL(string: userImageURL)
+            let imageUrl = URL(string: userImageURL)
             share(shareText: urlwithString, shareImage: imageUrl)
         }
     }
     
     func share(shareText: String?, shareImage: URL?) {
         var objectsToShare = [Any]()
-      
+
+        if let shareTextObj2 = shareText {
+            objectsToShare.append(shareTextObj2)
+        }
+        
         if let shareImageObj = shareImage{
             objectsToShare.append(shareImageObj)
         }
@@ -1943,13 +1947,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            objectsToShare.append(shareTextObj2)
 //        }
 //
-//        print(objectsToShare)
+        print(objectsToShare)
         
         if shareText != nil || shareImage != nil{
             let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             activityViewController.showToast("Paste Your text on clipboard")
-            present(activityViewController, animated: true, completion: nil)
+            present(activityViewController, animated: true, completion: nil)            
+            activityViewController.completionWithItemsHandler = { activity, success, items, error in
+                if !success{
+                    print("cancelled")
+                    return
+                }
+                
+                if activity == .message {
+                    var text = items
+                    text?.removeFirst()
+                    print("Default Messanger")
+                }
+            }
+            
         }else{
             print("There is nothing to share")
         }

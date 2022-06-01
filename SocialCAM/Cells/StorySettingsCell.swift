@@ -39,7 +39,7 @@ class StorySettingsListCell: UITableViewCell {
 
     static let identifier = "StorySettingsListCell"
     @IBOutlet weak var badgesCountLabel: ColorBGLabel!
-    @IBOutlet weak var roundedView: RoundedView!
+    @IBOutlet weak var roundedView: UIView!
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet weak var settingsName: UILabel!
@@ -66,11 +66,13 @@ class StorySettingsListCell: UITableViewCell {
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
     @IBOutlet weak var newBadgesImageView: UIImageView!
+    @IBOutlet weak var notificationCountView: UIView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
       //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
+        roundedView.layer.cornerRadius = roundedView.frame.size.width / 2
         shadowView.layer.cornerRadius = 7
         shadowView.dropShadowNew()
 //        addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
