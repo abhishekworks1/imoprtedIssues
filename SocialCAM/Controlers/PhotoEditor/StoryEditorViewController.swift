@@ -412,7 +412,7 @@ class StoryEditorViewController: UIViewController {
                     self.hideSaveVideoPopupView(isHide: false)
                 } else {
                     DispatchQueue.main.async {
-                       // self.view.makeToast(R.string.localizable.videoSaved())
+                        self.view.makeToast(R.string.localizable.videoSaved())
                     }
                 }
             } else if let isRegistered = Defaults.shared.isFirstTimePic2ArtRegistered, cameraMode == .pic2Art {
