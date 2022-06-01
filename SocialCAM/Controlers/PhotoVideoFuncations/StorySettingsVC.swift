@@ -579,6 +579,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.roundedView.isHidden = true
         cell.badgeView.isHidden = true
         cell.newBadgesImageView.isHidden = true
+        cell.notificationCountView.isHidden = true
        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -616,10 +617,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_Logout())
         } else if settingTitle.settingsType == .notification {
             cell.roundedView.isHidden = false
+            cell.notificationCountView.isHidden = false
             hideUnhideImgButton(cell, R.image.settings_Notifications())
             cell.badgesCountLabel.text = "\(self.notificationUnreadCount)"
             if self.notificationUnreadCount == 0 {
-                cell.roundedView.isHidden = false
+                cell.roundedView.isHidden = true
+                cell.notificationCountView.isHidden = true
             }
         } else if settingTitle.settingsType == .checkUpdate {
             hideUnhideImgButton(cell, R.image.settings_CheckUpdate())
@@ -1402,6 +1405,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         cell.roundedView.isHidden = true
         cell.badgeView.isHidden = true
         cell.newBadgesImageView.isHidden = true
+        cell.notificationCountView.isHidden = true
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
@@ -1433,9 +1437,11 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .notification {
             cell.socialImageView?.image = R.image.settings_Notifications()
             cell.roundedView.isHidden = false
+            cell.notificationCountView.isHidden = false
             cell.countLabel.text = "\(self.notificationUnreadCount)"
             if self.notificationUnreadCount == 0 {
                 cell.roundedView.isHidden = true
+                cell.notificationCountView.isHidden = true
             }
         } else if settingTitle.settingsType == .checkUpdate {
             cell.socialImageView?.image = R.image.settings_CheckUpdate()
