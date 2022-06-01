@@ -1896,13 +1896,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if sender.tag == 101 {
             EasyTipView.show(forView: sender,
                              withinSuperview: page0view,
-                             text: R.string.localizable.referralTooltip(),
+                             text: R.string.localizable.quickstartTooltip(),
                              delegate: self)
         }
         else if sender.tag == 102 {
             EasyTipView.show(forView: sender,
                              withinSuperview: page0view,
-                             text: R.string.localizable.quickstartTooltip(),
+                             text: R.string.localizable.referralTooltip(),
                              delegate: self)
         }
     }
