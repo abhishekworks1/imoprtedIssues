@@ -1239,7 +1239,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
         
-        
         OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
             guard let `self` = self else { return }
             if let _ = error {
@@ -1254,7 +1253,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
 //            if ogData.imageUrl != nil {
                self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
-           
 //            }
         }
         /* if #available(iOS 13.0, *) {
@@ -1918,7 +1916,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.itemsTableView.reloadData()
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
-        print("Click on QR")
         self.shareType = ShareType.qrcode
         if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
             navigationController?.pushViewController(qrViewController, animated: true)
