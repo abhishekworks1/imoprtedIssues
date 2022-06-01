@@ -39,7 +39,7 @@ class StorySettingsListCell: UITableViewCell {
 
     static let identifier = "StorySettingsListCell"
     @IBOutlet weak var badgesCountLabel: ColorBGLabel!
-    @IBOutlet weak var roundedView: RoundedView!
+    @IBOutlet weak var roundedView: UIView!
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet weak var settingsName: UILabel!

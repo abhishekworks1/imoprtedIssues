@@ -619,7 +619,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_Notifications())
             cell.badgesCountLabel.text = "\(self.notificationUnreadCount)"
             if self.notificationUnreadCount == 0 {
-                cell.roundedView.isHidden = true
+                cell.roundedView.isHidden = false
             }
         } else if settingTitle.settingsType == .checkUpdate {
             hideUnhideImgButton(cell, R.image.settings_CheckUpdate())
