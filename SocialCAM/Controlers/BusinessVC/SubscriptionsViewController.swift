@@ -10,6 +10,10 @@ import UIKit
 
 class SubscriptionsViewController: UIViewController {
     
+    @IBOutlet weak var thankYouSubscriptionTypeAppleIconImageView: UIImageView!
+    @IBOutlet weak var thankYouSubscriptionTypeBadgeBGImageView: UIImageView!
+    @IBOutlet weak var thankYouSubscriptionTypeLabel: UILabel!
+    @IBOutlet weak var thankYouViewSubScription: UIView!
     @IBOutlet weak var subScriptionTypeLabel: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
@@ -75,7 +79,7 @@ class SubscriptionsViewController: UIViewController {
         planActiveView.isHidden = true
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Introductory Price  | $1.99/month (3 months) \n Early-Bird Price  | $2.99/month (after 3 months)"
+            lblPrice.text = "Introductory Price: $1.99/month (3 months) \n Early-Bird Price: $2.99/month (after 3 months)"
             subScriptionTypeLabel.text = "Basic"
             if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
                 planActiveView.isHidden = false
@@ -83,7 +87,7 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Price  | $2.99/month"
+            lblPrice.text = "Early-Bird Price: $2.99/month"
             subScriptionTypeLabel.text = "Advanced"
             if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
                 planActiveView.isHidden = false
@@ -91,13 +95,13 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Price  | $4.99/month"
+            lblPrice.text = "Early-Bird Price: $4.99/month"
             subScriptionTypeLabel.text = "Premium"
             if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
                 planActiveView.isHidden = false
             }
         }else{
-            lblPrice.text = "Free | $0/month \n No subscription required"
+            lblPrice.text = "Free:  $0/month \n No subscription required"
             subScriptionTypeLabel.text = "Free"
             if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
                 print(Defaults.shared.subscriptionType?.lowercased())
@@ -111,12 +115,23 @@ class SubscriptionsViewController: UIViewController {
 //        }
         
         setSubscriptionBadgeDetails()
+        tapGestureSetUp()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationBarView.addBottomShadow()
         bottomView.addShadow(location: .top)
+    }
+    
+    func tapGestureSetUp() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapThankYouView))
+        tapGesture.numberOfTapsRequired = 1
+        self.thankYouViewSubScription.addGestureRecognizer(tapGesture)
+    }
+    
+   @objc func didTapThankYouView(sender: UITapGestureRecognizer)  {
+        self.thankYouViewSubScription.isHidden = true
     }
     
     func setupView() {
@@ -243,6 +258,8 @@ class SubscriptionsViewController: UIViewController {
     }
     
     @IBAction func btnOkayTapped(_ sender: UIButton) {
+        self.thankYouViewSubScription.isHidden = true
+        self.navigationController?.popToRootViewController(animated: true)
 //        freeModeAlertBlurView.isHidden = true
 //        freeModeAlertView.isHidden = true
 //        Defaults.shared.isSubscriptionApiCalled = false
@@ -633,10 +650,29 @@ extension SubscriptionsViewController {
                 Defaults.shared.isDowngradeSubscription = false
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
                 AppEventBus.post("changeMode")
-//                self.navigationController?.popViewController(animated: true)
-                self.navigationController?.popToRootViewController(animated: true)
-                //Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
-                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
+                switch self.subscriptionType {
+                case .free:
+                    self.thankYouSubscriptionTypeLabel.text = "Your Free Badge"
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.freeBadgeBG()
+                    self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.freeAppleIcon()
+                case .basic:
+                    self.thankYouSubscriptionTypeLabel.text = "Your Basic Badge"
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.basicBadgeBG()
+                    self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.basicAppleIcon()
+                case .advanced:
+                    self.thankYouSubscriptionTypeLabel.text = "Your Advanced Badge"
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.advBadgeBG()
+                    self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.advancedAppleIcon()
+                case .professional:
+                    self.thankYouSubscriptionTypeLabel.text = "Your Advanced Badge"
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.priBadgeBG()
+                    self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.preAppleIcon()
+//                default:
+//                    break
+                }
+                self.thankYouViewSubScription.isHidden = false
+                
+//                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
             }
             self.showAlert(alertMessage: message)
         }
