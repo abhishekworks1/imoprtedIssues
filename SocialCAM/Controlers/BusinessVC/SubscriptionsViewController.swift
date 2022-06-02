@@ -97,7 +97,7 @@ class SubscriptionsViewController: UIViewController {
                 planActiveView.isHidden = false
             }
         }else{
-            lblPrice.text = "Free: $0/month \n No subscription required"
+            lblPrice.text = "Free:  $0/month \n No subscription required"
             subScriptionTypeLabel.text = "Free"
             if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
                 print(Defaults.shared.subscriptionType?.lowercased())
