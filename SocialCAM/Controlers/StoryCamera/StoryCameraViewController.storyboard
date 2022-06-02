@@ -3698,11 +3698,11 @@ Countdown</string>
                                                     </subviews>
                                                 </stackView>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nG1-g7-Ls5">
-                                                    <rect key="frame" x="40" y="7" width="15" height="15"/>
+                                                    <rect key="frame" x="40" y="11" width="13" height="13"/>
                                                     <color key="backgroundColor" name="storytag_fadedRed"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="15" id="fQh-OG-j7B"/>
-                                                        <constraint firstAttribute="height" constant="15" id="nma-Xk-4O8"/>
+                                                        <constraint firstAttribute="width" constant="13" id="fQh-OG-j7B"/>
+                                                        <constraint firstAttribute="height" constant="13" id="nma-Xk-4O8"/>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgF-td-y8h">
@@ -3723,10 +3723,10 @@ Countdown</string>
                                                     <rect key="frame" x="305" y="20" width="50" height="50"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vM1-nI-sIh">
-                                                            <rect key="frame" x="5" y="2.6666666666666679" width="40" height="25"/>
+                                                            <rect key="frame" x="10" y="2.6666666666666679" width="30" height="25"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Zzs-zh-LcZ" customClass="ColorBGLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                                    <rect key="frame" x="11.999999999999998" y="5.333333333333333" width="16.333333333333329" height="14.333333333333336"/>
+                                                                    <rect key="frame" x="7" y="5.333333333333333" width="16.333333333333332" height="14.333333333333336"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3740,7 +3740,7 @@ Countdown</string>
                                                             </subviews>
                                                             <color key="backgroundColor" name="storytag_fadedRed"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="40" id="EGc-EU-26w"/>
+                                                                <constraint firstAttribute="width" constant="30" id="EGc-EU-26w"/>
                                                                 <constraint firstItem="Zzs-zh-LcZ" firstAttribute="centerX" secondItem="vM1-nI-sIh" secondAttribute="centerX" id="X3t-V1-jB9"/>
                                                                 <constraint firstAttribute="height" constant="25" id="ZXl-8g-g0h"/>
                                                                 <constraint firstItem="Zzs-zh-LcZ" firstAttribute="centerY" secondItem="vM1-nI-sIh" secondAttribute="centerY" id="kov-Vd-e1u"/>
@@ -3751,7 +3751,7 @@ Countdown</string>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaV-eQ-5jX">
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaV-eQ-5jX">
                                                             <rect key="frame" x="12" y="29.666666666666661" width="26" height="14.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                             <color key="textColor" name="storytag_fadedRed"/>
@@ -3790,7 +3790,7 @@ Countdown</string>
                                                 <constraint firstAttribute="bottom" secondItem="kMH-eJ-gvR" secondAttribute="bottom" constant="8" id="o7f-Gn-aGL"/>
                                                 <constraint firstAttribute="bottom" secondItem="Y0u-OU-xRq" secondAttribute="bottom" constant="10" id="rqD-6Z-Nz3"/>
                                                 <constraint firstItem="R8R-Af-9Ma" firstAttribute="top" secondItem="T84-c5-DCe" secondAttribute="top" constant="7" id="zd6-dL-hzt"/>
-                                                <constraint firstItem="nG1-g7-Ls5" firstAttribute="top" secondItem="R8R-Af-9Ma" secondAttribute="top" id="ztN-qh-Bcl"/>
+                                                <constraint firstItem="nG1-g7-Ls5" firstAttribute="top" secondItem="R8R-Af-9Ma" secondAttribute="top" constant="4" id="ztN-qh-Bcl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -7748,7 +7748,7 @@ Countdown</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sq-3Z-inY">
-                                                    <rect key="frame" x="50" y="13" width="32.333333333333343" height="18"/>
+                                                    <rect key="frame" x="50.000000000000007" y="13" width="28.333333333333336" height="18"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -9265,7 +9265,7 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -9277,7 +9277,7 @@ Countdown</string>
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="storytag_fadedRed">
-            <color red="0.88599997758865356" green="0.30199998617172241" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88627450980392153" green="0.30196078431372547" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="watermarkTitleColor">
             <color red="0.13725490196078433" green="0.12549019607843137" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

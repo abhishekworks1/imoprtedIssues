@@ -30,11 +30,11 @@
                                 </constraints>
                             </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEw-7i-Cp9" customClass="RoundedView" customModule="QuickCam" customModuleProvider="target">
-                                <rect key="frame" x="40" y="12" width="15" height="15"/>
+                                <rect key="frame" x="40" y="12" width="13" height="13"/>
                                 <color key="backgroundColor" name="storytag_fadedRed"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="3c7-X7-og8"/>
-                                    <constraint firstAttribute="height" constant="15" id="zsy-hU-wOO"/>
+                                    <constraint firstAttribute="width" constant="13" id="3c7-X7-og8"/>
+                                    <constraint firstAttribute="height" constant="13" id="zsy-hU-wOO"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
@@ -176,14 +176,13 @@
                                 </constraints>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jko-Nv-xNO">
-                                <rect key="frame" x="91" y="15" width="50" height="50"/>
+                                <rect key="frame" x="96" y="15" width="50" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krf-QS-Wrz">
-                                        <rect key="frame" x="5" y="2.5" width="40" height="25"/>
+                                        <rect key="frame" x="10" y="2.5" width="30" height="25"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="F1j-ae-V5Q" customClass="ColorBGLabel" customModule="QuickCam" customModuleProvider="target">
-                                                <rect key="frame" x="9" y="1.5" width="22" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="F1j-ae-V5Q" customClass="ColorBGLabel" customModule="QuickCam" customModuleProvider="target">
+                                                <rect key="frame" x="7" y="5.5" width="16.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -197,7 +196,9 @@
                                         <color key="backgroundColor" name="storytag_fadedRed"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="GL3-s4-Yfg"/>
-                                            <constraint firstAttribute="width" constant="40" id="k8h-pt-5s9"/>
+                                            <constraint firstItem="F1j-ae-V5Q" firstAttribute="centerX" secondItem="krf-QS-Wrz" secondAttribute="centerX" id="aKJ-uK-ngh"/>
+                                            <constraint firstItem="F1j-ae-V5Q" firstAttribute="centerY" secondItem="krf-QS-Wrz" secondAttribute="centerY" id="hzz-65-dWt"/>
+                                            <constraint firstAttribute="width" constant="30" id="k8h-pt-5s9"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
@@ -205,7 +206,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYV-gS-QOn">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYV-gS-QOn">
                                         <rect key="frame" x="12" y="29.5" width="26" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                         <color key="textColor" name="storytag_fadedRed"/>
@@ -236,7 +237,7 @@
                             <constraint firstItem="ZXV-yB-aJp" firstAttribute="leading" secondItem="eQq-KK-1vL" secondAttribute="leading" constant="15" id="OqI-L1-s8f"/>
                             <constraint firstItem="XEw-7i-Cp9" firstAttribute="top" secondItem="eQq-KK-1vL" secondAttribute="top" constant="12" id="Tpn-0R-0xY"/>
                             <constraint firstAttribute="trailing" secondItem="p7D-vm-SIX" secondAttribute="trailing" id="j6y-x0-dax"/>
-                            <constraint firstAttribute="trailing" secondItem="Jko-Nv-xNO" secondAttribute="trailing" constant="15" id="kBo-42-EdZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Jko-Nv-xNO" secondAttribute="trailing" constant="10" id="kBo-42-EdZ"/>
                             <constraint firstItem="f9i-pL-2RJ" firstAttribute="leading" secondItem="eQq-KK-1vL" secondAttribute="leading" constant="12" id="lrl-Kx-BNw"/>
                             <constraint firstItem="p7D-vm-SIX" firstAttribute="top" secondItem="ZXV-yB-aJp" secondAttribute="top" id="ov8-eH-CQc"/>
                             <constraint firstAttribute="trailing" secondItem="AIq-6Q-Pdn" secondAttribute="trailing" constant="10" id="pRi-el-gjn"/>
@@ -298,7 +299,7 @@
         <image name="proBadge" width="64" height="64"/>
         <image name="webBadge" width="512" height="512"/>
         <namedColor name="storytag_fadedRed">
-            <color red="0.88599997758865356" green="0.30199998617172241" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88627450980392153" green="0.30196078431372547" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
