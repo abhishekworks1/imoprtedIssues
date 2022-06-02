@@ -1948,8 +1948,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //
         print(objectsToShare)
         
-        if shareText != nil || shareImage != nil{
-            let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        if let text = shareText {
+            let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             activityViewController.showToast("Paste Your text on clipboard")
             present(activityViewController, animated: true, completion: nil)            
