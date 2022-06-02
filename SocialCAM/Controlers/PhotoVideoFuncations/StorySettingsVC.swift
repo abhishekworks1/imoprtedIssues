@@ -621,8 +621,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_Notifications())
             cell.badgesCountLabel.text = "\(self.notificationUnreadCount)"
             if self.notificationUnreadCount == 0 {
-                cell.roundedView.isHidden = false
-                cell.notificationCountView.isHidden = false
+                cell.roundedView.isHidden = true
+                cell.notificationCountView.isHidden = true
             }
         } else if settingTitle.settingsType == .checkUpdate {
             hideUnhideImgButton(cell, R.image.settings_CheckUpdate())
@@ -1440,8 +1440,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             cell.notificationCountView.isHidden = false
             cell.countLabel.text = "\(self.notificationUnreadCount)"
             if self.notificationUnreadCount == 0 {
-                cell.roundedView.isHidden = false
-                cell.notificationCountView.isHidden = false
+                cell.roundedView.isHidden = true
+                cell.notificationCountView.isHidden = true
             }
         } else if settingTitle.settingsType == .checkUpdate {
             cell.socialImageView?.image = R.image.settings_CheckUpdate()
