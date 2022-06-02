@@ -155,7 +155,7 @@
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         </imageView>
                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="preAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="h4c-Zg-gTa">
-                                                                                            <rect key="frame" x="15" y="15" width="40" height="35"/>
+                                                                                            <rect key="frame" x="15" y="20" width="40" height="35"/>
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="40" id="AdM-TN-aVq"/>
@@ -163,7 +163,7 @@
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxB-Bs-2R5">
-                                                                                            <rect key="frame" x="31.5" y="28.5" width="7.5" height="14.5"/>
+                                                                                            <rect key="frame" x="31.5" y="38.5" width="7.5" height="14.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -178,8 +178,8 @@
                                                                                         <constraint firstItem="egB-6O-Dgq" firstAttribute="leading" secondItem="vS3-av-7XQ" secondAttribute="leading" id="B2B-16-HAS"/>
                                                                                         <constraint firstItem="jxB-Bs-2R5" firstAttribute="centerX" secondItem="vS3-av-7XQ" secondAttribute="centerX" id="Djq-eo-7bf"/>
                                                                                         <constraint firstAttribute="trailing" secondItem="egB-6O-Dgq" secondAttribute="trailing" id="NyU-cM-d3p"/>
-                                                                                        <constraint firstItem="jxB-Bs-2R5" firstAttribute="centerY" secondItem="vS3-av-7XQ" secondAttribute="centerY" constant="-2" id="OPZ-GI-pQT"/>
-                                                                                        <constraint firstItem="h4c-Zg-gTa" firstAttribute="centerY" secondItem="vS3-av-7XQ" secondAttribute="centerY" constant="-5" id="SOW-ea-Bsh"/>
+                                                                                        <constraint firstItem="jxB-Bs-2R5" firstAttribute="centerY" secondItem="vS3-av-7XQ" secondAttribute="centerY" constant="8" id="OPZ-GI-pQT"/>
+                                                                                        <constraint firstItem="h4c-Zg-gTa" firstAttribute="centerY" secondItem="vS3-av-7XQ" secondAttribute="centerY" id="SOW-ea-Bsh"/>
                                                                                         <constraint firstItem="h4c-Zg-gTa" firstAttribute="centerX" secondItem="vS3-av-7XQ" secondAttribute="centerX" id="eYq-r1-tO7"/>
                                                                                     </constraints>
                                                                                 </view>
@@ -381,7 +381,7 @@
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         </imageView>
                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qeg-jo-GLO">
-                                                                                            <rect key="frame" x="15" y="15" width="40" height="35"/>
+                                                                                            <rect key="frame" x="15" y="20" width="40" height="35"/>
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="35" id="Hae-4v-1eU"/>
@@ -389,7 +389,7 @@
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0f-JI-qHD">
-                                                                                            <rect key="frame" x="31.5" y="28.5" width="7.5" height="14.5"/>
+                                                                                            <rect key="frame" x="31.5" y="38.5" width="7.5" height="14.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -401,10 +401,10 @@
                                                                                         <constraint firstAttribute="bottom" secondItem="fwX-gM-HcP" secondAttribute="bottom" id="Esu-uy-Zp0"/>
                                                                                         <constraint firstItem="qeg-jo-GLO" firstAttribute="centerX" secondItem="aXZ-Tw-UzA" secondAttribute="centerX" id="L5M-VS-ryc"/>
                                                                                         <constraint firstItem="U0f-JI-qHD" firstAttribute="centerX" secondItem="aXZ-Tw-UzA" secondAttribute="centerX" id="W89-nl-fdE"/>
-                                                                                        <constraint firstItem="U0f-JI-qHD" firstAttribute="centerY" secondItem="aXZ-Tw-UzA" secondAttribute="centerY" constant="-2" id="aPe-ch-0Bd"/>
+                                                                                        <constraint firstItem="U0f-JI-qHD" firstAttribute="centerY" secondItem="aXZ-Tw-UzA" secondAttribute="centerY" constant="8" id="aPe-ch-0Bd"/>
                                                                                         <constraint firstAttribute="width" constant="70" id="bXi-TU-iuz"/>
                                                                                         <constraint firstItem="fwX-gM-HcP" firstAttribute="leading" secondItem="aXZ-Tw-UzA" secondAttribute="leading" id="hcm-Uo-wyz"/>
-                                                                                        <constraint firstItem="qeg-jo-GLO" firstAttribute="centerY" secondItem="aXZ-Tw-UzA" secondAttribute="centerY" constant="-5" id="joL-oe-L1e"/>
+                                                                                        <constraint firstItem="qeg-jo-GLO" firstAttribute="centerY" secondItem="aXZ-Tw-UzA" secondAttribute="centerY" id="joL-oe-L1e"/>
                                                                                         <constraint firstAttribute="trailing" secondItem="fwX-gM-HcP" secondAttribute="trailing" id="lO0-8b-6P4"/>
                                                                                         <constraint firstAttribute="height" constant="75" id="uQz-tK-rQU"/>
                                                                                     </constraints>
@@ -612,7 +612,7 @@
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         </imageView>
                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="vlh-K5-zkB">
-                                                                                            <rect key="frame" x="15" y="15" width="40" height="35"/>
+                                                                                            <rect key="frame" x="15" y="20" width="40" height="35"/>
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="35" id="HYd-e9-YLb"/>
@@ -620,7 +620,7 @@
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="war-Fs-tbx">
-                                                                                            <rect key="frame" x="31.5" y="28.5" width="7.5" height="14.5"/>
+                                                                                            <rect key="frame" x="31.5" y="38.5" width="7.5" height="14.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -633,10 +633,10 @@
                                                                                         <constraint firstAttribute="width" constant="70" id="LkC-s9-XLc"/>
                                                                                         <constraint firstItem="E1E-nh-lxn" firstAttribute="leading" secondItem="RYQ-69-eRR" secondAttribute="leading" id="WRa-4u-ywT"/>
                                                                                         <constraint firstAttribute="bottom" secondItem="E1E-nh-lxn" secondAttribute="bottom" id="bEq-9K-hue"/>
-                                                                                        <constraint firstItem="war-Fs-tbx" firstAttribute="centerY" secondItem="RYQ-69-eRR" secondAttribute="centerY" constant="-2" id="cEW-cs-g8W"/>
+                                                                                        <constraint firstItem="war-Fs-tbx" firstAttribute="centerY" secondItem="RYQ-69-eRR" secondAttribute="centerY" constant="8" id="cEW-cs-g8W"/>
                                                                                         <constraint firstAttribute="height" constant="75" id="cdH-qh-cVI"/>
                                                                                         <constraint firstItem="war-Fs-tbx" firstAttribute="centerX" secondItem="RYQ-69-eRR" secondAttribute="centerX" id="drd-P8-02F"/>
-                                                                                        <constraint firstItem="vlh-K5-zkB" firstAttribute="centerY" secondItem="RYQ-69-eRR" secondAttribute="centerY" constant="-5" id="k8n-ec-wWs"/>
+                                                                                        <constraint firstItem="vlh-K5-zkB" firstAttribute="centerY" secondItem="RYQ-69-eRR" secondAttribute="centerY" id="k8n-ec-wWs"/>
                                                                                         <constraint firstAttribute="trailing" secondItem="E1E-nh-lxn" secondAttribute="trailing" id="wWH-fx-ICz"/>
                                                                                     </constraints>
                                                                                 </view>
@@ -838,7 +838,7 @@
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         </imageView>
                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fut-ij-NMn">
-                                                                                            <rect key="frame" x="15" y="15" width="40" height="35"/>
+                                                                                            <rect key="frame" x="15" y="20" width="40" height="35"/>
                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="35" id="1V6-Qg-gqF"/>
@@ -846,7 +846,7 @@
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwa-X3-zQa">
-                                                                                            <rect key="frame" x="31.5" y="28.5" width="7.5" height="14.5"/>
+                                                                                            <rect key="frame" x="31.5" y="38.5" width="7.5" height="14.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -854,8 +854,8 @@
                                                                                     </subviews>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
-                                                                                        <constraint firstItem="fut-ij-NMn" firstAttribute="centerY" secondItem="TtM-x8-tJZ" secondAttribute="centerY" constant="-5" id="5Wj-wQ-0C0"/>
-                                                                                        <constraint firstItem="qwa-X3-zQa" firstAttribute="centerY" secondItem="TtM-x8-tJZ" secondAttribute="centerY" constant="-2" id="8Uf-az-16d"/>
+                                                                                        <constraint firstItem="fut-ij-NMn" firstAttribute="centerY" secondItem="TtM-x8-tJZ" secondAttribute="centerY" id="5Wj-wQ-0C0"/>
+                                                                                        <constraint firstItem="qwa-X3-zQa" firstAttribute="centerY" secondItem="TtM-x8-tJZ" secondAttribute="centerY" constant="8" id="8Uf-az-16d"/>
                                                                                         <constraint firstAttribute="height" constant="75" id="Eht-oP-FvZ"/>
                                                                                         <constraint firstItem="qwa-X3-zQa" firstAttribute="centerX" secondItem="TtM-x8-tJZ" secondAttribute="centerX" id="NTu-w9-20b"/>
                                                                                         <constraint firstItem="fut-ij-NMn" firstAttribute="centerX" secondItem="TtM-x8-tJZ" secondAttribute="centerX" id="Pex-zF-wfX"/>
@@ -1062,12 +1062,16 @@
                         <outlet property="activeBasicView" destination="uQh-y3-Otc" id="QJC-sC-xVs"/>
                         <outlet property="activeFreeView" destination="U7c-iR-Uzt" id="EYU-dR-Bcx"/>
                         <outlet property="activeProView" destination="v4D-Cc-ulL" id="RVY-Ug-qtp"/>
+                        <outlet property="advancedAppleLogoCenterY" destination="joL-oe-L1e" id="tHp-Vd-1ps"/>
+                        <outlet property="basicAppleLogoCenterY" destination="k8n-ec-wWs" id="yXO-SA-ai6"/>
+                        <outlet property="freeAppleLogoCenterY" destination="5Wj-wQ-0C0" id="e12-H2-sBu"/>
                         <outlet property="lblBadgeAdvanced" destination="U0f-JI-qHD" id="7Uj-1z-EqL"/>
                         <outlet property="lblBadgeBasic" destination="war-Fs-tbx" id="cdD-G0-AzY"/>
                         <outlet property="lblBadgeFree" destination="qwa-X3-zQa" id="vYQ-Uw-Pdu"/>
                         <outlet property="lblBadgePro" destination="jxB-Bs-2R5" id="koU-BB-9qM"/>
                         <outlet property="lbltrialDays" destination="oWd-RK-lsr" id="dy0-tE-q6H"/>
                         <outlet property="navigationBarView" destination="AhA-bR-90t" id="Oqk-4N-1jN"/>
+                        <outlet property="premiumAppleLogoCenterY" destination="SOW-ea-Bsh" id="nFv-HB-fxa"/>
                         <outlet property="viewDetailAdvancedView" destination="Sxd-Fp-84v" id="0b8-Mq-uCt"/>
                         <outlet property="viewDetailBasicView" destination="ed6-ce-Ngg" id="dRx-xD-Q1T"/>
                         <outlet property="viewDetailFreeView" destination="bks-N4-a4l" id="Qwo-zJ-KgJ"/>
@@ -1693,7 +1697,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6e-H2-LbT">
-                                                <rect key="frame" x="40" y="40" width="10" height="20.5"/>
+                                                <rect key="frame" x="40" y="45" width="10" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1708,7 +1712,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                             <constraint firstAttribute="trailing" secondItem="FLh-A1-GTV" secondAttribute="trailing" id="bzD-aG-qM2"/>
                                             <constraint firstAttribute="bottom" secondItem="FLh-A1-GTV" secondAttribute="bottom" id="gV7-YD-imM"/>
                                             <constraint firstAttribute="height" constant="100" id="lHm-8X-S7X"/>
-                                            <constraint firstItem="G6e-H2-LbT" firstAttribute="centerY" secondItem="AJv-Vq-jM4" secondAttribute="centerY" id="p0P-cP-8yS"/>
+                                            <constraint firstItem="G6e-H2-LbT" firstAttribute="centerY" secondItem="AJv-Vq-jM4" secondAttribute="centerY" constant="5" id="p0P-cP-8yS"/>
                                             <constraint firstItem="FLh-A1-GTV" firstAttribute="top" secondItem="AJv-Vq-jM4" secondAttribute="top" id="rMa-kt-mXf"/>
                                             <constraint firstItem="FLh-A1-GTV" firstAttribute="leading" secondItem="AJv-Vq-jM4" secondAttribute="leading" id="scb-T0-Ahy"/>
                                         </constraints>
@@ -1956,14 +1960,14 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="preAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PUp-Ax-Jy4">
-                                                        <rect key="frame" x="25" y="25" width="40" height="40"/>
+                                                        <rect key="frame" x="25" y="36" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="WBT-vk-oIa"/>
                                                             <constraint firstAttribute="width" constant="40" id="Z6J-oG-YOz"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJS-Yy-OcQ">
-                                                        <rect key="frame" x="40" y="40" width="10" height="20.5"/>
+                                                        <rect key="frame" x="40" y="45" width="10" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1972,10 +1976,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="PUp-Ax-Jy4" firstAttribute="centerX" secondItem="M0j-NT-jnb" secondAttribute="centerX" id="2a2-AF-G5N"/>
-                                                    <constraint firstItem="kJS-Yy-OcQ" firstAttribute="centerY" secondItem="M0j-NT-jnb" secondAttribute="centerY" id="B9w-Wc-ags"/>
+                                                    <constraint firstItem="kJS-Yy-OcQ" firstAttribute="centerY" secondItem="M0j-NT-jnb" secondAttribute="centerY" constant="5" id="B9w-Wc-ags"/>
                                                     <constraint firstAttribute="trailing" secondItem="sqa-r6-DFd" secondAttribute="trailing" id="DUi-NE-Gfs"/>
                                                     <constraint firstAttribute="bottom" secondItem="sqa-r6-DFd" secondAttribute="bottom" id="E8c-uk-fta"/>
-                                                    <constraint firstItem="PUp-Ax-Jy4" firstAttribute="centerY" secondItem="M0j-NT-jnb" secondAttribute="centerY" constant="-5" id="H7G-JF-Ipy"/>
+                                                    <constraint firstItem="PUp-Ax-Jy4" firstAttribute="centerY" secondItem="M0j-NT-jnb" secondAttribute="centerY" constant="6" id="H7G-JF-Ipy"/>
                                                     <constraint firstItem="sqa-r6-DFd" firstAttribute="leading" secondItem="M0j-NT-jnb" secondAttribute="leading" id="OMQ-Mb-CAm"/>
                                                     <constraint firstAttribute="width" constant="90" id="PvJ-FI-6nc"/>
                                                     <constraint firstItem="kJS-Yy-OcQ" firstAttribute="centerX" secondItem="M0j-NT-jnb" secondAttribute="centerX" id="c6t-02-PC7"/>
@@ -2066,6 +2070,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
                     </view>
                     <connections>
                         <outlet property="appleIconImageView" destination="ISW-gM-tQe" id="QYv-q0-uf3"/>
+                        <outlet property="appleLogoCenterY" destination="Jdf-Q0-xaA" id="owf-13-CfA"/>
                         <outlet property="bottomView" destination="d54-4M-4xu" id="pl6-vg-eLP"/>
                         <outlet property="businessDashboardSubTitleLabel" destination="ybh-7L-UMs" id="fVz-VU-XaN"/>
                         <outlet property="days7TrialSubTitleLabel" destination="Ahs-az-2Ut" id="06W-77-BDk"/>
@@ -2103,22 +2108,22 @@ Regular Price  | $2.99/month (after 3 months)</string>
         <image name="FreeBG" width="163" height="302"/>
         <image name="activeRightMark" width="16" height="16"/>
         <image name="advBadgeBG" width="55" height="66"/>
-        <image name="advancedAppleIcon" width="47" height="60"/>
+        <image name="advancedAppleIcon" width="69" height="58"/>
         <image name="advancedBG" width="163" height="302"/>
-        <image name="basicAppleIcon" width="49" height="60"/>
-        <image name="basicBadgeBG" width="53" height="64"/>
+        <image name="basicAppleIcon" width="69" height="58"/>
+        <image name="basicBadgeBG" width="53" height="62.666667938232422"/>
         <image name="featureIcon" width="18" height="14"/>
-        <image name="freeAppleIcon" width="49" height="60"/>
+        <image name="freeAppleIcon" width="69" height="58"/>
         <image name="freeBadgeBG" width="55" height="66"/>
         <image name="icoBack" width="12" height="18"/>
-        <image name="preAppleIcon" width="49" height="60"/>
+        <image name="preAppleIcon" width="69" height="58"/>
         <image name="premiumBG" width="164" height="304"/>
         <image name="priBadgeBG" width="118" height="140"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <image name="viewDetailsRightArrow" width="6" height="12"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="currentPlanButtonColor">
             <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2127,7 +2132,7 @@ Regular Price  | $2.99/month (after 3 months)</string>
             <color red="0.30199998617172241" green="0.51399999856948853" blue="0.83099997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
-            <color red="0.23899999260902405" green="0.77300000190734863" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

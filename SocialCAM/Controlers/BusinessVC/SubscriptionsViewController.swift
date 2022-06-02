@@ -26,6 +26,7 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var monthlyPriceView: UIView!
     @IBOutlet weak var subScriptionBadgeImageView: UIImageView!
     @IBOutlet weak var appleIconImageView: UIImageView!
+    @IBOutlet weak var appleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var trialPackExpireLabel: UILabel!
     @IBOutlet weak var planActiveView: UIView!
     @IBOutlet weak var yourPlanActiveLabel: UILabel!
@@ -431,7 +432,7 @@ class SubscriptionsViewController: UIViewController {
                 }
             }
         }
-        
+        appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? 6 : -8
     }
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {

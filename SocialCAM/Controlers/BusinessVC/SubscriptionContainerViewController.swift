@@ -38,6 +38,10 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var lblBadgePro: UILabel!
     @IBOutlet weak var lbltrialDays: UILabel!
   
+    @IBOutlet weak var freeAppleLogoCenterY: NSLayoutConstraint!
+    @IBOutlet weak var basicAppleLogoCenterY: NSLayoutConstraint!
+    @IBOutlet weak var advancedAppleLogoCenterY: NSLayoutConstraint!
+    @IBOutlet weak var premiumAppleLogoCenterY: NSLayoutConstraint!
 
     // MARK: -
     // MARK: - Variables
@@ -237,7 +241,10 @@ class SubscriptionContainerViewController: UIViewController {
                 
             }
         }
-        
+        freeAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
+        basicAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
+        advancedAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
+        premiumAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
     }
     // MARK: -
     // MARK: - Button Action Methods
