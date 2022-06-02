@@ -1541,16 +1541,18 @@ extension StoryCameraViewController {
                 self.timerValueView.isHidden = true
             case .capture:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_Capture)
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                        if  subscriptionStatusValue == "expired" {
-                            self.showAlertForUpgradeSubscription()
-                        }} else {
-                            self.showAlertForUpgradeSubscription()
-                        }
+                DispatchQueue.main.async {
+                    if isQuickApp && Defaults.shared.appMode == .free {
+                        if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                            if  subscriptionStatusValue == "expired" {
+                                self.showAlertForUpgradeSubscription()
+                            }} else {
+                                self.showAlertForUpgradeSubscription()
+                            }
+                    }
+                    self.circularProgress.centerImage = R.image.iconSaveMode()
+                    self.timerValueView.isHidden = true
                 }
-                self.circularProgress.centerImage = R.image.iconSaveMode()
-                self.timerValueView.isHidden = true
             case .promo:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_free)
                 self.circularProgress.centerImage = UIImage()
@@ -1565,27 +1567,29 @@ extension StoryCameraViewController {
                 NextLevel.shared.videoZoomFactor = 1.0
             case .pic2Art:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                        if  subscriptionStatusValue == "expired" {
-                            self.showAlertForUpgradeSubscription()
-                        }} else {
-                            self.showAlertForUpgradeSubscription()
-                        }
-                } else {
-                    if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
-                        if isPic2ArtShowed {
-                            DispatchQueue.main.async {
-                                self.speedSlider.isHidden = true
-                                self.speedSliderView.isHidden = true
-                                self.verticalLines.isHidden = true
+                DispatchQueue.main.async {
+                    if isQuickApp && Defaults.shared.appMode == .free {
+                        if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                            if  subscriptionStatusValue == "expired" {
+                                self.showAlertForUpgradeSubscription()
+                            }} else {
+                                self.showAlertForUpgradeSubscription()
                             }
-                            self.cameraModeCell = 4
-                            Defaults.shared.isPic2ArtShowed = false
-                            if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
-                                tooltipViewController.pushFromSettingScreen = true
-                                tooltipViewController.isPic2ArtGif = true
-                                self.navigationController?.pushViewController(tooltipViewController, animated: true)
+                    } else {
+                        if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
+                            if isPic2ArtShowed {
+                                DispatchQueue.main.async {
+                                    self.speedSlider.isHidden = true
+                                    self.speedSliderView.isHidden = true
+                                    self.verticalLines.isHidden = true
+                                }
+                                self.cameraModeCell = 4
+                                Defaults.shared.isPic2ArtShowed = false
+                                if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                                    tooltipViewController.pushFromSettingScreen = true
+                                    tooltipViewController.isPic2ArtGif = true
+                                    self.navigationController?.pushViewController(tooltipViewController, animated: true)
+                                }
                             }
                         }
                     }
@@ -1602,15 +1606,16 @@ extension StoryCameraViewController {
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-                
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    
-                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                        if  subscriptionStatusValue == "expired" {
-                            self.showAlertForUpgradeSubscription()
-                        }} else {
-                            self.showAlertForUpgradeSubscription()
-                        }
+                DispatchQueue.main.async {
+                    if isQuickApp && Defaults.shared.appMode == .free {
+                        
+                        if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                            if  subscriptionStatusValue == "expired" {
+                                self.showAlertForUpgradeSubscription()
+                            }} else {
+                                self.showAlertForUpgradeSubscription()
+                            }
+                    }
                 }
 
             default:

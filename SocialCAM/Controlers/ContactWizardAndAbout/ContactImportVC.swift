@@ -1239,6 +1239,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
         
+        OpenGraphDataDownloader.shared.fetchOGData(urlString: link) { result in
+            switch result {
+            case let .success(data, isExpired):
+                self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.user_placeholder())
+                break
+                // do something
+            case let .failure(error, isExpired): break
+                // do something
+            }
+        }
         
         OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
             guard let `self` = self else { return }
@@ -1247,60 +1257,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
-//                self.lblpreviewUrl.text = link
-              //  self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
-            
-//                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
 //            if ogData.imageUrl != nil {
-               self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
+             //  self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
            
 //            }
         }
-        /* if #available(iOS 13.0, *) {
-        guard let url = URL(string: link) else {
-            return
-        }
-            let provider = LPMetadataProvider()
-            provider.startFetchingMetadata(for: url) { [weak self] metaData, error in
-                guard let `self` = self else {
-                    return
-                }
-                guard let data = metaData, error == nil else {
-                    if let previewImage = R.image.ssuQuickCam() {
-                        completionHandler(previewImage)
-                    }
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self.lblpreviewUrl.text = data.url?.absoluteString ?? ""
-                    self.lblpreviewText.text = data.title ?? ""
-                }
-                self.getImage(data: data) { [weak self] image in
-                    guard self != nil else { return }
-                    DispatchQueue.main.async {
-                        self?.previewImageview.image = image
-                        completionHandler(image)
-                    }
-                }
-            }
-        }*/
+        
     }
-  /*  @available(iOS 13.0, *)
-    func getImage(data: LPLinkMetadata, handler: @escaping (UIImage) -> Void) {
-        data.iconProvider?.loadDataRepresentation(forTypeIdentifier: data.iconProvider!.registeredTypeIdentifiers[0], completionHandler: { (data, error) in
-            guard let imageData = data else {
-                return
-            }
-            if error != nil {
-                self.showAlert(alertMessage: error?.localizedDescription ?? "Error")
-            }
-            if let previewImage = UIImage(data: imageData) {
-                handler(previewImage)
-            }
-        })
-    } */
     
     @IBAction func textMessageSelected(sender: UIButton) {
         self.shareType = ShareType.textShare
@@ -1918,7 +1882,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.itemsTableView.reloadData()
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
-        print("Click on QR")
         self.shareType = ShareType.qrcode
         if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
             navigationController?.pushViewController(qrViewController, animated: true)
@@ -1962,14 +1925,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let urlString = self.txtLinkWithCheckOut
         let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            var imageUrl = URL(string: userImageURL)
+            let imageUrl = URL(string: userImageURL)
             share(shareText: urlwithString, shareImage: imageUrl)
         }
     }
     
     func share(shareText: String?, shareImage: URL?) {
         var objectsToShare = [Any]()
-      
+
+        if let shareTextObj2 = shareText {
+            objectsToShare.append(shareTextObj2)
+        }
+        
         if let shareImageObj = shareImage{
             objectsToShare.append(shareImageObj)
         }
@@ -1979,13 +1946,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            objectsToShare.append(shareTextObj2)
 //        }
 //
-//        print(objectsToShare)
+        print(objectsToShare)
         
-        if shareText != nil || shareImage != nil{
-            let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        if let text = shareText {
+            let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             activityViewController.showToast("Paste Your text on clipboard")
-            present(activityViewController, animated: true, completion: nil)
+            present(activityViewController, animated: true, completion: nil)            
+            activityViewController.completionWithItemsHandler = { activity, success, items, error in
+                if !success{
+                    print("cancelled")
+                    return
+                }
+                
+                if activity == .message {
+                    var text = items
+                    text?.removeFirst()
+                    print("Default Messanger")
+                }
+            }
+            
         }else{
             print("There is nothing to share")
         }

@@ -135,8 +135,8 @@ class SubscriptionsViewController: UIViewController {
             monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             upGradeButtonView.backgroundColor = firstColor
             yourPlanActiveLabel.textColor = firstColor
-            planActiveView.isHidden = false
-            upGradeButtonView.isHidden = true
+            planActiveView.isHidden = true
+            upGradeButtonView.isHidden = false
             quickCamModeSubTitles.text = "-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record in normal speed\n-  Record up to 3 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
@@ -539,11 +539,7 @@ class SubscriptionsViewController: UIViewController {
             }else if appMode == .professional{
                 productid = Constant.IAPProductIds.quickCamLitePro
             }
-            print("subscriptionsList")
-            print(subscriptionsList)
-            print(subscriptionsList.map({$0.productId}))
-            print("productid")
-            print(productid)
+          
             let subscriptionData = subscriptionsList.filter({$0.productId == productid})
             self.purchaseProduct(productIdentifire: subscriptionData.first?.productId ?? "", productServerID: subscriptionData.first?.id ?? "")
             self.appMode = appMode

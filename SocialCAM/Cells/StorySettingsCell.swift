@@ -39,7 +39,7 @@ class StorySettingsListCell: UITableViewCell {
 
     static let identifier = "StorySettingsListCell"
     @IBOutlet weak var badgesCountLabel: ColorBGLabel!
-    @IBOutlet weak var roundedView: RoundedView!
+    @IBOutlet weak var roundedView: UIView!
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet weak var settingsName: UILabel!
@@ -66,11 +66,13 @@ class StorySettingsListCell: UITableViewCell {
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
     @IBOutlet weak var newBadgesImageView: UIImageView!
+    @IBOutlet weak var notificationCountView: UIView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
       //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
+        roundedView.layer.cornerRadius = roundedView.frame.size.width / 2
         shadowView.layer.cornerRadius = 7
         shadowView.dropShadowNew()
 //        addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
@@ -96,12 +98,13 @@ class StorySettingsListCell: UITableViewCell {
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                    iosBadgeView.isHidden = false
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         iosSheildImageview.image = R.image.freeBadge()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        iosBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lbliosDaysRemains.text = "\(freeTrialDay)"
                             iosSheildImageview.image = R.image.freeBadge()
@@ -114,14 +117,17 @@ class StorySettingsListCell: UITableViewCell {
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         iosSheildImageview.image = R.image.basicBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         iosSheildImageview.image = R.image.advancedBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         iosSheildImageview.image = R.image.proBadge()
                     }
@@ -129,12 +135,13 @@ class StorySettingsListCell: UITableViewCell {
                 
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
                 {
-                    androidBadgeView.isHidden = false
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         androidSheildImageview.image = R.image.freeBadge()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        androidBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblandroidDaysRemains.text = "\(freeTrialDay)"
                             androidSheildImageview.image = R.image.freeBadge()
@@ -144,14 +151,17 @@ class StorySettingsListCell: UITableViewCell {
                         }
                     }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         androidSheildImageview.image = R.image.basicBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         androidSheildImageview.image = R.image.advancedBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         androidSheildImageview.image = R.image.proBadge()
                     }
@@ -159,12 +169,13 @@ class StorySettingsListCell: UITableViewCell {
                 
                 if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
                 {
-                    webBadgeView.isHidden = false
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        webBadgeView.isHidden = false
                         lblwebDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
                         webSheildImageview.image = R.image.freeBadge()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        webBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblwebDaysRemains.text = "\(freeTrialDay)"
                             webSheildImageview.image = R.image.freeBadge()
@@ -175,14 +186,17 @@ class StorySettingsListCell: UITableViewCell {
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        webBadgeView.isHidden = false
                         lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         webSheildImageview.image = R.image.basicBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        webBadgeView.isHidden = false
                         lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         webSheildImageview.image = R.image.advancedBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        webBadgeView.isHidden = false
                         lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
                         webSheildImageview.image = R.image.proBadge()
                     }
