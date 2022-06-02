@@ -75,7 +75,7 @@ class SubscriptionsViewController: UIViewController {
         planActiveView.isHidden = true
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Introductory Price  | $1.99/month (3 months) \n Early-Bird Price  | $2.99/month (after 3 months)"
+            lblPrice.text = "Introductory Price: $1.99/month (3 months) \n Early-Bird Price: $2.99/month (after 3 months)"
             subScriptionTypeLabel.text = "Basic"
             if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
                 planActiveView.isHidden = false
@@ -83,7 +83,7 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Price  | $2.99/month"
+            lblPrice.text = "Early-Bird Price: $2.99/month"
             subScriptionTypeLabel.text = "Advanced"
             if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
                 planActiveView.isHidden = false
@@ -91,13 +91,13 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Price  | $4.99/month"
+            lblPrice.text = "Early-Bird Price: $4.99/month"
             subScriptionTypeLabel.text = "Premium"
             if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
                 planActiveView.isHidden = false
             }
         }else{
-            lblPrice.text = "Free | $0/month \n No subscription required"
+            lblPrice.text = "Free: $0/month \n No subscription required"
             subScriptionTypeLabel.text = "Free"
             if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
                 print(Defaults.shared.subscriptionType?.lowercased())
