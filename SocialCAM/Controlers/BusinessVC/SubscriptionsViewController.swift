@@ -409,8 +409,10 @@ class SubscriptionsViewController: UIViewController {
                     lblBadgeRemainingDays.text = ""
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         lblBadgeRemainingDays.text = finalDay
-                        if finalDay == "1" {
+                        if finalDay == "7" {
                             lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now before it expires to continue using the premium features and get your Subscription badge."
+                        } else {
+                            lblPrice.text = "You have \(finalDay) days left on your free trial. Subscribe now and earn your subscription badge."
                         }
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                            lblBadgeRemainingDays.text = finalDay
