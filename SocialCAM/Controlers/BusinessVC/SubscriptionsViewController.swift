@@ -665,7 +665,7 @@ extension SubscriptionsViewController {
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.advBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.advancedAppleIcon()
                 case .professional:
-                    self.thankYouSubscriptionTypeLabel.text = "Your Advanced Badge"
+                    self.thankYouSubscriptionTypeLabel.text = "Your Premium Badge"
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.priBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.preAppleIcon()
 //                default:
