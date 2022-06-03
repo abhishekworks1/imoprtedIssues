@@ -77,6 +77,7 @@ class SubscriptionsViewController: UIViewController {
         print(Defaults.shared.appMode)
         print("Defaults.shared.appMode")
         planActiveView.isHidden = true
+        lblBadgeRemainingDays.text = ""
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Price: $2.99/month"
@@ -105,6 +106,8 @@ class SubscriptionsViewController: UIViewController {
             subScriptionTypeLabel.text = "Free"
             if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
                 print(Defaults.shared.subscriptionType?.lowercased())
+                print(Defaults.shared.numberOfFreeTrialDays)
+                lblBadgeRemainingDays.text = "\(Defaults.shared.numberOfFreeTrialDays ?? 0)"
                 planActiveView.isHidden = false
             }
         }
@@ -391,7 +394,7 @@ class SubscriptionsViewController: UIViewController {
         }
     }
     func setSubscriptionBadgeDetails(){
-        lblBadgeRemainingDays.text =  ""
+//        lblBadgeRemainingDays.text =  ""
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
