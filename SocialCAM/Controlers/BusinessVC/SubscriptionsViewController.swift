@@ -80,7 +80,7 @@ class SubscriptionsViewController: UIViewController {
         planActiveView.isHidden = true
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Introductory Price: $1.99/month (3 months) \n Early-Bird Price: $2.99/month (after 3 months)"
+            lblPrice.text = "Early-Bird Price: $2.99/month"
             subScriptionTypeLabel.text = "Basic"
             if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
                 planActiveView.isHidden = false
