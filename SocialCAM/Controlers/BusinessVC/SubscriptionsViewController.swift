@@ -78,9 +78,10 @@ class SubscriptionsViewController: UIViewController {
         print(Defaults.shared.appMode)
         print("Defaults.shared.appMode")
         planActiveView.isHidden = true
+        lblBadgeRemainingDays.text = ""
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Introductory Price: $1.99/month (3 months) \n Early-Bird Price: $2.99/month (after 3 months)"
+            lblPrice.text = "Early-Bird Price: $2.99/month"
             subScriptionTypeLabel.text = "Basic"
             if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
                 planActiveView.isHidden = false
@@ -106,6 +107,8 @@ class SubscriptionsViewController: UIViewController {
             subScriptionTypeLabel.text = "Free"
             if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
                 print(Defaults.shared.subscriptionType?.lowercased())
+                print(Defaults.shared.numberOfFreeTrialDays)
+                lblBadgeRemainingDays.text = "\(Defaults.shared.numberOfFreeTrialDays ?? 0)"
                 planActiveView.isHidden = false
             }
         }
@@ -392,41 +395,33 @@ class SubscriptionsViewController: UIViewController {
         }
     }
     func setSubscriptionBadgeDetails(){
-        lblBadgeRemainingDays.text =  ""
+//        lblBadgeRemainingDays.text =  ""
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
-                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
-                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
-                
+
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                   
+                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    
+                    lblBadgeRemainingDays.text = ""
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                        lblBadgeRemainingDays.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
-                        if freeTrialDay == 1{
+                        lblBadgeRemainingDays.text = finalDay
+                        if finalDay == "1" {
                             lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now before it expires to continue using the premium features and get your Subscription badge."
                         }
-                        
-                    }else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        if freeTrialDay > 0 {
-                            lblBadgeRemainingDays.text = "\(freeTrialDay)"
-                            
-                        } else {
-                            //iOS shield hide
-                            //square badge show
-                            lblBadgeRemainingDays.text = ""
-                           
-                        }
+                    } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                           lblBadgeRemainingDays.text = finalDay
                     }else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue && self.subscriptionType == .basic {
-                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblBadgeRemainingDays.text = finalDay
                        
                     }else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue && self.subscriptionType == .advanced {
-                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblBadgeRemainingDays.text = finalDay
                        
                     }else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue && self.subscriptionType == .professional {
-                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblBadgeRemainingDays.text = finalDay
                         
                     }
                 }
