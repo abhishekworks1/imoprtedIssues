@@ -1333,6 +1333,21 @@ class Defaults {
         return imageArray
     }
     
+    func getCountFromBadge(parentbadge: ParentBadges) -> String {
+        let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+        let createdDate = parentbadge.createdAt?.utcDateFromString()
+        let diffDays = createdDate?.days(from: Date()) ?? 0
+        let trialCalculatedDay = diffDays + 1
+
+        var finalDay = ""
+        if freeTrialDay >= 1  && freeTrialDay <= 7 {
+            finalDay = "\(freeTrialDay)"
+        } else if trialCalculatedDay >= 1  && trialCalculatedDay <= 7 {
+            finalDay = "\(trialCalculatedDay)"
+        }
+        return finalDay
+    }
+    
     func imageNameBasedOnCode(code:String) -> String{
         var imageName = ""
         switch code {

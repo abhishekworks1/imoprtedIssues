@@ -1448,9 +1448,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .referringChannel {
             cell.socialImageView?.image = R.image.settings_ReferringChannel()
         } else if settingTitle.settingsType == .subscription {
+            cell.socialImageView?.image = R.image.settings_Subscription()
             cell.setUpSubscriptionBadges()
-            
-//            cell.socialImageView?.image = R.image.settings_Subscription()
 //            let badgearry = Defaults.shared.getbadgesArray()
 //            if badgearry.contains("iosbadge") {
 //                cell.imgSubscribeBadge.image = R.image.newIosBadge()
