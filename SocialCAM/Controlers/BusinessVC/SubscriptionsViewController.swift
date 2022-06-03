@@ -636,12 +636,15 @@ extension SubscriptionsViewController {
     func bindViewModel(appMode: AppMode) {
         self.viewModel.subscriptionResponseMsg.bind { [weak self] (message, isSuccess) in
             guard let `self` = self else { return }
+            
+            self.syncUserModel { _ in
+
             self.dismissHUD()
             if isSuccess {
                 let user = Defaults.shared.currentUser
                 user?.subscriptionStatus = appMode.getType
                 user?.isTempSubscription = false
-                Defaults.shared.currentUser = user
+               // Defaults.shared.currentUser = user
                 Defaults.shared.isSubscriptionApiCalled = false
                 Defaults.shared.isDowngradeSubscription = false
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
@@ -670,8 +673,10 @@ extension SubscriptionsViewController {
                 
 //                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
             }
-            print(message)
-          //  self.showAlert(alertMessage: message)
+
+            self.showAlert(alertMessage: message)
+            
+            }
         }
         
         self.viewModel.subscriptionError.bind { [weak self] (message) in
@@ -680,6 +685,107 @@ extension SubscriptionsViewController {
             self.showAlert(alertMessage: message)
         }
     }
+    
+    func syncUserModel(completion: @escaping (_ isCompleted: Bool?) -> Void) {
+        //print("***syncUserModel***")
+        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                //print("***userSync***\(response)")
+                Defaults.shared.currentUser = response.result?.user
+                Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
+                Defaults.shared.userCreatedDate = response.result?.user?.created
+                Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
+                Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
+                Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
+                Defaults.shared.subscriptionType = response.result?.userSubscription?.subscriptionType
+                Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
+                Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
+                Defaults.shared.publicDisplayName = response.result?.user?.publicDisplayName
+                Defaults.shared.emailAddress = response.result?.user?.email
+                Defaults.shared.privateDisplayName = response.result?.user?.privateDisplayName
+                if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
+                    Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
+                }
+                Defaults.shared.referredByData = response.result?.user?.refferedBy
+                self.setAppModeBasedOnUserSync()
+                completion(true)
+            }
+        }, onError: { error in
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+
+    func setAppModeBasedOnUserSync(){
+       //   Defaults.shared.allowFullAccess = true
+            if Defaults.shared.allowFullAccess ?? false == true{
+                Defaults.shared.appMode = .professional
+            }else if (Defaults.shared.subscriptionType == "trial"){
+                if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                    Defaults.shared.appMode = .professional
+                }else {
+                    Defaults.shared.appMode = .free
+                }
+            }else if(Defaults.shared.subscriptionType == "basic")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .basic
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .basic
+                }
+            }else if(Defaults.shared.subscriptionType == "advance")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .advanced
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .advanced
+                }
+            }else if(Defaults.shared.subscriptionType == "pro")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .professional
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .professional
+                }
+            }else{
+                Defaults.shared.appMode = .free
+            }
+/*
+         if(allowFullAccess){
+              Allow access to premium content
+         }else if(isTempSubscription){
+             if(diffDays > 0){
+              Allow access to premium content
+              }else{
+              Free trial expired
+              }
+         }else if(subscriptions.android.currentStatus === 'basic'){
+             if(userSubscription.isDowngraded){
+                 if(diffDays > 0){
+                    Allow access to premium content
+                   }else{
+                    Subscription is expired
+                   }
+
+             }else{
+              Allow access to premium content
+             }
+         }else{
+           User does not have any active subscriptions
+         }
+         */
+        }
     
     func setupForFreeTrial(isFreeTrial: Bool) {
         return
