@@ -665,7 +665,7 @@ extension SubscriptionsViewController {
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.advBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.advancedAppleIcon()
                 case .professional:
-                    self.thankYouSubscriptionTypeLabel.text = "Your Advanced Badge"
+                    self.thankYouSubscriptionTypeLabel.text = "Your Premium Badge"
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.priBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.preAppleIcon()
 //                default:
@@ -675,7 +675,8 @@ extension SubscriptionsViewController {
                 
 //                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
             }
-            self.showAlert(alertMessage: message)
+            print(message)
+          //  self.showAlert(alertMessage: message)
         }
         
         self.viewModel.subscriptionError.bind { [weak self] (message) in
