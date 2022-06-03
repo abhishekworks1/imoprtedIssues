@@ -89,24 +89,26 @@ class StorySettingsListCell: UITableViewCell {
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
+        
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
                 let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
                 let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                 
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
+                        lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.freeBadge()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
                         if freeTrialDay > 0 {
-                            lbliosDaysRemains.text = "\(freeTrialDay)"
+                            lbliosDaysRemains.text = finalDay
                             iosSheildImageview.image = R.image.freeBadge()
                         } else {
                             //iOS shield hide
@@ -118,17 +120,17 @@ class StorySettingsListCell: UITableViewCell {
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.basicBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.advancedBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.proBadge()
                     }
                 }
@@ -137,13 +139,13 @@ class StorySettingsListCell: UITableViewCell {
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
+                        lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.freeBadge()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         androidBadgeView.isHidden = false
                         if freeTrialDay > 0 {
-                            lblandroidDaysRemains.text = "\(freeTrialDay)"
+                            lblandroidDaysRemains.text = finalDay
                             androidSheildImageview.image = R.image.freeBadge()
                         } else {
                             lblandroidDaysRemains.text = ""
@@ -152,17 +154,17 @@ class StorySettingsListCell: UITableViewCell {
                     }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.basicBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.advancedBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.proBadge()
                     }
                 }
@@ -171,13 +173,13 @@ class StorySettingsListCell: UITableViewCell {
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
+                        lblwebDaysRemains.text = finalDay
                         webSheildImageview.image = R.image.freeBadge()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         webBadgeView.isHidden = false
                         if freeTrialDay > 0 {
-                            lblwebDaysRemains.text = "\(freeTrialDay)"
+                            lblwebDaysRemains.text = finalDay
                             webSheildImageview.image = R.image.freeBadge()
                         } else {
                             lblwebDaysRemains.text = ""
@@ -187,21 +189,20 @@ class StorySettingsListCell: UITableViewCell {
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblwebDaysRemains.text = finalDay
                         webSheildImageview.image = R.image.basicBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblwebDaysRemains.text = finalDay
                         webSheildImageview.image = R.image.advancedBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblwebDaysRemains.text = finalDay
                         webSheildImageview.image = R.image.proBadge()
                     }
                 }
-                
             }
         }
     }
