@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -244,7 +245,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8AV-Tq-MCk">
-                                                        <rect key="frame" x="25" y="105.5" width="364" height="180"/>
+                                                        <rect key="frame" x="25" y="105.5" width="364" height="270"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBP-Xb-qtE">
                                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="90"/>
@@ -464,6 +465,83 @@
                                                                     <constraint firstItem="njf-A7-eO7" firstAttribute="centerY" secondItem="sIq-Ar-Nnn" secondAttribute="centerY" id="ljT-hN-gRp"/>
                                                                     <constraint firstItem="6ni-6r-SKM" firstAttribute="top" secondItem="sIq-Ar-Nnn" secondAttribute="top" id="pcR-m2-Y3B"/>
                                                                     <constraint firstItem="6ni-6r-SKM" firstAttribute="leading" secondItem="sIq-Ar-Nnn" secondAttribute="leading" id="xlA-MF-MCG"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TOv-3c-fmu">
+                                                                <rect key="frame" x="0.0" y="180" width="364" height="90"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nTC-jy-6Z6">
+                                                                        <rect key="frame" x="10" y="10" width="70" height="70"/>
+                                                                        <subviews>
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PotentialIncomeCalculator" translatesAutoresizingMaskIntoConstraints="NO" id="QdR-jr-sBo">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                            </imageView>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="QdR-jr-sBo" firstAttribute="top" secondItem="nTC-jy-6Z6" secondAttribute="top" id="2Rw-QB-xOf"/>
+                                                                            <constraint firstAttribute="width" constant="70" id="LQp-7F-5H6"/>
+                                                                            <constraint firstAttribute="height" constant="70" id="MkK-Ie-kxv"/>
+                                                                            <constraint firstItem="QdR-jr-sBo" firstAttribute="leading" secondItem="nTC-jy-6Z6" secondAttribute="leading" id="Z80-Ap-uTm"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="QdR-jr-sBo" secondAttribute="trailing" id="hLO-j5-SWe"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="QdR-jr-sBo" secondAttribute="bottom" id="ivN-xs-KFU"/>
+                                                                        </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                                <real key="value" value="35"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Income Calculator" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6IY-1q-LST">
+                                                                        <rect key="frame" x="90" y="24.5" width="137.5" height="41"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="iru-fj-Eoh">
+                                                                        <rect key="frame" x="329" y="32.5" width="25" height="25"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="25" id="Oid-K6-fx2"/>
+                                                                            <constraint firstAttribute="height" constant="25" id="o52-88-zCV"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGY-se-MdR">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="364" height="90"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title=" ">
+                                                                            <color key="baseForegroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </buttonConfiguration>
+                                                                    </button>
+                                                                    <button toolTip="12345" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzW-HB-hgi">
+                                                                        <rect key="frame" x="239.5" y="32.5" width="25" height="25"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="25" id="Hy5-7l-1Ij"/>
+                                                                            <constraint firstAttribute="height" constant="25" id="meX-Ia-0ub"/>
+                                                                        </constraints>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" image="circleHelpQuestionMark"/>
+                                                                        <connections>
+                                                                            <action selector="showTooltipAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="Uru-IW-WqB"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="nTC-jy-6Z6" firstAttribute="centerY" secondItem="TOv-3c-fmu" secondAttribute="centerY" id="2O8-OF-gGF"/>
+                                                                    <constraint firstItem="IzW-HB-hgi" firstAttribute="centerY" secondItem="TOv-3c-fmu" secondAttribute="centerY" id="3VS-or-GQI"/>
+                                                                    <constraint firstItem="cGY-se-MdR" firstAttribute="top" secondItem="TOv-3c-fmu" secondAttribute="top" id="4B8-J0-Z5Z"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="cGY-se-MdR" secondAttribute="trailing" id="83L-kZ-APq"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="cGY-se-MdR" secondAttribute="bottom" id="8Xb-B9-eyA"/>
+                                                                    <constraint firstItem="iru-fj-Eoh" firstAttribute="centerY" secondItem="TOv-3c-fmu" secondAttribute="centerY" id="Goi-tt-tOK"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="iru-fj-Eoh" secondAttribute="trailing" constant="10" id="Jw8-vo-oZT"/>
+                                                                    <constraint firstAttribute="height" constant="90" id="OXi-wz-ZqS"/>
+                                                                    <constraint firstItem="6IY-1q-LST" firstAttribute="centerY" secondItem="TOv-3c-fmu" secondAttribute="centerY" id="QjK-QE-gcW"/>
+                                                                    <constraint firstItem="iru-fj-Eoh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IzW-HB-hgi" secondAttribute="trailing" constant="5" id="YYO-h0-04J"/>
+                                                                    <constraint firstItem="6IY-1q-LST" firstAttribute="leading" secondItem="nTC-jy-6Z6" secondAttribute="trailing" constant="10" id="ikP-61-EIQ"/>
+                                                                    <constraint firstItem="IzW-HB-hgi" firstAttribute="leading" secondItem="6IY-1q-LST" secondAttribute="trailing" constant="12" id="kVf-xq-DL6"/>
+                                                                    <constraint firstItem="nTC-jy-6Z6" firstAttribute="leading" secondItem="TOv-3c-fmu" secondAttribute="leading" constant="10" id="n93-2J-TWs"/>
+                                                                    <constraint firstItem="iru-fj-Eoh" firstAttribute="centerY" secondItem="TOv-3c-fmu" secondAttribute="centerY" id="nAC-Yu-p6e"/>
+                                                                    <constraint firstItem="cGY-se-MdR" firstAttribute="leading" secondItem="TOv-3c-fmu" secondAttribute="leading" id="tbj-bQ-Twk"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -1394,7 +1472,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Profile Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-qK-xQi">
-                                                                                <rect key="frame" x="42" y="11" width="131.5" height="20"/>
+                                                                                <rect key="frame" x="42" y="11" width="142.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1409,7 +1487,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-cf-NbA">
-                                                                                <rect key="frame" x="227" y="11" width="85.5" height="20"/>
+                                                                                <rect key="frame" x="227" y="11" width="88.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1709,7 +1787,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="649"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBq-W3-UUF">
-                                                                <rect key="frame" x="172" y="20" width="70.5" height="23.5"/>
+                                                                <rect key="frame" x="171" y="20" width="72" height="23.5"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="20"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -2351,7 +2429,7 @@
                                         <rect key="frame" x="57" y="378" width="300" height="140"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ek-so-tRU">
-                                                <rect key="frame" x="15" y="24" width="270" height="20"/>
+                                                <rect key="frame" x="15" y="24" width="270" height="20.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="270" id="al7-Hs-2EL"/>
                                                 </constraints>
@@ -2457,13 +2535,13 @@
                                         <rect key="frame" x="20" y="279.5" width="374" height="215"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The QuickCam Business Dashboard Sharing will open in your default browser." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZ9-uj-XLj">
-                                                <rect key="frame" x="15" y="25" width="344" height="40"/>
+                                                <rect key="frame" x="15" y="25" width="344" height="41"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" name="AppBlackColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XeA-xI-3ji">
-                                                <rect key="frame" x="0.0" y="65" width="374" height="120"/>
+                                                <rect key="frame" x="0.0" y="66" width="374" height="120"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECQ-JQ-hzo">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
@@ -2483,7 +2561,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXZ-gP-Pzx">
-                                                                <rect key="frame" x="55" y="20" width="310" height="20"/>
+                                                                <rect key="frame" x="55" y="20" width="310" height="20.5"/>
                                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="17"/>
                                                                 <color key="textColor" name="AppBlackColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -2611,7 +2689,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNc-lo-SsS">
-                                                        <rect key="frame" x="100" y="13" width="60.5" height="19"/>
+                                                        <rect key="frame" x="100" y="13" width="60" height="19"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -3190,7 +3268,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjp-yL-3si">
-                                                <rect key="frame" x="73" y="65" width="129.5" height="0.0"/>
+                                                <rect key="frame" x="73" y="65" width="137.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3298,7 +3376,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyq-4q-TGt">
-                                                <rect key="frame" x="73" y="85" width="129.5" height="30"/>
+                                                <rect key="frame" x="73" y="85" width="137.5" height="30"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3383,7 +3461,7 @@
                                         <rect key="frame" x="57" y="348" width="300" height="200"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your email app" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMW-ru-JA5">
-                                                <rect key="frame" x="15" y="15" width="270" height="20"/>
+                                                <rect key="frame" x="15" y="15" width="270" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -3398,7 +3476,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gmail" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nId-Z2-CA2">
-                                                        <rect key="frame" x="0.0" y="73.5" width="100" height="16.5"/>
+                                                        <rect key="frame" x="0.0" y="73" width="100" height="17"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -3447,7 +3525,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MO-Ok-9T9">
-                                                        <rect key="frame" x="0.0" y="73.5" width="100" height="16.5"/>
+                                                        <rect key="frame" x="0.0" y="73" width="100" height="17"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -3934,6 +4012,7 @@
     </scenes>
     <resources>
         <image name="ManualEmail" width="500" height="500"/>
+        <image name="PotentialIncomeCalculator" width="512" height="512"/>
         <image name="QRCodeShare" width="500" height="458"/>
         <image name="QuickStart" width="512" height="512"/>
         <image name="QuickTour" width="512" height="512"/>
@@ -3995,7 +4074,7 @@
             <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
