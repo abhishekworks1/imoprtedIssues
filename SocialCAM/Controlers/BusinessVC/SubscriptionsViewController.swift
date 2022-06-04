@@ -81,7 +81,7 @@ class SubscriptionsViewController: UIViewController {
         lblBadgeRemainingDays.text = ""
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Price: $2.99/month"
+            lblPrice.text = "Early-Bird Special Price: $1.99/month"
             subScriptionTypeLabel.text = "Basic"
             if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
                 planActiveView.isHidden = false
@@ -89,7 +89,7 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Price: $2.99/month"
+            lblPrice.text = "Early-Bird Special Price: $2.99/month"
             subScriptionTypeLabel.text = "Advanced"
             if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
                 planActiveView.isHidden = false
@@ -97,7 +97,7 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Price: $4.99/month"
+            lblPrice.text = "Early-Bird Special Price: $4.99/month"
             subScriptionTypeLabel.text = "Premium"
             if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
                 planActiveView.isHidden = false

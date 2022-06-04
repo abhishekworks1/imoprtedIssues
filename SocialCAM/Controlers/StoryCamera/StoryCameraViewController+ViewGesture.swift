@@ -191,6 +191,18 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         speedOptions.append(contentsOf: [.fast4x, .fast5x])
                         speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
                     }
+                } else if Defaults.shared.appMode == .advanced {
+                    if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                        if self.cameraSliderView.stringArray.count == 5 && (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") && self.selectedCellIndex == 0 {
+                            speedOptions = [.normal, .normal, .normal, .normal, .fast2x, .fast3x]
+                        } else {
+                            speedOptions.append(contentsOf: [.fast4x])
+                            speedOptions.insert(contentsOf: [.slow4x], at: 0)
+                        }
+                    } else {
+                        speedOptions.append(contentsOf: [.fast4x])
+                        speedOptions.insert(contentsOf: [.slow5x], at: 0)
+                    }
                 } else {
                     speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
                     if recordingType == .newNormal {
@@ -247,7 +259,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             }
             
             if isLiteApp {
-                if Defaults.shared.appMode == .professional {
+                if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .advanced {
                     switch currentValue {
                     case .slow5x:
                         if videoSpeedType != VideoSpeedType.slow(scaleFactor: 5.0) {
@@ -600,7 +612,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             if Defaults.shared.appMode == .professional {
                 speedOptions.append(contentsOf: [.fast4x, .fast5x])
                 speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
-            } else {
+            } else if Defaults.shared.appMode != .advanced {
                 speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .fast2x, .fast3x] : [.slow3x, .slow2x, .normal, .fast2x, .fast3x]
             }
         }
@@ -608,7 +620,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         var value: Float = 1
         var speedText = ""
         if isLiteApp {
-            if Defaults.shared.appMode == .professional {
+            if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .advanced {
                 switch speedSlider.value {
                 case 0:
                     if speedOptions.count % 5 == 0 {
