@@ -201,7 +201,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         }
                     } else {
                         speedOptions.append(contentsOf: [.fast4x])
-                        speedOptions.insert(contentsOf: [.slow5x], at: 0)
+                        speedOptions.insert(contentsOf: [.slow4x], at: 0)
                     }
                 } else {
                     speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
