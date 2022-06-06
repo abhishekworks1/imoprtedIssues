@@ -134,7 +134,7 @@ class StorySettingsListCell: UITableViewCell {
                         iosSheildImageview.image = R.image.proBadge()
                     }
                 }
-                
+                // Setup For Android Badge
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
