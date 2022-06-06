@@ -620,7 +620,7 @@ extension StoryCameraViewController {
     
     @IBAction func discardSegementButtonClicked(_ sender: UIButton) {
         isDiscardSingleSegment = true
-        discardTextMessageLabel.text = "Are you sure want to discard this segment?"
+        discardTextMessageLabel.text = "Are you sure want to discard this Quickie?"
         signleDiscardCheckBoxClickImageView.isHidden = false
         discardCheckAndUnCheckBoxImageView.isHidden = true
         isDiscardSingleCheckBoxClicked = UserDefaults.standard.bool(forKey: "isDiscardSingleCheckBoxClicked")
