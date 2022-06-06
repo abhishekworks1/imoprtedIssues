@@ -1020,7 +1020,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
         if recordingType == .normal || recordingType == .capture {
             if isLiteApp {
-                if Defaults.shared.appMode == .professional {
+                if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .advanced {
                     verticalLines.visibleLeftSideViews = true
                 } else {
                     verticalLines.visibleLeftSideViews = true
@@ -1037,7 +1037,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             }
         }
         
-        if recordingType == .promo && Defaults.shared.appMode != .professional {
+        if recordingType == .promo && (Defaults.shared.appMode != .professional || Defaults.shared.appMode != .advanced) {
             timerValueView.isHidden = true
             verticalLines.visibleLeftSideViews = false
             verticalLines.numberOfViews = .speed3x
