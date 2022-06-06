@@ -152,6 +152,12 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             }
             if Defaults.shared.appMode != .free && self.recordingType != .promo {
                 nextLevel.videoZoomFactor = Float(minZoom)
+            } else {
+                if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                    if (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") && self.selectedCellIndex == 1 {
+                        nextLevel.videoZoomFactor = Float(minZoom)
+                    }
+                }
             }
             switch Defaults.shared.appMode {
             case .free:

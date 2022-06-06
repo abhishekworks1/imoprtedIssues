@@ -10,6 +10,7 @@ import UIKit
 
 class SubscriptionsViewController: UIViewController {
     
+    @IBOutlet weak var thankYouiPhoneLabel: UILabel!
     @IBOutlet weak var thankYouSubscriptionTypeAppleIconImageView: UIImageView!
     @IBOutlet weak var thankYouSubscriptionTypeBadgeBGImageView: UIImageView!
     @IBOutlet weak var thankYouSubscriptionTypeLabel: UILabel!
@@ -26,6 +27,7 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var monthlyPriceView: UIView!
     @IBOutlet weak var subScriptionBadgeImageView: UIImageView!
     @IBOutlet weak var appleIconImageView: UIImageView!
+    @IBOutlet weak var appleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var trialPackExpireLabel: UILabel!
     @IBOutlet weak var planActiveView: UIView!
     @IBOutlet weak var yourPlanActiveLabel: UILabel!
@@ -77,6 +79,7 @@ class SubscriptionsViewController: UIViewController {
         print(Defaults.shared.appMode)
         print("Defaults.shared.appMode")
         planActiveView.isHidden = true
+        lblBadgeRemainingDays.text = ""
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Price: $2.99/month"
@@ -105,6 +108,8 @@ class SubscriptionsViewController: UIViewController {
             subScriptionTypeLabel.text = "Free"
             if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
                 print(Defaults.shared.subscriptionType?.lowercased())
+                print(Defaults.shared.numberOfFreeTrialDays)
+                lblBadgeRemainingDays.text = "\(Defaults.shared.numberOfFreeTrialDays ?? 0)"
                 planActiveView.isHidden = false
             }
         }
@@ -391,47 +396,41 @@ class SubscriptionsViewController: UIViewController {
         }
     }
     func setSubscriptionBadgeDetails(){
-        lblBadgeRemainingDays.text =  ""
+//        lblBadgeRemainingDays.text =  ""
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
-                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
-                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
-                
+
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                   
+                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    
+                    lblBadgeRemainingDays.text = ""
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                        lblBadgeRemainingDays.text = freeTrialDay > 0 ? "\(freeTrialDay)" : ""
-                        if freeTrialDay == 1{
+                        lblBadgeRemainingDays.text = finalDay
+                        if finalDay == "7" {
                             lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now before it expires to continue using the premium features and get your Subscription badge."
-                        }
-                        
-                    }else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        if freeTrialDay > 0 {
-                            lblBadgeRemainingDays.text = "\(freeTrialDay)"
-                            
                         } else {
-                            //iOS shield hide
-                            //square badge show
-                            lblBadgeRemainingDays.text = ""
-                           
+                            lblPrice.text = "You have \(finalDay) days left on your free trial. Subscribe now and earn your subscription badge."
                         }
+                    } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                           lblBadgeRemainingDays.text = finalDay
                     }else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue && self.subscriptionType == .basic {
-                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblBadgeRemainingDays.text = finalDay
                        
                     }else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue && self.subscriptionType == .advanced {
-                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblBadgeRemainingDays.text = finalDay
                        
                     }else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue && self.subscriptionType == .professional {
-                        lblBadgeRemainingDays.text = freeTrialDay == 0 ? "" : "\(freeTrialDay)"
+                        lblBadgeRemainingDays.text = finalDay
                         
                     }
                 }
             }
         }
-        
+        appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? 6 : -8
     }
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {
@@ -640,12 +639,15 @@ extension SubscriptionsViewController {
     func bindViewModel(appMode: AppMode) {
         self.viewModel.subscriptionResponseMsg.bind { [weak self] (message, isSuccess) in
             guard let `self` = self else { return }
+            
+            self.syncUserModel { _ in
+
             self.dismissHUD()
             if isSuccess {
                 let user = Defaults.shared.currentUser
                 user?.subscriptionStatus = appMode.getType
                 user?.isTempSubscription = false
-                Defaults.shared.currentUser = user
+               // Defaults.shared.currentUser = user
                 Defaults.shared.isSubscriptionApiCalled = false
                 Defaults.shared.isDowngradeSubscription = false
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
@@ -653,18 +655,26 @@ extension SubscriptionsViewController {
                 switch self.subscriptionType {
                 case .free:
                     self.thankYouSubscriptionTypeLabel.text = "Your Free Badge"
+                    let firstColor = UIColor.init(hexString: "C3C3C3")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.freeBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.freeAppleIcon()
                 case .basic:
                     self.thankYouSubscriptionTypeLabel.text = "Your Basic Badge"
+                    let firstColor = UIColor.init(hexString: "FDE774")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.basicBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.basicAppleIcon()
                 case .advanced:
                     self.thankYouSubscriptionTypeLabel.text = "Your Advanced Badge"
+                    let firstColor = UIColor.init(hexString: "77C159")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.advBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.advancedAppleIcon()
                 case .professional:
                     self.thankYouSubscriptionTypeLabel.text = "Your Premium Badge"
+                    let firstColor = UIColor.init(hexString: "4D83D4")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.priBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.preAppleIcon()
 //                default:
@@ -674,7 +684,10 @@ extension SubscriptionsViewController {
                 
 //                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
             }
-            self.showAlert(alertMessage: message)
+
+//            self.showAlert(alertMessage: message)
+            
+            }
         }
         
         self.viewModel.subscriptionError.bind { [weak self] (message) in
@@ -683,6 +696,107 @@ extension SubscriptionsViewController {
             self.showAlert(alertMessage: message)
         }
     }
+    
+    func syncUserModel(completion: @escaping (_ isCompleted: Bool?) -> Void) {
+        //print("***syncUserModel***")
+        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                //print("***userSync***\(response)")
+                Defaults.shared.currentUser = response.result?.user
+                Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
+                Defaults.shared.userCreatedDate = response.result?.user?.created
+                Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
+                Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
+                Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
+                Defaults.shared.subscriptionType = response.result?.userSubscription?.subscriptionType
+                Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
+                Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
+                Defaults.shared.publicDisplayName = response.result?.user?.publicDisplayName
+                Defaults.shared.emailAddress = response.result?.user?.email
+                Defaults.shared.privateDisplayName = response.result?.user?.privateDisplayName
+                if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
+                    Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
+                }
+                Defaults.shared.referredByData = response.result?.user?.refferedBy
+                self.setAppModeBasedOnUserSync()
+                completion(true)
+            }
+        }, onError: { error in
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+
+    func setAppModeBasedOnUserSync(){
+       //   Defaults.shared.allowFullAccess = true
+            if Defaults.shared.allowFullAccess ?? false == true{
+                Defaults.shared.appMode = .professional
+            }else if (Defaults.shared.subscriptionType == "trial"){
+                if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                    Defaults.shared.appMode = .professional
+                }else {
+                    Defaults.shared.appMode = .free
+                }
+            }else if(Defaults.shared.subscriptionType == "basic")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .basic
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .basic
+                }
+            }else if(Defaults.shared.subscriptionType == "advance")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .advanced
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .advanced
+                }
+            }else if(Defaults.shared.subscriptionType == "pro")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .professional
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .professional
+                }
+            }else{
+                Defaults.shared.appMode = .free
+            }
+/*
+         if(allowFullAccess){
+              Allow access to premium content
+         }else if(isTempSubscription){
+             if(diffDays > 0){
+              Allow access to premium content
+              }else{
+              Free trial expired
+              }
+         }else if(subscriptions.android.currentStatus === 'basic'){
+             if(userSubscription.isDowngraded){
+                 if(diffDays > 0){
+                    Allow access to premium content
+                   }else{
+                    Subscription is expired
+                   }
+
+             }else{
+              Allow access to premium content
+             }
+         }else{
+           User does not have any active subscriptions
+         }
+         */
+        }
     
     func setupForFreeTrial(isFreeTrial: Bool) {
         return
