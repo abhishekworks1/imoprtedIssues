@@ -10,6 +10,7 @@ import UIKit
 
 class SubscriptionsViewController: UIViewController {
     
+    @IBOutlet weak var thankYouiPhoneLabel: UILabel!
     @IBOutlet weak var thankYouSubscriptionTypeAppleIconImageView: UIImageView!
     @IBOutlet weak var thankYouSubscriptionTypeBadgeBGImageView: UIImageView!
     @IBOutlet weak var thankYouSubscriptionTypeLabel: UILabel!
@@ -654,18 +655,26 @@ extension SubscriptionsViewController {
                 switch self.subscriptionType {
                 case .free:
                     self.thankYouSubscriptionTypeLabel.text = "Your Free Badge"
+                    let firstColor = UIColor.init(hexString: "C3C3C3")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.freeBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.freeAppleIcon()
                 case .basic:
                     self.thankYouSubscriptionTypeLabel.text = "Your Basic Badge"
+                    let firstColor = UIColor.init(hexString: "FDE774")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.basicBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.basicAppleIcon()
                 case .advanced:
                     self.thankYouSubscriptionTypeLabel.text = "Your Advanced Badge"
+                    let firstColor = UIColor.init(hexString: "77C159")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.advBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.advancedAppleIcon()
                 case .professional:
                     self.thankYouSubscriptionTypeLabel.text = "Your Premium Badge"
+                    let firstColor = UIColor.init(hexString: "4D83D4")
+                    self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.priBadgeBG()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.preAppleIcon()
 //                default:
@@ -676,7 +685,7 @@ extension SubscriptionsViewController {
 //                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
             }
 
-            self.showAlert(alertMessage: message)
+//            self.showAlert(alertMessage: message)
             
             }
         }
