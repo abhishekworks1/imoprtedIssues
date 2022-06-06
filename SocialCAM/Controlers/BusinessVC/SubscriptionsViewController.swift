@@ -588,7 +588,6 @@ class SubscriptionsViewController: UIViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
-        
     }
     
 }
