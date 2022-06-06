@@ -74,28 +74,12 @@ class SubscriptionContainerViewController: UIViewController {
         activeAdvancedView.isHidden = true
         activeProView.isHidden = true
         
-        if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
-            viewDetailBasicView.isHidden = true
-            activeBasicView.isHidden = false
-            subscribeNowLabel.text = "Your Subscription Plan Basic"
-        }else if(Defaults.shared.subscriptionType?.lowercased() == "advance"){
-            viewDetailAdvancedView.isHidden = true
-            activeAdvancedView.isHidden = false
-            subscribeNowLabel.text = "Your Subscription Plan Advanced"
-        }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
-            viewDetailProView.isHidden = true
-            activeProView.isHidden = false
-            subscribeNowLabel.text = "Your Subscription Plan Premium"
-        }else{
-            subscribeNowLabel.text = "SUBSCRIBE NOW"
-            viewDetailFreeView.isHidden = true
-            activeFreeView.isHidden = false
-        }
         setSubscriptionBadgeDetails()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
+        setSubscribeNowLabel()
     }
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
@@ -199,6 +183,25 @@ class SubscriptionContainerViewController: UIViewController {
             imgStr = "free-user-icon"
         }
         subscriptionImgV.image = UIImage.init(named: imgStr)
+    }
+    func setSubscribeNowLabel() {
+        if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+            viewDetailBasicView.isHidden = true
+            activeBasicView.isHidden = false
+            subscribeNowLabel.text = "Your Subscription Plan Basic"
+        }else if(Defaults.shared.subscriptionType?.lowercased() == "advance"){
+            viewDetailAdvancedView.isHidden = true
+            activeAdvancedView.isHidden = false
+            subscribeNowLabel.text = "Your Subscription Plan Advanced"
+        }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            viewDetailProView.isHidden = true
+            activeProView.isHidden = false
+            subscribeNowLabel.text = "Your Subscription Plan Premium"
+        }else{
+            subscribeNowLabel.text = "SUBSCRIBE NOW"
+            viewDetailFreeView.isHidden = true
+            activeFreeView.isHidden = false
+        }
     }
     private func setSubscriptionBadgeDetails(){
         lblBadgeFree.text = ""
