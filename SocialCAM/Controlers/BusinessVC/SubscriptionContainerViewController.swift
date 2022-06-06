@@ -42,6 +42,7 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var basicAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var advancedAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var premiumAppleLogoCenterY: NSLayoutConstraint!
+    @IBOutlet weak var subscribeNowLabel: UILabel!
 
     // MARK: -
     // MARK: - Variables
@@ -73,25 +74,12 @@ class SubscriptionContainerViewController: UIViewController {
         activeAdvancedView.isHidden = true
         activeProView.isHidden = true
         
-        
-        if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
-            viewDetailBasicView.isHidden = true
-            activeBasicView.isHidden = false
-        }else if(Defaults.shared.subscriptionType?.lowercased() == "advance"){
-            viewDetailAdvancedView.isHidden = true
-            activeAdvancedView.isHidden = false
-        }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
-            viewDetailProView.isHidden = true
-            activeProView.isHidden = false
-        }else{
-            viewDetailFreeView.isHidden = true
-            activeFreeView.isHidden = false
-        }
         setSubscriptionBadgeDetails()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
+        setSubscribeNowLabel()
     }
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
@@ -196,6 +184,25 @@ class SubscriptionContainerViewController: UIViewController {
         }
         subscriptionImgV.image = UIImage.init(named: imgStr)
     }
+    func setSubscribeNowLabel() {
+        if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+            viewDetailBasicView.isHidden = true
+            activeBasicView.isHidden = false
+            subscribeNowLabel.text = "Your Subscription Plan Basic"
+        }else if(Defaults.shared.subscriptionType?.lowercased() == "advance"){
+            viewDetailAdvancedView.isHidden = true
+            activeAdvancedView.isHidden = false
+            subscribeNowLabel.text = "Your Subscription Plan Advanced"
+        }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            viewDetailProView.isHidden = true
+            activeProView.isHidden = false
+            subscribeNowLabel.text = "Your Subscription Plan Premium"
+        }else{
+            subscribeNowLabel.text = "SUBSCRIBE NOW"
+            viewDetailFreeView.isHidden = true
+            activeFreeView.isHidden = false
+        }
+    }
     private func setSubscriptionBadgeDetails(){
         lblBadgeFree.text = ""
         lblBadgeBasic.text = ""
@@ -242,9 +249,9 @@ class SubscriptionContainerViewController: UIViewController {
             }
         }
         freeAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
-        basicAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
-        advancedAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
-        premiumAppleLogoCenterY.constant = (lblBadgeFree.text ?? "").trim.isEmpty ? 8 : 0
+        basicAppleLogoCenterY.constant = (lblBadgeBasic.text ?? "").trim.isEmpty ? 8 : 0
+        advancedAppleLogoCenterY.constant = (lblBadgeAdvanced.text ?? "").trim.isEmpty ? 8 : 0
+        premiumAppleLogoCenterY.constant = (lblBadgePro.text ?? "").trim.isEmpty ? 8 : 0
     }
     // MARK: -
     // MARK: - Button Action Methods

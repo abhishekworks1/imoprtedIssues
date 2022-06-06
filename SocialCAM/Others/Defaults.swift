@@ -1335,8 +1335,10 @@ class Defaults {
     
     func getCountFromBadge(parentbadge: ParentBadges) -> String {
         let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
-        let createdDate = parentbadge.createdAt?.utcDateFromString()
-        let diffDays = createdDate?.days(from: Date()) ?? 0
+        var diffDays = 0
+        if let createdDate = parentbadge.createdAt?.utcDateFromString() {
+         diffDays = Date().days(from: createdDate)
+        }
         let trialCalculatedDay = diffDays + 1
 
         var finalDay = ""
@@ -1347,7 +1349,6 @@ class Defaults {
         }
         return finalDay
     }
-    
     func imageNameBasedOnCode(code:String) -> String{
         var imageName = ""
         switch code {
