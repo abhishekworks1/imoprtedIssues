@@ -59,6 +59,14 @@ class AboutViewController: UIViewController {
         self.animateView(view:self.instagramView)
     }
     
+    
+    @IBAction func didTapCookiePolicyButton(_ sender: UIButton) {
+        if let url = URL(string: "https://quickcam.app/cookie-policy") {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+    
+    
     @IBAction func websiteTapped(_ sender: UIButton) {
         if let url = URL(string: "https://quickcam.app/") {
             UIApplication.shared.open(url, options: [:])

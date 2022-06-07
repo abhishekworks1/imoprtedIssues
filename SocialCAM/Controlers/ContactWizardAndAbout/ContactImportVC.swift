@@ -759,7 +759,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             print(response)
             switch (response.result) {
             case .success:
-                self.getContactList()
+                self.getContactList(filter: self.selectedFilter)
                 break
                
             case .failure(let error):
@@ -1980,7 +1980,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
 //        if let token = Defaults.shared.sessionToken {
 //        let urlString = "\(websiteUrl)/redirect?token=\(token)"
-        let urlString = "\(websiteUrl)/share-wizard"
+        let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
         guard let url = URL(string: urlString) else {
                 return
             }

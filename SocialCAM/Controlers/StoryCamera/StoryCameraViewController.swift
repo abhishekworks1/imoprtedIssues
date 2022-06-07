@@ -585,6 +585,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         volumeButtonHandler()
         changeModeHandler()
         dynamicSetSlowFastVerticalBar()
+        self.syncUserModel { _ in
+            self.dynamicSetSlowFastVerticalBar()
+        }
         setViewsForApp()
         setupPic2ArtAppControls()
         setupTapGestureController()
