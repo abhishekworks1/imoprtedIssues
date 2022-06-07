@@ -759,7 +759,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             print(response)
             switch (response.result) {
             case .success:
-                self.getContactList()
+                self.getContactList(filter: self.selectedFilter)
                 break
                
             case .failure(let error):
