@@ -1922,12 +1922,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        let urlString = self.txtLinkWithCheckOut
-        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            let imageUrl = URL(string: userImageURL)
-            share(shareText: urlwithString, shareImage: imageUrl)
-        }
+        self.socialSharePopupView.isHidden = false
+//        let urlString = self.txtLinkWithCheckOut
+//        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+//        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+//            let imageUrl = URL(string: userImageURL)
+//            share(shareText: urlwithString, shareImage: imageUrl)
+//        }
     }
     
     func share(shareText: String?, shareImage: URL?) {

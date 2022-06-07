@@ -2683,19 +2683,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmu-s0-g6S">
-                                        <rect key="frame" x="77" y="270.5" width="260" height="355"/>
+                                        <rect key="frame" x="57" y="240.5" width="300" height="415"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Iz-De-o9C">
-                                                <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNc-lo-SsS">
-                                                        <rect key="frame" x="100" y="13" width="60" height="19"/>
+                                                        <rect key="frame" x="120" y="13" width="60" height="19"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HxR-F1-2tg">
-                                                        <rect key="frame" x="233" y="12" width="15" height="15"/>
+                                                        <rect key="frame" x="273" y="12" width="15" height="15"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="15" id="2Zd-os-Wch"/>
                                                             <constraint firstAttribute="width" constant="15" id="e8v-lz-vwo"/>
@@ -2717,11 +2717,11 @@
                                                     <constraint firstItem="HxR-F1-2tg" firstAttribute="top" secondItem="8Iz-De-o9C" secondAttribute="top" constant="12" id="ktN-py-co8"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Fpr-bL-4yD">
-                                                <rect key="frame" x="10" y="45" width="240" height="300"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fpr-bL-4yD">
+                                                <rect key="frame" x="10" y="45" width="280" height="360"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0d-0H-ssx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="75"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="V0d-0H-ssx">
+                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0RC-I9-9lc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="75"/>
@@ -2763,7 +2763,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xH6-2u-O0m">
-                                                                <rect key="frame" x="80" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="100" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messangerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="UUi-2c-eYX">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -2802,7 +2802,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8w-93-3hu">
-                                                                <rect key="frame" x="160" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="200" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="instagram" translatesAutoresizingMaskIntoConstraints="NO" id="cBo-1f-gvT">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -2842,8 +2842,8 @@
                                                             </view>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GnH-F9-g6a">
-                                                        <rect key="frame" x="0.0" y="75" width="240" height="75"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="GnH-F9-g6a">
+                                                        <rect key="frame" x="0.0" y="95" width="280" height="75"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u3t-Jg-OYU">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="75"/>
@@ -2885,7 +2885,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mce-j7-6pS">
-                                                                <rect key="frame" x="80" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="100" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snapchatSocialShare" translatesAutoresizingMaskIntoConstraints="NO" id="xPf-Rv-lbx">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -2924,7 +2924,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iDl-mQ-bnQ">
-                                                                <rect key="frame" x="160" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="200" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookShare" translatesAutoresizingMaskIntoConstraints="NO" id="eIf-gU-r7N">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -2964,8 +2964,8 @@
                                                             </view>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xk-oe-18G">
-                                                        <rect key="frame" x="0.0" y="150" width="240" height="75"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4Xk-oe-18G">
+                                                        <rect key="frame" x="0.0" y="190" width="280" height="75"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1K-RN-W1H">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="75"/>
@@ -3007,7 +3007,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbq-VT-7Xt">
-                                                                <rect key="frame" x="80" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="100" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skypeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="m25-vm-kEz">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -3046,7 +3046,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8n-Nr-cbi">
-                                                                <rect key="frame" x="160" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="200" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="telegramIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qKv-w1-a62">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -3086,8 +3086,8 @@
                                                             </view>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-iN-183">
-                                                        <rect key="frame" x="0.0" y="225" width="240" height="75"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-iN-183">
+                                                        <rect key="frame" x="0.0" y="285" width="280" height="75"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWX-5o-izu">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="75"/>
@@ -3129,7 +3129,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5E-hK-FxC">
-                                                                <rect key="frame" x="80" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="100" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skypeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="J1I-c6-c86">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -3168,7 +3168,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3r5-4i-DYQ">
-                                                                <rect key="frame" x="160" y="0.0" width="80" height="75"/>
+                                                                <rect key="frame" x="200" y="0.0" width="80" height="75"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="telegramIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Pfa-Ty-zx4">
                                                                         <rect key="frame" x="12.5" y="0.0" width="55" height="55"/>
@@ -4074,7 +4074,7 @@
             <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
