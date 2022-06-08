@@ -1376,7 +1376,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             {
                //App not installed.
                 debugPrint("please install Telegram")
-                self.view.makeToast("please install Telegram")
+                DispatchQueue.runOnMainThread {
+                    Utils.appDelegate?.window?.makeToast("please install Telegram")
+                }
             }
     }
     
@@ -1393,7 +1395,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             UIApplication.shared.open(url!, options: [: ], completionHandler: nil)
         } else {
             debugPrint("please install Twitter")
-            self.view.makeToast("please install Twitter")
+            DispatchQueue.runOnMainThread {
+                Utils.appDelegate?.window?.makeToast("Please install Twitter")
+            }
         }
     }
     
@@ -1412,7 +1416,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             try dialog.validate()
         } catch {
             print(error)
-            self.view.makeToast("please install FB Messanger")
+            DispatchQueue.runOnMainThread {
+                Utils.appDelegate?.window?.makeToast("Please install FB Messanger")
+            }
         }
         dialog.show()
     }
@@ -1443,7 +1449,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     UIApplication.shared.open(whatsappURL, options: [: ], completionHandler: nil)
                 } else {
                     debugPrint("please install WhatsApp")
-                    self.view.makeToast("please install WhatsApp")
+                    DispatchQueue.runOnMainThread {
+                        Utils.appDelegate?.window?.makeToast("Please install WhatsApp")
+                    }
                 }
             }
         }
