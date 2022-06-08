@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import AVKit
 import PostHog
+import UIKit
 
 var isDebug: Bool {
     #if DEBUG
@@ -214,6 +215,26 @@ class Defaults {
                 userDefaults.synchronize()
             } else {
                 userDefaults.set(nil, forKey: "calculatorConfig")
+                userDefaults.synchronize()
+            }
+        }
+    }
+    
+    var userStorySettings: [StorySettings]? {
+        get {
+            if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode([StorySettings].self, from: userStorySettings)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                userDefaults.set(encoded, forKey: "userStorySettings")
+                userDefaults.synchronize()
+            } else {
+                userDefaults.set(nil, forKey: "userStorySettings")
                 userDefaults.synchronize()
             }
         }
@@ -1396,4 +1417,34 @@ extension UserDefaults {
         }
     }
 
+}
+public extension UserDefaults {
+
+    /// Set Codable object into UserDefaults
+    ///
+    /// - Parameters:
+    ///   - object: Codable Object
+    ///   - forKey: Key string
+    /// - Throws: UserDefaults Error
+    func set<T: Codable>(object: T, forKey: String) throws {
+
+        let jsonData = try JSONEncoder().encode(object)
+
+        set(jsonData, forKey: forKey)
+    }
+
+    /// Get Codable object into UserDefaults
+    ///
+    /// - Parameters:
+    ///   - object: Codable Object
+    ///   - forKey: Key string
+    /// - Throws: UserDefaults Error
+    func get<T: Codable>(objectType: T.Type, forKey: String) throws -> T? {
+
+        guard let result = value(forKey: forKey) as? Data else {
+            return nil
+        }
+
+        return try JSONDecoder().decode(objectType, from: result)
+    }
 }
