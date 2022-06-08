@@ -89,6 +89,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
+    @IBOutlet weak var lblCurrentFilter: UILabel!
     var selectedTitleRow : Int = 0
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
 
@@ -313,6 +314,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         preferences.drawing.backgroundColor = UIColor.gray79
         preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
         EasyTipView.globalPreferences = preferences
+        
+        self.lblCurrentFilter.text = "All"
     }
     func setupUIBasedOnUrlToShare() {
         //        if let referralPage = Defaults.shared.currentUser?.referralPage {
@@ -1173,21 +1176,25 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         switch sender.tag {
         case 1:
             self.selectedFilter = ContactStatus.all
+            self.lblCurrentFilter.text = "All"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
             break
         case 2:
             self.selectedFilter = ContactStatus.recent
+            self.lblCurrentFilter.text = "Recent"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.recent)
             break
         case 3:
             self.selectedFilter = ContactStatus.pending
+            self.lblCurrentFilter.text = "Invite"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.pending)
             break
         case 4:
             self.selectedFilter = ContactStatus.invited
+            self.lblCurrentFilter.text = "Invited"
             //self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.invited)
             break
@@ -1200,26 +1207,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.emailContacts = [ContactResponse]()
                 self.emailContactTableView.reloadData()
             }
+             self.lblCurrentFilter.text = "Opened"
            
             break
         case 6:
             self.selectedFilter = ContactStatus.signedup
+            self.lblCurrentFilter.text = "Signed up"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.signedup)
             break
         case 7:
             self.selectedFilter = ContactStatus.subscriber
+            self.lblCurrentFilter.text = "Subscriber"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.subscriber)
             break
         case 8:
             self.selectedFilter = ContactStatus.optout
+            self.lblCurrentFilter.text = "Opt-out"
           //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.optout)
             break
         case 9:
             //hidden
             self.selectedFilter = ContactStatus.hidden
+            self.lblCurrentFilter.text = "Hidden"
           //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.hidden,hide:true)
             break

@@ -2117,8 +2117,25 @@
                                                                     <constraint firstItem="JNL-Ux-pG3" firstAttribute="leading" secondItem="PSp-Xg-RgW" secondAttribute="leading" constant="5" id="xeL-iM-hPz"/>
                                                                 </constraints>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnG-39-IES" userLabel="Filter Label">
+                                                                <rect key="frame" x="0.0" y="99" width="414" height="40"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WS9-MM-slI">
+                                                                        <rect key="frame" x="25" y="10.5" width="19.5" height="19.5"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
+                                                                        <color key="textColor" red="0.32549020649999999" green="0.49803921579999999" blue="0.77647060160000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="VC6-v6-WCT"/>
+                                                                    <constraint firstItem="WS9-MM-slI" firstAttribute="centerY" secondItem="OnG-39-IES" secondAttribute="centerY" id="Wcc-AG-Zm1"/>
+                                                                    <constraint firstItem="WS9-MM-slI" firstAttribute="leading" secondItem="OnG-39-IES" secondAttribute="leading" constant="25" id="oHN-V1-M66"/>
+                                                                </constraints>
+                                                            </view>
                                                             <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-76-4wK">
-                                                                <rect key="frame" x="0.0" y="99" width="414" height="550"/>
+                                                                <rect key="frame" x="0.0" y="144" width="414" height="505"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <connections>
                                                                     <outlet property="dataSource" destination="zZw-wm-uWi" id="Wej-DN-7Db"/>
@@ -2126,7 +2143,7 @@
                                                                 </connections>
                                                             </tableView>
                                                             <tableView hidden="YES" clipsSubviews="YES" tag="2" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EQF-Rk-EpR">
-                                                                <rect key="frame" x="0.0" y="99" width="414" height="550"/>
+                                                                <rect key="frame" x="0.0" y="144" width="414" height="505"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <connections>
                                                                     <outlet property="dataSource" destination="zZw-wm-uWi" id="aTb-cd-DvH"/>
@@ -2282,16 +2299,19 @@
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="4u1-76-4wK" secondAttribute="trailing" id="4uw-4R-ncV"/>
                                                             <constraint firstItem="PSp-Xg-RgW" firstAttribute="top" secondItem="1nl-19-HIV" secondAttribute="top" constant="10" id="7UW-wT-tTq"/>
-                                                            <constraint firstItem="EQF-Rk-EpR" firstAttribute="top" secondItem="PSp-Xg-RgW" secondAttribute="bottom" constant="5" id="KSZ-YM-2CX"/>
+                                                            <constraint firstItem="EQF-Rk-EpR" firstAttribute="top" secondItem="OnG-39-IES" secondAttribute="bottom" constant="5" id="KSZ-YM-2CX"/>
                                                             <constraint firstItem="H2s-PP-nF9" firstAttribute="top" secondItem="PSp-Xg-RgW" secondAttribute="top" constant="30" id="MVK-Xd-iRb"/>
                                                             <constraint firstAttribute="bottom" secondItem="4u1-76-4wK" secondAttribute="bottom" id="OHy-ZZ-d7A"/>
                                                             <constraint firstItem="EQF-Rk-EpR" firstAttribute="leading" secondItem="1nl-19-HIV" secondAttribute="leading" id="P9X-pQ-f6D"/>
-                                                            <constraint firstItem="4u1-76-4wK" firstAttribute="top" secondItem="PSp-Xg-RgW" secondAttribute="bottom" constant="5" id="SmM-WY-MjN"/>
+                                                            <constraint firstItem="4u1-76-4wK" firstAttribute="top" secondItem="OnG-39-IES" secondAttribute="bottom" constant="5" id="SmM-WY-MjN"/>
+                                                            <constraint firstAttribute="trailing" secondItem="OnG-39-IES" secondAttribute="trailing" id="ZwB-9b-qHI"/>
                                                             <constraint firstAttribute="bottom" secondItem="EQF-Rk-EpR" secondAttribute="bottom" id="c8c-pt-kjt"/>
                                                             <constraint firstAttribute="trailing" secondItem="PSp-Xg-RgW" secondAttribute="trailing" id="dvY-Ok-iLJ"/>
                                                             <constraint firstAttribute="trailing" secondItem="EQF-Rk-EpR" secondAttribute="trailing" id="ecK-EJ-MFw"/>
                                                             <constraint firstItem="H2s-PP-nF9" firstAttribute="trailing" secondItem="PSp-Xg-RgW" secondAttribute="trailing" constant="-10" id="gUV-2u-fh0"/>
                                                             <constraint firstItem="PSp-Xg-RgW" firstAttribute="leading" secondItem="1nl-19-HIV" secondAttribute="leading" id="iAz-V3-WCg"/>
+                                                            <constraint firstItem="OnG-39-IES" firstAttribute="top" secondItem="PSp-Xg-RgW" secondAttribute="bottom" constant="5" id="ihs-27-sN6"/>
+                                                            <constraint firstItem="OnG-39-IES" firstAttribute="leading" secondItem="1nl-19-HIV" secondAttribute="leading" id="r4i-0r-PeI"/>
                                                             <constraint firstItem="4u1-76-4wK" firstAttribute="leading" secondItem="1nl-19-HIV" secondAttribute="leading" id="vIb-9t-FTQ"/>
                                                         </constraints>
                                                     </view>
@@ -3676,6 +3696,7 @@
                         <outlet property="inviteButton" destination="VGa-x2-nvp" id="R6g-Ez-dBT"/>
                         <outlet property="invitedButton" destination="JvV-IQ-fcc" id="W3x-Zu-trE"/>
                         <outlet property="itemsTableView" destination="WCA-F4-kvb" id="i0l-jC-XGx"/>
+                        <outlet property="lblCurrentFilter" destination="WS9-MM-slI" id="wif-Jc-0HQ"/>
                         <outlet property="lblDisplayName" destination="XcN-Wq-y93" id="l2S-x2-39r"/>
                         <outlet property="lblNum2" destination="X9Y-8f-eQM" id="zAU-qW-ZSq"/>
                         <outlet property="lblNum3" destination="kc7-rz-jRl" id="N7A-I5-3sP"/>
@@ -4074,7 +4095,7 @@
             <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

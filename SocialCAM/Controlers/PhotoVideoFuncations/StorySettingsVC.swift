@@ -252,7 +252,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var imgfoundingMember: UIImageView!
     @IBOutlet weak var imgSubscribeBadge: UIImageView!
 
-//    @IBOutlet weak var blueBgImg: UIImageView!
+    @IBOutlet weak var bottomCopyRightView: UIView!
+    @IBOutlet weak var tableViewBottomConstraints: NSLayoutConstraint!
+    private var lastContentOffset: CGFloat = 0
 //
 //    @IBOutlet weak var iconSettingsImage: UIImageView!
 //    @IBOutlet weak var badgesView: UIStackView!
@@ -281,6 +283,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         print(str.fromBase64() ?? "No Json Data Found")
         print("************************")
     */
+        self.setUpCopyRightView()
         settingCollectionView.register(UINib(nibName: "SettingsCollectionCell", bundle: .main), forCellWithReuseIdentifier: "SettingsCollectionCell")
         settingCollectionView.dataSource = self
         settingCollectionView.delegate = self
@@ -1714,7 +1717,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let noOfCellsInRow = 2   //number of column you want
+//        let noOfCellsInRow = 2   //number of column you want
 //            let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
 //            let totalSpace = flowLayout.sectionInset.left
 //                + flowLayout.sectionInset.right
@@ -1755,5 +1758,36 @@ extension StorySettingsVC: CollectionViewReorderDelegate {
     
     func collectionViewReorder(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         return true
+    }
+}
+
+extension StorySettingsVC {
+    func setUpCopyRightView(showView: Bool = false) {
+        self.tableViewBottomConstraints.constant = showView ? 90 : 0
+        self.bottomCopyRightView.isHidden = !showView
+    }
+}
+
+extension StorySettingsVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
+            // move up
+            if self.lastContentOffset < 400 {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.setUpCopyRightView()
+                })
+            }
+        }
+        else if (self.lastContentOffset < scrollView.contentOffset.y) {
+            // move down
+            UIView.animate(withDuration: 0.5, animations: {
+                if self.lastContentOffset > 400 {
+                    self.setUpCopyRightView(showView: true)
+                } else {
+                    self.setUpCopyRightView()
+                }
+            })
+        }
+        self.lastContentOffset = scrollView.contentOffset.y
     }
 }
