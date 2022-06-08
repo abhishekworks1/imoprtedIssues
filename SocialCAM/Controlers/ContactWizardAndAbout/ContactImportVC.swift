@@ -1358,13 +1358,27 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             //Skype
         }else if sender.tag == 9{
             //Telegram
+            sharingTextWithTelegram(message: urlwithString)
         }else if sender.tag == 10{
             //Wechat
         }
     }
     
+//    MARK: - Sharing With Telegram Messanger App
+    func sharingTextWithTelegram(message: String) {
+        let urlString = "tg://msg?text=\(message)"
+        let tgUrl = URL.init(string:urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
+        if UIApplication.shared.canOpenURL(tgUrl!)
+            {
+                UIApplication.shared.openURL(tgUrl!)
+            }else
+            {
+               //App not installed.
+                debugPrint("please install Telegram")
+            }
+    }
     
-    
+//    MARK: - Sharing With Twitter Messanger App
     func sharingTextToTwitter(message: String, shareUrl: String) {
         let tweetText = message
         let tweetUrl = shareUrl
