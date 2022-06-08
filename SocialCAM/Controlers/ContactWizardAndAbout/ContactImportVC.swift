@@ -1361,6 +1361,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             sharingTextWithTelegram(message: urlwithString)
         }else if sender.tag == 10{
             //Wechat
+//            MARK: - WeChat Not Available in AppStore
         }
     }
     
@@ -1375,6 +1376,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             {
                //App not installed.
                 debugPrint("please install Telegram")
+                self.view.makeToast("please install Telegram")
             }
     }
     
@@ -1391,11 +1393,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             UIApplication.shared.open(url!, options: [: ], completionHandler: nil)
         } else {
             debugPrint("please install Twitter")
+            self.view.makeToast("please install Twitter")
         }
     }
     
     
-    //    MARK: - Sharing With FB Messanger App
+//    MARK: - Sharing With FB Messanger App
     func sharingWithFBMessangerApp(message: String, shareUrl: String) {
         guard let url = URL(string: shareUrl) else {
             preconditionFailure("URL is invalid")
@@ -1409,6 +1412,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             try dialog.validate()
         } catch {
             print(error)
+            self.view.makeToast("please install FB Messanger")
         }
         dialog.show()
     }
@@ -1439,13 +1443,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     UIApplication.shared.open(whatsappURL, options: [: ], completionHandler: nil)
                 } else {
                     debugPrint("please install WhatsApp")
+                    self.view.makeToast("please install WhatsApp")
                 }
             }
         }
     }
     
 //    MARK: - Sharing With Default Iphone Messanger App
-    
     fileprivate func textMessage(imageUrlText: String) {
         let appURL_Id = imageUrlText
         let canSend = MFMessageComposeViewController.canSendText()
@@ -2035,13 +2039,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        self.socialSharePopupView.isHidden = false
-//        let urlString = self.txtLinkWithCheckOut
-//        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-//        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-//            let imageUrl = URL(string: userImageURL)
-//            share(shareText: urlwithString, shareImage: imageUrl)
-//        }
+        self.socialSharePopupView.isHidden = true
+        let urlString = self.txtLinkWithCheckOut
+        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            let imageUrl = URL(string: userImageURL)
+            share(shareText: urlwithString, shareImage: imageUrl)
+        }
     }
     
     func share(shareText: String?, shareImage: URL?) {

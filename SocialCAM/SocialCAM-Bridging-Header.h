@@ -17,5 +17,6 @@
 #import "UIViewController+STPopup.h"
 #import "STPopupPreviewRecognizer.h"
 #import "STPopupController.h"
+//#import "WXApi.h"
 
 #endif /* SocialCAM_Bridging_Header_h */
