@@ -137,16 +137,28 @@ class UserDetailsVC: UIViewController {
             self.showHUD()
             if let following = notification.isFollowing, !following {
                 self.userFollowing(userId)
+                DispatchQueue.runOnMainThread {
+                    Utils.appDelegate?.window?.makeToast("User Followed")
+                }
             } else {
                 self.userUnFollowing(userId)
+                DispatchQueue.runOnMainThread {
+                    Utils.appDelegate?.window?.makeToast("User Unfollowed")
+                }
             }
         } else {
             if let userId = Defaults.shared.currentUser?.refferedBy?.id {
                 self.showHUD()
                 if let isFollowing = Defaults.shared.currentUser?.refferedBy?.isFollowing, !isFollowing {
                     self.userFollowing(userId)
+                    DispatchQueue.runOnMainThread {
+                        Utils.appDelegate?.window?.makeToast("User Followed")
+                    }
                 } else {
                     self.userUnFollowing(userId)
+                    DispatchQueue.runOnMainThread {
+                        Utils.appDelegate?.window?.makeToast("User Unfollowed")
+                    }
                 }
             }
         }

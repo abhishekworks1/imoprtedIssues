@@ -388,7 +388,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else if FaceBookManager.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
             return true
-        } else if let viralcamURL = URL(string: "viralCam://com.simform.viralcam"),
+        }
+//        else if WXApi.handleOpen(url, delegate: self) {
+//            return true
+//        }
+        else if let viralcamURL = URL(string: "viralCam://com.simform.viralcam"),
                   viralcamURL == url {
             var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
             if let user = Defaults.shared.currentUser,
@@ -470,11 +474,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:]) {
             return true
         }
+//        else if WXApi.handleOpen(url, delegate: self) {
+//            return true
+//        }
         return false
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        return TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:])
+        if TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:]) {
+            return true
+        }
+//        else if WXApi.handleOpen(url, delegate: self) {
+//            return true
+//        }
+        return false
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

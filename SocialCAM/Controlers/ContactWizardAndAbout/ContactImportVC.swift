@@ -14,6 +14,8 @@ import MessageUI
 import ObjectMapper
 import LinkPresentation
 import URLEmbeddedView
+import FBSDKShareKit
+import SCSDKCreativeKit
 
 enum ShareType:Int{
     case textShare = 1
@@ -1336,28 +1338,150 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.socialSharePopupView.isHidden = true
     }
     @IBAction func socialShareButtonClick(sender: UIButton) {
+        let urlString = self.txtLinkWithCheckOut
+        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+        
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            guard let imageUrl = URL(string: userImageURL) else { return }
+            UIPasteboard.general.string = urlwithString
+        }
+        
         if sender.tag == 1{
             //Message
+            textMessage(imageUrlText: urlwithString)
         }else if sender.tag == 2{
             //facebook Messanger
-        }else if sender.tag == 3{
-            //Instagram
+            UIPasteboard.general.string = urlString
+            sharingWithFBMessangerApp(message: urlString, shareUrl: urlToShare)
         }else if sender.tag == 4{
             //Whatsapp
-        }else if sender.tag == 5{
-            //Snapchat
+            sharingWithWhatsUp(message: urlwithString)
         }else if sender.tag == 6{
             //Facebook
+           shareTextOnFaceBook(message: urlString, newUrl: urlToShare)
         }else if sender.tag == 7{
             //Twitter
-        }else if sender.tag == 8{
-            //Skype
+            sharingTextToTwitter(message: urlString, shareUrl: urlToShare)
         }else if sender.tag == 9{
             //Telegram
+            sharingTextWithTelegram(message: urlwithString)
         }else if sender.tag == 10{
-            //Wechat
+            //More
+            let urlString = self.txtLinkWithCheckOut
+            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+            if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                let imageUrl = URL(string: userImageURL)
+                share(shareText: urlwithString, shareImage: imageUrl)
+            }
         }
     }
+    
+//    MARK: - Sharing With Telegram Messanger App
+    func sharingTextWithTelegram(message: String) {
+        let urlString = "tg://msg?text=\(message)"
+        let tgUrl = URL.init(string:urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
+        if UIApplication.shared.canOpenURL(tgUrl!)
+            {
+                UIApplication.shared.openURL(tgUrl!)
+            }else
+            {
+               //App not installed.
+                debugPrint("please install Telegram")
+                DispatchQueue.runOnMainThread {
+                    Utils.appDelegate?.window?.makeToast("please install Telegram")
+                }
+            }
+    }
+    
+//    MARK: - Sharing With Twitter Messanger App
+    func sharingTextToTwitter(message: String, shareUrl: String) {
+        let tweetText = message
+        let tweetUrl = shareUrl
+        let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
+        // encode a space to %20 for example
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        // cast to an url
+        let url = URL(string: escapedShareString)
+        if UIApplication.shared.canOpenURL(url!) {
+            UIApplication.shared.open(url!, options: [: ], completionHandler: nil)
+        } else {
+            debugPrint("please install Twitter")
+            DispatchQueue.runOnMainThread {
+                Utils.appDelegate?.window?.makeToast("Please install Twitter")
+            }
+        }
+    }
+    
+    
+//    MARK: - Sharing With FB Messanger App
+    func sharingWithFBMessangerApp(message: String, shareUrl: String) {
+        guard let url = URL(string: shareUrl) else {
+            preconditionFailure("URL is invalid")
+        }
+        
+        let content = ShareLinkContent()
+        content.contentURL = url
+        content.quote = message
+        let dialog = MessageDialog(content: content, delegate: self)
+        do {
+            try dialog.validate()
+        } catch {
+            print(error)
+            DispatchQueue.runOnMainThread {
+                Utils.appDelegate?.window?.makeToast("Please install FB Messanger")
+            }
+        }
+        dialog.show()
+    }
+    
+    
+//    MARK: - Sharing With FaceBook App
+    func shareTextOnFaceBook(message: String, newUrl: String) {
+        let shareContent = ShareLinkContent()
+        if let channelId = Defaults.shared.currentUser?.channelId {
+            let text = newUrl
+            if let url = URL(string: text) {
+                shareContent.contentURL = url
+                shareContent.quote = message
+                SocialShareVideo.shared.showShareDialog(shareContent)
+            }
+        }
+    }
+    
+//    MARK: - Sharing With WhatsUp Messanger App
+    func sharingWithWhatsUp(message: String) {
+        var queryCharSet = NSCharacterSet.urlQueryAllowed
+        
+        // if your text message contains special char like **+ and &** then add this line
+        queryCharSet.remove(charactersIn: "+&")
+        if let escapedString = message.addingPercentEncoding(withAllowedCharacters: queryCharSet) {
+            if let whatsappURL = URL(string: "whatsapp://send?text=\(escapedString)") {
+                if UIApplication.shared.canOpenURL(whatsappURL) {
+                    UIApplication.shared.open(whatsappURL, options: [: ], completionHandler: nil)
+                } else {
+                    debugPrint("please install WhatsApp")
+                    DispatchQueue.runOnMainThread {
+                        Utils.appDelegate?.window?.makeToast("Please install WhatsApp")
+                    }
+                }
+            }
+        }
+    }
+    
+//    MARK: - Sharing With Default Iphone Messanger App
+    fileprivate func textMessage(imageUrlText: String) {
+        let appURL_Id = imageUrlText
+        let canSend = MFMessageComposeViewController.canSendText()
+        if canSend == true {
+            let messageVC = MFMessageComposeViewController()
+            messageVC.body = appURL_Id
+            messageVC.messageComposeDelegate = self
+            self.present(messageVC, animated: true, completion: nil)
+        }else{
+//            cantSendTextOrEmailAlert(alertTitle: multiUse.alertTitle, alertMessage: multiUse.messageSMS)
+        }
+    }
+    
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -1934,12 +2058,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        let urlString = self.txtLinkWithCheckOut
-        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            let imageUrl = URL(string: userImageURL)
-            share(shareText: urlwithString, shareImage: imageUrl)
-        }
+        self.socialSharePopupView.isHidden = false
     }
     
     func share(shareText: String?, shareImage: URL?) {
@@ -2452,7 +2571,16 @@ extension ContactImportVC:UIScrollViewDelegate{
       
     }
 }
-extension ContactImportVC:EasyTipViewDelegate {
+extension ContactImportVC:EasyTipViewDelegate,SharingDelegate {
+    func sharer(_ sharer: Sharing, didCompleteWithResults results: [String : Any]) {
+    }
+    
+    func sharer(_ sharer: Sharing, didFailWithError error: Error) {
+    }
+    
+    func sharerDidCancel(_ sharer: Sharing) {
+    }
+    
     func easyTipViewDidTap(_ tipView: EasyTipView) {
         
     }
