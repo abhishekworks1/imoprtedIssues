@@ -431,9 +431,9 @@ class StoryEditorViewController: UIViewController {
         }
         let locale = Locale.current
         if locale.regionCode?.lowercased() == "in" {
-            chingariShareView.isHidden == false
+            chingariShareView.isHidden = false
         } else {
-            chingariShareView.isHidden == true
+            chingariShareView.isHidden = true
         }
     }
     
