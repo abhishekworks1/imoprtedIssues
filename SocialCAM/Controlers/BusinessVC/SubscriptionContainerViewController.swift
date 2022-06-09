@@ -90,6 +90,44 @@ class SubscriptionContainerViewController: UIViewController {
         navigationBarView.addBottomShadow()
     }
     
+    func setSubscriptionBadgeDetails(){
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+
+                // Setup For iOS Badge
+                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
+                {
+    
+                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    
+                    lblBadgeFree.text = finalDay
+                    lblBadgeBasic.text = finalDay
+                    lblBadgeAdvanced.text = finalDay
+                    lblBadgePro.text = finalDay
+                   
+                    var fday = 0
+                    if let day = Int(finalDay) {
+                        if day <= 7 && day >= 0
+                        {
+                            fday = 7 - day
+                        }
+                    }
+                    lbltrialDays.text = ""
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        if finalDay == "7" {
+                            lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now before it expires to continue using the premium features and get your Subscription badge."
+                        } else {
+                            lbltrialDays.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
+                        
+                    }
+                }
+            }
+        }
+    }
+    }
+    
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .professional
@@ -203,7 +241,7 @@ class SubscriptionContainerViewController: UIViewController {
             activeFreeView.isHidden = false
         }
     }
-    private func setSubscriptionBadgeDetails(){
+   /* private func setSubscriptionBadgeDetails(){
         lblBadgeFree.text = ""
         lblBadgeBasic.text = ""
         lblBadgeAdvanced.text = ""
@@ -252,7 +290,7 @@ class SubscriptionContainerViewController: UIViewController {
         basicAppleLogoCenterY.constant = (lblBadgeBasic.text ?? "").trim.isEmpty ? 8 : 0
         advancedAppleLogoCenterY.constant = (lblBadgeAdvanced.text ?? "").trim.isEmpty ? 8 : 0
         premiumAppleLogoCenterY.constant = (lblBadgePro.text ?? "").trim.isEmpty ? 8 : 0
-    }
+    } */
     // MARK: -
     // MARK: - Button Action Methods
     
