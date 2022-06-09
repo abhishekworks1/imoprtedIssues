@@ -1353,27 +1353,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             //facebook Messanger
             UIPasteboard.general.string = urlString
             sharingWithFBMessangerApp(message: urlString, shareUrl: urlToShare)
-        }else if sender.tag == 3{
-            //Instagram
         }else if sender.tag == 4{
             //Whatsapp
             sharingWithWhatsUp(message: urlwithString)
-        }else if sender.tag == 5{
-            //Snapchat
         }else if sender.tag == 6{
             //Facebook
            shareTextOnFaceBook(message: urlString, newUrl: urlToShare)
         }else if sender.tag == 7{
             //Twitter
             sharingTextToTwitter(message: urlString, shareUrl: urlToShare)
-        }else if sender.tag == 8{
-            //Skype
         }else if sender.tag == 9{
             //Telegram
             sharingTextWithTelegram(message: urlwithString)
         }else if sender.tag == 10{
-            //Wechat
-//            MARK: - WeChat Not Available in AppStore
+            //More
+            let urlString = self.txtLinkWithCheckOut
+            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
+            if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                let imageUrl = URL(string: userImageURL)
+                share(shareText: urlwithString, shareImage: imageUrl)
+            }
         }
     }
     
@@ -2059,13 +2058,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        self.socialSharePopupView.isHidden = true
-        let urlString = self.txtLinkWithCheckOut
-        let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            let imageUrl = URL(string: userImageURL)
-            share(shareText: urlwithString, shareImage: imageUrl)
-        }
+        self.socialSharePopupView.isHidden = false
     }
     
     func share(shareText: String?, shareImage: URL?) {
