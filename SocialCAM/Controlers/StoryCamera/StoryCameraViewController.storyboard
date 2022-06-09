@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2790,7 +2790,7 @@ Countdown</string>
                                     <constraint firstItem="QJL-7B-Chf" firstAttribute="leading" secondItem="ce4-Fx-QyJ" secondAttribute="trailing" constant="20" id="zuf-py-AiU"/>
                                 </constraints>
                             </view>
-                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UYr-tU-9P9">
+                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UYr-tU-9P9">
                                 <rect key="frame" x="10" y="209" width="355" height="479"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="dIZ-xH-MNi">
@@ -2801,7 +2801,7 @@ Countdown</string>
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="PB8-Zg-48F">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="PB8-Zg-48F">
                                 <rect key="frame" x="0.0" y="209" width="375" height="479"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4506,6 +4506,7 @@ Countdown</string>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="GNJ-5b-aFD" id="3AB-LJ-Yuv"/>
+                        <outlet property="bottomCopyRightView" destination="92p-n2-ebb" id="p6V-19-oDl"/>
                         <outlet property="btnCollection" destination="DN6-mG-mLW" id="JEq-MK-Hvi"/>
                         <outlet property="btnDoNotShowAgainBusinessConfirmPopup" destination="Sl3-yL-R4L" id="J7c-xJ-Dgb"/>
                         <outlet property="btnTable" destination="CjD-ps-sQl" id="52S-3X-hSQ"/>
@@ -4533,6 +4534,7 @@ Countdown</string>
                         <outlet property="snapVerifiedView" destination="1lC-5O-32d" id="azO-V1-LWa"/>
                         <outlet property="socialBadgeicon" destination="fay-k8-MtJ" id="Ixk-RK-4kY"/>
                         <outlet property="subscriptionBadgeicon" destination="3AU-jO-lMk" id="zUJ-ep-JFE"/>
+                        <outlet property="tableViewBottomConstraints" destination="153-Ry-RXn" id="Cbe-nk-uwO"/>
                         <outlet property="twitterVerifiedView" destination="Qld-4c-1Hn" id="KD7-9Y-dQc"/>
                         <outlet property="userImage" destination="ce4-Fx-QyJ" id="tvN-8S-pCa"/>
                         <outlet property="userName" destination="QJL-7B-Chf" id="2NB-Y9-wp4"/>
@@ -9265,7 +9267,7 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -9277,7 +9279,7 @@ Countdown</string>
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="storytag_fadedRed">
-            <color red="0.88599997758865356" green="0.30199998617172241" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88627450980392153" green="0.30196078431372547" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="watermarkTitleColor">
             <color red="0.13725490196078433" green="0.12549019607843137" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

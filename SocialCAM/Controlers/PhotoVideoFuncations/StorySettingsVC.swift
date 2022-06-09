@@ -11,8 +11,9 @@ import GoogleSignIn
 import SafariServices
 import Alamofire
 import SDWebImage
+import Reorder
 
-enum SettingsMode: Int {
+enum SettingsMode: Int, Codable {
     case subscriptions = 0
     case socialLogins
     case faceDetection
@@ -83,7 +84,7 @@ enum SettingsMode: Int {
     case autoSavePic2Art
 }
 
-class StorySetting {
+class StorySetting: Codable {
        var name: String
     var selected: Bool
     var image: UIImage?
@@ -95,9 +96,32 @@ class StorySetting {
         self.image = image
         self.selectedImage = selectedImage
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case selected
+        case image
+        case selectedImage
+    }
+    
+    required init(from decoder: Decoder) {
+        let container = try? decoder.container(keyedBy: CodingKeys.self)
+        name = (try? container?.decode(String.self, forKey: .name)) ?? ""
+        // image = (try? container?.decode(UIImage.self, forKey: .image)) ?? UIImage()
+        // selectedImage = (try? container?.decode(selectedImage.self, forKey: .selectedImage)) ?? UIImage()
+        selected = (try? container?.decode(Bool.self, forKey: .selected)) ?? false
+    }
+    
+    func encode(to encoder: Encoder) {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try? container.encode(name, forKey: .name)
+        // try? container.encode(image, forKey: .image)
+        // try? container.encode(selectedImage, forKey: .selectedImage)
+        try? container.encode(selected, forKey: .selected)
+    }
 }
 
-class StorySettings {
+class StorySettings: Codable {
     
     var name: String
     var settings: [StorySetting]
@@ -113,7 +137,32 @@ class StorySettings {
         self.settingsType = settingsType
     }
     
-    static var storySettings = [StorySettings(name: R.string.localizable.subscriptions(),
+    enum CodingKeys: String, CodingKey {
+            case name
+            case settings
+            case settingsType
+            case isCollapsible
+            case isCollapsed
+        }
+
+        required init(from decoder: Decoder) {
+            let container = try? decoder.container(keyedBy: CodingKeys.self)
+            name = (try? container?.decode(String.self, forKey: .name)) ?? "0"
+            settings = (try? container?.decode([StorySetting].self, forKey: .settings)) ?? [StorySetting]()
+            settingsType = (try? container?.decode(SettingsMode.self, forKey: .settingsType)) ?? SettingsMode.aboutPage
+            isCollapsed = (try? container?.decode(Bool.self, forKey: .isCollapsed)) ?? false
+        }
+
+        func encode(to encoder: Encoder) {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try? container.encode(name, forKey: .name)
+            try? container.encode(settings, forKey: .settings)
+            try? container.encode(isCollapsible, forKey: .isCollapsible)
+            try? container.encode(settingsType, forKey: .settingsType)
+            try? container.encode(isCollapsed, forKey: .isCollapsed)
+        }
+    
+    static var storySettings = /*[StorySettings(name: R.string.localizable.subscriptions(),
                                               settings: [StorySetting(name: R.string.localizable.free(),
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.basic(),
@@ -121,8 +170,8 @@ class StorySettings {
                                                          StorySetting(name: R.string.localizable.advanced(),
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
-                                                                      selected: true)], settingsType: .subscriptions),
-                                StorySettings(name: "",
+                                                                      selected: true)], settingsType: .subscriptions), */
+                                [StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
@@ -203,7 +252,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var imgfoundingMember: UIImageView!
     @IBOutlet weak var imgSubscribeBadge: UIImageView!
 
-//    @IBOutlet weak var blueBgImg: UIImageView!
+    @IBOutlet weak var bottomCopyRightView: UIView!
+    @IBOutlet weak var tableViewBottomConstraints: NSLayoutConstraint!
+    private var lastContentOffset: CGFloat = 0
 //
 //    @IBOutlet weak var iconSettingsImage: UIImageView!
 //    @IBOutlet weak var badgesView: UIStackView!
@@ -217,6 +268,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         super.viewDidLoad()
         self.backButton.imageView?.contentMode = .scaleAspectFit
         self.backButton.imageEdgeInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
+      
        /* let json = """
         {
             "contactId":"vhjgjghjhgjkvhjgjghjhgjk",
@@ -231,6 +283,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         print(str.fromBase64() ?? "No Json Data Found")
         print("************************")
     */
+        self.setUpCopyRightView()
         settingCollectionView.register(UINib(nibName: "SettingsCollectionCell", bundle: .main), forCellWithReuseIdentifier: "SettingsCollectionCell")
         settingCollectionView.dataSource = self
         settingCollectionView.delegate = self
@@ -254,6 +307,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         tapGesture.numberOfTapsRequired = 1
         profileDisplayView.addGestureRecognizer(tapGesture)
         
+        settingsTableView.reorder.delegate = self
+        settingCollectionView.reorder.delegate = self
+        
         if Defaults.shared.settingsPreference == 1 {
             showCollectionAction(UIButton())
         } else {
@@ -273,13 +329,18 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        StorySettings.storySettings = Defaults.shared.userStorySettings ?? StorySettings.storySettings
         self.settingsTableView.reloadData()
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
             
         }
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Defaults.shared.userStorySettings = StorySettings.storySettings
+}
     deinit {
         print("Deinit \(self.description)")
     }
@@ -289,7 +350,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         case .began:
             let touchPoint = sender.location(in: settingsTableView)
             if let indexPath = settingsTableView.indexPathForRow(at: touchPoint) {
-                if indexPath.section == 4 {
+                if indexPath.row == 4 {
                     let urlString = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
                     UIPasteboard.general.string = urlString
                     longPressPopupView.isHidden = false
@@ -475,6 +536,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         settingCollectionView.isHidden = false
         settingsTableView.isHidden = true
         Defaults.shared.settingsPreference = 1
+        settingCollectionView.reloadData()
     }
     @IBAction func showTableAction(_ sender: Any) {
         btnTable.isSelected = true
@@ -482,6 +544,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         settingCollectionView.isHidden = true
         settingsTableView.isHidden = false
         Defaults.shared.settingsPreference = 0
+        settingsTableView.reloadData()
     }
     @IBAction func showProfileAction(_ sender: Any) {
         getVerifiedSocialPlatforms()
@@ -532,12 +595,12 @@ extension StorySettingsVC {
 extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("no of sections --> \(StorySettings.storySettings.count)")
-        return StorySettings.storySettings.count
+        return 1//StorySettings.storySettings.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if StorySettings.storySettings[section].settingsType == .subscriptions {
+        return StorySettings.storySettings.count
+       /* if StorySettings.storySettings[section].settingsType == .subscriptions {
             let item = StorySettings.storySettings[section]
             guard item.isCollapsible else {
                 print("no of row --> \(section)--\(StorySettings.storySettings[section].settings.count)")
@@ -552,14 +615,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 return item.settings.count
             }
         }
-      
-        
         print("no of rowwww --> \(section)--\(StorySettings.storySettings[section].settings.count)")
-        return StorySettings.storySettings[section].settings.count
+        return StorySettings.storySettings[section].settings.count */
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appOpenSettingsCell.identifier, for: indexPath) as? AppOpenSettingsCell, StorySettings.storySettings[indexPath.section].settingsType == .appStartScreen {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appOpenSettingsCell.identifier, for: indexPath) as? AppOpenSettingsCell, StorySettings.storySettings[indexPath.row].settingsType == .appStartScreen {
             #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || QUICKCAMAPP || VIRALCAMLITEAPP || VIRALCAMLITEAPP || FASTCAMLITEAPP || QUICKCAMLITEAPP || SPEEDCAMLITEAPP || SNAPCAMLITEAPP || QUICKAPP
             cell.dashBoardView.isHidden = true
             #else
@@ -571,8 +632,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StorySettingsListCell.identifier, for: indexPath) as? StorySettingsListCell else {
             fatalError("\(StorySettingsListCell.identifier) Not Found")
         }
-        let settingTitle = StorySettings.storySettings[indexPath.section]
-        let settings = settingTitle.settings[indexPath.row]
+        let settingTitle = StorySettings.storySettings[indexPath.row]
+        let settings = settingTitle.settings[0]
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
@@ -819,7 +880,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 1
-        let settingTitle = StorySettings.storySettings[section]
+      /*  let settingTitle = StorySettings.storySettings[section]
         print("section--> \(section)")
         if settingTitle.settingsType == .subscriptions {
             print("60")
@@ -830,7 +891,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             print("0")
             return 0
-        }
+        } */
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -838,7 +899,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let settingTitle = StorySettings.storySettings[indexPath.section]
+        let settingTitle = StorySettings.storySettings[indexPath.row]
        
         if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
@@ -1335,7 +1396,20 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
 }
-
+// MARK: TableViewReorderDelegate
+extension StorySettingsVC: TableViewReorderDelegate {
+    var reorderSuperview: UIView {
+        return self.navigationController?.view ?? UIView()
+    }
+    
+    func tableViewReorder(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        StorySettings.storySettings.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    }
+    
+    func tableViewReorder(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+}
 extension StorySettingsVC: InstagramLoginViewControllerDelegate, ProfileDelegate {
    
     func profileDidLoad(profile: ProfileDetailsResponse) {
@@ -1397,7 +1471,6 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        socialImageView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SettingsCollectionCell", for: indexPath) as! SettingsCollectionCell
         let settingTitle = StorySettings.storySettings[indexPath.item]
         let settings = settingTitle.settings[0]
@@ -1644,7 +1717,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let noOfCellsInRow = 2   //number of column you want
+//        let noOfCellsInRow = 2   //number of column you want
 //            let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
 //            let totalSpace = flowLayout.sectionInset.left
 //                + flowLayout.sectionInset.right
@@ -1671,5 +1744,50 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+// MARK: CollectionViewReorderDelegate
+extension StorySettingsVC: CollectionViewReorderDelegate {
+    
+    func collectionViewReorder(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let item = StorySettings.storySettings[sourceIndexPath.item]
+        StorySettings.storySettings.remove(at: sourceIndexPath.item)
+        StorySettings.storySettings.insert(item, at: destinationIndexPath.item)
+    }
+    
+    func collectionViewReorder(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+}
+
+extension StorySettingsVC {
+    func setUpCopyRightView(showView: Bool = false) {
+        self.tableViewBottomConstraints.constant = showView ? 90 : 0
+        self.bottomCopyRightView.isHidden = !showView
+    }
+}
+
+extension StorySettingsVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
+            // move up
+            if self.lastContentOffset < 400 {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.setUpCopyRightView()
+                })
+            }
+        }
+        else if (self.lastContentOffset < scrollView.contentOffset.y) {
+            // move down
+            UIView.animate(withDuration: 0.5, animations: {
+                if self.lastContentOffset > 400 {
+                    self.setUpCopyRightView(showView: true)
+                } else {
+                    self.setUpCopyRightView()
+                }
+            })
+        }
+        self.lastContentOffset = scrollView.contentOffset.y
     }
 }

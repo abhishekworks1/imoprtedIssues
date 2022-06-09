@@ -112,6 +112,7 @@ class SubscriptionsViewController: UIViewController {
                 let numberOfFreeTrialDays = Defaults.shared.numberOfFreeTrialDays ?? 0
                 lblBadgeRemainingDays.text = numberOfFreeTrialDays > 0 ? "\(numberOfFreeTrialDays)" : ""
                 planActiveView.isHidden = false
+                //Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.
             }
         }
 //        if Defaults.shared.allowFullAccess == true {
