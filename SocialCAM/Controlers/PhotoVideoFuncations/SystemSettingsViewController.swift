@@ -21,7 +21,8 @@ class SystemSettings {
     }
     
     static var systemSettings = [
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
+        StorySettings(name: "", settings: [StorySetting(name: "Show Onboarding", selected: false)], settingsType: .onboarding)
     ]
 }
 
@@ -101,6 +102,8 @@ extension SystemSettingsViewController: UITableViewDataSource {
             }
             cell.lblCheckUpdate.text = R.string.localizable.checkUpdates()
             return cell
+        } else if settingTitle.settingsType == .onboarding {
+            systemSettingsCell.systemSettingType = .onboarding
         }
         return systemSettingsCell
     }

@@ -248,6 +248,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     PostDataManager.shared.startUpload()
                 }
             }
+            if Defaults.shared.hasOnboardingReferralEnabled {
+                rootViewController = R.storyboard.onBoardingView.onBoardingViewController()
+            }
         } else {
             rootViewController = R.storyboard.loginViewController.loginNavigation()
         }

@@ -221,8 +221,10 @@ extension KeycloakAuthViewController {
             let urlRequest = URLRequest(url: keycloakURL)
             webView.load(urlRequest)
         } else {
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+//            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+//            Utils.appDelegate?.window?.rootViewController = rootViewController
+            guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
+            Utils.appDelegate?.window?.rootViewController = onBoardView
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
@@ -230,8 +232,8 @@ extension KeycloakAuthViewController {
     
     func redirectToHomeScreen() {
         Defaults.shared.isSignupLoginFlow = true
-        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-        Utils.appDelegate?.window?.rootViewController = rootViewController
+        guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
+        Utils.appDelegate?.window?.rootViewController = onBoardView
     }
     
     func createUser(referringChannel: String, channelId: String) {

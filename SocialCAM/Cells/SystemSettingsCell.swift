@@ -18,6 +18,7 @@ enum SystemSettingType {
     case milestonesReached
     case mutehapticFeedbackOnSpeedSelection
     case autoSavePic2Art
+    case onboarding
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -64,6 +65,9 @@ class SystemSettingsCell: UITableViewCell {
                 btnHelpTooltip.isHidden = true
                 title.text = R.string.localizable.muteHapticFeedback()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isMutehapticFeedbackOnSpeedSelection
+            } else if systemSettingType == .onboarding {
+                title.text = "Show Onboarding"
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
             }
         }
     }
@@ -111,6 +115,10 @@ class SystemSettingsCell: UITableViewCell {
         } else if systemSettingType == .mutehapticFeedbackOnSpeedSelection {
             Defaults.shared.isMutehapticFeedbackOnSpeedSelection = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .onboarding {
+            Defaults.shared.hasOnboardingReferralEnabled = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         }
+        
     }
 }
