@@ -180,7 +180,7 @@ class StoryEditorViewController: UIViewController {
 
     @IBOutlet weak var youtubeShareView: UIView!
     @IBOutlet weak var tiktokShareView: UIView!
-   // @IBOutlet weak var storiCamShareView: UIView!
+    @IBOutlet weak var chingariShareView: UIView!
     
     @IBOutlet weak var discardPopUpMessageLabel: UILabel!
     @IBOutlet weak var btnShowHideEditImage: UIButton!
@@ -1926,7 +1926,21 @@ extension StoryEditorViewController {
             }
         }
     }
-    
+    @IBAction func openChingari(_ sender: UIButton) {
+        let locale = Locale.current
+        print(locale.regionCode)
+        if let url = URL(string:"https://chingari.io/") {
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                 UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+
+                 })
+            } else {
+                 UIApplication.shared.openURL(url)
+            }
+        }
+        }
+    }
     @IBAction func playPauseButtonClick(_ sender: UIButton) {
         isVideoPlay = !isVideoPlay
         sender.isSelected ? playVideo() : pauseVideo()
