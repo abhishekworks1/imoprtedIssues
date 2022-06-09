@@ -3252,8 +3252,11 @@
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconChingari" translatesAutoresizingMaskIntoConstraints="NO" id="9De-aJ-sme">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="56.666666666666664" height="56.666666666666664"/>
                                                                                     </imageView>
-                                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hF0-CZ-4A8">
+                                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hF0-CZ-4A8">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="56.666666666666664" height="56.666666666666664"/>
+                                                                                        <connections>
+                                                                                            <action selector="openChingari:" destination="f9j-8w-2WB" eventType="touchUpInside" id="SL4-qc-Jii"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chingari" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEH-g5-Vpi">
                                                                                         <rect key="frame" x="-1" y="61.666666666666629" width="59" height="18"/>
@@ -3563,6 +3566,7 @@
                         <outlet property="btnTiktok" destination="oqm-AU-U3g" id="But-KK-jNJ"/>
                         <outlet property="btnTwitter" destination="7d6-40-CpK" id="X7v-cb-jg8"/>
                         <outlet property="btnYoutube" destination="tCZ-Yp-HAd" id="d7V-qY-YlJ"/>
+                        <outlet property="chingariShareView" destination="zfk-ro-a8f" id="oYY-yp-dw9"/>
                         <outlet property="closeDoneButtonView" destination="CPv-Ac-2GZ" id="zIN-3A-xKE"/>
                         <outlet property="closeLabel" destination="tZ4-q9-Wkm" id="MWY-je-J9B"/>
                         <outlet property="collectionView" destination="mAc-mp-A25" id="qlt-Hr-LG6"/>

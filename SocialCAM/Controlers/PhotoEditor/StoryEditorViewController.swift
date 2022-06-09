@@ -429,6 +429,12 @@ class StoryEditorViewController: UIViewController {
         } else {
             lblSaveShare.text = R.string.localizable.saveVideo()
         }
+        let locale = Locale.current
+        if locale.regionCode?.lowercased() == "in" {
+            chingariShareView.isHidden == false
+        } else {
+            chingariShareView.isHidden == true
+        }
     }
     
     
@@ -782,7 +788,21 @@ class StoryEditorViewController: UIViewController {
         self.storyProgressBar.currentTime = TimeInterval(sender.value)
     }
     
-    
+    @IBAction func openChingari(_ sender: Any) {
+        let locale = Locale.current
+        print(locale.regionCode)
+        if let url = URL(string:"https://chingari.io/") {
+        if UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                 UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+
+                 })
+            } else {
+                 UIApplication.shared.openURL(url)
+            }
+        }
+        }
+    }
 }
 
 extension StoryEditorViewController: StickerDelegate {
@@ -1926,22 +1946,8 @@ extension StoryEditorViewController {
             }
         }
     }
-    @IBAction func openChingari(_ sender: UIButton) {
-        let locale = Locale.current
-        print(locale.regionCode)
-        if let url = URL(string:"https://chingari.io/") {
-        if UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10.0, *) {
-                 UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
-
-                 })
-            } else {
-                 UIApplication.shared.openURL(url)
-            }
-        }
-        }
-    }
-    @IBAction func playPauseButtonClick(_ sender: UIButton) {
+    
+   @IBAction func playPauseButtonClick(_ sender: UIButton) {
         isVideoPlay = !isVideoPlay
         sender.isSelected ? playVideo() : pauseVideo()
     }
