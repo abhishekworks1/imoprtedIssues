@@ -38,6 +38,8 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var lblBadgePro: UILabel!
     @IBOutlet weak var lbltrialDays: UILabel!
   
+    @IBOutlet var imageViewfreeShield: UIImageView!
+    
     @IBOutlet weak var freeAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var basicAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var advancedAppleLogoCenterY: NSLayoutConstraint!
@@ -98,7 +100,6 @@ class SubscriptionContainerViewController: UIViewController {
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-    
                     let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                     
@@ -117,15 +118,17 @@ class SubscriptionContainerViewController: UIViewController {
                     lbltrialDays.text = ""
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         if finalDay == "7" {
-                            lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now before it expires to continue using the premium features and get your Subscription badge."
+                            lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
                         } else {
-                            lbltrialDays.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
-                        
+                            lbltrialDays.text = "You have \(fday) days left on your free trial."
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        imageViewfreeShield.image = R.image.squareBadge()
                     }
                 }
             }
         }
-    }
     }
     
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
