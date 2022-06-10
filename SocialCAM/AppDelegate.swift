@@ -248,8 +248,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     PostDataManager.shared.startUpload()
                 }
             }
-            if Defaults.shared.hasOnboardingReferralEnabled {
+            switch Defaults.shared.onBoardingReferral {
+            case OnboardingReferral.MobileDashboard.rawValue:
+                if let pageViewController = rootViewController as? PageViewController,
+                   let navigationController = pageViewController.pageControllers.first as? UINavigationController,
+                   let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
+                    navigationController.viewControllers.append(settingVC)
+                }
+                break
+            case OnboardingReferral.OpeningScreen.rawValue:
                 rootViewController = R.storyboard.onBoardingView.onBoardingViewController()
+                break
+            default: break
             }
         } else {
             rootViewController = R.storyboard.loginViewController.loginNavigation()

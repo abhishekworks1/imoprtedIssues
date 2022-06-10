@@ -24,7 +24,7 @@ class OnBoardingViewController: UIViewController {
             self.setNavigation()
         } else {
             guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
-            present(makeMoneyReferringVC, animated: true)
+            navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
         }
     }
     

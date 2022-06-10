@@ -159,5 +159,8 @@ extension SystemSettingsViewController: UITableViewDelegate {
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
         }
+        if settingTitle.settingsType == .openingScreen || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard || settingTitle.settingsType == .showAllPopups {
+            tableView.reloadData()
+        }
     }
 }
