@@ -82,6 +82,10 @@ enum SettingsMode: Int, Codable {
     case hapticSome
     case aboutPage
     case autoSavePic2Art
+    case onboarding
+    case openingScreen
+    case quickCamCamera
+    case mobileDashboard
 }
 
 class StorySetting: Codable {

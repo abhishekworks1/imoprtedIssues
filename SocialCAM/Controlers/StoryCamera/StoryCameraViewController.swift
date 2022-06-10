@@ -740,8 +740,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 }
             } else {
                 self.isFreshSession = false
+                /* TODO: Remove this once QA verified #349
                 self.cameraSliderView.selectCell = 0
-                self.cameraSliderView.collectionView.reloadData()
+                self.cameraSliderView.collectionView.reloadData()*/
             }
         }
         

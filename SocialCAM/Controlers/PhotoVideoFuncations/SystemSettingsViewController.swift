@@ -20,8 +20,17 @@ class SystemSettings {
         self.settingsType = settingsType
     }
     
+    
     static var systemSettings = [
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
+
+        StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
+
+        StorySettings(name: "", settings: [StorySetting(name: "Opening Screen", selected: false)], settingsType: .openingScreen),
+
+        StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
+
+        StorySettings(name: "", settings: [StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .mobileDashboard)
     ]
 }
 
@@ -33,6 +42,11 @@ class SystemSettingsViewController: UIViewController {
     // MARK: - View Life Cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        systemSettingsTableView.register(UINib(nibName: "OnboardingTableViewCell", bundle: .main), forCellReuseIdentifier: "OnboardingTableViewCell")
+//        systemSettingsTableView.dataSource = self
+//        systemSettingsTableView.delegate = self
+        
         self.systemSettingsTableView.reloadData()
     }
     
@@ -76,6 +90,10 @@ extension SystemSettingsViewController: UITableViewDataSource {
             fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
         }
         
+//        guard let onboardingCell: OnboardingTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.onboardingTableViewCell.identifier) as? OnboardingTableViewCell else {
+//            fatalError("\(R.reuseIdentifier.onboardingTableViewCell.identifier) Not Found")
+//        }
+        
         let settingTitle = SystemSettings.systemSettings[indexPath.section]
         if settingTitle.settingsType == .showAllPopups {
             systemSettingsCell.systemSettingType = .showAllPopUps
@@ -101,6 +119,14 @@ extension SystemSettingsViewController: UITableViewDataSource {
             }
             cell.lblCheckUpdate.text = R.string.localizable.checkUpdates()
             return cell
+        } else if settingTitle.settingsType == .onboarding {
+            systemSettingsCell.systemSettingType = .onboarding
+        } else if settingTitle.settingsType == .openingScreen {
+            systemSettingsCell.systemSettingType = .openingScreen
+        } else if settingTitle.settingsType == .quickCamCamera {
+            systemSettingsCell.systemSettingType = .quickCamCamera
+        } else if settingTitle.settingsType == .mobileDashboard {
+            systemSettingsCell.systemSettingType = .mobileDashboard
         }
         return systemSettingsCell
     }
@@ -132,6 +158,9 @@ extension SystemSettingsViewController: UITableViewDelegate {
             // Implement app updater
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
+        }
+        if settingTitle.settingsType == .openingScreen || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard || settingTitle.settingsType == .showAllPopups {
+            tableView.reloadData()
         }
     }
 }

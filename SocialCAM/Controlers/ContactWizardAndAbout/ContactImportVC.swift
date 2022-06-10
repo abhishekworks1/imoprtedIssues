@@ -215,6 +215,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var emailSubjectstr = ""
     var emailBodystr = ""
     var toEmailAddress = ""
+    var isFromOnboarding = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1934,6 +1935,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.pageNo = 1
                 self.setupPage()
             }
+            referSuccess.isFromOnboarding = self.isFromOnboarding
             navigationController?.pushViewController(referSuccess, animated: true)
         }
     }

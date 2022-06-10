@@ -18,6 +18,21 @@ enum SystemSettingType {
     case milestonesReached
     case mutehapticFeedbackOnSpeedSelection
     case autoSavePic2Art
+    case onboarding
+    case openingScreen
+    case quickCamCamera
+    case mobileDashboard
+}
+
+enum OnboardingReferral: String {
+    case OpeningScreen = "Opening Screen"
+    case QuickCamera    = "QuickCam Camera"
+    case MobileDashboard        = "Mobile Dashboard"
+    
+    var description: String {
+            return self.rawValue
+        }
+
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -64,6 +79,18 @@ class SystemSettingsCell: UITableViewCell {
                 btnHelpTooltip.isHidden = true
                 title.text = R.string.localizable.muteHapticFeedback()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isMutehapticFeedbackOnSpeedSelection
+            } else if systemSettingType == .openingScreen {
+                title.text = "Opening Screen"
+                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.OpeningScreen.rawValue
+            } else if systemSettingType == .quickCamCamera {
+                title.text = "QuickCam Camera"
+                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickCamera.rawValue
+            } else if systemSettingType == .mobileDashboard {
+                title.text = "Mobile Dashboard"
+                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.MobileDashboard.rawValue
+            } else if systemSettingType == .onboarding {
+                title.text = "Default Opening Screen"
+                btnSelectShowAllPopup.isHidden = true
             }
         }
     }
@@ -111,6 +138,16 @@ class SystemSettingsCell: UITableViewCell {
         } else if systemSettingType == .mutehapticFeedbackOnSpeedSelection {
             Defaults.shared.isMutehapticFeedbackOnSpeedSelection = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .openingScreen {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.OpeningScreen.description
+            (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
+        } else if systemSettingType == .quickCamCamera {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.QuickCamera.description
+            (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
+        } else if systemSettingType == .mobileDashboard {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.MobileDashboard.description
+            (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
         }
+        
     }
 }

@@ -17,7 +17,7 @@ class ReferSuccessVC: UIViewController {
 //    @IBOutlet weak var businessDashboardButton: UIButton!
     @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
-    
+    var isFromOnboarding = false
     
     var callback : ((String) -> Void)?
     
@@ -54,10 +54,15 @@ class ReferSuccessVC: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func ContinueAction(_ sender: Any) {
-        for controller in self.navigationController!.viewControllers as Array {
-            if controller.isKind(of: StorySettingsVC.self) {
-                self.navigationController!.popToViewController(controller, animated: true)
-                break
+        if self.isFromOnboarding {
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            Utils.appDelegate?.window?.rootViewController = rootViewController
+        } else {
+            for controller in self.navigationController!.viewControllers as Array {
+                if controller.isKind(of: StorySettingsVC.self) {
+                    self.navigationController!.popToViewController(controller, animated: true)
+                    break
+                }
             }
         }
     }

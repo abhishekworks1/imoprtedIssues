@@ -1274,6 +1274,24 @@ class Defaults {
         }
     }
     
+    var hasOnboardingReferralEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "hasOnboardingReferralEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "hasOnboardingReferralEnabled")
+        }
+    }
+    
+    var onBoardingReferral: String? {
+        get {
+            return appDefaults?.string(forKey: "onboardingReferral")
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "onboardingReferral")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
