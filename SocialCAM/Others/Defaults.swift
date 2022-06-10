@@ -1283,6 +1283,15 @@ class Defaults {
         }
     }
     
+    var onBoardingReferral: String? {
+        get {
+            return appDefaults?.string(forKey: "onboardingReferral")
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "onboardingReferral")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

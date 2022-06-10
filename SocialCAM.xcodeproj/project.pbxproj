@@ -11434,6 +11434,10 @@
 		C2F935E7264AAA27006CA527 /* QuickCamLiteLauchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6C05E2F24E296180018E8DA /* QuickCamLiteLauchScreen.storyboard */; };
 		C8833F073614A35DF244A44F /* Pods_QuickCamLiteExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C75F3E270A1CF04C6B6C834 /* Pods_QuickCamLiteExtension.framework */; };
 		CC8AB60956C8C2397C44AEB1 /* Pods_TimeSpeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D316223FF43DF3C4848C8D1 /* Pods_TimeSpeed.framework */; };
+		D457EB0D28537A5F00C6E7FC /* OnboardingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D457EB0B28537A5F00C6E7FC /* OnboardingTableViewCell.swift */; };
+		D457EB0E28537A5F00C6E7FC /* OnboardingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D457EB0B28537A5F00C6E7FC /* OnboardingTableViewCell.swift */; };
+		D457EB0F28537A5F00C6E7FC /* OnboardingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D457EB0C28537A5F00C6E7FC /* OnboardingTableViewCell.xib */; };
+		D457EB1028537A5F00C6E7FC /* OnboardingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D457EB0C28537A5F00C6E7FC /* OnboardingTableViewCell.xib */; };
 		D9DF212ED66A510B12B12655 /* Pods_ViralvidsLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64860F0FF59BD32DA416C04A /* Pods_ViralvidsLite.framework */; };
 		DA36631B7BBD20CFF9B0B104 /* Pods_SocialScreenRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63766CD8E1412A0DBDCEAF0B /* Pods_SocialScreenRecorder.framework */; };
 		DDDCF490A2D6EBBCDC65B6EB /* Pods_SnapCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47DF1F0E203FF0B03A98E7D /* Pods_SnapCam.framework */; };
@@ -16529,6 +16533,8 @@
 		D28990050E4D434A263290C3 /* Pods_FastCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FastCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3BAD0EEB9A6EB957F8936E0 /* Pods-ViralCam.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCam.beta.xcconfig"; path = "Target Support Files/Pods-ViralCam/Pods-ViralCam.beta.xcconfig"; sourceTree = "<group>"; };
 		D4513E73F251467567DC8BD6 /* Pods-SocialScreenRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialScreenRecorder.debug.xcconfig"; path = "Target Support Files/Pods-SocialScreenRecorder/Pods-SocialScreenRecorder.debug.xcconfig"; sourceTree = "<group>"; };
+		D457EB0B28537A5F00C6E7FC /* OnboardingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTableViewCell.swift; sourceTree = "<group>"; };
+		D457EB0C28537A5F00C6E7FC /* OnboardingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingTableViewCell.xib; sourceTree = "<group>"; };
 		D524DB754E4462DAF89EDEAC /* Pods_FutbolCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FutbolCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59621F4C57467F646E9AAC3 /* Pods-SpeedCamLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedCamLite.debug.xcconfig"; path = "Target Support Files/Pods-SpeedCamLite/Pods-SpeedCamLite.debug.xcconfig"; sourceTree = "<group>"; };
 		D7659D34907C4B4FE00AF5A7 /* Pods-Pic2ArtShare.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2ArtShare.beta.xcconfig"; path = "Target Support Files/Pods-Pic2ArtShare/Pods-Pic2ArtShare.beta.xcconfig"; sourceTree = "<group>"; };
@@ -17501,6 +17507,8 @@
 		8205FB7F236C2057002B2603 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D457EB0B28537A5F00C6E7FC /* OnboardingTableViewCell.swift */,
+				D457EB0C28537A5F00C6E7FC /* OnboardingTableViewCell.xib */,
 				9C56A3D327B444B0007ADE04 /* ImageCollectionViewCutCell.swift */,
 				9C56A3D427B444B1007ADE04 /* ImageCollectionViewCutCell.xib */,
 				23CE8C032434C4A00096233C /* ChanelCell.swift */,
@@ -20672,6 +20680,7 @@
 				828F873125CA6D1E000E645E /* RecorderStopScreen.xib in Resources */,
 				C22D938526788009004DAAD7 /* Tooltip4.gif in Resources */,
 				82D1EBE5236FF32F00A680E7 /* QueSliderCollectionViewCell.xib in Resources */,
+				D457EB0F28537A5F00C6E7FC /* OnboardingTableViewCell.xib in Resources */,
 				8287D21623828FE00074FC39 /* YouTube.storyboard in Resources */,
 				C241CB9225CD63EE003B66EE /* ForgotPassword.storyboard in Resources */,
 				82D1EC4823702B4300A680E7 /* Thursday.JPG in Resources */,
@@ -22376,6 +22385,7 @@
 				C2F934C4264AA0CA006CA527 /* LaunchScreenFutbolCam.storyboard in Resources */,
 				C2F934C5264AA0CA006CA527 /* FollowMeStoryView.xib in Resources */,
 				821BBEDB271705DD00D48DA9 /* FlagLayoutGridCollectionViewCell.xib in Resources */,
+				D457EB1028537A5F00C6E7FC /* OnboardingTableViewCell.xib in Resources */,
 				C2F934C6264AA0CA006CA527 /* LUT_M03.png in Resources */,
 				C2F934C7264AA0CA006CA527 /* SlideshowImagesCell.xib in Resources */,
 				8421F137283BB53E009E16C9 /* EditTooltip2.gif in Resources */,
@@ -27159,6 +27169,7 @@
 				823B810F24618A1A0024BDD9 /* MyCell.swift in Sources */,
 				8205FBC4236C2A88002B2603 /* MMPlayerLayer.swift in Sources */,
 				820BFB6723E7EB100087B38E /* ProfileDetailsResponse.swift in Sources */,
+				D457EB0D28537A5F00C6E7FC /* OnboardingTableViewCell.swift in Sources */,
 				C23950B126D6795E00C3C607 /* SSViewController.swift in Sources */,
 				9546605C2387B5CC00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift in Sources */,
 				8222841D259225AC0074F5B0 /* RecorderVC.swift in Sources */,
@@ -34182,6 +34193,7 @@
 				82046E9826F33B430082EB3F /* DisplaySwitchLayout.swift in Sources */,
 				C2F93416264AA0CA006CA527 /* CGImage+Resize.swift in Sources */,
 				C2F93417264AA0CA006CA527 /* PhotoScrollView.swift in Sources */,
+				D457EB0E28537A5F00C6E7FC /* OnboardingTableViewCell.swift in Sources */,
 				C2F93418264AA0CA006CA527 /* CropDimmingView.swift in Sources */,
 				C2F93419264AA0CA006CA527 /* ConcurrentOperation.swift in Sources */,
 				C2F9341A264AA0CA006CA527 /* LineHandleView.swift in Sources */,

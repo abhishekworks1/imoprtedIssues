@@ -19,6 +19,20 @@ enum SystemSettingType {
     case mutehapticFeedbackOnSpeedSelection
     case autoSavePic2Art
     case onboarding
+    case openingScreen
+    case quickCamCamera
+    case mobileDashboard
+}
+
+enum OnboardingReferral: String {
+    case OpeningScreen = "Opening Screen"
+    case QuickCamera    = "QuickCam Camera"
+    case MobileDashboard        = "Mobile Dashboard"
+    
+    var description: String {
+            return self.rawValue
+        }
+
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -66,8 +80,20 @@ class SystemSettingsCell: UITableViewCell {
                 title.text = R.string.localizable.muteHapticFeedback()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isMutehapticFeedbackOnSpeedSelection
             } else if systemSettingType == .onboarding {
-                title.text = "Show Onboarding"
-                btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
+                title.text = "Default Opening Screen"
+                btnSelectShowAllPopup.isHidden = true
+//                btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
+                
+//                btnSelectShowAllPopup.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+//                btnSelectShowAllPopup.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
+            } else if systemSettingType == .openingScreen {
+                title.text = "Opening Screen"
+                
+            } else if systemSettingType == .quickCamCamera {
+                title.text = "QuickCam Camera"
+                
+            } else if systemSettingType == .mobileDashboard {
+                title.text = "Mobile Dashboard"
             }
         }
     }
@@ -116,8 +142,13 @@ class SystemSettingsCell: UITableViewCell {
             Defaults.shared.isMutehapticFeedbackOnSpeedSelection = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .onboarding {
-            Defaults.shared.hasOnboardingReferralEnabled = !btnSelectShowAllPopup.isSelected
-            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+            
+        } else if systemSettingType == .openingScreen {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.OpeningScreen.description
+        } else if systemSettingType == .quickCamCamera {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.QuickCamera.description
+        } else if systemSettingType == .mobileDashboard {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.MobileDashboard.description
         }
         
     }
