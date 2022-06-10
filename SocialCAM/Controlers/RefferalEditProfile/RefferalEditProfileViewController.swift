@@ -27,6 +27,7 @@ class RefferalEditProfileViewController: UIViewController {
     private lazy var storyCameraVC = StoryCameraViewController()
     private var imagePicker = UIImagePickerController()
     var isSignUpFlow: Bool = false
+    var isFromOnboarding = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +81,7 @@ class RefferalEditProfileViewController: UIViewController {
 //                self.setRedirection()
                 self.isImageSelected = false
                 if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                    contactWizardController.isFromOnboarding = self.isFromOnboarding
                     self.navigationController?.pushViewController(contactWizardController, animated: true)
                 }
             }

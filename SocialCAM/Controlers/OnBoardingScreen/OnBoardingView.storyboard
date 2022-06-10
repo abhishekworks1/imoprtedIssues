@@ -12,7 +12,7 @@
         <!--On Boarding View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="OnBoardingViewController" id="Y6W-OH-hqX" customClass="OnBoardingViewController" customModule="QuickCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="OnBoardingViewController" customModule="QuickCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -384,13 +384,14 @@ crisis antidote!!</string>
                             <constraint firstItem="ld8-f9-xw6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Lc8-fP-6Lm"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="lE4-gw-0yj"/>
                     <connections>
                         <outlet property="welcomeLabel" destination="iFM-ko-LAz" id="5zX-tQ-eKn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="52.816901408450704"/>
+            <point key="canvasLocation" x="974.29906542056074" y="52.483801295896335"/>
         </scene>
         <!--Make Money Referring View Controller-->
         <scene sceneID="NK9-ig-1eL">
@@ -617,7 +618,24 @@ crisis antidote!!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPn-CW-P8c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710.625" y="52.816901408450704"/>
+            <point key="canvasLocation" x="1609.3457943925232" y="52.483801295896335"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="z62-qC-OGg">
+            <objects>
+                <navigationController storyboardIdentifier="OnBoardingViewController" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="WNs-wu-Xdo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Cb-vr-Goe">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="Bf4-9p-ZN1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ma-2g-0R7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="74.299065420560737" y="52.483801295896335"/>
         </scene>
     </scenes>
     <resources>

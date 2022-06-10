@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SafariServices
+import Alamofire
 
 class MakeMoneyReferringViewController: UIViewController {
 
@@ -21,8 +23,12 @@ class MakeMoneyReferringViewController: UIViewController {
     }
     
     @IBAction func agreeOnclick(_ sender: Any) {
-        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-        Utils.appDelegate?.window?.rootViewController = rootViewController
+        let jsonEncoder = JSONEncoder()
+        do {
+            let jsonData = try jsonEncoder.encode(["isAllowAffiliate" : true])
+            self.setAffiliate(data:jsonData)
+        } catch {}
+        setNavigation()
     }
     
     @IBAction func termsCheckOnClick(_ sender: Any) {
@@ -68,7 +74,51 @@ extension MakeMoneyReferringViewController {
     }
     
     @objc func tappedOnLabel(_ gesture: UITapGestureRecognizer) {
-        print("tapp")
+        let safariVC = SFSafariViewController(url: URL(string: "\(websiteUrl)/terms-and-conditions")!)
+        present(safariVC, animated: true, completion: nil)
+    }
+    
+    func setNavigation() {
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                contactWizardController.isFromOnboarding = true
+                navigationController?.pushViewController(contactWizardController, animated: true)
+            }
+        } else {
+            if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+                editProfileController.isFromOnboarding = true
+                navigationController?.pushViewController(editProfileController, animated: true)
+            }
+        }
+    }
+    
+    func setAffiliate(data: Data) {
+        let path = API.shared.baseUrl + "user/updateProfileDetails"
+        print(path)
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+        request.httpBody = data
+        // self.showLoader()
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+                
+                //  self.hideLoader()
+                break
+                
+            case .failure(let error):
+                print(error)
+                // self.hideLoader()
+                break
+                
+            }
+        }
     }
     
 }

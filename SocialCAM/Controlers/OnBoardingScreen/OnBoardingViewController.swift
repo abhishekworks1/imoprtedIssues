@@ -19,8 +19,13 @@ class OnBoardingViewController: UIViewController {
     
 
     @IBAction func didTapMakeMoneyClick(_ sender: UIButton) {
-        guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
-        present(makeMoneyReferringVC, animated: true)
+        let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
+        if hasAllowAffiliate {
+            self.setNavigation()
+        } else {
+            guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
+            present(makeMoneyReferringVC, animated: true)
+        }
     }
     
     
@@ -37,6 +42,20 @@ extension OnBoardingViewController {
     func setupView() {
         if let user = Defaults.shared.currentUser {
             self.welcomeLabel.text = " Welcome \(String(describing: user.username!)), to QuickCam, the next level smart phone camera app for making money! \nThe perfect global economic crisis antidote!!"
+        }
+    }
+    
+    func setNavigation() {
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                contactWizardController.isFromOnboarding = true
+                navigationController?.pushViewController(contactWizardController, animated: true)
+            }
+        } else {
+            if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+                editProfileController.isFromOnboarding = true
+                navigationController?.pushViewController(editProfileController, animated: true)
+            }
         }
     }
     
