@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -3566,8 +3566,8 @@ Countdown</string>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="pYz-E2-o20">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                                                 </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icoApple" translatesAutoresizingMaskIntoConstraints="NO" id="9VS-un-fkV">
-                                                                                    <rect key="frame" x="6.6666666666666856" y="6.6666666666666643" width="17" height="17"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9VS-un-fkV">
+                                                                                    <rect key="frame" x="6.6666666666666856" y="4.6666666666666643" width="17" height="17"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="17" id="11c-Wr-7QO"/>
                                                                                         <constraint firstAttribute="width" constant="17" id="M1e-uq-csg"/>
@@ -3576,7 +3576,7 @@ Countdown</string>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6a6-7q-cfT">
                                                                                     <rect key="frame" x="11.666666666666686" y="10.666666666666664" width="7" height="12"/>
                                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
-                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                             </subviews>
@@ -3585,7 +3585,7 @@ Countdown</string>
                                                                                 <constraint firstItem="6a6-7q-cfT" firstAttribute="centerX" secondItem="uTq-hs-pPg" secondAttribute="centerX" id="88c-eb-1EX"/>
                                                                                 <constraint firstItem="pYz-E2-o20" firstAttribute="top" secondItem="uTq-hs-pPg" secondAttribute="top" id="9SN-nO-8Lt"/>
                                                                                 <constraint firstItem="6a6-7q-cfT" firstAttribute="centerY" secondItem="uTq-hs-pPg" secondAttribute="centerY" constant="1.5" id="MZT-EE-wPW"/>
-                                                                                <constraint firstItem="9VS-un-fkV" firstAttribute="centerY" secondItem="uTq-hs-pPg" secondAttribute="centerY" id="NPm-EG-HBQ"/>
+                                                                                <constraint firstItem="9VS-un-fkV" firstAttribute="centerY" secondItem="uTq-hs-pPg" secondAttribute="centerY" constant="-2" id="NPm-EG-HBQ"/>
                                                                                 <constraint firstItem="9VS-un-fkV" firstAttribute="centerX" secondItem="uTq-hs-pPg" secondAttribute="centerX" id="aZS-lF-QJa"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="pYz-E2-o20" secondAttribute="bottom" id="eBW-ml-D9g"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="pYz-E2-o20" secondAttribute="trailing" id="mv5-yt-uXK"/>
@@ -3600,10 +3600,10 @@ Countdown</string>
                                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                                                 </imageView>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="gd4-bX-4S0">
-                                                                                    <rect key="frame" x="7.6666666666666856" y="7.6666666666666643" width="15" height="15"/>
+                                                                                    <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" constant="15" id="XcZ-mS-2H9"/>
-                                                                                        <constraint firstAttribute="height" constant="15" id="zpv-RG-Nul"/>
+                                                                                        <constraint firstAttribute="width" constant="20" id="XcZ-mS-2H9"/>
+                                                                                        <constraint firstAttribute="height" constant="20" id="zpv-RG-Nul"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUF-wk-Mtb">
@@ -9194,13 +9194,13 @@ Countdown</string>
         <image name="fastestevercontestWatermarkPopupOption" width="67" height="17"/>
         <image name="flashOff" width="33" height="34"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
+        <image name="freeAppleIcon" width="69" height="58"/>
         <image name="gameCenter" width="79" height="104"/>
         <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="icnCollectionSelected" width="512" height="512"/>
         <image name="icnCollectionUnselected" width="512" height="512"/>
         <image name="icnTableSelected" width="512" height="512"/>
         <image name="icnTableUnselected" width="512" height="512"/>
-        <image name="icoApple" width="32" height="40"/>
         <image name="icoBack" width="12" height="18"/>
         <image name="icoClose" width="26" height="26"/>
         <image name="icoCountdown" width="29" height="27"/>
@@ -9270,7 +9270,7 @@ Countdown</string>
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

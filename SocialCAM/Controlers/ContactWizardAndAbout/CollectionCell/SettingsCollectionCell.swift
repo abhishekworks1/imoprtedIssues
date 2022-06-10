@@ -69,15 +69,15 @@ class SettingsCollectionCell: UICollectionViewCell {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
-                        if freeTrialDay > 0 {
+                       /* if freeTrialDay > 0 {
                             lbliosDaysRemains.text = finalDay
                             iosSheildImageview.image = R.image.freeBadge()
-                        } else {
+                        } else {*/
                             //iOS shield hide
                             //square badge show
                             lbliosDaysRemains.text = ""
                             iosSheildImageview.image = R.image.squareBadge()
-                        }
+//                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {

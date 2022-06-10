@@ -38,6 +38,8 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var lblBadgePro: UILabel!
     @IBOutlet weak var lbltrialDays: UILabel!
   
+    @IBOutlet var imageViewfreeShield: UIImageView!
+    
     @IBOutlet weak var freeAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var basicAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var advancedAppleLogoCenterY: NSLayoutConstraint!
@@ -88,6 +90,45 @@ class SubscriptionContainerViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationBarView.addBottomShadow()
+    }
+    
+    func setSubscriptionBadgeDetails(){
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+
+                // Setup For iOS Badge
+                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
+                {
+                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    
+                    lblBadgeFree.text = finalDay
+                    lblBadgeBasic.text = finalDay
+                    lblBadgeAdvanced.text = finalDay
+                    lblBadgePro.text = finalDay
+                   
+                    var fday = 0
+                    if let day = Int(finalDay) {
+                        if day <= 7 && day >= 0
+                        {
+                            fday = 7 - day
+                        }
+                    }
+                    lbltrialDays.text = ""
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        if finalDay == "7" {
+                            lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                        } else {
+                            lbltrialDays.text = "You have \(fday) days left on your free trial."
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        imageViewfreeShield.image = R.image.squareBadge()
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
@@ -203,7 +244,7 @@ class SubscriptionContainerViewController: UIViewController {
             activeFreeView.isHidden = false
         }
     }
-    private func setSubscriptionBadgeDetails(){
+   /* private func setSubscriptionBadgeDetails(){
         lblBadgeFree.text = ""
         lblBadgeBasic.text = ""
         lblBadgeAdvanced.text = ""
@@ -252,7 +293,7 @@ class SubscriptionContainerViewController: UIViewController {
         basicAppleLogoCenterY.constant = (lblBadgeBasic.text ?? "").trim.isEmpty ? 8 : 0
         advancedAppleLogoCenterY.constant = (lblBadgeAdvanced.text ?? "").trim.isEmpty ? 8 : 0
         premiumAppleLogoCenterY.constant = (lblBadgePro.text ?? "").trim.isEmpty ? 8 : 0
-    }
+    } */
     // MARK: -
     // MARK: - Button Action Methods
     

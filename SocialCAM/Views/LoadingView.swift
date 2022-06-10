@@ -218,19 +218,23 @@ public class LoadingView: UIView {
                                          R.image.upgradeToAdvance(),
                                          R.image.upgradeToPro(),
                                          R.image.gameMode(),
+                                         R.image.giftCardBanner(),
                                          R.image.earlyBird()]
             } else {
                 if subscriptionType?.lowercased() == "basic" {
                     imgAdvertisementArray = [R.image.upgradeToAdvance(),
                                              R.image.upgradeToPro(),
                                              R.image.gameMode(),
+                                             R.image.giftCardBanner(),
                                              R.image.earlyBird()]
                 } else if subscriptionType?.lowercased() == "advanced" {
                     imgAdvertisementArray = [ R.image.upgradeToPro(),
                                               R.image.gameMode(),
+                                              R.image.giftCardBanner(),
                                               R.image.earlyBird()]
                 } else if subscriptionType?.lowercased() == "pro" {
                     imgAdvertisementArray = [R.image.gameMode(),
+                                             R.image.giftCardBanner(),
                                              R.image.earlyBird()]
                 }
             }
