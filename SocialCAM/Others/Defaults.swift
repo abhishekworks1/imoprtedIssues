@@ -224,7 +224,15 @@ class Defaults {
         get {
             if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
                 let decoder = JSONDecoder()
-                return try? decoder.decode([StorySettings].self, from: userStorySettings)
+                if let settings = try? decoder.decode([StorySettings].self, from: userStorySettings) {
+                    for setting in settings {
+                        if setting.settingsType == .system {
+                            setting.settings.first?.name = R.string.localizable.appSettings()
+                            break
+                        }
+                    }
+                    return settings
+                }
             }
             return nil
         }

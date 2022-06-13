@@ -46,7 +46,8 @@ class SystemSettingsCell: UITableViewCell {
     // MARK: - Varable Declaration
     var systemSettingType: SystemSettingType = .showAllPopUps {
         didSet {
-            
+            selectButtonLeadingConstraint.constant = 19
+            title.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             btnSelectShowAllPopup.isHidden = false
             
             btnSelectShowAllPopup.setImage(R.image.checkBoxActive(), for: .selected)
@@ -86,24 +87,25 @@ class SystemSettingsCell: UITableViewCell {
                 title.text = R.string.localizable.muteHapticFeedback()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isMutehapticFeedbackOnSpeedSelection
             } else if systemSettingType == .onboarding {
+                title.font = UIFont.boldSystemFont(ofSize: 17)
                 title.text = "Default Opening Screen"
+                selectButtonLeadingConstraint.constant = -11
                 btnSelectShowAllPopup.isHidden = true
-                
             } else if systemSettingType == .openingScreen {
                 title.text = "Opening Screen"
-                
+                selectButtonLeadingConstraint.constant = 30
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.OpeningScreen.rawValue
             } else if systemSettingType == .quickCamCamera {
                 title.text = "QuickCam Camera"
-                
+                selectButtonLeadingConstraint.constant = 30
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickCamera.rawValue
             } else if systemSettingType == .mobileDashboard {
                 title.text = "Mobile Dashboard"
-                
+                selectButtonLeadingConstraint.constant = 30
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.MobileDashboard.rawValue
