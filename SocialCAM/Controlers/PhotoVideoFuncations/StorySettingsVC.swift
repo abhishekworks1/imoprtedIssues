@@ -656,17 +656,17 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_Dashboard())
         }else if settingTitle.settingsType == .editProfileCard {
             hideUnhideImgButton(cell, R.image.settings_EditProfileCard())
-            cell.newBadgesImageView.isHidden = true//false
+            cell.newBadgesImageView.isHidden = false
             cell.newBadgesImageView.image = R.image.editProfileBadge()
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
             hideUnhideImgButton(cell, R.image.referralWizard())
-            cell.newBadgesImageView.isHidden = true//false
+            cell.newBadgesImageView.isHidden = false
             cell.newBadgesImageView.image = R.image.referralWizardBadge()
         }else if settingTitle.settingsType == .qrcode {
             hideUnhideImgButton(cell, R.image.settings_QRCode())
-            cell.newBadgesImageView.isHidden = true//false
+            cell.newBadgesImageView.isHidden = false
             cell.newBadgesImageView.image = R.image.qrCodeBadge()
         }else if settingTitle.settingsType == .accountSettings {
             hideUnhideImgButton(cell, R.image.settings_Account())
