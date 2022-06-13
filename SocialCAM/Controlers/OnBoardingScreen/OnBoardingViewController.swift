@@ -10,12 +10,9 @@ import UIKit
 
 class OnBoardingViewController: UIViewController {
 
+    var showPopUpView: Bool = false
     @IBOutlet weak var welcomeLabel: UILabel!
-    @IBOutlet weak var popupView: UIView! {
-        didSet {
-            popupView.isHidden = false
-        }
-    }
+    @IBOutlet weak var popupView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +56,7 @@ class OnBoardingViewController: UIViewController {
 extension OnBoardingViewController {
     
     func setupView() {
+        popupView.isHidden = !self.showPopUpView
         if let user = Defaults.shared.currentUser {
 //            self.welcomeLabel.text = " Welcome \(String(describing: user.username!)), to QuickCam, the next level smart phone camera app for making money! \nThe perfect global economic crisis antidote!!"
         }
