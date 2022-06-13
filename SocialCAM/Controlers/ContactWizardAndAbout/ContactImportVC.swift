@@ -2114,6 +2114,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if let token = Defaults.shared.sessionToken {
 //        let urlString = "\(websiteUrl)/redirect?token=\(token)"
         let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
+        print(urlString)
         guard let url = URL(string: urlString) else {
                 return
             }

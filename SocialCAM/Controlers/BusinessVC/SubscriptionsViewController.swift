@@ -251,11 +251,13 @@ class SubscriptionsViewController: UIViewController {
 //        default:
 //            break
 //        }
-        if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
+        if subscriptionType == .free {
+            navigationController?.popViewController(animated: true)
+        }
+         else if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
             self.enableMode(appMode: self.subscriptionType)
         }
-        
     }
     
     
@@ -394,6 +396,11 @@ class SubscriptionsViewController: UIViewController {
         }
         if appMode == .free{
             upGradeButtonView.isHidden = true
+        }
+        if subscriptionType == .free {
+            if planActiveView.isHidden {
+                upGradeButtonView.isHidden = false
+            }
         }
     }
     func setSubscriptionBadgeDetails(){
