@@ -21,21 +21,22 @@ class SystemSettings {
     }
     
     
-    static var systemSettings = [
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
-
-        StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
-
-        StorySettings(name: "", settings: [StorySetting(name: "Opening Screen", selected: false)], settingsType: .openingScreen),
-
-        StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
-
-        StorySettings(name: "", settings: [StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .mobileDashboard)
-    ]
+     
 }
 
 class SystemSettingsViewController: UIViewController {
     
+    var systemSettings = [
+       StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
+
+       StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
+
+       StorySettings(name: "", settings: [StorySetting(name: "Opening Screen", selected: false)], settingsType: .openingScreen),
+
+       StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
+
+       StorySettings(name: "", settings: [StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .mobileDashboard)
+   ]
     // MARK: - Outlets Declaration
     @IBOutlet weak var systemSettingsTableView: UITableView!
     
@@ -46,6 +47,15 @@ class SystemSettingsViewController: UIViewController {
 //        systemSettingsTableView.register(UINib(nibName: "OnboardingTableViewCell", bundle: .main), forCellReuseIdentifier: "OnboardingTableViewCell")
 //        systemSettingsTableView.dataSource = self
 //        systemSettingsTableView.delegate = self
+        
+        if (Defaults.shared.subscriptionType?.lowercased() == "basic") || (Defaults.shared.subscriptionType?.lowercased() == "advance") || (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            
+        }else{
+            systemSettings = systemSettings.filter({$0.settingsType != .quickCamCamera})
+            systemSettings = systemSettings.filter({$0.settingsType != .mobileDashboard})
+        }
+       
+        
         
         self.systemSettingsTableView.reloadData()
     }
@@ -77,11 +87,11 @@ class SystemSettingsViewController: UIViewController {
 extension SystemSettingsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return SystemSettings.systemSettings.count
+        return systemSettings.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let settingTitle = SystemSettings.systemSettings[section]
+        let settingTitle = systemSettings[section]
         return settingTitle.settings.count
     }
 
@@ -94,7 +104,7 @@ extension SystemSettingsViewController: UITableViewDataSource {
 //            fatalError("\(R.reuseIdentifier.onboardingTableViewCell.identifier) Not Found")
 //        }
         
-        let settingTitle = SystemSettings.systemSettings[indexPath.section]
+        let settingTitle = systemSettings[indexPath.section]
         if settingTitle.settingsType == .showAllPopups {
             systemSettingsCell.systemSettingType = .showAllPopUps
         } else if settingTitle.settingsType == .newSignupsNotificationSetting {
@@ -153,7 +163,7 @@ extension SystemSettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let settingTitle = SystemSettings.systemSettings[indexPath.section]
+        let settingTitle = systemSettings[indexPath.section]
         if settingTitle.settingsType == .checkUpdate {
             // Implement app updater
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
