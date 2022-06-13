@@ -211,6 +211,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var businessDashboardButton: UIButton!
     @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
+    
+    @IBOutlet weak var recordingTimeLabel: UILabel!
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
     
@@ -229,6 +231,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var deleteRect: CGRect?
     var isDiscardCheckBoxClicked = false
     var isDiscardSingleCheckBoxClicked = false
+    var totalSegDuration = ""
     
     var isDisableResequence: Bool = true {
         didSet {
@@ -421,8 +424,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         didSet {
             if (takenVideoUrls.count > 0) && (recordingType == .custom) {
                 settingsButton.isSelected = true
+                recordingTimeLabel.isHidden = false
             } else {
                 settingsButton.isSelected = false
+                recordingTimeLabel.isHidden = true
             }
         }
     }
@@ -1210,6 +1215,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.takenVideoUrls.removeLast()
             self.totalVideoDuration.removeLast()
             self.segmentsProgress.removeLast()
+            print(totalVideoDuration)
+            if self.takenVideoUrls.count > 0 {
+                let totalDurationSum = totalVideoDuration.reduce(0, +)
+                let finalDuration = String(format: "%.1f", totalDurationSum)
+                print(finalDuration)
+                self.recordingTimeLabel.text = "\(finalDuration) / \(totalSegDuration)"
+                recordingTimeLabel.isHidden = false
+            }
             if let lastSegmentsprogress = self.segmentsProgress.last {
                 self.progress = lastSegmentsprogress
             } else {
@@ -1220,10 +1233,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.circularProgress.deleteLayer()
             self.updateProgress()
             if self.takenVideoUrls.isEmpty {
+                recordingTimeLabel.isHidden = true
+                recordingTimeLabel.text = ""
                 self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
             }
             discardAllSegmentView.isHidden = true
         } else {
+            recordingTimeLabel.isHidden = true
+            recordingTimeLabel.text = ""
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             if !self.takenVideoUrls.isEmpty {
                 self.viewWillAppear(true)
@@ -2482,21 +2499,26 @@ extension StoryCameraViewController {
             let currentVideoSeconds = self.videoSegmentSeconds
                
             var isVideoStop: Bool = false
+            self.totalSegDuration = "30.0"
             switch Defaults.shared.appMode {
             case .free:
                 if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 30 || (takenVideoUrls.count >= 5) {
+//                    self.totalSegDuration = "30.0"
                     isVideoStop = true
                 }
             case .basic:
                 if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 60 || (takenVideoUrls.count >= 5) {
+//                    self.totalSegDuration = "60.0"
                     isVideoStop = true
                 }
             case .advanced:
                 if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 180 || (takenVideoUrls.count >= 10) {
+//                    self.totalSegDuration = "180.0"
                     isVideoStop = true
                 }
             default:
                 if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 240 || (takenVideoUrls.count >= 10) {
+//                    self.totalSegDuration = "240.0"
                     isVideoStop = true
                 }
             }
@@ -2527,8 +2549,20 @@ extension StoryCameraViewController {
                 if (self.recordingType == .timer) || (self.recordingType == .photoTimer) {
                     self.recordingType = .normal
                 }
+                
                 totalVideoDuration.append(duration)
                 let totalDurationSum = totalVideoDuration.reduce(0, +)
+                if self.takenVideoUrls.count > 0 {
+                    print("************Single Video Duration************")
+                    print(duration)
+                    print("************Total Video Duration************")
+                    let finalDuration = String(format: "%.1f", totalDurationSum)
+                    print(finalDuration)
+                    self.recordingTimeLabel.text = "\(finalDuration) / \(totalSegDuration)"
+                    print("************Total Video Duration************")
+                    
+                    self.recordingTimeLabel.isHidden = false
+                }
                 if recordingType != .normal {
                     if Defaults.shared.isVideoSavedAfterRecording == true {
                         if let url = self.takenVideoUrls.last?.url {
@@ -3283,4 +3317,9 @@ extension StoryCameraViewController: SubscriptionScreenDelegate {
         self.cameraSliderView.collectionView.reloadData()
     }
 
+}
+
+
+extension Sequence where Element: AdditiveArithmetic {
+    func sum() -> Element { reduce(.zero, +) }
 }
