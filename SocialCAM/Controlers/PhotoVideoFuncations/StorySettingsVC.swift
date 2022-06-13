@@ -194,7 +194,7 @@ class StorySettings: Codable {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
+                                              settings: [StorySetting(name: R.string.localizable.appSettings(), selected: false)], settingsType: .system),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
                                 StorySettings(name: "",
