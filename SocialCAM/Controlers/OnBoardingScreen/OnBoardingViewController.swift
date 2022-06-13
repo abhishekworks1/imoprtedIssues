@@ -11,9 +11,14 @@ import UIKit
 class OnBoardingViewController: UIViewController {
 
     @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var popupView: UIView! {
+        didSet {
+            popupView.isHidden = false
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupView()
     }
     
@@ -35,13 +40,27 @@ class OnBoardingViewController: UIViewController {
         Utils.appDelegate?.window?.rootViewController = rootViewController
     }
     
+    @IBAction func didTapMobileDashboardClick(_ sender: UIButton) {
+        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+        if let pageViewController = rootViewController as? PageViewController,
+           let navigationController = pageViewController.pageControllers.first as? UINavigationController,
+           let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
+            navigationController.viewControllers.append(settingVC)
+        }
+        Utils.appDelegate?.window?.rootViewController = rootViewController
+    }
+    
+    @IBAction func didTapCloseClick(_ sender: UIButton) {
+        popupView.isHidden = true
+    }
+    
 }
 
 extension OnBoardingViewController {
     
     func setupView() {
         if let user = Defaults.shared.currentUser {
-            self.welcomeLabel.text = " Welcome \(String(describing: user.username!)), to QuickCam, the next level smart phone camera app for making money! \nThe perfect global economic crisis antidote!!"
+//            self.welcomeLabel.text = " Welcome \(String(describing: user.username!)), to QuickCam, the next level smart phone camera app for making money! \nThe perfect global economic crisis antidote!!"
         }
     }
     
