@@ -46,6 +46,12 @@ class SystemSettingsCell: UITableViewCell {
     // MARK: - Varable Declaration
     var systemSettingType: SystemSettingType = .showAllPopUps {
         didSet {
+            
+            btnSelectShowAllPopup.isHidden = false
+            
+            btnSelectShowAllPopup.setImage(R.image.checkBoxActive(), for: .selected)
+            btnSelectShowAllPopup.setImage(R.image.checkBoxInActive(), for: .normal)
+
             if systemSettingType == .showAllPopUps {
                 title.text = R.string.localizable.showAllPopups()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
@@ -79,18 +85,28 @@ class SystemSettingsCell: UITableViewCell {
                 btnHelpTooltip.isHidden = true
                 title.text = R.string.localizable.muteHapticFeedback()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isMutehapticFeedbackOnSpeedSelection
-            } else if systemSettingType == .openingScreen {
-                title.text = "Opening Screen"
-                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.OpeningScreen.rawValue
-            } else if systemSettingType == .quickCamCamera {
-                title.text = "QuickCam Camera"
-                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickCamera.rawValue
-            } else if systemSettingType == .mobileDashboard {
-                title.text = "Mobile Dashboard"
-                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.MobileDashboard.rawValue
             } else if systemSettingType == .onboarding {
                 title.text = "Default Opening Screen"
                 btnSelectShowAllPopup.isHidden = true
+                
+            } else if systemSettingType == .openingScreen {
+                title.text = "Opening Screen"
+                
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
+                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.OpeningScreen.rawValue
+            } else if systemSettingType == .quickCamCamera {
+                title.text = "QuickCam Camera"
+                
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
+                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickCamera.rawValue
+            } else if systemSettingType == .mobileDashboard {
+                title.text = "Mobile Dashboard"
+                
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
+                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.MobileDashboard.rawValue
             }
         }
     }
@@ -114,6 +130,9 @@ class SystemSettingsCell: UITableViewCell {
             if Defaults.shared.isShowAllPopUpChecked {
                 Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = false
             }
+            
+            (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
+            
         } else if systemSettingType == .skipYoutubeLogin {
             Defaults.shared.isSkipYoutubeLogin = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
