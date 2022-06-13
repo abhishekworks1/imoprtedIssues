@@ -82,6 +82,7 @@ class RefferalEditProfileViewController: UIViewController {
                 self.isImageSelected = false
                 if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
                     contactWizardController.isFromOnboarding = self.isFromOnboarding
+                    self.isImageSelected = self.isFromOnboarding
                     self.navigationController?.pushViewController(contactWizardController, animated: true)
                 }
             }
