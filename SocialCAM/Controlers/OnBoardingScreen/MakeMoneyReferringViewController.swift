@@ -44,7 +44,7 @@ class MakeMoneyReferringViewController: UIViewController {
     }
     
     @IBAction func backOnclick(_ sender: Any) {
-        dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
