@@ -37,7 +37,7 @@ class SystemSettings {
         
         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
             if (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") {
-                
+                Defaults.shared.onBoardingReferral = OnboardingReferral.OpeningScreen.description
                 SystemSettings.systemSettings = [
                     StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
 
