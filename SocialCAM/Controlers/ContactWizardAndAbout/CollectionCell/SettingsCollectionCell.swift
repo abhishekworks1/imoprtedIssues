@@ -66,6 +66,7 @@ class SettingsCollectionCell: UICollectionViewCell {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.freeBadge()
+                        iosIconImageview.image = R.image.freeAppleIcon()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
@@ -77,6 +78,7 @@ class SettingsCollectionCell: UICollectionViewCell {
                             //square badge show
                             lbliosDaysRemains.text = ""
                             iosSheildImageview.image = R.image.squareBadge()
+                            iosIconImageview.image = R.image.freeAppleIcon()
 //                        }
                     }
                     
@@ -84,16 +86,19 @@ class SettingsCollectionCell: UICollectionViewCell {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.basicBadge()
+                        iosIconImageview.image = R.image.basicAppleIcon()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.advancedBadge()
+                        iosIconImageview.image = R.image.advancedAppleIcon()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.proBadge()
+                        iosIconImageview.image = R.image.preAppleIcon()
                     }
                 }
                 
