@@ -2176,7 +2176,7 @@ extension StoryCameraViewController {
     }
     
     func resetProgressTimer() {
-        if recordingType != .normal {
+        if recordingType != .normal && recordingType != .newNormal {
             progress = 0
         }
         self.progressTimer?.invalidate()
@@ -2266,7 +2266,7 @@ extension StoryCameraViewController {
         nextLevel.torchMode = .off
         nextLevel.videoZoomFactor = 0.0
         self.isVideoRecording = false
-        if isLiteApp, recordingType == .normal {
+        if isLiteApp, (recordingType == .normal || recordingType == .newNormal) {
             self.segmentsProgress.append(progress)
             self.circularProgress.drawArc(startAngle: Double(progress))
             self.discardSegmentsStackView.isHidden = false
@@ -2563,7 +2563,7 @@ extension StoryCameraViewController {
                     
                     self.recordingTimeLabel.isHidden = false
                 }
-                if recordingType != .normal {
+                if recordingType != .normal && recordingType != .newNormal {
                     if Defaults.shared.isVideoSavedAfterRecording == true {
                         if let url = self.takenVideoUrls.last?.url {
                             SCAlbum.shared.saveMovieToLibrary(movieURL: url)
@@ -2747,7 +2747,7 @@ extension StoryCameraViewController {
                 fatalError("PhotoEditorViewController Not Found")
             }
             var medias: [StoryEditorMedia] = []
-            if isLiteApp, recordingType == .normal {
+            if isLiteApp, (recordingType == .normal || recordingType == .newNormal) {
                 progress = 0
                 medias.append(StoryEditorMedia(type: .video(segementedVideos.first!.image!, asset)))
             } else {
