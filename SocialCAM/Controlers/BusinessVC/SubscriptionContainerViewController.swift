@@ -122,6 +122,9 @@ class SubscriptionContainerViewController: UIViewController {
                         } else {
                             lbltrialDays.text = "You have \(fday) days left on your free trial."
                         }
+                        if fday == 0 {
+                            lbltrialDays.text = ""
+                        }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         imageViewfreeShield.image = R.image.squareBadge()
