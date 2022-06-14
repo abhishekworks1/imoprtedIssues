@@ -2232,8 +2232,14 @@ extension StoryCameraViewController {
                     } else if isLiteApp {
                         self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
-                        if Defaults.shared.appMode == .professional {
+                        if Defaults.shared.appMode == .basic {
                             totalSeconds = 60
+                        }
+                        if Defaults.shared.appMode == .advanced {
+                            totalSeconds = 120
+                        }
+                        if Defaults.shared.appMode == .professional {
+                            totalSeconds = 180
                         }
                     }
                     self.progressMaxSeconds = totalSeconds
