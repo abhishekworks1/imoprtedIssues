@@ -7,6 +7,7 @@
 //
 
 import AVKit
+import Toast_Swift
 
 class NotificationDetailsVC: UIViewController {
 
@@ -220,8 +221,14 @@ class NotificationDetailsVC: UIViewController {
             self.showHUD()
             if let following = notification.isFollowing, !following {
                 self.userFollowing(notification, userId, index)
+                DispatchQueue.main.async {
+                    self.view.makeToast("User Followed", duration: ToastManager.shared.duration, position: .bottom)
+                }
             } else {
                 self.userUnFollowing(notification, userId, index)
+                DispatchQueue.main.async {
+                    self.view.makeToast("User Unfollowed", duration: ToastManager.shared.duration, position: .bottom)
+                }
             }
         }
     }
