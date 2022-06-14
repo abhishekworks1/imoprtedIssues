@@ -68,6 +68,11 @@ class RefferalEditProfileViewController: UIViewController {
                 self.updateProfilePic(image: img)
                 self.updateProfileDetails(image: img)
             }
+        } else {
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                contactWizardController.isFromOnboarding = self.isFromOnboarding
+                self.navigationController?.pushViewController(contactWizardController, animated: true)
+            }
         }
     }
     
@@ -82,7 +87,6 @@ class RefferalEditProfileViewController: UIViewController {
                 self.isImageSelected = false
                 if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
                     contactWizardController.isFromOnboarding = self.isFromOnboarding
-                    self.isImageSelected = self.isFromOnboarding
                     self.navigationController?.pushViewController(contactWizardController, animated: true)
                 }
             }
