@@ -212,18 +212,18 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var socialMediaMainView: UIView!
 
-    @IBOutlet weak var btnFacebook: UIButton!
-    @IBOutlet weak var btnYoutube: UIButton!
-    @IBOutlet weak var btnInstagram: UIButton!
-    @IBOutlet weak var btnTwitter: UIButton!
-    @IBOutlet weak var btnTiktok: UIButton!
+//    @IBOutlet weak var btnFacebook: UIButton!
+//    @IBOutlet weak var btnYoutube: UIButton!
+//    @IBOutlet weak var btnInstagram: UIButton!
+//    @IBOutlet weak var btnTwitter: UIButton!
+//    @IBOutlet weak var btnTiktok: UIButton!
     @IBOutlet weak var lblSaveShare: UILabel!
     
-    @IBOutlet weak var ivvwFacebook: UIImageView!
-    @IBOutlet weak var ivvwYoutube: UIImageView!
-    @IBOutlet weak var ivvwInstagram: UIImageView!
-    @IBOutlet weak var ivvwTwitter: UIImageView!
-    @IBOutlet weak var ivvwTiktok: UIImageView!
+//    @IBOutlet weak var ivvwFacebook: UIImageView!
+//    @IBOutlet weak var ivvwYoutube: UIImageView!
+//    @IBOutlet weak var ivvwInstagram: UIImageView!
+//    @IBOutlet weak var ivvwTwitter: UIImageView!
+//    @IBOutlet weak var ivvwTiktok: UIImageView!
     
    // @IBOutlet weak var btnStoricamShare: UIButton!
     @IBOutlet weak var hideToolTipView: UIView!
@@ -598,12 +598,12 @@ class StoryEditorViewController: UIViewController {
 //            ivvwInstagram.image = R.image.icoInstagramTransparent()
 //            ivvwTwitter.image = R.image.icoTwitterTransparent()
 //            ivvwTiktok.image = R.image.icoTiktokTransparent()
-            
-            ivvwFacebook.image = R.image.icoFacebook()
-            ivvwYoutube.image = R.image.icoYoutube()
-            ivvwInstagram.image = R.image.icoInstagram()
-            ivvwTwitter.image = R.image.icoTwitter()
-            ivvwTiktok.image = R.image.icoTikTok()
+//            
+//            ivvwFacebook.image = R.image.icoFacebook()
+//            ivvwYoutube.image = R.image.icoYoutube()
+//            ivvwInstagram.image = R.image.icoInstagram()
+//            ivvwTwitter.image = R.image.icoTwitter()
+//            ivvwTiktok.image = R.image.icoTikTok()
         } else {
 //            btnFacebook.setImage(R.image.icoFacebook(), for: .normal)
 //            btnYoutube.setImage(R.image.icoYoutube(), for: .normal)
@@ -611,11 +611,11 @@ class StoryEditorViewController: UIViewController {
 //            btnTwitter.setImage(R.image.icoTwitter(), for: .normal)
 //            btnTiktok.setImage(R.image.icoTikTok(), for: .normal)
             
-            ivvwFacebook.image = R.image.icoFacebook()
-            ivvwYoutube.image = R.image.icoYoutube()
-            ivvwInstagram.image = R.image.icoInstagram()
-            ivvwTwitter.image = R.image.icoTwitter()
-            ivvwTiktok.image = R.image.icoTikTok()
+//            ivvwFacebook.image = R.image.icoFacebook()
+//            ivvwYoutube.image = R.image.icoYoutube()
+//            ivvwInstagram.image = R.image.icoInstagram()
+//            ivvwTwitter.image = R.image.icoTwitter()
+//            ivvwTiktok.image = R.image.icoTikTok()
         }
     }
     
@@ -694,10 +694,10 @@ class StoryEditorViewController: UIViewController {
 //        self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 70 : 10
         self.backgroundCollectionView.isHidden = self.collectionView.isHidden
         
-        self.youtubeShareView.isHidden = isImage //isImage
-        self.tiktokShareView.isHidden = isImage
-        self.playPauseButton.isHidden = isImage
-        self.progressBarView.isHidden = isImage
+//        self.youtubeShareView.isHidden = isImage //isImage
+//        self.tiktokShareView.isHidden = isImage
+//        self.playPauseButton.isHidden = isImage
+//        self.progressBarView.isHidden = isImage
     }
          
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
