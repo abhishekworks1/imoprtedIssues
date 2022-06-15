@@ -2618,13 +2618,47 @@ extension StoryEditorViewController {
                self.videoProgressBar.value = Float(time.seconds)
          }
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
+
+        let totalLabel = hourMinutesSecondsLabel(seconds: asset.duration.seconds)
+        let toLabel = hourMinutesSecondsLabel(seconds: timeSeconds)
+        self.lblStoryTime.text = "\(toLabel) / \(totalLabel)"
+    }
+    
+    func hourMinutesSecondsLabel(seconds: Double) -> String {
         
-        if totalTimeMiliS == 0 {
-            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):0"
-        } else {
-            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
+        func convertSecondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
+            return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
         }
-        
+
+        let (h, m, s) = convertSecondsToHoursMinutesSeconds(Int(Float(seconds)))
+        var hour: String?
+        var minutes: String = "00"
+        var seconds: String = "00"
+        if h > 0 {
+            if h < 10 {
+                hour = "0\(h)"
+            } else {
+                hour = "\(h)"
+            }
+        }
+        if m > 0 {
+            if m < 10 {
+                minutes = "0\(m)"
+            } else {
+                minutes = "\(m)"
+            }
+        }
+        if s > 0 {
+            if s < 10 {
+                seconds = "0\(s)"
+            } else {
+                seconds = "\(s)"
+            }
+        }
+        if let hour = hour {
+            return "\(hour):\(minutes):\(seconds)"
+        }
+        return "\(minutes):\(seconds)"
     }
     
     func startPlaybackTimeChecker() {
