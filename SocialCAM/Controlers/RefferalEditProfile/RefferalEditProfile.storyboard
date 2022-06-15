@@ -137,8 +137,17 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Esf-vI-bse">
                                                         <rect key="frame" x="57.5" y="25" width="110" height="110"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userBitmoji" translatesAutoresizingMaskIntoConstraints="NO" id="NDl-6T-dJZ">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder_blue" translatesAutoresizingMaskIntoConstraints="NO" id="NDl-6T-dJZ">
                                                                 <rect key="frame" x="5" y="5" width="100" height="100"/>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus_blue" translatesAutoresizingMaskIntoConstraints="NO" id="Wph-FX-v7q">
+                                                                <rect key="frame" x="72" y="1" width="30" height="32"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="tintColor" red="0.34901960784313724" green="0.56470588235294117" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="32" id="SAR-hG-nHk"/>
+                                                                    <constraint firstAttribute="width" constant="30" id="rNF-HD-wVS"/>
+                                                                </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pS1-Kq-saJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
@@ -156,10 +165,12 @@
                                                             <constraint firstAttribute="bottom" secondItem="pS1-Kq-saJ" secondAttribute="bottom" id="0BJ-qc-619"/>
                                                             <constraint firstAttribute="width" constant="110" id="7iS-CR-fsr"/>
                                                             <constraint firstAttribute="bottom" secondItem="NDl-6T-dJZ" secondAttribute="bottom" constant="5" id="9Xs-ds-0RS"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Wph-FX-v7q" secondAttribute="trailing" constant="8" id="FJk-vp-Kob"/>
                                                             <constraint firstItem="pS1-Kq-saJ" firstAttribute="top" secondItem="Esf-vI-bse" secondAttribute="top" id="O9P-qV-KrE"/>
                                                             <constraint firstAttribute="trailing" secondItem="NDl-6T-dJZ" secondAttribute="trailing" constant="5" id="Of1-Wk-zxv"/>
                                                             <constraint firstItem="NDl-6T-dJZ" firstAttribute="top" secondItem="Esf-vI-bse" secondAttribute="top" constant="5" id="PVm-zq-Gnk"/>
                                                             <constraint firstItem="pS1-Kq-saJ" firstAttribute="leading" secondItem="Esf-vI-bse" secondAttribute="leading" id="VQR-65-XL0"/>
+                                                            <constraint firstItem="Wph-FX-v7q" firstAttribute="top" secondItem="Esf-vI-bse" secondAttribute="top" constant="1" id="c7M-cc-mls"/>
                                                             <constraint firstItem="NDl-6T-dJZ" firstAttribute="leading" secondItem="Esf-vI-bse" secondAttribute="leading" constant="5" id="i2F-Xb-cnP"/>
                                                             <constraint firstAttribute="trailing" secondItem="pS1-Kq-saJ" secondAttribute="trailing" id="uxE-wj-qkO"/>
                                                             <constraint firstAttribute="height" constant="110" id="x6C-1e-yQM"/>
@@ -384,11 +395,12 @@
         <image name="User_placeholder" width="400" height="400"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
+        <image name="plus_blue" width="42" height="42"/>
         <image name="prelaunchBadge" width="226" height="342"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
-        <image name="userBitmoji" width="57" height="65"/>
+        <image name="userPlaceholder_blue" width="286" height="286"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="editProfilePopupBlurView">
             <color red="0.35294117647058826" green="0.38039215686274508" blue="0.4823529411764706" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
