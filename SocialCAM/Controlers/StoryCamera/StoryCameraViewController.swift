@@ -2785,7 +2785,7 @@ extension StoryCameraViewController {
         }
     }
     
-    func openStyleTransferVC(images: [UIImage], isSlideShow: Bool = false) {
+    func openStyleTransferVC(images: [UIImage], isSlideShow: Bool = false, isFromGallery: Bool) {
         guard images.count > 0 else {
             return
         }
@@ -2796,7 +2796,16 @@ extension StoryCameraViewController {
         var medias: [StoryEditorMedia] = []
         for image in images {
             medias.append(StoryEditorMedia(type: .image(image)))
-//            SCAlbum.shared.save(image: image)
+            print(isFromGallery)
+            print(Defaults.shared.isAutoSavePic2ArtOriginalPhoto)
+            if !isFromGallery {
+                if Defaults.shared.isAutoSavePic2ArtOriginalPhoto {
+                    DispatchQueue.main.async {
+                        SCAlbum.shared.save(image: image)
+                        styleTransferVC.view.makeToast("Photo saved", duration: ToastManager.shared.duration, position: .bottom)
+                    }
+                }
+            }
         }
         switch medias[0].type {
         case let .image(image):

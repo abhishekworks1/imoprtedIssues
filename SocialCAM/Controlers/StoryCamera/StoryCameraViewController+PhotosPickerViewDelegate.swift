@@ -115,7 +115,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                             imageVideoSegments.forEach { (segment) in
                                 images.append(segment.image ?? UIImage())
                             }
-                            self.openStyleTransferVC(images: images)
+                            self.openStyleTransferVC(images: images, isFromGallery: true)
                         } else {
                             self.openStoryEditor(segementedVideos: imageVideoSegments, photosSelection: true)
                         }

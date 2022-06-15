@@ -158,7 +158,7 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
                 }
             } else if self.recordingType == .pic2Art {
                 DispatchQueue.main.async {
-                    self.openStyleTransferVC(images: [image])
+                    self.openStyleTransferVC(images: [image], isFromGallery: false)
                 }
             } else if self.recordingType == .slideshow || self.recordingType == .collage {
                 self.takenSlideShowImages.append(SegmentVideos(urlStr: URL(string: Constant.Application.imageIdentifier)!, thumbimage: image, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
