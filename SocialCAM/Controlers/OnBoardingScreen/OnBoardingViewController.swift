@@ -10,7 +10,7 @@ import UIKit
 
 class OnBoardingViewController: UIViewController {
 
-    var showPopUpView: Bool = false
+    var showPopUpView: Bool = true
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var popupView: UIView!
 
