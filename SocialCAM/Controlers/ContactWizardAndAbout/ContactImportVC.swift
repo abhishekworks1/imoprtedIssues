@@ -2549,10 +2549,18 @@ extension ContactImportVC:UIScrollViewDelegate{
             if self.loadingStatus{
                 return
             }
-            if emailContactTableView.contentSize.height > (84.0 + 50.0 + self.emailContactTableView.frame.size.height){
-                
-            }else{
-               return
+            if self.contactTableView.isHidden == true {
+                if emailContactTableView.contentSize.height > (84.0 + 50.0 + self.emailContactTableView.frame.size.height){
+                    
+                }else{
+                    return
+                }
+            } else {
+                if contactTableView.contentSize.height > (84.0 + 50.0 + self.contactTableView.frame.size.height){
+                    
+                }else{
+                    return
+                }
             }
         if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
