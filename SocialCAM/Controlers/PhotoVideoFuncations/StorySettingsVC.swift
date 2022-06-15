@@ -259,10 +259,27 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var bottomCopyRightView: UIView!
     @IBOutlet weak var tableViewBottomConstraints: NSLayoutConstraint!
     private var lastContentOffset: CGFloat = 0
-//
+
 //    @IBOutlet weak var iconSettingsImage: UIImageView!
 //    @IBOutlet weak var badgesView: UIStackView!
-//
+
+    
+    @IBOutlet weak var iosBadgeView: UIView!
+    @IBOutlet weak var iosSheildImageview: UIImageView!
+    @IBOutlet weak var iosIconImageview: UIImageView!
+    @IBOutlet weak var lbliosDaysRemains: UILabel!
+    
+    @IBOutlet weak var androidBadgeView: UIView!
+    @IBOutlet weak var androidSheildImageview: UIImageView!
+    @IBOutlet weak var androidIconImageview: UIImageView!
+    @IBOutlet weak var lblandroidDaysRemains: UILabel!
+    
+    @IBOutlet weak var webBadgeView: UIView!
+    @IBOutlet weak var webSheildImageview: UIImageView!
+    @IBOutlet weak var webIconImageview: UIImageView!
+    @IBOutlet weak var lblwebDaysRemains: UILabel!
+    
+    
     // MARK: - Variables declaration
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType

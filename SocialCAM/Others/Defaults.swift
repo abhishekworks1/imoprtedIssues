@@ -228,7 +228,10 @@ class Defaults {
                     for setting in settings {
                         if setting.settingsType == .system {
                             setting.settings.first?.name = R.string.localizable.appSettings()
-                            break
+                        } else if setting.settingsType == .qrcode {
+                            setting.settings.first?.name = R.string.localizable.qrCode()
+                        } else if setting.settingsType == .help {
+                            setting.settings.first?.name = R.string.localizable.howItWorks()
                         }
                     }
                     return settings
@@ -1383,7 +1386,7 @@ class Defaults {
     func getCountFromBadge(parentbadge: ParentBadges) -> String {
         let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
         var diffDays = 0
-        if let createdDate = parentbadge.createdAt?.utcDateFromString() {
+        if let createdDate = parentbadge.createdAt?.isoDateFromString() {
          diffDays = Date().days(from: createdDate)
         }
         let trialCalculatedDay = diffDays + 1
