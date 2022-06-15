@@ -67,6 +67,7 @@ def projectShared_pods
     pod 'CropPickerView'
     pod 'Firebase/Messaging'
     pod 'Reorder'
+    pod 'SnapKit'
     shared_pods
 end
 

@@ -288,7 +288,13 @@ extension String {
         dateFormat.timeZone = TimeZone(abbreviation: "UTC")
         return dateFormat.date(from: self) ?? Date()
     }
-    
+    func isoDateFromString() -> Date {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormat.calendar = Calendar(identifier: .iso8601)
+        dateFormat.timeZone = TimeZone(secondsFromGMT: 0)
+        return dateFormat.date(from: self) ?? Date()
+    }
     func fromUTCToLocalDateTime() -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = R.string.localizable.yyyyMMDdTHHMmSsSSSZ()
