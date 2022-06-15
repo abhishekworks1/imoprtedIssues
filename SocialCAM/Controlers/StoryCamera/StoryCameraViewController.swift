@@ -1565,7 +1565,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
                                 self.showAlertForUpgradeSubscription()
                             }} else {
                                 self.showAlertForUpgradeSubscription()
@@ -1591,11 +1591,12 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" {
-                                self.showAlertForUpgradeSubscription()
-                            }} else {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
                                 self.showAlertForUpgradeSubscription()
                             }
+                        } else {
+                            self.showAlertForUpgradeSubscription()
+                        }
                     } else {
                         if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                             if isPic2ArtShowed {
@@ -1631,7 +1632,7 @@ extension StoryCameraViewController {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
                                 self.showAlertForUpgradeSubscription()
                             }} else {
                                 self.showAlertForUpgradeSubscription()
