@@ -47,7 +47,19 @@ class FollowMeStoryView: UIView {
     }
     
     @IBAction func onBitEmojiChange(_ sender: UIButton) {
-        openActionSheet()
+        let vc = ReferalActionSheetViewController(nibName: R.nib.referalActionSheetViewController.name, bundle: nil)
+//        vc.view.backgroundColor = .clear
+//        vc.modalPresentationStyle = .fullScreen
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .coverVertical
+        vc.delegate = self
+        guard let superView = self.superview else {
+            return
+        }
+//        superView.backgroundColor = .clear
+//        superView.parentViewController?.view.backgroundColor = .clear
+        superView.parentViewController?.present(vc, animated: true, completion: nil)
+//        openActionSheet()
     }
     
     func openGallery(fromSourceType sourceType: UIImagePickerController.SourceType) {
@@ -119,6 +131,23 @@ class FollowMeStoryView: UIView {
     func setFromUserProfilePic() {
         if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
             userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+        }
+    }
+}
+
+extension FollowMeStoryView: ReferalActionSheetViewDelegate {
+    func referralImageSelectedType(selectedType: ReferralImageType) {
+        switch selectedType {
+        case .camera:
+            self.openGallery(fromSourceType: .camera)
+        case .bitmoji:
+            self.bitEmojiChange()
+        case .gallery:
+            self.openGallery(fromSourceType: .photoLibrary)
+        case .profilePic:
+            self.setFromUserProfilePic()
+        case .appLogo:
+            self.userBitEmoji.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
         }
     }
 }

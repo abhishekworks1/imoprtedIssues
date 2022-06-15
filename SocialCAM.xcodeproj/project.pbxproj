@@ -657,6 +657,10 @@
 		355798C3281BA4F900088F27 /* ShareExtentionQuickCam.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 355798B9281BA4F900088F27 /* ShareExtentionQuickCam.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		35D01470281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D0146F281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift */; };
 		35D01471281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D0146F281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift */; };
+		35DF1D3D2853425900450679 /* ReferalActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DF1D3B2853425900450679 /* ReferalActionSheetViewController.swift */; };
+		35DF1D3E2853425900450679 /* ReferalActionSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35DF1D3C2853425900450679 /* ReferalActionSheetViewController.xib */; };
+		35DF1D3F2853449A00450679 /* ReferalActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DF1D3B2853425900450679 /* ReferalActionSheetViewController.swift */; };
+		35DF1D40285344BC00450679 /* ReferalActionSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35DF1D3C2853425900450679 /* ReferalActionSheetViewController.xib */; };
 		35E979832803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
 		35E979842803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
 		35E9798728042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */; };
@@ -15485,6 +15489,8 @@
 		355798C0281BA4F900088F27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		355798C9281BB1F700088F27 /* ShareExtentionQuickCam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtentionQuickCam.entitlements; sourceTree = "<group>"; };
 		35D0146F281A5551003C3B7B /* ZoomAndSnapFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAndSnapFlowLayout.swift; sourceTree = "<group>"; };
+		35DF1D3B2853425900450679 /* ReferalActionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferalActionSheetViewController.swift; sourceTree = "<group>"; };
+		35DF1D3C2853425900450679 /* ReferalActionSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReferalActionSheetViewController.xib; sourceTree = "<group>"; };
 		35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AboutStoryboard.storyboard; sourceTree = "<group>"; };
 		35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RefferalEditProfile.storyboard; sourceTree = "<group>"; };
 		35E9798928042F5800A218E6 /* RefferalEditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalEditProfileViewController.swift; sourceTree = "<group>"; };
@@ -17012,6 +17018,15 @@
 				75930D6828525DDF00B1A1EF /* MakeMoneyReferringViewController.swift */,
 			);
 			path = OnBoardingScreen;
+            sourceTree = "<group>";
+        };
+		35DF1D3A2853422500450679 /* ReferalSheet */ = {
+			isa = PBXGroup;
+			children = (
+				35DF1D3B2853425900450679 /* ReferalActionSheetViewController.swift */,
+				35DF1D3C2853425900450679 /* ReferalActionSheetViewController.xib */,
+			);
+			path = ReferalSheet;
 			sourceTree = "<group>";
 		};
 		35E9798528042ECB00A218E6 /* RefferalEditProfile */ = {
@@ -18424,6 +18439,7 @@
 			isa = PBXGroup;
 			children = (
 				3568B138285216C800FB18E3 /* OnBoardingScreen */,
+				35DF1D3A2853422500450679 /* ReferalSheet */,
 				35E9798528042ECB00A218E6 /* RefferalEditProfile */,
 				9CA4AE9C27A65117001889DE /* ContactWizardAndAbout */,
 				82A404BC26FC6BF80032AC0F /* Notification */,
@@ -20543,6 +20559,7 @@
 				8244AF932493658600EC5269 /* Assets.xcassets in Resources */,
 				3546EAE628082C8C0043CA9B /* LICENSE in Resources */,
 				8205FA85236C0F9C002B2603 /* CameraView.xib in Resources */,
+				35DF1D3E2853425900450679 /* ReferalActionSheetViewController.xib in Resources */,
 				8205FBD0236C2A88002B2603 /* CoverA.xib in Resources */,
 				82FF046927146E8B00E6CB90 /* CountryCodes.json in Resources */,
 				F68AFEDF255A398F00465E5F /* Subscription.storyboard in Resources */,
@@ -22336,6 +22353,7 @@
 				C2F9349A264AA0CA006CA527 /* SF-UI-Text-Medium.otf in Resources */,
 				C2F9349B264AA0CA006CA527 /* TikTokShareView.xib in Resources */,
 				848A4F0F2841045C00A8BFC3 /* CameraTooltip4.gif in Resources */,
+				35DF1D40285344BC00450679 /* ReferalActionSheetViewController.xib in Resources */,
 				848A4F0B2841045C00A8BFC3 /* CameraTooltip2.gif in Resources */,
 				C2F9349C264AA0CA006CA527 /* PageViewController.storyboard in Resources */,
 				C235EFE02660F9EB00EBF11F /* Tooltip2.gif in Resources */,
@@ -26821,6 +26839,7 @@
 				8205FAF3236C110C002B2603 /* VideoScrollView.swift in Sources */,
 				95A405AF23BF78D000AD38C4 /* SpecificBoomerangWriter.swift in Sources */,
 				8205FBCD236C2A88002B2603 /* MMPlayerProtocol.swift in Sources */,
+				35DF1D3D2853425900450679 /* ReferalActionSheetViewController.swift in Sources */,
 				84702BFC2835002900508090 /* CancelSubscriptionModel.swift in Sources */,
 				824EB3F123619FB000205993 /* NextLevel+AVFoundation.swift in Sources */,
 				954660492387B5CC00A37AE0 /* Mantis.swift in Sources */,
@@ -34172,6 +34191,7 @@
 				C230035626526B8B00529DC1 /* AWSManager+S3.swift in Sources */,
 				C2F93402264AA0CA006CA527 /* Story.swift in Sources */,
 				C2F93403264AA0CA006CA527 /* NotificationManager.swift in Sources */,
+				35DF1D3F2853449A00450679 /* ReferalActionSheetViewController.swift in Sources */,
 				C2F93404264AA0CA006CA527 /* ContrastControl.swift in Sources */,
 				C2F93405264AA0CA006CA527 /* CollageViewT305.swift in Sources */,
 				C2F93406264AA0CA006CA527 /* CollageViewT312.swift in Sources */,

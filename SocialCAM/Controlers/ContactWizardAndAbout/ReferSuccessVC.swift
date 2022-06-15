@@ -89,6 +89,7 @@ class ReferSuccessVC: UIViewController {
     }
     @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
         businessDashbardConfirmPopupView.isHidden = true
+       
     }
     func presentSafariBrowser(url: URL) {
         let safariVC = SFSafariViewController(url: url)
@@ -96,8 +97,11 @@ class ReferSuccessVC: UIViewController {
     }
     func openBussinessDashboard(){
         if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
-             businessDashbardConfirmPopupView.isHidden = false
-            btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
+            
+            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+            navigationController?.pushViewController(storySettingsVC, animated: true)
+         //   businessDashbardConfirmPopupView.isHidden = false
+         //   btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
 //            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
           //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
         }else{

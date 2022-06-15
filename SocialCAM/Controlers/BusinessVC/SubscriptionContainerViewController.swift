@@ -45,7 +45,8 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var advancedAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var premiumAppleLogoCenterY: NSLayoutConstraint!
     @IBOutlet weak var subscribeNowLabel: UILabel!
-
+    @IBOutlet weak var subscribertypeview: UIView!
+    @IBOutlet weak var subscribertypeLabel: UILabel!
     // MARK: -
     // MARK: - Variables
     
@@ -81,6 +82,7 @@ class SubscriptionContainerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
+        subscribertypeview.isHidden = true
         setSubscribeNowLabel()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -233,18 +235,32 @@ class SubscriptionContainerViewController: UIViewController {
             viewDetailBasicView.isHidden = true
             activeBasicView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan Basic"
+            subscribertypeLabel.text = "Basic"
+            subscribertypeview.isHidden = false
+            subscribertypeview.backgroundColor = UIColor(hexString:"C9B552")
+            lbltrialDays.text = ""
+
         }else if(Defaults.shared.subscriptionType?.lowercased() == "advance"){
             viewDetailAdvancedView.isHidden = true
             activeAdvancedView.isHidden = false
-            subscribeNowLabel.text = "Your Subscription Plan Advanced"
+            subscribeNowLabel.text = "Your Subscription Plan"
+            subscribertypeLabel.text = "Advanced"
+            subscribertypeview.isHidden = false
+            subscribertypeview.backgroundColor = UIColor(hexString:"88A975")
+            lbltrialDays.text = ""
         }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
             viewDetailProView.isHidden = true
             activeProView.isHidden = false
-            subscribeNowLabel.text = "Your Subscription Plan Premium"
+            subscribeNowLabel.text = "Your Subscription Plan"
+            subscribertypeLabel.text = "Premium"
+            subscribertypeview.isHidden = false
+            subscribertypeview.backgroundColor = UIColor(hexString:"617FB1")
+            lbltrialDays.text = ""
         }else{
             subscribeNowLabel.text = "SUBSCRIBE NOW"
             viewDetailFreeView.isHidden = true
             activeFreeView.isHidden = false
+            subscribertypeview.isHidden = true
         }
     }
    /* private func setSubscriptionBadgeDetails(){
