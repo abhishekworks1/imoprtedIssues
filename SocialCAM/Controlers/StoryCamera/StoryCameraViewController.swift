@@ -2176,7 +2176,7 @@ extension StoryCameraViewController {
     }
     
     func resetProgressTimer() {
-        if recordingType != .normal {
+        if recordingType != .normal && recordingType != .newNormal {
             progress = 0
         }
         self.progressTimer?.invalidate()
@@ -2232,9 +2232,7 @@ extension StoryCameraViewController {
                     } else if isLiteApp {
                         self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
-                        if Defaults.shared.appMode == .professional {
-                            totalSeconds = 60
-                        }
+                        totalSeconds = self.liteCamMaxSeconds()
                     }
                     self.progressMaxSeconds = totalSeconds
                     self.circularProgress.progressInsideFillColor = .red
@@ -2262,11 +2260,25 @@ extension StoryCameraViewController {
         hideRecordingControls()
     }
     
+    func liteCamMaxSeconds() -> CGFloat {
+        var totalSeconds: CGFloat = 30
+        if Defaults.shared.appMode == .basic {
+            totalSeconds = 60
+        }
+        if Defaults.shared.appMode == .advanced {
+            totalSeconds = 120
+        }
+        if Defaults.shared.appMode == .professional {
+            totalSeconds = 180
+        }
+        return totalSeconds
+    }
+    
     func stopRecording() {
         nextLevel.torchMode = .off
         nextLevel.videoZoomFactor = 0.0
         self.isVideoRecording = false
-        if isLiteApp, recordingType == .normal {
+        if isLiteApp, (recordingType == .normal || recordingType == .newNormal) {
             self.segmentsProgress.append(progress)
             self.circularProgress.drawArc(startAngle: Double(progress))
             self.discardSegmentsStackView.isHidden = false
@@ -2499,7 +2511,7 @@ extension StoryCameraViewController {
             let currentVideoSeconds = self.videoSegmentSeconds
                
             var isVideoStop: Bool = false
-            self.totalSegDuration = "30.0"
+            self.totalSegDuration = "\(self.liteCamMaxSeconds())"
             switch Defaults.shared.appMode {
             case .free:
                 if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 30 || (takenVideoUrls.count >= 5) {
@@ -2563,14 +2575,14 @@ extension StoryCameraViewController {
                     
                     self.recordingTimeLabel.isHidden = false
                 }
-                if recordingType != .normal {
+                if recordingType != .normal && recordingType != .newNormal {
                     if Defaults.shared.isVideoSavedAfterRecording == true {
                         if let url = self.takenVideoUrls.last?.url {
                             SCAlbum.shared.saveMovieToLibrary(movieURL: url)
                         }
                     }
                     self.openStoryEditor(segementedVideos: takenVideoUrls)
-                } else if isLiteApp, recordingType == .normal, totalDurationSum >= 30 { //removed because video was not saving in Quickcam mode
+                } else if isLiteApp, recordingType == .normal, totalDurationSum >= self.liteCamMaxSeconds() { //removed because video was not saving in Quickcam mode
 //                    if Defaults.shared.isVideoSavedAfterRecording == true {
 //                        if let url = self.takenVideoUrls.last?.url {
 //                            SCAlbum.shared.saveMovieToLibrary(movieURL: url)
@@ -2747,7 +2759,7 @@ extension StoryCameraViewController {
                 fatalError("PhotoEditorViewController Not Found")
             }
             var medias: [StoryEditorMedia] = []
-            if isLiteApp, recordingType == .normal {
+            if isLiteApp, (recordingType == .normal || recordingType == .newNormal) {
                 progress = 0
                 medias.append(StoryEditorMedia(type: .video(segementedVideos.first!.image!, asset)))
             } else {

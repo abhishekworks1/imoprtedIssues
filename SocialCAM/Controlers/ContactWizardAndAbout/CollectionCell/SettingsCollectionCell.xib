@@ -95,14 +95,14 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7xa-a4-Szk">
-                                                        <rect key="frame" x="6.5" y="4.5" width="17" height="17"/>
+                                                        <rect key="frame" x="6.5" y="1.5" width="17" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="17" id="D4t-Th-bdQ"/>
                                                             <constraint firstAttribute="height" constant="17" id="bBj-Eu-Lu2"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-p2-95d">
-                                                        <rect key="frame" x="11.5" y="10.5" width="7" height="12"/>
+                                                        <rect key="frame" x="11.5" y="14" width="7" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -114,8 +114,8 @@
                                                     <constraint firstAttribute="trailing" secondItem="gpB-bF-b12" secondAttribute="trailing" id="CCD-k9-dt3"/>
                                                     <constraint firstAttribute="width" constant="30" id="IM6-9V-ltt"/>
                                                     <constraint firstItem="DYL-p2-95d" firstAttribute="centerX" secondItem="LEa-vj-puh" secondAttribute="centerX" id="J2i-Wl-aqO"/>
-                                                    <constraint firstItem="7xa-a4-Szk" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" constant="-2" id="Nmh-Ms-KAP"/>
-                                                    <constraint firstItem="DYL-p2-95d" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" constant="1.5" id="So5-RP-NNE"/>
+                                                    <constraint firstItem="7xa-a4-Szk" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" constant="-5" id="Nmh-Ms-KAP"/>
+                                                    <constraint firstItem="DYL-p2-95d" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" constant="5" id="So5-RP-NNE"/>
                                                     <constraint firstItem="7xa-a4-Szk" firstAttribute="centerX" secondItem="LEa-vj-puh" secondAttribute="centerX" id="V5R-P3-dq1"/>
                                                     <constraint firstItem="gpB-bF-b12" firstAttribute="top" secondItem="LEa-vj-puh" secondAttribute="top" id="n1o-9h-UKw"/>
                                                     <constraint firstAttribute="bottom" secondItem="gpB-bF-b12" secondAttribute="bottom" id="p4s-Ml-W6P"/>
@@ -295,7 +295,7 @@
         <image name="androidBadge" width="64" height="64"/>
         <image name="basicBadge" width="64" height="64"/>
         <image name="editProfileBadge" width="512" height="512"/>
-        <image name="freeAppleIcon" width="57" height="47"/>
+        <image name="freeAppleIcon" width="28.5" height="23.5"/>
         <image name="proBadge" width="64" height="64"/>
         <image name="webBadge" width="512" height="512"/>
         <namedColor name="storytag_fadedRed">
