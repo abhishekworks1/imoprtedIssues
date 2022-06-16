@@ -54,86 +54,86 @@ extension Date {
         
         if components.year! >= 2 {
             if numericDates {
-                return "\(components.year!)y"
+                return "\(components.year!) year's ago"
             } else {
-                return "\(components.year!) years ago"
+                return "\(components.year!) year's ago"
             }
             
         } else if components.year! >= 1 {
             if numericDates {
-                return "1y"
+                return "1 year ago"
             } else {
                 return "Last year"
             }
         } else if components.month! >= 2 {
             if numericDates {
-                return "\(components.month!)mo"
+                return "\(components.month!) month's ago"
             } else {
-                return "\(components.month!) months ago"
+                return "\(components.month!) month's ago"
             }
         } else if components.month! >= 1 {
             if numericDates {
-                return "1mo"
+                return "1 month ago"
             } else {
                 return "Last month"
             }
         } else if components.weekOfYear! >= 2 {
             if numericDates {
-                return "\(components.weekOfYear!)w"
+                return "\(components.weekOfYear!) week's ago"
             } else {
                 return "\(components.weekOfYear!) weeks ago"
             }
         } else if components.weekOfYear! >= 1 {
             if numericDates {
-                return "1w"
+                return "1 week ago"
             } else {
                 return "Last week"
             }
         } else if components.day! >= 2 {
             if numericDates {
-                return "\(components.day!)d"
+                return "\(components.day!) days ago"
             } else {
                 return "\(components.day!) days ago"
             }
         } else if components.day! >= 1 {
             if numericDates {
-                return "1d"
+                return "1 day ago"
             } else {
                 return "Yesterday"
             }
         } else if components.hour! >= 2 {
             if numericDates {
-                return "\(components.hour!)h"
+                return "\(components.hour!) hours ago"
             } else {
                 return "\(components.hour!) hours ago"
             }
         } else if components.hour! >= 1 {
             if numericDates {
-                return "1h"
+                return "1 hour ago"
             } else {
                 return "1 hour ago"
             }
         } else if components.minute! >= 2 {
             if (numericDates) {
-                return "\(components.minute!)m"
+                return "\(components.minute!) mins ago"
             } else {
                 return "\(components.minute!) minutes ago"
             }
         } else if components.minute! >= 1 {
             if numericDates {
-                return "1m"
+                return "1 minute ago"
             } else {
                 return "1 minute ago"
             }
         } else if components.second! >= 3 {
             if numericDates {
-                return "\(components.second!)s"
+                return "\(components.second!) sec's ago"
             } else {
                 return "\(components.second!) second ago"
             }
         } else {
             if numericDates {
-                return "1s"
+                return "1 sec ago"
             } else {
                 return "Just now"
             }

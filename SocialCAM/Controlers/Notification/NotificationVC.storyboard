@@ -150,38 +150,49 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="400" height="73"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 M" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ajU-Md-WiY">
-                                                            <rect key="frame" x="365" y="28.5" width="25" height="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 mins ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ajU-Md-WiY">
+                                                            <rect key="frame" x="319.5" y="29.5" width="70.5" height="14.5"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" priority="749" constant="100" id="azv-Pb-QGy"/>
+                                                                <constraint firstAttribute="width" constant="70.5" id="HEO-Ld-PcX"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="12"/>
                                                             <color key="textColor" red="0.56862745100000001" green="0.59215686270000001" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="foT-mc-miS" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="10" width="62" height="53"/>
+                                                            <rect key="frame" x="10" y="12" width="55" height="49"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" secondItem="foT-mc-miS" secondAttribute="height" multiplier="1:1" priority="750" id="iRj-JI-3FD"/>
+                                                                <constraint firstAttribute="height" constant="55" id="4P8-V3-vEQ"/>
+                                                                <constraint firstAttribute="width" constant="55" id="qfN-Ko-SEw"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lisa Cuddyhgnmgmngnjhkhnkgnhghn fggfn hg g " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m46-o7-aTe" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                            <rect key="frame" x="82" y="21" width="278" height="31.5"/>
+                                                            <rect key="frame" x="75" y="13" width="234.5" height="47"/>
                                                             <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="13"/>
                                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-hx-coB">
+                                                            <rect key="frame" x="0.0" y="72" width="400" height="1"/>
+                                                            <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="JLE-RB-tOX"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="ajU-Md-WiY" secondAttribute="trailing" constant="10" id="5aJ-jE-0Cu"/>
-                                                        <constraint firstItem="foT-mc-miS" firstAttribute="leading" secondItem="XOb-K0-dPb" secondAttribute="leading" constant="10" id="86D-X8-ZxU"/>
-                                                        <constraint firstItem="m46-o7-aTe" firstAttribute="centerY" secondItem="foT-mc-miS" secondAttribute="centerY" id="Ag0-Bw-nel"/>
-                                                        <constraint firstItem="ajU-Md-WiY" firstAttribute="leading" secondItem="m46-o7-aTe" secondAttribute="trailing" priority="751" constant="5" id="Ago-Hm-lX7"/>
-                                                        <constraint firstItem="foT-mc-miS" firstAttribute="width" secondItem="XOb-K0-dPb" secondAttribute="width" multiplier="0.1552" id="EVd-x5-kAe"/>
-                                                        <constraint firstItem="ajU-Md-WiY" firstAttribute="centerY" secondItem="foT-mc-miS" secondAttribute="centerY" id="UHB-Qe-7NX"/>
-                                                        <constraint firstItem="m46-o7-aTe" firstAttribute="leading" secondItem="foT-mc-miS" secondAttribute="trailing" constant="10" id="bql-DR-vyL"/>
-                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="foT-mc-miS" secondAttribute="bottom" constant="10" id="mdK-Sp-bR1"/>
-                                                        <constraint firstItem="foT-mc-miS" firstAttribute="top" secondItem="XOb-K0-dPb" secondAttribute="top" constant="10" id="oIA-XS-nF9"/>
+                                                        <constraint firstItem="m46-o7-aTe" firstAttribute="centerY" secondItem="XOb-K0-dPb" secondAttribute="centerY" id="BJq-pz-dbi"/>
+                                                        <constraint firstItem="foT-mc-miS" firstAttribute="leading" secondItem="XOb-K0-dPb" secondAttribute="leading" constant="10" id="Cq5-CY-hHi"/>
+                                                        <constraint firstItem="Lid-hx-coB" firstAttribute="leading" secondItem="XOb-K0-dPb" secondAttribute="leading" id="D4x-Ip-bgB"/>
+                                                        <constraint firstItem="ajU-Md-WiY" firstAttribute="centerY" secondItem="XOb-K0-dPb" secondAttribute="centerY" id="GkN-El-uCb"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Lid-hx-coB" secondAttribute="bottom" id="Twu-bq-Oa3"/>
+                                                        <constraint firstItem="foT-mc-miS" firstAttribute="top" secondItem="XOb-K0-dPb" secondAttribute="top" constant="12" id="h3g-Nr-Anp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="foT-mc-miS" secondAttribute="bottom" constant="12" id="jvG-BE-BMp"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Lid-hx-coB" secondAttribute="trailing" id="ltz-x1-fDY"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ajU-Md-WiY" secondAttribute="trailing" constant="10" id="ofX-y2-B5h"/>
+                                                        <constraint firstItem="m46-o7-aTe" firstAttribute="leading" secondItem="foT-mc-miS" secondAttribute="trailing" constant="10" id="qxR-sD-jsN"/>
+                                                        <constraint firstItem="ajU-Md-WiY" firstAttribute="leading" secondItem="m46-o7-aTe" secondAttribute="trailing" constant="10" id="tW9-Vc-b4P"/>
+                                                        <constraint firstItem="foT-mc-miS" firstAttribute="centerY" secondItem="XOb-K0-dPb" secondAttribute="centerY" id="z9r-le-xTx"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -255,7 +266,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMt-z7-uhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-478" y="814"/>
+            <point key="canvasLocation" x="-478.26086956521743" y="813.61607142857144"/>
         </scene>
         <!--User DetailsVC-->
         <scene sceneID="zvZ-pM-mYj">
@@ -1505,6 +1516,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
