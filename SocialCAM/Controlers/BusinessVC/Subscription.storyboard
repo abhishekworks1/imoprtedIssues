@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
         <array key="SF-UI-Text-Bold.otf">
             <string>SFUIText-Bold</string>
         </array>
@@ -77,14 +80,40 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBO-Bn-tNw">
+                                        <rect key="frame" x="0.0" y="35.5" width="300" height="32"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advanced" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDM-sa-JSj">
+                                                <rect key="frame" x="114.5" y="6.5" width="71.5" height="19"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
+                                                <color key="textColor" name="Active1"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="aDM-sa-JSj" firstAttribute="centerY" secondItem="LBO-Bn-tNw" secondAttribute="centerY" id="G2a-Yi-icp"/>
+                                            <constraint firstItem="aDM-sa-JSj" firstAttribute="centerX" secondItem="LBO-Bn-tNw" secondAttribute="centerX" id="bk0-Iw-FCK"/>
+                                            <constraint firstAttribute="height" constant="32" id="ypt-fR-gex"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="k5r-44-aGV" firstAttribute="centerX" secondItem="ufh-It-ypk" secondAttribute="centerX" id="6HY-KN-A2i"/>
                                     <constraint firstItem="k5r-44-aGV" firstAttribute="centerY" secondItem="ufh-It-ypk" secondAttribute="centerY" constant="-10" id="BUu-tE-3cW"/>
+                                    <constraint firstItem="LBO-Bn-tNw" firstAttribute="leading" secondItem="ufh-It-ypk" secondAttribute="leading" id="CmP-Zf-ca1"/>
                                     <constraint firstAttribute="trailing" secondItem="oWd-RK-lsr" secondAttribute="trailing" constant="10" id="Fx9-jI-Ab5"/>
                                     <constraint firstAttribute="height" constant="60" id="LKl-t2-SDg"/>
+                                    <constraint firstItem="LBO-Bn-tNw" firstAttribute="top" secondItem="k5r-44-aGV" secondAttribute="bottom" constant="5" id="P5D-14-3rD"/>
                                     <constraint firstItem="oWd-RK-lsr" firstAttribute="top" secondItem="k5r-44-aGV" secondAttribute="bottom" constant="4" id="PVS-gF-MtD"/>
+                                    <constraint firstItem="LBO-Bn-tNw" firstAttribute="centerX" secondItem="ufh-It-ypk" secondAttribute="centerX" id="SO7-4s-ONa"/>
+                                    <constraint firstAttribute="trailing" secondItem="LBO-Bn-tNw" secondAttribute="trailing" id="W5w-eX-c8r"/>
                                     <constraint firstItem="oWd-RK-lsr" firstAttribute="centerX" secondItem="ufh-It-ypk" secondAttribute="centerX" id="XoE-xG-yK9"/>
                                     <constraint firstItem="oWd-RK-lsr" firstAttribute="leading" secondItem="ufh-It-ypk" secondAttribute="leading" constant="10" id="qH8-xx-ZV3"/>
                                 </constraints>
@@ -1074,6 +1103,8 @@
                         <outlet property="navigationBarView" destination="AhA-bR-90t" id="Oqk-4N-1jN"/>
                         <outlet property="premiumAppleLogoCenterY" destination="SOW-ea-Bsh" id="dsX-ww-Vm9"/>
                         <outlet property="subscribeNowLabel" destination="k5r-44-aGV" id="67W-C7-jZ4"/>
+                        <outlet property="subscribertypeLabel" destination="aDM-sa-JSj" id="KfH-TE-vcV"/>
+                        <outlet property="subscribertypeview" destination="LBO-Bn-tNw" id="1DS-FI-4NV"/>
                         <outlet property="viewDetailAdvancedView" destination="Sxd-Fp-84v" id="0b8-Mq-uCt"/>
                         <outlet property="viewDetailBasicView" destination="ed6-ce-Ngg" id="dRx-xD-Q1T"/>
                         <outlet property="viewDetailFreeView" destination="bks-N4-a4l" id="Qwo-zJ-KgJ"/>
@@ -1767,10 +1798,10 @@ Regular Price  | $2.99/month (after 3 months)</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rDv-mX-psa">
-                                                                    <rect key="frame" x="0.0" y="127" width="60" height="43.5"/>
+                                                                    <rect key="frame" x="0.0" y="127" width="59.5" height="43.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pic2Art" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsn-0J-dp8">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="20.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="59.5" height="20.5"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -2132,6 +2163,9 @@ Regular Price  | $2.99/month (after 3 months)</string>
         <image name="storyBack" width="19" height="19"/>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <image name="viewDetailsRightArrow" width="6" height="12"/>
+        <namedColor name="Active1">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

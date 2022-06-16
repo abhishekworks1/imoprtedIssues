@@ -2010,7 +2010,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
-        businessDashbardConfirmPopupView.isHidden = false
+       // businessDashbardConfirmPopupView.isHidden = false
+        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
     @IBAction func btnTextShareAction(_ sender: UIButton) {
         self.shareType = ShareType.textShare
@@ -2113,13 +2115,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
 //        if let token = Defaults.shared.sessionToken {
 //        let urlString = "\(websiteUrl)/redirect?token=\(token)"
-        let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
+  /*      let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
         print(urlString)
         guard let url = URL(string: urlString) else {
                 return
             }
             presentSafariBrowser(url: url)
-//        }
+//        } */
+        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+        navigationController?.pushViewController(storySettingsVC, animated: true)
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         businessDashbardConfirmPopupView.isHidden = true
