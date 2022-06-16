@@ -65,6 +65,7 @@ class StorySettingsListCell: UITableViewCell {
     @IBOutlet weak var webSheildImageview: UIImageView!
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
+    
     @IBOutlet weak var newBadgesImageView: UIImageView!
     @IBOutlet weak var notificationCountView: UIView!
     
