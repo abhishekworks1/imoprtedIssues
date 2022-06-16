@@ -1305,7 +1305,7 @@ class Defaults {
     
     var onBoardingReferral: String? {
         get {
-            return appDefaults?.string(forKey: "onboardingReferral") ?? "Opening Screen"
+            return appDefaults?.string(forKey: "onboardingReferral") ?? "Quick Menu"
         }
         set {
             appDefaults?.set(newValue, forKey: "onboardingReferral")

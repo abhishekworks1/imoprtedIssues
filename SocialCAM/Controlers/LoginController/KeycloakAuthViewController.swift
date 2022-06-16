@@ -225,7 +225,7 @@ extension KeycloakAuthViewController {
 //            Utils.appDelegate?.window?.rootViewController = rootViewController
             guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
             (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = true
-            Defaults.shared.onBoardingReferral = OnboardingReferral.OpeningScreen.description
+            Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
             Utils.appDelegate?.window?.rootViewController = onBoardView
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
@@ -236,7 +236,7 @@ extension KeycloakAuthViewController {
         Defaults.shared.isSignupLoginFlow = true
         guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
             (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = true
-        Defaults.shared.onBoardingReferral = OnboardingReferral.OpeningScreen.description
+        Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
         Utils.appDelegate?.window?.rootViewController = onBoardView
     }
     

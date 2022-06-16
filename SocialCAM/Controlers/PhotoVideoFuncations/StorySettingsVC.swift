@@ -84,7 +84,7 @@ enum SettingsMode: Int, Codable {
     case aboutPage
     case autoSavePic2Art
     case onboarding
-    case openingScreen
+    case quickMenu
     case quickCamCamera
     case mobileDashboard
 }
