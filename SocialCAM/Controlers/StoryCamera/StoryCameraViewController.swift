@@ -2573,7 +2573,6 @@ extension StoryCameraViewController {
                     print(finalDuration)
                     self.recordingTimeLabel.text = "\(finalDuration) / \(totalSegDuration)"
                     print("************Total Video Duration************")
-                    
                     self.recordingTimeLabel.isHidden = false
                 }
                 if recordingType != .normal && recordingType != .newNormal {
