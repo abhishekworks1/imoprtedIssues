@@ -151,8 +151,14 @@ class SystemSettingsCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    func configureCell() {
+        self.btnLock.isHidden = true
+        self.btnSystemSetting.isUserInteractionEnabled = false
+    }
+    
     // MARK: - Action Methods
     @IBAction func btnSystemSettingTaped(_ sender: UIButton) {
+        
         if systemSettingType == .showAllPopUps {
             Defaults.shared.isShowAllPopUpChecked = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
