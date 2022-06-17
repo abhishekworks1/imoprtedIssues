@@ -568,7 +568,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isVidplayAccountFound: Bool? = false
     var vidplaySessionToken = ""
     var isVideoRecordedForEditScreen = true
-    
+    var isFirstLaunch = true
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -789,8 +789,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
                             self.cameraSliderView.stringArray.remove(at: 0)
                             self.cameraSliderView.collectionView.reloadData()
-                            self.cameraSliderView.selectCell = 1
-                            self.cameraSliderView.collectionView.reloadData()
+                            if isFirstLaunch {
+                                self.isFirstLaunch = false
+                                self.cameraSliderView.selectCell = 1
+                                self.cameraSliderView.collectionView.reloadData()
+                            }
                         }
                     }
                 }
@@ -799,8 +802,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                     if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
-                        self.cameraSliderView.selectCell = 1
-                        self.cameraSliderView.collectionView.reloadData()
+                        if isFirstLaunch {
+                            self.isFirstLaunch = false
+                            self.cameraSliderView.selectCell = 1
+                            self.cameraSliderView.collectionView.reloadData()
+                        }
                     }
                 }
             }

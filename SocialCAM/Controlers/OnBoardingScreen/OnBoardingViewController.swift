@@ -10,9 +10,14 @@ import UIKit
 
 class OnBoardingViewController: UIViewController {
 
-    var showPopUpView: Bool = true
-    @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var centerPlaceholderView: NSLayoutConstraint!
+    @IBOutlet weak var heightPlaceholderView: NSLayoutConstraint!
+    @IBOutlet weak var foundingMemberImageView: UIImageView!
+    @IBOutlet weak var userImageView: UIImageView!
+
+    var showPopUpView: Bool = true
+    var shouldShowFoundingMemberView: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +62,19 @@ extension OnBoardingViewController {
     
     func setupView() {
         popupView.isHidden = !self.showPopUpView
-        if let user = Defaults.shared.currentUser {
-//            self.welcomeLabel.text = " Welcome \(String(describing: user.username!)), to QuickCam, the next level smart phone camera app for making money! \nThe perfect global economic crisis antidote!!"
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+        }
+        var badgearry = Defaults.shared.getbadgesArray()
+        badgearry = badgearry.filter { $0 != "iosbadge" && $0 != "androidbadge"}
+        if badgearry.count > 1 {
+            foundingMemberImageView.isHidden = false
+            centerPlaceholderView.constant = -30
+            heightPlaceholderView.constant = 211
+        } else {
+            foundingMemberImageView.isHidden = true
+            centerPlaceholderView.constant = 0
+            heightPlaceholderView.constant = 110
         }
     }
     

@@ -696,8 +696,8 @@ class StoryEditorViewController: UIViewController {
         
 //        self.youtubeShareView.isHidden = isImage //isImage
 //        self.tiktokShareView.isHidden = isImage
-//        self.playPauseButton.isHidden = isImage
-//        self.progressBarView.isHidden = isImage
+        self.playPauseButton.isHidden = isImage
+        self.progressBarView.isHidden = isImage
     }
          
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
