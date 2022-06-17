@@ -47,6 +47,7 @@ class SettingsCollectionCell: UICollectionViewCell {
        
     }
     func setUpSubscriptionBadges() {
+        androidIconImageview.isHidden = true
         badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
@@ -116,7 +117,7 @@ class SettingsCollectionCell: UICollectionViewCell {
                             androidSheildImageview.image = R.image.freeBadge()
                         } else {
                             lblandroidDaysRemains.text = ""
-                            androidSheildImageview.image = R.image.squareBadge()
+                            androidSheildImageview.image = R.image.squareBadgeAndroid()
                         }
                     }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -141,33 +142,33 @@ class SettingsCollectionCell: UICollectionViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.freeBadge()
+                        webSheildImageview.image = R.image.freebadgeweb()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         webBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblwebDaysRemains.text = finalDay
-                            webSheildImageview.image = R.image.freeBadge()
+                            webSheildImageview.image = R.image.freebadgeweb()
                         } else {
                             lblwebDaysRemains.text = ""
-                            webSheildImageview.image = R.image.squareBadge()
+                            webSheildImageview.image = R.image.sqaureBadgeweb()
                         }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.basicBadge()
+                        webSheildImageview.image = R.image.basicBadgeWeb()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.advancedBadge()
+                        webSheildImageview.image = R.image.advbadgeWeb()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.proBadge()
+                        webSheildImageview.image = R.image.premiumbadgeweb()
                     }
                 }
             }

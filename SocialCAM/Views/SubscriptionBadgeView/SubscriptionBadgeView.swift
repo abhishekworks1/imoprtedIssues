@@ -67,6 +67,7 @@ class SubscriptionBadgeView: UIView {
     
     func setUpSubscriptionBadges() {
 //        badgeView.isHidden = false
+        androidIconImageview.isHidden = true
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true

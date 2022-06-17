@@ -137,7 +137,8 @@ extension SystemSettingsViewController: UITableViewDelegate {
         }
         headerView.title.isHidden = true
         headerView.btnSelectShowAllPopup.isHidden = true
-        headerView.btnLock.isHidden = true
+//        headerView.btnLock.isHidden = true
+//        headerView.imageViewLock.isHidden = true
         return headerView
     }
     
