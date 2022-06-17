@@ -3042,6 +3042,8 @@ extension StoryCameraViewController {
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 subscriptionVC.subscriptionDelegate = self
                 self.navigationController?.pushViewController(subscriptionVC, animated: true)
+                self.cameraSliderView.selectCell = 0
+                self.cameraSliderView.collectionView.reloadData()
             }
         }))
         self.present(alert, animated: true, completion: nil)
