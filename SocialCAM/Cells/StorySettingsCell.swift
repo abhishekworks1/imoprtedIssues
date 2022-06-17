@@ -103,7 +103,7 @@ class StorySettingsListCell: UITableViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.freeBadge()
+                        iosSheildImageview.image = R.image.freeBadgeBG()
                         iosIconImageview.image = R.image.freeAppleIcon()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
@@ -123,19 +123,19 @@ class StorySettingsListCell: UITableViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.basicBadge()
+                        iosSheildImageview.image = R.image.basicBadgeBG()
                         iosIconImageview.image = R.image.basicAppleIcon()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.advancedBadge()
+                        iosSheildImageview.image = R.image.advBadgeBG()
                         iosIconImageview.image = R.image.advancedAppleIcon()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.proBadge()
+                        iosSheildImageview.image = R.image.priBadgeBG()
                         iosIconImageview.image = R.image.preAppleIcon()
                     }
                 }
