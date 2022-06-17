@@ -86,9 +86,7 @@ extension SystemSettingsViewController: UITableViewDataSource {
             fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
         }
         
-//        guard let onboardingCell: OnboardingTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.onboardingTableViewCell.identifier) as? OnboardingTableViewCell else {
-//            fatalError("\(R.reuseIdentifier.onboardingTableViewCell.identifier) Not Found")
-//        }
+        systemSettingsCell.configureCell()
         
         let settingTitle = SystemSettings.systemSettings[indexPath.section]
         if settingTitle.settingsType == .showAllPopups {

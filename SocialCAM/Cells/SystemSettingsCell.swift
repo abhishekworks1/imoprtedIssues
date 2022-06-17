@@ -57,8 +57,7 @@ class SystemSettingsCell: UITableViewCell {
             
             btnSelectShowAllPopup.setImage(R.image.checkBoxActive(), for: .selected)
             btnSelectShowAllPopup.setImage(R.image.checkBoxInActive(), for: .normal)
-            self.btnLock.isHidden = true
-            self.btnSystemSetting.isUserInteractionEnabled = false
+            
             if systemSettingType == .showAllPopUps {
                 title.text = R.string.localizable.showAllPopups()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
@@ -145,8 +144,14 @@ class SystemSettingsCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    func configureCell() {
+        self.btnLock.isHidden = true
+        self.btnSystemSetting.isUserInteractionEnabled = false
+    }
+    
     // MARK: - Action Methods
     @IBAction func btnSystemSettingTaped(_ sender: UIButton) {
+        
         if systemSettingType == .showAllPopUps {
             Defaults.shared.isShowAllPopUpChecked = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
