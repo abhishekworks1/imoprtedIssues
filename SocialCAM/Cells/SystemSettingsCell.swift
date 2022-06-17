@@ -44,8 +44,8 @@ class SystemSettingsCell: UITableViewCell {
     @IBOutlet weak var btnHelpTooltip: UIButton!
     @IBOutlet weak var selectButtonLeadingConstraint: NSLayoutConstraint?
     
-    @IBOutlet weak var imageViewLock: UIImageView!
-    @IBOutlet weak var btnLock: UIButton!
+    @IBOutlet weak var imageViewLock: UIImageView?
+    @IBOutlet weak var btnLock: UIButton?
     
     @IBOutlet weak var btnSystemSetting: UIButton?
     
@@ -58,8 +58,8 @@ class SystemSettingsCell: UITableViewCell {
             
             btnSelectShowAllPopup.setImage(R.image.checkBoxActive(), for: .selected)
             btnSelectShowAllPopup.setImage(R.image.checkBoxInActive(), for: .normal)
-//            self.btnLock.isHidden = true
-//            self.imageViewLock.isHidden = true
+            self.btnLock?.isHidden = true
+            self.imageViewLock?.isHidden = true
             self.btnSystemSetting?.isUserInteractionEnabled = false
             if systemSettingType == .showAllPopUps {
                 title.text = R.string.localizable.showAllPopups()
@@ -115,33 +115,14 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickCamera.rawValue
-                
-                if self.isSubscriptionTrialOrExpired() == true {
-//                    self.btnLock.isHidden = false
-//                    self.imageViewLock.isHidden = false
-                    self.btnSelectShowAllPopup.imageView?.setImageWithTintColor(color: UIColor.darkGray)
-                } else {
-                    
-//                    self.btnLock.isHidden = true
-//                    self.imageViewLock.isHidden = true
-                }
-                
+                self.btnLock?.isHidden = !self.isSubscriptionTrialOrExpired()
             } else if systemSettingType == .mobileDashboard {
                 title.text = "Mobile Dashboard"
                 selectButtonLeadingConstraint?.constant = 30
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.MobileDashboard.rawValue
-                
-                if self.isSubscriptionTrialOrExpired() == true {
-//                    self.btnLock.isHidden = false
-//                    self.imageViewLock.isHidden = false
-                    self.btnSelectShowAllPopup.imageView?.setImageWithTintColor(color: UIColor.darkGray)
-                } else {
-                    
-//                    self.btnLock.isHidden = true
-//                    self.imageViewLock.isHidden = true
-                }
+                self.btnLock?.isHidden = !self.isSubscriptionTrialOrExpired()
             }
         }
     }
@@ -152,7 +133,8 @@ class SystemSettingsCell: UITableViewCell {
     }
     
     func configureCell() {
-        self.btnLock.isHidden = true
+        self.btnLock?.isHidden = true
+        self.imageViewLock?.isHidden = true
         self.btnSystemSetting?.isUserInteractionEnabled = false
     }
     
