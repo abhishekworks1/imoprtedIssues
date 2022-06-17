@@ -47,7 +47,7 @@ class SystemSettingsCell: UITableViewCell {
     @IBOutlet weak var imageViewLock: UIImageView!
     @IBOutlet weak var btnLock: UIButton!
     
-    @IBOutlet weak var btnSystemSetting: UIButton!
+    @IBOutlet weak var btnSystemSetting: UIButton?
     
     // MARK: - Varable Declaration
     var systemSettingType: SystemSettingType = .showAllPopUps {
@@ -60,7 +60,7 @@ class SystemSettingsCell: UITableViewCell {
             btnSelectShowAllPopup.setImage(R.image.checkBoxInActive(), for: .normal)
 //            self.btnLock.isHidden = true
 //            self.imageViewLock.isHidden = true
-            self.btnSystemSetting.isUserInteractionEnabled = false
+            self.btnSystemSetting?.isUserInteractionEnabled = false
             if systemSettingType == .showAllPopUps {
                 title.text = R.string.localizable.showAllPopups()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
@@ -153,7 +153,7 @@ class SystemSettingsCell: UITableViewCell {
     
     func configureCell() {
         self.btnLock.isHidden = true
-        self.btnSystemSetting.isUserInteractionEnabled = false
+        self.btnSystemSetting?.isUserInteractionEnabled = false
     }
     
     // MARK: - Action Methods

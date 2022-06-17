@@ -547,10 +547,10 @@
                                         <blurEffect style="light"/>
                                     </visualEffectView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEJ-Sh-5Ls">
-                                        <rect key="frame" x="24" y="437" width="380" height="413"/>
+                                        <rect key="frame" x="24" y="424.66666666666674" width="380" height="438"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1JB-LW-fUP">
-                                                <rect key="frame" x="20" y="20" width="340" height="373"/>
+                                                <rect key="frame" x="20" y="20" width="340" height="398"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refer_quickcam_logo" translatesAutoresizingMaskIntoConstraints="NO" id="zO7-tU-hBB">
                                                         <rect key="frame" x="130" y="0.0" width="80" height="30"/>
@@ -558,8 +558,8 @@
                                                             <constraint firstAttribute="height" constant="30" id="nEd-ig-tHO"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="K7R-3h-0YR">
-                                                        <rect key="frame" x="61.666666666666686" y="50" width="217" height="24"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="K7R-3h-0YR">
+                                                        <rect key="frame" x="61.666666666666686" y="50" width="217" height="29"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Welcome to QuickCam " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="me2-29-XPJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="217" height="24"/>
@@ -567,15 +567,9 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="The next level smartphone camera app for making money!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jm-Fw-Hbf">
-                                                                <rect key="frame" x="-86.333333333333343" y="0.0" width="389.66666666666674" height="0.0"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The perfect global economic crisis antidote for smartphone users!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCM-D6-ML6">
-                                                                <rect key="frame" x="-107.33333333333334" y="0.0" width="431.33333333333337" height="0.0"/>
-                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCM-D6-ML6">
+                                                                <rect key="frame" x="108.33333333333333" y="28.999999999999943" width="0.0" height="0.0"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -592,13 +586,13 @@
                                                         </variation>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yme-4l-ot1">
-                                                        <rect key="frame" x="76" y="94" width="188" height="211"/>
+                                                        <rect key="frame" x="76" y="98.999999999999943" width="188" height="211"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3g9-us-buO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="188" height="211"/>
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="dlO-ur-b7e">
-                                                                <rect key="frame" x="44" y="25.666666666666629" width="100" height="100"/>
+                                                                <rect key="frame" x="44" y="25.333333333333371" width="100" height="100"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="100" id="8w4-0q-nFK"/>
                                                                     <constraint firstAttribute="width" constant="100" id="QI5-PC-Zzo"/>
@@ -622,8 +616,14 @@
                                                             <constraint firstAttribute="height" constant="211" id="oar-4Q-ESN"/>
                                                         </constraints>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jm-Fw-Hbf">
+                                                        <rect key="frame" x="170" y="329.99999999999994" width="0.0" height="0.0"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQM-8l-Wqv">
-                                                        <rect key="frame" x="82" y="325" width="176" height="48"/>
+                                                        <rect key="frame" x="82" y="349.99999999999994" width="176" height="48"/>
                                                         <color key="backgroundColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="Ijz-l3-ehM"/>
@@ -695,7 +695,9 @@
                         <outlet property="foundingMemberImageView" destination="3g9-us-buO" id="qvj-1r-q1f"/>
                         <outlet property="heightPlaceholderView" destination="oar-4Q-ESN" id="ciX-ey-OoV"/>
                         <outlet property="popupView" destination="h2m-Yi-SI8" id="y1s-1b-PG4"/>
+                        <outlet property="subscriptionStatusLabel" destination="3Jm-Fw-Hbf" id="0fA-tB-C5v"/>
                         <outlet property="userImageView" destination="dlO-ur-b7e" id="8zg-Zu-Ibb"/>
+                        <outlet property="userNameLabel" destination="UCM-D6-ML6" id="MKF-gZ-PI4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
