@@ -5681,10 +5681,6 @@
 		8421F139283BB53E009E16C9 /* Pic2ArtTooltip.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8421F130283BB53A009E16C9 /* Pic2ArtTooltip.gif */; };
 		8421F13A283BB53E009E16C9 /* EditTooltip3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8421F131283BB53C009E16C9 /* EditTooltip3.gif */; };
 		8421F13B283BB53E009E16C9 /* EditTooltip3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8421F131283BB53C009E16C9 /* EditTooltip3.gif */; };
-		84242FAA2859BC2B00BD0114 /* SubscriptionBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84242FA92859BC2B00BD0114 /* SubscriptionBadgeView.swift */; };
-		84242FAB2859BC2B00BD0114 /* SubscriptionBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84242FA92859BC2B00BD0114 /* SubscriptionBadgeView.swift */; };
-		84242FAD2859BD2200BD0114 /* SubscriptionBadgeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84242FAC2859BD2200BD0114 /* SubscriptionBadgeView.xib */; };
-		84242FAE2859BD2200BD0114 /* SubscriptionBadgeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84242FAC2859BD2200BD0114 /* SubscriptionBadgeView.xib */; };
 		8440D9A828058A8700DFB3C6 /* ReferSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */; };
 		8440D9A928058A8700DFB3C6 /* ReferSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */; };
 		8440D9AA28058A8700DFB3C6 /* ReferSuccessVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */; };
@@ -16322,8 +16318,6 @@
 		8421F12F283BB536009E16C9 /* EditTooltip2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EditTooltip2.gif; sourceTree = "<group>"; };
 		8421F130283BB53A009E16C9 /* Pic2ArtTooltip.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Pic2ArtTooltip.gif; sourceTree = "<group>"; };
 		8421F131283BB53C009E16C9 /* EditTooltip3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EditTooltip3.gif; sourceTree = "<group>"; };
-		84242FA92859BC2B00BD0114 /* SubscriptionBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionBadgeView.swift; sourceTree = "<group>"; };
-		84242FAC2859BD2200BD0114 /* SubscriptionBadgeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptionBadgeView.xib; sourceTree = "<group>"; };
 		8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferSuccessVC.swift; sourceTree = "<group>"; };
 		8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReferSuccessVC.xib; sourceTree = "<group>"; };
 		846AE8782846393700CA6645 /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
@@ -18483,7 +18477,6 @@
 		824EB39423619DFF00205993 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				84242FA82859BBE500BD0114 /* SubscriptionBadgeView */,
 				821CF9D9248781B100EC1503 /* STPopupPreview */,
 				239D60E72446F78A00650816 /* SearchDropDown.swift */,
 				23CE8C012434C40D0096233C /* DateTimePicker.swift */,
@@ -18991,15 +18984,6 @@
 				82E4D683259B466D005B41C1 /* Info.plist */,
 			);
 			path = QuickCamLiteExtensionSetupUI;
-			sourceTree = "<group>";
-		};
-		84242FA82859BBE500BD0114 /* SubscriptionBadgeView */ = {
-			isa = PBXGroup;
-			children = (
-				84242FA92859BC2B00BD0114 /* SubscriptionBadgeView.swift */,
-				84242FAC2859BD2200BD0114 /* SubscriptionBadgeView.xib */,
-			);
-			path = SubscriptionBadgeView;
 			sourceTree = "<group>";
 		};
 		846AE8772846393700CA6645 /* EasyTipView */ = {
@@ -20661,7 +20645,6 @@
 				82D1EBC7236FEE7F00A680E7 /* StickerCollectionViewCell.xib in Resources */,
 				8205FD33236C3B06002B2603 /* LUT_M07.png in Resources */,
 				35E9798728042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */,
-				84242FAD2859BD2200BD0114 /* SubscriptionBadgeView.xib in Resources */,
 				95EDD2C52460491F00DD3348 /* StoryCameraViewController.storyboard in Resources */,
 				8205FD35236C3B06002B2603 /* LUT_M12.png in Resources */,
 				82D1EC3E23702B4300A680E7 /* RedLips.JPG in Resources */,
@@ -22336,7 +22319,6 @@
 				C28230B726AAC17400DB19D2 /* QuickLinkTooltip1.gif in Resources */,
 				C2F93480264AA0CA006CA527 /* Rouge.JPG in Resources */,
 				3546EAE928082C8C0043CA9B /* README.md in Resources */,
-				84242FAE2859BD2200BD0114 /* SubscriptionBadgeView.xib in Resources */,
 				C2339ECA2696FFD400786997 /* QuickCamLiteWatermarkGIF.gif in Resources */,
 				C2F93481264AA0CA006CA527 /* PhotosPickerViewController.xib in Resources */,
 				C2F93482264AA0CA006CA527 /* SnapCamAssetsV2.xcassets in Resources */,
@@ -27030,7 +27012,6 @@
 				C2226D67265512A900E2B647 /* ReferringChannelSuggestionViewController.swift in Sources */,
 				8205FD46236C3B06002B2603 /* BlurredMask.swift in Sources */,
 				8205FCC1236C3AFA002B2603 /* CollageViewT408.swift in Sources */,
-				84242FAA2859BC2B00BD0114 /* SubscriptionBadgeView.swift in Sources */,
 				8205FCC4236C3AFA002B2603 /* CollageViewT307.swift in Sources */,
 				8205FBCC236C2A88002B2603 /* MMPlayerCache.swift in Sources */,
 				82D1EBD8236FF23D00A680E7 /* SketchTool.swift in Sources */,
@@ -33720,7 +33701,6 @@
 				C2F93267264AA0CA006CA527 /* YouTubeChannelViewController.swift in Sources */,
 				C2F93268264AA0CA006CA527 /* FilterHighlights.swift in Sources */,
 				C2F93269264AA0CA006CA527 /* ProManagerApi.swift in Sources */,
-				84242FAB2859BC2B00BD0114 /* SubscriptionBadgeView.swift in Sources */,
 				C2F9326A264AA0CA006CA527 /* Protocols.swift in Sources */,
 				C2F9326B264AA0CA006CA527 /* MMPlayerView.swift in Sources */,
 				C2F9326C264AA0CA006CA527 /* UIColor+Constant.swift in Sources */,
