@@ -1636,7 +1636,6 @@ extension StoryCameraViewController {
                 }
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
-                        
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
                             if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
                                 self.showAlertForUpgradeSubscription()
@@ -2579,7 +2578,6 @@ extension StoryCameraViewController {
                     print(finalDuration)
                     self.recordingTimeLabel.text = "\(finalDuration) / \(totalSegDuration)"
                     print("************Total Video Duration************")
-                    
                     self.recordingTimeLabel.isHidden = false
                 }
                 if recordingType != .normal && recordingType != .newNormal {

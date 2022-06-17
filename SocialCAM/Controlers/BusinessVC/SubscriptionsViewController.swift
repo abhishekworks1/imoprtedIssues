@@ -444,7 +444,7 @@ class SubscriptionsViewController: UIViewController {
                 }
             }
         }
-        appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? 6 : -8
+        appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? -10 : -10
     }
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {
