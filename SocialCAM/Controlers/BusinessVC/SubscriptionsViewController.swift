@@ -399,7 +399,7 @@ class SubscriptionsViewController: UIViewController {
         }
         if subscriptionType == .free {
             if planActiveView.isHidden {
-                upGradeButtonView.isHidden = false
+               // upGradeButtonView.isHidden = false
             }
         }
     }
@@ -438,8 +438,6 @@ class SubscriptionsViewController: UIViewController {
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         subScriptionBadgeImageView.image = R.image.squareBadge()
                         lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
-                    }else{
-                        lblPrice.text = ""
                     }
                 }
             }
