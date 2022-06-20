@@ -2182,7 +2182,7 @@ extension StoryCameraViewController {
     }
     
     func resetProgressTimer() {
-        if recordingType != .normal && recordingType != .newNormal {
+        if recordingType != .normal && recordingType != .newNormal && recordingType != .capture {
             progress = 0
         }
         self.progressTimer?.invalidate()
@@ -2284,7 +2284,7 @@ extension StoryCameraViewController {
         nextLevel.torchMode = .off
         nextLevel.videoZoomFactor = 0.0
         self.isVideoRecording = false
-        if isLiteApp, (recordingType == .normal || recordingType == .newNormal) {
+        if isLiteApp, (recordingType == .normal || recordingType == .newNormal || recordingType == .capture) {
             self.segmentsProgress.append(progress)
             self.circularProgress.drawArc(startAngle: Double(progress))
             self.discardSegmentsStackView.isHidden = false
@@ -2313,9 +2313,9 @@ extension StoryCameraViewController {
             if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
                 self.stopPulse()
             }
-            if self.recordingType == .capture {
-                self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
-            }
+//            if self.recordingType == .capture {
+//                self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
+//            }
             self.circularProgress.pauseAnimation()
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -2454,6 +2454,31 @@ extension StoryCameraViewController {
         }
     }
     
+    func captureTypeVideo() {
+        self.showControls()
+         self.isRecording = false
+        self.recordingTimeLabel.isHidden = true
+        self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .bottom)
+         DispatchQueue.main.async {
+             self.speedSlider.isUserInteractionEnabled = true
+             self.slowFastVerticalBar.isHidden = true
+             self.speedLabel.textColor = UIColor.red
+             self.speedLabel.text = ""
+             self.speedLabel.stopBlink()
+             
+             if self.recordingType != .timer {
+                 self.takenImages.removeAll()
+                 self.takenVideoUrls.removeAll()
+                 self.dragAndDropManager = KDDragAndDropManager(
+                     canvas: self.view,
+                     collectionViews: [self.stopMotionCollectionView]
+                 )
+                 self.deleteRect = self.deleteView.frame
+                 self.stopMotionCollectionView.reloadData()
+             }
+         }
+    }
+    
     func setupForPreviewScreen(duration: CGFloat = 0.0) {
         self.stopMotionCollectionView.reloadData()
         let layout = self.stopMotionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -2480,6 +2505,8 @@ extension StoryCameraViewController {
                 self.recordingType = .normal
             }
             self.openStoryEditor(segementedVideos: takenVideoUrls)
+       /*
+        //Note: We do not need that code while we have multiple segmnet
         } else if self.recordingType == .capture {
             self.showControls()
             self.isRecording = false
@@ -2512,7 +2539,7 @@ extension StoryCameraViewController {
                     self.deleteRect = self.deleteView.frame
                     self.stopMotionCollectionView.reloadData()
                 }
-            }
+            }*/
         } else {
             let currentVideoSeconds = self.videoSegmentSeconds
                
@@ -2580,7 +2607,7 @@ extension StoryCameraViewController {
                     print("************Total Video Duration************")
                     self.recordingTimeLabel.isHidden = false
                 }
-                if recordingType != .normal && recordingType != .newNormal {
+                if recordingType != .normal && recordingType != .newNormal && recordingType != .capture {
                     if Defaults.shared.isVideoSavedAfterRecording == true {
                         if let url = self.takenVideoUrls.last?.url {
                             SCAlbum.shared.saveMovieToLibrary(movieURL: url)
@@ -2764,7 +2791,7 @@ extension StoryCameraViewController {
                 fatalError("PhotoEditorViewController Not Found")
             }
             var medias: [StoryEditorMedia] = []
-            if isLiteApp, (recordingType == .normal || recordingType == .newNormal) {
+            if isLiteApp, (recordingType == .normal || recordingType == .newNormal || recordingType == .capture) {
                 progress = 0
                 medias.append(StoryEditorMedia(type: .video(segementedVideos.first!.image!, asset)))
             } else {
