@@ -2288,10 +2288,10 @@ extension StoryCameraViewController {
             self.segmentsProgress.append(progress)
             self.circularProgress.drawArc(startAngle: Double(progress))
             self.discardSegmentsStackView.isHidden = false
-            self.settingsButton.isHidden = true
+            self.settingsView.isHidden = true
             self.backButtonView.isHidden = false
             cameraSliderView.isHidden = true
-            self.businessDashboardButton.isHidden = true
+            self.businessDashboardStackView.isHidden = true
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
             self.outtakesView.isHidden = true
@@ -2920,10 +2920,10 @@ extension StoryCameraViewController {
         self.circularProgress.deleteAllSubLayers()
         self.progress = 0
         self.discardSegmentsStackView.isHidden = true
-        self.settingsButton.isHidden = false
+        self.settingsView.isHidden = false
         cameraSliderView.isHidden = false
         backButtonView.isHidden = true
-        self.businessDashboardButton.isHidden = false
+        self.businessDashboardStackView.isHidden = false
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
         self.outtakesView.isHidden = false
