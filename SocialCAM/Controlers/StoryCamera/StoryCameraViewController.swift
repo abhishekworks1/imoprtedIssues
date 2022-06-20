@@ -592,7 +592,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         dynamicSetSlowFastVerticalBar()
         self.syncUserModel { _ in
             self.dynamicSetSlowFastVerticalBar()
-//            self.setupLayoutCameraSliderView()
         }
         setViewsForApp()
         setupPic2ArtAppControls()
@@ -1465,9 +1464,7 @@ extension StoryCameraViewController {
             cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .newNormal})
             cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
             cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-            if Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            }
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
           //  self.recordingType = cameraModeArray.first!.recordingType
           //  Defaults.shared.cameraMode = cameraModeArray.first!.recordingType
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
@@ -1606,7 +1603,9 @@ extension StoryCameraViewController {
                         } else {
                             self.showAlertForUpgradeSubscription()
                         }
-                    } else {
+                    } else if isQuickApp && Defaults.shared.appMode == .basic {
+                        self.showAlertForUpgradeSubscription()
+                    }else {
                         if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                             if isPic2ArtShowed {
                                 DispatchQueue.main.async {
