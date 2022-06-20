@@ -35,14 +35,14 @@ class CircularProgressBar: UIView {
     
     public var labelSize: CGFloat = 5 {
         didSet {
-            label.font = UIFont.systemFont(ofSize: labelSize)
+            label.font = UIFont.systemFont(ofSize: labelSize, weight: .semibold)
             configLabel()
         }
     }
     
     public var labelPercentSize: CGFloat = 8 {
         didSet {
-            labelPercent.font = UIFont.systemFont(ofSize: labelPercentSize)
+            labelPercent.font = UIFont.systemFont(ofSize: labelPercentSize, weight: .semibold)
             labelPercent.sizeToFit()
             configLabelPercent()
         }
@@ -195,11 +195,11 @@ class CircularProgressBar: UIView {
     private func configLabel() {
         label.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0)
         label.sizeToFit()
-        label.center = CGPoint(x: pathCenter.x, y: pathCenter.y)
+        label.center = CGPoint(x: pathCenter.x - 2.5, y: pathCenter.y)
     }
     
     private func configLabelPercent() {
-        labelPercent.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 0.4)
+        labelPercent.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0)
         labelPercent.sizeToFit()
         labelPercent.center = CGPoint(x: pathCenter.x + (label.frame.size.width/2) + 10, y: pathCenter.y)
     }
