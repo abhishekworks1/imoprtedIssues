@@ -26,28 +26,12 @@ class SystemSettings {
 
         StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
 
-        StorySettings(name: "", settings: [StorySetting(name: "Opening Screen", selected: false)], settingsType: .openingScreen),
+        StorySettings(name: "", settings: [StorySetting(name: "Quick Menu", selected: false)], settingsType: .quickMenu),
 
         StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
 
         StorySettings(name: "", settings: [StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .mobileDashboard)
     ]
-    
-    class func updateSystemSettings() {
-        
-        if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-            if (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") {
-                Defaults.shared.onBoardingReferral = OnboardingReferral.OpeningScreen.description
-                SystemSettings.systemSettings = [
-                    StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
-
-                    StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
-
-                    StorySettings(name: "", settings: [StorySetting(name: "Opening Screen", selected: false)], settingsType: .openingScreen)
-                ]
-            }
-        }
-    }
 }
 
 class SystemSettingsViewController: UIViewController {
@@ -59,7 +43,6 @@ class SystemSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SystemSettings.updateSystemSettings()
         self.systemSettingsTableView.reloadData()
     }
     
@@ -103,9 +86,7 @@ extension SystemSettingsViewController: UITableViewDataSource {
             fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
         }
         
-//        guard let onboardingCell: OnboardingTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.onboardingTableViewCell.identifier) as? OnboardingTableViewCell else {
-//            fatalError("\(R.reuseIdentifier.onboardingTableViewCell.identifier) Not Found")
-//        }
+        systemSettingsCell.configureCell()
         
         let settingTitle = SystemSettings.systemSettings[indexPath.section]
         if settingTitle.settingsType == .showAllPopups {
@@ -134,8 +115,8 @@ extension SystemSettingsViewController: UITableViewDataSource {
             return cell
         } else if settingTitle.settingsType == .onboarding {
             systemSettingsCell.systemSettingType = .onboarding
-        } else if settingTitle.settingsType == .openingScreen {
-            systemSettingsCell.systemSettingType = .openingScreen
+        } else if settingTitle.settingsType == .quickMenu {
+            systemSettingsCell.systemSettingType = .quickMenu
         } else if settingTitle.settingsType == .quickCamCamera {
             systemSettingsCell.systemSettingType = .quickCamCamera
         } else if settingTitle.settingsType == .mobileDashboard {
@@ -154,6 +135,8 @@ extension SystemSettingsViewController: UITableViewDelegate {
         }
         headerView.title.isHidden = true
         headerView.btnSelectShowAllPopup.isHidden = true
+        headerView.btnLock?.isHidden = true
+        headerView.imageViewLock?.isHidden = true
         return headerView
     }
     
@@ -173,8 +156,54 @@ extension SystemSettingsViewController: UITableViewDelegate {
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
         }
-        if settingTitle.settingsType == .openingScreen || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard || settingTitle.settingsType == .showAllPopups {
+        
+        if let systemSettingCell = tableView.cellForRow(at: indexPath) as? SystemSettingsCell {
+            if systemSettingCell.isSubscriptionTrialOrExpired() == true {
+                
+                if settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard {
+                    
+                    self.showAlert()
+                    return
+                }
+                
+            }
+            systemSettingCell.updateAppSettings()
+        }
+        
+        if settingTitle.settingsType == .showAllPopups || settingTitle.settingsType == .quickMenu || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard {
+            
             tableView.reloadData()
         }
+    }
+}
+
+extension SystemSettingsViewController {
+    
+    func showAlert() {
+        
+        let alert = UIAlertController(title: "QuickCam", message: "You need to have an active subscription to use this feature. Upgrade now?", preferredStyle: .alert)
+        let btnLater = UIAlertAction(title: "Later", style: .destructive, handler: nil)
+        
+        let btnYes = UIAlertAction(title: "Yes", style: .default) { alert in
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                
+                subscriptionVC.subscriptionDelegate = self
+                self.navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
+        }
+        
+        alert.addAction(btnLater)
+        alert.addAction(btnYes)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension SystemSettingsViewController: SubscriptionScreenDelegate {
+    
+    func backFromSubscription() {
+        
+        print("Function == \(#function) Line === \(#line)")
+        self.systemSettingsTableView.reloadData()
     }
 }

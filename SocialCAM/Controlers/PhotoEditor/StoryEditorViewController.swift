@@ -696,8 +696,8 @@ class StoryEditorViewController: UIViewController {
         
 //        self.youtubeShareView.isHidden = isImage //isImage
 //        self.tiktokShareView.isHidden = isImage
-//        self.playPauseButton.isHidden = isImage
-//        self.progressBarView.isHidden = isImage
+        self.playPauseButton.isHidden = isImage
+        self.progressBarView.isHidden = isImage
     }
          
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
@@ -1839,12 +1839,12 @@ extension StoryEditorViewController {
                 if isSuccess {
                     DispatchQueue.runOnMainThread { [weak self] in
                         guard let `self` = self else { return }
-                        self.view.makeToast(R.string.localizable.videoSaved())
+                        Utils.appDelegate?.window?.makeToast(R.string.localizable.videoSaved())
                     }
                 } else {
                     DispatchQueue.runOnMainThread { [weak self] in
                         guard let `self` = self else { return }
-                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                        Utils.appDelegate?.window?.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
                     }
                 }
             })

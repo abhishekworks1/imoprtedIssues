@@ -399,7 +399,7 @@ class SubscriptionsViewController: UIViewController {
         }
         if subscriptionType == .free {
             if planActiveView.isHidden {
-                upGradeButtonView.isHidden = false
+               // upGradeButtonView.isHidden = false
             }
         }
     }
@@ -428,16 +428,21 @@ class SubscriptionsViewController: UIViewController {
                                     fday = 7 - day
                                 }
                             }
-                            lblPrice.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
+                            if fday == 0{
+                                lblPrice.text = "Your 7-day free trial period has expired. Upgrade now to access these features."
+                            }else{
+                                lblPrice.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
+                            }
+                           
                         }
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         subScriptionBadgeImageView.image = R.image.squareBadge()
                         lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
-                   }
+                    }
                 }
             }
         }
-        appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? 6 : -8
+        appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? -10 : -10
     }
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {

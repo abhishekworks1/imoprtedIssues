@@ -256,7 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     navigationController.viewControllers.append(settingVC)
                 }
                 break
-            case OnboardingReferral.OpeningScreen.rawValue:
+            case OnboardingReferral.QuickMenu.rawValue:
                 rootViewController = R.storyboard.onBoardingView.onBoardingViewController()
                 break
             default: break

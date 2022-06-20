@@ -568,7 +568,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isVidplayAccountFound: Bool? = false
     var vidplaySessionToken = ""
     var isVideoRecordedForEditScreen = true
-    
+    var isFirstLaunch = true
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -734,7 +734,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                             if cameraMode.recordingType == .newNormal {
                                 self.isFreshSession = false
                                 if self.selectedCellIndex == nil || self.selectedCellIndex == 0 {
-                                    self.cameraSliderView.selectCell = 1
+                                   // self.cameraSliderView.selectCell = 1
                                 } else {
                                     self.cameraSliderView.selectCell = self.selectedCellIndex ?? 0
                                 }
@@ -789,8 +789,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
                             self.cameraSliderView.stringArray.remove(at: 0)
                             self.cameraSliderView.collectionView.reloadData()
-                            self.cameraSliderView.selectCell = 1
-                            self.cameraSliderView.collectionView.reloadData()
+                            if isFirstLaunch {
+                                self.isFirstLaunch = false
+                                self.cameraSliderView.selectCell = 1
+                                self.cameraSliderView.collectionView.reloadData()
+                            }
                         }
                     }
                 }
@@ -799,8 +802,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                     if self.cameraSliderView.stringArray.count == 5 && subscriptionStatusValue != "trial" && subscriptionStatusValue != "expired" {
                         self.cameraSliderView.stringArray.remove(at: 0)
                         self.cameraSliderView.collectionView.reloadData()
-                        self.cameraSliderView.selectCell = 1
-                        self.cameraSliderView.collectionView.reloadData()
+                        if isFirstLaunch {
+                            self.isFirstLaunch = false
+                            self.cameraSliderView.selectCell = 1
+                            self.cameraSliderView.collectionView.reloadData()
+                        }
                     }
                 }
             }
@@ -1630,7 +1636,6 @@ extension StoryCameraViewController {
                 }
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
-                        
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
                             if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
                                 self.showAlertForUpgradeSubscription()
@@ -2573,7 +2578,6 @@ extension StoryCameraViewController {
                     print(finalDuration)
                     self.recordingTimeLabel.text = "\(finalDuration) / \(totalSegDuration)"
                     print("************Total Video Duration************")
-                    
                     self.recordingTimeLabel.isHidden = false
                 }
                 if recordingType != .normal && recordingType != .newNormal {
@@ -3038,6 +3042,8 @@ extension StoryCameraViewController {
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 subscriptionVC.subscriptionDelegate = self
                 self.navigationController?.pushViewController(subscriptionVC, animated: true)
+                self.cameraSliderView.selectCell = 0
+                self.cameraSliderView.collectionView.reloadData()
             }
         }))
         self.present(alert, animated: true, completion: nil)

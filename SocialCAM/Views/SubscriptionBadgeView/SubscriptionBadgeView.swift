@@ -1,56 +1,23 @@
 //
-//  StorySettingsCell.swift
-//  ProManager
+//  SubscriptionBadgeView.swift
+//  SocialCAM
 //
-//  Created by Jasmin Patel on 21/06/18.
-//  Copyright © 2018 Jatin Kathrotiya. All rights reserved.
+//  Created by ideveloper5 on 15/06/22.
+//  Copyright © 2022 Viraj Patel. All rights reserved.
 //
 
 import UIKit
+import SnapKit
+class SubscriptionBadgeView: UIView {
 
-class StorySettingsCell: UITableViewCell {
-
-    @IBOutlet weak var badgesCountLabel: ColorBGLabel!
-    @IBOutlet weak var roundedView: RoundedView!
-    @IBOutlet weak var detailButton: UIButton!
-    @IBOutlet weak var onOffButton: UIButton!
-    @IBOutlet weak var settingsName: UILabel!
-    @IBOutlet weak var socialImageView: UIImageView?
-    @IBOutlet weak var lblPremiumVersionOnly: UILabel!
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var imgSettingsIcon: UIImageView!
-    @IBOutlet weak var shadowView: UIView!
-    @IBOutlet weak var imgSubscribeBadge: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-       // shadowView.dropShadowNew()
+    /*
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
-}
-
-class StorySettingsListCell: UITableViewCell {
-
-    static let identifier = "StorySettingsListCell"
-    @IBOutlet weak var badgesCountLabel: ColorBGLabel!
-    @IBOutlet weak var roundedView: UIView!
-    @IBOutlet weak var detailButton: UIButton!
-    @IBOutlet weak var onOffButton: UIButton!
-    @IBOutlet weak var settingsName: UILabel!
-    @IBOutlet weak var socialImageView: UIImageView?
-    @IBOutlet weak var lblPremiumVersionOnly: UILabel!
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var imgSettingsIcon: UIImageView!
-    @IBOutlet weak var shadowView: UIView!
-    @IBOutlet weak var containerView: UIView!
+    */
     
-    @IBOutlet weak var badgeView: UIView!
     @IBOutlet weak var iosBadgeView: UIView!
     @IBOutlet weak var iosSheildImageview: UIImageView!
     @IBOutlet weak var iosIconImageview: UIImageView!
@@ -66,28 +33,41 @@ class StorySettingsListCell: UITableViewCell {
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
     
-    @IBOutlet weak var newBadgesImageView: UIImageView!
-    @IBOutlet weak var notificationCountView: UIView!
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-      //  shadowView.dropShadow(color: .gray, opacity: 1.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: false)
-        roundedView.layer.cornerRadius = roundedView.frame.size.width / 2
-        shadowView.layer.cornerRadius = 7
-        shadowView.dropShadowNew()
-//        addShadow(cornerRadius: 5.0, borderWidth: 0.0, shadowOpacity: 0.5, shadowRadius: 3.0)
+    override init(frame: CGRect) {
+            super.init(frame: frame)
+            commonInit()
+        }
         
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            commonInit()
+        }
         
-        // Configure the view for the selected state
-    }
+       
+    private func commonInit() {
+            let nib  = UINib(nibName: String(describing: SubscriptionBadgeView.self), bundle: nil)
+            guard let view = nib.instantiate(withOwner: self, options: nil).first as? UIView else { return }
+            view.clipsToBounds = true
+            view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            self.addSubview(view)
+            addViewConstraint(view: view)
+//            setUpSubscriptionBadges()
+        }
+    private func addViewConstraint(view: UIView) {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.snp.makeConstraints {  [weak self] (make) -> Void in
+                guard let self = self else { return }
+                make.leading.equalTo(self)
+                make.top.equalTo(self)
+                make.bottom.equalTo(self)
+                make.trailing.equalTo(self)
+            }
+        }
+    
     func setUpSubscriptionBadges() {
+//        badgeView.isHidden = false
         androidIconImageview.isHidden = true
-        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
@@ -105,7 +85,7 @@ class StorySettingsListCell: UITableViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.freeBadgeBG()
+                        iosSheildImageview.image = R.image.freeBadge()
                         iosIconImageview.image = R.image.freeAppleIcon()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
@@ -125,23 +105,23 @@ class StorySettingsListCell: UITableViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.basicBadgeBG()
+                        iosSheildImageview.image = R.image.basicBadge()
                         iosIconImageview.image = R.image.basicAppleIcon()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.advBadgeBG()
+                        iosSheildImageview.image = R.image.advancedBadge()
                         iosIconImageview.image = R.image.advancedAppleIcon()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.priBadgeBG()
+                        iosSheildImageview.image = R.image.proBadge()
                         iosIconImageview.image = R.image.preAppleIcon()
                     }
                 }
-                // Setup For Android Badge
+                
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
@@ -156,7 +136,7 @@ class StorySettingsListCell: UITableViewCell {
                             androidSheildImageview.image = R.image.freeBadge()
                         } else {
                             lblandroidDaysRemains.text = ""
-                            androidSheildImageview.image = R.image.squareBadgeAndroid()
+                            androidSheildImageview.image = R.image.squareBadge()
                         }
                     }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -181,101 +161,37 @@ class StorySettingsListCell: UITableViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.freebadgeweb()
+                        webSheildImageview.image = R.image.freeBadge()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         webBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblwebDaysRemains.text = finalDay
-                            webSheildImageview.image = R.image.freebadgeweb()
+                            webSheildImageview.image = R.image.freeBadge()
                         } else {
                             lblwebDaysRemains.text = ""
-                            webSheildImageview.image = R.image.sqaureBadgeweb()
+                            webSheildImageview.image = R.image.squareBadge()
                         }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.basicBadgeWeb()
+                        webSheildImageview.image = R.image.basicBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.advbadgeWeb()
+                        webSheildImageview.image = R.image.advancedBadge()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.premiumbadgeweb()
+                        webSheildImageview.image = R.image.proBadge()
                     }
                 }
             }
         }
     }
-}
-class AppOpenSettingsCell: UITableViewCell {
     
-    @IBOutlet var dashBoardView: ScreenSelectionView!
-    @IBOutlet var chatView: ScreenSelectionView!
-    @IBOutlet var cameraView: ScreenSelectionView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        
-        let x = Defaults.shared.openingScreen.rawValue
-        self.setOpenScreen(x: x)
-        dashBoardView.selectionHandler = { [unowned self] in
-            self.setOpenScreen(x: 1)
-            Defaults.shared.openingScreen = .dashboard
-        }
-        chatView.selectionHandler = { [unowned self] in
-            self.setOpenScreen(x: 2)
-            Defaults.shared.openingScreen = .chat
-        }
-        cameraView.selectionHandler = { [unowned self] in
-            self.setOpenScreen(x: 0)
-            Defaults.shared.openingScreen = .camera
-        }
-    }
-    
-    func setOpenScreen(x: Int) {
-        switch x {
-        case 0:
-            self.cameraView.isSelected = true
-            self.dashBoardView.isSelected = false
-            self.chatView.isSelected = false
-        case 1:
-            self.cameraView.isSelected = false
-            self.dashBoardView.isSelected = true
-            self.chatView.isSelected = false
-        case 2:
-            self.cameraView.isSelected = false
-            self.dashBoardView.isSelected = false
-            self.chatView.isSelected = true
-        default:
-            self.cameraView.isSelected = true
-            self.dashBoardView.isSelected = false
-            self.chatView.isSelected = false
-        }
-    }
-    
-}
-
-extension UIView{
-    func addShadow(cornerRadius:CGFloat = 0.0 , borderWidth:CGFloat = 0.0 , shadowOpacity:Float = 0.0 , shadowRadius:CGFloat = 0.0){
-        // border radius
-        self.layer.cornerRadius = cornerRadius
-        
-        // border
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.layer.borderWidth = borderWidth
-        
-        // drop shadow
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = shadowOpacity
-        self.layer.shadowRadius = shadowRadius
-        self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-    }
 }
