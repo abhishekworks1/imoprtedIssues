@@ -74,6 +74,7 @@ enum SettingsMode: Int, Codable {
     case checkUpdate
     case referringChannel
     case qrcode
+    case contactManager
     case mutehapticFeedbackOnSpeedSelection
     case publicDisplaynameWatermark
     case editProfileCard
@@ -184,8 +185,10 @@ class StorySettings: Codable {
                                               settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
+                                 StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
+                                 StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
@@ -806,7 +809,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
-            hideUnhideImgButton(cell, R.image.referralWizard())
+            hideUnhideImgButton(cell, R.image.settings_ReferralWizard())
             cell.newBadgesImageView.isHidden = true//false
             cell.newBadgesImageView.image = R.image.referralWizardBadge()
         }else if settingTitle.settingsType == .qrcode {
@@ -1628,6 +1631,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         cell.badgeView.isHidden = true
         cell.newBadgesImageView.isHidden = true
         cell.notificationCountView.isHidden = true
+        cell.socialImageView?.image = nil
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
@@ -1637,7 +1641,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
-            cell.socialImageView?.image = R.image.referralWizard()
+            cell.socialImageView?.image = R.image.settings_ReferralWizard()
             cell.newBadgesImageView.isHidden = false
             cell.newBadgesImageView.image = R.image.referralWizardBadge()
         }else if settingTitle.settingsType == .qrcode {
@@ -1672,17 +1676,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .subscription {
             cell.socialImageView?.image = R.image.settings_Subscription()
             cell.setUpSubscriptionBadges()
-//            let badgearry = Defaults.shared.getbadgesArray()
-//            if badgearry.contains("iosbadge") {
-//                cell.imgSubscribeBadge.image = R.image.newIosBadge()
-//                cell.imgSubscribeBadge.isHidden = false
-//            } else if badgearry.contains("androidbadge") {
-//                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
-//                cell.imgSubscribeBadge.isHidden = false
-//            } else if badgearry.contains("webbadge") {
-//                cell.imgSubscribeBadge.image = R.image.webbadge()
-//                cell.imgSubscribeBadge.isHidden = false
-//            }
+        }else {
+            cell.socialImageView?.image = nil
         }
         return cell
     }

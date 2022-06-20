@@ -224,7 +224,7 @@ class Defaults {
         get {
             if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
                 let decoder = JSONDecoder()
-                if let settings = try? decoder.decode([StorySettings].self, from: userStorySettings) {
+                if var settings = try? decoder.decode([StorySettings].self, from: userStorySettings) {
                     for setting in settings {
                         if setting.settingsType == .system {
                             setting.settings.first?.name = R.string.localizable.appSettings()
@@ -233,6 +233,11 @@ class Defaults {
                         } else if setting.settingsType == .help {
                             setting.settings.first?.name = R.string.localizable.howItWorks()
                         }
+                    }
+                    if !settings.contains(where: {$0.settingsType == .contactManager})
+                    {
+                        settings.insert(StorySettings(name: "",
+                                                      settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
                     }
                     return settings
                 }
