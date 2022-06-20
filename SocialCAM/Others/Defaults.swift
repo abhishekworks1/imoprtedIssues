@@ -1071,6 +1071,15 @@ class Defaults {
             appDefaults?.set(newValue, forKey: "isVideoSavedAfterEditing")
         }
     }
+
+    var isAutoSavePic2ArtOriginalPhoto: Bool {
+        get {
+            return appDefaults?.value(forKey: "isAutoSavePic2ArtOriginalPhoto") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isAutoSavePic2ArtOriginalPhoto")
+        }
+    }
     
     var isAutoSavePic2Art: Bool {
         get {

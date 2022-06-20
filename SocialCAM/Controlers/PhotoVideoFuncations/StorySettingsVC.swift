@@ -59,6 +59,7 @@ enum SettingsMode: Int, Codable {
     case skipYoutubeLogin
     case saveVideoAfterRecording
     case autoSaveAfterEditing
+    case autoSavePic2ArtOriginalPhoto
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case shareSetting

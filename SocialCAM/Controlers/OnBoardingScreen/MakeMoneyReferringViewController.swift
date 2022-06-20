@@ -79,7 +79,7 @@ extension MakeMoneyReferringViewController {
     }
     
     func setNavigation() {
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty, userImageURL != "undefined" {
             if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
                 contactWizardController.isFromOnboarding = true
                 navigationController?.pushViewController(contactWizardController, animated: true)

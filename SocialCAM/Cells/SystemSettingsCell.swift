@@ -13,6 +13,7 @@ enum SystemSettingType {
     case skipYoutubeLogin
     case saveVideoAfterRecording
     case autoSaveAfterEditing
+    case autoSavePic2ArtOriginalPhoto
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case milestonesReached
@@ -67,6 +68,10 @@ class SystemSettingsCell: UITableViewCell {
                 title.text = R.string.localizable.autoSaveAfterEditing()
                 btnHelpTooltip.isHidden = true
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isVideoSavedAfterEditing
+            } else if systemSettingType == .autoSavePic2ArtOriginalPhoto {
+                title.text = R.string.localizable.autoSavePic2ArtOriginalPhoto()
+                btnHelpTooltip.isHidden = true
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isAutoSavePic2ArtOriginalPhoto
             } else if systemSettingType == .autoSavePic2Art {
                 title.text = R.string.localizable.autoSavePic2Art()
                 btnHelpTooltip.isHidden = true
@@ -146,6 +151,9 @@ class SystemSettingsCell: UITableViewCell {
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .autoSavePic2Art {
             Defaults.shared.isAutoSavePic2Art = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .autoSavePic2ArtOriginalPhoto {
+            Defaults.shared.isAutoSavePic2ArtOriginalPhoto = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .muteRecordingSlowMotion {
             Defaults.shared.muteOnSlowMotion = !btnSelectShowAllPopup.isSelected
