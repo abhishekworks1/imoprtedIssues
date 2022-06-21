@@ -130,6 +130,11 @@ class SubscriptionContainerViewController: UIViewController {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         imageViewfreeShield.image = R.image.badgeIphoneFree()
+//                        lbltrialDays.text = ""
+                        lblBadgeFree.text = ""
+                        lblBadgeBasic.text = ""
+                        lblBadgeAdvanced.text = ""
+                        lblBadgePro.text = ""
                     }
                 }
             }
