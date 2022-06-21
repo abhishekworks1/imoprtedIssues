@@ -1259,7 +1259,7 @@ extension StoryEditorViewController {
         if isPic2ArtApp || cameraMode == .pic2Art {
             discardPopUpMessageLabel.text = "Are you sure you want to discard your Pic2Art?"
         } else {
-            discardPopUpMessageLabel.text = "Are you sure you want to discard your quickie?"
+            discardPopUpMessageLabel.text = "Are you sure you want to discard your Quickie?"
         }
         if Defaults.shared.isShowAllPopUpChecked == true {
             self.hideShowDiscardVideoPopup(shouldShow: true)
