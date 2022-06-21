@@ -11,6 +11,8 @@ import Foundation
 
 class CircularProgressBar: UIView {
     
+    @IBInspectable public var isthumbImageAvailable: Bool = false
+    @IBInspectable public var thumbImage: UIImage?
     var currentTime: Double = 0
     var previousProgress: Double = 0
     
@@ -70,7 +72,7 @@ class CircularProgressBar: UIView {
             }
         }
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             self.foregroundLayer.strokeEnd = CGFloat(progress)
             
             if withAnimation {
@@ -98,6 +100,10 @@ class CircularProgressBar: UIView {
     private let foregroundLayer = CAShapeLayer()
     private let backgroundLayer = CAShapeLayer()
     private let pulsatingLayer = CAShapeLayer()
+    private let ringLayer = CAShapeLayer()
+    private let thumbLayer = CALayer()
+    private var thumbImageView = UIImageView()
+    
     private var radius: CGFloat {
         get {
             if self.frame.width < self.frame.height { return (self.frame.width - lineWidth)/2 } else { return (self.frame.height - lineWidth)/2 }
@@ -137,6 +143,25 @@ class CircularProgressBar: UIView {
         foregroundLayer.strokeColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
         foregroundLayer.strokeEnd = 0
         
+        if isthumbImageAvailable {
+            thumbImageView.image = thumbImage!
+            thumbLayer.contents = thumbImageView.image?.cgImage
+            thumbLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            thumbLayer.frame = CGRect(x: 0.0, y: 0.0, width: thumbImageView.image!.size.width, height: thumbImageView.image!.size.height)
+            thumbLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI_2)))
+            ringLayer.addSublayer(thumbLayer)
+            let pathAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "position")
+            pathAnimation.duration = 12.5
+            pathAnimation.path = path.cgPath;
+            pathAnimation.repeatCount = 0
+            pathAnimation.calculationMode = CAAnimationCalculationMode.paced
+            pathAnimation.rotationMode = CAAnimationRotationMode.rotateAuto
+            pathAnimation.fillMode = CAMediaTimingFillMode.forwards
+            pathAnimation.isRemovedOnCompletion = false
+            thumbLayer.add(pathAnimation, forKey: "movingMeterTip") //need to refactor
+        }
+        
+        foregroundLayer.addSublayer(ringLayer)
         self.layer.addSublayer(foregroundLayer)
         
     }
@@ -221,6 +246,7 @@ class CircularProgressBar: UIView {
         self.addSubview(label)
         self.addSubview(labelPercent)
         self.addSubview(labelComplete)
+        
     }
     
     //Layout Sublayers
