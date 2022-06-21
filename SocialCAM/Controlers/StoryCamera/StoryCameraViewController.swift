@@ -2159,6 +2159,11 @@ extension StoryCameraViewController {
         print((progressUP / progressMaxSeconds))
         progress += progressUP // (progressUP / progressMaxSeconds)
         print("progress: \(progress)")
+        let totalDurationSum = totalVideoDuration.reduce(0, +)
+        if (progress * progressMaxSeconds) > totalDurationSum {
+            self.recordingTimeLabel.text = "\(String(format: "%.1f", (progress * progressMaxSeconds))) / \(self.liteCamMaxSeconds())"
+        }
+        self.recordingTimeStackView.isHidden = false
         if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
             if progress >= 1 {
                 if self.getFreeSpace() > 200 {
