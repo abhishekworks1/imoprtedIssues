@@ -1319,6 +1319,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func presentSafariBrowser(url: URL) {
         let safariVC = SFSafariViewController(url: url)
+        safariVC.delegate = self
         present(safariVC, animated: true, completion: nil)
     }
     
@@ -1544,6 +1545,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         self.present(objAlert, animated: true, completion: nil)
     }
     
+}
+extension StorySettingsVC: SFSafariViewControllerDelegate {
+    func safariViewController(_ controller: SFSafariViewController, initialLoadDidRedirectTo URL: URL) {
+        print(URL)
+    }
 }
 // MARK: TableViewReorderDelegate
 extension StorySettingsVC: TableViewReorderDelegate {

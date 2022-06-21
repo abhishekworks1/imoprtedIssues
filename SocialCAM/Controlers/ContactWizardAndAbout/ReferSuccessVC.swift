@@ -39,7 +39,9 @@ class ReferSuccessVC: UIViewController {
     */
 
     @IBAction func BusinessDashboardAction(_ sender: Any) {
-        openBussinessDashboard()
+       // openBussinessDashboard()
+        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
     @IBAction func ReferMoreAction(_ sender: Any) {
         for controller in self.navigationController!.viewControllers as Array {
@@ -98,8 +100,7 @@ class ReferSuccessVC: UIViewController {
     func openBussinessDashboard(){
         if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
             
-            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
-            navigationController?.pushViewController(storySettingsVC, animated: true)
+          
          //   businessDashbardConfirmPopupView.isHidden = false
          //   btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
 //            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
