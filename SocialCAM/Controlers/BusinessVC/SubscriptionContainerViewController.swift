@@ -129,7 +129,7 @@ class SubscriptionContainerViewController: UIViewController {
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        imageViewfreeShield.image = R.image.squareBadge()
+                        imageViewfreeShield.image = R.image.badgeIphoneFree()
                     }
                 }
             }

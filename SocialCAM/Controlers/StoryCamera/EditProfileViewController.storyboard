@@ -165,7 +165,7 @@
                                                                         <rect key="frame" x="12" y="12" width="41" height="41"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8f-Lk-idB">
-                                                                        <rect key="frame" x="28.5" y="26" width="8.5" height="17"/>
+                                                                        <rect key="frame" x="28.5" y="36" width="8.5" height="17"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -176,7 +176,7 @@
                                                                     <constraint firstAttribute="trailing" secondItem="LZK-OL-g9l" secondAttribute="trailing" id="8a8-1n-l1b"/>
                                                                     <constraint firstItem="LZK-OL-g9l" firstAttribute="top" secondItem="j3g-2k-oLz" secondAttribute="top" id="8v8-G9-pf1"/>
                                                                     <constraint firstAttribute="bottom" secondItem="LZK-OL-g9l" secondAttribute="bottom" id="BSG-5C-joR"/>
-                                                                    <constraint firstItem="D8f-Lk-idB" firstAttribute="centerY" secondItem="j3g-2k-oLz" secondAttribute="centerY" constant="2" id="IdF-D8-cfE"/>
+                                                                    <constraint firstItem="D8f-Lk-idB" firstAttribute="centerY" secondItem="j3g-2k-oLz" secondAttribute="centerY" constant="12" id="IdF-D8-cfE"/>
                                                                     <constraint firstItem="LZK-OL-g9l" firstAttribute="leading" secondItem="j3g-2k-oLz" secondAttribute="leading" id="MxG-jg-h8E"/>
                                                                     <constraint firstAttribute="trailing" secondItem="DjN-8w-XZE" secondAttribute="trailing" constant="12" id="Xhs-8j-qb3"/>
                                                                     <constraint firstAttribute="bottom" secondItem="DjN-8w-XZE" secondAttribute="bottom" constant="12" id="ZPZ-3v-qPx"/>
@@ -189,16 +189,16 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ua3-ih-v3r" userLabel="Apple Badge">
-                                                                <rect key="frame" x="40" y="0.5" width="65" height="64"/>
+                                                                <rect key="frame" x="40" y="0.0" width="65" height="65"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="DQ4-Yu-AW5">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="64"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                                                                     </imageView>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="HLn-R8-GKb">
                                                                         <rect key="frame" x="5" y="7" width="55" height="23.5"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPo-Fz-VnF">
-                                                                        <rect key="frame" x="28.5" y="31.5" width="8.5" height="17"/>
+                                                                        <rect key="frame" x="28.5" y="36" width="8.5" height="17"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -207,7 +207,7 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="qPo-Fz-VnF" firstAttribute="centerX" secondItem="Ua3-ih-v3r" secondAttribute="centerX" id="7Fj-uz-g5M"/>
-                                                                    <constraint firstItem="qPo-Fz-VnF" firstAttribute="centerY" secondItem="Ua3-ih-v3r" secondAttribute="centerY" constant="8" id="7Ro-pN-bZk"/>
+                                                                    <constraint firstItem="qPo-Fz-VnF" firstAttribute="centerY" secondItem="Ua3-ih-v3r" secondAttribute="centerY" constant="12" id="7Ro-pN-bZk"/>
                                                                     <constraint firstItem="HLn-R8-GKb" firstAttribute="leading" secondItem="Ua3-ih-v3r" secondAttribute="leading" constant="5" id="98x-9T-yh9"/>
                                                                     <constraint firstAttribute="trailing" secondItem="DQ4-Yu-AW5" secondAttribute="trailing" id="A7W-na-9Xj"/>
                                                                     <constraint firstItem="DQ4-Yu-AW5" firstAttribute="leading" secondItem="Ua3-ih-v3r" secondAttribute="leading" id="Ddq-f3-Qdh"/>
@@ -228,9 +228,9 @@
                                                                         <rect key="frame" x="12" y="12" width="41" height="41"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNG-zj-Xd6">
-                                                                        <rect key="frame" x="28.5" y="24.5" width="8.5" height="17"/>
+                                                                        <rect key="frame" x="28.5" y="36" width="8.5" height="17"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -238,7 +238,7 @@
                                                                 <constraints>
                                                                     <constraint firstItem="sE9-uY-5fI" firstAttribute="centerY" secondItem="rrh-mE-NVS" secondAttribute="centerY" id="0DA-gi-FTy"/>
                                                                     <constraint firstItem="sE9-uY-5fI" firstAttribute="top" secondItem="rrh-mE-NVS" secondAttribute="top" constant="12" id="8Pg-a8-Vv4"/>
-                                                                    <constraint firstItem="uNG-zj-Xd6" firstAttribute="centerY" secondItem="rrh-mE-NVS" secondAttribute="centerY" constant="0.5" id="Gnz-Lm-pOI"/>
+                                                                    <constraint firstItem="uNG-zj-Xd6" firstAttribute="centerY" secondItem="rrh-mE-NVS" secondAttribute="centerY" constant="12" id="Gnz-Lm-pOI"/>
                                                                     <constraint firstItem="vSt-gw-ECe" firstAttribute="top" secondItem="rrh-mE-NVS" secondAttribute="top" id="M26-Sk-oJw"/>
                                                                     <constraint firstItem="vSt-gw-ECe" firstAttribute="leading" secondItem="rrh-mE-NVS" secondAttribute="leading" id="Tji-vg-y7r"/>
                                                                     <constraint firstItem="sE9-uY-5fI" firstAttribute="leading" secondItem="rrh-mE-NVS" secondAttribute="leading" constant="12" id="cJm-Jw-UYg"/>
@@ -3198,9 +3198,9 @@
     </scenes>
     <resources>
         <image name="User_placeholder" width="400" height="400"/>
-        <image name="advancedBadge" width="64" height="64"/>
+        <image name="advancedBadge" width="62" height="73"/>
         <image name="androidBadge" width="64" height="64"/>
-        <image name="basicBadge" width="64" height="64"/>
+        <image name="basicBadge" width="62" height="73"/>
         <image name="checkBoxActive" width="20" height="20"/>
         <image name="checkBoxInActive" width="20" height="20"/>
         <image name="circleHelpQuestionMark" width="16" height="16"/>
@@ -3222,7 +3222,7 @@
         <image name="iosbadge" width="165" height="163"/>
         <image name="outlookSocialShare" width="44" height="44"/>
         <image name="prelaunchBadge" width="226" height="342"/>
-        <image name="proBadge" width="64" height="64"/>
+        <image name="proBadge" width="62" height="73"/>
         <image name="qr_downloadicon" width="60" height="60"/>
         <image name="shareIcon" width="19" height="21"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
@@ -3245,7 +3245,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
