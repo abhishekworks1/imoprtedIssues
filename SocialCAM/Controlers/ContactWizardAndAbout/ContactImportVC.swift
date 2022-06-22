@@ -2564,18 +2564,20 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
         if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
+            self.segmentViewHeight.constant = 84.0
+            self.stepViewHeight.constant = 50.0
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.segmentViewHeight.constant = 84.0
-                    self.stepViewHeight.constant = 50.0
-                       // self.view.layoutIfNeeded()
+                    
+                    self.view.layoutIfNeeded()
                 })
             }
             else if (self.lastContentOffset < scrollView.contentOffset.y) {
                // move down
+                self.segmentViewHeight.constant = 0.0
+                self.stepViewHeight.constant = 0.0
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.segmentViewHeight.constant = 0.0
-                    self.stepViewHeight.constant = 0.0
-                       // self.view.layoutIfNeeded()
+                   
+                    self.view.layoutIfNeeded()
                 })
             }
 

@@ -212,6 +212,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
     
+    @IBOutlet weak var recordingTimeStackView: UIStackView!
     @IBOutlet weak var recordingTimeLabel: UILabel!
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
@@ -424,10 +425,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         didSet {
             if (takenVideoUrls.count > 0) && (recordingType == .custom) {
                 settingsButton.isSelected = true
-                recordingTimeLabel.isHidden = false
+                recordingTimeStackView.isHidden = false
             } else {
                 settingsButton.isSelected = false
-                recordingTimeLabel.isHidden = true
+                recordingTimeStackView.isHidden = true
             }
         }
     }
@@ -1227,7 +1228,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 let finalDuration = String(format: "%.1f", totalDurationSum)
                 print(finalDuration)
                 self.recordingTimeLabel.text = "\(finalDuration) / \(totalSegDuration)"
-                recordingTimeLabel.isHidden = false
+                recordingTimeStackView.isHidden = false
             }
             if let lastSegmentsprogress = self.segmentsProgress.last {
                 self.progress = lastSegmentsprogress
@@ -1239,13 +1240,13 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.circularProgress.deleteLayer()
             self.updateProgress()
             if self.takenVideoUrls.isEmpty {
-                recordingTimeLabel.isHidden = true
+                recordingTimeStackView.isHidden = true
                 recordingTimeLabel.text = ""
                 self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
             }
             discardAllSegmentView.isHidden = true
         } else {
-            recordingTimeLabel.isHidden = true
+            recordingTimeStackView.isHidden = true
             recordingTimeLabel.text = ""
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             if !self.takenVideoUrls.isEmpty {
@@ -2160,6 +2161,11 @@ extension StoryCameraViewController {
         print((progressUP / progressMaxSeconds))
         progress += progressUP // (progressUP / progressMaxSeconds)
         print("progress: \(progress)")
+        let totalDurationSum = totalVideoDuration.reduce(0, +)
+        if (progress * progressMaxSeconds) > totalDurationSum {
+            self.recordingTimeLabel.text = "\(String(format: "%.1f", (progress * progressMaxSeconds))) / \(self.liteCamMaxSeconds())"
+        }
+        self.recordingTimeStackView.isHidden = false
         if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
             if progress >= 1 {
                 if self.getFreeSpace() > 200 {
@@ -2290,10 +2296,10 @@ extension StoryCameraViewController {
             self.segmentsProgress.append(progress)
             self.circularProgress.drawArc(startAngle: Double(progress))
             self.discardSegmentsStackView.isHidden = false
-            self.settingsButton.isHidden = true
+            self.settingsView.isHidden = true
             self.backButtonView.isHidden = false
             cameraSliderView.isHidden = true
-            self.businessDashboardButton.isHidden = true
+            self.businessDashboardStackView.isHidden = true
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
             self.outtakesView.isHidden = true
@@ -2607,7 +2613,7 @@ extension StoryCameraViewController {
                     print(finalDuration)
                     self.recordingTimeLabel.text = "\(finalDuration) / \(totalSegDuration)"
                     print("************Total Video Duration************")
-                    self.recordingTimeLabel.isHidden = false
+                    self.recordingTimeStackView.isHidden = false
                 }
                 if recordingType != .normal && recordingType != .newNormal && recordingType != .capture {
                     if Defaults.shared.isVideoSavedAfterRecording == true {
@@ -2949,10 +2955,10 @@ extension StoryCameraViewController {
         self.circularProgress.deleteAllSubLayers()
         self.progress = 0
         self.discardSegmentsStackView.isHidden = true
-        self.settingsButton.isHidden = false
+        self.settingsView.isHidden = false
         cameraSliderView.isHidden = false
         backButtonView.isHidden = true
-        self.businessDashboardButton.isHidden = false
+        self.businessDashboardStackView.isHidden = false
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
         self.outtakesView.isHidden = false
