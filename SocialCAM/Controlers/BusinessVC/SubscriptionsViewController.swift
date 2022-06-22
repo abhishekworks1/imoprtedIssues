@@ -216,7 +216,7 @@ class SubscriptionsViewController: UIViewController {
             days7TrialSubTitleLabel.isHidden = false
             subScriptionTypeLabel.text = "Free"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "000000")
-            subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
+            subScriptionBadgeImageView.image = R.image.badgeIphoneTrial()
             appleIconImageView.image = R.image.freeAppleIcon()
             let firstColor = UIColor.init(hexString: "C3C3C3")
             let secondColor = UIColor.init(hexString: "D7D7D7")
@@ -439,6 +439,7 @@ class SubscriptionsViewController: UIViewController {
                         }
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
+                        lblBadgeRemainingDays.text = ""
                         lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
                     }
                 }
