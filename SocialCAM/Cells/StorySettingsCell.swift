@@ -98,15 +98,16 @@ class StorySettingsListCell: UITableViewCell {
                 let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
                 let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
                 let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
-                
+                iosIconImageview.isHidden = true
+                androidIconImageview.isHidden = true
+                webIconImageview.isHidden = true
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.freeBadgeBG()
-                        iosIconImageview.image = R.image.freeAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphoneTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
@@ -117,28 +118,24 @@ class StorySettingsListCell: UITableViewCell {
                             //iOS shield hide
                             //square badge show
                             lbliosDaysRemains.text = ""
-                            iosSheildImageview.image = R.image.squareBadge()
-                            iosIconImageview.image = R.image.freeAppleIcon()
+                            iosSheildImageview.image = R.image.badgeIphoneFree()
 //                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.basicBadgeBG()
-                        iosIconImageview.image = R.image.basicAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphoneBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.advBadgeBG()
-                        iosIconImageview.image = R.image.advancedAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphoneAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.priBadgeBG()
-                        iosIconImageview.image = R.image.preAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphonePre()
                     }
                 }
                 // Setup For Android Badge
@@ -147,32 +144,32 @@ class StorySettingsListCell: UITableViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.freeBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         androidBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblandroidDaysRemains.text = finalDay
-                            androidSheildImageview.image = R.image.freeBadge()
+                            androidSheildImageview.image = R.image.badgeAndroidTrial()
                         } else {
                             lblandroidDaysRemains.text = ""
-                            androidSheildImageview.image = R.image.squareBadgeAndroid()
+                            androidSheildImageview.image = R.image.badgeAndroidFree()
                         }
                     }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.basicBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.advancedBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.proBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidPre()
                     }
                 }
                 
@@ -181,33 +178,33 @@ class StorySettingsListCell: UITableViewCell {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.freebadgeweb()
+                        webSheildImageview.image = R.image.badgeWebTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         webBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblwebDaysRemains.text = finalDay
-                            webSheildImageview.image = R.image.freebadgeweb()
+                            webSheildImageview.image = R.image.badgeWebTrial()
                         } else {
                             lblwebDaysRemains.text = ""
-                            webSheildImageview.image = R.image.sqaureBadgeweb()
+                            webSheildImageview.image = R.image.badgeWebFree()
                         }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.basicBadgeWeb()
+                        webSheildImageview.image = R.image.badgeWebBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.advbadgeWeb()
+                        webSheildImageview.image = R.image.badgeWebAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.premiumbadgeweb()
+                        webSheildImageview.image = R.image.badgeWebPre()
                     }
                 }
             }

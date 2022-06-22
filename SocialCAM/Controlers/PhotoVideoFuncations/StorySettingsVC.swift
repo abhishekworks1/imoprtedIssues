@@ -74,6 +74,7 @@ enum SettingsMode: Int, Codable {
     case checkUpdate
     case referringChannel
     case qrcode
+    case contactManager
     case mutehapticFeedbackOnSpeedSelection
     case publicDisplaynameWatermark
     case editProfileCard
@@ -184,8 +185,10 @@ class StorySettings: Codable {
                                               settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
+                                 StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
+                                 StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
@@ -434,6 +437,8 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     func setUpSubscriptionBadges() {
+        androidIconImageview.isHidden = true
+//        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
@@ -444,15 +449,16 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                 let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
                 let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
                 let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
-                
+                iosIconImageview.isHidden = true
+                androidIconImageview.isHidden = true
+                webIconImageview.isHidden = true
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.freeBadge()
-                        iosIconImageview.image = R.image.freeAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphoneTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
@@ -463,28 +469,24 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                             //iOS shield hide
                             //square badge show
                             lbliosDaysRemains.text = ""
-                            iosSheildImageview.image = R.image.squareBadge()
-                            iosIconImageview.image = R.image.freeAppleIcon()
+                            iosSheildImageview.image = R.image.badgeIphoneFree()
 //                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.basicBadge()
-                        iosIconImageview.image = R.image.basicAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphoneBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.advancedBadge()
-                        iosIconImageview.image = R.image.advancedAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphoneAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.proBadge()
-                        iosIconImageview.image = R.image.preAppleIcon()
+                        iosSheildImageview.image = R.image.badgeIphonePre()
                     }
                 }
                 // Setup For Android Badge
@@ -493,32 +495,32 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.freeBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         androidBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblandroidDaysRemains.text = finalDay
-                            androidSheildImageview.image = R.image.freeBadge()
+                            androidSheildImageview.image = R.image.badgeAndroidTrial()
                         } else {
                             lblandroidDaysRemains.text = ""
-                            androidSheildImageview.image = R.image.squareBadge()
+                            androidSheildImageview.image = R.image.badgeAndroidFree()
                         }
                     }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.basicBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.advancedBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.proBadge()
+                        androidSheildImageview.image = R.image.badgeAndroidPre()
                     }
                 }
                 
@@ -527,33 +529,33 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.freeBadge()
+                        webSheildImageview.image = R.image.badgeWebTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         webBadgeView.isHidden = false
                         if freeTrialDay > 0 {
                             lblwebDaysRemains.text = finalDay
-                            webSheildImageview.image = R.image.freeBadge()
+                            webSheildImageview.image = R.image.badgeWebTrial()
                         } else {
                             lblwebDaysRemains.text = ""
-                            webSheildImageview.image = R.image.squareBadge()
+                            webSheildImageview.image = R.image.badgeWebFree()
                         }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.basicBadge()
+                        webSheildImageview.image = R.image.badgeWebBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.advancedBadge()
+                        webSheildImageview.image = R.image.badgeWebAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.proBadge()
+                        webSheildImageview.image = R.image.badgeWebPre()
                     }
                 }
             }
@@ -806,7 +808,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
-            hideUnhideImgButton(cell, R.image.referralWizard())
+            hideUnhideImgButton(cell, R.image.settings_ReferralWizard())
 //            cell.newBadgesImageView.isHidden = true//false
             cell.newBadgesImageView.image = R.image.referralWizardBadge()
         }else if settingTitle.settingsType == .qrcode {
@@ -841,18 +843,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .subscription {
             hideUnhideImgButton(cell, R.image.settings_Subscription())
             cell.setUpSubscriptionBadges()
-            /*let badgearry = Defaults.shared.getbadgesArray()
-            if badgearry.contains("iosbadge") {
-                cell.imgSubscribeBadge.image = R.image.newIosBadge()
-                cell.imgSubscribeBadge.isHidden = false
-            } else if badgearry.contains("androidbadge") {
-                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
-                cell.imgSubscribeBadge.isHidden = false
-            } else if badgearry.contains("webbadge") {
-                cell.imgSubscribeBadge.image = R.image.webbadge()
-                cell.imgSubscribeBadge.isHidden = false
-            } */
-        } else if settingTitle.settingsType == .socialLogins {
+        } else if settingTitle.settingsType == .contactManager {
+            hideUnhideImgButton(cell, R.image.settings_ContactManager())
+        }else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
             cell.socialImageView?.isHidden = false
@@ -1082,6 +1075,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
+        } else if settingTitle.settingsType == .contactManager {
+           //cg
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
@@ -1628,6 +1623,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         cell.badgeView.isHidden = true
         cell.newBadgesImageView.isHidden = true
         cell.notificationCountView.isHidden = true
+        cell.socialImageView?.image = nil
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
@@ -1637,7 +1633,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
-            cell.socialImageView?.image = R.image.referralWizard()
+            cell.socialImageView?.image = R.image.settings_ReferralWizard()
 //            cell.newBadgesImageView.isHidden = false
             cell.newBadgesImageView.image = R.image.referralWizardBadge()
         }else if settingTitle.settingsType == .qrcode {
@@ -1672,17 +1668,10 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         } else if settingTitle.settingsType == .subscription {
             cell.socialImageView?.image = R.image.settings_Subscription()
             cell.setUpSubscriptionBadges()
-//            let badgearry = Defaults.shared.getbadgesArray()
-//            if badgearry.contains("iosbadge") {
-//                cell.imgSubscribeBadge.image = R.image.newIosBadge()
-//                cell.imgSubscribeBadge.isHidden = false
-//            } else if badgearry.contains("androidbadge") {
-//                cell.imgSubscribeBadge.image = R.image.newAndroidBadge()
-//                cell.imgSubscribeBadge.isHidden = false
-//            } else if badgearry.contains("webbadge") {
-//                cell.imgSubscribeBadge.image = R.image.webbadge()
-//                cell.imgSubscribeBadge.isHidden = false
-//            }
+        }else if settingTitle.settingsType == .contactManager {
+            cell.socialImageView?.image = R.image.settings_ContactManager()
+        }else {
+            cell.socialImageView?.image = nil
         }
         return cell
     }
@@ -1721,6 +1710,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
+        } else if settingTitle.settingsType == .contactManager {
+          
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")

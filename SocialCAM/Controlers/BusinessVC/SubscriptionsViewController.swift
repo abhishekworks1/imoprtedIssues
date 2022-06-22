@@ -141,6 +141,7 @@ class SubscriptionsViewController: UIViewController {
     }
     
     func setupView() {
+        appleIconImageView.isHidden = true
         switch appMode {
         case .professional:
             days7TrialTitleLabel.isHidden = true
@@ -149,7 +150,7 @@ class SubscriptionsViewController: UIViewController {
             pic2ArtSubTitleLabel.isHidden = false
             subScriptionTypeLabel.text = "Premium"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "5092D0")
-            subScriptionBadgeImageView.image = R.image.priBadgeBG()
+            subScriptionBadgeImageView.image = R.image.badgeIphonePre()
             appleIconImageView.image = R.image.preAppleIcon()
             let firstColor = UIColor.init(hexString: "4D83D4")
             let secondColor = UIColor.init(hexString: "92C5F4")
@@ -171,7 +172,7 @@ class SubscriptionsViewController: UIViewController {
             days7TrialTitleLabel.isHidden = true
             days7TrialSubTitleLabel.isHidden = true
             subScriptionTypeLabel.text = "Advanced"
-            subScriptionBadgeImageView.image = R.image.advBadgeBG()
+            subScriptionBadgeImageView.image = R.image.badgeIphoneAdvance()
             appleIconImageView.image = R.image.advancedAppleIcon()
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "77C159")
             let firstColor = UIColor.init(hexString: "77C159")
@@ -189,7 +190,7 @@ class SubscriptionsViewController: UIViewController {
         case .basic:
             subScriptionTypeLabel.text = "Basic"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "EAB140")
-            subScriptionBadgeImageView.image = R.image.basicBadgeBG()
+            subScriptionBadgeImageView.image = R.image.badgeIphoneBasic()
             appleIconImageView.image = R.image.basicAppleIcon()
             
             let firstColor = UIColor.init(hexString: "FDE774")
@@ -215,7 +216,7 @@ class SubscriptionsViewController: UIViewController {
             days7TrialSubTitleLabel.isHidden = false
             subScriptionTypeLabel.text = "Free"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "000000")
-            subScriptionBadgeImageView.image = R.image.freeBadgeBG()
+            subScriptionBadgeImageView.image = R.image.badgeIphoneTrial()
             appleIconImageView.image = R.image.freeAppleIcon()
             let firstColor = UIColor.init(hexString: "C3C3C3")
             let secondColor = UIColor.init(hexString: "D7D7D7")
@@ -436,7 +437,8 @@ class SubscriptionsViewController: UIViewController {
                            
                         }
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        subScriptionBadgeImageView.image = R.image.squareBadge()
+                        subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
+                        lblBadgeRemainingDays.text = ""
                         lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
                     }
                 }
@@ -669,25 +671,25 @@ extension SubscriptionsViewController {
                     self.thankYouSubscriptionTypeLabel.text = "Your Free Badge"
                     let firstColor = UIColor.init(hexString: "C3C3C3")
                     self.thankYouiPhoneLabel.textColor = firstColor
-                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.freeBadgeBG()
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphoneTrial()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.freeAppleIcon()
                 case .basic:
                     self.thankYouSubscriptionTypeLabel.text = "Your Basic Badge"
                     let firstColor = UIColor.init(hexString: "FDE774")
                     self.thankYouiPhoneLabel.textColor = firstColor
-                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.basicBadgeBG()
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphoneBasic()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.basicAppleIcon()
                 case .advanced:
                     self.thankYouSubscriptionTypeLabel.text = "Your Advanced Badge"
                     let firstColor = UIColor.init(hexString: "77C159")
                     self.thankYouiPhoneLabel.textColor = firstColor
-                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.advBadgeBG()
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphoneAdvance()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.advancedAppleIcon()
                 case .professional:
                     self.thankYouSubscriptionTypeLabel.text = "Your Premium Badge"
                     let firstColor = UIColor.init(hexString: "4D83D4")
                     self.thankYouiPhoneLabel.textColor = firstColor
-                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.priBadgeBG()
+                    self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphonePre()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.preAppleIcon()
 //                default:
 //                    break
