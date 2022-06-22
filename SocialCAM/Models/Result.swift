@@ -417,6 +417,10 @@ class ContactResponse: Mappable {
     var status: String?
     var emailOptedOut: Bool?
     var hide: Bool?
+    var profileImage: String?
+    var registeredUserDetails: RegisteredUserDetails?
+    var subscriptionStatus: String?
+    var registeredUser: String?
 
     required init?(map: Map){
     }
@@ -426,6 +430,7 @@ class ContactResponse: Mappable {
         mobile <- map["mobile"]
         email <- map["email"]
         name <- map["name"]
+        profileImage <- map["profileImage"]
         emailLink <- map["emailLink"]
         emailCount <- map["emailCount"]
         textLink <- map["textLink"]
@@ -434,8 +439,43 @@ class ContactResponse: Mappable {
         status <- map["status"]
         emailOptedOut <- map["emailOptedOut"]
         hide <- map["hide"]
+        registeredUserDetails <- map["registeredUserDetails"]
+        subscriptionStatus <- map["subscriptionStatus"]
+        registeredUser <- map["registeredUser"]
+       
+        
     }
 }
+class RegisteredUserDetails: Mappable {
+
+    var firstName: String?
+    var lastName: String?
+    var publicDisplayName: String?
+    var channelName: String?
+    var username: String?
+    var channelId: String?
+    var displayName: String?
+    var refferal: Int?
+    var susbscribers: Int?
+    var badges: [ParentBadges]?
+
+    required init?(map: Map){
+    }
+
+    func mapping(map: Map) {
+        firstName <- map["firstName"]
+        lastName <- map["lastName"]
+        publicDisplayName <- map["publicDisplayName"]
+        channelName <- map["channelName"]
+        username <- map["username"]
+        channelId <- map["channelId"]
+        displayName <- map["displayName"]
+        refferal <- map["refferal"]
+        susbscribers <- map["susbscribers"]
+        badges <- map["badges"]
+    }
+}
+
 
 class NotificationCountResult: Codable {
     var message: String?

@@ -406,6 +406,7 @@ class SubscriptionsViewController: UIViewController {
     }
     func setSubscriptionBadgeDetails(){
 //        lblBadgeRemainingDays.text =  ""
+        print(Defaults.shared.currentUser?.badges ?? "")
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""

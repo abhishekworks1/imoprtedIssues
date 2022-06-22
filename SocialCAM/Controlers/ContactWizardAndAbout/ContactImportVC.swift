@@ -253,6 +253,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         emailContactTableView.dataSource = self
         emailContactTableView.delegate = self
         
+        self.contactTableView.estimatedRowHeight = 88.0
+        self.contactTableView.rowHeight = UITableView.automaticDimension
+        
+        self.emailContactTableView.estimatedRowHeight = 88.0
+        self.emailContactTableView.rowHeight = UITableView.automaticDimension
+        
         searchBar.delegate = self
         
           
@@ -1488,8 +1494,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             return UITableView.automaticDimension
         } else {
-            return 75
+            return UITableView.automaticDimension
+            //return 75
         }
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -1592,39 +1602,46 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
             //
-          /*  let contact = mailContacts[indexPath.row] as PhoneContact
-            cell.lblDisplayName.text = contact.name ?? ""
-            cell.lblNumberEmail.text = contact.email[0]
-            if let imagedata =  contact.avatarData {
-                let avtar = UIImage(data:imagedata,scale:1.0)
-                cell.contactImage.image = avtar
-            }else {
-                cell.contactImage.image = UIImage.init(named: "User_placeholder")
-            }
-            cell.phoneContactObj = contact */
-            
-            //
+         
             let contact = emailContacts[indexPath.row]
             cell.lblDisplayName.text = contact.name ?? ""
             cell.lblNumberEmail.text = contact.email ?? ""
             cell.contactImage.image = UIImage.init(named: "User_placeholder")
             cell.mobileContactObj = contact
            
-            if contact.status == ContactStatus.pending {
+            if contact.status == ContactStatus.pending{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invite", for: .normal)
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
-                
-            } else if contact.status == ContactStatus.subscriber {
+                cell.lblInviteButtonTitle.text = "Invite"
+                cell.buttonInvite.setTitle("", for: .normal)
+                cell.inviteButtonView.isHidden = false
+            }else if contact.status == ContactStatus.subscriber{
                 cell.inviteBtn.isHidden = true
-            } else if contact.status == ContactStatus.invited {
+                cell.inviteButtonView.isHidden = true
+            }else{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
-            } else {
-                cell.inviteBtn.isHidden = true
+                cell.buttonInvite.setTitle("", for: .normal)
+                cell.lblInviteButtonTitle.text = "Invited"
+                cell.inviteButtonView.isHidden = false
+            }
+            cell.inviteBtn.isHidden = true
+            if let registerUser = contact.registeredUserDetails{
+                cell.refferalView.isHidden = false
+                cell.inviteButtonView.isHidden = true
+                cell.contactStatusView.isHidden = false
+                cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
+                cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
+                cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                cell.setBadges()
+            }else{
+                cell.refferalView.isHidden = true
+                cell.inviteButtonView.isHidden = false
+                cell.contactStatusView.isHidden = true
             }
             return cell
         }else {
@@ -1654,16 +1671,35 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteBtn.setTitle("Invite", for: .normal)
                     cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                     cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
-                    
+                    cell.lblInviteButtonTitle.text = "Invite"
+                    cell.buttonInvite.setTitle("", for: .normal)
+                    cell.inviteButtonView.isHidden = false
                 }else if contact.status == ContactStatus.subscriber{
                     cell.inviteBtn.isHidden = true
+                    cell.inviteButtonView.isHidden = true
                 }else{
                     cell.inviteBtn.isHidden = false
                     cell.inviteBtn.setTitle("Invited", for: .normal)
                     cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
                     cell.inviteBtn.setTitleColor(.white, for: .normal)
+                    cell.buttonInvite.setTitle("", for: .normal)
+                    cell.lblInviteButtonTitle.text = "Invited"
+                    cell.inviteButtonView.isHidden = false
                 }
-                
+                cell.inviteBtn.isHidden = true
+                if let registerUser = contact.registeredUserDetails{
+                    cell.refferalView.isHidden = false
+                    cell.inviteButtonView.isHidden = true
+                    cell.contactStatusView.isHidden = false
+                    cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
+                    cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
+                    cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                    cell.setBadges()
+                }else{
+                    cell.refferalView.isHidden = true
+                    cell.inviteButtonView.isHidden = false
+                    cell.contactStatusView.isHidden = true
+                }
             }
             else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
@@ -1677,7 +1713,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
                 cell.phoneContactObj = contact
             }
-
+            
+          
             return cell
         }
     }
