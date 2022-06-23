@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -9308,6 +9308,78 @@ Countdown</string>
             </objects>
             <point key="canvasLocation" x="5793" y="154"/>
         </scene>
+        <!--Business Dashboard Web ViewVC-->
+        <scene sceneID="u6Z-4D-K1r">
+            <objects>
+                <viewController storyboardIdentifier="BusinessDashboardWebViewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vce-uZ-Fyc" customClass="BusinessDashboardWebViewVC" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Gk-nP-d23">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E10-OQ-PL6">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z4m-Rl-q7E">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GuW-4T-VnO">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVZ-lc-3oM">
+                                                <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="44" id="maK-25-3LQ"/>
+                                                    <constraint firstAttribute="height" constant="44" id="vhr-x0-5G7"/>
+                                                </constraints>
+                                                <state key="normal" image="storyBack"/>
+                                                <connections>
+                                                    <action selector="btnBackTapped:" destination="Vce-uZ-Fyc" eventType="touchUpInside" id="eRC-qa-XkQ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="9W4-vf-yPg"/>
+                                            <constraint firstItem="tVZ-lc-3oM" firstAttribute="leading" secondItem="GuW-4T-VnO" secondAttribute="leading" constant="8" id="BsF-vd-p4K"/>
+                                            <constraint firstAttribute="height" constant="44" id="G6E-az-c2j"/>
+                                            <constraint firstItem="tVZ-lc-3oM" firstAttribute="centerY" secondItem="GuW-4T-VnO" secondAttribute="centerY" id="Ht5-5E-DYb"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="AppPrimaryColor"/>
+                                <constraints>
+                                    <constraint firstItem="GuW-4T-VnO" firstAttribute="leading" secondItem="z4m-Rl-q7E" secondAttribute="leading" id="9gA-WH-m3L"/>
+                                    <constraint firstAttribute="height" constant="88" id="Pbt-cr-FFb"/>
+                                    <constraint firstAttribute="trailing" secondItem="GuW-4T-VnO" secondAttribute="trailing" id="czp-l0-hlV"/>
+                                    <constraint firstAttribute="bottom" secondItem="GuW-4T-VnO" secondAttribute="bottom" id="kYf-9N-Odx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9Jo-Os-8qX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="z4m-Rl-q7E" firstAttribute="top" secondItem="3Gk-nP-d23" secondAttribute="top" id="3xE-Ma-GmM"/>
+                            <constraint firstItem="z4m-Rl-q7E" firstAttribute="leading" secondItem="3Gk-nP-d23" secondAttribute="leading" id="Kkq-am-isx"/>
+                            <constraint firstItem="9Jo-Os-8qX" firstAttribute="trailing" secondItem="z4m-Rl-q7E" secondAttribute="trailing" id="QUd-Vt-I9Y"/>
+                            <constraint firstItem="E10-OQ-PL6" firstAttribute="top" secondItem="z4m-Rl-q7E" secondAttribute="bottom" id="gtM-xP-2P5"/>
+                            <constraint firstItem="9Jo-Os-8qX" firstAttribute="bottom" secondItem="E10-OQ-PL6" secondAttribute="bottom" id="hEJ-VW-csQ"/>
+                            <constraint firstItem="9Jo-Os-8qX" firstAttribute="trailing" secondItem="E10-OQ-PL6" secondAttribute="trailing" id="hNg-A4-U8e"/>
+                            <constraint firstItem="E10-OQ-PL6" firstAttribute="leading" secondItem="9Jo-Os-8qX" secondAttribute="leading" id="oVo-uc-90Z"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="E10-OQ-PL6" id="a21-FR-eKW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PIq-9u-4zo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1686" y="878"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="0m8-ct-tbU">
@@ -9435,10 +9507,10 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -2049,6 +2049,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
+        
+        if let viewController = R.storyboard.storyCameraViewController.businessDashboardWebViewVC() {
+          
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+       
         businessDashbardConfirmPopupView.isHidden = false
 //        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
 //        navigationController?.pushViewController(storySettingsVC, animated: true)
@@ -2158,7 +2164,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         print(urlString)
         guard let url = URL(string: urlString) else {
                 return
-            }
+        }
+        
+        
+        
+        
             presentSafariBrowser(url: url)
 //        }
 //        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
