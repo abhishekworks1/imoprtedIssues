@@ -1637,6 +1637,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
                 cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
                 cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                cell.badges = registerUser.badges ?? [ParentBadges]()
+                print(registerUser.toJSON())
                 cell.setBadges()
             }else{
                 cell.refferalView.isHidden = true
