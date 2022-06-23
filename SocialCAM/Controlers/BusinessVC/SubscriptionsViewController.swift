@@ -82,6 +82,7 @@ class SubscriptionsViewController: UIViewController {
         print(Defaults.shared.appMode)
         print("Defaults.shared.appMode")
         planActiveView.isHidden = true
+        timerLabel.isHidden = true
         lblBadgeRemainingDays.text = ""
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
@@ -416,7 +417,6 @@ class SubscriptionsViewController: UIViewController {
     }
     func setSubscriptionBadgeDetails(){
 //        lblBadgeRemainingDays.text =  ""
-        freeTrialView.isHidden = true
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -432,6 +432,12 @@ class SubscriptionsViewController: UIViewController {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         if finalDay == "7" {
                             lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                            if self.subscriptionType == .free {
+                                freeTrialView.isHidden = false
+                                if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                    showTimer(createdDate: createdDate)
+                                }
+                            }
                         } else {
                             var fday = 0
                             if let day = Int(finalDay) {
@@ -444,12 +450,16 @@ class SubscriptionsViewController: UIViewController {
                                 lblPrice.text = "Your 7-day free trial period has expired. Upgrade now to access these features."
                             }else{
                                 lblPrice.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
-                
-//                                if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-//                                    showTimer(createdDate: createdDate)
-//                                }
+                                if self.subscriptionType == .free {
+                                    freeTrialView.isHidden = false
+                                    if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                        showTimer(createdDate: createdDate)
+                                    }
+                                }
+                                
                             }
                         }
+                        
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
                         lblBadgeRemainingDays.text = ""

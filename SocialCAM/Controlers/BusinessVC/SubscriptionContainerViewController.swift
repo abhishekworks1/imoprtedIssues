@@ -103,6 +103,7 @@ class SubscriptionContainerViewController: UIViewController {
     }
     
     func setSubscriptionBadgeDetails(){
+        timerLabel.isHidden = true
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
