@@ -475,7 +475,7 @@ class SubscriptionsViewController: UIViewController {
         timerLabel.isHidden = false
         let currentDate = Date()
         var dateComponent = DateComponents()
-        dateComponent.day = 7
+        dateComponent.day = 6
         if let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate) {
             self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
                 let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
