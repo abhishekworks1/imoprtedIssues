@@ -9813,6 +9813,11 @@
 		9CAE571727456CE20067AAA5 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */; };
 		9CDA461E27851E09002BF726 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CDA461D27851E09002BF726 /* StoreKit.framework */; };
 		A11D24C0285D026600B01C2E /* UserSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D24BF285D026600B01C2E /* UserSync.swift */; };
+		A1450EB22864B25B0094ED7C /* AnnularLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EAE2864B2560094ED7C /* AnnularLayer.swift */; };
+		A1450EB32864B25B0094ED7C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1450EAF2864B2560094ED7C /* Media.xcassets */; };
+		A1450EB42864B25B0094ED7C /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB02864B2560094ED7C /* LineLayer.swift */; };
+		A1450EB52864B25B0094ED7C /* StepIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB12864B2560094ED7C /* StepIndicatorView.swift */; };
+		A1450EB72864DE860094ED7C /* QuickStartOptionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */; };
 		A5DFA48E6B7A3F536FA84BC6 /* Pods_Pic2Art.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12AB906D69BDE0807AD8E9CF /* Pods_Pic2Art.framework */; };
 		C20E96A4270D6E0100B67796 /* DisplayNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E96A3270D6E0100B67796 /* DisplayNameTableViewCell.swift */; };
 		C20E96A5270D6E0100B67796 /* DisplayNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E96A3270D6E0100B67796 /* DisplayNameTableViewCell.swift */; };
@@ -16461,6 +16466,11 @@
 		9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QRCodeViewController.swift; path = PhotoVideoFuncations/QRCodeViewController.swift; sourceTree = "<group>"; };
 		9CDA461D27851E09002BF726 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A11D24BF285D026600B01C2E /* UserSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSync.swift; sourceTree = "<group>"; };
+		A1450EAE2864B2560094ED7C /* AnnularLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnularLayer.swift; sourceTree = "<group>"; };
+		A1450EAF2864B2560094ED7C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		A1450EB02864B2560094ED7C /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
+		A1450EB12864B2560094ED7C /* StepIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepIndicatorView.swift; sourceTree = "<group>"; };
+		A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartOptionDetailViewController.swift; sourceTree = "<group>"; };
 		A32455081ED8F0CC55A1E49A /* Pods-ViralCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCamLite.release.xcconfig"; path = "Target Support Files/Pods-ViralCamLite/Pods-ViralCamLite.release.xcconfig"; sourceTree = "<group>"; };
 		A41C33C6D54082DABB9C7937 /* Pods-SnapCamLite.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapCamLite.beta.xcconfig"; path = "Target Support Files/Pods-SnapCamLite/Pods-SnapCamLite.beta.xcconfig"; sourceTree = "<group>"; };
 		A6291129B82617C0D72DA5B3 /* Pods-SoccerCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerCam.alpha.xcconfig"; path = "Target Support Files/Pods-SoccerCam/Pods-SoccerCam.alpha.xcconfig"; sourceTree = "<group>"; };
@@ -17018,8 +17028,10 @@
 		3568B138285216C800FB18E3 /* OnBoardingScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A1450EAD2864B2560094ED7C /* StepIndicator */,
 				3546C8DE28521FF300D76ACF /* OnBoardingView.storyboard */,
 				3546C8E12852202A00D76ACF /* OnBoardingViewController.swift */,
+				A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */,
 				75930D6828525DDF00B1A1EF /* MakeMoneyReferringViewController.swift */,
 			);
 			path = OnBoardingScreen;
@@ -19246,6 +19258,17 @@
 				8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */,
 			);
 			path = ContactWizardAndAbout;
+			sourceTree = "<group>";
+		};
+		A1450EAD2864B2560094ED7C /* StepIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				A1450EAE2864B2560094ED7C /* AnnularLayer.swift */,
+				A1450EAF2864B2560094ED7C /* Media.xcassets */,
+				A1450EB02864B2560094ED7C /* LineLayer.swift */,
+				A1450EB12864B2560094ED7C /* StepIndicatorView.swift */,
+			);
+			path = StepIndicator;
 			sourceTree = "<group>";
 		};
 		C16AEBCC27CDEC6700503E53 /* Tooltips */ = {
@@ -22287,6 +22310,7 @@
 				C2F9345B264AA0CA006CA527 /* wow.json in Resources */,
 				C2F9345C264AA0CA006CA527 /* Pink.JPG in Resources */,
 				C2F9345D264AA0CA006CA527 /* Philharmonic.JPG in Resources */,
+				A1450EB32864B25B0094ED7C /* Media.xcassets in Resources */,
 				C2F9345E264AA0CA006CA527 /* Rejoicing.JPG in Resources */,
 				C2F9345F264AA0CA006CA527 /* LaunchScreen.storyboard in Resources */,
 				C2F93460264AA0CA006CA527 /* RecorderStopScreen.xib in Resources */,
@@ -33822,6 +33846,7 @@
 				C2F932C0264AA0CA006CA527 /* VideosWebViewVC.swift in Sources */,
 				C2F932C1264AA0CA006CA527 /* HomeTabBarController.swift in Sources */,
 				C2F932C2264AA0CA006CA527 /* Layout.swift in Sources */,
+				A1450EB52864B25B0094ED7C /* StepIndicatorView.swift in Sources */,
 				C2D6DB72267783E9002C9CAF /* HelpSettingsCell.swift in Sources */,
 				C2F932C3264AA0CA006CA527 /* NextLevelClip.swift in Sources */,
 				C2F932C4264AA0CA006CA527 /* FocusIndicatorView.swift in Sources */,
@@ -33927,6 +33952,8 @@
 				C2F9331C264AA0CA006CA527 /* VideoResolutionCell.swift in Sources */,
 				3F83818A26B90CBF0058BC3C /* AccountSettingsCell.swift in Sources */,
 				3F75AC4F26C584AC00ECD86D /* YourAffiliateLinkViewController.swift in Sources */,
+				A1450EB22864B25B0094ED7C /* AnnularLayer.swift in Sources */,
+				A1450EB42864B25B0094ED7C /* LineLayer.swift in Sources */,
 				C2F9331D264AA0CA006CA527 /* ImageRenderer.swift in Sources */,
 				C2F9331E264AA0CA006CA527 /* ReSizeFontTextView.swift in Sources */,
 				C2F9331F264AA0CA006CA527 /* UIApplication.swift in Sources */,
@@ -34146,6 +34173,7 @@
 				C2F933D1264AA0CA006CA527 /* YouTubeUploadViewController.swift in Sources */,
 				C2F933D2264AA0CA006CA527 /* MLVideoView.swift in Sources */,
 				C2F933D3264AA0CA006CA527 /* KeyframePickerCursorVC.swift in Sources */,
+				A1450EB72864DE860094ED7C /* QuickStartOptionDetailViewController.swift in Sources */,
 				82E3C46A2722F38B008E7AE1 /* RefereeUserId.swift in Sources */,
 				C2F933D4264AA0CA006CA527 /* MetalImageView.swift in Sources */,
 				C2F933D5264AA0CA006CA527 /* SocialCAM.xcdatamodeld in Sources */,
@@ -37995,7 +38023,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38007,7 +38035,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -38024,7 +38052,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38036,7 +38064,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -38053,7 +38081,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38065,7 +38093,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -38082,7 +38110,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38094,7 +38122,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -41286,7 +41314,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41296,7 +41324,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -41323,7 +41351,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41333,7 +41361,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -41362,7 +41390,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41372,7 +41400,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -41400,7 +41428,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLiteApp-Info.plist";
@@ -41409,7 +41437,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.36;
+				MARKETING_VERSION = 1.37;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode",
 					"$(inherited)",

@@ -8,6 +8,171 @@
 
 import UIKit
 
+protocol QuickStartOptionable {
+    var title: String { get }
+    var description: String { get }
+    var isLastStep: Bool { get }
+    var isFirstStep: Bool { get }
+    var rawValue: Int { get }
+}
+
+enum QuickStartOption {
+    
+    case createContent
+    case mobileDashboard
+    case makeMoney
+    
+    func option(for rawValue: Int) -> QuickStartOptionable? {
+        switch self {
+        case .createContent:
+            return CreateContentOption(rawValue: rawValue)
+        case .mobileDashboard:
+            return MobileDashboardOption(rawValue: rawValue)
+        case .makeMoney:
+            return MakeMoneyOption(rawValue: rawValue)
+        }
+    }
+    
+    enum CreateContentOption: Int, QuickStartOptionable {
+        var title: String {
+            switch self {
+            case .quickCamCamera:
+                return "QuickCam Camera"
+            case .fastSlowEditor:
+                return "Fast & Slow Motion Recording"
+            case .quickieVideoEditor:
+                return "Quickie Video Editor"
+            case .bitmojis:
+                return "Bitmojis"
+            case .socialMediaSharing:
+                return "Social Media Sharing"
+            }
+        }
+        
+        var description: String {
+            switch self {
+            case .quickCamCamera:
+                return ""
+            case .fastSlowEditor:
+                return ""
+            case .quickieVideoEditor:
+                return ""
+            case .bitmojis:
+                return ""
+            case .socialMediaSharing:
+                return ""
+            }
+        }
+        
+        var isLastStep: Bool {
+            return self == .socialMediaSharing
+        }
+        
+        var isFirstStep: Bool {
+            return self == .quickCamCamera
+        }
+
+        case quickCamCamera = 0
+        case fastSlowEditor
+        case quickieVideoEditor
+        case bitmojis
+        case socialMediaSharing
+    }
+
+    enum MobileDashboardOption: Int, QuickStartOptionable {
+        var title: String {
+            switch self {
+            case .notifications:
+                return "Notifications"
+            case .howItWorks:
+                return "How it Works"
+            case .cameraSettings:
+                return "Camera Settings"
+            case .subscriptions:
+                return "Subscription"
+            case .checkForUpdates:
+                return "Check Updates"
+            }
+        }
+        
+        var description: String {
+            switch self {
+            case .notifications:
+                return ""
+            case .howItWorks:
+                return ""
+            case .cameraSettings:
+                return ""
+            case .subscriptions:
+                return ""
+            case .checkForUpdates:
+                return ""
+            }
+        }
+        
+        var isLastStep: Bool {
+            return self == .checkForUpdates
+        }
+        
+        var isFirstStep: Bool {
+            return self == .notifications
+        }
+        
+        case notifications = 0
+        case howItWorks
+        case cameraSettings
+        case subscriptions
+        case checkForUpdates
+    }
+
+    enum MakeMoneyOption: Int, QuickStartOptionable {
+        var title: String {
+            switch self {
+            case .referralCommissionProgram:
+                return "Referral Commissions Program"
+            case .textEmailInviter:
+                return "TextInviter™ & EmailInviter™"
+            case .socialQRCodeShare:
+                return "SocialSharing™ & QRCodeShare™"
+            case .contactManagerTools:
+                return "Contact Management Tools"
+            case .fundraising:
+                return "Great for Fundraising"
+            }
+            
+        }
+        
+        var description: String {
+            switch self {
+            case .referralCommissionProgram:
+                return ""
+            case .textEmailInviter:
+                return ""
+            case .socialQRCodeShare:
+                return ""
+            case .contactManagerTools:
+                return ""
+            case .fundraising:
+                return ""
+            }
+        }
+        
+        var isLastStep: Bool {
+            return self == .fundraising
+        }
+        
+        var isFirstStep: Bool {
+            return self == .referralCommissionProgram
+        }
+
+        case referralCommissionProgram = 0
+        case textEmailInviter
+        case socialQRCodeShare
+        case contactManagerTools
+        case fundraising
+    }
+}
+
 class OnBoardingViewController: UIViewController {
 
     @IBOutlet weak var popupView: UIView!
@@ -17,6 +182,9 @@ class OnBoardingViewController: UIViewController {
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var subscriptionStatusLabel: UILabel!
+    @IBOutlet weak var createContentStepIndicatorView: StepIndicatorView!
+    @IBOutlet weak var mobileDashboardStepIndicatorView: StepIndicatorView!
+    @IBOutlet weak var makeMoneyStepIndicatorView: StepIndicatorView!
 
     var showPopUpView: Bool = true
     var shouldShowFoundingMemberView: Bool = true
@@ -26,6 +194,18 @@ class OnBoardingViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        for option in Defaults.shared.createContentOptions {
+            createContentStepIndicatorView.finishedStep = option
+        }
+        for option in Defaults.shared.mobileDashboardOptions {
+            mobileDashboardStepIndicatorView.finishedStep = option
+        }
+        for option in Defaults.shared.makeMoneyOptions {
+            makeMoneyStepIndicatorView.finishedStep = option
+        }
+    }
 
     @IBAction func didTapMakeMoneyClick(_ sender: UIButton) {
         let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
@@ -56,6 +236,45 @@ class OnBoardingViewController: UIViewController {
     
     @IBAction func didTapCloseClick(_ sender: UIButton) {
         popupView.isHidden = true
+    }
+    
+    @IBAction func didTapOnCreateContentSteps(_ sender: UIButton) {
+        guard let option = QuickStartOption.createContent.option(for: sender.tag),
+              let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
+            return
+        }
+        var options = Defaults.shared.createContentOptions
+        options.append(option.rawValue)
+        Defaults.shared.createContentOptions = Array(Set(options))
+        quickStartDetail.selectedOption = option
+        quickStartDetail.selectedQuickStartMenu = .createContent
+        navigationController?.pushViewController(quickStartDetail, animated: true)
+    }
+    
+    @IBAction func didTapOnMobileDashboardSteps(_ sender: UIButton) {
+        guard let option = QuickStartOption.mobileDashboard.option(for: sender.tag),
+              let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
+            return
+        }
+        var options = Defaults.shared.mobileDashboardOptions
+        options.append(option.rawValue)
+        Defaults.shared.mobileDashboardOptions = Array(Set(options))
+        quickStartDetail.selectedOption = option
+        quickStartDetail.selectedQuickStartMenu = .mobileDashboard
+        navigationController?.pushViewController(quickStartDetail, animated: true)
+    }
+    
+    @IBAction func didTapOnMakeMoneySteps(_ sender: UIButton) {
+        guard let option = QuickStartOption.makeMoney.option(for: sender.tag),
+              let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
+            return
+        }
+        var options = Defaults.shared.makeMoneyOptions
+        options.append(option.rawValue)
+        Defaults.shared.makeMoneyOptions = Array(Set(options))
+        quickStartDetail.selectedOption = option
+        quickStartDetail.selectedQuickStartMenu = .makeMoney
+        navigationController?.pushViewController(quickStartDetail, animated: true)
     }
     
 }
