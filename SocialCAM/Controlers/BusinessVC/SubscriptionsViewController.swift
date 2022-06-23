@@ -41,6 +41,8 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var days7TrialSubTitleLabel: UILabel!
     @IBOutlet weak var days7TrialTitleLabel: UILabel!
     
+    @IBOutlet weak var freeTrialView: UIView!
+    @IBOutlet weak var timerLabel: UILabel!
     
     //    @IBOutlet weak var btnUpgrade: UIButton!
 //    @IBOutlet weak var lblYourCurrentPlan: UILabel!
@@ -66,6 +68,7 @@ class SubscriptionsViewController: UIViewController {
         return viewModel.subscriptionPlanData
     }
     var isFreeTrialMode = false
+    private var countdownTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +82,7 @@ class SubscriptionsViewController: UIViewController {
         print(Defaults.shared.appMode)
         print("Defaults.shared.appMode")
         planActiveView.isHidden = true
+        timerLabel.isHidden = true
         lblBadgeRemainingDays.text = ""
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
@@ -124,6 +128,11 @@ class SubscriptionsViewController: UIViewController {
         tapGestureSetUp()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        countdownTimer?.invalidate()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationBarView.addBottomShadow()
@@ -142,6 +151,7 @@ class SubscriptionsViewController: UIViewController {
     
     func setupView() {
         appleIconImageView.isHidden = true
+        thankYouSubscriptionTypeAppleIconImageView.isHidden = true
         switch appMode {
         case .professional:
             days7TrialTitleLabel.isHidden = true
@@ -296,6 +306,7 @@ class SubscriptionsViewController: UIViewController {
     }
     
     private func setupUI() {
+        freeTrialView.isHidden = true
         let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
         if let currentUser = Defaults.shared.currentUser {
 //            lblExpiryDate.text = R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
@@ -422,6 +433,12 @@ class SubscriptionsViewController: UIViewController {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         if finalDay == "7" {
                             lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                            if self.subscriptionType == .free {
+                                freeTrialView.isHidden = false
+                                if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                    showTimer(createdDate: createdDate)
+                                }
+                            }
                         } else {
                             var fday = 0
                             if let day = Int(finalDay) {
@@ -434,18 +451,42 @@ class SubscriptionsViewController: UIViewController {
                                 lblPrice.text = "Your 7-day free trial period has expired. Upgrade now to access these features."
                             }else{
                                 lblPrice.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
+                                if self.subscriptionType == .free {
+                                    freeTrialView.isHidden = false
+                                    if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                        showTimer(createdDate: createdDate)
+                                    }
+                                }
+                                
                             }
-                           
                         }
+                        
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
                         lblBadgeRemainingDays.text = ""
                         lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+                        freeTrialView.isHidden = true
                     }
                 }
             }
         }
         appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? -10 : -10
+    }
+    func showTimer(createdDate: Date){
+        timerLabel.isHidden = false
+        let currentDate = Date()
+        var dateComponent = DateComponents()
+        dateComponent.day = 6
+        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate) {
+            self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
+                let days = countdown.day!
+                let hours = countdown.hour!
+                let minutes = countdown.minute!
+                let seconds = countdown.second!
+                self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
+            }
+        }
     }
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {
