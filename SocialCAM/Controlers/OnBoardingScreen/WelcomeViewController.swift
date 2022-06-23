@@ -67,6 +67,13 @@ class WelcomeViewController: UIViewController {
 
 extension WelcomeViewController {
     func setupView() {
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+        }
+        
+        self.displayNameLabel.text = Defaults.shared.currentUser?.firstName
+        self.setSubscriptionBadgeDetails()
+        
         UserSync.shared.syncUserModel { isCompleted in
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
