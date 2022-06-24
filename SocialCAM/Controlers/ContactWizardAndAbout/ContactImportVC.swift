@@ -412,10 +412,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         case .authorized: //access contacts
             contactPermitView.isHidden = true
             print("here")
-            //self.loadContacts(filter: self.filter) // Calling loadContacts methods
-            self.getContactList()
-           // loadingView.hide()
-           // self.hideLoader()
+            self.loadContacts(filter: self.filter) // Calling loadContacts methods
+//            self.getContactList()
+//            loadingView.hide()
+            self.hideLoader()
         case .denied, .notDetermined: //request permission
             CNContactStore().requestAccess(for: .contacts) { granted, error in
                 if granted {
@@ -849,9 +849,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.mobileContacts.append(contentsOf:contacts)
 
                     self.allmobileContacts = self.mobileContacts
-                    if self.mobileContacts.count > 0{
-                        self.contactPermitView.isHidden = true
-                    }
+                    
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
@@ -859,9 +857,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     
-                    if self.emailContacts.count > 0{
-                        self.contactPermitView.isHidden = true
-                    }
+                    
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }

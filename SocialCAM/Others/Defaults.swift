@@ -1317,6 +1317,33 @@ class Defaults {
         }
     }
     
+    var createContentOptions: [Int] {
+        get {
+            return appDefaults?.array(forKey: "createContentOptions") as? [Int] ?? []
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "createContentOptions")
+        }
+    }
+    
+    var makeMoneyOptions: [Int] {
+        get {
+            return appDefaults?.array(forKey: "makeMoneyOptions") as? [Int] ?? []
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "makeMoneyOptions")
+        }
+    }
+    
+    var mobileDashboardOptions: [Int] {
+        get {
+            return appDefaults?.array(forKey: "mobileDashboardOptions") as? [Int] ?? []
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "mobileDashboardOptions")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

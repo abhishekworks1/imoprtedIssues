@@ -257,7 +257,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 break
             case OnboardingReferral.QuickMenu.rawValue:
-                rootViewController = R.storyboard.onBoardingView.onBoardingViewController()
+              //  rootViewController = R.storyboard.onBoardingView.onBoardingViewController()
+                rootViewController = R.storyboard.welcomeOnboarding.welcomeViewController()
                 break
             default: break
             }

@@ -763,13 +763,29 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                                 self.filteredImage = UIImage(cgImage: tempImage!)
                                 self.applyFilter()
                                 self.collectionView.reloadData()
-                                self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex-2, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                if self.selectedIndex >= 25 {
+                                    self.collectionView.selectItem(at: IndexPath(item: (self.selectedIndex % self.styleData.count), section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                    self.collectionView.scrollToItem(
+                                        at: IndexPath(item: (self.selectedIndex % self.styleData.count), section: 0),
+                                        at: .centeredHorizontally,
+                                        animated: true
+                                    )
+                                    self.collectionView.setNeedsLayout()
+                                } else {
+                                    self.collectionView.selectItem(at: IndexPath(item: (self.selectedIndex % self.styleData.count) - 2, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                    self.collectionView.scrollToItem(
+                                        at: IndexPath(item: (self.selectedIndex % self.styleData.count) - 2, section: 0),
+                                        at: .centeredHorizontally,
+                                        animated: true
+                                    )
+                                }
+                               
                                 if self.selectedIndex == -1 {
                                     self.collectionView.selectItem(at: IndexPath(item: self.styleData.count - 1, section: 0), animated: false, scrollPosition: .centeredHorizontally)
                                     self.selectedIndex = self.styleData.count - 1
                                     self.styleData[self.selectedIndex].isSelected = true
                                 } else {
-                                    self.styleData[self.selectedIndex].isSelected = true
+                                    self.styleData[(self.selectedIndex % self.styleData.count)].isSelected = true
                                 }
                             } catch let error as NSError {
                                 print("CoreML Model Error: \(error)")
