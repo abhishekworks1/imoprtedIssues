@@ -23,6 +23,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = selectedOption.title
+        descriptionLabel.text = selectedOption.description
         backButtonHeaderView.isHidden = selectedOption.isFirstStep
         quickCamHeaderView.isHidden = !selectedOption.isFirstStep
         tryNowButton.isHidden = !selectedOption.isLastStep
