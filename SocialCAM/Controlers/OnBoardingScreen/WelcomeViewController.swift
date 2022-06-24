@@ -33,7 +33,7 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var hourLineView: UIView!
     @IBOutlet weak var minLineView: UIView!
     @IBOutlet weak var secLineView: UIView!
-    
+    @IBOutlet weak var upgradeNowButton: UIButton!
     private var countdownTimer: Timer?
     
     override func viewDidLoad() {
@@ -138,7 +138,7 @@ extension WelcomeViewController {
                            self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
                         } else {
                             self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
-                            subscriptionDetailLabel.text = "You have \(fday) days left on your free trial."
+                            subscriptionDetailLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
                             if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                 showTimer(createdDate: createdDate)
                             }
@@ -150,7 +150,27 @@ extension WelcomeViewController {
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
-                        subscriptionDetailLabel.text = "Enjoy your subscribe features"
+                        
+                        if finalDay == "7" {
+                            subscriptionDetailLabel.text = "Today is the last day of your 7-day free trial"
+                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                showTimer(createdDate: createdDate)
+                            }
+                            self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
+                        } else {
+                            self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
+                            subscriptionDetailLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
+                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                showTimer(createdDate: createdDate)
+                            }
+                        }
+                       
+                      //..  self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+                        
+                      //..  subscriptionDetailLabel.text = "Enjoy your subscribe features"
+                        
+                        //Upgrade from <current subscriber level> to Premium before your 7-day premium free trial ends to continue using premium features!
+                        //for advacne and basic only
                     }
                 }
             }
@@ -163,6 +183,8 @@ extension WelcomeViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+            setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
+            
             if days == "0" {
                 setImageForDays(days: days)
                 subscriptionDetailLabel.text = "Your subscription ended, please upgrade your account for explore more features"
@@ -180,10 +202,23 @@ extension WelcomeViewController {
             setImageForDays(days: days)
             setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-            
+            setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
+            if days == "0" {
+                setImageForDays(days: days)
+                subscriptionDetailLabel.text = "Please upgrade your account to Premium for explore more features "
+                setUpTimerViewForZeroDay()
+            } else if (days == "7") {
+                setUpTimerViewForSignupDay()
+            }
+            else {
+                setImageForDays(days: days)
+                setUpTimerViewForOtherDay()
+            }
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+            setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
             
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+            setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             
         }
     }
@@ -254,5 +289,12 @@ extension WelcomeViewController {
         freeModeMinImageView.image = UIImage(named: "freeOnboard\(days)")
         freeModeSecImageView.image = UIImage(named: "freeOnboard\(days)")
         freeModeHourImageView.image = UIImage(named: "freeOnboard\(days)")
+    }
+    
+    func setUpLineIndicatorForSignupDay(lineColor: UIColor) {
+        hourLineView.backgroundColor = lineColor
+        minLineView.backgroundColor = lineColor
+        secLineView.backgroundColor = lineColor
+        dayLabel.backgroundColor = lineColor
     }
 }
