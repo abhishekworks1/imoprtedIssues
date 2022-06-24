@@ -159,19 +159,18 @@ extension WelcomeViewController {
                             }
                             self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
                         } else {
-                            self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
-                            subscriptionDetailLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
-                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-                                showTimer(createdDate: createdDate)
+                            if fday == 0 {
+                                self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
+                                self.timerStackView.isHidden = true
+                                setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
+                            } else {
+                                self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
+                                subscriptionDetailLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
+                                if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                    showTimer(createdDate: createdDate)
+                                }
                             }
                         }
-                       
-                      //..  self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
-                        
-                      //..  subscriptionDetailLabel.text = "Enjoy your subscribe features"
-                        
-                        //Upgrade from <current subscriber level> to Premium before your 7-day premium free trial ends to continue using premium features!
-                        //for advacne and basic only
                     }
                 }
             }
@@ -183,44 +182,56 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
+        self.upgradeNowButton.isHidden = false
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
             if days == "0" {
-                setImageForDays(days: days)
+                setImageForDays(days: days, imageName: "freeOnboard")
                 subscriptionDetailLabel.text = "Your subscription ended, please upgrade your account for explore more features"
                 setUpTimerViewForZeroDay()
             } else if (days == "7") {
                 setUpTimerViewForSignupDay()
             }
             else {
-                setImageForDays(days: days)
+                setImageForDays(days: days, imageName: "freeOnboard")
                 setUpTimerViewForOtherDay()
             }
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             subscriptionDetailLabel.text = "Your subscription ended, please upgrade your account for explore more features"
-            setImageForDays(days: days)
+            setImageForDays(days: days, imageName: "freeOnboard")
             setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
-            if days == "0" {
-                setImageForDays(days: days)
-                subscriptionDetailLabel.text = "Please upgrade your account to Premium for explore more features "
-                setUpTimerViewForZeroDay()
-            } else if (days == "7") {
+            self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
+            
+            if (days == "7") {
                 setUpTimerViewForSignupDay()
-            }
-            else {
-                setImageForDays(days: days)
+            } else {
+                setImageForDays(days: days, imageName: "basicOnboard")
                 setUpTimerViewForOtherDay()
             }
+            
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
+            self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
             
+            if (days == "7") {
+                setUpTimerViewForSignupDay()
+            } else {
+                setImageForDays(days: days, imageName: "advanceOnboard")
+                setUpTimerViewForOtherDay()
+            }
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
-            
+            self.upgradeNowButton.isHidden = true
+            if (days == "7") {
+                setUpTimerViewForSignupDay()
+            } else {
+                setImageForDays(days: days, imageName: "premiumOnboard")
+                setUpTimerViewForOtherDay()
+            }
         }
     }
     
@@ -285,17 +296,34 @@ extension WelcomeViewController {
         minValueLabel.isHidden = false
     }
     
-    func setImageForDays(days: String) {
-        freeModeDayImageView.image = UIImage(named: "freeOnboard\(days)")
-        freeModeMinImageView.image = UIImage(named: "freeOnboard\(days)")
-        freeModeSecImageView.image = UIImage(named: "freeOnboard\(days)")
-        freeModeHourImageView.image = UIImage(named: "freeOnboard\(days)")
+    func setImageForDays(days: String, imageName: String) {
+        freeModeDayImageView.image = UIImage(named: "\(imageName)\(days)") 
+        freeModeMinImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeSecImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeHourImageView.image = UIImage(named: "\(imageName)\(days)")
     }
     
     func setUpLineIndicatorForSignupDay(lineColor: UIColor) {
         hourLineView.backgroundColor = lineColor
         minLineView.backgroundColor = lineColor
         secLineView.backgroundColor = lineColor
-        dayLabel.backgroundColor = lineColor
+        dayLineView.backgroundColor = lineColor
     }
+    
+    func setUpTimerViewForZeroDaySubscription(subscriptionType: String) {
+      //  Upgrade from <current subscriber level> to Premium before your 7-day premium free trial ends to continue using premium features!
+        if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+            subscriptionDetailLabel.text = "Please upgrade your account to Premium for explore more features"
+          //  badgeIphoneAdvance
+          //  badgeIphoneBasic
+          //  badgeIphonePre
+        } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+            subscriptionDetailLabel.text = "Please upgrade your account to Premium for explore more features"
+            
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+            subscriptionDetailLabel.isHidden = true
+            self.upgradeNowButton.isHidden = true
+        }
+    }
+    
 }
