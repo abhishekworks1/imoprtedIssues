@@ -34,6 +34,11 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var minLineView: UIView!
     @IBOutlet weak var secLineView: UIView!
     @IBOutlet weak var upgradeNowButton: UIButton!
+    
+    @IBOutlet weak var timeStackViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var semiHalfView: UIView!
+    @IBOutlet weak var containerView: UIView!
+    
     private var countdownTimer: Timer?
     
     override func viewDidLoad() {
@@ -43,6 +48,19 @@ class WelcomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        containerView.dropShadowNew()
+        
+        // Shadow Color and Radius
+        semiHalfView.layer.shadowColor = UIColor.lightGray.cgColor
+        semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        semiHalfView.layer.shadowOpacity = 0.7
+        semiHalfView.layer.shadowRadius = 0
+        semiHalfView.layer.masksToBounds = false
+        semiHalfView.layer.cornerRadius = 81.5
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -89,6 +107,7 @@ extension WelcomeViewController {
     
     func showTimer(createdDate: Date) {
         timerStackView.isHidden = false
+        timeStackViewHeight.constant = 72
         let currentDate = Date()
         var dateComponent = DateComponents()
         dateComponent.day = 7
@@ -109,6 +128,7 @@ extension WelcomeViewController {
     
     func setSubscriptionBadgeDetails(){
         timerStackView.isHidden = true
+        timeStackViewHeight.constant = 0
         freeModeDayImageView.isHidden = true
         freeModeMinImageView.isHidden = true
         freeModeSecImageView.isHidden = true
@@ -237,6 +257,7 @@ extension WelcomeViewController {
     
     func setUpTimerViewForZeroDay() {
         timerStackView.isHidden = false
+        timeStackViewHeight.constant = 72
         freeModeDayImageView.isHidden = false
         freeModeMinImageView.isHidden = false
         freeModeSecImageView.isHidden = false
@@ -258,6 +279,7 @@ extension WelcomeViewController {
     
     func setUpTimerViewForOtherDay() {
         timerStackView.isHidden = false
+        timeStackViewHeight.constant = 72
         freeModeDayImageView.isHidden = true
         freeModeMinImageView.isHidden = true
         freeModeSecImageView.isHidden = true
@@ -278,6 +300,7 @@ extension WelcomeViewController {
     
     func setUpTimerViewForSignupDay() {
         timerStackView.isHidden = false
+        timeStackViewHeight.constant = 72
         freeModeDayImageView.isHidden = true
         freeModeMinImageView.isHidden = true
         freeModeSecImageView.isHidden = true
