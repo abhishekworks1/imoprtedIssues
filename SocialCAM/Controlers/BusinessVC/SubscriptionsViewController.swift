@@ -69,6 +69,7 @@ class SubscriptionsViewController: UIViewController {
     }
     var isFreeTrialMode = false
     private var countdownTimer: Timer?
+    var isFromWelcomeScreen: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -263,7 +264,14 @@ class SubscriptionsViewController: UIViewController {
 //            break
 //        }
         if subscriptionType == .free {
-            navigationController?.popViewController(animated: true)
+            if isFromWelcomeScreen {
+                guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
+                (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
+                Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+                Utils.appDelegate?.window?.rootViewController = onBoardView
+            } else {
+                navigationController?.popViewController(animated: true)
+            }
         }
          else if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
@@ -278,7 +286,14 @@ class SubscriptionsViewController: UIViewController {
     
     @IBAction func btnOkayTapped(_ sender: UIButton) {
         self.thankYouViewSubScription.isHidden = true
-        self.navigationController?.popToRootViewController(animated: true)
+        if isFromWelcomeScreen {
+            guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
+            (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
+            Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+            Utils.appDelegate?.window?.rootViewController = onBoardView
+        } else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
 //        freeModeAlertBlurView.isHidden = true
 //        freeModeAlertView.isHidden = true
 //        Defaults.shared.isSubscriptionApiCalled = false

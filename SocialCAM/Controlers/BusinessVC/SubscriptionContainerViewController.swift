@@ -57,7 +57,7 @@ class SubscriptionContainerViewController: UIViewController {
     private let indicatorWidth: CGFloat = 47
     private let indicatorWidthDividend: CGFloat = isLiteApp ? 2 : 4
     private var countdownTimer: Timer?
-    
+    var isFromWelcomeScreen: Bool = false
     // MARK: -Delegate
     public weak var subscriptionDelegate: SubscriptionScreenDelegate?
     //
@@ -176,6 +176,7 @@ class SubscriptionContainerViewController: UIViewController {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .professional
         subscriptionVc.subscriptionType = .professional
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -184,6 +185,7 @@ class SubscriptionContainerViewController: UIViewController {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .advanced
         subscriptionVc.subscriptionType = .advanced
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -191,6 +193,7 @@ class SubscriptionContainerViewController: UIViewController {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .basic
         subscriptionVc.subscriptionType = .basic
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -199,6 +202,7 @@ class SubscriptionContainerViewController: UIViewController {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .free
         subscriptionVc.subscriptionType = .free
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     

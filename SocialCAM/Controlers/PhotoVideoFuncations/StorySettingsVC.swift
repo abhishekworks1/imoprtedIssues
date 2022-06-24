@@ -1081,7 +1081,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-
+            //contactmanager
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                contactWizardController.isFromContactManager = true
+                navigationController?.pushViewController(contactWizardController, animated: true)
+            }
         }
         else if settingTitle.settingsType == .potentialIncomeCalculator {
             if let token = Defaults.shared.sessionToken {
@@ -1733,7 +1737,10 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-            
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                contactWizardController.isFromContactManager = true
+                navigationController?.pushViewController(contactWizardController, animated: true)
+            }
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
             if let token = Defaults.shared.sessionToken {
                  let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
