@@ -1076,7 +1076,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-           //cg
+            //contactmanager
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                contactWizardController.isFromContactManager = true
+                navigationController?.pushViewController(contactWizardController, animated: true)
+            }
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
@@ -1717,7 +1721,10 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-          
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                contactWizardController.isFromContactManager = true
+                navigationController?.pushViewController(contactWizardController, animated: true)
+            }
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
