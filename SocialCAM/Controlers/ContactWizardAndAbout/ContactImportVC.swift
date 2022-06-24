@@ -2049,15 +2049,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
-        
+       // businessDashbardConfirmPopupView.isHidden = false
         if let viewController = R.storyboard.storyCameraViewController.businessDashboardWebViewVC() {
           
             navigationController?.pushViewController(viewController, animated: true)
-        }
-       
-        businessDashbardConfirmPopupView.isHidden = false
-//        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
-//        navigationController?.pushViewController(storySettingsVC, animated: true)
+        } 
     }
     @IBAction func btnTextShareAction(_ sender: UIButton) {
         self.shareType = ShareType.textShare
