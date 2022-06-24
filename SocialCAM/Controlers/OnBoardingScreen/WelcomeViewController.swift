@@ -89,7 +89,6 @@ extension WelcomeViewController {
     
     func showTimer(createdDate: Date) {
         timerStackView.isHidden = false
-        let currentDate = Date()
         var dateComponent = DateComponents()
         dateComponent.day = 7
         if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {

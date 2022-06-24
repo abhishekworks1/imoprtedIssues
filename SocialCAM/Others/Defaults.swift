@@ -239,6 +239,11 @@ class Defaults {
                         settings.insert(StorySettings(name: "",
                                                       settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
                     }
+                    if !settings.contains(where: {$0.settingsType == .potentialIncomeCalculator})
+                    {
+                        settings.insert(StorySettings(name: "",
+                                                      settings: [StorySetting(name: R.string.localizable.potentialIncomeCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),at: 7)
+                    }
                     return settings
                 }
             }

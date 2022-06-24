@@ -78,6 +78,7 @@ enum SettingsMode: Int, Codable {
     case mutehapticFeedbackOnSpeedSelection
     case publicDisplaynameWatermark
     case editProfileCard
+    case potentialIncomeCalculator
     case socialMediaConnections
     case hapticNone
     case hapticAll
@@ -191,9 +192,11 @@ class StorySettings: Codable {
                                                settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard),
-                                StorySettings(name: "",
+                                 StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.potentialIncomeCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),
+                                 StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard),
+                               StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
@@ -805,6 +808,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_EditProfileCard())
 //            cell.newBadgesImageView.isHidden = true//false
             cell.newBadgesImageView.image = R.image.editProfileBadge()
+        }else if settingTitle.settingsType == .potentialIncomeCalculator {
+            hideUnhideImgButton(cell, R.image.potentialIncomeCalculator())
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
@@ -1076,7 +1081,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-           //cg
+
+        }
+        else if settingTitle.settingsType == .potentialIncomeCalculator {
+            if let token = Defaults.shared.sessionToken {
+                 let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+                 guard let url = URL(string: urlString) else {
+                     return
+                 }
+                 presentSafariBrowser(url: url)
+             }
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
@@ -1636,6 +1650,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             cell.socialImageView?.image = R.image.settings_EditProfileCard()
 //            cell.newBadgesImageView.isHidden = false
             cell.newBadgesImageView.image = R.image.editProfileBadge()
+        }else if settingTitle.settingsType == .potentialIncomeCalculator {
+            cell.socialImageView?.image = R.image.potentialIncomeCalculator()
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
@@ -1717,7 +1733,15 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-          
+            
+        }else if settingTitle.settingsType == .potentialIncomeCalculator {
+            if let token = Defaults.shared.sessionToken {
+                 let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+                 guard let url = URL(string: urlString) else {
+                     return
+                 }
+                 presentSafariBrowser(url: url)
+             }
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
