@@ -58,7 +58,8 @@ class BusinessDashboardWebViewVC: UIViewController {
     
     // MARK: - Button Action Methods
     @IBAction func btnBackTapped(_ sender: Any) {
-        webView.canGoBack ? webView.goBack() : self.navigationController?.popViewController(animated: true)
+//        webView.canGoBack ? webView.goBack() :
+        self.navigationController?.popViewController(animated: true)
     }
     
     /// Hide and show tooltip

@@ -2046,12 +2046,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
         
-        if let viewController = R.storyboard.storyCameraViewController.businessDashboardWebViewVC() {
-          
-            navigationController?.pushViewController(viewController, animated: true)
+        if Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup {
+            if let viewController = R.storyboard.storyCameraViewController.businessDashboardWebViewVC() {
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        } else {
+            businessDashbardConfirmPopupView.isHidden = false
         }
-       
-        businessDashbardConfirmPopupView.isHidden = false
 //        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
 //        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
@@ -2153,25 +2154,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         ContactPermission()
     }
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
-        
-//        if let token = Defaults.shared.sessionToken {
-//        let urlString = "\(websiteUrl)/redirect?token=\(token)"
-       let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
-        print(urlString)
-        guard let url = URL(string: urlString) else {
-                return
-        }
-        
-        
-        
-        
-            presentSafariBrowser(url: url)
-//        }
-//        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
-//        navigationController?.pushViewController(storySettingsVC, animated: true)
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         businessDashbardConfirmPopupView.isHidden = true
+        
+        if let viewController = R.storyboard.storyCameraViewController.businessDashboardWebViewVC() {
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+//        if let token = Defaults.shared.sessionToken {
+//        let urlString = "\(websiteUrl)/redirect?token=\(token)"
+//       let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
+//        print(urlString)
+//        guard let url = URL(string: urlString) else {
+//                return
+//        }
+//            presentSafariBrowser(url: url)
+//        }
+//        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+//        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
     @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
         btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
