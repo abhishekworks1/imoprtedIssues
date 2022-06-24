@@ -489,10 +489,9 @@ class SubscriptionsViewController: UIViewController {
     }
     func showTimer(createdDate: Date){
         timerLabel.isHidden = false
-        let currentDate = Date()
         var dateComponent = DateComponents()
-        dateComponent.day = 6
-        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate) {
+        dateComponent.day = 7
+        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
             self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
                 let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
                 let days = countdown.day!
