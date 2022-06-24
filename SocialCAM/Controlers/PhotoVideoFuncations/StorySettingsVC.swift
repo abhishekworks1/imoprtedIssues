@@ -1643,7 +1643,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         cell.badgeView.isHidden = true
         cell.newBadgesImageView.isHidden = true
         cell.notificationCountView.isHidden = true
-        cell.socialImageView?.image = nil
+        cell.socialImageView.image = nil
         if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
