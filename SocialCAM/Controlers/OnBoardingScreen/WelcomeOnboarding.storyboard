@@ -30,14 +30,14 @@
                                     </visualEffectView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNr-na-yHD">
                                         <rect key="frame" x="46" y="826" width="320" height="46"/>
-                                        <color key="backgroundColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="k5i-WV-BmJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Continue">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" red="0.25882352941176467" green="0.52156862745098043" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -324,6 +324,13 @@
                                                                             <constraint firstAttribute="height" constant="72" id="EnD-dT-H0C"/>
                                                                         </constraints>
                                                                     </stackView>
+                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="29v-gk-ab5">
+                                                                        <rect key="frame" x="160" y="101.5" width="72" height="72"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="72" id="Kn3-Rd-jON"/>
+                                                                            <constraint firstAttribute="width" constant="72" id="j4x-iI-aqx"/>
+                                                                        </constraints>
+                                                                    </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2t-bP-u0L">
                                                                         <rect key="frame" x="114.5" y="193.5" width="163" height="32"/>
                                                                         <color key="backgroundColor" red="0.90588235294117647" green="0.94901960784313721" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -345,13 +352,15 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="upgradeNowOnClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="is4-Mh-gRP"/>
+                                                                            <action selector="upgradeNowOnClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ehi-GK-iuq"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="AQD-oq-bKn" firstAttribute="top" secondItem="ags-xi-Vuc" secondAttribute="bottom" constant="10" id="92J-9P-igD"/>
+                                                                    <constraint firstItem="F2t-bP-u0L" firstAttribute="top" secondItem="29v-gk-ab5" secondAttribute="bottom" constant="20" id="96d-8K-zxx"/>
+                                                                    <constraint firstItem="29v-gk-ab5" firstAttribute="centerX" secondItem="F2t-bP-u0L" secondAttribute="centerX" id="Brg-BI-o4T"/>
                                                                     <constraint firstAttribute="bottom" secondItem="F2t-bP-u0L" secondAttribute="bottom" constant="10" id="Cdh-s8-PGv"/>
                                                                     <constraint firstItem="F2t-bP-u0L" firstAttribute="centerX" secondItem="AQD-oq-bKn" secondAttribute="centerX" id="FkP-1W-S3i"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ags-xi-Vuc" secondAttribute="trailing" constant="32.5" id="HyU-Ni-GdM"/>
@@ -372,7 +381,11 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="163" height="163"/>
                                                                     </imageView>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="rie-v2-3Mp">
-                                                                        <rect key="frame" x="42" y="18" width="80" height="80"/>
+                                                                        <rect key="frame" x="41.5" y="18" width="80" height="80"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="80" id="MUt-4t-1aV"/>
+                                                                            <constraint firstAttribute="width" constant="80" id="PvG-zV-u8l"/>
+                                                                        </constraints>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                                 <integer key="value" value="40"/>
@@ -382,14 +395,12 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="bottom" secondItem="rie-v2-3Mp" secondAttribute="bottom" constant="65" id="6aO-sj-YUg"/>
                                                                     <constraint firstAttribute="trailing" secondItem="j1q-P9-s4x" secondAttribute="trailing" id="8gy-Dz-jaK"/>
-                                                                    <constraint firstItem="rie-v2-3Mp" firstAttribute="leading" secondItem="Z9J-Ph-ZlR" secondAttribute="leading" constant="42" id="Eha-KL-PZf"/>
                                                                     <constraint firstAttribute="width" constant="163" id="SL1-kg-Z3y"/>
                                                                     <constraint firstItem="rie-v2-3Mp" firstAttribute="top" secondItem="Z9J-Ph-ZlR" secondAttribute="top" constant="18" id="Y6W-Xk-Oro"/>
                                                                     <constraint firstAttribute="height" constant="163" id="Yro-Y0-xn4"/>
                                                                     <constraint firstAttribute="bottom" secondItem="j1q-P9-s4x" secondAttribute="bottom" id="bbY-E3-lyg"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="rie-v2-3Mp" secondAttribute="trailing" constant="41" id="dwD-hj-IWW"/>
+                                                                    <constraint firstItem="rie-v2-3Mp" firstAttribute="centerX" secondItem="Z9J-Ph-ZlR" secondAttribute="centerX" id="eUm-M0-E50"/>
                                                                     <constraint firstItem="j1q-P9-s4x" firstAttribute="leading" secondItem="Z9J-Ph-ZlR" secondAttribute="leading" id="fjm-3H-wXc"/>
                                                                     <constraint firstItem="j1q-P9-s4x" firstAttribute="top" secondItem="Z9J-Ph-ZlR" secondAttribute="top" id="ifQ-DH-qU3"/>
                                                                 </constraints>
@@ -458,11 +469,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="5t2-hA-8DH"/>
                     <connections>
+                        <outlet property="badgeImageView" destination="29v-gk-ab5" id="o5c-V6-XUQ"/>
                         <outlet property="containerView" destination="uqb-pj-Y48" id="aqg-8C-AYl"/>
                         <outlet property="dayLabel" destination="ITb-k2-oNp" id="7jW-XU-luX"/>
                         <outlet property="dayLineView" destination="n0a-cH-eZm" id="une-zn-Kpp"/>
                         <outlet property="dayValueLabel" destination="ZyA-0o-rQq" id="muM-Q4-HKH"/>
                         <outlet property="displayNameLabel" destination="Dcz-pF-MFe" id="1B4-rE-p3o"/>
+                        <outlet property="foundingMemberImageView" destination="j1q-P9-s4x" id="vA1-p4-Lfj"/>
                         <outlet property="freeImageView" destination="HNK-OY-WXw" id="jJL-he-o2B"/>
                         <outlet property="freeModeDayImageView" destination="b5x-lQ-9PD" id="OCR-sH-63N"/>
                         <outlet property="freeModeHourImageView" destination="4Qg-hF-FwA" id="YqI-WG-bef"/>
@@ -474,6 +487,8 @@
                         <outlet property="minLabel" destination="4B5-xz-Vr5" id="Izu-SM-I7G"/>
                         <outlet property="minLineView" destination="BnD-UW-BRa" id="bAl-w2-PzJ"/>
                         <outlet property="minValueLabel" destination="lFK-TO-9ON" id="wLD-pM-4t3"/>
+                        <outlet property="profileHeightConstraints" destination="MUt-4t-1aV" id="Zp2-9p-qmW"/>
+                        <outlet property="profileWidthConstraints" destination="PvG-zV-u8l" id="iDV-zi-zpz"/>
                         <outlet property="secLabel" destination="21s-Wd-ut5" id="Ht9-ES-ejM"/>
                         <outlet property="secLineView" destination="Wc8-7D-7It" id="bhG-Cv-ztu"/>
                         <outlet property="secValueLabel" destination="jG1-8Q-riD" id="3Gx-j2-fi1"/>
@@ -481,7 +496,7 @@
                         <outlet property="subscriptionDetailLabel" destination="ags-xi-Vuc" id="e39-Ua-rK2"/>
                         <outlet property="timeStackViewHeight" destination="EnD-dT-H0C" id="R04-DQ-317"/>
                         <outlet property="timerStackView" destination="AQD-oq-bKn" id="TGG-ET-r8O"/>
-                        <outlet property="upgradeNowButton" destination="F2t-bP-u0L" id="Zwd-bP-nsO"/>
+                        <outlet property="upgradeNowButton" destination="F2t-bP-u0L" id="WI6-YS-upM"/>
                         <outlet property="userImageView" destination="rie-v2-3Mp" id="yMM-pK-kXy"/>
                     </connections>
                 </viewController>

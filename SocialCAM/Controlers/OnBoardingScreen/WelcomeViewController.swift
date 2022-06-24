@@ -38,7 +38,11 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var timeStackViewHeight: NSLayoutConstraint!
     @IBOutlet weak var semiHalfView: UIView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var foundingMemberImageView: UIImageView!
+    @IBOutlet weak var badgeImageView: UIImageView!
     
+    @IBOutlet weak var profileWidthConstraints: NSLayoutConstraint!
+    @IBOutlet weak var profileHeightConstraints: NSLayoutConstraint!
     private var countdownTimer: Timer?
     
     override func viewDidLoad() {
@@ -55,7 +59,8 @@ class WelcomeViewController: UIViewController {
         containerView.dropShadowNew()
         
         // Shadow Color and Radius
-        semiHalfView.layer.shadowColor = UIColor.lightGray.cgColor
+        let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
+        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
         semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         semiHalfView.layer.shadowOpacity = 0.7
         semiHalfView.layer.shadowRadius = 0
@@ -70,6 +75,7 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func upgradeNowOnClick(_ sender: Any) {
         if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+            subscriptionVC.isFromWelcomeScreen = true
             self.navigationController?.isNavigationBarHidden = true
             self.navigationController?.pushViewController(subscriptionVC, animated: true)
         }
@@ -95,6 +101,17 @@ extension WelcomeViewController {
         UserSync.shared.syncUserModel { isCompleted in
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            }
+            let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
+            if isFoundingMember {
+                self.foundingMemberImageView.isHidden = false
+            } else {
+                self.foundingMemberImageView.isHidden = true
+                self.profileWidthConstraints.constant = 143
+                self.profileHeightConstraints.constant = 143
+                self.userImageView.layer.cornerRadius = 71.5
+                self.view.updateConstraintsIfNeeded()
+                self.view.setNeedsUpdateConstraints()
             }
             
             self.displayNameLabel.text = Defaults.shared.currentUser?.firstName
@@ -182,6 +199,7 @@ extension WelcomeViewController {
                             if fday == 0 {
                                 self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
                                 self.timerStackView.isHidden = true
+                                timeStackViewHeight.constant = 0
                                 setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
                             } else {
                                 self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
@@ -336,16 +354,21 @@ extension WelcomeViewController {
     func setUpTimerViewForZeroDaySubscription(subscriptionType: String) {
       //  Upgrade from <current subscriber level> to Premium before your 7-day premium free trial ends to continue using premium features!
         if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-            subscriptionDetailLabel.text = "Please upgrade your account to Premium for explore more features"
-          //  badgeIphoneAdvance
-          //  badgeIphoneBasic
-          //  badgeIphonePre
+            subscriptionDetailLabel.text = "Upgrade from BASIC to Premium before your 7-day premium free trial ends to continue using premium features!"
+            badgeImageView.image = UIImage(named: "badgeIphoneBasic")
+            badgeImageView.isHidden = false
+            timeStackViewHeight.constant = 72
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-            subscriptionDetailLabel.text = "Please upgrade your account to Premium for explore more features"
-            
+            subscriptionDetailLabel.text = "Upgrade from ADVANCE to Premium before your 7-day premium free trial ends to continue using premium features!"
+            badgeImageView.image = UIImage(named: "badgeIphoneAdvance")
+            badgeImageView.isHidden = false
+            timeStackViewHeight.constant = 72
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
             subscriptionDetailLabel.isHidden = true
             self.upgradeNowButton.isHidden = true
+            badgeImageView.image = UIImage(named: "badgeIphonePre")
+            badgeImageView.isHidden = false
+            timeStackViewHeight.constant = 72
         }
     }
     
