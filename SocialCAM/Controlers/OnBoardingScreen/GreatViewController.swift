@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GreatPopupDelegate {
+    func greatPopupEvent(isUpgrade: Bool)
+}
+
 class GreatViewController: UIViewController {
 
     @IBOutlet weak var timerStackView: UIStackView!
@@ -35,7 +39,7 @@ class GreatViewController: UIViewController {
     @IBOutlet weak var upgradeNowButton: UIButton!
     
     private var countdownTimer: Timer?
-    
+    var greatViewDelegate: GreatPopupDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,11 +54,8 @@ class GreatViewController: UIViewController {
 
     
     @IBAction func subscribeNowOnClick(_ sender: Any) {
-        if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
-            subscriptionVC.isFromWelcomeScreen = true
-            self.navigationController?.isNavigationBarHidden = true
-            self.navigationController?.pushViewController(subscriptionVC, animated: true)
-        }
+        self.dismiss(animated: false)
+        self.greatViewDelegate?.greatPopupEvent(isUpgrade: true)
     }
     
 }
@@ -69,6 +70,7 @@ extension GreatViewController {
 
 extension GreatViewController {
     func setupUser() {
+        self.setSubscriptionBadgeDetails()
         UserSync.shared.syncUserModel { isCompleted in
             self.setSubscriptionBadgeDetails()
         }

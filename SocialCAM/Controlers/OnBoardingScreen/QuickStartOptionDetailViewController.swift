@@ -75,6 +75,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     
     @IBAction func didTapOnDoneStep(_ sender: UIButton) {
         let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
+        greatVC.greatViewDelegate = self
         greatVC.modalPresentationStyle = .overCurrentContext
             present(greatVC, animated: true, completion: nil)
 //        if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
@@ -126,4 +127,20 @@ class QuickStartOptionDetailViewController: UIViewController {
         }
     }
 
+}
+
+extension QuickStartOptionDetailViewController: GreatPopupDelegate {
+    func greatPopupEvent(isUpgrade: Bool) {
+        if isUpgrade {
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                subscriptionVC.isFromWelcomeScreen = true
+                self.navigationController?.isNavigationBarHidden = true
+                self.navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
+        } else {
+            if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
+                navigationController?.popToViewController(viewController, animated: true)
+            }
+        }
+    }
 }
