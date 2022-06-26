@@ -74,9 +74,12 @@ class QuickStartOptionDetailViewController: UIViewController {
     }
     
     @IBAction func didTapOnDoneStep(_ sender: UIButton) {
-        if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
-            navigationController?.popToViewController(viewController, animated: true)
-        }
+        let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
+        greatVC.modalPresentationStyle = .overCurrentContext
+            present(greatVC, animated: true, completion: nil)
+//        if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
+//            navigationController?.popToViewController(viewController, animated: true)
+//        }
     }
     
     @IBAction func didTapOnBack(_ sender: UIButton) {
