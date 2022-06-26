@@ -58,6 +58,10 @@ class GreatViewController: UIViewController {
         self.greatViewDelegate?.greatPopupEvent(isUpgrade: true)
     }
     
+    
+    @IBAction func backToQuickGuidOnClick(_ sender: Any) {
+    }
+    
 }
 
 extension GreatViewController {
