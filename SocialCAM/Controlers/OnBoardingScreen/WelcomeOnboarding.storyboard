@@ -436,6 +436,18 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZL-Ou-Xuk">
+                                        <rect key="frame" x="107" y="557" width="200" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="I72-Td-cT4"/>
+                                            <constraint firstAttribute="width" constant="200" id="cqK-K3-dAc"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="upgradeNowOnClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="uE2-2j-CvI"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -448,10 +460,12 @@
                                     <constraint firstItem="xnk-IE-Ah0" firstAttribute="leading" secondItem="yCl-PW-vTI" secondAttribute="leading" id="Zh9-Dw-937"/>
                                     <constraint firstItem="UTb-xw-84d" firstAttribute="centerX" secondItem="TNf-Io-FpA" secondAttribute="centerX" id="dje-si-Nmc"/>
                                     <constraint firstAttribute="bottom" secondItem="gNr-na-yHD" secondAttribute="bottom" constant="24" id="eFt-RJ-Euh"/>
+                                    <constraint firstItem="KZL-Ou-Xuk" firstAttribute="centerY" secondItem="F2t-bP-u0L" secondAttribute="centerY" id="fph-b1-o5e"/>
                                     <constraint firstAttribute="trailing" secondItem="gNr-na-yHD" secondAttribute="trailing" constant="48" id="geF-Rs-tPF"/>
                                     <constraint firstItem="xnk-IE-Ah0" firstAttribute="top" secondItem="Ps0-2r-Qz2" secondAttribute="bottom" constant="16" id="kkm-D2-pre"/>
                                     <constraint firstItem="2RC-DU-mGt" firstAttribute="centerY" secondItem="Ps0-2r-Qz2" secondAttribute="centerY" id="ne5-8y-0MM"/>
                                     <constraint firstAttribute="trailing" secondItem="xnk-IE-Ah0" secondAttribute="trailing" id="q1L-CP-gKJ"/>
+                                    <constraint firstItem="KZL-Ou-Xuk" firstAttribute="centerX" secondItem="F2t-bP-u0L" secondAttribute="centerX" id="q9B-DX-I0C"/>
                                     <constraint firstItem="UTb-xw-84d" firstAttribute="centerY" secondItem="TNf-Io-FpA" secondAttribute="centerY" id="tZv-iK-Udj"/>
                                     <constraint firstItem="TNf-Io-FpA" firstAttribute="leading" secondItem="yCl-PW-vTI" secondAttribute="leading" id="uWK-cd-Tf6"/>
                                     <constraint firstItem="UTb-xw-84d" firstAttribute="centerX" secondItem="yCl-PW-vTI" secondAttribute="centerX" id="wCP-xr-KBI"/>
@@ -476,7 +490,6 @@
                         <outlet property="dayValueLabel" destination="ZyA-0o-rQq" id="muM-Q4-HKH"/>
                         <outlet property="displayNameLabel" destination="Dcz-pF-MFe" id="1B4-rE-p3o"/>
                         <outlet property="foundingMemberImageView" destination="j1q-P9-s4x" id="vA1-p4-Lfj"/>
-                        <outlet property="freeImageView" destination="HNK-OY-WXw" id="jJL-he-o2B"/>
                         <outlet property="freeModeDayImageView" destination="b5x-lQ-9PD" id="OCR-sH-63N"/>
                         <outlet property="freeModeHourImageView" destination="4Qg-hF-FwA" id="YqI-WG-bef"/>
                         <outlet property="freeModeMinImageView" destination="HNK-OY-WXw" id="aml-zx-vSS"/>
@@ -496,6 +509,7 @@
                         <outlet property="subscriptionDetailLabel" destination="ags-xi-Vuc" id="e39-Ua-rK2"/>
                         <outlet property="timeStackViewHeight" destination="EnD-dT-H0C" id="R04-DQ-317"/>
                         <outlet property="timerStackView" destination="AQD-oq-bKn" id="TGG-ET-r8O"/>
+                        <outlet property="updateNowEventButton" destination="KZL-Ou-Xuk" id="0q8-bG-C3Z"/>
                         <outlet property="upgradeNowButton" destination="F2t-bP-u0L" id="WI6-YS-upM"/>
                         <outlet property="userImageView" destination="rie-v2-3Mp" id="yMM-pK-kXy"/>
                     </connections>

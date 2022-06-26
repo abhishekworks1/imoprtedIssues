@@ -43,11 +43,13 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var profileWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak var profileHeightConstraints: NSLayoutConstraint!
+    @IBOutlet weak var updateNowEventButton: UIButton!
+    
     private var countdownTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.updateNowEventButton.setTitle("", for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,6 +223,7 @@ extension WelcomeViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
         self.upgradeNowButton.isHidden = false
+        self.updateNowEventButton.isHidden = false
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
@@ -264,6 +267,7 @@ extension WelcomeViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
+            self.updateNowEventButton.isHidden = true
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -366,9 +370,11 @@ extension WelcomeViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
             subscriptionDetailLabel.isHidden = true
             self.upgradeNowButton.isHidden = true
+            self.updateNowEventButton.isHidden = true
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
+            subscriptionDetailLabel.text = ""
         }
     }
     
