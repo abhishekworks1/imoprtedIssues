@@ -46,6 +46,8 @@ class GreatViewController: UIViewController {
     
     private var countdownTimer: Timer?
     var greatViewDelegate: GreatPopupDelegate?
+    var guidTimerDate: Date = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,6 +69,8 @@ class GreatViewController: UIViewController {
     
     
     @IBAction func backToQuickGuidOnClick(_ sender: Any) {
+        self.dismiss(animated: false)
+        self.greatViewDelegate?.greatPopupEvent(isUpgrade: false)
     }
     
     @IBAction func closePopupClick(_ sender: Any) {
@@ -82,8 +86,12 @@ extension GreatViewController {
         self.upgradeNowButton.layer.cornerRadius = 24.0
     }
     func setup() {
-        self.displayNameLabel.text = "Great Job\n \(Defaults.shared.currentUser!.firstName)!!!"
-        self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in <timer value>.\nSubscribe now before your 7-day free trial ends."
+        var durationString: String = Date().offset(from: self.guidTimerDate).dateComponentsToTimeString()
+        if let firstName = Defaults.shared.currentUser!.firstName {
+            self.displayNameLabel.text = "Great Job\n \(firstName)!!!"
+        }
+        
+        self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in \(durationString).\nSubscribe now before your 7-day free trial ends."
     }
 }
 

@@ -315,7 +315,9 @@ class OnBoardingViewController: UIViewController {
 
     var showPopUpView: Bool = true
     var shouldShowFoundingMemberView: Bool = true
-
+    var previousSelectedQuickStartMenu: QuickStartOption = .createContent
+    var previousDate = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -375,6 +377,11 @@ class OnBoardingViewController: UIViewController {
         Defaults.shared.createContentOptions = Array(Set(options))
         quickStartDetail.selectedOption = option
         quickStartDetail.selectedQuickStartMenu = .createContent
+        if self.previousSelectedQuickStartMenu != .createContent {
+            self.previousSelectedQuickStartMenu = .createContent
+            self.previousDate = Date()
+        }
+        quickStartDetail.guidTimerDate = self.previousDate
         navigationController?.pushViewController(quickStartDetail, animated: true)
     }
     
@@ -388,6 +395,11 @@ class OnBoardingViewController: UIViewController {
         Defaults.shared.mobileDashboardOptions = Array(Set(options))
         quickStartDetail.selectedOption = option
         quickStartDetail.selectedQuickStartMenu = .mobileDashboard
+        if self.previousSelectedQuickStartMenu != .mobileDashboard {
+            self.previousSelectedQuickStartMenu = .mobileDashboard
+            self.previousDate = Date()
+        }
+        quickStartDetail.guidTimerDate = self.previousDate
         navigationController?.pushViewController(quickStartDetail, animated: true)
     }
     
@@ -401,6 +413,11 @@ class OnBoardingViewController: UIViewController {
         Defaults.shared.makeMoneyOptions = Array(Set(options))
         quickStartDetail.selectedOption = option
         quickStartDetail.selectedQuickStartMenu = .makeMoney
+        if self.previousSelectedQuickStartMenu != .makeMoney {
+            self.previousSelectedQuickStartMenu = .makeMoney
+            self.previousDate = Date()
+        }
+        quickStartDetail.guidTimerDate = self.previousDate
         navigationController?.pushViewController(quickStartDetail, animated: true)
     }
     

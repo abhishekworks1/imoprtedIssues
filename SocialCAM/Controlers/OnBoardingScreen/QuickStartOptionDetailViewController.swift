@@ -19,6 +19,7 @@ class QuickStartOptionDetailViewController: UIViewController {
 
     var selectedOption: QuickStartOptionable = QuickStartOption.CreateContentOption.quickCamCamera
     var selectedQuickStartMenu: QuickStartOption = .createContent
+    var guidTimerDate: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +78,7 @@ class QuickStartOptionDetailViewController: UIViewController {
         let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
         greatVC.greatViewDelegate = self
         greatVC.categoryString = selectedOption.title
+        greatVC.guidTimerDate = guidTimerDate
         greatVC.modalPresentationStyle = .overCurrentContext
             present(greatVC, animated: true, completion: nil)
 //        if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
