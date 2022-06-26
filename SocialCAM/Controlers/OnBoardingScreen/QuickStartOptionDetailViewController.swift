@@ -76,6 +76,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBAction func didTapOnDoneStep(_ sender: UIButton) {
         let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
         greatVC.greatViewDelegate = self
+        greatVC.categoryString = selectedOption.title
         greatVC.modalPresentationStyle = .overCurrentContext
             present(greatVC, animated: true, completion: nil)
 //        if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {

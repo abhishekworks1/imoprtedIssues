@@ -16,6 +16,7 @@ class GreatViewController: UIViewController {
 
     @IBOutlet weak var timerStackView: UIStackView!
     
+    @IBOutlet weak var centerView: UIView!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var minLabel: UILabel!
@@ -37,12 +38,18 @@ class GreatViewController: UIViewController {
     @IBOutlet weak var secValueLabel: UILabel!
     @IBOutlet weak var badgeImageView: UIImageView!
     @IBOutlet weak var upgradeNowButton: UIButton!
+    @IBOutlet weak var displayNameLabel: UILabel!
+    @IBOutlet weak var quickStartGuideLabel: UILabel!
+    @IBOutlet weak var btnClose: UIButton!
+    
+    var categoryString: String?
     
     private var countdownTimer: Timer?
     var greatViewDelegate: GreatPopupDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setupUI()
         self.setup()
         self.setupUser()
     }
@@ -62,13 +69,21 @@ class GreatViewController: UIViewController {
     @IBAction func backToQuickGuidOnClick(_ sender: Any) {
     }
     
+    @IBAction func closePopupClick(_ sender: Any) {
+        self.dismiss(animated: false)
+    }
+    
 }
 
 extension GreatViewController {
+    
+    func setupUI() {
+        self.centerView.layer.cornerRadius = 8.0
+        self.upgradeNowButton.layer.cornerRadius = 24.0
+    }
     func setup() {
-       // self.displayNameLabel.text = Defaults.shared.currentUser?.firstName
-        
-
+        self.displayNameLabel.text = "Great Job\n \(Defaults.shared.currentUser!.firstName)!!!"
+        self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in <timer value>.\nSubscribe now before your 7-day free trial ends."
     }
 }
 
