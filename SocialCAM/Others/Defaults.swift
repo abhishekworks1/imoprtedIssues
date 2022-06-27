@@ -1351,7 +1351,7 @@ class Defaults {
     
     var selectedQuickStartOption: QuickStartOption {
         get {
-            return QuickStartOption(rawValue: (appDefaults?.integer(forKey: "selectedQuickStartOption") ?? 2)) ?? .createContent
+            return QuickStartOption(rawValue: (appDefaults?.integer(forKey: "selectedQuickStartOption") ?? 0)) ?? .createContent
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "selectedQuickStartOption")
