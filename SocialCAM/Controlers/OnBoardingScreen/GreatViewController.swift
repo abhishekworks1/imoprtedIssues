@@ -47,6 +47,7 @@ class GreatViewController: UIViewController {
     private var countdownTimer: Timer?
     var greatViewDelegate: GreatPopupDelegate?
     var guidTimerDate: Date = Date()
+    var isTrialExpire = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,12 +94,32 @@ extension GreatViewController {
         
         self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in \(durationString).\nSubscribe now before your 7-day free trial ends."
     }
+    
+    func checkTrailPeriodExpire() {
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue {
+                    if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                        var dateComponent = DateComponents()
+                        dateComponent.day = 7
+                        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
+                            let trailDate = futureDate.timeIntervalSince(Date())
+                            self.isTrialExpire = trailDate.sign == .minus ? true : false
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension GreatViewController {
     func setupUser() {
+        checkTrailPeriodExpire()
         self.setSubscriptionBadgeDetails()
         UserSync.shared.syncUserModel { isCompleted in
+            self.checkTrailPeriodExpire()
             self.setSubscriptionBadgeDetails()
         }
     }
@@ -171,6 +192,7 @@ extension GreatViewController {
                             }
                             self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
                         } else {
+                            fday = isTrialExpire ? 0 : fday
                             if fday == 0 {
                                // self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
                                 self.timerStackView.isHidden = true

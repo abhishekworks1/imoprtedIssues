@@ -46,6 +46,7 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var updateNowEventButton: UIButton!
     
     private var countdownTimer: Timer?
+    var isTrialExpire = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,6 +106,7 @@ extension WelcomeViewController {
         }
         
         self.displayNameLabel.text = Defaults.shared.currentUser?.firstName
+        self.checkTrailPeriodExpire()
         self.setSubscriptionBadgeDetails()
         
         UserSync.shared.syncUserModel { isCompleted in
@@ -122,7 +124,7 @@ extension WelcomeViewController {
                 self.view.updateConstraintsIfNeeded()
                 self.view.setNeedsUpdateConstraints()
             }
-            
+            self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.currentUser?.firstName
             self.setSubscriptionBadgeDetails()
         }
@@ -148,6 +150,24 @@ extension WelcomeViewController {
                 self.minValueLabel.text = String(format: "%02dm", minutes)
                 self.hourValueLabel.text = String(format: "%02dh", hours)
                 self.dayValueLabel.text = String(format: "%01dd", days)
+            }
+        }
+    }
+    
+    func checkTrailPeriodExpire() {
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue {
+                    if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                        var dateComponent = DateComponents()
+                        dateComponent.day = 7
+                        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
+                            let trailDate = futureDate.timeIntervalSince(Date())
+                            self.isTrialExpire = trailDate.sign == .minus ? true : false
+                        }
+                    }
+                }
             }
         }
     }
@@ -205,7 +225,8 @@ extension WelcomeViewController {
                             }
                             self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
                         } else {
-                            if fday == 0 {
+                            fday = isTrialExpire ? 0 : fday
+                            if fday == 0  {
                                 self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
                                 self.timerStackView.isHidden = true
                                 timeStackViewHeight.constant = 0
