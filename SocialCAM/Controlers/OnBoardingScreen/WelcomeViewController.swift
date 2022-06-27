@@ -76,11 +76,18 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func upgradeNowOnClick(_ sender: Any) {
-        if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+        subscriptionVc.appMode = .professional
+        subscriptionVc.subscriptionType = .professional
+        subscriptionVc.isFromWelcomeScreen = true
+        self.navigationController?.isNavigationBarHidden = true
+        navigationController?.pushViewController(subscriptionVc, animated: true)
+        
+        /*if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
             subscriptionVC.isFromWelcomeScreen = true
             self.navigationController?.isNavigationBarHidden = true
             self.navigationController?.pushViewController(subscriptionVC, animated: true)
-        }
+        }*/
     }
     
     @IBAction func continueOnClick(_ sender: Any) {
