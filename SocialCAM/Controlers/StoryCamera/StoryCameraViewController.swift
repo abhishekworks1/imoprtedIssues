@@ -287,7 +287,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.muteStackView,
                                              self.flipButton,
                                              self.galleryStackView,
-                                             self.cameraSliderView],
+                                             self.cameraSliderView,
+                                             self.recordingTimeStackView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
                     // Make the animation happen
@@ -2111,6 +2112,7 @@ extension StoryCameraViewController {
                     self.discardSegmentsStackView.alpha = 0
                     self.confirmRecordedSegmentStackView.alpha = 0
                     self.businessDashboardStackView.alpha = 0
+//                    self.recordingTimeStackView.alpha = 0
                 }
             })
         }
@@ -2136,6 +2138,7 @@ extension StoryCameraViewController {
                     self.discardSegmentsStackView.alpha = 1
                     self.confirmRecordedSegmentStackView.alpha = 1
                     self.businessDashboardStackView.alpha = 1
+//                    self.recordingTimeStackView.alpha = 1
                 })
             }
         } else {

@@ -163,6 +163,7 @@ extension StoryCameraViewController {
             }else{
                 self.topStackView.addArrangedSubview(self.settingsView)
                 self.topStackView.addArrangedSubview(self.flashStackView)
+                self.topStackView.addArrangedSubview(self.recordingTimeStackView)
                 self.topStackView.addArrangedSubview(self.showhideView)
                 self.topStackView.addArrangedSubview(self.businessDashboardStackView)
             }
