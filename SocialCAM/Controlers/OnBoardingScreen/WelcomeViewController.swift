@@ -44,12 +44,14 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var profileWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak var profileHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var updateNowEventButton: UIButton!
+    @IBOutlet weak var whatDoYouWantSeeView: UIView!
     
     private var countdownTimer: Timer?
     var isTrialExpire = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.whatDoYouWantSeeView.isHidden = true
         self.updateNowEventButton.setTitle("", for: .normal)
     }
     
