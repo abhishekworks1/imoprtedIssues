@@ -1640,7 +1640,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.contactStatusView.isHidden = false
                 cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
                 cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
-                cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                //  cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                cell.lblStatus.text = ""
                 cell.badges = registerUser.badges ?? [ParentBadges]()
                 print(registerUser.toJSON())
                 cell.setBadges()
@@ -1699,7 +1700,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.contactStatusView.isHidden = false
                     cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
                     cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
-                    cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                  //  cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                    cell.lblStatus.text = ""
                     cell.setBadges()
                 }else{
                     cell.refferalView.isHidden = true
@@ -1935,11 +1937,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func nextClick(_ sender: UIButton) {
         if isFromContactManager{
             if pageNo == 5 {
-                pageNo = 1
-                self.setupPage()
-            }else if pageNo == 1{
-                pageNo = 3
-                self.setupPage()
+                if self.selectedContactManage == nil{
+                    self.view.makeToast(("Please select contact"))
+                    
+                }
+            }else if pageNo == 5{
+                if self.selectedContactManage == nil{
+                    showToast("Please select contact")
+                }
             }else if pageNo == 3 {
                 let rows = itemsTableView.numberOfRows(inSection: 0)
                 if rows == 0 {
@@ -2046,9 +2051,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             setupPage()
             setupUIBasedOnUrlToShare()
         }
-        pageNo = 2
-        setupPage()
-        setupUIBasedOnUrlToShare()
+        
     }
 
     @IBAction func mainOptionsClick(_ sender: UIButton) {

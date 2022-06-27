@@ -128,7 +128,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9r-c7-DTm">
-                                                                <rect key="frame" x="33.5" y="7" width="8.5" height="16.5"/>
+                                                                <rect key="frame" x="33.5" y="7" width="8" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -153,7 +153,7 @@
                                                         <rect key="frame" x="75" y="0.0" width="75" height="35"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnZ-17-4tj">
-                                                                <rect key="frame" x="33.5" y="7" width="8.5" height="16.5"/>
+                                                                <rect key="frame" x="33.5" y="7" width="8" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -242,6 +242,114 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="WFS-zE-bC2">
+                                        <rect key="frame" x="22.5" y="5" width="55" height="25"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7pq-4a-NMW" userLabel="Android Badge">
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="clL-1k-PWD">
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7tP-xx-6eG">
+                                                        <rect key="frame" x="3.5" y="3.5" width="18" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="e3Y-1Y-uhh"/>
+                                                            <constraint firstAttribute="width" constant="18" id="zQi-ct-4EA"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpA-zX-0e4">
+                                                        <rect key="frame" x="9.5" y="8.5" width="6" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="5ar-Pg-hMO"/>
+                                                    <constraint firstItem="clL-1k-PWD" firstAttribute="leading" secondItem="7pq-4a-NMW" secondAttribute="leading" id="A9x-TC-yzL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="clL-1k-PWD" secondAttribute="bottom" id="An7-94-Pik"/>
+                                                    <constraint firstItem="BpA-zX-0e4" firstAttribute="centerY" secondItem="7pq-4a-NMW" secondAttribute="centerY" constant="2" id="CXr-IH-vkm"/>
+                                                    <constraint firstItem="7tP-xx-6eG" firstAttribute="centerX" secondItem="7pq-4a-NMW" secondAttribute="centerX" id="LtQ-rn-ZPk"/>
+                                                    <constraint firstItem="7tP-xx-6eG" firstAttribute="centerY" secondItem="7pq-4a-NMW" secondAttribute="centerY" id="Q6K-PX-CnV"/>
+                                                    <constraint firstItem="clL-1k-PWD" firstAttribute="top" secondItem="7pq-4a-NMW" secondAttribute="top" id="mNk-a6-sYW"/>
+                                                    <constraint firstItem="BpA-zX-0e4" firstAttribute="centerX" secondItem="7pq-4a-NMW" secondAttribute="centerX" id="v4N-pr-1lr"/>
+                                                    <constraint firstAttribute="trailing" secondItem="clL-1k-PWD" secondAttribute="trailing" id="yoB-OX-Ug2"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byj-ck-TDB" userLabel="Apple Badge">
+                                                <rect key="frame" x="15" y="0.0" width="25" height="25"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="agS-5d-fYO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9Uy-aR-TLI">
+                                                        <rect key="frame" x="6.5" y="6" width="12" height="13"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="13" id="sl4-bp-csa"/>
+                                                            <constraint firstAttribute="width" constant="12" id="vZ7-vR-7rY"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wID-Rk-nk9">
+                                                        <rect key="frame" x="9.5" y="8.5" width="6" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="agS-5d-fYO" firstAttribute="leading" secondItem="byj-ck-TDB" secondAttribute="leading" id="7yT-g2-0Ib"/>
+                                                    <constraint firstItem="9Uy-aR-TLI" firstAttribute="centerX" secondItem="byj-ck-TDB" secondAttribute="centerX" id="NIG-KC-Plc"/>
+                                                    <constraint firstAttribute="width" constant="25" id="O8D-6C-out"/>
+                                                    <constraint firstAttribute="bottom" secondItem="agS-5d-fYO" secondAttribute="bottom" id="Z0a-qh-hKM"/>
+                                                    <constraint firstItem="9Uy-aR-TLI" firstAttribute="centerY" secondItem="byj-ck-TDB" secondAttribute="centerY" id="Zd4-gg-ezB"/>
+                                                    <constraint firstItem="agS-5d-fYO" firstAttribute="top" secondItem="byj-ck-TDB" secondAttribute="top" id="arn-9v-Yam"/>
+                                                    <constraint firstItem="wID-Rk-nk9" firstAttribute="centerX" secondItem="byj-ck-TDB" secondAttribute="centerX" id="dZn-e1-1Cc"/>
+                                                    <constraint firstItem="wID-Rk-nk9" firstAttribute="centerY" secondItem="byj-ck-TDB" secondAttribute="centerY" constant="2" id="jxg-So-bUB"/>
+                                                    <constraint firstAttribute="trailing" secondItem="agS-5d-fYO" secondAttribute="trailing" id="xsw-EB-UKM"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKO-QR-xCr" userLabel="Web Badge">
+                                                <rect key="frame" x="30" y="0.0" width="25" height="25"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="LRQ-la-LiK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="WuI-1e-iwl">
+                                                        <rect key="frame" x="3.5" y="3.5" width="18" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="IJr-gP-zqX"/>
+                                                            <constraint firstAttribute="width" constant="18" id="NRr-PG-vjj"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1w-sa-oXl">
+                                                        <rect key="frame" x="9.5" y="8" width="6.5" height="13.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="b1w-sa-oXl" firstAttribute="centerY" secondItem="dKO-QR-xCr" secondAttribute="centerY" constant="2" id="7hi-o6-sft"/>
+                                                    <constraint firstItem="LRQ-la-LiK" firstAttribute="top" secondItem="dKO-QR-xCr" secondAttribute="top" id="A1l-LG-bBk"/>
+                                                    <constraint firstAttribute="width" constant="25" id="A3w-JF-fzy"/>
+                                                    <constraint firstItem="b1w-sa-oXl" firstAttribute="centerX" secondItem="dKO-QR-xCr" secondAttribute="centerX" id="DFY-Nd-HSa"/>
+                                                    <constraint firstAttribute="trailing" secondItem="LRQ-la-LiK" secondAttribute="trailing" id="Geq-3p-YML"/>
+                                                    <constraint firstItem="WuI-1e-iwl" firstAttribute="centerY" secondItem="dKO-QR-xCr" secondAttribute="centerY" id="Syi-KO-qOS"/>
+                                                    <constraint firstItem="LRQ-la-LiK" firstAttribute="leading" secondItem="dKO-QR-xCr" secondAttribute="leading" id="a3K-oa-OYw"/>
+                                                    <constraint firstItem="WuI-1e-iwl" firstAttribute="centerX" secondItem="dKO-QR-xCr" secondAttribute="centerX" id="jOx-4e-w4F"/>
+                                                    <constraint firstAttribute="bottom" secondItem="LRQ-la-LiK" secondAttribute="bottom" id="lhE-lf-SPg"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="SHX-dk-bTR"/>
+                                        </constraints>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skD-Zj-WV2">
                                         <rect key="frame" x="8.5" y="35" width="83" height="20"/>
                                         <subviews>
@@ -400,7 +508,9 @@
                                     <constraint firstAttribute="height" constant="70" id="POE-X2-zdz"/>
                                     <constraint firstAttribute="width" constant="100" id="RNd-xT-6iw"/>
                                     <constraint firstItem="yZy-KN-9X6" firstAttribute="centerX" secondItem="jTK-2r-eK1" secondAttribute="centerX" id="beQ-z8-6nP"/>
+                                    <constraint firstItem="WFS-zE-bC2" firstAttribute="top" secondItem="jTK-2r-eK1" secondAttribute="top" constant="5" id="gpo-1Z-trS"/>
                                     <constraint firstItem="yZy-KN-9X6" firstAttribute="bottom" secondItem="jTK-2r-eK1" secondAttribute="centerY" constant="-5" id="jQe-6i-z9G"/>
+                                    <constraint firstItem="WFS-zE-bC2" firstAttribute="centerX" secondItem="jTK-2r-eK1" secondAttribute="centerX" id="oSL-SR-PHc"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -445,6 +555,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <color key="tintColor" systemColor="systemBlueColor"/>
             <connections>
+                <outlet property="androidBadgeView" destination="7pq-4a-NMW" id="eIx-Q8-6cf"/>
+                <outlet property="androidIconImageview" destination="7tP-xx-6eG" id="KrJ-j2-86w"/>
+                <outlet property="androidSheildImageview" destination="clL-1k-PWD" id="tdJ-Qq-i2s"/>
                 <outlet property="buttonImageview" destination="EYK-lz-6C8" id="0r8-UB-RQ4"/>
                 <outlet property="buttonInvite" destination="cfK-O9-5Qk" id="8fF-9y-Qcx"/>
                 <outlet property="contactImage" destination="BzA-eA-hcm" id="zVf-8f-UdZ"/>
@@ -455,13 +568,22 @@
                 <outlet property="imgprelaunch" destination="hkY-ew-GdU" id="eAD-DT-Dtl"/>
                 <outlet property="inviteBtn" destination="mCq-q2-PVm" id="umz-qa-Qix"/>
                 <outlet property="inviteButtonView" destination="Aao-jX-VqQ" id="gPS-Gq-uEL"/>
+                <outlet property="iosBadgeView" destination="byj-ck-TDB" id="XX0-NS-Bpu"/>
+                <outlet property="iosIconImageview" destination="7tP-xx-6eG" id="COz-Xk-NOb"/>
+                <outlet property="iosSheildImageview" destination="agS-5d-fYO" id="7Mv-AG-q0W"/>
                 <outlet property="lblDisplayName" destination="ZUa-pg-gAY" id="Yeg-dI-9PA"/>
                 <outlet property="lblInviteButtonTitle" destination="jZh-Z7-aan" id="UdO-YP-4fq"/>
                 <outlet property="lblNumberEmail" destination="KJd-FJ-5HW" id="NTm-0H-git"/>
                 <outlet property="lblReferralCount" destination="u9r-c7-DTm" id="JrF-cM-wSA"/>
                 <outlet property="lblStatus" destination="yZy-KN-9X6" id="UhK-6l-KmY"/>
                 <outlet property="lblSubscriberCount" destination="qnZ-17-4tj" id="h1F-GE-anB"/>
+                <outlet property="lblandroidDaysRemains" destination="BpA-zX-0e4" id="8sV-NI-agd"/>
+                <outlet property="lbliosDaysRemains" destination="wID-Rk-nk9" id="G9x-5J-i11"/>
+                <outlet property="lblwebDaysRemains" destination="b1w-sa-oXl" id="ViA-oX-K0G"/>
                 <outlet property="refferalView" destination="tYt-IX-S1U" id="hjy-y2-C3p"/>
+                <outlet property="webBadgeView" destination="dKO-QR-xCr" id="Xv4-Af-tLv"/>
+                <outlet property="webIconImageview" destination="WuI-1e-iwl" id="qnv-cr-Lvt"/>
+                <outlet property="webSheildImageview" destination="LRQ-la-LiK" id="rWZ-Xm-glP"/>
             </connections>
             <point key="canvasLocation" x="-160.1449275362319" y="-293.63839285714283"/>
         </tableViewCell>

@@ -368,6 +368,7 @@ class OnBoardingViewController: UIViewController {
     }
     
     @IBAction func didTapOnCreateContentSteps(_ sender: UIButton) {
+        print(sender.tag)
         guard let option = QuickStartOption.createContent.option(for: sender.tag),
               let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
             return
