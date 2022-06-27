@@ -79,13 +79,14 @@ class SubscriptionContainerViewController: UIViewController {
         activeAdvancedView.isHidden = true
         activeProView.isHidden = true
         
-        setSubscriptionBadgeDetails()
+     
          
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
         subscribertypeview.isHidden = true
+        setSubscriptionBadgeDetails()
         setSubscribeNowLabel()
     }
     override func viewDidAppear(_ animated: Bool) {
