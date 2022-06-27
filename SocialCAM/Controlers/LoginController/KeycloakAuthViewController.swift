@@ -229,7 +229,7 @@ extension KeycloakAuthViewController {
             Utils.appDelegate?.window?.rootViewController = onBoardView*/
             
             guard let welcomeOnboardingView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
-             //(onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = true
+            (welcomeOnboardingView.viewControllers.first as? WelcomeViewController)?.fromLogin = true
              Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
              Utils.appDelegate?.window?.rootViewController = welcomeOnboardingView
         }
@@ -245,7 +245,7 @@ extension KeycloakAuthViewController {
 //        Utils.appDelegate?.window?.rootViewController = onBoardView
         
         guard let welcomeOnboardingView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
-         //(onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = true
+         (welcomeOnboardingView.viewControllers.first as? WelcomeViewController)?.fromLogin = true
          Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
          Utils.appDelegate?.window?.rootViewController = welcomeOnboardingView
     }

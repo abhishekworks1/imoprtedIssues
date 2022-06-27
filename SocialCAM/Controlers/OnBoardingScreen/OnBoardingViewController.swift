@@ -16,9 +16,9 @@ protocol QuickStartOptionable {
     var rawValue: Int { get }
 }
 
-enum QuickStartOption {
+enum QuickStartOption: Int, CaseIterable {
     
-    case createContent
+    case createContent = 0
     case mobileDashboard
     case makeMoney
     
@@ -33,7 +33,7 @@ enum QuickStartOption {
         }
     }
     
-    enum CreateContentOption: Int, QuickStartOptionable {
+    enum CreateContentOption: Int, CaseIterable, QuickStartOptionable {
         var title: String {
             switch self {
             case .quickCamCamera:
@@ -48,6 +48,8 @@ enum QuickStartOption {
                 return "Bitmojis"
             case .socialMediaSharing:
                 return "Social Media Sharing"
+            case .yourGoal:
+                return "Your Goal"
             }
         }
         
@@ -95,11 +97,21 @@ a. Turn your ordinary photos into beautiful digital art that you’ll want to pr
 
 b. 44 filters to choose from to create unique Pic2Art every time.
 """
+            case .yourGoal:
+                return """
+a. Your first goal is to learn how to create fun and engaging content. You can create Quickie video and also take photos that you can convert into beautiful Pic2Art digital images.
+
+b. You can edit your existing videos in QuickCam's Quickie Video Editor and post them in your favorite social media platform that QuickCam supports. Or you can create new videos with QuickCam's patented fast & slow motion special effects in real-time. You can edit your new videos in QuickCam's Quickie Video Editor and post them in your favorite social media platform that QuickCam supports.
+
+c. When you use Pic2Art, you can take pictures of ordinary objects and convert them into art so beautiful you can hang on your wall and proudly share with your friends and followers on the social media platform that QuickCam supports.
+
+d. We suggest that you share your content with all the social media platforms supported by QuickCam.
+"""
             }
         }
         
         var isLastStep: Bool {
-            return self == .socialMediaSharing
+            return self == .yourGoal
         }
         
         var isFirstStep: Bool {
@@ -112,9 +124,10 @@ b. 44 filters to choose from to create unique Pic2Art every time.
         case pic2Art
         case bitmojis
         case socialMediaSharing
+        case yourGoal
     }
 
-    enum MobileDashboardOption: Int, QuickStartOptionable {
+    enum MobileDashboardOption: Int, CaseIterable, QuickStartOptionable {
         var title: String {
             switch self {
             case .notifications:
@@ -196,7 +209,7 @@ a. We periodically update the app to include additional features and bug fixes.
         case checkForUpdates
     }
 
-    enum MakeMoneyOption: Int, QuickStartOptionable {
+    enum MakeMoneyOption: Int, CaseIterable, QuickStartOptionable {
         var title: String {
             switch self {
             case .referralCommissionProgram:
@@ -209,6 +222,8 @@ a. We periodically update the app to include additional features and bug fixes.
                 return "Contact Management Tools"
             case .fundraising:
                 return "Great for Fundraising"
+            case .yourGoal:
+                return "Your Goal"
             }
             
         }
@@ -281,11 +296,15 @@ a. Raise funds for clubs, groups or non-profits that you support by sharing your
 b. Clubs, groups or non-profits can get their members to join and pledge a portion of their earnings when they refer Quickcam.
 
 """
-            }
+            case .yourGoal:
+                return """
+a. Your first goal is to meet your expenses because everything after that is pure profit. When 2 of your referrals subscribe at the same level or higher than your subscription, your expenses are met.
+
+"""            }
         }
         
         var isLastStep: Bool {
-            return self == .fundraising
+            return self == .yourGoal
         }
         
         var isFirstStep: Bool {
@@ -297,6 +316,7 @@ b. Clubs, groups or non-profits can get their members to join and pledge a porti
         case socialQRCodeShare
         case contactManagerTools
         case fundraising
+        case yourGoal
     }
 }
 
@@ -312,8 +332,12 @@ class OnBoardingViewController: UIViewController {
     @IBOutlet weak var createContentStepIndicatorView: StepIndicatorView!
     @IBOutlet weak var mobileDashboardStepIndicatorView: StepIndicatorView!
     @IBOutlet weak var makeMoneyStepIndicatorView: StepIndicatorView!
+    @IBOutlet weak var mainContainerStackView: UIStackView!
+    @IBOutlet weak var createContentStackView: UIView!
+    @IBOutlet weak var makeMoneyStackView: UIView!
+    @IBOutlet weak var mobileDashboardStackView: UIView!
 
-    var showPopUpView: Bool = true
+    var showPopUpView: Bool = false
     var shouldShowFoundingMemberView: Bool = true
     var previousSelectedQuickStartMenu: QuickStartOption = .createContent
     var previousDate = Date()
@@ -321,6 +345,16 @@ class OnBoardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        switch Defaults.shared.selectedQuickStartOption {
+        case .makeMoney:
+            self.mainContainerStackView.removeArrangedSubview(makeMoneyStackView)
+            self.mainContainerStackView.insertArrangedSubview(makeMoneyStackView, at: 0)
+            self.mainContainerStackView.removeArrangedSubview(createContentStackView)
+            self.mainContainerStackView.insertArrangedSubview(createContentStackView, at: 2)
+            self.mainContainerStackView.setNeedsLayout()
+            self.mainContainerStackView.layoutIfNeeded()
+        default: break
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -368,58 +402,73 @@ class OnBoardingViewController: UIViewController {
     }
     
     @IBAction func didTapOnCreateContentSteps(_ sender: UIButton) {
-        print(sender.tag)
-        guard let option = QuickStartOption.createContent.option(for: sender.tag),
-              let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
-            return
-        }
-        var options = Defaults.shared.createContentOptions
-        options.append(option.rawValue)
-        Defaults.shared.createContentOptions = Array(Set(options))
-        quickStartDetail.selectedOption = option
-        quickStartDetail.selectedQuickStartMenu = .createContent
-        if self.previousSelectedQuickStartMenu != .createContent {
-            self.previousSelectedQuickStartMenu = .createContent
-            self.previousDate = Date()
-        }
-        quickStartDetail.guidTimerDate = self.previousDate
-        navigationController?.pushViewController(quickStartDetail, animated: true)
+        openQuickStartOptionDetail(quickStartOption: .createContent, tag: sender.tag)
     }
     
     @IBAction func didTapOnMobileDashboardSteps(_ sender: UIButton) {
-        guard let option = QuickStartOption.mobileDashboard.option(for: sender.tag),
-              let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
-            return
-        }
-        var options = Defaults.shared.mobileDashboardOptions
-        options.append(option.rawValue)
-        Defaults.shared.mobileDashboardOptions = Array(Set(options))
-        quickStartDetail.selectedOption = option
-        quickStartDetail.selectedQuickStartMenu = .mobileDashboard
-        if self.previousSelectedQuickStartMenu != .mobileDashboard {
-            self.previousSelectedQuickStartMenu = .mobileDashboard
-            self.previousDate = Date()
-        }
-        quickStartDetail.guidTimerDate = self.previousDate
-        navigationController?.pushViewController(quickStartDetail, animated: true)
+        openQuickStartOptionDetail(quickStartOption: .mobileDashboard, tag: sender.tag)
     }
     
     @IBAction func didTapOnMakeMoneySteps(_ sender: UIButton) {
-        guard let option = QuickStartOption.makeMoney.option(for: sender.tag),
-              let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
-            return
+        openQuickStartOptionDetail(quickStartOption: .makeMoney, tag: sender.tag)
+    }
+    
+    func openQuickStartOptionDetail(quickStartOption: QuickStartOption, tag: Int) {
+        var viewControllers: [UIViewController] = []
+        switch quickStartOption {
+        case .createContent:
+            for i in 0...tag {
+                if let option = QuickStartOption.createContent.option(for: i),
+                   let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    var options = Defaults.shared.createContentOptions
+                    options.append(option.rawValue)
+                    Defaults.shared.createContentOptions = Array(Set(options))
+                    quickStartDetail.selectedOption = option
+                    quickStartDetail.selectedQuickStartMenu = .createContent
+                    if self.previousSelectedQuickStartMenu != .createContent {
+                        self.previousSelectedQuickStartMenu = .createContent
+                        self.previousDate = Date()
+                    }
+                    quickStartDetail.guidTimerDate = self.previousDate
+                    viewControllers.append(quickStartDetail)
+                }
+            }
+        case .mobileDashboard:
+            for i in 0...tag {
+                if let option = QuickStartOption.mobileDashboard.option(for: i),
+                   let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    var options = Defaults.shared.mobileDashboardOptions
+                    options.append(option.rawValue)
+                    Defaults.shared.mobileDashboardOptions = Array(Set(options))
+                    quickStartDetail.selectedOption = option
+                    quickStartDetail.selectedQuickStartMenu = .mobileDashboard
+                    if self.previousSelectedQuickStartMenu != .mobileDashboard {
+                        self.previousSelectedQuickStartMenu = .mobileDashboard
+                        self.previousDate = Date()
+                    }
+                    quickStartDetail.guidTimerDate = self.previousDate
+                    viewControllers.append(quickStartDetail)
+                }
+            }
+        case .makeMoney:
+            for i in 0...tag {
+                if let option = QuickStartOption.makeMoney.option(for: i),
+                   let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    var options = Defaults.shared.makeMoneyOptions
+                    options.append(option.rawValue)
+                    Defaults.shared.makeMoneyOptions = Array(Set(options))
+                    quickStartDetail.selectedOption = option
+                    quickStartDetail.selectedQuickStartMenu = .makeMoney
+                    if self.previousSelectedQuickStartMenu != .makeMoney {
+                        self.previousSelectedQuickStartMenu = .makeMoney
+                        self.previousDate = Date()
+                    }
+                    quickStartDetail.guidTimerDate = self.previousDate
+                    viewControllers.append(quickStartDetail)
+                }
+            }
         }
-        var options = Defaults.shared.makeMoneyOptions
-        options.append(option.rawValue)
-        Defaults.shared.makeMoneyOptions = Array(Set(options))
-        quickStartDetail.selectedOption = option
-        quickStartDetail.selectedQuickStartMenu = .makeMoney
-        if self.previousSelectedQuickStartMenu != .makeMoney {
-            self.previousSelectedQuickStartMenu = .makeMoney
-            self.previousDate = Date()
-        }
-        quickStartDetail.guidTimerDate = self.previousDate
-        navigationController?.pushViewController(quickStartDetail, animated: true)
+        navigationController?.viewControllers.append(contentsOf: viewControllers)
     }
     
 }

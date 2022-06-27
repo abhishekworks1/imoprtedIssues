@@ -48,10 +48,11 @@ class WelcomeViewController: UIViewController {
     
     private var countdownTimer: Timer?
     var isTrialExpire = false
+    var fromLogin = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.whatDoYouWantSeeView.isHidden = true
+        self.whatDoYouWantSeeView.isHidden = !fromLogin
         self.updateNowEventButton.setTitle("", for: .normal)
     }
     
@@ -93,11 +94,25 @@ class WelcomeViewController: UIViewController {
         }*/
     }
     
-    @IBAction func continueOnClick(_ sender: Any) {
+    func openOnboarding() {
         guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
         (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
         Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
         Utils.appDelegate?.window?.rootViewController = onBoardView
+    }
+    
+    @IBAction func continueOnClick(_ sender: Any) {
+        openOnboarding()
+    }
+    
+    @IBAction func makeMoneyOptionClicked(_ sender: Any) {
+        Defaults.shared.selectedQuickStartOption = .makeMoney
+        openOnboarding()
+    }
+    
+    @IBAction func createContentOptionClicked(_ sender: Any) {
+        Defaults.shared.selectedQuickStartOption = .createContent
+        openOnboarding()
     }
 }
 

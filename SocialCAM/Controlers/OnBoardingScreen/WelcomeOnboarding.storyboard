@@ -499,11 +499,21 @@
                                                                                     <color key="textColor" red="0.027450980392156862" green="0.49019607843137253" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cJ-o2-CnZ">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="199.5" height="200"/>
+                                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                    <connections>
+                                                                                        <action selector="makeMoneyOptionClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7gW-W7-RgY"/>
+                                                                                    </connections>
+                                                                                </button>
                                                                             </subviews>
                                                                             <color key="backgroundColor" red="0.80784313725490198" green="0.90196078431372551" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
+                                                                                <constraint firstItem="2cJ-o2-CnZ" firstAttribute="top" secondItem="mUD-hi-fxa" secondAttribute="top" id="48f-Of-gL8"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="2cJ-o2-CnZ" secondAttribute="trailing" id="6Rt-Ar-uuV"/>
                                                                                 <constraint firstItem="Yvw-Yb-NTb" firstAttribute="top" secondItem="lNt-D6-1X6" secondAttribute="bottom" constant="10" id="8bl-co-EXQ"/>
                                                                                 <constraint firstItem="m9C-xe-VIS" firstAttribute="top" secondItem="mUD-hi-fxa" secondAttribute="top" constant="15" id="8hc-dU-F3Y"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="2cJ-o2-CnZ" secondAttribute="bottom" id="DOT-86-Urs"/>
                                                                                 <constraint firstItem="lNt-D6-1X6" firstAttribute="top" secondItem="m9C-xe-VIS" secondAttribute="bottom" constant="10" id="JdZ-Pi-SIN"/>
                                                                                 <constraint firstItem="Yvw-Yb-NTb" firstAttribute="leading" secondItem="mUD-hi-fxa" secondAttribute="leading" constant="15" id="TkW-U0-hu6"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="Kwg-Ss-sgV" secondAttribute="trailing" constant="10" id="Y62-cc-XoP"/>
@@ -511,6 +521,7 @@
                                                                                 <constraint firstItem="Kwg-Ss-sgV" firstAttribute="centerY" secondItem="lNt-D6-1X6" secondAttribute="centerY" id="bGX-E9-DSy"/>
                                                                                 <constraint firstItem="lNt-D6-1X6" firstAttribute="leading" secondItem="mUD-hi-fxa" secondAttribute="leading" constant="15" id="ok1-Eh-tzQ"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="Yvw-Yb-NTb" secondAttribute="trailing" constant="15" id="vYH-gB-T0S"/>
+                                                                                <constraint firstItem="2cJ-o2-CnZ" firstAttribute="leading" secondItem="mUD-hi-fxa" secondAttribute="leading" id="zpS-J3-on3"/>
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
@@ -547,17 +558,28 @@
                                                                                     <color key="textColor" red="0.49019607843137253" green="0.27450980392156865" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FwU-Z0-bon">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="199.5" height="200"/>
+                                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                    <connections>
+                                                                                        <action selector="createContentOptionClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6yU-FC-l99"/>
+                                                                                    </connections>
+                                                                                </button>
                                                                             </subviews>
                                                                             <color key="backgroundColor" red="0.94901960784313721" green="0.92549019607843142" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
+                                                                                <constraint firstItem="FwU-Z0-bon" firstAttribute="leading" secondItem="vS2-nZ-ynP" secondAttribute="leading" id="9cj-Ad-cQo"/>
+                                                                                <constraint firstItem="FwU-Z0-bon" firstAttribute="top" secondItem="vS2-nZ-ynP" secondAttribute="top" id="9lI-R3-coq"/>
                                                                                 <constraint firstItem="sR8-QH-1lq" firstAttribute="leading" secondItem="vS2-nZ-ynP" secondAttribute="leading" constant="15" id="9mR-Iq-7jt"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="sR8-QH-1lq" secondAttribute="trailing" constant="15" id="CpM-E9-8uc"/>
                                                                                 <constraint firstItem="4Ey-1D-p1z" firstAttribute="leading" secondItem="vS2-nZ-ynP" secondAttribute="leading" constant="15" id="DYY-VE-bx3"/>
                                                                                 <constraint firstItem="4Ey-1D-p1z" firstAttribute="top" secondItem="vS2-nZ-ynP" secondAttribute="top" constant="15" id="Vjs-oD-1sc"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="PkG-Wd-8ZT" secondAttribute="trailing" constant="10" id="eTr-pp-ZfH"/>
                                                                                 <constraint firstItem="vDJ-nM-PiQ" firstAttribute="leading" secondItem="vS2-nZ-ynP" secondAttribute="leading" constant="15" id="fHn-KG-WWP"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="FwU-Z0-bon" secondAttribute="bottom" id="jf0-00-ADL"/>
                                                                                 <constraint firstItem="vDJ-nM-PiQ" firstAttribute="top" secondItem="4Ey-1D-p1z" secondAttribute="bottom" constant="10" id="kQJ-wu-Vfz"/>
                                                                                 <constraint firstItem="PkG-Wd-8ZT" firstAttribute="centerY" secondItem="vDJ-nM-PiQ" secondAttribute="centerY" id="nuh-Fn-JU5"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="FwU-Z0-bon" secondAttribute="trailing" id="tpT-MD-qhc"/>
                                                                                 <constraint firstItem="sR8-QH-1lq" firstAttribute="top" secondItem="vDJ-nM-PiQ" secondAttribute="bottom" constant="10" id="zKg-JB-61q"/>
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>

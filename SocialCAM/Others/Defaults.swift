@@ -1349,6 +1349,15 @@ class Defaults {
         }
     }
     
+    var selectedQuickStartOption: QuickStartOption {
+        get {
+            return QuickStartOption(rawValue: (appDefaults?.integer(forKey: "selectedQuickStartOption") ?? 2)) ?? .createContent
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "selectedQuickStartOption")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
