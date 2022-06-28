@@ -19,6 +19,81 @@
                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upgradeBG" translatesAutoresizingMaskIntoConstraints="NO" id="Ilq-MW-KCy">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4G9-8v-GDB">
+                    <rect key="frame" x="134" y="280" width="107" height="107"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKG-qO-DP6">
+                            <rect key="frame" x="12" y="12" width="83" height="83"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XX-1w-PuC">
+                                    <rect key="frame" x="0.0" y="0.0" width="83" height="83"/>
+                                    <color key="backgroundColor" red="0.27058823529411763" green="0.29019607843137252" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                            <real key="value" value="41.5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                            <color key="value" red="0.14117647058823529" green="0.14509803921568626" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="6XX-1w-PuC" firstAttribute="leading" secondItem="jKG-qO-DP6" secondAttribute="leading" id="1TE-gc-RKG"/>
+                                <constraint firstItem="6XX-1w-PuC" firstAttribute="top" secondItem="jKG-qO-DP6" secondAttribute="top" id="Gpx-qm-wkZ"/>
+                                <constraint firstAttribute="bottom" secondItem="6XX-1w-PuC" secondAttribute="bottom" id="NYu-vh-eL7"/>
+                                <constraint firstAttribute="trailing" secondItem="6XX-1w-PuC" secondAttribute="trailing" id="wtB-tl-jv9"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                    <color key="value" red="0.11372549019607843" green="0.11764705882352941" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                    <real key="value" value="2.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                    <real key="value" value="41.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                    <real key="value" value="2.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                    <color key="value" red="0.11372549019607843" green="0.11764705882352941" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="jKG-qO-DP6" secondAttribute="trailing" constant="12" id="3tx-PS-3f9"/>
+                        <constraint firstAttribute="bottom" secondItem="jKG-qO-DP6" secondAttribute="bottom" constant="12" id="4yV-Zg-1GZ"/>
+                        <constraint firstAttribute="height" constant="107" id="FIh-0K-3kQ"/>
+                        <constraint firstAttribute="width" constant="107" id="TN3-Ou-TBb"/>
+                        <constraint firstItem="jKG-qO-DP6" firstAttribute="leading" secondItem="4G9-8v-GDB" secondAttribute="leading" constant="12" id="Wna-b9-QgN"/>
+                        <constraint firstItem="jKG-qO-DP6" firstAttribute="top" secondItem="4G9-8v-GDB" secondAttribute="top" constant="12" id="vIF-88-6mg"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                            <real key="value" value="53.5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                            <color key="value" red="0.11372549019607843" green="0.11764705882352941" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                            <color key="value" red="0.11372549019607843" green="0.11764705882352941" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7iU-JH-nNW" customClass="CircularProgressBar" customModule="BoomiCam" customModuleProvider="target">
                     <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -102,6 +177,7 @@ other apps for best results.</string>
                 <constraint firstItem="u64-IR-Na2" firstAttribute="width" secondItem="7iU-JH-nNW" secondAttribute="width" id="KaW-XS-IGe"/>
                 <constraint firstItem="U9d-aU-XfD" firstAttribute="leading" secondItem="0Lx-Qt-fc6" secondAttribute="leading" id="MUw-xO-FiQ"/>
                 <constraint firstItem="eQ7-oW-qve" firstAttribute="top" secondItem="Yc4-ub-ap8" secondAttribute="bottom" constant="5" id="N3T-Wb-HXJ"/>
+                <constraint firstItem="4G9-8v-GDB" firstAttribute="centerX" secondItem="0Lx-Qt-fc6" secondAttribute="centerX" id="SHB-qb-cHT"/>
                 <constraint firstItem="Ilq-MW-KCy" firstAttribute="leading" secondItem="z6i-ay-gi9" secondAttribute="leading" id="Vmc-2I-omK"/>
                 <constraint firstItem="4eW-yR-MIS" firstAttribute="leading" secondItem="ffb-vb-TLv" secondAttribute="leading" id="XH6-Ae-u5E"/>
                 <constraint firstItem="Yc4-ub-ap8" firstAttribute="top" secondItem="u64-IR-Na2" secondAttribute="bottom" constant="40" id="chY-SD-0n9"/>
@@ -113,6 +189,7 @@ other apps for best results.</string>
                 <constraint firstAttribute="trailing" secondItem="U9d-aU-XfD" secondAttribute="trailing" id="qcu-I3-xUR"/>
                 <constraint firstItem="ffb-vb-TLv" firstAttribute="top" secondItem="7iU-JH-nNW" secondAttribute="bottom" constant="10" id="uBZ-iN-gDQ"/>
                 <constraint firstItem="ffb-vb-TLv" firstAttribute="centerX" secondItem="7iU-JH-nNW" secondAttribute="centerX" id="yFC-5D-8j9"/>
+                <constraint firstItem="4G9-8v-GDB" firstAttribute="centerY" secondItem="0Lx-Qt-fc6" secondAttribute="centerY" id="ygM-Rl-GhD"/>
             </constraints>
             <connections>
                 <outlet property="btnCancel" destination="Vpg-dw-Xh5" id="U6E-Be-Kdw"/>
