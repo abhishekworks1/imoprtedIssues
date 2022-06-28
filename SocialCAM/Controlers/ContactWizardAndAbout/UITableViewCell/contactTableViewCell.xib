@@ -128,7 +128,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9r-c7-DTm">
-                                                                <rect key="frame" x="33.5" y="7" width="8" height="16.5"/>
+                                                                <rect key="frame" x="33.5" y="7" width="8.5" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -153,7 +153,7 @@
                                                         <rect key="frame" x="75" y="0.0" width="75" height="35"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnZ-17-4tj">
-                                                                <rect key="frame" x="33.5" y="7" width="8" height="16.5"/>
+                                                                <rect key="frame" x="33.5" y="7" width="8.5" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -259,9 +259,9 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpA-zX-0e4">
-                                                        <rect key="frame" x="9.5" y="8.5" width="6" height="12"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
-                                                        <nil key="textColor"/>
+                                                        <rect key="frame" x="10" y="11.5" width="5" height="10"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
+                                                        <color key="textColor" name="Active1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -270,7 +270,7 @@
                                                     <constraint firstAttribute="width" constant="25" id="5ar-Pg-hMO"/>
                                                     <constraint firstItem="clL-1k-PWD" firstAttribute="leading" secondItem="7pq-4a-NMW" secondAttribute="leading" id="A9x-TC-yzL"/>
                                                     <constraint firstAttribute="bottom" secondItem="clL-1k-PWD" secondAttribute="bottom" id="An7-94-Pik"/>
-                                                    <constraint firstItem="BpA-zX-0e4" firstAttribute="centerY" secondItem="7pq-4a-NMW" secondAttribute="centerY" constant="2" id="CXr-IH-vkm"/>
+                                                    <constraint firstItem="BpA-zX-0e4" firstAttribute="centerY" secondItem="7pq-4a-NMW" secondAttribute="centerY" constant="4" id="CXr-IH-vkm"/>
                                                     <constraint firstItem="7tP-xx-6eG" firstAttribute="centerX" secondItem="7pq-4a-NMW" secondAttribute="centerX" id="LtQ-rn-ZPk"/>
                                                     <constraint firstItem="7tP-xx-6eG" firstAttribute="centerY" secondItem="7pq-4a-NMW" secondAttribute="centerY" id="Q6K-PX-CnV"/>
                                                     <constraint firstItem="clL-1k-PWD" firstAttribute="top" secondItem="7pq-4a-NMW" secondAttribute="top" id="mNk-a6-sYW"/>
@@ -292,9 +292,9 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wID-Rk-nk9">
-                                                        <rect key="frame" x="9.5" y="8.5" width="6" height="12"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <rect key="frame" x="10" y="11.5" width="5" height="10"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
+                                                        <color key="textColor" name="Active1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -307,7 +307,7 @@
                                                     <constraint firstItem="9Uy-aR-TLI" firstAttribute="centerY" secondItem="byj-ck-TDB" secondAttribute="centerY" id="Zd4-gg-ezB"/>
                                                     <constraint firstItem="agS-5d-fYO" firstAttribute="top" secondItem="byj-ck-TDB" secondAttribute="top" id="arn-9v-Yam"/>
                                                     <constraint firstItem="wID-Rk-nk9" firstAttribute="centerX" secondItem="byj-ck-TDB" secondAttribute="centerX" id="dZn-e1-1Cc"/>
-                                                    <constraint firstItem="wID-Rk-nk9" firstAttribute="centerY" secondItem="byj-ck-TDB" secondAttribute="centerY" constant="2" id="jxg-So-bUB"/>
+                                                    <constraint firstItem="wID-Rk-nk9" firstAttribute="centerY" secondItem="byj-ck-TDB" secondAttribute="centerY" constant="4" id="jxg-So-bUB"/>
                                                     <constraint firstAttribute="trailing" secondItem="agS-5d-fYO" secondAttribute="trailing" id="xsw-EB-UKM"/>
                                                 </constraints>
                                             </view>
@@ -325,15 +325,15 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1w-sa-oXl">
-                                                        <rect key="frame" x="9.5" y="8" width="6.5" height="13.5"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <rect key="frame" x="10" y="11.5" width="5" height="10"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
+                                                        <color key="textColor" name="Active1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="b1w-sa-oXl" firstAttribute="centerY" secondItem="dKO-QR-xCr" secondAttribute="centerY" constant="2" id="7hi-o6-sft"/>
+                                                    <constraint firstItem="b1w-sa-oXl" firstAttribute="centerY" secondItem="dKO-QR-xCr" secondAttribute="centerY" constant="4" id="7hi-o6-sft"/>
                                                     <constraint firstItem="LRQ-la-LiK" firstAttribute="top" secondItem="dKO-QR-xCr" secondAttribute="top" id="A1l-LG-bBk"/>
                                                     <constraint firstAttribute="width" constant="25" id="A3w-JF-fzy"/>
                                                     <constraint firstItem="b1w-sa-oXl" firstAttribute="centerX" secondItem="dKO-QR-xCr" secondAttribute="centerX" id="DFY-Nd-HSa"/>
@@ -600,8 +600,11 @@
         <image name="proBadge" width="62" height="73"/>
         <image name="socialBadge" width="48" height="74"/>
         <image name="webBadge" width="512" height="512"/>
+        <namedColor name="Active1">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="AppSkyBlueColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
