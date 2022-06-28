@@ -147,3 +147,30 @@ extension Date {
     }
     
 }
+
+extension DateComponents {
+
+    func dateComponentsToTimeString() -> String {
+
+        var hour = "\(self.hour!)"
+        var minute = "\(self.minute!)"
+        var second = "\(self.second!)"
+
+        if self.hour! < 10 { hour = "0" + hour }
+        if self.minute! < 10 { minute = "0" + minute }
+        if self.second! < 10 { second = "0" + second }
+
+        let str = "\(hour):\(minute):\(second)"
+        return str
+    }
+
+}
+
+extension Date {
+
+    func offset(from date: Date)-> DateComponents {
+        let components = Set<Calendar.Component>([.second, .minute, .hour, .day, .month, .year])
+        let differenceOfDate = Calendar.current.dateComponents(components, from: date, to: self)
+        return differenceOfDate
+    }
+}

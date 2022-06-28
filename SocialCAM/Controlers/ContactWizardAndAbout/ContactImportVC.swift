@@ -83,7 +83,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     let grayColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0)
     var pageNo : Int = 1
     var isSelectSMS : Bool = false
-    
+    var isFromContactManager : Bool = false
     var listingResponse : msgTitleList? = nil
     var emailMsgListing : msgTitleList? = nil
     var smsMsgListing : msgTitleList? = nil
@@ -187,12 +187,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var gmailOptionView: UIView!
     @IBOutlet weak var setDefaultEmailAppButton: UIButton!
     
+    @IBOutlet weak var btnNext: UIButton!
+    @IBOutlet weak var btnPrevious: UIButton!
+    
     var isGmailOpened = false
     var isAppleEmailOpened = false
     
     
     var searchText:String = ""
     var selectedContact:ContactResponse?
+    var selectedContactManage:ContactResponse?
     var inviteData:Data?
     var phoneContacts = [PhoneContact]()
     var mailContacts = [PhoneContact]()
@@ -222,6 +226,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         // Do any additional setup after loading the view.
         self.setupUI()
+        if isFromContactManager{
+            pageNo = 5
+        }
         self.setupPage()
         self.fetchTitleMessages()
         self.fetchEmailMessages()
@@ -252,6 +259,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         emailContactTableView.allowsSelection = true
         emailContactTableView.dataSource = self
         emailContactTableView.delegate = self
+        
+        self.contactTableView.estimatedRowHeight = 88.0
+        self.contactTableView.rowHeight = UITableView.automaticDimension
+        
+        self.emailContactTableView.estimatedRowHeight = 88.0
+        self.emailContactTableView.rowHeight = UITableView.automaticDimension
         
         searchBar.delegate = self
         
@@ -399,10 +412,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         case .authorized: //access contacts
             contactPermitView.isHidden = true
             print("here")
-            //self.loadContacts(filter: self.filter) // Calling loadContacts methods
-            self.getContactList()
-           // loadingView.hide()
-           // self.hideLoader()
+            self.loadContacts(filter: self.filter) // Calling loadContacts methods
+//            self.getContactList()
+//            loadingView.hide()
+            self.hideLoader()
         case .denied, .notDetermined: //request permission
             CNContactStore().requestAccess(for: .contacts) { granted, error in
                 if granted {
@@ -836,9 +849,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.mobileContacts.append(contentsOf:contacts)
 
                     self.allmobileContacts = self.mobileContacts
-                    if self.mobileContacts.count > 0{
-                        self.contactPermitView.isHidden = true
-                    }
+                    
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
@@ -846,9 +857,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     
-                    if self.emailContacts.count > 0{
-                        self.contactPermitView.isHidden = true
-                    }
+                    
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -1310,7 +1319,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func emailSelected(sender: UIButton) {
         searchBar.showsCancelButton = false
         self.shareType = ShareType.email
-        if !isSelectSMS {
+        
+        if !isSelectSMS && !isFromContactManager{
           //  isSelectSMS = false
             self.shareType = ShareType.email
             selectedContactType = ContactType.email
@@ -1488,8 +1498,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             return UITableView.automaticDimension
         } else {
-            return 75
+            return UITableView.automaticDimension
+            //return 75
         }
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -1592,39 +1606,49 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
             //
-          /*  let contact = mailContacts[indexPath.row] as PhoneContact
-            cell.lblDisplayName.text = contact.name ?? ""
-            cell.lblNumberEmail.text = contact.email[0]
-            if let imagedata =  contact.avatarData {
-                let avtar = UIImage(data:imagedata,scale:1.0)
-                cell.contactImage.image = avtar
-            }else {
-                cell.contactImage.image = UIImage.init(named: "User_placeholder")
-            }
-            cell.phoneContactObj = contact */
-            
-            //
+         
             let contact = emailContacts[indexPath.row]
             cell.lblDisplayName.text = contact.name ?? ""
             cell.lblNumberEmail.text = contact.email ?? ""
             cell.contactImage.image = UIImage.init(named: "User_placeholder")
             cell.mobileContactObj = contact
            
-            if contact.status == ContactStatus.pending {
+            if contact.status == ContactStatus.pending{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invite", for: .normal)
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
-                
-            } else if contact.status == ContactStatus.subscriber {
+                cell.lblInviteButtonTitle.text = "Invite"
+                cell.buttonInvite.setTitle("", for: .normal)
+                cell.inviteButtonView.isHidden = false
+            }else if contact.status == ContactStatus.subscriber{
                 cell.inviteBtn.isHidden = true
-            } else if contact.status == ContactStatus.invited {
+                cell.inviteButtonView.isHidden = true
+            }else{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
-            } else {
-                cell.inviteBtn.isHidden = true
+                cell.buttonInvite.setTitle("", for: .normal)
+                cell.lblInviteButtonTitle.text = "Invited"
+                cell.inviteButtonView.isHidden = false
+            }
+            cell.inviteBtn.isHidden = true
+            if let registerUser = contact.registeredUserDetails{
+                cell.refferalView.isHidden = false
+                cell.inviteButtonView.isHidden = true
+                cell.contactStatusView.isHidden = false
+                cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
+                cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
+                //  cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                cell.lblStatus.text = ""
+                cell.badges = registerUser.badges ?? [ParentBadges]()
+                print(registerUser.toJSON())
+                cell.setBadges()
+            }else{
+                cell.refferalView.isHidden = true
+                cell.inviteButtonView.isHidden = false
+                cell.contactStatusView.isHidden = true
             }
             return cell
         }else {
@@ -1654,16 +1678,36 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteBtn.setTitle("Invite", for: .normal)
                     cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                     cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
-                    
+                    cell.lblInviteButtonTitle.text = "Invite"
+                    cell.buttonInvite.setTitle("", for: .normal)
+                    cell.inviteButtonView.isHidden = false
                 }else if contact.status == ContactStatus.subscriber{
                     cell.inviteBtn.isHidden = true
+                    cell.inviteButtonView.isHidden = true
                 }else{
                     cell.inviteBtn.isHidden = false
                     cell.inviteBtn.setTitle("Invited", for: .normal)
                     cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
                     cell.inviteBtn.setTitleColor(.white, for: .normal)
+                    cell.buttonInvite.setTitle("", for: .normal)
+                    cell.lblInviteButtonTitle.text = "Invited"
+                    cell.inviteButtonView.isHidden = false
                 }
-                
+                cell.inviteBtn.isHidden = true
+                if let registerUser = contact.registeredUserDetails{
+                    cell.refferalView.isHidden = false
+                    cell.inviteButtonView.isHidden = true
+                    cell.contactStatusView.isHidden = false
+                    cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
+                    cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
+                  //  cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                    cell.lblStatus.text = ""
+                    cell.setBadges()
+                }else{
+                    cell.refferalView.isHidden = true
+                    cell.inviteButtonView.isHidden = false
+                    cell.contactStatusView.isHidden = true
+                }
             }
             else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
@@ -1677,7 +1721,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
                 cell.phoneContactObj = contact
             }
-
+            
+          
             return cell
         }
     }
@@ -1890,7 +1935,43 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func nextClick(_ sender: UIButton) {
-    
+        if isFromContactManager{
+            if pageNo == 5 {
+                if self.selectedContactManage == nil{
+                    self.view.makeToast(("Please select contact"))
+                    
+                }
+            }else if pageNo == 5{
+                if self.selectedContactManage == nil{
+                    showToast("Please select contact")
+                }
+            }else if pageNo == 3 {
+                let rows = itemsTableView.numberOfRows(inSection: 0)
+                if rows == 0 {
+                    showAlert(alertMessage: "No text available to send")
+                    return
+                }
+                pageNo = 4
+                self.setupPage()
+            }else if pageNo == 4{
+                if self.shareType == ShareType.textShare{
+                   
+                    self.validateInvite(contact:self.selectedContactManage!, completion: { success in
+                        if success ?? false{
+                            self.openMessageComposer(mobileContact:self.selectedContactManage!,reInvite:false)
+                        }
+                    })
+                }else{
+                    self.validateInvite(contact:self.selectedContactManage!, completion: { success in
+                        if success ?? false{
+                            self.openMessageComposer(mobileContact:self.selectedContactManage!,reInvite:false)
+                        }
+                    })
+                }
+                
+            }
+            return
+        }
         if pageNo == 1 {
             pageNo = 2
             self.setupPage()
@@ -1945,18 +2026,32 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }
-        pageNo = 2
-        setupPage()
-        setupUIBasedOnUrlToShare()
+        if isFromContactManager{
+            pageNo = 3
+            setupPage()
+            setupUIBasedOnUrlToShare()
+        }else{
+            pageNo = 2
+            setupPage()
+            setupUIBasedOnUrlToShare()
+        }
+       
     }
     
     @IBAction func didTapQuickStartButton(_ sender: Any) {
         if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
            urlToShare = shareUrl
         }
-        pageNo = 2
-        setupPage()
-        setupUIBasedOnUrlToShare()
+        if isFromContactManager{
+            pageNo = 3
+            setupPage()
+            setupUIBasedOnUrlToShare()
+        }else{
+            pageNo = 2
+            setupPage()
+            setupUIBasedOnUrlToShare()
+        }
+        
     }
 
     @IBAction func mainOptionsClick(_ sender: UIButton) {
@@ -2010,7 +2105,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
-        businessDashbardConfirmPopupView.isHidden = false
+        
+        if Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup {
+            if let viewController = R.storyboard.storyCameraViewController.businessDashboardWebViewVC() {
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        } else {
+            businessDashbardConfirmPopupView.isHidden = false
+        }
 //        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
 //        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
@@ -2112,21 +2214,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         ContactPermission()
     }
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
-        
-//        if let token = Defaults.shared.sessionToken {
-//        let urlString = "\(websiteUrl)/redirect?token=\(token)"
-       let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
-        print(urlString)
-        guard let url = URL(string: urlString) else {
-                return
-            }
-            presentSafariBrowser(url: url)
-//        }
-//        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
-//        navigationController?.pushViewController(storySettingsVC, animated: true)
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         businessDashbardConfirmPopupView.isHidden = true
+        
+        if let viewController = R.storyboard.storyCameraViewController.businessDashboardWebViewVC() {
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+//        if let token = Defaults.shared.sessionToken {
+//        let urlString = "\(websiteUrl)/redirect?token=\(token)"
+//       let urlString = "\(websiteUrl)/share-wizard?redirect_uri=\(redirectUri)"
+//        print(urlString)
+//        guard let url = URL(string: urlString) else {
+//                return
+//        }
+//            presentSafariBrowser(url: url)
+//        }
+//        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+//        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
     @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
         btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
@@ -2149,6 +2254,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func openMessageComposer(mobileContact:ContactResponse?,reInvite :Bool = false){
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
+            self.selectedContactManage = mobilecontact
             if reInvite{
                 self.inviteAgainpopup.isHidden = false
                 return
@@ -2269,41 +2375,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func didPressButton(_ contact: PhoneContact, mobileContact:ContactResponse?,reInvite :Bool = false) {
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
+            self.selectedContactManage = mobilecontact
+            if isFromContactManager{
+                self.nextClick(btnNext)
+                return
+            }
+            
             if reInvite{
                 self.inviteAgainpopup.isHidden = false
                 return
             }
-            // not used
-           /* let phoneNum = mobilecontact.mobile ?? ""
-            let urlString = self.txtLinkWithCheckOut
-            //            let imageV = self.profileView.toImage()
-            //            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
-            
-            let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
-             let json = """
-             {
-                 "contactId":"\(mobilecontact.Id ?? "")",
-                 "refType":"text"
-             }
-             """
-            
-            let str = json.toBase64()
-            let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
-            if !MFMessageComposeViewController.canSendText() {
-                //showAlert("Text services are not available")
-                return
-            }
-
-            let textComposer = MFMessageComposeViewController()
-            textComposer.messageComposeDelegate = self
-            let recipients:[String] = [phoneNum]
-            textComposer.body = urlwithString
-            textComposer.recipients = recipients
-            */
-            /*if MFMessageComposeViewController.canSendAttachments() {
-                let imageData = imageV.jpegData(compressionQuality: 1.0)
-                textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
-            }*/
+        
             
             self.validateInvite(contact:mobilecontact, completion: { success in
                 if success ?? false{
@@ -2312,11 +2394,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             })
 
         }else{
+            
+            if isFromContactManager{
+                self.nextClick(btnNext)
+                return
+            }
+            
+            
             let urlString = self.txtLinkWithCheckOut
-//            let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + "\n" + "\n" + urlToShare//" \(websiteUrl)/\(channelId)"
-            //UIPasteboard.general.string = urlwithString
-            //var shareItems: [Any] = [urlwithString]
+
+            let urlwithString = urlString + "\n" + "\n" + urlToShare//"
+           
 
             let imageV = self.profileView.toImage()
            // shareItems.append(image)

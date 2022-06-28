@@ -47,6 +47,8 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var subscribeNowLabel: UILabel!
     @IBOutlet weak var subscribertypeview: UIView!
     @IBOutlet weak var subscribertypeLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
+
     // MARK: -
     // MARK: - Variables
     
@@ -54,10 +56,10 @@ class SubscriptionContainerViewController: UIViewController {
     private var pagingViewController = PagingViewController()
     private let indicatorWidth: CGFloat = 47
     private let indicatorWidthDividend: CGFloat = isLiteApp ? 2 : 4
-    
+    private var countdownTimer: Timer?
+    var isFromWelcomeScreen: Bool = false
     // MARK: -Delegate
     public weak var subscriptionDelegate: SubscriptionScreenDelegate?
-
     //
     // MARK: - Life Cycle Methods
     
@@ -77,16 +79,23 @@ class SubscriptionContainerViewController: UIViewController {
         activeAdvancedView.isHidden = true
         activeProView.isHidden = true
         
-        setSubscriptionBadgeDetails()
+     
+         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
         subscribertypeview.isHidden = true
+        setSubscriptionBadgeDetails()
         setSubscribeNowLabel()
     }
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        countdownTimer?.invalidate()
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,6 +104,7 @@ class SubscriptionContainerViewController: UIViewController {
     }
     
     func setSubscriptionBadgeDetails(){
+        timerLabel.isHidden = true
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -119,10 +129,16 @@ class SubscriptionContainerViewController: UIViewController {
                     }
                     lbltrialDays.text = ""
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                        if finalDay == "7" {
-                            lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                       if finalDay == "7" {
+                            lbltrialDays.text = "Today is the last day of your 7-day free trial"//. Upgrade now to access these features"
+                           if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                               showTimer(createdDate: createdDate)
+                           }
                         } else {
                             lbltrialDays.text = "You have \(fday) days left on your free trial."
+                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                showTimer(createdDate: createdDate)
+                            }
                         }
                         if fday == 0 {
                             lbltrialDays.text = ""
@@ -141,10 +157,27 @@ class SubscriptionContainerViewController: UIViewController {
         }
     }
     
+    func showTimer(createdDate: Date){
+        timerLabel.isHidden = false
+        var dateComponent = DateComponents()
+        dateComponent.day = 7
+        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
+            self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
+                let days = countdown.day!
+                let hours = countdown.hour!
+                let minutes = countdown.minute!
+                let seconds = countdown.second!
+                self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
+            }
+        }
+    }
+    
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .professional
         subscriptionVc.subscriptionType = .professional
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -153,6 +186,7 @@ class SubscriptionContainerViewController: UIViewController {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .advanced
         subscriptionVc.subscriptionType = .advanced
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -160,6 +194,7 @@ class SubscriptionContainerViewController: UIViewController {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .basic
         subscriptionVc.subscriptionType = .basic
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     
@@ -168,6 +203,7 @@ class SubscriptionContainerViewController: UIViewController {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .free
         subscriptionVc.subscriptionType = .free
+        subscriptionVc.isFromWelcomeScreen = self.isFromWelcomeScreen
         navigationController?.pushViewController(subscriptionVc, animated: true)
     }
     

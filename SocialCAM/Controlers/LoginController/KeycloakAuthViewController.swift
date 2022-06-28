@@ -223,10 +223,15 @@ extension KeycloakAuthViewController {
         } else {
 //            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
 //            Utils.appDelegate?.window?.rootViewController = rootViewController
-            guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
+           /* guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
             (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = true
             Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
-            Utils.appDelegate?.window?.rootViewController = onBoardView
+            Utils.appDelegate?.window?.rootViewController = onBoardView*/
+            
+            guard let welcomeOnboardingView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
+            (welcomeOnboardingView.viewControllers.first as? WelcomeViewController)?.fromLogin = true
+             Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+             Utils.appDelegate?.window?.rootViewController = welcomeOnboardingView
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
@@ -234,10 +239,15 @@ extension KeycloakAuthViewController {
     
     func redirectToHomeScreen() {
         Defaults.shared.isSignupLoginFlow = true
-        guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
-            (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = true
-        Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
-        Utils.appDelegate?.window?.rootViewController = onBoardView
+//        guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
+//            (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = true
+//        Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+//        Utils.appDelegate?.window?.rootViewController = onBoardView
+        
+        guard let welcomeOnboardingView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
+         (welcomeOnboardingView.viewControllers.first as? WelcomeViewController)?.fromLogin = true
+         Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+         Utils.appDelegate?.window?.rootViewController = welcomeOnboardingView
     }
     
     func createUser(referringChannel: String, channelId: String) {

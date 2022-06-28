@@ -163,6 +163,7 @@ extension StoryCameraViewController {
             }else{
                 self.topStackView.addArrangedSubview(self.settingsView)
                 self.topStackView.addArrangedSubview(self.flashStackView)
+                self.topStackView.addArrangedSubview(self.recordingTimeStackView)
                 self.topStackView.addArrangedSubview(self.showhideView)
                 self.topStackView.addArrangedSubview(self.businessDashboardStackView)
             }
@@ -673,25 +674,30 @@ extension StoryCameraViewController {
     }
     
     @IBAction func btnBusinessDashboardTapped(_ sender: UIButton) {
-        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
-            blurView.isHidden = false
-            businessDashbardConfirmPopupView.isHidden = false
-            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
-
-            switchingAppView.isHidden = true
-        
-          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
-        }else{
-            if let token = Defaults.shared.sessionToken {
-                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
-                 guard let url = URL(string: urlString) else {
-                     return
-                 }
-                 presentSafariBrowser(url: url)
-             }
-             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
-             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        if let helpSettingsViewController = R.storyboard.storyCameraViewController.helpSettingsViewController() {
+            navigationController?.pushViewController(helpSettingsViewController, animated: true)
         }
+//        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
+//            blurView.isHidden = false
+//            businessDashbardConfirmPopupView.isHidden = false
+//            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
+//
+//            switchingAppView.isHidden = true
+//
+//          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+//        }else{
+//            if let token = Defaults.shared.sessionToken {
+//                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
+//                 guard let url = URL(string: urlString) else {
+//                     return
+//                 }
+//                 presentSafariBrowser(url: url)
+//             }
+//             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+//             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+//        }
+        
+        
     }
     
 }

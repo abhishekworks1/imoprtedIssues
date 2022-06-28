@@ -239,6 +239,11 @@ class Defaults {
                         settings.insert(StorySettings(name: "",
                                                       settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
                     }
+                    if !settings.contains(where: {$0.settingsType == .potentialIncomeCalculator})
+                    {
+                        settings.insert(StorySettings(name: "",
+                                                      settings: [StorySetting(name: R.string.localizable.potentialIncomeCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),at: 7)
+                    }
                     return settings
                 }
             }
@@ -1314,6 +1319,42 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: "onboardingReferral")
+        }
+    }
+    
+    var createContentOptions: [Int] {
+        get {
+            return appDefaults?.array(forKey: "createContentOptions") as? [Int] ?? []
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "createContentOptions")
+        }
+    }
+    
+    var makeMoneyOptions: [Int] {
+        get {
+            return appDefaults?.array(forKey: "makeMoneyOptions") as? [Int] ?? []
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "makeMoneyOptions")
+        }
+    }
+    
+    var mobileDashboardOptions: [Int] {
+        get {
+            return appDefaults?.array(forKey: "mobileDashboardOptions") as? [Int] ?? []
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "mobileDashboardOptions")
+        }
+    }
+    
+    var selectedQuickStartOption: QuickStartOption {
+        get {
+            return QuickStartOption(rawValue: (appDefaults?.integer(forKey: "selectedQuickStartOption") ?? 0)) ?? .createContent
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "selectedQuickStartOption")
         }
     }
     
