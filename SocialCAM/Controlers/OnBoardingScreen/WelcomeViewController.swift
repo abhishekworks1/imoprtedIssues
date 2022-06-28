@@ -347,14 +347,14 @@ extension WelcomeViewController {
     func setUpTimerViewForOtherDay() {
         timerStackView.isHidden = false
         timeStackViewHeight.constant = 72
-        freeModeDayImageView.isHidden = true
-        freeModeMinImageView.isHidden = true
-        freeModeSecImageView.isHidden = true
-        freeModeHourImageView.isHidden = true
-        dayLineView.isHidden = false
-        hourLineView.isHidden = false
-        minLineView.isHidden = false
-        secLineView.isHidden = false
+        freeModeDayImageView.isHidden = false
+        freeModeMinImageView.isHidden = false
+        freeModeSecImageView.isHidden = false
+        freeModeHourImageView.isHidden = false
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
         dayLabel.isHidden = false
         hourLabel.isHidden = false
         minLabel.isHidden = false
