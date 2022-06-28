@@ -2935,7 +2935,7 @@ extension StoryCameraViewController {
             self.circularProgress.deleteLayer()
             self.updateProgress()
             if self.takenVideoUrls.isEmpty {
-                self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+                self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
             }
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.keep(), style: .cancel, handler: nil))
