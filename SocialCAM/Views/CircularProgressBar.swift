@@ -11,6 +11,8 @@ import Foundation
 
 class CircularProgressBar: UIView {
     
+    @IBInspectable public var isthumbImageAvailable: Bool = false
+    @IBInspectable public var thumbImage: UIImage?
     var currentTime: Double = 0
     var previousProgress: Double = 0
     
@@ -26,7 +28,7 @@ class CircularProgressBar: UIView {
     
     // MARK: Public
     
-    public var lineWidth: CGFloat = 5 {
+    public var lineWidth: CGFloat = 8 {
         didSet {
             foregroundLayer.lineWidth = lineWidth
             backgroundLayer.lineWidth = lineWidth - (0.20 * lineWidth)
@@ -35,14 +37,14 @@ class CircularProgressBar: UIView {
     
     public var labelSize: CGFloat = 5 {
         didSet {
-            label.font = UIFont.systemFont(ofSize: labelSize)
+            label.font = UIFont.systemFont(ofSize: labelSize, weight: .semibold)
             configLabel()
         }
     }
     
     public var labelPercentSize: CGFloat = 8 {
         didSet {
-            labelPercent.font = UIFont.systemFont(ofSize: labelPercentSize)
+            labelPercent.font = UIFont.systemFont(ofSize: labelPercentSize, weight: .semibold)
             labelPercent.sizeToFit()
             configLabelPercent()
         }
@@ -70,7 +72,7 @@ class CircularProgressBar: UIView {
             }
         }
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             self.foregroundLayer.strokeEnd = CGFloat(progress)
             
             if withAnimation {
@@ -98,6 +100,10 @@ class CircularProgressBar: UIView {
     private let foregroundLayer = CAShapeLayer()
     private let backgroundLayer = CAShapeLayer()
     private let pulsatingLayer = CAShapeLayer()
+    private let ringLayer = CAShapeLayer()
+    private let thumbLayer = CALayer()
+    private var thumbImageView = UIImageView()
+    
     private var radius: CGFloat {
         get {
             if self.frame.width < self.frame.height { return (self.frame.width - lineWidth)/2 } else { return (self.frame.height - lineWidth)/2 }
@@ -107,7 +113,7 @@ class CircularProgressBar: UIView {
     private var pathCenter: CGPoint { get { return self.convert(self.center, from: self.superview) } }
     private func makeBar() {
         self.layer.sublayers = nil
-        drawPulsatingLayer()
+//        drawPulsatingLayer()
         self.animatePulsatingLayer()
         drawBackgroundLayer()
         drawForegroundLayer()
@@ -116,9 +122,11 @@ class CircularProgressBar: UIView {
     private func drawBackgroundLayer() {
         let path = UIBezierPath(arcCenter: pathCenter, radius: self.radius, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
         self.backgroundLayer.path = path.cgPath
-        self.backgroundLayer.strokeColor = ApplicationSettings.appPrimaryColor.cgColor
+        self.backgroundLayer.strokeColor = UIColor.darkGray.cgColor
+//        ApplicationSettings.appPrimaryColor.cgColor
         self.backgroundLayer.lineWidth = lineWidth
-        self.backgroundLayer.fillColor = ApplicationSettings.appWhiteColor.cgColor
+        self.backgroundLayer.fillColor = UIColor.clear.cgColor
+//        ApplicationSettings.appWhiteColor.cgColor
         self.layer.addSublayer(backgroundLayer)
         
     }
@@ -133,10 +141,30 @@ class CircularProgressBar: UIView {
         foregroundLayer.lineCap = CAShapeLayerLineCap.round
         foregroundLayer.path = path.cgPath
         foregroundLayer.lineWidth = lineWidth
-        foregroundLayer.fillColor = ApplicationSettings.appClearColor.cgColor
-        foregroundLayer.strokeColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
+        foregroundLayer.fillColor = UIColor.clear.cgColor
+        foregroundLayer.strokeColor = ApplicationSettings.appPrimaryColor.cgColor
+//        UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
         foregroundLayer.strokeEnd = 0
         
+        if isthumbImageAvailable {
+            thumbImageView.image = thumbImage!
+            thumbLayer.contents = thumbImageView.image?.cgImage
+            thumbLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            thumbLayer.frame = CGRect(x: 0.0, y: 0.0, width: thumbImageView.image!.size.width, height: thumbImageView.image!.size.height)
+            thumbLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI_2)))
+            ringLayer.addSublayer(thumbLayer)
+            let pathAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "position")
+            pathAnimation.duration = 12.5
+            pathAnimation.path = path.cgPath;
+            pathAnimation.repeatCount = 0
+            pathAnimation.calculationMode = CAAnimationCalculationMode.paced
+            pathAnimation.rotationMode = CAAnimationRotationMode.rotateAuto
+            pathAnimation.fillMode = CAMediaTimingFillMode.forwards
+            pathAnimation.isRemovedOnCompletion = false
+            thumbLayer.add(pathAnimation, forKey: "movingMeterTip") //need to refactor
+        }
+        
+        foregroundLayer.addSublayer(ringLayer)
         self.layer.addSublayer(foregroundLayer)
         
     }
@@ -193,15 +221,17 @@ class CircularProgressBar: UIView {
     }
     
     private func configLabel() {
-        label.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0)
+        label.textColor = .white
+//        UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0)
         label.sizeToFit()
-        label.center = CGPoint(x: pathCenter.x, y: pathCenter.y)
+        label.center = CGPoint(x: pathCenter.x - 5, y: pathCenter.y)
     }
     
     private func configLabelPercent() {
-        labelPercent.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 0.4)
+        labelPercent.textColor = .white
+//        UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0)
         labelPercent.sizeToFit()
-        labelPercent.center = CGPoint(x: pathCenter.x + (label.frame.size.width/2) + 10, y: pathCenter.y)
+        labelPercent.center = CGPoint(x: pathCenter.x + (label.frame.size.width/2) + 5, y: pathCenter.y)
     }
     
     private func configLabelComplete() {
@@ -213,7 +243,8 @@ class CircularProgressBar: UIView {
     
     private func setForegroundLayerColorForSafePercent() {
         
-        self.foregroundLayer.strokeColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
+        self.foregroundLayer.strokeColor = UIColor.systemBlue.cgColor
+//        UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
     }
     
     private func setupView() {
@@ -221,6 +252,7 @@ class CircularProgressBar: UIView {
         self.addSubview(label)
         self.addSubview(labelPercent)
         self.addSubview(labelComplete)
+        
     }
     
     //Layout Sublayers
