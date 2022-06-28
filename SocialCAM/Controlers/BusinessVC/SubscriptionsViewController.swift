@@ -477,10 +477,15 @@ class SubscriptionsViewController: UIViewController {
                         }
                         
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
                         lblBadgeRemainingDays.text = ""
                         lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
                         freeTrialView.isHidden = true
+                        if self.subscriptionType == .free {
+                            subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
+                            if let createdDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+                                showFreeTimer(createdDate: createdDate)
+                            }
+                        }
                     }
                 }
             }
@@ -500,6 +505,17 @@ class SubscriptionsViewController: UIViewController {
                 let seconds = countdown.second!
                 self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
             }
+        }
+    }
+    func showFreeTimer(createdDate: Date){
+        timerLabel.isHidden = false
+        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: createdDate, to: Date())
+            let days = countdown.day!
+            let hours = countdown.hour!
+            let minutes = countdown.minute!
+            let seconds = countdown.second!
+            self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
         }
     }
     private func setDowngradeButton() {

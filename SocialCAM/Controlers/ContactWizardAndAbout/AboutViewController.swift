@@ -10,7 +10,6 @@ import UIKit
 import StoreKit
 
 class AboutViewController: UIViewController {
-
     @IBOutlet weak var otherLink: UIView!
     @IBOutlet weak var versionLbl: UILabel!
 
@@ -22,7 +21,7 @@ class AboutViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         //otherLink.dropShadow()
-        versionLbl.text = "\(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
+        versionLbl.text = "\(Constant.Application.displayName) - 1.1.1(37.\(Constant.Application.appBuildNumber))"
     }
     
     // MARK: - Button Methods

@@ -151,6 +151,9 @@ class SubscriptionContainerViewController: UIViewController {
                         lblBadgeBasic.text = ""
                         lblBadgeAdvanced.text = ""
                         lblBadgePro.text = ""
+                        if let createdDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+                            showFreeTimer(createdDate: createdDate)
+                        }
                     }
                 }
             }
@@ -172,7 +175,17 @@ class SubscriptionContainerViewController: UIViewController {
             }
         }
     }
-    
+    func showFreeTimer(createdDate: Date){
+        timerLabel.isHidden = false
+        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: createdDate, to: Date())
+            let days = countdown.day!
+            let hours = countdown.hour!
+            let minutes = countdown.minute!
+            let seconds = countdown.second!
+            self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
+        }
+    }
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .professional

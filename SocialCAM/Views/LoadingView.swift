@@ -132,7 +132,8 @@ public class LoadingView: UIView {
     
     @IBOutlet weak var progressView: CircularProgressBar! {
         didSet {
-            progressView.labelSize = 30
+            progressView.labelSize = 26
+            progressView.labelPercentSize = 26
             progressView.safePercent = 100
         }
     }

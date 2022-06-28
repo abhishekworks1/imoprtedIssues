@@ -751,7 +751,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1//StorySettings.storySettings.count
     }
-    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 200.0
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return StorySettings.storySettings.count
        /* if StorySettings.storySettings[section].settingsType == .subscriptions {
