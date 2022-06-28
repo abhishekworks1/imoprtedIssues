@@ -477,11 +477,11 @@ class SubscriptionsViewController: UIViewController {
                         }
                         
                     } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
                         lblBadgeRemainingDays.text = ""
                         lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
                         freeTrialView.isHidden = true
                         if self.subscriptionType == .free {
+                            subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
                             if let createdDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                                 showFreeTimer(createdDate: createdDate)
                             }
