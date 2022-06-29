@@ -384,6 +384,25 @@ class Defaults {
             }
         }
     }
+    var userSubscription: UserSubscription? {
+        get {
+            if let loggedUser = appDefaults?.object(forKey: "userSubscription") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode(UserSubscription.self, from: loggedUser)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                appDefaults?.set(encoded, forKey: "userSubscription")
+                appDefaults?.synchronize()
+            } else {
+                appDefaults?.set(nil, forKey: "userSubscription")
+                appDefaults?.synchronize()
+            }
+        }
+    }
     
     var appleLoginUserData: LoginUserData? {
         get {

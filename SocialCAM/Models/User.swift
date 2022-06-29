@@ -80,6 +80,7 @@ class User: Codable, Mappable {
     var viralcamReferralLink: String?
     var referralCode: String?
     var subscriptionStatus: String?
+    var subscriptionEndDate: String?
     var dob: String?
     var freeTrialExpiry: String?
     var isTempSubscription: Bool?
