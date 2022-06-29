@@ -16,6 +16,7 @@ import LinkPresentation
 import URLEmbeddedView
 import FBSDKShareKit
 import SCSDKCreativeKit
+import Toast_Swift
 
 enum ShareType:Int{
     case textShare = 1
@@ -198,6 +199,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var selectedContact:ContactResponse?
     var selectedContactManage:ContactResponse?
     var inviteData:Data?
+    var selectedPhoneContact: ContactResponse?
     var phoneContacts = [PhoneContact]()
     var mailContacts = [PhoneContact]()
     var allphoneContacts = [PhoneContact]()
@@ -1751,6 +1753,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         } else{
             self.view.endEditing(true)
+            print("&&&&&&&&&&&&&&")
+            print(indexPath.row)
+            let contact = mobileContacts[indexPath.row] as ContactResponse
+            selectedPhoneContact = contact
+            print("&&&&&&&&&&&&&&")
         }
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -1938,12 +1945,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if isFromContactManager{
             if pageNo == 5 {
                 if self.selectedContactManage == nil{
-                    self.view.makeToast(("Please select contact"))
+//                    self.view.makeToast(("Please select contact"))
+                    DispatchQueue.main.async {
+                        self.view.makeToast("Please select contact", duration: ToastManager.shared.duration, position: .bottom)
+                    }
                     
                 }
             }else if pageNo == 5{
                 if self.selectedContactManage == nil{
-                    showToast("Please select contact")
+//                    showToast("Please select contact")
+                    DispatchQueue.main.async {
+                        self.view.makeToast("Please select contact", duration: ToastManager.shared.duration, position: .bottom)
+                    }
                 }
             }else if pageNo == 3 {
                 let rows = itemsTableView.numberOfRows(inSection: 0)
@@ -2011,12 +2024,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
         else if sender.tag == 3 {
+            if selectedPhoneContact == nil {
+                DispatchQueue.main.async {
+                    self.view.makeToast("Please Select Contact", duration: ToastManager.shared.duration, position: .bottom)
+                }
+                return
+            }
             let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
             referSuccess.callback = { message in
                 self.pageNo = 1
                 self.setupPage()
             }
             referSuccess.isFromOnboarding = self.isFromOnboarding
+            selectedPhoneContact = nil
             navigationController?.pushViewController(referSuccess, animated: true)
         }
     }
