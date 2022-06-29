@@ -461,14 +461,14 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-CT-dSx">
                                                             <rect key="frame" x="0.0" y="646" width="414" height="250"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you want to see first?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gs3-Xv-CKX">
-                                                                    <rect key="frame" x="5" y="5" width="308.5" height="26.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you want to see first?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gs3-Xv-CKX">
+                                                                    <rect key="frame" x="5" y="5" width="404" height="26.5"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Rcb-4T-YxD">
-                                                                    <rect key="frame" x="5" y="36.5" width="404" height="200"/>
+                                                                    <rect key="frame" x="5" y="41.5" width="404" height="200"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUD-hi-fxa">
                                                                             <rect key="frame" x="0.0" y="0.0" width="199.5" height="200"/>
@@ -599,9 +599,10 @@
                                                                 <constraint firstItem="Gs3-Xv-CKX" firstAttribute="leading" secondItem="BFs-CT-dSx" secondAttribute="leading" constant="5" id="3wg-c2-B2A"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Rcb-4T-YxD" secondAttribute="trailing" constant="5" id="5xH-5O-8xw"/>
                                                                 <constraint firstItem="Gs3-Xv-CKX" firstAttribute="top" secondItem="BFs-CT-dSx" secondAttribute="top" constant="5" id="Icl-EF-nrs"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Gs3-Xv-CKX" secondAttribute="trailing" constant="5" id="TYY-Yh-Kal"/>
                                                                 <constraint firstItem="Rcb-4T-YxD" firstAttribute="leading" secondItem="BFs-CT-dSx" secondAttribute="leading" constant="5" id="gax-Zq-dKH"/>
                                                                 <constraint firstAttribute="height" constant="250" id="sJb-Rz-sW9"/>
-                                                                <constraint firstItem="Rcb-4T-YxD" firstAttribute="top" secondItem="Gs3-Xv-CKX" secondAttribute="bottom" constant="5" id="z90-4Q-EpL"/>
+                                                                <constraint firstItem="Rcb-4T-YxD" firstAttribute="top" secondItem="Gs3-Xv-CKX" secondAttribute="bottom" constant="10" id="z90-4Q-EpL"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>

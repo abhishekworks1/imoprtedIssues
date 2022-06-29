@@ -274,7 +274,7 @@ extension WelcomeViewController {
             
             if days == "0" {
                 setImageForDays(days: days, imageName: "freeOnboard")
-                subscriptionDetailLabel.text = "Your subscription ended, please upgrade your account for explore more features"
+                subscriptionDetailLabel.text = "Your 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
                 setUpTimerViewForZeroDay()
             } else if (days == "7") {
                 setUpTimerViewForSignupDay()
