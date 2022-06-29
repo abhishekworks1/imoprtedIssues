@@ -221,10 +221,15 @@ extension WelcomeViewController {
                            }
                            self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
                         } else {
-                            self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
-                            subscriptionDetailLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
-                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-                                showTimer(createdDate: createdDate)
+                            fday = isTrialExpire ? 0 : fday
+                            if fday == 0 {
+                                self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+                            } else {
+                                self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
+                                subscriptionDetailLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
+                                if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                    showTimer(createdDate: createdDate)
+                                }
                             }
                         }
                         if fday == 0 {
@@ -256,6 +261,7 @@ extension WelcomeViewController {
                                 }
                             }
                         }
+                        self.subscribersHideTimer(subscriptionType: subscriptionType)
                     }
                 }
             }
@@ -285,7 +291,7 @@ extension WelcomeViewController {
             }
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            subscriptionDetailLabel.text = "Your subscription ended, please upgrade your account for explore more features"
+            subscriptionDetailLabel.text = "Your 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             setImageForDays(days: days, imageName: "freeOnboard")
             setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -403,12 +409,12 @@ extension WelcomeViewController {
     func setUpTimerViewForZeroDaySubscription(subscriptionType: String) {
       //  Upgrade from <current subscriber level> to Premium before your 7-day premium free trial ends to continue using premium features!
         if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-            subscriptionDetailLabel.text = "Upgrade from BASIC to Premium before your 7-day premium free trial ends to continue using premium features!"
+            subscriptionDetailLabel.text = "Upgrading your subscription to Advanced or Premium will be available in the next release. You'll be notified when upgrading your channel is ready."//"Upgrade from BASIC to Premium before your 7-day premium free trial ends to continue using premium features!"
             badgeImageView.image = UIImage(named: "badgeIphoneBasic")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-            subscriptionDetailLabel.text = "Upgrade from ADVANCE to Premium before your 7-day premium free trial ends to continue using premium features!"
+            subscriptionDetailLabel.text = "Upgrading your subscription to Premium will be available in the next release. You'll be notified when upgrading your channel is ready."//"Upgrade from ADVANCE to Premium before your 7-day premium free trial ends to continue using premium features!"
             badgeImageView.image = UIImage(named: "badgeIphoneAdvance")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
@@ -422,5 +428,13 @@ extension WelcomeViewController {
             subscriptionDetailLabel.text = ""
         }
     }
+    
+    func subscribersHideTimer(subscriptionType: String) {
+        timerStackView.isHidden = true
+        self.upgradeNowButton.isHidden = true
+        self.updateNowEventButton.isHidden = true
+        setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
+    }
+
     
 }
