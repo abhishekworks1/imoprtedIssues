@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class QuickStartOptionDetailViewController: UIViewController {
 
@@ -24,11 +25,18 @@ class QuickStartOptionDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = selectedOption.title
-        descriptionLabel.text = selectedOption.description
+        if let attributedString = try? NSAttributedString(htmlString: selectedOption.description, font: UIFont.systemFont(ofSize: 17)) {
+            descriptionLabel.attributedText = attributedString
+        } else {
+            descriptionLabel.text = selectedOption.description
+        }
         backButtonHeaderView.isHidden = selectedOption.isFirstStep
         quickCamHeaderView.isHidden = !selectedOption.isFirstStep
         tryNowButton.isHidden = !selectedOption.isLastStep
         doneButton.isHidden = !selectedOption.isLastStep
+        if !selectedOption.hideTryNowButton {
+            tryNowButton.isHidden = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -107,13 +115,25 @@ class QuickStartOptionDetailViewController: UIViewController {
             }
             Utils.appDelegate?.window?.rootViewController = rootViewController
         case .makeMoney:
-            let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
-            if hasAllowAffiliate {
-                self.setNavigation()
+            if !selectedOption.hideTryNowButton {
+                if let token = Defaults.shared.sessionToken {
+                    let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+                    guard let url = URL(string: urlString) else {
+                        return
+                    }
+                    let safariVC = SFSafariViewController(url: url)
+                    present(safariVC, animated: true, completion: nil)
+                }
             } else {
-                guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
-                navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
-            }        }
+                let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
+                if hasAllowAffiliate {
+                    self.setNavigation()
+                } else {
+                    guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
+                    navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
+                }
+            }
+        }
     }
     
     func setNavigation() {
@@ -145,5 +165,42 @@ extension QuickStartOptionDetailViewController: GreatPopupDelegate {
                 navigationController?.popToViewController(viewController, animated: true)
             }
         }
+    }
+}
+
+extension NSAttributedString {
+    
+    convenience init(htmlString html: String, font: UIFont? = nil) throws {
+        let options: [NSAttributedString.DocumentReadingOptionKey : Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+        
+        let data = html.data(using: .utf8, allowLossyConversion: true)
+        guard (data != nil), let fontFamily = font?.familyName, let attr = try? NSMutableAttributedString(data: data!, options: options, documentAttributes: nil) else {
+            try self.init(data: data ?? Data(html.utf8), options: options, documentAttributes: nil)
+            return
+        }
+        
+        let fontSize: CGFloat? = font == nil ? nil : font!.pointSize
+        let range = NSRange(location: 0, length: attr.length)
+        attr.enumerateAttribute(.font, in: range, options: .longestEffectiveRangeNotRequired) { attrib, range, _ in
+            if let htmlFont = attrib as? UIFont {
+                let traits = htmlFont.fontDescriptor.symbolicTraits
+                var descrip = htmlFont.fontDescriptor.withFamily(fontFamily)
+                
+                if (traits.rawValue & UIFontDescriptor.SymbolicTraits.traitBold.rawValue) != 0 {
+                    descrip = descrip.withSymbolicTraits(.traitBold)!
+                }
+                
+                if (traits.rawValue & UIFontDescriptor.SymbolicTraits.traitItalic.rawValue) != 0 {
+                    descrip = descrip.withSymbolicTraits(.traitItalic)!
+                }
+                
+                attr.addAttribute(.font, value: UIFont(descriptor: descrip, size: fontSize ?? htmlFont.pointSize), range: range)
+            }
+        }
+        
+        self.init(attributedString: attr)
     }
 }

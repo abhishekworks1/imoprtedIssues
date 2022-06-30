@@ -92,7 +92,8 @@ extension GreatViewController {
             self.displayNameLabel.text = "Great Job\n \(firstName)!!!"
         }
         
-        self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in \(durationString).\nSubscribe now before your 7-day free trial ends."
+       // self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in \(durationString).\nSubscribe now before your 7-day free trial ends."
+        self.quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nSubscribe now before your 7-day free trial ends."
     }
     
     func checkTrailPeriodExpire() {
@@ -168,14 +169,21 @@ extension GreatViewController {
                     }
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                        if finalDay == "7" {
+                           quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                showTimer(createdDate: createdDate)
                            }
                            self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
                         } else {
+                            fday = isTrialExpire ? 0 : fday
+                            if fday == 0 {
+                                self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+                            } else {
+                                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
                             self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
                             if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                 showTimer(createdDate: createdDate)
+                            }
                             }
                         }
                         if fday == 0 {
@@ -203,6 +211,7 @@ extension GreatViewController {
                                     showTimer(createdDate: createdDate)
                                 }
                             }
+                            subscribersHideTimer(subscriptionType: subscriptionType)
                         }
                     }
                 }
@@ -220,6 +229,7 @@ extension GreatViewController {
             
             if days == "0" {
                 setImageForDays(days: days, imageName: "freeOnboard")
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
                 setUpTimerViewForZeroDay()
             } else if (days == "7") {
                 setUpTimerViewForSignupDay()
@@ -230,6 +240,7 @@ extension GreatViewController {
             }
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             setImageForDays(days: days, imageName: "freeOnboard")
             setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -344,14 +355,24 @@ extension GreatViewController {
         if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             badgeImageView.image = UIImage(named: "badgeIphoneBasic")
             badgeImageView.isHidden = false
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nUpgrading your subscription to Advanced or Premium will be available in the next release. You'll be notified when upgrading your channel is ready."
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
             badgeImageView.image = UIImage(named: "badgeIphoneAdvance")
             badgeImageView.isHidden = false
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nUpgrading your subscription to Premium will be available in the next release. You'll be notified when upgrading your channel is ready."
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
             self.upgradeNowButton.isHidden = true
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!)."
         }
+    }
+    
+    
+    func subscribersHideTimer(subscriptionType: String) {
+        timerStackView.isHidden = true
+        self.upgradeNowButton.isHidden = true
+        setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
     }
     
 }
