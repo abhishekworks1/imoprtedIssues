@@ -1243,7 +1243,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             if self.takenVideoUrls.isEmpty {
                 recordingTimeStackView.isHidden = true
                 recordingTimeLabel.text = ""
-                self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+                self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
             }
             discardAllSegmentView.isHidden = true
         } else {
