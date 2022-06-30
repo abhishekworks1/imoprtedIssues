@@ -52,6 +52,7 @@ class contactTableViewCell: UITableViewCell {
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -105,7 +106,11 @@ class contactTableViewCell: UITableViewCell {
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
-      
+        iosIconImageview.isHidden = true
+        webIconImageview.isHidden = true
+        androidIconImageview.isHidden = true
+       
+        
         if badges.count > 0 {
             for parentbadge in badges {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -176,12 +181,12 @@ class contactTableViewCell: UITableViewCell {
                         androidSheildImageview.image = R.image.badgeAndroidBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                        androidBadgeView.isHidden = false
+                      //  androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.badgeAndroidAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                        androidBadgeView.isHidden = false
+                       androidBadgeView.isHidden = false
                         lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.badgeAndroidPre()
                     }
@@ -206,7 +211,7 @@ class contactTableViewCell: UITableViewCell {
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                        webBadgeView.isHidden = false
+                       webBadgeView.isHidden = false
                         lblwebDaysRemains.text = finalDay
                         webSheildImageview.image = R.image.badgeWebBasic()
                     }

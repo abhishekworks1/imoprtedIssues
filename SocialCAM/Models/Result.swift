@@ -170,7 +170,7 @@ class SubscriptionList: Mappable {
     
 }
 
-class Subscription: Mappable {
+class Subscription: Codable, Mappable {
     
     var v: Int?
     var id: String?
@@ -232,8 +232,7 @@ class UserSyncModel: Mappable{
     
 }
 
-class UserSubscription: Mappable{
-    
+class UserSubscription: Codable, Mappable {
     var v: Int?
     var id: String?
     var amount: Int?

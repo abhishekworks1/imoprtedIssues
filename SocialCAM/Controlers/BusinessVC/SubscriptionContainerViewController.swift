@@ -88,6 +88,7 @@ class SubscriptionContainerViewController: UIViewController {
         subscribertypeview.isHidden = true
         setSubscriptionBadgeDetails()
         setSubscribeNowLabel()
+        setTimer()
     }
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
@@ -131,14 +132,14 @@ class SubscriptionContainerViewController: UIViewController {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                        if finalDay == "7" {
                             lbltrialDays.text = "Today is the last day of your 7-day free trial"//. Upgrade now to access these features"
-                           if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-                               showTimer(createdDate: createdDate)
-                           }
+//                           if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+//                               showTimer(createdDate: createdDate)
+//                           }
                         } else {
                             lbltrialDays.text = "You have \(fday) days left on your free trial."
-                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-                                showTimer(createdDate: createdDate)
-                            }
+//                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+//                                showTimer(createdDate: createdDate)
+//                            }
                         }
                         if fday == 0 {
                             lbltrialDays.text = ""
@@ -151,16 +152,31 @@ class SubscriptionContainerViewController: UIViewController {
                         lblBadgeBasic.text = ""
                         lblBadgeAdvanced.text = ""
                         lblBadgePro.text = ""
-                        if let createdDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
-                            showFreeTimer(createdDate: createdDate)
-                        }
+//                        if let createdDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+//                            showFreeTimer(createdDate: createdDate)
+//                        }
                     }
                 }
             }
         }
     }
-    
-    func showTimer(createdDate: Date){
+    func setTimer(){
+        let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
+        if subscriptionStatus == "trial" {
+            if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
+                showDownTimer(timerDate: timerDate)
+            }
+        } else if subscriptionStatus == "free" {
+            if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+                showUpTimer(timerDate: timerDate)
+            }
+        } else if  subscriptionStatus == "expired" {
+            if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
+                showUpTimer(timerDate: timerDate)
+            }
+        }
+    }
+    /*func showTimer(createdDate: Date){
         timerLabel.isHidden = false
         var dateComponent = DateComponents()
         dateComponent.day = 7
@@ -175,15 +191,57 @@ class SubscriptionContainerViewController: UIViewController {
             }
         }
     }
-    func showFreeTimer(createdDate: Date){
+    func showFreeTimer(timerDate: Date){
         timerLabel.isHidden = false
         self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: createdDate, to: Date())
+            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
             let days = countdown.day!
             let hours = countdown.hour!
             let minutes = countdown.minute!
             let seconds = countdown.second!
             self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
+        }
+    } */
+    func showUpTimer(timerDate: Date){
+        timerLabel.isHidden = false
+        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
+            let days = countdown.day!
+            let hours = countdown.hour!
+            let minutes = countdown.minute!
+            let seconds = countdown.second!
+            var displayTime = ""
+            if days > 0 {
+                displayTime = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
+            } else if hours > 0 {
+                displayTime = String(format: "%02dh : %02dm : %02ds", hours, minutes, seconds)
+            } else if minutes > 0 {
+                displayTime = String(format: "%02dm : %02ds", minutes, seconds)
+            } else if seconds > 0 {
+                displayTime = String(format: "%02ds",seconds)
+            }
+            self.timerLabel.text = displayTime
+        }
+    }
+    func showDownTimer(timerDate: Date){
+        timerLabel.isHidden = false
+        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: timerDate)
+            let days = countdown.day!
+            let hours = countdown.hour!
+            let minutes = countdown.minute!
+            let seconds = countdown.second!
+            var displayTime = ""
+            if days > 0 {
+                displayTime = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
+            } else if hours > 0 {
+                displayTime = String(format: "%02dh : %02dm : %02ds", hours, minutes, seconds)
+            } else if minutes > 0 {
+                displayTime = String(format: "%02dm : %02ds", minutes, seconds)
+            } else if seconds > 0 {
+                displayTime = String(format: "%02ds",seconds)
+            }
+            self.timerLabel.text = displayTime
         }
     }
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
