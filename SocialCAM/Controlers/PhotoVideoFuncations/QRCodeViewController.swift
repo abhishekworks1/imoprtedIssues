@@ -26,6 +26,11 @@ class QRCodeViewController: UIViewController {
     @IBOutlet weak var refferalPageButton: UIButton!
     @IBOutlet weak var refferalPageBottomLine: UIView!
     @IBOutlet weak var refferalPageBottomLineHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var quickTourButton: UIButton!
+    @IBOutlet weak var quickTourBottomLine: UIView!
+    @IBOutlet weak var quickTourBottomLineHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var navView: UIView!
     @IBOutlet weak var lblUsername: UILabel!
     
@@ -126,6 +131,10 @@ class QRCodeViewController: UIViewController {
         refferalPageButton.setTitleColor(themeGreyColor, for: .normal)
         refferalPageBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
         refferalPageBottomLineHeight.constant = 0.7
+        
+        quickTourButton.setTitleColor(themeGreyColor, for: .normal)
+        quickTourBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
+        quickTourBottomLineHeight.constant = 0.7
         
         refferelType = .quickStart
         
