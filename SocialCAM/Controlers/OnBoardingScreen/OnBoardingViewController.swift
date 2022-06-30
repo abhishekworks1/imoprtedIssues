@@ -391,7 +391,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">TextShare as the fastest way to share the QuickCam opportunity and grow your potential.</span></li>
+<li aria-level="2"><span style="font-weight: 400;">TextShare as the fastest way to share the QuickCam opportunity and grow your potential income.</span></li>
 </ul>
 </li>
 </ul>
