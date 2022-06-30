@@ -129,6 +129,12 @@ class SubscriptionsViewController: UIViewController {
         if self.subscriptionType == .free {
             setTimer()
         }
+        setupFreeTrialView()
+        setUpPriceTextForFreeScreen()
+        
+        if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+            freeTrialView.isHidden = false
+        }
         tapGestureSetUp()
     }
     
@@ -324,7 +330,6 @@ class SubscriptionsViewController: UIViewController {
     }
     
     private func setupUI() {
-        freeTrialView.isHidden = true
         let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
         if let currentUser = Defaults.shared.currentUser {
 //            lblExpiryDate.text = R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
@@ -433,6 +438,33 @@ class SubscriptionsViewController: UIViewController {
             }
         }
     }
+    func setupFreeTrialView(){
+        freeTrialView.isHidden = true
+        if subscriptionType == .free {
+            if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+                freeTrialView.isHidden = false
+            }
+        }
+    }
+    func setUpPriceTextForFreeScreen() {
+        if subscriptionType == .free {
+//            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
+            if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+                if let diffDays = Defaults.shared.numberOfFreeTrialDays {
+                    if diffDays == 0 {
+                        lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                    } else if diffDays > 0 {
+                        lblPrice.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                    }
+                }
+            } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
+                lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features." //"Your 7-day free trial period has expired. Upgrade now to access these features."
+            } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
+                lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+            }
+        }
+    }
+    
     func setSubscriptionBadgeDetails(){
 //        lblBadgeRemainingDays.text =  ""
         print(Defaults.shared.currentUser?.badges ?? "")
@@ -448,14 +480,14 @@ class SubscriptionsViewController: UIViewController {
                     
                     lblBadgeRemainingDays.text = ""
                     lblBadgeRemainingDays.text = finalDay
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                 /*   if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         if finalDay == "7" {
                             lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
                             if self.subscriptionType == .free {
                                 freeTrialView.isHidden = false
-//                                if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-//                                    showTimer(createdDate: createdDate)
-//                                }
+                                if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                    showTimer(createdDate: createdDate)
+                                }
                             }
                         } else {
                             var fday = 0
@@ -471,18 +503,19 @@ class SubscriptionsViewController: UIViewController {
                                 lblPrice.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
                                 if self.subscriptionType == .free {
                                     freeTrialView.isHidden = false
-//                                    if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-//                                        showTimer(createdDate: createdDate)
-//                                    }
+                                    if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+                                        showTimer(createdDate: createdDate)
+                                    }
                                 }
                                 
                             }
                         }
                         
-                    } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                    } else */
+                    if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         lblBadgeRemainingDays.text = ""
-                        lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
-                        freeTrialView.isHidden = true
+//                        lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+//                        freeTrialView.isHidden = true
                         if self.subscriptionType == .free {
                             subScriptionBadgeImageView.image = R.image.badgeIphoneFree()
 //                            if let createdDate = Defaults.shared.currentUser?.created?.isoDateFromString() {

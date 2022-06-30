@@ -167,6 +167,7 @@ class User: Codable, Mappable {
         isTyping <- map["is_typing"]
         isAdmin <- map["is_admin"]
         subscriptionStatus <- map["subscriptionStatus"]
+        subscriptionEndDate <- map["subscriptionEndDate"]
         if id == nil {
             id <- map["id"]
         }
