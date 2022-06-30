@@ -1573,7 +1573,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
                                 self.showAlertForUpgradeSubscription()
                             }} else {
                                 self.showAlertForUpgradeSubscription()
@@ -1599,7 +1599,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
                                 self.showAlertForUpgradeSubscription()
                             }
                         } else {
@@ -1641,7 +1641,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
                                 self.showAlertForUpgradeSubscription()
                             }} else {
                                 self.showAlertForUpgradeSubscription()
