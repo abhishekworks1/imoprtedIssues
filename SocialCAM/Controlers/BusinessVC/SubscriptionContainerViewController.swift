@@ -105,7 +105,6 @@ class SubscriptionContainerViewController: UIViewController {
     }
     
     func setSubscriptionBadgeDetails(){
-        timerLabel.isHidden = true
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -161,6 +160,7 @@ class SubscriptionContainerViewController: UIViewController {
         }
     }
     func setTimer(){
+        timerLabel.isHidden = true
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
