@@ -1251,6 +1251,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             recordingTimeLabel.text = ""
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             if !self.takenVideoUrls.isEmpty {
+                self.takenVideoUrls.removeAll()
                 self.viewWillAppear(true)
             }
         }
