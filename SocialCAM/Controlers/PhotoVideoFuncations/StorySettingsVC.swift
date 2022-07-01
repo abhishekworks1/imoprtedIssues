@@ -188,8 +188,7 @@ class StorySettings: Codable {
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
                                  StorySettings(name: "",
                                                settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
-                                 StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),
+                                
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                  StorySettings(name: "",
@@ -207,8 +206,11 @@ class StorySettings: Codable {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
-    
+                                              settings: [StorySetting(name: R.string.localizable.logout(),
+                                                                      
+                                                                      selected: false)], settingsType: .logout)]
+  /* StorySettings(name: "",
+                  settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager), */
    /* StorySettings(name: "",
                   settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel), */
     

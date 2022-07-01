@@ -207,7 +207,7 @@ extension WelcomeViewController {
 
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                    
                     var fday = 0
@@ -243,7 +243,11 @@ extension WelcomeViewController {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
-                    } else {
+                    } else if subscriptionType == "expired" {
+                        subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+                        self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
+                        self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+                    }else {
                         
                         if finalDay == "7" {
                             subscriptionDetailLabel.text = "Today is the last day of your 7-day free trial"
