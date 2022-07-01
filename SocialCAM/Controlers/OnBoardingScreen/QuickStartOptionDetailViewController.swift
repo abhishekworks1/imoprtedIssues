@@ -55,6 +55,7 @@ class QuickStartOptionDetailViewController: UIViewController {
             options.append(selectedOption.rawValue)
             Defaults.shared.makeMoneyOptions = Array(Set(options))
         }
+        UserSync.shared.setOnboardingUserFlags()
     }
     
     func quickStartOption(for rawValue: Int) -> QuickStartOptionable? {

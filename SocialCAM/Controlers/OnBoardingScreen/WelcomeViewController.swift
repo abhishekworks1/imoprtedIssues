@@ -52,7 +52,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.whatDoYouWantSeeView.isHidden = !fromLogin
+        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
         self.updateNowEventButton.setTitle("", for: .normal)
     }
     
@@ -107,11 +107,13 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func makeMoneyOptionClicked(_ sender: Any) {
         Defaults.shared.selectedQuickStartOption = .makeMoney
+        UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
     }
     
     @IBAction func createContentOptionClicked(_ sender: Any) {
         Defaults.shared.selectedQuickStartOption = .createContent
+        UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
     }
 }
@@ -127,6 +129,9 @@ extension WelcomeViewController {
         self.setSubscriptionBadgeDetails()
         
         UserSync.shared.syncUserModel { isCompleted in
+            UserSync.shared.getOnboardingUserFlags { isCompleted in
+                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+            }
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             }

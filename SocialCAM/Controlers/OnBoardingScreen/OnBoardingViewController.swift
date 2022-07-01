@@ -24,6 +24,7 @@ protocol QuickStartOptionable {
     var isFirstStep: Bool { get }
     var hideTryNowButton: Bool { get }
     var rawValue: Int { get }
+    var apiKey: String { get }
 }
 extension QuickStartOptionable {
     var hideTryNowButton: Bool {
@@ -49,6 +50,25 @@ enum QuickStartOption: Int, CaseIterable {
     }
     
     enum CreateContentOption: Int, CaseIterable, QuickStartOptionable {
+        var apiKey: String {
+            switch self {
+            case .quickCamCamera:
+                return "ios_createcontent_quickCamCamera"
+            case .fastSlowEditor:
+                return "ios_createcontent_fastSlowRecording"
+            case .quickieVideoEditor:
+                return "ios_createcontent_quickieVideoEditor"
+            case .pic2Art:
+                return "ios_createcontent_pic2Art"
+            case .bitmojis:
+                return "ios_createcontent_bitmojis"
+            case .socialMediaSharing:
+                return "ios_createcontent_socialMediaSharing"
+            case .yourGoal:
+                return "ios_createcontent_yourGoal"
+            }
+        }
+        
         var title: String {
             switch self {
             case .quickCamCamera:
@@ -183,6 +203,22 @@ enum QuickStartOption: Int, CaseIterable {
     }
 
     enum MobileDashboardOption: Int, CaseIterable, QuickStartOptionable {
+        
+        var apiKey: String {
+            switch self {
+            case .notifications:
+                return "ios_mobiledashboard_notifications"
+            case .howItWorks:
+                return "ios_mobiledashboard_howItWorks"
+            case .cameraSettings:
+                return "ios_mobiledashboard_cameraSettings"
+            case .subscriptions:
+                return "ios_mobiledashboard_subscriptions"
+            case .checkForUpdates:
+                return "ios_mobiledashboard_checkForUpdates"
+            }
+        }
+        
         var title: String {
             switch self {
             case .notifications:
@@ -303,6 +339,23 @@ enum QuickStartOption: Int, CaseIterable {
     }
 
     enum MakeMoneyOption: Int, CaseIterable, QuickStartOptionable {
+        var apiKey: String {
+            switch self {
+            case .referralCommissionProgram:
+                return "ios_makemoney_referralCommissionProgram"
+            case .referralWizard:
+                return "ios_makemoney_referralWizard"
+            case .contactManagerTools:
+                return "ios_makemoney_contactManagerTools"
+            case .potentialCalculator:
+                return "ios_makemoney_potentialCalculator"
+            case .fundraising:
+                return "ios_makemoney_fundraising"
+            case .yourGoal:
+                return "ios_makemoney_yourGoal"
+            }
+        }
+        
         var title: String {
             switch self {
             case .referralCommissionProgram:
@@ -624,6 +677,10 @@ class OnBoardingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fillStepIndicatorViews()
+    }
+    
+    func fillStepIndicatorViews() {
         for option in Defaults.shared.createContentOptions {
             createContentStepIndicatorView.finishedStep = option
         }
@@ -758,6 +815,7 @@ class OnBoardingViewController: UIViewController {
                 }
             }
         }
+        UserSync.shared.setOnboardingUserFlags()
         navigationController?.viewControllers.append(contentsOf: viewControllers)
     }
     
@@ -768,6 +826,9 @@ extension OnBoardingViewController {
     func setupView() {
         popupView.isHidden = !self.showPopUpView
         UserSync.shared.syncUserModel { isCompleted in
+            UserSync.shared.getOnboardingUserFlags { isCompleted in
+                self.fillStepIndicatorViews()
+            }
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             }
