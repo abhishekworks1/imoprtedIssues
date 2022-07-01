@@ -2775,10 +2775,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyu-hF-l6f" userLabel="QuickStart">
-                                                <rect key="frame" x="0.0" y="0.0" width="207" height="60"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pg-C2-MIv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="207" height="60"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                         <state key="normal" title="QuickStart">
                                                             <color key="titleColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2788,7 +2788,7 @@
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8E-Oq-ZVr">
-                                                        <rect key="frame" x="0.0" y="58" width="207" height="2"/>
+                                                        <rect key="frame" x="0.0" y="58" width="138" height="2"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="Kc8-4H-fse"/>
@@ -2806,40 +2806,11 @@
                                                     <constraint firstAttribute="trailing" secondItem="t8E-Oq-ZVr" secondAttribute="trailing" id="taR-UC-tFz"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er8-Bo-IOH" userLabel="QuickStart">
-                                                <rect key="frame" x="207" y="0.0" width="0.0" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUQ-4h-qjy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="60"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                                        <state key="normal" title="QuickTour">
-                                                            <color key="titleColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                    </button>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ItX-0b-8Hr">
-                                                        <rect key="frame" x="0.0" y="58" width="0.0" height="2"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="2" id="7uY-Bf-ZXd"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="gUQ-4h-qjy" firstAttribute="top" secondItem="er8-Bo-IOH" secondAttribute="top" id="47F-d7-umZ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="gUQ-4h-qjy" secondAttribute="trailing" id="6Wz-fp-ulo"/>
-                                                    <constraint firstAttribute="bottom" secondItem="gUQ-4h-qjy" secondAttribute="bottom" id="GUS-aJ-LCF"/>
-                                                    <constraint firstAttribute="bottom" secondItem="ItX-0b-8Hr" secondAttribute="bottom" id="NOc-Gu-wz3"/>
-                                                    <constraint firstAttribute="trailing" secondItem="ItX-0b-8Hr" secondAttribute="trailing" id="X0G-FT-zCx"/>
-                                                    <constraint firstItem="ItX-0b-8Hr" firstAttribute="leading" secondItem="er8-Bo-IOH" secondAttribute="leading" id="qPC-c3-VUD"/>
-                                                    <constraint firstItem="gUQ-4h-qjy" firstAttribute="leading" secondItem="er8-Bo-IOH" secondAttribute="leading" id="zvy-fF-LdV"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnX-hE-7ck" userLabel="QuickStart">
-                                                <rect key="frame" x="207" y="0.0" width="207" height="60"/>
+                                                <rect key="frame" x="138" y="0.0" width="138" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="frS-C1-Cxj">
-                                                        <rect key="frame" x="0.0" y="0.0" width="207" height="60"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                         <state key="normal" title="Referral Page">
                                                             <color key="titleColor" red="0.30980392156862746" green="0.16470588235294117" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2849,7 +2820,7 @@
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lez-E8-uQp">
-                                                        <rect key="frame" x="0.0" y="58" width="207" height="2"/>
+                                                        <rect key="frame" x="0.0" y="58" width="138" height="2"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="CnX-he-Ule"/>
@@ -2865,6 +2836,38 @@
                                                     <constraint firstItem="frS-C1-Cxj" firstAttribute="leading" secondItem="BnX-hE-7ck" secondAttribute="leading" id="UXS-24-kyy"/>
                                                     <constraint firstItem="Lez-E8-uQp" firstAttribute="leading" secondItem="BnX-hE-7ck" secondAttribute="leading" id="Wa4-TB-c4G"/>
                                                     <constraint firstAttribute="trailing" secondItem="frS-C1-Cxj" secondAttribute="trailing" id="mht-x8-vcD"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er8-Bo-IOH" userLabel="QuickStart">
+                                                <rect key="frame" x="276" y="0.0" width="138" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUQ-4h-qjy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                        <state key="normal" title="QuickTour">
+                                                            <color key="titleColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="didTapQuickTourButton:" destination="trG-hs-RVd" eventType="touchUpInside" id="HcR-zd-cLB"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ItX-0b-8Hr">
+                                                        <rect key="frame" x="0.0" y="58" width="138" height="2"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="2" id="7uY-Bf-ZXd"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="gUQ-4h-qjy" firstAttribute="top" secondItem="er8-Bo-IOH" secondAttribute="top" id="47F-d7-umZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gUQ-4h-qjy" secondAttribute="trailing" id="6Wz-fp-ulo"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gUQ-4h-qjy" secondAttribute="bottom" id="GUS-aJ-LCF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ItX-0b-8Hr" secondAttribute="bottom" id="NOc-Gu-wz3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ItX-0b-8Hr" secondAttribute="trailing" id="X0G-FT-zCx"/>
+                                                    <constraint firstItem="ItX-0b-8Hr" firstAttribute="leading" secondItem="er8-Bo-IOH" secondAttribute="leading" id="qPC-c3-VUD"/>
+                                                    <constraint firstItem="gUQ-4h-qjy" firstAttribute="leading" secondItem="er8-Bo-IOH" secondAttribute="leading" id="zvy-fF-LdV"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -3114,7 +3117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DwK-dE-sHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-642.02898550724638" y="-813.61607142857144"/>
+            <point key="canvasLocation" x="-413" y="-808"/>
         </scene>
         <!--Edit Profile Crop View Controller-->
         <scene sceneID="2oL-Xc-PyG">
@@ -3278,7 +3281,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
