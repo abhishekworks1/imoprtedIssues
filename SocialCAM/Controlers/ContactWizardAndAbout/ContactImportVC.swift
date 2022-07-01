@@ -2043,12 +2043,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     @IBAction func didTapQuickTourButton(_ sender: UIButton) {
-        let urlString = "https://quickcam.app/quick-tour"
-        print(urlString)
-        guard let url = URL(string: urlString) else {
-            return
+
+        urlToShare = "https://quickcam.app/quick-tour"
+        
+        if isFromContactManager{
+            pageNo = 3
+            setupPage()
+            setupUIBasedOnUrlToShare()
+        }else{
+            pageNo = 2
+            setupPage()
+            setupUIBasedOnUrlToShare()
         }
-        presentSafariBrowser(url: url)
     }
     
     
@@ -2131,6 +2137,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             EasyTipView.show(forView: sender,
                              withinSuperview: page0view,
                              text: R.string.localizable.referralTooltip(),
+                             delegate: self)
+        }
+        else if sender.tag == 103 {
+            EasyTipView.show(forView: sender,
+                             withinSuperview: page0view,
+                             text: R.string.localizable.quickTourToolTip(),
                              delegate: self)
         }
     }
