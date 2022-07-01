@@ -674,9 +674,15 @@ extension StoryCameraViewController {
     }
     
     @IBAction func btnBusinessDashboardTapped(_ sender: UIButton) {
-        if let helpSettingsViewController = R.storyboard.storyCameraViewController.helpSettingsViewController() {
-            navigationController?.pushViewController(helpSettingsViewController, animated: true)
-        }
+//        if let helpSettingsViewController = R.storyboard.storyCameraViewController.helpSettingsViewController() {
+//            navigationController?.pushViewController(helpSettingsViewController, animated: true)
+//        }
+        
+        guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
+        (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
+        Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+        Utils.appDelegate?.window?.rootViewController = onBoardView
+
 //        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
 //            blurView.isHidden = false
 //            businessDashbardConfirmPopupView.isHidden = false

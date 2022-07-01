@@ -1243,7 +1243,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             if self.takenVideoUrls.isEmpty {
                 recordingTimeStackView.isHidden = true
                 recordingTimeLabel.text = ""
-                self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+                self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
             }
             discardAllSegmentView.isHidden = true
         } else {
@@ -1573,7 +1573,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
                                 self.showAlertForUpgradeSubscription()
                             }} else {
                                 self.showAlertForUpgradeSubscription()
@@ -1599,7 +1599,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
                                 self.showAlertForUpgradeSubscription()
                             }
                         } else {
@@ -1641,7 +1641,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "trial" {
+                            if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
                                 self.showAlertForUpgradeSubscription()
                             }} else {
                                 self.showAlertForUpgradeSubscription()
@@ -3115,6 +3115,7 @@ extension StoryCameraViewController {
             if response.status == ResponseType.success {
                 //print("***userSync***\(response)")
                 Defaults.shared.currentUser = response.result?.user
+                Defaults.shared.userSubscription = response.result?.userSubscription
                 Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
                 Defaults.shared.userCreatedDate = response.result?.user?.created
                 Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded

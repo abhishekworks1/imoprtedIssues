@@ -80,6 +80,7 @@ class User: Codable, Mappable {
     var viralcamReferralLink: String?
     var referralCode: String?
     var subscriptionStatus: String?
+    var subscriptionEndDate: String?
     var dob: String?
     var freeTrialExpiry: String?
     var isTempSubscription: Bool?
@@ -166,6 +167,7 @@ class User: Codable, Mappable {
         isTyping <- map["is_typing"]
         isAdmin <- map["is_admin"]
         subscriptionStatus <- map["subscriptionStatus"]
+        subscriptionEndDate <- map["subscriptionEndDate"]
         if id == nil {
             id <- map["id"]
         }

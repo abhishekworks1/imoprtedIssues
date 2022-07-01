@@ -199,7 +199,7 @@ class SystemSettingsCell: UITableViewCell {
     func isSubscriptionTrialOrExpired() -> Bool {
         
         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
-            if (subscriptionStatusValue == "trial" || subscriptionStatusValue == "expired") {
+            if (subscriptionStatusValue == "free" || subscriptionStatusValue == "expired") {
                 return true
             }
         }
