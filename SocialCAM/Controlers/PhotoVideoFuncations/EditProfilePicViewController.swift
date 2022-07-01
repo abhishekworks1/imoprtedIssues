@@ -194,6 +194,7 @@ class EditProfilePicViewController: UIViewController {
             self.btnPublicDisplayNameTooltip.isHidden = false
         }
         self.setDisplayNamePopupView.isHidden = true
+        self.view.makeToast("Your changes are saved.")
     }
     
     // MARK: - Action Methods

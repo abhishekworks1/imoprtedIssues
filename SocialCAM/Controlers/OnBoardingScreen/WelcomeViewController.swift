@@ -122,7 +122,7 @@ extension WelcomeViewController {
             self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
         }
         
-        self.displayNameLabel.text = Defaults.shared.currentUser?.firstName
+        self.displayNameLabel.text = Defaults.shared.publicDisplayName
         self.checkTrailPeriodExpire()
         self.setSubscriptionBadgeDetails()
         
@@ -142,7 +142,7 @@ extension WelcomeViewController {
                 self.view.setNeedsUpdateConstraints()
             }
             self.checkTrailPeriodExpire()
-            self.displayNameLabel.text = Defaults.shared.currentUser?.firstName
+            self.displayNameLabel.text = Defaults.shared.publicDisplayName
             self.setSubscriptionBadgeDetails()
         }
     }
@@ -419,13 +419,13 @@ extension WelcomeViewController {
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-            subscriptionDetailLabel.isHidden = true
+            subscriptionDetailLabel.isHidden = false
             self.upgradeNowButton.isHidden = true
             self.updateNowEventButton.isHidden = true
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
-            subscriptionDetailLabel.text = ""
+            subscriptionDetailLabel.text = "Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income."
         }
     }
     

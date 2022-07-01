@@ -88,7 +88,7 @@ extension GreatViewController {
     }
     func setup() {
         var durationString: String = Date().offset(from: self.guidTimerDate).dateComponentsToTimeString()
-        if let firstName = Defaults.shared.currentUser!.firstName {
+        if let firstName = Defaults.shared.publicDisplayName {
             self.displayNameLabel.text = "Great Job\n \(firstName)!!!"
         }
         
@@ -364,7 +364,7 @@ extension GreatViewController {
             self.upgradeNowButton.isHidden = true
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
-            quickStartGuideLabel.text = "You've completed \(self.categoryString!)."
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income."
         }
     }
     

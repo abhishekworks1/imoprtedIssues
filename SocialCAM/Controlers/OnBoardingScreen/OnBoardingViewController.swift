@@ -391,7 +391,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">TextShare as the fastest way to share the QuickCam opportunity and grow your potential.</span></li>
+<li aria-level="2"><span style="font-weight: 400;">TextShare as the fastest way to share the QuickCam opportunity and grow your potential income.</span></li>
 </ul>
 </li>
 </ul>
@@ -707,12 +707,12 @@ class OnBoardingViewController: UIViewController {
         var viewControllers: [UIViewController] = []
         switch quickStartOption {
         case .createContent:
+            var options = Defaults.shared.createContentOptions
+            options.append(tag)
+            Defaults.shared.createContentOptions = Array(Set(options))
             for i in 0...tag {
                 if let option = QuickStartOption.createContent.option(for: i),
                    let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
-                    var options = Defaults.shared.createContentOptions
-                    options.append(option.rawValue)
-                    Defaults.shared.createContentOptions = Array(Set(options))
                     quickStartDetail.selectedOption = option
                     quickStartDetail.selectedQuickStartMenu = .createContent
                     if self.previousSelectedQuickStartMenu != .createContent {
@@ -724,12 +724,12 @@ class OnBoardingViewController: UIViewController {
                 }
             }
         case .mobileDashboard:
+            var options = Defaults.shared.mobileDashboardOptions
+            options.append(tag)
+            Defaults.shared.mobileDashboardOptions = Array(Set(options))
             for i in 0...tag {
                 if let option = QuickStartOption.mobileDashboard.option(for: i),
                    let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
-                    var options = Defaults.shared.mobileDashboardOptions
-                    options.append(option.rawValue)
-                    Defaults.shared.mobileDashboardOptions = Array(Set(options))
                     quickStartDetail.selectedOption = option
                     quickStartDetail.selectedQuickStartMenu = .mobileDashboard
                     if self.previousSelectedQuickStartMenu != .mobileDashboard {
@@ -741,12 +741,12 @@ class OnBoardingViewController: UIViewController {
                 }
             }
         case .makeMoney:
+            var options = Defaults.shared.makeMoneyOptions
+            options.append(tag)
+            Defaults.shared.makeMoneyOptions = Array(Set(options))
             for i in 0...tag {
                 if let option = QuickStartOption.makeMoney.option(for: i),
                    let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
-                    var options = Defaults.shared.makeMoneyOptions
-                    options.append(option.rawValue)
-                    Defaults.shared.makeMoneyOptions = Array(Set(options))
                     quickStartDetail.selectedOption = option
                     quickStartDetail.selectedQuickStartMenu = .makeMoney
                     if self.previousSelectedQuickStartMenu != .makeMoney {

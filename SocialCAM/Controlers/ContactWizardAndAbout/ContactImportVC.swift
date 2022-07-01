@@ -2045,6 +2045,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
+    
+    @IBAction func didTapQuickTourButton(_ sender: UIButton) {
+        let urlString = "https://quickcam.app/quick-tour"
+        print(urlString)
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        presentSafariBrowser(url: url)
+    }
+    
+    
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
         
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
