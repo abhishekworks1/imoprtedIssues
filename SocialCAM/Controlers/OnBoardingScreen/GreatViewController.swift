@@ -109,7 +109,7 @@ extension GreatViewController {
         } else {
             self.foundingMemberImageView.isHidden = true
             self.userImageHeightConstraints.constant = 143
-            self.userImageHeightConstraints.constant = 143
+            self.userImageWidthConstraints.constant = 143
             self.userImageView.layer.cornerRadius = 71.5
             self.view.updateConstraintsIfNeeded()
             self.view.setNeedsUpdateConstraints()
