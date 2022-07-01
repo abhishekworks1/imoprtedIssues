@@ -265,7 +265,11 @@ extension AccountSettingsViewController: UITableViewDelegate {
             }
             if response.status == ResponseType.success {
                 self.storyCameraVC.syncUserModel { _ in
-                    self.navigationController?.popViewController(animated: true)
+                    self.view.makeToast("Your changes are saved.")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        // Do whatever you want
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
             self.dismissHUD()
