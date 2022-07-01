@@ -1618,7 +1618,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if contact.status == ContactStatus.pending{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invite", for: .normal)
-                cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
+            //    cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                 cell.lblInviteButtonTitle.text = "Invite"
                 cell.buttonInvite.setTitle("", for: .normal)
@@ -1629,7 +1629,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
-                cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
+              //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
+             //   cell.inviteBtn.backgroundColor = .black
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
                 cell.buttonInvite.setTitle("", for: .normal)
                 cell.lblInviteButtonTitle.text = "Invited"
@@ -1652,6 +1653,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteButtonView.isHidden = false
                 cell.contactStatusView.isHidden = true
             }
+           
+            cell.inviteBtn.isHidden = true
             return cell
         }else {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
@@ -1678,18 +1681,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if contact.status == ContactStatus.pending{
                     cell.inviteBtn.isHidden = false
                     cell.inviteBtn.setTitle("Invite", for: .normal)
-                    cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
+                    cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0xE9F1FF), forState: .normal)
+                   // backgroundColor = UIColor(hex6:0xE9F1FF)
                     cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                     cell.lblInviteButtonTitle.text = "Invite"
                     cell.buttonInvite.setTitle("", for: .normal)
                     cell.inviteButtonView.isHidden = false
+                       // cell.inviteButtonView.backgroundColor = .bb
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
                 }else if contact.status == ContactStatus.subscriber{
                     cell.inviteBtn.isHidden = true
                     cell.inviteButtonView.isHidden = true
                 }else{
                     cell.inviteBtn.isHidden = false
                     cell.inviteBtn.setTitle("Invited", for: .normal)
-                    cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
+                    //cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0x4285F4), forState: .normal)
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C9BF4)
+                  //  cell.inviteBtn.backgroundColor = .black
                     cell.inviteBtn.setTitleColor(.white, for: .normal)
                     cell.buttonInvite.setTitle("", for: .normal)
                     cell.lblInviteButtonTitle.text = "Invited"
@@ -1710,6 +1718,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteButtonView.isHidden = false
                     cell.contactStatusView.isHidden = true
                 }
+               
             }
             else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
@@ -1724,7 +1733,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.phoneContactObj = contact
             }
             
-          
+            cell.inviteBtn.isHidden = true
             return cell
         }
     }
@@ -2024,12 +2033,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
         else if sender.tag == 3 {
-            if selectedPhoneContact == nil {
-                DispatchQueue.main.async {
-                    self.view.makeToast("Please Select Contact", duration: ToastManager.shared.duration, position: .bottom)
-                }
-                return
-            }
+            
             let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
             referSuccess.callback = { message in
                 self.pageNo = 1
@@ -2762,5 +2766,19 @@ extension UISwipeActionsConfiguration {
         }
         
         return nil
+    }
+}
+
+extension UIButton {
+    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: forState)
+        }
     }
 }

@@ -236,8 +236,7 @@ class Defaults {
                     }
                     if !settings.contains(where: {$0.settingsType == .contactManager})
                     {
-                        settings.insert(StorySettings(name: "",
-                                                      settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
+                    //    settings.insert(StorySettings(name: "",settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
                     }
                     if !settings.contains(where: {$0.settingsType == .potentialIncomeCalculator})
                     {
