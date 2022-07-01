@@ -12,6 +12,7 @@ import MessageUI
 enum RefferelType:Int{
     case quickStart = 1
     case refferalPage = 2
+    case quickTour = 3
 }
 class QRCodeViewController: UIViewController {
 
@@ -26,6 +27,11 @@ class QRCodeViewController: UIViewController {
     @IBOutlet weak var refferalPageButton: UIButton!
     @IBOutlet weak var refferalPageBottomLine: UIView!
     @IBOutlet weak var refferalPageBottomLineHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var quickTourButton: UIButton!
+    @IBOutlet weak var quickTourBottomLine: UIView!
+    @IBOutlet weak var quickTourBottomLineHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var navView: UIView!
     @IBOutlet weak var lblUsername: UILabel!
     
@@ -90,13 +96,28 @@ class QRCodeViewController: UIViewController {
         if (sender.direction == .right)
         {
            print("Swipe Left")
-            self.quickStartClicked(self.quickStartButton)
+            switch refferelType {
+            case .quickTour:
+                self.refferalPageClicked(self.refferalPageButton)
+            case .refferalPage:
+                self.quickStartClicked(self.quickStartButton)
+            default:
+                self.quickStartClicked(self.quickStartButton)
+            }
         }
 
         if (sender.direction == .left)
         {
            print("Swipe Right")
-            self.refferalPageClicked(self.refferalPageButton)
+            switch refferelType {
+            case .quickStart:
+                self.refferalPageClicked(self.refferalPageButton)
+            case .refferalPage:
+                self.didTapQuickTourButton(self.quickTourButton)
+            default:
+                self.quickStartClicked(self.quickStartButton)
+            }
+            
         }
     }
     
@@ -127,6 +148,10 @@ class QRCodeViewController: UIViewController {
         refferalPageBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
         refferalPageBottomLineHeight.constant = 0.7
         
+        quickTourButton.setTitleColor(themeGreyColor, for: .normal)
+        quickTourBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
+        quickTourBottomLineHeight.constant = 0.7
+        
         refferelType = .quickStart
         
         if let quickStartPage = Defaults.shared.currentUser?.quickStartPage {
@@ -146,15 +171,40 @@ class QRCodeViewController: UIViewController {
         quickStartBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
         quickStartBottomLineHeight.constant = 0.7
         
+        quickTourButton.setTitleColor(themeGreyColor, for: .normal)
+        quickTourBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
+        quickTourBottomLineHeight.constant = 0.7
+        
         refferelType = .refferalPage
         
         if let referralPage = Defaults.shared.currentUser?.referralPage {
             let image =  URL(string: referralPage)?.qrImage(using: themeBlueColor, logo: logoImage)
             self.imageQrCode.image = image?.convert()
         }
+    }
+    
+    
+    @IBAction func didTapQuickTourButton(_ sender: UIButton) {
+        quickTourButton.setTitleColor(themeBlueColor, for: .normal)
+        quickTourBottomLine.backgroundColor = themeBlueColor
+        quickTourBottomLineHeight.constant = 2.0
         
+        quickStartButton.setTitleColor(themeGreyColor, for: .normal)
+        quickStartBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
+        quickStartBottomLineHeight.constant = 0.7
+        
+        refferalPageButton.setTitleColor(themeGreyColor, for: .normal)
+        refferalPageBottomLine.backgroundColor = ApplicationSettings.appPrimaryColor
+        refferalPageBottomLineHeight.constant = 0.7
+        
+        refferelType = .quickTour
+        
+        let quickTourPage = "https://quickcam.app/quick-tour"
+        let image =  URL(string: quickTourPage)?.qrImage(using: themeBlueColor, logo: logoImage)
+        self.imageQrCode.image = image?.convert()
         
     }
+    
     
     func setUpbadges() {
             let badgearry = Defaults.shared.getbadgesArray()
