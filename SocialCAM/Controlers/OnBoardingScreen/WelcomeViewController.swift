@@ -247,7 +247,7 @@ extension WelcomeViewController {
                         subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
                         self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
-                    }else {
+                    } else {
                         
                         if finalDay == "7" {
                             subscriptionDetailLabel.text = "Today is the last day of your 7-day free trial"

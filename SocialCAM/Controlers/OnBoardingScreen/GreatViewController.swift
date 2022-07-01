@@ -42,6 +42,11 @@ class GreatViewController: UIViewController {
     @IBOutlet weak var quickStartGuideLabel: UILabel!
     @IBOutlet weak var btnClose: UIButton!
     
+    @IBOutlet weak var foundingMemberImageView: UIImageView!
+    @IBOutlet weak var userImageView: UIImageView!
+    
+    @IBOutlet weak var userImageHeightConstraints: NSLayoutConstraint!
+    @IBOutlet weak var userImageWidthConstraints: NSLayoutConstraint!
     var categoryString: String?
     
     private var countdownTimer: Timer?
@@ -94,6 +99,21 @@ extension GreatViewController {
         
        // self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in \(durationString).\nSubscribe now before your 7-day free trial ends."
         self.quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nSubscribe now before your 7-day free trial ends."
+        
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+        }
+        let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
+        if isFoundingMember {
+            self.foundingMemberImageView.isHidden = false
+        } else {
+            self.foundingMemberImageView.isHidden = true
+            self.userImageHeightConstraints.constant = 143
+            self.userImageHeightConstraints.constant = 143
+            self.userImageView.layer.cornerRadius = 71.5
+            self.view.updateConstraintsIfNeeded()
+            self.view.setNeedsUpdateConstraints()
+        }
     }
     
     func checkTrailPeriodExpire() {
@@ -157,7 +177,7 @@ extension GreatViewController {
 
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                    
                     var fday = 0
@@ -191,6 +211,8 @@ extension GreatViewController {
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+                    } else if subscriptionType == "expired" {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
                         
@@ -241,6 +263,10 @@ extension GreatViewController {
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+            setImageForDays(days: days, imageName: "freeOnboard")
+            setUpTimerViewForZeroDay()
+        } else if subscriptionType == "expired" {
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features.."
             setImageForDays(days: days, imageName: "freeOnboard")
             setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
