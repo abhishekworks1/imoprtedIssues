@@ -327,7 +327,7 @@ extension WelcomeViewController {
                 setImageForDays(days: days, imageName: "advanceOnboard")
                 setUpTimerViewForOtherDay()
             }
-        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
             self.updateNowEventButton.isHidden = true
@@ -430,7 +430,7 @@ extension WelcomeViewController {
             badgeImageView.image = UIImage(named: "badgeIphoneAdvance")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
-        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             subscriptionDetailLabel.isHidden = false
             self.upgradeNowButton.isHidden = true
             self.updateNowEventButton.isHidden = true

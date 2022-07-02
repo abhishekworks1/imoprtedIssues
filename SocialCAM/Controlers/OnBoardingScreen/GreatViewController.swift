@@ -290,7 +290,7 @@ extension GreatViewController {
                 setImageForDays(days: days, imageName: "advanceOnboard")
                 setUpTimerViewForOtherDay()
             }
-        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
             if (days == "7") {
@@ -386,7 +386,7 @@ extension GreatViewController {
             badgeImageView.image = UIImage(named: "badgeIphoneAdvance")
             badgeImageView.isHidden = false
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nUpgrading your subscription to Premium will be available in the next release. You'll be notified when upgrading your channel is ready."
-        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             self.upgradeNowButton.isHidden = true
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
