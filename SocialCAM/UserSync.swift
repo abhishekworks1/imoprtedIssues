@@ -168,6 +168,10 @@ class UserSync {
             options.append(QuickStartOption.MobileDashboardOption.checkForUpdates.rawValue)
         }
         
+        if (resposnse?.data?.ios_mobiledashboard_badges ?? false) {
+            options.append(QuickStartOption.MobileDashboardOption.badges.rawValue)
+        }
+        
         Defaults.shared.mobileDashboardOptions = Array(Set(options))
     }
     
@@ -276,6 +280,7 @@ public struct OnboardingUserFlag: Codable {
     var ios_mobiledashboard_howItWorks: Bool?
     var ios_mobiledashboard_cameraSettings: Bool?
     var ios_mobiledashboard_subscriptions: Bool?
+    var ios_mobiledashboard_badges: Bool?
     var ios_mobiledashboard_checkForUpdates: Bool?
     // Make Money
     var ios_makemoney_referralCommissionProgram: Bool?
@@ -302,6 +307,7 @@ public struct OnboardingUserFlag: Codable {
         case ios_mobiledashboard_howItWorks = "ios_mobiledashboard_howItWorks"
         case ios_mobiledashboard_cameraSettings = "ios_mobiledashboard_cameraSettings"
         case ios_mobiledashboard_subscriptions = "ios_mobiledashboard_subscriptions"
+        case ios_mobiledashboard_badges = "ios_mobiledashboard_badges"
         case ios_mobiledashboard_checkForUpdates = "ios_mobiledashboard_checkForUpdates"
 
         case ios_makemoney_referralCommissionProgram = "ios_makemoney_referralCommissionProgram"
