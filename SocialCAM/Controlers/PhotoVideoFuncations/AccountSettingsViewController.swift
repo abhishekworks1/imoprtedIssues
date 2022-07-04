@@ -147,8 +147,9 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 displayNameCell.displayNameType = .privateDisplayName
             }else if settingTitle.settingsType == .email {
                 displayNameCell.displayNameType = .emailAddress
-                displayNameCell.btnDisplayNameTooltipIcon.isHidden = true
             }
+            displayNameCell.txtDisplaName.alpha = settingTitle.settingsType == .email ? 0.5 : 1
+            displayNameCell.txtDisplaName.isUserInteractionEnabled = !(settingTitle.settingsType == .email)
             return displayNameCell
         }
         
@@ -265,7 +266,11 @@ extension AccountSettingsViewController: UITableViewDelegate {
             }
             if response.status == ResponseType.success {
                 self.storyCameraVC.syncUserModel { _ in
-                    self.navigationController?.popViewController(animated: true)
+                    self.view.makeToast("You have successfully updated your account details.")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        // Do whatever you want
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
             self.dismissHUD()
@@ -280,7 +285,7 @@ extension AccountSettingsViewController: DisplayTooltiPDelegate {
     func displayTooltip(index: Int) {
         self.displayNameTooltipView.isHidden = false
         if index == 0 {
-            self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+            self.lblDisplayNameTooltip.text = "You must go to the Business Dashboard to update your Email Address."
         }else if index == 1 {
             self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
         } else if index == 2 {

@@ -1376,6 +1376,15 @@ class Defaults {
         }
     }
     
+    var shouldDisplayQuickStartFirstOptionSelection: Bool {
+        get {
+            return (appDefaults?.value(forKey: "shouldDisplayQuickStartFirstOptionSelection") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "shouldDisplayQuickStartFirstOptionSelection")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

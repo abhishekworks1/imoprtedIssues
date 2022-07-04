@@ -24,6 +24,7 @@ protocol QuickStartOptionable {
     var isFirstStep: Bool { get }
     var hideTryNowButton: Bool { get }
     var rawValue: Int { get }
+    var apiKey: String { get }
 }
 extension QuickStartOptionable {
     var hideTryNowButton: Bool {
@@ -49,6 +50,25 @@ enum QuickStartOption: Int, CaseIterable {
     }
     
     enum CreateContentOption: Int, CaseIterable, QuickStartOptionable {
+        var apiKey: String {
+            switch self {
+            case .quickCamCamera:
+                return "ios_createcontent_quickCamCamera"
+            case .fastSlowEditor:
+                return "ios_createcontent_fastSlowRecording"
+            case .quickieVideoEditor:
+                return "ios_createcontent_quickieVideoEditor"
+            case .pic2Art:
+                return "ios_createcontent_pic2Art"
+            case .bitmojis:
+                return "ios_createcontent_bitmojis"
+            case .socialMediaSharing:
+                return "ios_createcontent_socialMediaSharing"
+            case .yourGoal:
+                return "ios_createcontent_yourGoal"
+            }
+        }
+        
         var title: String {
             switch self {
             case .quickCamCamera:
@@ -183,6 +203,24 @@ enum QuickStartOption: Int, CaseIterable {
     }
 
     enum MobileDashboardOption: Int, CaseIterable, QuickStartOptionable {
+        
+        var apiKey: String {
+            switch self {
+            case .notifications:
+                return "ios_mobiledashboard_notifications"
+            case .howItWorks:
+                return "ios_mobiledashboard_howItWorks"
+            case .cameraSettings:
+                return "ios_mobiledashboard_cameraSettings"
+            case .subscriptions:
+                return "ios_mobiledashboard_subscriptions"
+            case .checkForUpdates:
+                return "ios_mobiledashboard_checkForUpdates"
+            case .badges:
+                return "ios_mobiledashboard_badges"
+            }
+        }
+        
         var title: String {
             switch self {
             case .notifications:
@@ -195,6 +233,8 @@ enum QuickStartOption: Int, CaseIterable {
                 return "Subscription"
             case .checkForUpdates:
                 return "Check Updates"
+            case .badges:
+                return "Badges"
             }
         }
         
@@ -284,6 +324,28 @@ enum QuickStartOption: Int, CaseIterable {
 <li class="p1">We periodically update the app to include additional features and bug fixes.</li>
 </ul>
 """
+            case .badges:
+                return """
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Founding Members Badge - Earned by all users signing up now until Dec. 31, 2022</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Prelaunch Badge&nbsp; - Earned by all users signing up now during Prelaunch.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Subscription Badge - Earned when you set your subscription</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Number Badge - Earned when you subscribe during the 7-Day Premium Free Trial</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Social Connection Badge - Earned when you connect your social media accounts</span></li>
+</ul>
+"""
             }
         }
         
@@ -299,10 +361,28 @@ enum QuickStartOption: Int, CaseIterable {
         case howItWorks
         case cameraSettings
         case subscriptions
+        case badges
         case checkForUpdates
     }
 
     enum MakeMoneyOption: Int, CaseIterable, QuickStartOptionable {
+        var apiKey: String {
+            switch self {
+            case .referralCommissionProgram:
+                return "ios_makemoney_referralCommissionProgram"
+            case .referralWizard:
+                return "ios_makemoney_referralWizard"
+            case .contactManagerTools:
+                return "ios_makemoney_contactManagerTools"
+            case .potentialCalculator:
+                return "ios_makemoney_potentialCalculator"
+            case .fundraising:
+                return "ios_makemoney_fundraising"
+            case .yourGoal:
+                return "ios_makemoney_yourGoal"
+            }
+        }
+        
         var title: String {
             switch self {
             case .referralCommissionProgram:
@@ -391,7 +471,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">TextShare as the fastest way to share the QuickCam opportunity and grow your potential income.</span></li>
+<li aria-level="2"><span style="font-weight: 400;">Use TextShare as the surest and fastest way to share the QuickCam opportunity and grow your potential income because text messages are more likely to be opened than an email.</span></li>
 </ul>
 </li>
 </ul>
@@ -474,9 +554,9 @@ enum QuickStartOption: Int, CaseIterable {
             case .contactManagerTools:
                 return """
 <ul>
-<li aria-level="2"><strong>Business Dashboard</strong>
+<li aria-level="2"><strong>Business Dashboard is:</strong>
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">The Business Dashboard is a management tool to keep track of your referrals, earnings, payout and more.</span></li>
+<li><span style="font-weight: 400;">currently available for free during prelaunch</span></li>
 </ul>
 </li>
 </ul>
@@ -484,7 +564,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">The Business Dashboard is a separate product from QuickCam camera apps. It's a subscription product with a premium free trial and free mode.</span></li>
+<li><span style="font-weight: 400;">for those who want to make money online.&nbsp;</span></li>
 </ul>
 </li>
 </ul>
@@ -492,7 +572,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">QuickCam Business Dashboard subscription is a separate subscription from the QuickCam camera app subscriptions.</span></li>
+<li><span style="font-weight: 400;">a management tool to track your referrals, earnings, payout and more.</span></li>
 </ul>
 </li>
 </ul>
@@ -500,7 +580,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">Business Dashboard subscription option for premium features is for those who want to make money online. Subscription to QuickCam Business Dashboard will be activated at QuickCam Business Dashboard Official Launch. (to be announced)</span></li>
+<li><span style="font-weight: 400;">accessible directly from the QuickCam camera app.</span></li>
 </ul>
 </li>
 </ul>
@@ -508,7 +588,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">Access the QuickCam Business Dashboard directly from the QuickCam camera app.</span></li>
+<li><span style="font-weight: 400;">a separate subscription product from the QuickCam camera app.&nbsp;</span></li>
 </ul>
 </li>
 </ul>
@@ -516,15 +596,12 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">QuickCam Business Dashboard Pre-Launch free version is available now.</span></li>
+<li><span style="font-weight: 400;">to be available with paid subscriptions and referral commissions (to be announced).<br /></span></li>
 </ul>
 </li>
-</ul>
-<p>&nbsp;</p>
-<ul>
 <li aria-level="2"><strong>Contact Manager</strong>
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">Invite and track your referrals, see who has signed up and who&rsquo;s subscribing.</span></li>
+<li><span style="font-weight: 400;">Invite and track your referrals, see who has signed up and who&rsquo;s subscribing.</span></li>
 </ul>
 </li>
 </ul>
@@ -550,15 +627,35 @@ enum QuickStartOption: Int, CaseIterable {
 """            case .potentialCalculator:
                 return """
 <ul>
-<li class="p1">Social media has become huge. With over 4.62 billion social media users as of January 2022, the opportunity to grow a large following as well as make residual income is much larger than many people realize. In fact, it's much easier these days to grow a following than previously before 2020.</li>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">You can play with the Potential Income Calculator to see your potential monthly income.</span></li>
 </ul>
 <p>&nbsp;</p>
 <ul>
-<li class="p1">With engaging content, it's much easier to generate a large following in social media because there's more people in social media than ever before.</li>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Enter the number of level 1 personal referrals and level 2 referral into the calculator and the subscription variables.</span></li>
 </ul>
 <p>&nbsp;</p>
 <ul>
-<li class="p1">With QuickCam, it's now possible to generate content that will attract other content creators, including big influencers with a large following.</li>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">You can estimate your potential monthly passive potential income based on your current referral stats.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Play with the percentage of referrals who subscribe and the average monthly subscription.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">See your potential income up to 5 years from the values you enter.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Social media has become huge. With over 4.62 billion social media users as of January 2022, the opportunity to grow a large following as well as make residual income is easier than ever.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">With engaging content, it's much easier to generate a large following in social media because there's more people in social media than ever before.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">With QuickCam, it's now possible to generate content that will attract other content creators, including big influencers with a large following.</span></li>
 </ul>
 """
             }
@@ -624,6 +721,10 @@ class OnBoardingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fillStepIndicatorViews()
+    }
+    
+    func fillStepIndicatorViews() {
         for option in Defaults.shared.createContentOptions {
             createContentStepIndicatorView.finishedStep = option
         }
@@ -758,6 +859,7 @@ class OnBoardingViewController: UIViewController {
                 }
             }
         }
+        UserSync.shared.setOnboardingUserFlags()
         navigationController?.viewControllers.append(contentsOf: viewControllers)
     }
     
@@ -768,6 +870,9 @@ extension OnBoardingViewController {
     func setupView() {
         popupView.isHidden = !self.showPopUpView
         UserSync.shared.syncUserModel { isCompleted in
+            UserSync.shared.getOnboardingUserFlags { isCompleted in
+                self.fillStepIndicatorViews()
+            }
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             }
