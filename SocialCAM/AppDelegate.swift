@@ -523,6 +523,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func goHomeScreen(_ response: Result<LoginResult>) {
         Defaults.shared.sessionToken = response.sessionToken
         Defaults.shared.currentUser = response.result?.user
+//        Defaults.shared.userSubscription = response.result?.userSubscription
         Defaults.shared.isRegistered = response.result?.isRegistered
         Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
         Defaults.shared.isFirstTimePic2ArtRegistered = response.result?.isRegistered

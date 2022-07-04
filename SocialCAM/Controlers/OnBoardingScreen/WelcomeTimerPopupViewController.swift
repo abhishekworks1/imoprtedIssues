@@ -14,10 +14,22 @@ class WelcomeTimerPopupViewController: UIViewController {
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var foundingMemberImageView: UIImageView!
     @IBOutlet weak var semiHalfView: UIView!
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var hourLabel: UILabel!
-    @IBOutlet weak var minLabel: UILabel!
-    @IBOutlet weak var secLabel: UILabel!
+    
+    @IBOutlet weak var timerStackView: UIStackView!
+    @IBOutlet weak var dayValueLabel: UILabel!
+    @IBOutlet weak var hourValueLabel: UILabel!
+    @IBOutlet weak var minValueLabel: UILabel!
+    @IBOutlet weak var secValueLabel: UILabel!
+    @IBOutlet weak var freeModeDayImageView: UIImageView!
+    @IBOutlet weak var freeModeHourImageView: UIImageView!
+    @IBOutlet weak var freeModeMinImageView: UIImageView!
+    @IBOutlet weak var freeModeSecImageView: UIImageView!
+    
+
+    @IBOutlet weak var dayLineView: UIView!
+    @IBOutlet weak var hourLineView: UIView!
+    @IBOutlet weak var minLineView: UIView!
+    @IBOutlet weak var secLineView: UIView!
     
     @IBOutlet weak var tipOfTheDayStaticLabel: UILabel!
     @IBOutlet weak var tipOfTheDayLabel: UILabel!
@@ -26,9 +38,13 @@ class WelcomeTimerPopupViewController: UIViewController {
     
     private var countdownTimer: Timer?
     
+    var upgradeButtonAction:(()-> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        setTimer()
+        setSubscriptionMessageLabel()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -72,10 +88,11 @@ class WelcomeTimerPopupViewController: UIViewController {
             let hours = countdown.hour!
             let minutes = countdown.minute!
             let seconds = countdown.second!
-            self.secLabel.text = String(format: "%02ds", seconds)
-            self.minLabel.text = String(format: "%02dm", minutes)
-            self.hourLabel.text = String(format: "%02dh", hours)
-            self.dayLabel.text = String(format: "%01dd", days)
+            self.secValueLabel.text = String(format: "%02d", seconds)
+            self.minValueLabel.text = String(format: "%02d", minutes)
+            self.hourValueLabel.text = String(format: "%02d", hours)
+            self.dayValueLabel.text = String(format: "%01d", days)
+            self.setImageForDays(days: "1", imageName: "freeOnboard")
         }
     }
     func showDownTimer(timerDate: Date){
@@ -85,10 +102,24 @@ class WelcomeTimerPopupViewController: UIViewController {
             let hours = countdown.hour!
             let minutes = countdown.minute!
             let seconds = countdown.second!
-            self.secLabel.text = String(format: "%02ds", seconds)
-            self.minLabel.text = String(format: "%02dm", minutes)
-            self.hourLabel.text = String(format: "%02dh", hours)
-            self.dayLabel.text = String(format: "%01dd", days)
+            self.secValueLabel.text = String(format: "%02d", seconds)
+            self.minValueLabel.text = String(format: "%02d", minutes)
+            self.hourValueLabel.text = String(format: "%02d", hours)
+            self.dayValueLabel.text = String(format: "%01d", days)
+            if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+                if let diffDays = Defaults.shared.numberOfFreeTrialDays {
+                   let imageNumber = Int(diffDays)+1
+                    if imageNumber >= 1 && imageNumber <= 6 {
+                        self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
+                        self.setUpTimerViewForOtherDay()
+                    } else if imageNumber > 7 {
+                        self.setUpTimerViewForSignupDay()
+                    } else {
+                        self.setImageForDays(days: "1", imageName: "freeOnboard")
+                    }
+                }
+            }
+            
         }
     }
     func setSubscriptionMessageLabel() {
@@ -109,6 +140,58 @@ class WelcomeTimerPopupViewController: UIViewController {
             }
 //        }
     }
+    
+    func setUpTimerViewForOtherDay() {
+        timerStackView.isHidden = false
+        freeModeDayImageView.isHidden = false
+        freeModeMinImageView.isHidden = false
+        freeModeSecImageView.isHidden = false
+        freeModeHourImageView.isHidden = false
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
+        dayValueLabel.isHidden = false
+        hourValueLabel.isHidden = false
+        secValueLabel.isHidden = false
+        minValueLabel.isHidden = false
+    }
+    
+    func setUpTimerViewForSignupDay() {
+        timerStackView.isHidden = false
+        freeModeDayImageView.isHidden = true
+        freeModeMinImageView.isHidden = true
+        freeModeSecImageView.isHidden = true
+        freeModeHourImageView.isHidden = true
+        dayLineView.isHidden = false
+        hourLineView.isHidden = false
+        minLineView.isHidden = false
+        secLineView.isHidden = false
+        dayValueLabel.isHidden = false
+        hourValueLabel.isHidden = false
+        secValueLabel.isHidden = false
+        minValueLabel.isHidden = false
+        setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
+    }
+    
+    func setImageForDays(days: String, imageName: String) {
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
+        freeModeDayImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeMinImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeSecImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeHourImageView.image = UIImage(named: "\(imageName)\(days)")
+    }
+    
+    func setUpLineIndicatorForSignupDay(lineColor: UIColor) {
+        hourLineView.backgroundColor = lineColor
+        minLineView.backgroundColor = lineColor
+        secLineView.backgroundColor = lineColor
+        dayLineView.backgroundColor = lineColor
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -124,13 +207,7 @@ class WelcomeTimerPopupViewController: UIViewController {
     }
     @IBAction func upgradeNowOnClick(_ sender: Any) {
         dismiss(animated: true) {
-            guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
-            subscriptionVc.appMode = .professional
-            subscriptionVc.subscriptionType = .professional
-            subscriptionVc.isFromWelcomeScreen = true
-            self.navigationController?.isNavigationBarHidden = true
-            self.navigationController?.pushViewController(subscriptionVc, animated: true)
+            self.upgradeButtonAction?()
         }
     }
-    
 }
