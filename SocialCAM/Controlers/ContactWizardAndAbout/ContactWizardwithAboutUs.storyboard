@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
         <array key="Roboto-Bold.ttf">
             <string>Roboto-Bold</string>
         </array>
@@ -2169,6 +2172,35 @@
                                                                     <outlet property="delegate" destination="zZw-wm-uWi" id="5Za-CL-g2I"/>
                                                                 </connections>
                                                             </tableView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPW-kh-JdK">
+                                                                <rect key="frame" x="0.0" y="144" width="414" height="505"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqr-us-VqU">
+                                                                        <rect key="frame" x="162" y="207.5" width="90" height="90"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="90" id="80y-jK-PG1"/>
+                                                                            <constraint firstAttribute="height" constant="90" id="lF5-YX-wFo"/>
+                                                                        </constraints>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" image="sync"/>
+                                                                    </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BdQ-i4-S60">
+                                                                        <rect key="frame" x="20" y="297.5" width="374" height="0.0"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="BdQ-i4-S60" firstAttribute="top" secondItem="qqr-us-VqU" secondAttribute="bottom" id="DtZ-ro-lxi"/>
+                                                                    <constraint firstItem="qqr-us-VqU" firstAttribute="centerX" secondItem="BPW-kh-JdK" secondAttribute="centerX" id="ElT-v0-kHq"/>
+                                                                    <constraint firstItem="BdQ-i4-S60" firstAttribute="leading" secondItem="BPW-kh-JdK" secondAttribute="leading" constant="20" id="PAy-LG-N4Q"/>
+                                                                    <constraint firstItem="BdQ-i4-S60" firstAttribute="centerX" secondItem="BPW-kh-JdK" secondAttribute="centerX" id="pF0-1H-5SP"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="BdQ-i4-S60" secondAttribute="trailing" constant="20" id="s7E-RG-17i"/>
+                                                                    <constraint firstItem="qqr-us-VqU" firstAttribute="centerY" secondItem="BPW-kh-JdK" secondAttribute="centerY" id="wsH-ZG-kyR"/>
+                                                                </constraints>
+                                                            </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H2s-PP-nF9">
                                                                 <rect key="frame" x="304" y="40" width="100" height="270"/>
                                                                 <subviews>
@@ -2318,6 +2350,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="4u1-76-4wK" secondAttribute="trailing" id="4uw-4R-ncV"/>
                                                             <constraint firstItem="PSp-Xg-RgW" firstAttribute="top" secondItem="1nl-19-HIV" secondAttribute="top" constant="10" id="7UW-wT-tTq"/>
+                                                            <constraint firstItem="BPW-kh-JdK" firstAttribute="leading" secondItem="4u1-76-4wK" secondAttribute="leading" id="FER-wg-81u"/>
                                                             <constraint firstItem="EQF-Rk-EpR" firstAttribute="top" secondItem="OnG-39-IES" secondAttribute="bottom" constant="5" id="KSZ-YM-2CX"/>
                                                             <constraint firstItem="H2s-PP-nF9" firstAttribute="top" secondItem="PSp-Xg-RgW" secondAttribute="top" constant="30" id="MVK-Xd-iRb"/>
                                                             <constraint firstAttribute="bottom" secondItem="4u1-76-4wK" secondAttribute="bottom" id="OHy-ZZ-d7A"/>
@@ -2325,12 +2358,15 @@
                                                             <constraint firstItem="4u1-76-4wK" firstAttribute="top" secondItem="OnG-39-IES" secondAttribute="bottom" constant="5" id="SmM-WY-MjN"/>
                                                             <constraint firstAttribute="trailing" secondItem="OnG-39-IES" secondAttribute="trailing" id="ZwB-9b-qHI"/>
                                                             <constraint firstAttribute="bottom" secondItem="EQF-Rk-EpR" secondAttribute="bottom" id="c8c-pt-kjt"/>
+                                                            <constraint firstItem="BPW-kh-JdK" firstAttribute="bottom" secondItem="4u1-76-4wK" secondAttribute="bottom" id="dY0-Du-ta8"/>
                                                             <constraint firstAttribute="trailing" secondItem="PSp-Xg-RgW" secondAttribute="trailing" id="dvY-Ok-iLJ"/>
                                                             <constraint firstAttribute="trailing" secondItem="EQF-Rk-EpR" secondAttribute="trailing" id="ecK-EJ-MFw"/>
                                                             <constraint firstItem="H2s-PP-nF9" firstAttribute="trailing" secondItem="PSp-Xg-RgW" secondAttribute="trailing" constant="-10" id="gUV-2u-fh0"/>
                                                             <constraint firstItem="PSp-Xg-RgW" firstAttribute="leading" secondItem="1nl-19-HIV" secondAttribute="leading" id="iAz-V3-WCg"/>
                                                             <constraint firstItem="OnG-39-IES" firstAttribute="top" secondItem="PSp-Xg-RgW" secondAttribute="bottom" constant="5" id="ihs-27-sN6"/>
+                                                            <constraint firstItem="BPW-kh-JdK" firstAttribute="top" secondItem="4u1-76-4wK" secondAttribute="top" id="pMS-ta-l7P"/>
                                                             <constraint firstItem="OnG-39-IES" firstAttribute="leading" secondItem="1nl-19-HIV" secondAttribute="leading" id="r4i-0r-PeI"/>
+                                                            <constraint firstItem="BPW-kh-JdK" firstAttribute="trailing" secondItem="4u1-76-4wK" secondAttribute="trailing" id="ssa-Ef-vMl"/>
                                                             <constraint firstItem="4u1-76-4wK" firstAttribute="leading" secondItem="1nl-19-HIV" secondAttribute="leading" id="vIb-9t-FTQ"/>
                                                         </constraints>
                                                     </view>
@@ -3726,11 +3762,13 @@
                         <outlet property="lblReferralLink" destination="0Cs-JP-BJy" id="BMA-Kc-S4r"/>
                         <outlet property="lblSinceDate" destination="qgq-Lg-8QU" id="l4m-hg-O8U"/>
                         <outlet property="lblUserName" destination="bCd-ga-2NY" id="QPz-Gp-CBc"/>
+                        <outlet property="lblnocontact" destination="BdQ-i4-S60" id="1kB-9j-j5E"/>
                         <outlet property="line1" destination="DOo-Jb-Ze2" id="r3C-zm-JQq"/>
                         <outlet property="line2" destination="7Ns-5M-bbT" id="6KN-gC-jav"/>
                         <outlet property="line3" destination="VOy-fx-rvC" id="3Ab-Er-Zes"/>
                         <outlet property="line4" destination="WzG-xE-nxf" id="6WE-8e-rPL"/>
                         <outlet property="manualEmailView" destination="8KC-xE-bJ4" id="guO-vf-u1k"/>
+                        <outlet property="nocontactView" destination="BPW-kh-JdK" id="rZj-ci-Ywn"/>
                         <outlet property="openedButton" destination="pg5-1y-9F3" id="DTR-E3-HVu"/>
                         <outlet property="optOutButton" destination="aCS-1C-Ebh" id="Jra-cX-ylr"/>
                         <outlet property="page0view" destination="GQc-is-nui" id="Nuq-X7-Vr1"/>
@@ -4113,7 +4151,7 @@
             <color red="0.74500000476837158" green="0.82400000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

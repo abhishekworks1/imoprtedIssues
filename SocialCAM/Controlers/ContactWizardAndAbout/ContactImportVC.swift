@@ -76,6 +76,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var socialShareView: UIView!
     @IBOutlet weak var businessDashboardView: UIView!
     
+    @IBOutlet weak var nocontactView: UIView!
+    @IBOutlet weak var lblnocontact: UILabel!
+    
     @IBOutlet weak var deleteContactConfirmationView: UIView!
     @IBOutlet weak var deleteContactDoNotShowButton: UIButton!
     @IBOutlet weak var filterOptionView: UIView!
@@ -800,7 +803,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)"
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)&sortBy=name&sortType=asc"
       //  &hide=\(hide)
        // let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source))&searchText=\("Na")&filterType=\(filter)&limit=\(limit)&page=\(page)"
         print("contact->\(path)")
@@ -851,11 +854,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.mobileContacts.append(contentsOf:contacts)
 
                     self.allmobileContacts = self.mobileContacts
-                    
+                    if self.mobileContacts.count == 0{
+                        self.lblCurrentFilter.text = ""
+                        self.nocontactView.isHidden = false
+                        self.lblnocontact.text = "No contacts found with that filter criteria."
+                    }else{
+                        self.nocontactView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
                 }else{
+                    if self.emailContacts.count == 0{
+                        self.lblCurrentFilter.text = ""
+                    }
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     
