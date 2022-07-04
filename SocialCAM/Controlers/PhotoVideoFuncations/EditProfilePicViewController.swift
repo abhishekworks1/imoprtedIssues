@@ -787,8 +787,12 @@ extension EditProfilePicViewController {
             }
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { (isComplete) in
-                self.setRedirection()
+                self.view.makeToast("Your changes are saved.")
                 self.isImageSelected = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    // Do whatever you want
+                    self.setRedirection()
+                }
             }
         }, onError: { error in
             self.dismissHUD()
