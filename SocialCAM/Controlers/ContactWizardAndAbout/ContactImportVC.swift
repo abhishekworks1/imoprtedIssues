@@ -1614,12 +1614,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.lblNumberEmail.text = contact.email ?? ""
             cell.contactImage.image = UIImage.init(named: "User_placeholder")
             cell.mobileContactObj = contact
-           
+            cell.inviteButtonView.layer.borderWidth = 0.0
             if contact.status == ContactStatus.pending{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invite", for: .normal)
-                cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
+            //    cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
+                cell.inviteButtonView.backgroundColor = UIColor(hex6:0xD4E9FD)
+                cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
+                cell.inviteButtonView.layer.borderWidth = 1.0
+                cell.lblInviteButtonTitle.textColor = UIColor(hex6:0x4285F4)
                 cell.lblInviteButtonTitle.text = "Invite"
                 cell.buttonInvite.setTitle("", for: .normal)
                 cell.inviteButtonView.isHidden = false
@@ -1629,10 +1633,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
-                cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
+              //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
+             //   cell.inviteBtn.backgroundColor = .black
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
                 cell.buttonInvite.setTitle("", for: .normal)
                 cell.lblInviteButtonTitle.text = "Invited"
+                cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
+                cell.lblInviteButtonTitle.textColor = .white
                 cell.inviteButtonView.isHidden = false
             }
             cell.inviteBtn.isHidden = true
@@ -1652,6 +1659,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteButtonView.isHidden = false
                 cell.contactStatusView.isHidden = true
             }
+           
+            cell.inviteBtn.isHidden = true
             return cell
         }else {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
@@ -1678,21 +1687,30 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if contact.status == ContactStatus.pending{
                     cell.inviteBtn.isHidden = false
                     cell.inviteBtn.setTitle("Invite", for: .normal)
-                    cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
+                    cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0xE9F1FF), forState: .normal)
+                   // backgroundColor = UIColor(hex6:0xE9F1FF)
                     cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                     cell.lblInviteButtonTitle.text = "Invite"
                     cell.buttonInvite.setTitle("", for: .normal)
                     cell.inviteButtonView.isHidden = false
+                       // cell.inviteButtonView.backgroundColor = .bb
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0xD4E9FD)
+                    cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
+                    cell.inviteButtonView.layer.borderWidth = 1.0
+                    cell.lblInviteButtonTitle.textColor = UIColor(hex6:0x4285F4)
                 }else if contact.status == ContactStatus.subscriber{
                     cell.inviteBtn.isHidden = true
                     cell.inviteButtonView.isHidden = true
                 }else{
                     cell.inviteBtn.isHidden = false
                     cell.inviteBtn.setTitle("Invited", for: .normal)
-                    cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
+                    //cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0x4285F4), forState: .normal)
+                  //  cell.inviteBtn.backgroundColor = .black
                     cell.inviteBtn.setTitleColor(.white, for: .normal)
                     cell.buttonInvite.setTitle("", for: .normal)
                     cell.lblInviteButtonTitle.text = "Invited"
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
+                    cell.lblInviteButtonTitle.textColor = UIColor.white
                     cell.inviteButtonView.isHidden = false
                 }
                 cell.inviteBtn.isHidden = true
@@ -1710,6 +1728,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteButtonView.isHidden = false
                     cell.contactStatusView.isHidden = true
                 }
+               
             }
             else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
@@ -1724,7 +1743,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.phoneContactObj = contact
             }
             
-          
+            cell.inviteBtn.isHidden = true
             return cell
         }
     }
@@ -2024,12 +2043,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
         else if sender.tag == 3 {
-            if selectedPhoneContact == nil {
-                DispatchQueue.main.async {
-                    self.view.makeToast("Please Select Contact", duration: ToastManager.shared.duration, position: .bottom)
-                }
-                return
-            }
+            
             let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
             referSuccess.callback = { message in
                 self.pageNo = 1
@@ -2043,12 +2057,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     @IBAction func didTapQuickTourButton(_ sender: UIButton) {
-        let urlString = "https://quickcam.app/quick-tour"
-        print(urlString)
-        guard let url = URL(string: urlString) else {
-            return
+
+        urlToShare = "https://quickcam.app/quick-tour"
+        
+        if isFromContactManager{
+            pageNo = 3
+            setupPage()
+            setupUIBasedOnUrlToShare()
+        }else{
+            pageNo = 2
+            setupPage()
+            setupUIBasedOnUrlToShare()
         }
-        presentSafariBrowser(url: url)
     }
     
     
@@ -2131,6 +2151,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             EasyTipView.show(forView: sender,
                              withinSuperview: page0view,
                              text: R.string.localizable.referralTooltip(),
+                             delegate: self)
+        }
+        else if sender.tag == 103 {
+            EasyTipView.show(forView: sender,
+                             withinSuperview: page0view,
+                             text: R.string.localizable.quickTourToolTip(),
                              delegate: self)
         }
     }
@@ -2773,5 +2799,19 @@ extension UISwipeActionsConfiguration {
         }
         
         return nil
+    }
+}
+
+extension UIButton {
+    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: forState)
+        }
     }
 }

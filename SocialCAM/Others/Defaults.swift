@@ -236,8 +236,7 @@ class Defaults {
                     }
                     if !settings.contains(where: {$0.settingsType == .contactManager})
                     {
-                        settings.insert(StorySettings(name: "",
-                                                      settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
+                    //    settings.insert(StorySettings(name: "",settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
                     }
                     if !settings.contains(where: {$0.settingsType == .potentialIncomeCalculator})
                     {
@@ -1374,6 +1373,15 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "selectedQuickStartOption")
+        }
+    }
+    
+    var shouldDisplayQuickStartFirstOptionSelection: Bool {
+        get {
+            return (appDefaults?.value(forKey: "shouldDisplayQuickStartFirstOptionSelection") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "shouldDisplayQuickStartFirstOptionSelection")
         }
     }
     

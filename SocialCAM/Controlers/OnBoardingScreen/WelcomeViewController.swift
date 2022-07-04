@@ -52,7 +52,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.whatDoYouWantSeeView.isHidden = !fromLogin
+        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
         self.updateNowEventButton.setTitle("", for: .normal)
     }
     
@@ -107,11 +107,13 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func makeMoneyOptionClicked(_ sender: Any) {
         Defaults.shared.selectedQuickStartOption = .makeMoney
+        UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
     }
     
     @IBAction func createContentOptionClicked(_ sender: Any) {
         Defaults.shared.selectedQuickStartOption = .createContent
+        UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
     }
 }
@@ -127,6 +129,9 @@ extension WelcomeViewController {
         self.setSubscriptionBadgeDetails()
         
         UserSync.shared.syncUserModel { isCompleted in
+            UserSync.shared.getOnboardingUserFlags { isCompleted in
+                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+            }
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             }
@@ -202,7 +207,7 @@ extension WelcomeViewController {
 
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                    
                     var fday = 0
@@ -237,6 +242,10 @@ extension WelcomeViewController {
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+                    } else if subscriptionType == "expired" {
+                        subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+                        self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
                         
@@ -294,6 +303,9 @@ extension WelcomeViewController {
             subscriptionDetailLabel.text = "Your 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             setImageForDays(days: days, imageName: "freeOnboard")
             setUpTimerViewForZeroDay()
+        } else if subscriptionType == "expired" {
+            setImageForDays(days: days, imageName: "freeOnboard")
+            setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
             self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
@@ -315,7 +327,7 @@ extension WelcomeViewController {
                 setImageForDays(days: days, imageName: "advanceOnboard")
                 setUpTimerViewForOtherDay()
             }
-        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
             self.updateNowEventButton.isHidden = true
@@ -418,7 +430,7 @@ extension WelcomeViewController {
             badgeImageView.image = UIImage(named: "badgeIphoneAdvance")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
-        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             subscriptionDetailLabel.isHidden = false
             self.upgradeNowButton.isHidden = true
             self.updateNowEventButton.isHidden = true

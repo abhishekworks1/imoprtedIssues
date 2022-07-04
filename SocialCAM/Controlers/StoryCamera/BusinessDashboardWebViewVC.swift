@@ -111,7 +111,7 @@ extension BusinessDashboardWebViewVC: WKNavigationDelegate {
             }
             if url.absoluteString == "quickcamrefer://app"{
                 let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
-                navigationController?.pushViewController(storySettingsVC, animated: true)
+                navigationController?.popViewController(animated: true)
             }
             print(url)
         }

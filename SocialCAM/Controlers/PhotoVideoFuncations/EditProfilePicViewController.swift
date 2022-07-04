@@ -194,7 +194,7 @@ class EditProfilePicViewController: UIViewController {
             self.btnPublicDisplayNameTooltip.isHidden = false
         }
         self.setDisplayNamePopupView.isHidden = true
-        self.view.makeToast("Your changes are saved.")
+        
     }
     
     // MARK: - Action Methods
@@ -721,6 +721,7 @@ extension EditProfilePicViewController {
             if response.status == ResponseType.success {
                 self.storyCameraVC.syncUserModel { _ in
                     self.setPublicDisplayName()
+                    self.view.makeToast("Your changes are saved.")
                 }
             }
         }, onError: { error in
