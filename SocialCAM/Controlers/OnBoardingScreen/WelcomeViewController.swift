@@ -437,7 +437,13 @@ extension WelcomeViewController {
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
-            subscriptionDetailLabel.text = "Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income."
+            
+            let tipOftheDayAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+            let tipTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
+            let tipOftheDay = NSMutableAttributedString(string: "Tip of the Day\n", attributes: tipOftheDayAttributes)
+            let tipText = NSMutableAttributedString(string: "Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income.", attributes: tipTextAttributes)
+            tipOftheDay.append(tipText)
+            subscriptionDetailLabel.attributedText = tipOftheDay
         }
     }
     
