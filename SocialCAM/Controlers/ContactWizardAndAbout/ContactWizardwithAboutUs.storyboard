@@ -699,8 +699,8 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your QuickCam referral link" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu3-cK-o1A">
-                                                                    <rect key="frame" x="57" y="30" width="300.5" height="24"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your QuickCam referral link" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu3-cK-o1A">
+                                                                    <rect key="frame" x="10" y="30" width="394" height="24"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -946,6 +946,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="5Vf-Sy-2bB" secondAttribute="trailing" constant="45" id="83r-AL-AUY"/>
                                                                 <constraint firstAttribute="trailing" secondItem="gHM-WH-iMp" secondAttribute="trailing" id="BbR-JS-eC6"/>
                                                                 <constraint firstItem="5Vf-Sy-2bB" firstAttribute="leading" secondItem="08q-MP-cfA" secondAttribute="leading" constant="45" id="CGz-fy-KXf"/>
+                                                                <constraint firstItem="yu3-cK-o1A" firstAttribute="leading" secondItem="08q-MP-cfA" secondAttribute="leading" constant="10" id="Dtg-mc-Wzv"/>
                                                                 <constraint firstItem="yu3-cK-o1A" firstAttribute="top" secondItem="mgR-tN-FaE" secondAttribute="bottom" id="I7X-eX-4a0"/>
                                                                 <constraint firstItem="gHM-WH-iMp" firstAttribute="top" secondItem="5Vf-Sy-2bB" secondAttribute="bottom" constant="5" id="IYq-LL-H9f"/>
                                                                 <constraint firstItem="mgR-tN-FaE" firstAttribute="leading" secondItem="08q-MP-cfA" secondAttribute="leading" constant="12" id="L1u-8W-BPN"/>
@@ -953,6 +954,7 @@
                                                                 <constraint firstItem="D7X-w4-MK5" firstAttribute="leading" secondItem="0Cs-JP-BJy" secondAttribute="trailing" constant="12" id="UW4-Db-fHN"/>
                                                                 <constraint firstItem="wIE-6m-Z4h" firstAttribute="centerX" secondItem="yu3-cK-o1A" secondAttribute="centerX" id="aB6-BX-3r8"/>
                                                                 <constraint firstItem="0Cs-JP-BJy" firstAttribute="centerX" secondItem="wIE-6m-Z4h" secondAttribute="centerX" constant="-18" id="clP-xR-IHS"/>
+                                                                <constraint firstAttribute="trailing" secondItem="yu3-cK-o1A" secondAttribute="trailing" constant="10" id="eco-6h-eEx"/>
                                                                 <constraint firstAttribute="trailing" secondItem="mgR-tN-FaE" secondAttribute="trailing" constant="12" id="gWF-c4-UrM"/>
                                                                 <constraint firstItem="gHM-WH-iMp" firstAttribute="leading" secondItem="08q-MP-cfA" secondAttribute="leading" id="lVn-c1-iAg"/>
                                                                 <constraint firstItem="yu3-cK-o1A" firstAttribute="centerX" secondItem="mgR-tN-FaE" secondAttribute="centerX" id="o6R-B9-84b"/>
@@ -3787,6 +3789,7 @@
                         <outlet property="recentButton" destination="4ou-7x-ZTJ" id="eAC-91-5a9"/>
                         <outlet property="searchBar" destination="JNL-Ux-pG3" id="1T0-XB-Mtn"/>
                         <outlet property="segmentViewHeight" destination="Wv2-hj-EWY" id="8xj-rJ-10Q"/>
+                        <outlet property="selectedShareTitleLabel" destination="yu3-cK-o1A" id="ike-ab-JdO"/>
                         <outlet property="setDefaultEmailAppButton" destination="Jse-GK-yAd" id="YI4-Nx-Qnd"/>
                         <outlet property="signedupButton" destination="3sT-vu-KIg" id="zjv-2S-AXe"/>
                         <outlet property="snapchatVerifiedView" destination="Mah-m9-len" id="eJx-7l-Xg5"/>
@@ -4154,7 +4157,7 @@
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
