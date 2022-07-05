@@ -326,7 +326,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.twitterVerifiedView.isHidden = true
         self.snapVerifiedView.isHidden = true
         self.youTubeVerifiedView.isHidden = true
-        lblAppInfo.text = "\(Constant.Application.displayName) - 1.1.2(37.\(Constant.Application.appBuildNumber))"
+        lblAppInfo.text = "\(Constant.Application.displayName) - 1.1.2(38.\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
        
@@ -1214,14 +1214,20 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
 //          if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
 //                navigationController?.pushViewController(editProfileController, animated: true)
 //            }
-            if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
-                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
-                    navigationController?.pushViewController(contactWizardController, animated: true)
+            let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
+            if hasAllowAffiliate {
+                if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty, userImageURL != "undefined" {
+                    if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                        navigationController?.pushViewController(contactWizardController, animated: true)
+                    }
+                } else {
+                    if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+                        navigationController?.pushViewController(editProfileController, animated: true)
+                    }
                 }
             } else {
-                if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
-                    navigationController?.pushViewController(editProfileController, animated: true)
-                }
+                guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
+                navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
             }
         }
         else if settingTitle.settingsType == .userDashboard {
@@ -1868,14 +1874,20 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
 //          if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
 //                navigationController?.pushViewController(editProfileController, animated: true)
 //            }
-            if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
-                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
-                    navigationController?.pushViewController(contactWizardController, animated: true)
+            let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
+            if hasAllowAffiliate {
+                if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty, userImageURL != "undefined" {
+                    if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                        navigationController?.pushViewController(contactWizardController, animated: true)
+                    }
+                } else {
+                    if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+                        navigationController?.pushViewController(editProfileController, animated: true)
+                    }
                 }
             } else {
-                if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
-                    navigationController?.pushViewController(editProfileController, animated: true)
-                }
+                guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
+                navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
             }
         }
         else if settingTitle.settingsType == .userDashboard {
