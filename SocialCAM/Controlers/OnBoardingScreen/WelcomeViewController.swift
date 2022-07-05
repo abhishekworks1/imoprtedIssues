@@ -150,9 +150,7 @@ extension WelcomeViewController {
             self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
             self.setSubscriptionBadgeDetails()
-            if Defaults.shared.currentUser?.subscriptionStatus == "free" || Defaults.shared.currentUser?.subscriptionStatus == "trial" || Defaults.shared.currentUser?.subscriptionStatus == "expired" || {
-                self.checkIfWelcomeTimerAlertShownToday()
-            }
+            self.checkIfWelcomeTimerAlertShownToday()
 //            self.showWelcomeTimerAlert()
         }
     }

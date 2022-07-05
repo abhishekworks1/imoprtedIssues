@@ -72,13 +72,18 @@ class WelcomeTimerPopupViewController: UIViewController {
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
-            if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+            if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                showUpTimer(timerDate: timerDate)
+            } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
         } else if  subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
+        } else {
+            timerStackView.isHidden = true
+            upgradeNowButton.isHidden = true
         }
     }
     func showUpTimer(timerDate: Date){
@@ -108,11 +113,12 @@ class WelcomeTimerPopupViewController: UIViewController {
             self.dayValueLabel.text = String(format: "%01d", days)
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
                 if let diffDays = Defaults.shared.numberOfFreeTrialDays {
-                   let imageNumber = Int(diffDays)+1
+                    let imageNumber = Int(diffDays)
+                    print(imageNumber)
                     if imageNumber >= 1 && imageNumber <= 6 {
                         self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
                         self.setUpTimerViewForOtherDay()
-                    } else if imageNumber > 7 {
+                    } else if imageNumber >= 7 {
                         self.setUpTimerViewForSignupDay()
                     } else {
                         self.setImageForDays(days: "1", imageName: "freeOnboard")
@@ -123,7 +129,6 @@ class WelcomeTimerPopupViewController: UIViewController {
         }
     }
     func setSubscriptionMessageLabel() {
-//        if subscriptionType == .free {
 //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
                 if let diffDays = Defaults.shared.numberOfFreeTrialDays {
@@ -137,8 +142,9 @@ class WelcomeTimerPopupViewController: UIViewController {
                 subscriptionMessageLabel.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features." //"Your 7-day free trial period has expired. Upgrade now to access these features."
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
                 subscriptionMessageLabel.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+            } else {
+                subscriptionMessageLabel.text = ""
             }
-//        }
     }
     
     func setUpTimerViewForOtherDay() {

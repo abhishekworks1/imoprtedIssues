@@ -535,10 +535,12 @@ class SubscriptionsViewController: UIViewController {
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
-            if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+            if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                showUpTimer(timerDate: timerDate)
+            } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
-        } else if  subscriptionStatus == "expired" {
+        } else if subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }

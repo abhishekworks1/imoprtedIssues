@@ -81,6 +81,7 @@ class User: Codable, Mappable {
     var referralCode: String?
     var subscriptionStatus: String?
     var subscriptionEndDate: String?
+    var trialSubscriptionStartDateIOS: String?
     var dob: String?
     var freeTrialExpiry: String?
     var isTempSubscription: Bool?
@@ -168,6 +169,7 @@ class User: Codable, Mappable {
         isAdmin <- map["is_admin"]
         subscriptionStatus <- map["subscriptionStatus"]
         subscriptionEndDate <- map["subscriptionEndDate"]
+        trialSubscriptionStartDateIOS <- map["trialSubscriptionStartDateIOS"]
         if id == nil {
             id <- map["id"]
         }

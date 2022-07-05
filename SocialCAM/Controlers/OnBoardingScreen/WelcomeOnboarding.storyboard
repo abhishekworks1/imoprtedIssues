@@ -710,14 +710,16 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hr8-ib-Fea">
-                                <rect key="frame" x="173" y="432" width="67" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hr8-ib-Fea">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="closeAction:" destination="hbM-2M-n4l" eventType="touchUpInside" id="Wa3-Xe-gbR"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aRP-bx-rFQ">
-                                <rect key="frame" x="12" y="216" width="390" height="464"/>
+                                <rect key="frame" x="12" y="190" width="390" height="516"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kse-1A-FkW">
                                         <rect key="frame" x="352" y="7" width="30" height="30"/>
@@ -732,8 +734,8 @@
                                             <action selector="closeAction:" destination="hbM-2M-n4l" eventType="touchUpInside" id="QRL-VI-ZTA"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="FaF-1B-nrt">
-                                        <rect key="frame" x="12" y="45" width="366" height="389"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="FaF-1B-nrt">
+                                        <rect key="frame" x="12" y="45" width="366" height="441"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IgR-sF-Dcs">
                                                 <rect key="frame" x="183" y="0.0" width="0.0" height="0.0"/>
@@ -742,7 +744,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btc-SP-hcV">
-                                                <rect key="frame" x="101.5" y="12" width="163" height="163"/>
+                                                <rect key="frame" x="101.5" y="25" width="163" height="163"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="OF7-Sw-APm">
                                                         <rect key="frame" x="41.5" y="18" width="80" height="80"/>
@@ -779,7 +781,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3Om-pT-aRz">
-                                                <rect key="frame" x="7" y="187" width="352" height="72"/>
+                                                <rect key="frame" x="7" y="213" width="352" height="72"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQG-iT-MDg">
                                                         <rect key="frame" x="0.0" y="0.0" width="76" height="72"/>
@@ -788,7 +790,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="76" height="72"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="28" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAi-lm-Lrk">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAi-lm-Lrk">
                                                                 <rect key="frame" x="9" y="8" width="58" height="29"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -835,7 +837,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="76" height="72"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="28" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daB-Qn-6zz">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daB-Qn-6zz">
                                                                 <rect key="frame" x="9" y="8" width="58" height="29"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -882,7 +884,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="76" height="72"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="28" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sj5-oY-rV6">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sj5-oY-rV6">
                                                                 <rect key="frame" x="9" y="8" width="58" height="29"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -929,7 +931,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="76" height="72"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="28" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilr-lU-gJp">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilr-lU-gJp">
                                                                 <rect key="frame" x="9" y="8" width="58" height="29"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -974,20 +976,25 @@
                                                     <constraint firstAttribute="height" constant="72" id="mww-Sl-D4G"/>
                                                 </constraints>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip of the Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D58-le-NW7">
-                                                <rect key="frame" x="128" y="271" width="110" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IK0-i3-ikh">
-                                                <rect key="frame" x="0.0" y="303.5" width="366" height="33.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="pl7-z0-S9w">
+                                                <rect key="frame" x="0.0" y="310" width="366" height="66"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip of the Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D58-le-NW7">
+                                                        <rect key="frame" x="128" y="0.0" width="110" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IK0-i3-ikh">
+                                                        <rect key="frame" x="0.0" y="32.5" width="366" height="33.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-Mr-con">
-                                                <rect key="frame" x="83" y="349" width="200" height="40"/>
+                                                <rect key="frame" x="83" y="401" width="200" height="40"/>
                                                 <color key="backgroundColor" red="0.90731948610000002" green="0.94892472029999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="qBb-rK-Va6"/>
@@ -1041,11 +1048,15 @@
                         <constraints>
                             <constraint firstItem="aRP-bx-rFQ" firstAttribute="leading" secondItem="CtG-xF-fXn" secondAttribute="leading" constant="12" id="4q4-6i-uVl"/>
                             <constraint firstItem="CtG-xF-fXn" firstAttribute="trailing" secondItem="2Tg-hs-h8n" secondAttribute="trailing" id="9xN-ab-NFo"/>
+                            <constraint firstItem="CtG-xF-fXn" firstAttribute="bottom" secondItem="Hr8-ib-Fea" secondAttribute="bottom" id="Gq3-Vo-Meo"/>
                             <constraint firstItem="2Tg-hs-h8n" firstAttribute="top" secondItem="CtG-xF-fXn" secondAttribute="top" id="JbR-H8-Juy"/>
                             <constraint firstItem="2Tg-hs-h8n" firstAttribute="leading" secondItem="CtG-xF-fXn" secondAttribute="leading" id="NhZ-p5-cSQ"/>
+                            <constraint firstItem="Hr8-ib-Fea" firstAttribute="top" secondItem="CtG-xF-fXn" secondAttribute="top" id="TeU-vy-Psd"/>
                             <constraint firstItem="CtG-xF-fXn" firstAttribute="trailing" secondItem="aRP-bx-rFQ" secondAttribute="trailing" constant="12" id="YCF-t9-YUt"/>
                             <constraint firstItem="aRP-bx-rFQ" firstAttribute="centerY" secondItem="B5j-IO-udK" secondAttribute="centerY" id="f5D-Il-ND7"/>
                             <constraint firstItem="CtG-xF-fXn" firstAttribute="bottom" secondItem="2Tg-hs-h8n" secondAttribute="bottom" id="qXb-oR-Jrj"/>
+                            <constraint firstItem="CtG-xF-fXn" firstAttribute="trailing" secondItem="Hr8-ib-Fea" secondAttribute="trailing" id="uW7-uC-7Mn"/>
+                            <constraint firstItem="Hr8-ib-Fea" firstAttribute="leading" secondItem="CtG-xF-fXn" secondAttribute="leading" id="yTM-E8-zEf"/>
                         </constraints>
                     </view>
                     <connections>
