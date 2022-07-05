@@ -76,6 +76,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var socialShareView: UIView!
     @IBOutlet weak var businessDashboardView: UIView!
     
+    @IBOutlet weak var selectedShareTitleLabel: UILabel!
+    @IBOutlet weak var nocontactView: UIView!
+    @IBOutlet weak var lblnocontact: UILabel!
+    
     @IBOutlet weak var deleteContactConfirmationView: UIView!
     @IBOutlet weak var deleteContactDoNotShowButton: UIButton!
     @IBOutlet weak var filterOptionView: UIView!
@@ -800,7 +804,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)"
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)&sortBy=name&sortType=asc"
       //  &hide=\(hide)
        // let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source))&searchText=\("Na")&filterType=\(filter)&limit=\(limit)&page=\(page)"
         print("contact->\(path)")
@@ -851,11 +855,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.mobileContacts.append(contentsOf:contacts)
 
                     self.allmobileContacts = self.mobileContacts
-                    
+                    if self.mobileContacts.count == 0{
+                        self.lblCurrentFilter.text = ""
+                        self.nocontactView.isHidden = false
+                        self.lblnocontact.text = "No contacts found with that filter criteria."
+                    }else{
+                        self.nocontactView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
                 }else{
+                    if self.emailContacts.count == 0{
+                        self.lblCurrentFilter.text = ""
+                    }
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     
@@ -2058,6 +2071,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func didTapQuickTourButton(_ sender: UIButton) {
 
+        selectedShareTitleLabel.text = "Share your QuickCam QuickTour link"
         urlToShare = "https://quickcam.app/quick-tour"
         
         if isFromContactManager{
@@ -2074,6 +2088,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
         
+        selectedShareTitleLabel.text = "Share your QuickCam Referral Page link"
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }
@@ -2090,6 +2105,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapQuickStartButton(_ sender: Any) {
+        selectedShareTitleLabel.text = "Share your QuickCam QuickStart Referral Link"
         if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
            urlToShare = shareUrl
         }
