@@ -29,6 +29,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     
+    @IBOutlet weak var cutToggleImageView: UIImageView!
     @IBOutlet weak var segmentEditOptionButton: UIButton!
     @IBOutlet weak var segmentEditOptionView: UIStackView!
     @IBOutlet weak var rearrangedView: UIView! {
@@ -58,6 +59,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var rightSidePlayer: AVPlayer?
     var isScrubbingDidChange = false
     var remineTime = 0
+    var isCutToggle = false
     
     // MARK: - Public Properties
     var videoUrls: [StoryEditorMedia] = []
@@ -241,6 +243,18 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
         self.storyCollectionView.register(R.nib.imageCollectionViewCutCell)
         self.editStoryCollectionView.register(R.nib.imageCollectionViewCutCell)
     }
+    
+    
+    @IBAction func didTapCutToggleButton(_ sender: UIButton) {
+        if !isCutToggle {
+            cutToggleImageView.image = R.image.cutToggle()
+            isCutToggle = true
+        } else {
+            cutToggleImageView.image = R.image.cutToggle1()
+            isCutToggle = false
+        }
+    }
+    
     
     func getPosition(from time: CMTime, cell: ImageCollectionViewCutCell, index: IndexPath) -> CGFloat? {
         if let cell: ImageCollectionViewCutCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCutCell {
