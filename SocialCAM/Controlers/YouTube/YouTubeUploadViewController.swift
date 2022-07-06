@@ -29,7 +29,9 @@ class YouTubeUploadViewController: UIViewController {
     @IBOutlet weak var imgThumbnail: UIImageView!
     @IBOutlet weak var postSuccessPopupView: UIView!
     @IBOutlet weak var lblPostSuccess: UILabel!
+    @IBOutlet weak var loadingVideoUploadView: UIView!
     
+    @IBOutlet weak var spinnerImageView: UIImageView!
     let dropDownMenu = DropDown()
     var privacy: [String] =  ["Public", "Private", "Unlisted"]
     var channels: [Item] = []
@@ -83,6 +85,7 @@ class YouTubeUploadViewController: UIViewController {
         super.viewDidLoad()
         setupDefaultDropDown()
         IQKeyboardManager.shared.enableAutoToolbar = true
+        spinnerImageView.loadGif(asset: "Spinner")
         self.tagView.isMerge = true
         self.tagView.textField.placeholder = "#Hashtags"
         self.tagView.textField.returnKeyType = .done
@@ -195,10 +198,13 @@ class YouTubeUploadViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.pleaseSelectCategory())
             return
         }
-        let loadingView = LoadingView.instanceFromNib()
-        loadingView.loadingViewShow = true
-        loadingView.shouldCancelShow = true
-        loadingView.show(on: self.view)
+        
+        loadingVideoUploadView.isHidden = false
+//        let loadingView = LoadingView.instanceFromNib()
+//        loadingView.processingYourQuickieLabel.text = "Uploading your Quickie to YouTube"
+//        loadingView.loadingViewShow = true
+//        loadingView.shouldCancelShow = true
+//        loadingView.show(on: self.view)
         
         self.isUploading = true
         //Status
@@ -239,11 +245,11 @@ class YouTubeUploadViewController: UIViewController {
             }
             if isUpload ?? false {
                 self.isUploading = false
-                loadingView.hide()
+                self.loadingVideoUploadView.isHidden = true
                 self.showPostSuccessPopupView(isSuccess: true)
             } else {
                 self.isUploading = false
-                loadingView.hide()
+                self.loadingVideoUploadView.isHidden = true
                 self.showPostSuccessPopupView(isSuccess: false)
             }
         }
