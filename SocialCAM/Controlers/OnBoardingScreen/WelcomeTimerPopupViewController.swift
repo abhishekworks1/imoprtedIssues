@@ -24,8 +24,6 @@ class WelcomeTimerPopupViewController: UIViewController {
     @IBOutlet weak var freeModeHourImageView: UIImageView!
     @IBOutlet weak var freeModeMinImageView: UIImageView!
     @IBOutlet weak var freeModeSecImageView: UIImageView!
-    
-
     @IBOutlet weak var dayLineView: UIView!
     @IBOutlet weak var hourLineView: UIView!
     @IBOutlet weak var minLineView: UIView!
@@ -96,6 +94,7 @@ class WelcomeTimerPopupViewController: UIViewController {
             self.hourValueLabel.text = String(format: "%02d", hours)
             self.dayValueLabel.text = String(format: "%01d", days)
             self.setImageForDays(days: "1", imageName: "freeOnboard")
+            self.timerStackView.isHidden = false
         }
     }
     func showDownTimer(timerDate: Date){
@@ -122,7 +121,7 @@ class WelcomeTimerPopupViewController: UIViewController {
                     }
                 }
             }
-            
+            self.timerStackView.isHidden = false
         }
     }
     
@@ -146,7 +145,6 @@ class WelcomeTimerPopupViewController: UIViewController {
     }
     
     func setUpTimerViewForOtherDay() {
-        timerStackView.isHidden = false
         freeModeDayImageView.isHidden = false
         freeModeMinImageView.isHidden = false
         freeModeSecImageView.isHidden = false
@@ -162,7 +160,6 @@ class WelcomeTimerPopupViewController: UIViewController {
     }
     
     func setUpTimerViewForSignupDay() {
-        timerStackView.isHidden = false
         freeModeDayImageView.isHidden = true
         freeModeMinImageView.isHidden = true
         freeModeSecImageView.isHidden = true

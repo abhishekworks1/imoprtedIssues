@@ -44,6 +44,21 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var freeTrialView: UIView!
     @IBOutlet weak var timerLabel: UILabel!
     
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var timerStackView: UIStackView!
+    @IBOutlet weak var dayValueLabel: UILabel!
+    @IBOutlet weak var hourValueLabel: UILabel!
+    @IBOutlet weak var minValueLabel: UILabel!
+    @IBOutlet weak var secValueLabel: UILabel!
+    @IBOutlet weak var freeModeDayImageView: UIImageView!
+    @IBOutlet weak var freeModeHourImageView: UIImageView!
+    @IBOutlet weak var freeModeMinImageView: UIImageView!
+    @IBOutlet weak var freeModeSecImageView: UIImageView!
+    @IBOutlet weak var dayLineView: UIView!
+    @IBOutlet weak var hourLineView: UIView!
+    @IBOutlet weak var minLineView: UIView!
+    @IBOutlet weak var secLineView: UIView!
+    
     //    @IBOutlet weak var btnUpgrade: UIButton!
 //    @IBOutlet weak var lblYourCurrentPlan: UILabel!
 //    @IBOutlet weak var tableView: UITableView!
@@ -83,7 +98,7 @@ class SubscriptionsViewController: UIViewController {
         print(Defaults.shared.appMode)
         print("Defaults.shared.appMode")
         planActiveView.isHidden = true
-        timerLabel.isHidden = true
+        timerStackView.isHidden = true
         lblBadgeRemainingDays.text = ""
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
@@ -131,10 +146,6 @@ class SubscriptionsViewController: UIViewController {
         }
         setupFreeTrialView()
         setUpPriceTextForFreeScreen()
-        
-        if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
-            freeTrialView.isHidden = false
-        }
         tapGestureSetUp()
     }
     
@@ -528,15 +539,20 @@ class SubscriptionsViewController: UIViewController {
         }
         appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? -10 : -10
     }
+    
     func setTimer(){
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
+                self.messageLabel.isHidden = false
+                self.messageLabel.text = "Time remaining"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
-                showUpTimer(timerDate: timerDate)
+                self.messageLabel.isHidden = false
+                self.messageLabel.text = "Time since signing up"
+               showUpTimer(timerDate: timerDate)
             } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
@@ -544,77 +560,105 @@ class SubscriptionsViewController: UIViewController {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
+        } else {
+            timerStackView.isHidden = true
         }
     }
+    
     func showUpTimer(timerDate: Date){
-        timerLabel.isHidden = false
+       
         self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
             let days = countdown.day!
             let hours = countdown.hour!
             let minutes = countdown.minute!
             let seconds = countdown.second!
-            var displayTime = ""
-            if days > 0 {
-                displayTime = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-            } else if hours > 0 {
-                displayTime = String(format: "%02dh : %02dm : %02ds", hours, minutes, seconds)
-            } else if minutes > 0 {
-                displayTime = String(format: "%02dm : %02ds", minutes, seconds)
-            } else if seconds > 0 {
-                displayTime = String(format: "%02ds",seconds)
-            }
-            self.timerLabel.text = displayTime
+            self.secValueLabel.text = String(format: "%02d", seconds)
+            self.minValueLabel.text = String(format: "%02d", minutes)
+            self.hourValueLabel.text = String(format: "%02d", hours)
+            self.dayValueLabel.text = String(format: "%01d", days)
+            self.setImageForDays(days: "1", imageName: "freeOnboard")
+            self.timerStackView.isHidden = false
         }
     }
-    func showDownTimer(timerDate: Date){
-        timerLabel.isHidden = false
-        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: timerDate)
-            let days = countdown.day!
-            let hours = countdown.hour!
-            let minutes = countdown.minute!
-            let seconds = countdown.second!
-            var displayTime = ""
-            if days > 0 {
-                displayTime = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-            } else if hours > 0 {
-                displayTime = String(format: "%02dh : %02dm : %02ds", hours, minutes, seconds)
-            } else if minutes > 0 {
-                displayTime = String(format: "%02dm : %02ds", minutes, seconds)
-            } else if seconds > 0 {
-                displayTime = String(format: "%02ds",seconds)
-            }
-            self.timerLabel.text = displayTime
-        }
-    }
-  /*  func showTimer(createdDate: Date){
-        timerLabel.isHidden = false
-        var dateComponent = DateComponents()
-        dateComponent.day = 7
-        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
-            self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
-                let days = countdown.day!
-                let hours = countdown.hour!
-                let minutes = countdown.minute!
-                let seconds = countdown.second!
-                self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-            }
-        }
-    }
-    func showFreeTimer(createdDate: Date){
-        timerLabel.isHidden = false
-        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: createdDate, to: Date())
-            let days = countdown.day!
-            let hours = countdown.hour!
-            let minutes = countdown.minute!
-            let seconds = countdown.second!
-            self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-        }
-    } */
     
+    func showDownTimer(timerDate: Date){
+    self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+        let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: timerDate)
+        let days = countdown.day!
+        let hours = countdown.hour!
+        let minutes = countdown.minute!
+        let seconds = countdown.second!
+        self.secValueLabel.text = String(format: "%02d", seconds)
+        self.minValueLabel.text = String(format: "%02d", minutes)
+        self.hourValueLabel.text = String(format: "%02d", hours)
+        self.dayValueLabel.text = String(format: "%01d", days)
+        if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+            if let diffDays = Defaults.shared.numberOfFreeTrialDays {
+                let imageNumber = Int(diffDays)
+                if imageNumber >= 1 && imageNumber <= 6 {
+                    self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
+                    self.setUpTimerViewForOtherDay()
+                } else if imageNumber >= 7 {
+                    self.setUpTimerViewForSignupDay()
+                } else {
+                    self.setImageForDays(days: "1", imageName: "freeOnboard")
+                }
+            }
+        }
+        self.timerStackView.isHidden = false
+    }
+}
+
+    func setUpTimerViewForOtherDay() {
+        freeModeDayImageView.isHidden = false
+        freeModeMinImageView.isHidden = false
+        freeModeSecImageView.isHidden = false
+        freeModeHourImageView.isHidden = false
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
+        dayValueLabel.isHidden = false
+        hourValueLabel.isHidden = false
+        secValueLabel.isHidden = false
+        minValueLabel.isHidden = false
+    }
+    
+    func setUpTimerViewForSignupDay() {
+        freeModeDayImageView.isHidden = true
+        freeModeMinImageView.isHidden = true
+        freeModeSecImageView.isHidden = true
+        freeModeHourImageView.isHidden = true
+        dayLineView.isHidden = false
+        hourLineView.isHidden = false
+        minLineView.isHidden = false
+        secLineView.isHidden = false
+        dayValueLabel.isHidden = false
+        hourValueLabel.isHidden = false
+        secValueLabel.isHidden = false
+        minValueLabel.isHidden = false
+        setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
+    }
+    
+    func setImageForDays(days: String, imageName: String) {
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
+        freeModeDayImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeMinImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeSecImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeHourImageView.image = UIImage(named: "\(imageName)\(days)")
+    }
+    
+    func setUpLineIndicatorForSignupDay(lineColor: UIColor) {
+        hourLineView.backgroundColor = lineColor
+        minLineView.backgroundColor = lineColor
+        secLineView.backgroundColor = lineColor
+        dayLineView.backgroundColor = lineColor
+    }
+  
     private func setDowngradeButton() {
         switch Defaults.shared.appMode {
         case .free:
