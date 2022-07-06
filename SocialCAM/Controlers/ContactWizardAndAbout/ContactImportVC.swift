@@ -340,32 +340,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.lblCurrentFilter.text = "All"
     }
     func setupUIBasedOnUrlToShare() {
-        //        if let referralPage = Defaults.shared.currentUser?.referralPage {
-                    let image =  URL(string: urlToShare)?.qrImage(using: themeBlueColor, logo: logoImage)
-                    self.imageQrCode.image = image?.convert()
-        //        }
-        
-//        if let channelId = Defaults.shared.currentUser?.channelId {
+      
+        let image =  URL(string: urlToShare)?.qrImage(using: themeBlueColor, logo: logoImage)
+        self.imageQrCode.image = image?.convert()
+
         lblReferralLink.attributedText = NSAttributedString(string: urlToShare, attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue])
-//            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
-//        }
+
         setPreviewData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
 
-//        if pageNo == 4 {
-//            ContactPermission()
-//        }
-        
-
-        
         filterOptionView.isHidden = true
-      //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-      //  self.view.addGestureRecognizer(tap)
-      //  self.syncButtonClicked(sender:self.syncButton)
-      //  self.textMessageSelected(sender:self.textMessageButton)
+
         textMessageButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
         textMessageSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
         textMessageSeperatorViewHeight.constant = 3.0
@@ -378,6 +366,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     override func viewDidAppear(_ animated: Bool) {
+      
         if pageNo == 4{
             self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
         }
@@ -419,10 +408,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             contactPermitView.isHidden = true
             print("here")
             self.loadContacts(filter: self.filter) // Calling loadContacts methods
-//            self.getContactList()
-//            loadingView.hide()
+
             self.hideLoader()
-        case .denied, .notDetermined: //request permission
+        case .denied: //request permission
             CNContactStore().requestAccess(for: .contacts) { granted, error in
                 if granted {
                     //completionHandler(true)
@@ -439,6 +427,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }
+        case .notDetermined: //access contacts
+           
+            print("contact permission Determined")
+           
+            self.hideLoader()
         default: break
         }
     }
@@ -805,10 +798,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
         let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)&sortBy=name&sortType=asc"
-      //  &hide=\(hide)
-       // let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source))&searchText=\("Na")&filterType=\(filter)&limit=\(limit)&page=\(page)"
+
         print("contact->\(path)")
-       // let parameter : Parameters =  ["Content-Type": "application/json"]
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
                                        "deviceType": "1",
@@ -858,7 +849,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     if self.mobileContacts.count == 0{
                         self.lblCurrentFilter.text = ""
                         self.nocontactView.isHidden = false
-                        self.lblnocontact.text = "No contacts found with that filter criteria."
+                        
+                        if self.hasContactPermission() == false{
+                            self.lblnocontact.text = "Import Contacts"
+                        }else{
+                            self.lblnocontact.text = "No contacts found with that filter criteria."
+                        }
                     }else{
                         self.nocontactView.isHidden = true
                     }
@@ -866,12 +862,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.contactTableView.reloadData()
                     }
                 }else{
+                    
+                    self.allemailContactsForHide.append(contentsOf:contacts)
+                    self.emailContacts.append(contentsOf:contacts)
                     if self.emailContacts.count == 0{
                         self.lblCurrentFilter.text = ""
+                        self.nocontactView.isHidden = false
+                        
+                        if self.hasContactPermission() == false{
+                            self.lblnocontact.text = "Import Contacts"
+                        }else{
+                            self.lblnocontact.text = "No contacts found with that filter criteria."
+                        }
+                    }else{
+                        self.nocontactView.isHidden = true
                     }
-                    self.allemailContactsForHide.append(contentsOf:contacts)
-                    self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-                    
                     
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
