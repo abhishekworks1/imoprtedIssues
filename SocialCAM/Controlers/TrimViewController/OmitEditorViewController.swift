@@ -1087,59 +1087,85 @@ extension OmitEditorViewController {
         guard let button = sender as? UIButton else {
             return
         }
-        if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell  {
-            
-            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                return
-            }
-            
-//            let finaltime = endTime.seconds - startTime.seconds
-//            if finaltime >= 1.0 {
-//                doneView.alpha = 1
-//                doneView.isUserInteractionEnabled = true
-//                if #available(iOS 13.0, *) {
-//                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
-//                    doneLabel.textColor = UIColor.white
-//                }
-//            } else {
-//                doneView.alpha = 0.5
-//                doneView.isUserInteractionEnabled = false
-//                if #available(iOS 13.0, *) {
-//                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
-//                    doneLabel.textColor = UIColor.red
-//                }
-//            }
-            self.trimMultipleVideos(cell.trimmerView)
-            print("*************************")
-            print(self.combinedstoryEditorMedias.count)
-            print("*************************")
-            DispatchQueue.main.async {
-                if self.combinedstoryEditorMedias.count > 0 {
-                    self.registerCombineAllData(data: self.combinedstoryEditorMedias)
-                    let storySegment = StorySegment()
-                    for (index, _) in self.combinedstoryEditorMedias.enumerated() {
-                        for (indexSecond, _) in self.combinedstoryEditorMedias[index].enumerated() {
-                            guard let asset = self.currentCombineAsset(index: index, secondIndex: indexSecond) else {
-                                return
-                            }
-                            storySegment.addAsset(StoryAsset(asset: asset))
+        
+        if isCutToggle {
+            if let doneHandler = self.doneHandler, let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+                do {
+                    try Utils.time {
+                        guard let asset = currentAsset(index: self.currentPage) else {
+                            return
                         }
+                        let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
+                        
+                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                        
+                        self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
+                        var urls: [StoryEditorMedia] = []
+                        for video in self.storyEditorMedias {
+                            urls.append(video.first!)
+                        }
+                        doneHandler(urls)
                     }
-                    let thumbimage = UIImage.getThumbnailFrom(asset: storySegment.assetRepresentingSegments()) ?? UIImage()
-                    
-                    guard let tempFirstSegment = self.combinedstoryEditorMedias[0][0].copy() as? StoryEditorMedia else {
-                        return
+                } catch let error {
+                    print("💩 \(error)")
+                }
+            }
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell  {
+
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+
+    //            let finaltime = endTime.seconds - startTime.seconds
+    //            if finaltime >= 1.0 {
+    //                doneView.alpha = 1
+    //                doneView.isUserInteractionEnabled = true
+    //                if #available(iOS 13.0, *) {
+    //                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+    //                    doneLabel.textColor = UIColor.white
+    //                }
+    //            } else {
+    //                doneView.alpha = 0.5
+    //                doneView.isUserInteractionEnabled = false
+    //                if #available(iOS 13.0, *) {
+    //                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+    //                    doneLabel.textColor = UIColor.red
+    //                }
+    //            }
+                self.trimMultipleVideos(cell.trimmerView)
+                DispatchQueue.main.async {
+                    if self.combinedstoryEditorMedias.count > 0 {
+                        self.registerCombineAllData(data: self.combinedstoryEditorMedias)
+                        let storySegment = StorySegment()
+                        for (index, _) in self.combinedstoryEditorMedias.enumerated() {
+                            for (indexSecond, _) in self.combinedstoryEditorMedias[index].enumerated() {
+                                guard let asset = self.currentCombineAsset(index: index, secondIndex: indexSecond) else {
+                                    return
+                                }
+                                storySegment.addAsset(StoryAsset(asset: asset))
+                            }
+                        }
+                        let thumbimage = UIImage.getThumbnailFrom(asset: storySegment.assetRepresentingSegments()) ?? UIImage()
+                        
+                        guard let tempFirstSegment = self.combinedstoryEditorMedias[0][0].copy() as? StoryEditorMedia else {
+                            return
+                        }
+                        self.storyEditorMedias.removeAll()
+                        tempFirstSegment.type = .video(thumbimage, storySegment.assetRepresentingSegments())
+                        self.storyEditorMedias.append([tempFirstSegment])
+                        
+                        var urls: [StoryEditorMedia] = []
+                        for video in self.storyEditorMedias {
+                            urls.append(video.first!)
+                        }
+                        doneHandler(urls)
+                        self.navigationController?.popViewController(animated: true)
                     }
-                    self.storyEditorMedias.removeAll()
-                    tempFirstSegment.type = .video(thumbimage, storySegment.assetRepresentingSegments())
-                    self.storyEditorMedias.append([tempFirstSegment])
-                    
-                    var urls: [StoryEditorMedia] = []
-                    for video in self.storyEditorMedias {
-                        urls.append(video.first!)
-                    }
-                    doneHandler(urls)
-                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }
