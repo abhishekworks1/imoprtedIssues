@@ -64,6 +64,7 @@ enum SettingsMode: Int, Codable {
     case muteRecordingFastMotion
     case shareSetting
     case userDashboard
+    case quickstartGuide
     case notification
     case newSignupsNotificationSetting
     case newSubscriptionNotificationSetting
@@ -178,7 +179,10 @@ class StorySettings: Codable {
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions), */
+    
                                 [StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
@@ -361,6 +365,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
         
         StorySettings.storySettings = Defaults.shared.userStorySettings ?? StorySettings.storySettings
+        print(StorySettings.storySettings.first?.settingsType ?? "")
         self.settingsTableView.reloadData()
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
@@ -806,8 +811,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 cell.settingsName.alpha = 0.5
             }
             cell.onOffButton.isHidden = true
+        }else if settingTitle.settingsType == .quickstartGuide {
+            cell.socialImageView?.image = R.image.settings_QuickstartGuide()
         }else if settingTitle.settingsType == .userDashboard {
-            hideUnhideImgButton(cell, R.image.settings_Dashboard())
+            cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
             hideUnhideImgButton(cell, R.image.settings_EditProfileCard())
 //            cell.newBadgesImageView.isHidden = true//false
@@ -1099,6 +1106,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                  }
                  presentSafariBrowser(url: url)
              }
+        }else if settingTitle.settingsType == .quickstartGuide{
+           
+            if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
+                if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
+                    vc.showPopUpView = false
+                    Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+                    navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+          
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
@@ -1652,7 +1669,9 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         cell.newBadgesImageView.isHidden = true
         cell.notificationCountView.isHidden = true
         cell.socialImageView.image = nil
-        if settingTitle.settingsType == .userDashboard {
+        if settingTitle.settingsType == .quickstartGuide {
+            cell.socialImageView?.image = R.image.settings_QuickstartGuide()
+        }else if settingTitle.settingsType == .userDashboard {
             cell.socialImageView?.image = R.image.settings_Dashboard()
         }else if settingTitle.settingsType == .editProfileCard {
             cell.socialImageView?.image = R.image.settings_EditProfileCard()
@@ -1753,6 +1772,14 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                  }
                  presentSafariBrowser(url: url)
              }
+        }else if settingTitle.settingsType == .quickstartGuide{
+            if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
+                if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
+                    vc.showPopUpView = false
+                    Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+                    navigationController?.pushViewController(vc, animated: true)
+                }
+            }
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
