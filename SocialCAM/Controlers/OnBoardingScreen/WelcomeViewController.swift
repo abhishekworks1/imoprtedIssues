@@ -231,7 +231,7 @@ extension WelcomeViewController {
                                 self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                             } else {
                                 self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
-                                if fday + 1 == 6 {
+                                if fday + 1 == 7 {
                                     subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                                 } else {
                                     subscriptionDetailLabel.text = "You have \(fday + 1) days left on your free trial. Subscribe now and earn your subscription badge."
@@ -268,7 +268,7 @@ extension WelcomeViewController {
                                 setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
                             } else {
                                 self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
-                                if fday + 1 == 6 {
+                                if fday + 1 == 7 {
                                     subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                                 } else {
                                     subscriptionDetailLabel.text = "You have \(fday + 1) days left on your free trial. Subscribe now and earn your subscription badge."
