@@ -396,7 +396,7 @@ enum QuickStartOption: Int, CaseIterable {
             case .yourGoal:
                 return "Your Goal"
             case .potentialCalculator:
-                return "Potential Income Calculator"
+                return "Income Goal Calculator"
             }
             
         }
@@ -441,7 +441,7 @@ enum QuickStartOption: Int, CaseIterable {
                 <p>It depends on you and those you share QuickCam with.</p>
             </li>
             <li>
-                <p>We&apos;ve provided a Potential Income Calculator so you can set your goals and find out.</p>
+                <p>We&apos;ve provided a Income Goal Calculator so you can set your goals and find out.</p>
             </li>
             <li>
                 <p>Use the special effects to create fun and engaging videos to share online to get more referrals. The more referrals you have who subscribe, the more money you&apos;ll make.</p>
@@ -627,7 +627,7 @@ enum QuickStartOption: Int, CaseIterable {
 """            case .potentialCalculator:
                 return """
 <ul>
-<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">You can play with the Potential Income Calculator to see your potential monthly income.</span></li>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">You can play with the Income Goal Calculator to see your potential monthly income.</span></li>
 </ul>
 <p>&nbsp;</p>
 <ul>

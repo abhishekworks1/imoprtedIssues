@@ -196,7 +196,7 @@ class StorySettings: Codable {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                  StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.potentialIncomeCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),
+                                               settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),
                                  StorySettings(name: "",
                                                settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard),
                                StorySettings(name: "",
