@@ -37,6 +37,7 @@ class QuickStartOptionDetailViewController: UIViewController {
         if !selectedOption.hideTryNowButton {
             tryNowButton.isHidden = false
         }
+        tryNowButton.setTitle(!selectedOption.hideTryNowButton ? "Try Calculator Now" : "Try Now", for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
