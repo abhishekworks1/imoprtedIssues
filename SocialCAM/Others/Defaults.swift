@@ -243,6 +243,11 @@ class Defaults {
                         settings.insert(StorySettings(name: "",
                                                       settings: [StorySetting(name: R.string.localizable.potentialIncomeCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),at: 7)
                     }
+                    if !settings.contains(where: {$0.settingsType == .quickstartGuide})
+                    {
+                        settings.insert(StorySettings(name: "",
+                                                      settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide),at: 0)
+                    }
                     return settings
                 }
             }
