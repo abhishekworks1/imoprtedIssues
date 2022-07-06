@@ -454,7 +454,7 @@ class SubscriptionsViewController: UIViewController {
                     if diffDays == 0 {
                         lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
                     } else if diffDays > 0 {
-                        lblPrice.text = "You have \(diffDays + 1) days left on your free trial. Subscribe now and earn your subscription badge."
+                        lblPrice.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
                     }
                 }
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
