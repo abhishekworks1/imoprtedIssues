@@ -136,7 +136,7 @@ class SubscriptionContainerViewController: UIViewController {
 //                               showTimer(createdDate: createdDate)
 //                           }
                         } else {
-                            lbltrialDays.text = "You have \(fday) days left on your free trial."
+                            lbltrialDays.text = "You have \(fday + 1) days left on your free trial."
 //                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
 //                                showTimer(createdDate: createdDate)
 //                            }
