@@ -49,6 +49,7 @@ class WelcomeViewController: UIViewController {
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
+    let lastWelcomeTimerAlertDateKey = "lastWelcomeTimerAlertDate"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,7 +150,42 @@ extension WelcomeViewController {
             self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
             self.setSubscriptionBadgeDetails()
+//            self.checkIfWelcomeTimerAlertShownToday()
+            self.showWelcomeTimerAlert()
         }
+    }
+    
+    func checkIfWelcomeTimerAlertShownToday() {
+        if let lastAlertDate = UserDefaults.standard.object(forKey: lastWelcomeTimerAlertDateKey) as? Date {
+            if Calendar.current.isDateInToday(lastAlertDate) {
+                print("Alert was shown today!")
+            } else {
+                showWelcomeTimerAlert()
+            }
+        } else {
+            showWelcomeTimerAlert()
+        }
+    }
+
+    func showWelcomeTimerAlert() {
+        print("Need to show an alert today!")
+        UserDefaults.standard.set(Date(), forKey: lastWelcomeTimerAlertDateKey)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeTimerPopupViewController") as! WelcomeTimerPopupViewController
+//        vc.delegate = self
+        vc.providesPresentationContextTransitionStyle = true;
+        vc.definesPresentationContext = true;
+        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        vc.upgradeButtonAction = {
+            guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+            subscriptionVc.appMode = .professional
+            subscriptionVc.subscriptionType = .professional
+            subscriptionVc.isFromWelcomeScreen = true
+            self.navigationController?.isNavigationBarHidden = true
+            self.navigationController?.pushViewController(subscriptionVc, animated: true)
+        }
+        self.present(vc, animated: true, completion: nil)
+        
     }
 }
 

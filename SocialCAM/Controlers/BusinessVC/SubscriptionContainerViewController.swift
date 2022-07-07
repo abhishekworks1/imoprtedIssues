@@ -49,6 +49,20 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var subscribertypeLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
 
+    @IBOutlet weak var timerStackView: UIStackView!
+    @IBOutlet weak var dayValueLabel: UILabel!
+    @IBOutlet weak var hourValueLabel: UILabel!
+    @IBOutlet weak var minValueLabel: UILabel!
+    @IBOutlet weak var secValueLabel: UILabel!
+    @IBOutlet weak var freeModeDayImageView: UIImageView!
+    @IBOutlet weak var freeModeHourImageView: UIImageView!
+    @IBOutlet weak var freeModeMinImageView: UIImageView!
+    @IBOutlet weak var freeModeSecImageView: UIImageView!
+    @IBOutlet weak var dayLineView: UIView!
+    @IBOutlet weak var hourLineView: UIView!
+    @IBOutlet weak var minLineView: UIView!
+    @IBOutlet weak var secLineView: UIView!
+    
     // MARK: -
     // MARK: - Variables
     
@@ -73,20 +87,17 @@ class SubscriptionContainerViewController: UIViewController {
         viewDetailAdvancedView.isHidden = false
         viewDetailProView.isHidden = false
         
-        
         activeFreeView.isHidden = true
         activeBasicView.isHidden = true
         activeAdvancedView.isHidden = true
         activeProView.isHidden = true
-        
-     
-         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
         subscribertypeview.isHidden = true
         setSubscriptionBadgeDetails()
+        setSubscriptionMessageLabel()
         setSubscribeNowLabel()
         setTimer()
     }
@@ -105,7 +116,6 @@ class SubscriptionContainerViewController: UIViewController {
     }
     
     func setSubscriptionBadgeDetails(){
-        timerLabel.isHidden = true
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -121,31 +131,32 @@ class SubscriptionContainerViewController: UIViewController {
                     lblBadgeAdvanced.text = finalDay
                     lblBadgePro.text = finalDay
                    
-                    var fday = 0
-                    if let day = Int(finalDay) {
-                        if day <= 7 && day >= 0
-                        {
-                            fday = 7 - day
-                        }
-                    }
-                    lbltrialDays.text = ""
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                       if finalDay == "7" {
-                            lbltrialDays.text = "Today is the last day of your 7-day free trial"//. Upgrade now to access these features"
-//                           if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-//                               showTimer(createdDate: createdDate)
-//                           }
-                        } else {
-                            lbltrialDays.text = "You have \(fday + 1) days left on your free trial."
-//                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
-//                                showTimer(createdDate: createdDate)
-//                            }
-                        }
-                        if fday == 0 {
-                            lbltrialDays.text = ""
-                        }
-                    }
-                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+//                    var fday = 0
+//                    if let day = Int(finalDay) {
+//                        if day <= 7 && day >= 0
+//                        {
+//                            fday = 7 - day
+//                        }
+//                    }
+//                    lbltrialDays.text = ""
+//                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+//                       if finalDay == "7" {
+//                            lbltrialDays.text = "Today is the last day of your 7-day free trial"//. Upgrade now to access these features"
+////                           if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+////                               showTimer(createdDate: createdDate)
+////                           }
+//                        } else {
+//                            lbltrialDays.text = "You have \(fday) days left on your free trial."
+////                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
+////                                showTimer(createdDate: createdDate)
+////                            }
+//                        }
+//                        if fday == 0 {
+//                            lbltrialDays.text = ""
+//                        }
+//                    }
+//                    else
+                        if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         imageViewfreeShield.image = R.image.badgeIphoneFree()
 //                        lbltrialDays.text = ""
                         lblBadgeFree.text = ""
@@ -160,89 +171,136 @@ class SubscriptionContainerViewController: UIViewController {
             }
         }
     }
+    func setSubscriptionMessageLabel() {
+        //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
+                    if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+                        if let diffDays = Defaults.shared.numberOfFreeTrialDays {
+                            if diffDays == 0 {
+                                lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                            } else if diffDays > 0 {
+                                lbltrialDays.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                            }
+                        }
+                    } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
+                        lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features." //"Your 7-day free trial period has expired. Upgrade now to access these features."
+                    } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
+                        lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+                    } else {
+                        lbltrialDays.text = ""
+                    }
+            }
     func setTimer(){
+        timerStackView.isHidden = true
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
-            if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+            if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                showUpTimer(timerDate: timerDate)
+            } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
-        } else if  subscriptionStatus == "expired" {
+        } else if subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
+        } else {
+            timerStackView.isHidden = true
         }
     }
-    /*func showTimer(createdDate: Date){
-        timerLabel.isHidden = false
-        var dateComponent = DateComponents()
-        dateComponent.day = 7
-        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
-            self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
-                let days = countdown.day!
-                let hours = countdown.hour!
-                let minutes = countdown.minute!
-                let seconds = countdown.second!
-                self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-            }
-        }
-    }
-    func showFreeTimer(timerDate: Date){
-        timerLabel.isHidden = false
-        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
-            let days = countdown.day!
-            let hours = countdown.hour!
-            let minutes = countdown.minute!
-            let seconds = countdown.second!
-            self.timerLabel.text = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-        }
-    } */
     func showUpTimer(timerDate: Date){
-        timerLabel.isHidden = false
         self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
             let days = countdown.day!
             let hours = countdown.hour!
             let minutes = countdown.minute!
             let seconds = countdown.second!
-            var displayTime = ""
-            if days > 0 {
-                displayTime = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-            } else if hours > 0 {
-                displayTime = String(format: "%02dh : %02dm : %02ds", hours, minutes, seconds)
-            } else if minutes > 0 {
-                displayTime = String(format: "%02dm : %02ds", minutes, seconds)
-            } else if seconds > 0 {
-                displayTime = String(format: "%02ds",seconds)
-            }
-            self.timerLabel.text = displayTime
+            self.secValueLabel.text = String(format: "%02d", seconds)
+            self.minValueLabel.text = String(format: "%02d", minutes)
+            self.hourValueLabel.text = String(format: "%02d", hours)
+            self.dayValueLabel.text = String(format: "%01d", days)
+            self.setImageForDays(days: "1", imageName: "freeOnboard")
+            self.timerStackView.isHidden = false
         }
     }
+    
     func showDownTimer(timerDate: Date){
-        timerLabel.isHidden = false
-        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: timerDate)
-            let days = countdown.day!
-            let hours = countdown.hour!
-            let minutes = countdown.minute!
-            let seconds = countdown.second!
-            var displayTime = ""
-            if days > 0 {
-                displayTime = String(format: "%01dd : %02dh : %02dm : %02ds", days, hours, minutes, seconds)
-            } else if hours > 0 {
-                displayTime = String(format: "%02dh : %02dm : %02ds", hours, minutes, seconds)
-            } else if minutes > 0 {
-                displayTime = String(format: "%02dm : %02ds", minutes, seconds)
-            } else if seconds > 0 {
-                displayTime = String(format: "%02ds",seconds)
+    self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+        let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: timerDate)
+        let days = countdown.day!
+        let hours = countdown.hour!
+        let minutes = countdown.minute!
+        let seconds = countdown.second!
+        self.secValueLabel.text = String(format: "%02d", seconds)
+        self.minValueLabel.text = String(format: "%02d", minutes)
+        self.hourValueLabel.text = String(format: "%02d", hours)
+        self.dayValueLabel.text = String(format: "%01d", days)
+        if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+            if let diffDays = Defaults.shared.numberOfFreeTrialDays {
+                let imageNumber = Int(diffDays)
+                if imageNumber >= 1 && imageNumber <= 6 {
+                    self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
+                    self.setUpTimerViewForOtherDay()
+                } else if imageNumber >= 7 {
+                    self.setUpTimerViewForSignupDay()
+                } else {
+                    self.setImageForDays(days: "1", imageName: "freeOnboard")
+                }
             }
-            self.timerLabel.text = displayTime
         }
+        self.timerStackView.isHidden = false
+    }
+}
+
+    func setUpTimerViewForOtherDay() {
+        freeModeDayImageView.isHidden = false
+        freeModeMinImageView.isHidden = false
+        freeModeSecImageView.isHidden = false
+        freeModeHourImageView.isHidden = false
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
+        dayValueLabel.isHidden = false
+        hourValueLabel.isHidden = false
+        secValueLabel.isHidden = false
+        minValueLabel.isHidden = false
+    }
+    
+    func setUpTimerViewForSignupDay() {
+        freeModeDayImageView.isHidden = true
+        freeModeMinImageView.isHidden = true
+        freeModeSecImageView.isHidden = true
+        freeModeHourImageView.isHidden = true
+        dayLineView.isHidden = false
+        hourLineView.isHidden = false
+        minLineView.isHidden = false
+        secLineView.isHidden = false
+        dayValueLabel.isHidden = false
+        hourValueLabel.isHidden = false
+        secValueLabel.isHidden = false
+        minValueLabel.isHidden = false
+        setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
+    }
+    
+    func setImageForDays(days: String, imageName: String) {
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
+        freeModeDayImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeMinImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeSecImageView.image = UIImage(named: "\(imageName)\(days)")
+        freeModeHourImageView.image = UIImage(named: "\(imageName)\(days)")
+    }
+    
+    func setUpLineIndicatorForSignupDay(lineColor: UIColor) {
+        hourLineView.backgroundColor = lineColor
+        minLineView.backgroundColor = lineColor
+        secLineView.backgroundColor = lineColor
+        dayLineView.backgroundColor = lineColor
     }
     @IBAction func didTapPremiumButton(_ sender: UIButton) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
