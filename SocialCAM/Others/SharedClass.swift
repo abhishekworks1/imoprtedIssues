@@ -1389,21 +1389,21 @@ enum CalculatorType: String {
         case .potentialFollowers:
             return "Potential Followers"
         case .incomeOne:
-            return "Potential Income Calculator 1"
+            return "Income Goal Calculator 1"
         case .incomeTwo:
-            return "Potential Income Calculator 2"
+            return "Income Goal Calculator 2"
         case .incomeThree:
-            return "Potential Income Calculator 3"
+            return "Income Goal Calculator 3"
         case .incomeFour:
-            return "Potential Income Calculator 4"
+            return "Income Goal Calculator 4"
         case .liteIncomeOne:
-            return "Lite Potential Income Calculator 1"
+            return "Lite Income Goal Calculator 1"
         case .liteIncomeTwo:
-            return "Lite Potential Income Calculator 2"
+            return "Lite Income Goal Calculator 2"
         case .liteIncomeThree:
-            return "Lite Potential Income Calculator 3"
+            return "Lite Income Goal Calculator 3"
         case .liteIncomeFour:
-            return "Lite Potential Income Calculator 4"
+            return "Lite Income Goal Calculator 4"
         }
     }
 }

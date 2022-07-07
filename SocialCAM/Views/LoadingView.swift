@@ -78,6 +78,7 @@ public class LoadingView: UIView {
     @IBOutlet weak var lblTotalCount: UILabel!
     @IBOutlet weak var lblDescriptionText: UILabel!
     @IBOutlet weak var lblCompleted: UILabel!
+    @IBOutlet weak var processingYourQuickieLabel: UILabel!
     @IBOutlet weak var btnCancel: UIButton!
    
     public var completedExportTotal: String = "0 / 0"
@@ -187,6 +188,7 @@ public class LoadingView: UIView {
     
     override open func awakeFromNib() {
         super.awakeFromNib()
+        processingYourQuickieLabel.text = "Processing Your Quickie"
         setup()
     }
     

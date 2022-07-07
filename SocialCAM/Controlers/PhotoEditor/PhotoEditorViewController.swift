@@ -241,7 +241,7 @@ class PhotoEditorViewController: UIViewController {
     
     @IBOutlet weak var youtubeShareView: UIView!
     @IBOutlet weak var tiktokShareView: UIView!
-    
+    @IBOutlet weak var chingariShareView: UIView!
     // MARK: Variables
     
     var displayKeyframeImages: [KeyframeImage] = []

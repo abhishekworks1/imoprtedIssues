@@ -21,7 +21,7 @@ class AboutViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         //otherLink.dropShadow()
-        versionLbl.text = "\(Constant.Application.displayName) - 1.1.2(37.\(Constant.Application.appBuildNumber))"
+        versionLbl.text = "\(Constant.Application.displayName) - 1.1.2(38.\(Constant.Application.appBuildNumber))"
     }
     
     // MARK: - Button Methods

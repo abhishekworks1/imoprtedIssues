@@ -981,9 +981,11 @@ extension StoryEditorViewController {
     }
     
     @IBAction func shareOnMediaClicked(_ sender: UIButton) {
+        print("shareOnMediaClicked")
         playPauseButton.isSelected = false
         self.playPauseButtonClick(playPauseButton)
         self.socialMediaMainView.isHidden = false
+       
     
     }
     
