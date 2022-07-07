@@ -103,6 +103,7 @@ class UserSync {
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         request.responseDecodable(of: OnboardingUserFlagsResponse.self) {(resposnse) in
             Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = resposnse.value?.data?.ios_shouldDisplayQuickStartFirstOptionSelection ?? true
+            Defaults.shared.shouldDisplayTipOffDay = resposnse.value?.data?.ios_shouldDisplayTipOffDay ?? false
             if (resposnse.value?.data?.ios_quickstart_firstoption == "makemoney") {
                 Defaults.shared.selectedQuickStartOption = .makeMoney
             }
@@ -214,6 +215,8 @@ class UserSync {
             params["ios_quickstart_firstoption"] = "createcontent"
         }
         params["ios_shouldDisplayQuickStartFirstOptionSelection"] = Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+        params["ios_shouldDisplayTipOffDay"] =             Defaults.shared.shouldDisplayTipOffDay
+
         for option in Defaults.shared.makeMoneyOptions {
             if let option = QuickStartOption.MakeMoneyOption.init(rawValue: option) {
                 params[option.apiKey] = true
@@ -239,6 +242,7 @@ class UserSync {
 
         request.responseDecodable(of: OnboardingUserFlagsResponse.self) { resposnse in
             Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = resposnse.value?.data?.ios_shouldDisplayQuickStartFirstOptionSelection ?? true
+            Defaults.shared.shouldDisplayTipOffDay = resposnse.value?.data?.ios_shouldDisplayTipOffDay ?? false
             if (resposnse.value?.data?.ios_quickstart_firstoption == "makemoney") {
                 Defaults.shared.selectedQuickStartOption = .makeMoney
             }
@@ -248,7 +252,50 @@ class UserSync {
         }
     }
     
+    func getTipOfDay(completion: @escaping (_ tipOfDayResponse: TipOfDayResponse?) -> Void) {
+        let path = API.shared.baseUrlV2 + "quotes/tipofday"
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                       "userid": Defaults.shared.currentUser?.id ?? "",
+                                       "deviceType": "1",
+                                       "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: TipOfDayResponse.self) {(resposnse) in
+            Defaults.shared.tipOfDay = resposnse.value?.data?.content
+            completion(resposnse.value)
+        }
+
+    }
+    
 }
+
+class TipOfDayResponse: Codable {
+    
+    var message: String?
+    var success: Bool?
+    var data: TipOfDay?
+    
+    private enum CodingKeys: String, CodingKey {
+        case message = "message"
+        case success = "success"
+        case data = "data"
+    }
+    
+}
+
+class TipOfDay: Codable {
+    
+    var id: String?
+    var content: String?
+    var createdAt: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case content = "content"
+        case createdAt = "createdAt"
+    }
+    
+}
+
 
 class OnboardingUserFlagsResponse: Codable {
     
@@ -268,6 +315,7 @@ public struct OnboardingUserFlag: Codable {
     
     var id: String?
     var userId: String?
+    var ios_shouldDisplayTipOffDay: Bool?
     var ios_shouldDisplayQuickStartFirstOptionSelection: Bool?
     var ios_quickstart_firstoption: String?
     // Create Content
@@ -296,6 +344,7 @@ public struct OnboardingUserFlag: Codable {
     private enum CodingKeys: String, CodingKey {
         case id = "_id"
         case userId = "userId"
+        case ios_shouldDisplayTipOffDay = "ios_shouldDisplayTipOffDay"
         case ios_shouldDisplayQuickStartFirstOptionSelection = "ios_shouldDisplayQuickStartFirstOptionSelection"
         case ios_quickstart_firstoption = "ios_quickstart_firstoption"
 

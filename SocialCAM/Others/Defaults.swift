@@ -1394,6 +1394,24 @@ class Defaults {
         }
     }
     
+    var shouldDisplayTipOffDay: Bool {
+        get {
+            return (appDefaults?.value(forKey: "shouldDisplayTipOffDay") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "shouldDisplayTipOffDay")
+        }
+    }
+    
+    var tipOfDay: String? {
+        get {
+            return (appDefaults?.value(forKey: "tipOfDay") as? String) ?? ""
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "tipOfDay")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

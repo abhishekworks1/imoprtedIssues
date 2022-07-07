@@ -50,6 +50,12 @@ class WelcomeViewController: UIViewController {
             whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxInActive"), for: .normal)
         }
     }
+    @IBOutlet weak var tipOfTheDayLabel: UILabel!
+    @IBOutlet weak var tipOfTheDayView: UIView! {
+        didSet {
+            tipOfTheDayView.isHidden = true
+        }
+    }
 
     private var countdownTimer: Timer?
     var isTrialExpire = false
@@ -59,6 +65,10 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+        UserSync.shared.getTipOfDay { tip in
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+        }
         self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
         self.updateNowEventButton.setTitle("", for: .normal)
     }
@@ -148,8 +158,12 @@ extension WelcomeViewController {
         self.setSubscriptionBadgeDetails()
         
         UserSync.shared.syncUserModel { isCompleted in
+            self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
                 self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+                self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
+                Defaults.shared.shouldDisplayTipOffDay = true
+                UserSync.shared.setOnboardingUserFlags()
             }
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())

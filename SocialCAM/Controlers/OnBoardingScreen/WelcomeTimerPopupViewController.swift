@@ -40,6 +40,10 @@ class WelcomeTimerPopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+        UserSync.shared.getTipOfDay { tip in
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+        }
         setUpUI()
         setTimer()
         setSubscriptionMessageLabel()
