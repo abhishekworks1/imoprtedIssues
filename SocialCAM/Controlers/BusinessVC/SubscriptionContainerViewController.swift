@@ -174,9 +174,9 @@ class SubscriptionContainerViewController: UIViewController {
     func setSubscriptionMessageLabel() {
         //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
                     if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
-                        
+//                        got this data from sagar
 //                        diffDays -> in case of ongoing trial, we will get remaining days
-//                         diffDays -> in case of Paid subscription -> we will get remaining days, after subs is cancelled
+//                        diffDays -> in case of Paid subscription -> we will get remaining days, after subs is cancelled
                         if let diffDays = Defaults.shared.numberOfFreeTrialDays {
                             if diffDays == 1 {
                                 lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"

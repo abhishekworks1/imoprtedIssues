@@ -369,7 +369,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.settingsTableView.reloadData()
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
-            
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -1092,7 +1091,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-            //contactmanager
             if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
                 contactWizardController.isFromContactManager = true
                 navigationController?.pushViewController(contactWizardController, animated: true)
