@@ -246,12 +246,26 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     
     
     @IBAction func didTapCutToggleButton(_ sender: UIButton) {
-        if !isCutToggle {
-            cutToggleImageView.image = R.image.cutToggle()
-            isCutToggle = true
-        } else {
-            cutToggleImageView.image = R.image.cutToggle1()
-            isCutToggle = false
+        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
+            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                return
+            }
+            if !isCutToggle {
+                cutToggleImageView.image = R.image.cutToggle()
+                cell.trimmerView.trimView.backgroundColor = .clear
+                cell.trimmerView.leftMaskView.backgroundColor = ApplicationSettings.appWhiteColor
+                cell.trimmerView.leftMaskView.alpha = 0.7
+                cell.trimmerView.rightMaskView.backgroundColor = ApplicationSettings.appWhiteColor
+                cell.trimmerView.rightMaskView.alpha = 0.7
+                isCutToggle = true
+            } else {
+                cutToggleImageView.image = R.image.cutToggle1()
+                cell.trimmerView.trimView.backgroundColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.5)
+                cell.trimmerView.trimView.alpha = 1
+                cell.trimmerView.leftMaskView.backgroundColor = ApplicationSettings.appClearColor
+                cell.trimmerView.rightMaskView.backgroundColor = ApplicationSettings.appClearColor
+                isCutToggle = false
+            }
         }
     }
     
