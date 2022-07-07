@@ -174,15 +174,18 @@ class SubscriptionContainerViewController: UIViewController {
     func setSubscriptionMessageLabel() {
         //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
                     if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+                        
+//                        diffDays -> in case of ongoing trial, we will get remaining days
+//                         diffDays -> in case of Paid subscription -> we will get remaining days, after subs is cancelled
                         if let diffDays = Defaults.shared.numberOfFreeTrialDays {
-                            if diffDays == 0 {
+                            if diffDays == 1 {
                                 lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
-                            } else if diffDays > 0 {
+                            } else if diffDays > 1 {
                                 lbltrialDays.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
                             }
                         }
                     } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
-                        lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features." //"Your 7-day free trial period has expired. Upgrade now to access these features."
+                        lbltrialDays.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
                     } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
                         lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
                     } else {

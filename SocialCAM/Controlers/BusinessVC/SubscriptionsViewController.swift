@@ -131,7 +131,6 @@ class SubscriptionsViewController: UIViewController {
                 let numberOfFreeTrialDays = Defaults.shared.numberOfFreeTrialDays ?? 0
                 lblBadgeRemainingDays.text = numberOfFreeTrialDays > 0 ? "\(numberOfFreeTrialDays)" : ""
                 planActiveView.isHidden = false
-                //Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.
             }
         }
 //        if Defaults.shared.allowFullAccess == true {
@@ -462,14 +461,14 @@ class SubscriptionsViewController: UIViewController {
 //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
                 if let diffDays = Defaults.shared.numberOfFreeTrialDays {
-                    if diffDays == 0 {
+                    if diffDays == 1 {
                         lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
-                    } else if diffDays > 0 {
+                    } else if diffDays > 1 {
                         lblPrice.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
                     }
                 }
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
-                lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features." //"Your 7-day free trial period has expired. Upgrade now to access these features."
+                lblPrice.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
                 lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
             }
