@@ -24,11 +24,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <view key="tableHeaderView" contentMode="scaleToFill" id="oEA-wa-PEN">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="950"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="1050"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yCl-PW-vTI">
-                                                    <rect key="frame" x="0.0" y="-46" width="414" height="996"/>
+                                                    <rect key="frame" x="0.0" y="-46" width="414" height="1096"/>
                                                     <subviews>
                                                         <visualEffectView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNf-Io-FpA">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="770"/>
@@ -39,7 +39,7 @@
                                                             <blurEffect style="light"/>
                                                         </visualEffectView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNr-na-yHD">
-                                                            <rect key="frame" x="46" y="880" width="320" height="46"/>
+                                                            <rect key="frame" x="46" y="980" width="320" height="46"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="46" id="k5i-WV-BmJ"/>
@@ -88,7 +88,7 @@
                                                             <rect key="frame" x="-29" y="147" width="472" height="476"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bxM-NY-VEx">
-                                                                    <rect key="frame" x="20" y="20" width="432" height="436"/>
+                                                                    <rect key="frame" x="20" y="20" width="432" height="569"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refer_quickcam_logo" translatesAutoresizingMaskIntoConstraints="NO" id="4R3-0C-jyx">
                                                                             <rect key="frame" x="176" y="0.0" width="80" height="30"/>
@@ -96,21 +96,41 @@
                                                                                 <constraint firstAttribute="height" constant="30" id="ZDU-wV-6PC"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="d6A-Pi-8Px">
-                                                                            <rect key="frame" x="107.5" y="50" width="217" height="29"/>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="d6A-Pi-8Px">
+                                                                            <rect key="frame" x="46" y="50" width="340" height="162"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Welcome to QuickCam " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lnv-b5-gRT">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="217" height="24"/>
+                                                                                    <rect key="frame" x="61.5" y="0.0" width="217" height="24"/>
                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dcz-pF-MFe">
-                                                                                    <rect key="frame" x="108.5" y="29" width="0.0" height="0.0"/>
+                                                                                    <rect key="frame" x="170" y="29" width="0.0" height="0.0"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
+                                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b4g-0u-DW9">
+                                                                                    <rect key="frame" x="0.0" y="34" width="340" height="128"/>
+                                                                                    <subviews>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tip off the Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BgF-bO-dg1">
+                                                                                            <rect key="frame" x="8" y="8" width="110" height="20"/>
+                                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                                            <nil key="textColor"/>
+                                                                                            <nil key="highlightedColor"/>
+                                                                                        </label>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use TextShare as the fastest way to share the QuickCam opportunity" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qe0-sI-dZi">
+                                                                                            <rect key="frame" x="10" y="46" width="300" height="75"/>
+                                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                            <nil key="textColor"/>
+                                                                                            <nil key="highlightedColor"/>
+                                                                                        </label>
+                                                                                    </subviews>
+                                                                                    <color key="backgroundColor" red="0.87058823529411766" green="0.94117647058823528" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                </view>
                                                                             </subviews>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="85" id="Hoj-6E-gMs"/>
@@ -124,7 +144,7 @@
                                                                             </variation>
                                                                         </stackView>
                                                                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4i-xM-IlI">
-                                                                            <rect key="frame" x="0.0" y="99" width="432" height="337"/>
+                                                                            <rect key="frame" x="0.0" y="232" width="432" height="337"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqb-pj-Y48">
                                                                                     <rect key="frame" x="20" y="101.5" width="392" height="235.5"/>
@@ -446,7 +466,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZL-Ou-Xuk">
+                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZL-Ou-Xuk">
                                                             <rect key="frame" x="107" y="557" width="200" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="I72-Td-cT4"/>
@@ -459,7 +479,7 @@
                                                             </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-CT-dSx">
-                                                            <rect key="frame" x="0.0" y="686" width="414" height="310"/>
+                                                            <rect key="frame" x="0.0" y="786" width="414" height="310"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you want to see first?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gs3-Xv-CKX">
                                                                     <rect key="frame" x="5" y="5" width="404" height="26.5"/>
