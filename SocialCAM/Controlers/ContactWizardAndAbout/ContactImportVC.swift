@@ -404,7 +404,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.showLoader()
         switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
             
-        case .authorized: //access contacts
+        case .authorized,.notDetermined: //access contacts
             contactPermitView.isHidden = true
             print("here")
             self.loadContacts(filter: self.filter) // Calling loadContacts methods
@@ -427,11 +427,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }
-        case .notDetermined: //access contacts
-           
-            print("contact permission Determined")
-           
-            self.hideLoader()
         default: break
         }
     }
@@ -850,7 +845,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.lblCurrentFilter.text = ""
                         self.nocontactView.isHidden = false
                         
-                        if self.hasContactPermission() == false{
+                        if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             self.lblnocontact.text = "No contacts found with that filter criteria."
@@ -869,7 +864,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.lblCurrentFilter.text = ""
                         self.nocontactView.isHidden = false
                         
-                        if self.hasContactPermission() == false{
+                        if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             self.lblnocontact.text = "No contacts found with that filter criteria."

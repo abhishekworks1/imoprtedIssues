@@ -1337,7 +1337,7 @@ extension StoryCameraViewController {
         if let cameraPosition = Defaults.shared.cameraPosition {
             currentCameraPosition = AVCaptureDevice.Position(rawValue: cameraPosition == 0 ? 1 : cameraPosition) ?? .front
         } else {
-            currentCameraPosition = .front
+            currentCameraPosition = .back
             Defaults.shared.cameraPosition = currentCameraPosition.rawValue
         }
         self.setCameraPositionUI()
