@@ -226,16 +226,18 @@ class Defaults {
                 let decoder = JSONDecoder()
                 if var settings = try? decoder.decode([StorySettings].self, from: userStorySettings) {
                     for setting in settings {
-                        //update here if you change any name in StorySettingsVC.storySettings array
+                        //update here if you change any name in storySettings array
                         if setting.settingsType == .system {
                             setting.settings.first?.name = R.string.localizable.appSettings()
                         } else if setting.settingsType == .qrcode {
                             setting.settings.first?.name = R.string.localizable.qrCode()
                         } else if setting.settingsType == .help {
                             setting.settings.first?.name = R.string.localizable.howItWorks()
+                        } else if setting.settingsType == .potentialIncomeCalculator {
+                            setting.settings.first?.name = R.string.localizable.incomeGoalCalculator()
                         }
                     }
-                    //add here if you add/remove any object in StorySettingsVC.storySettings array
+                    //add here if you add/remove any object in storySettings array
                     if !settings.contains(where: {$0.settingsType == .contactManager})
                     {
                     //    settings.insert(StorySettings(name: "",settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
