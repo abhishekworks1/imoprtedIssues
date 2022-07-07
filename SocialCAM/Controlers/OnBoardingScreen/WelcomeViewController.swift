@@ -45,12 +45,18 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var profileHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var updateNowEventButton: UIButton!
     @IBOutlet weak var whatDoYouWantSeeView: UIView!
-    
+    @IBOutlet weak var whatDoYouWantSeeViewBoxButton: UIButton! {
+        didSet {
+            whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxInActive"), for: .normal)
+        }
+    }
+
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
     let lastWelcomeTimerAlertDateKey = "lastWelcomeTimerAlertDate"
-    
+    var isWhatDoYouWantSeeViewChecked = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
@@ -80,6 +86,16 @@ class WelcomeViewController: UIViewController {
         countdownTimer?.invalidate()
     }
     
+    @IBAction func whatDoYouWantSeeViewBoxOnClick(_ sender: Any) {
+        if isWhatDoYouWantSeeViewChecked {
+            isWhatDoYouWantSeeViewChecked = false
+            whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxInActive"), for: .normal)
+        } else {
+            isWhatDoYouWantSeeViewChecked = true
+            whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxActive"), for: .normal)
+        }
+    }
+    
     @IBAction func upgradeNowOnClick(_ sender: Any) {
         guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
         subscriptionVc.appMode = .professional
@@ -107,12 +123,14 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func makeMoneyOptionClicked(_ sender: Any) {
+        Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .makeMoney
         UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
     }
     
     @IBAction func createContentOptionClicked(_ sender: Any) {
+        Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .createContent
         UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
@@ -204,10 +222,10 @@ extension WelcomeViewController {
                 let hours = countdown.hour!
                 let minutes = countdown.minute!
                 let seconds = countdown.second!
-                self.secValueLabel.text = String(format: "%02ds", seconds)
-                self.minValueLabel.text = String(format: "%02dm", minutes)
-                self.hourValueLabel.text = String(format: "%02dh", hours)
-                self.dayValueLabel.text = String(format: "%01dd", days)
+                self.secValueLabel.text = String(format: "%02d", seconds)
+                self.minValueLabel.text = String(format: "%02d", minutes)
+                self.hourValueLabel.text = String(format: "%02d", hours)
+                self.dayValueLabel.text = String(format: "%01d", days)
             }
         }
     }

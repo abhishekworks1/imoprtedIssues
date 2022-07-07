@@ -102,7 +102,7 @@ class UserSync {
                                        "x-access-token": Defaults.shared.sessionToken ?? ""]
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         request.responseDecodable(of: OnboardingUserFlagsResponse.self) {(resposnse) in
-            Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = resposnse.value?.data?.ios_quickstart_firstoption == nil
+            Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = resposnse.value?.data?.ios_shouldDisplayQuickStartFirstOptionSelection ?? true
             if (resposnse.value?.data?.ios_quickstart_firstoption == "makemoney") {
                 Defaults.shared.selectedQuickStartOption = .makeMoney
             }
@@ -213,6 +213,7 @@ class UserSync {
         } else {
             params["ios_quickstart_firstoption"] = "createcontent"
         }
+        params["ios_shouldDisplayQuickStartFirstOptionSelection"] = Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
         for option in Defaults.shared.makeMoneyOptions {
             if let option = QuickStartOption.MakeMoneyOption.init(rawValue: option) {
                 params[option.apiKey] = true
@@ -237,7 +238,7 @@ class UserSync {
         let request = AF.request(path, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: OnboardingUserFlagsResponse.self) { resposnse in
-            Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = resposnse.value?.data?.ios_quickstart_firstoption == nil
+            Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = resposnse.value?.data?.ios_shouldDisplayQuickStartFirstOptionSelection ?? true
             if (resposnse.value?.data?.ios_quickstart_firstoption == "makemoney") {
                 Defaults.shared.selectedQuickStartOption = .makeMoney
             }
@@ -267,6 +268,7 @@ public struct OnboardingUserFlag: Codable {
     
     var id: String?
     var userId: String?
+    var ios_shouldDisplayQuickStartFirstOptionSelection: Bool?
     var ios_quickstart_firstoption: String?
     // Create Content
     var ios_createcontent_quickCamCamera: Bool?
@@ -294,6 +296,7 @@ public struct OnboardingUserFlag: Codable {
     private enum CodingKeys: String, CodingKey {
         case id = "_id"
         case userId = "userId"
+        case ios_shouldDisplayQuickStartFirstOptionSelection = "ios_shouldDisplayQuickStartFirstOptionSelection"
         case ios_quickstart_firstoption = "ios_quickstart_firstoption"
 
         case ios_createcontent_quickCamCamera = "ios_createcontent_quickCamCamera"
