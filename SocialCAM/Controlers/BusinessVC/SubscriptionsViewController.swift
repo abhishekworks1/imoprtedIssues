@@ -554,10 +554,14 @@ class SubscriptionsViewController: UIViewController {
                 self.messageLabel.text = "Time since signing up"
                showUpTimer(timerDate: timerDate)
             } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
+                self.messageLabel.isHidden = false
+                self.messageLabel.text = "Time since signing up"
                 showUpTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
+                self.messageLabel.isHidden = false
+                self.messageLabel.text = "Time since subscription ended"
                 showUpTimer(timerDate: timerDate)
             }
         } else {
@@ -566,7 +570,6 @@ class SubscriptionsViewController: UIViewController {
     }
     
     func showUpTimer(timerDate: Date){
-       
         self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
             let days = countdown.day!
