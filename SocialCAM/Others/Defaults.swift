@@ -226,14 +226,18 @@ class Defaults {
                 let decoder = JSONDecoder()
                 if var settings = try? decoder.decode([StorySettings].self, from: userStorySettings) {
                     for setting in settings {
+                        //update here if you change any name in storySettings array
                         if setting.settingsType == .system {
                             setting.settings.first?.name = R.string.localizable.appSettings()
                         } else if setting.settingsType == .qrcode {
                             setting.settings.first?.name = R.string.localizable.qrCode()
                         } else if setting.settingsType == .help {
                             setting.settings.first?.name = R.string.localizable.howItWorks()
+                        } else if setting.settingsType == .potentialIncomeCalculator {
+                            setting.settings.first?.name = R.string.localizable.incomeGoalCalculator()
                         }
                     }
+                    //add here if you add/remove any object in storySettings array
                     if !settings.contains(where: {$0.settingsType == .contactManager})
                     {
                     //    settings.insert(StorySettings(name: "",settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager),at: 5)
@@ -1383,10 +1387,28 @@ class Defaults {
     
     var shouldDisplayQuickStartFirstOptionSelection: Bool {
         get {
-            return (appDefaults?.value(forKey: "shouldDisplayQuickStartFirstOptionSelection") as? Bool) ?? false
+            return (appDefaults?.value(forKey: "shouldDisplayQuickStartFirstOptionSelectionV2") as? Bool) ?? true
         }
         set {
-            appDefaults?.set(newValue, forKey: "shouldDisplayQuickStartFirstOptionSelection")
+            appDefaults?.set(newValue, forKey: "shouldDisplayQuickStartFirstOptionSelectionV2")
+        }
+    }
+    
+    var shouldDisplayTipOffDay: Bool {
+        get {
+            return (appDefaults?.value(forKey: "shouldDisplayTipOffDay") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "shouldDisplayTipOffDay")
+        }
+    }
+    
+    var tipOfDay: String? {
+        get {
+            return (appDefaults?.value(forKey: "tipOfDay") as? String) ?? ""
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "tipOfDay")
         }
     }
     

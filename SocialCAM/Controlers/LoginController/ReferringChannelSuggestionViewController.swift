@@ -216,6 +216,7 @@ extension ReferringChannelSuggestionViewController {
             if response.status == ResponseType.success {
                 Defaults.shared.sessionToken = response.sessionToken
                 Defaults.shared.currentUser = response.result?.user
+//                Defaults.shared.userSubscription = response.result?.userSubscription
                 Defaults.shared.isRegistered = response.result?.isRegistered
                 Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
                 Defaults.shared.isPic2ArtShowed = response.result?.isRegistered

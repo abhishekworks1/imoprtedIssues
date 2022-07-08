@@ -45,13 +45,30 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var profileHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var updateNowEventButton: UIButton!
     @IBOutlet weak var whatDoYouWantSeeView: UIView!
-    
+    @IBOutlet weak var whatDoYouWantSeeViewBoxButton: UIButton! {
+        didSet {
+            whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxInActive"), for: .normal)
+        }
+    }
+    @IBOutlet weak var tipOfTheDayLabel: UILabel!
+    @IBOutlet weak var tipOfTheDayView: UIView! {
+        didSet {
+            tipOfTheDayView.isHidden = true
+        }
+    }
+
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
-    
+    let lastWelcomeTimerAlertDateKey = "lastWelcomeTimerAlertDate"
+    var isWhatDoYouWantSeeViewChecked = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+        UserSync.shared.getTipOfDay { tip in
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+        }
         self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
         self.updateNowEventButton.setTitle("", for: .normal)
     }
@@ -77,6 +94,16 @@ class WelcomeViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         countdownTimer?.invalidate()
+    }
+    
+    @IBAction func whatDoYouWantSeeViewBoxOnClick(_ sender: Any) {
+        if isWhatDoYouWantSeeViewChecked {
+            isWhatDoYouWantSeeViewChecked = false
+            whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxInActive"), for: .normal)
+        } else {
+            isWhatDoYouWantSeeViewChecked = true
+            whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxActive"), for: .normal)
+        }
     }
     
     @IBAction func upgradeNowOnClick(_ sender: Any) {
@@ -106,12 +133,14 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func makeMoneyOptionClicked(_ sender: Any) {
+        Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .makeMoney
         UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
     }
     
     @IBAction func createContentOptionClicked(_ sender: Any) {
+        Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .createContent
         UserSync.shared.setOnboardingUserFlags()
         openOnboarding()
@@ -126,11 +155,15 @@ extension WelcomeViewController {
         
         self.displayNameLabel.text = Defaults.shared.publicDisplayName
         self.checkTrailPeriodExpire()
-        self.setSubscriptionBadgeDetails()
+      //  self.setSubscriptionBadgeDetails()
         
         UserSync.shared.syncUserModel { isCompleted in
+            self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
                 self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+                self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
+                Defaults.shared.shouldDisplayTipOffDay = true
+                UserSync.shared.setOnboardingUserFlags()
             }
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
@@ -148,8 +181,44 @@ extension WelcomeViewController {
             }
             self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
-            self.setSubscriptionBadgeDetails()
+        //    self.setSubscriptionBadgeDetails()
+            self.checkIfWelcomeTimerAlertShownToday()
+//            self.showWelcomeTimerAlert()
+            self.getDays()
         }
+    }
+    
+    func checkIfWelcomeTimerAlertShownToday() {
+        if let lastAlertDate = UserDefaults.standard.object(forKey: lastWelcomeTimerAlertDateKey) as? Date {
+            if Calendar.current.isDateInToday(lastAlertDate) {
+                print("Alert was shown today!")
+            } else {
+                showWelcomeTimerAlert()
+            }
+        } else {
+            showWelcomeTimerAlert()
+        }
+    }
+
+    func showWelcomeTimerAlert() {
+        print("Need to show an alert today!")
+        UserDefaults.standard.set(Date(), forKey: lastWelcomeTimerAlertDateKey)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeTimerPopupViewController") as! WelcomeTimerPopupViewController
+//        vc.delegate = self
+        vc.providesPresentationContextTransitionStyle = true;
+        vc.definesPresentationContext = true;
+        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        vc.upgradeButtonAction = {
+            guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+            subscriptionVc.appMode = .professional
+            subscriptionVc.subscriptionType = .professional
+            subscriptionVc.isFromWelcomeScreen = true
+            self.navigationController?.isNavigationBarHidden = true
+            self.navigationController?.pushViewController(subscriptionVc, animated: true)
+        }
+        self.present(vc, animated: true, completion: nil)
+        
     }
 }
 
@@ -168,10 +237,10 @@ extension WelcomeViewController {
                 let hours = countdown.hour!
                 let minutes = countdown.minute!
                 let seconds = countdown.second!
-                self.secValueLabel.text = String(format: "%02ds", seconds)
-                self.minValueLabel.text = String(format: "%02dm", minutes)
-                self.hourValueLabel.text = String(format: "%02dh", hours)
-                self.dayValueLabel.text = String(format: "%01dd", days)
+                self.secValueLabel.text = String(format: "%02d", seconds)
+                self.minValueLabel.text = String(format: "%02d", minutes)
+                self.hourValueLabel.text = String(format: "%02d", hours)
+                self.dayValueLabel.text = String(format: "%01d", days)
             }
         }
     }
@@ -462,5 +531,125 @@ extension WelcomeViewController {
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
     }
 
+    
+}
+
+extension WelcomeViewController {
+    func getDays() {
+        timerStackView.isHidden = true
+        timeStackViewHeight.constant = 0
+        freeModeDayImageView.isHidden = true
+        freeModeMinImageView.isHidden = true
+        freeModeSecImageView.isHidden = true
+        freeModeHourImageView.isHidden = true
+       // checkNewTrailPeriodExpire()
+        var diffDays = 0
+        
+        if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+            var dateComponent = DateComponents()
+            dateComponent.day = 8
+            if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                diffDays = futureDate.days(from: Date())
+                print("\(Defaults.shared.currentUser?.trialSubscriptionStartDateIOS)daysss----\(diffDays)---\(futureDate)---\(timerDate)---\(Date())")
+                showNewTimer(createdDate: timerDate)
+                //
+                let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
+                self.showWelcomeData(subscriptionType: subscriptionType, daysLeft: diffDays)
+            }
+        } else {
+            
+        }
+    }
+    
+    func checkNewTrailPeriodExpire() {
+        if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+            var dateComponent = DateComponents()
+            dateComponent.day = 7
+            if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                let trailDate = futureDate.timeIntervalSince(Date())
+                self.isTrialExpire = trailDate.sign == .minus ? true : false
+            }
+        }
+    }
+    
+    func showNewTimer(createdDate: Date) {
+        timerStackView.isHidden = false
+        timeStackViewHeight.constant = 72
+        var dateComponent = DateComponents()
+        dateComponent.day = 7
+        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
+            self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
+                let days = countdown.day!
+                let hours = countdown.hour!
+                let minutes = countdown.minute!
+                let seconds = countdown.second!
+                self.secValueLabel.text = String(format: "%02d", seconds)
+                self.minValueLabel.text = String(format: "%02d", minutes)
+                self.hourValueLabel.text = String(format: "%02d", hours)
+                self.dayValueLabel.text = String(format: "%01d", days)
+            }
+        }
+    }
+    
+    func showWelcomeData(subscriptionType: String, daysLeft: Int) {
+        if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+            if daysLeft == 7 {
+                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+                self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+            } else if daysLeft == 0 || daysLeft < 0 {
+                subscriptionDetailLabel.text = "Your 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+                self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+            } else if daysLeft == 1 {
+                subscriptionDetailLabel.text = "Today is the last day of your 7-day free trial"
+                self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: subscriptionType)
+            } else {
+                self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+        } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+            subscriptionDetailLabel.text = "Your 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+            self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+        } else if subscriptionType == "expired" {
+            self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+            subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+        } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+            self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+            if daysLeft == 7 {
+                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                subscriptionDetailLabel.text = "Today is the last day of your 7-day free trial"
+            } else {
+                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+            self.subscribersHideTimer(subscriptionType: subscriptionType)
+        } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+            self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+            if daysLeft == 7 {
+                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                subscriptionDetailLabel.text = "Today is the last day of your 7-day free trial"
+            } else {
+                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+            self.subscribersHideTimer(subscriptionType: subscriptionType)
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
+            self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+            if daysLeft == 7 {
+                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                subscriptionDetailLabel.text = "Today is the last day of your 7-day free trial"
+            } else {
+                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+            self.subscribersHideTimer(subscriptionType: subscriptionType)
+        }
+    }
     
 }

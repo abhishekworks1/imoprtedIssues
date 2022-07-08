@@ -192,7 +192,6 @@ class StorySettings: Codable {
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
                                  StorySettings(name: "",
                                                settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
-                                
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                  StorySettings(name: "",
@@ -363,13 +362,10 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         StorySettings.storySettings = Defaults.shared.userStorySettings ?? StorySettings.storySettings
-        print(StorySettings.storySettings.first?.settingsType ?? "")
         self.settingsTableView.reloadData()
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
-            
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -1092,7 +1088,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
         } else if settingTitle.settingsType == .contactManager {
-            //contactmanager
             if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
                 contactWizardController.isFromContactManager = true
                 navigationController?.pushViewController(contactWizardController, animated: true)
