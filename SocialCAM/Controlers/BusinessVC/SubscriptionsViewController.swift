@@ -101,11 +101,17 @@ class SubscriptionsViewController: UIViewController {
         planActiveView.isHidden = true
         timerStackView.isHidden = true
         lblBadgeRemainingDays.text = ""
+        var subscriptionStatus = "free"
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            subscriptionStatus = paidSubscriptionStatus
+        } else if let subscriptionSts = Defaults.shared.currentUser?.subscriptionStatus {
+            subscriptionStatus = subscriptionSts
+        }
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Special Price: $1.99/month"
             subScriptionTypeLabel.text = "Basic"
-            if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+            if (subscriptionStatus.lowercased() == "basic"){
                 planActiveView.isHidden = false
             }
         }
@@ -113,7 +119,7 @@ class SubscriptionsViewController: UIViewController {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Special Price: $2.99/month"
             subScriptionTypeLabel.text = "Advanced"
-            if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
+            if (subscriptionStatus.lowercased() == "advance"){
                 planActiveView.isHidden = false
             }
         }
@@ -121,14 +127,13 @@ class SubscriptionsViewController: UIViewController {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Special Price: $4.99/month"
             subScriptionTypeLabel.text = "Premium"
-            if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            if (subscriptionStatus.lowercased() == "pro"){
                 planActiveView.isHidden = false
             }
         }else{
             lblPrice.text = "Free:  $0/month \n No subscription required"
             subScriptionTypeLabel.text = "Free"
-            if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
-               
+            if (subscriptionStatus.lowercased() == "trial"){
                 let numberOfFreeTrialDays = Defaults.shared.numberOfFreeTrialDays ?? 0
                 lblBadgeRemainingDays.text = numberOfFreeTrialDays > 0 ? "\(numberOfFreeTrialDays)" : ""
                 planActiveView.isHidden = false
@@ -437,18 +442,23 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .free {
 //            btnUpgrade.isHidden = true
         }
-     
-        if (Defaults.shared.subscriptionType?.lowercased() == "basic") || (Defaults.shared.subscriptionType?.lowercased() == "advance") || (Defaults.shared.subscriptionType?.lowercased() == "pro"){
-             upGradeButtonView.isHidden = true
+        var subscriptionStatus = "free"
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            subscriptionStatus = paidSubscriptionStatus
+        } else if let subscriptionSts = Defaults.shared.currentUser?.subscriptionStatus {
+            subscriptionStatus = subscriptionSts
+        }
+        if (subscriptionStatus == "basic") || (subscriptionStatus == "advance") || (subscriptionStatus == "pro"){
+            upGradeButtonView.isHidden = true
         }
         if appMode == .free{
             upGradeButtonView.isHidden = true
         }
-        if subscriptionType == .free {
-            if planActiveView.isHidden {
+//        if subscriptionType == .free {
+//            if planActiveView.isHidden {
                // upGradeButtonView.isHidden = false
-            }
-        }
+//            }
+//        }
     }
     func setupFreeTrialView(){
         freeTrialView.isHidden = true
