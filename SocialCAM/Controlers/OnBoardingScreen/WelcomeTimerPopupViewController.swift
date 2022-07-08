@@ -159,7 +159,7 @@ class WelcomeTimerPopupViewController: UIViewController {
                     if diffDays == 1 {
                         subscriptionMessageLabel.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
                     } else if diffDays > 1 {
-                        subscriptionMessageLabel.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                        subscriptionMessageLabel.text = "You have \(diffDays + 1) days left on your free trial. Subscribe now and earn your subscription badge."
                     }
                 }
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
