@@ -400,7 +400,7 @@ enum QuickStartOption: Int, CaseIterable {
             case .potentialCalculator:
                 return "Income Goal Calculator"
             case .quickCam:
-                return "QuickCam"
+                return "Who is QuickCam for?"
             }
             
         }
@@ -664,8 +664,6 @@ enum QuickStartOption: Int, CaseIterable {
 """
             case .quickCam:
                 return """
-<p><strong>Who is QuickCam for?</strong></p>
-<p>&nbsp;</p>
 <ul>
 <li><span style="font-weight: 400;">QuickCam is for anyone with a smartphone.</span></li>
 </ul>
