@@ -680,8 +680,9 @@ extension StoryCameraViewController {
         
         guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
         (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
+        (onBoardView.viewControllers.first as? OnBoardingViewController)?.fromNavigation = true
         Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
-        Utils.appDelegate?.window?.rootViewController = onBoardView
+        navigationController?.pushViewController((onBoardView.viewControllers.first as? OnBoardingViewController)!, animated: true)
 
 //        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
 //            blurView.isHidden = false

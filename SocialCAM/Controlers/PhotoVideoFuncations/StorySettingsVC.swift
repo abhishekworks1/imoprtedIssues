@@ -1106,6 +1106,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
                     vc.showPopUpView = false
+                    vc.fromNavigation = true
                     Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
                     navigationController?.pushViewController(vc, animated: true)
                 }
@@ -1778,6 +1779,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
                     vc.showPopUpView = false
                     Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+                    vc.fromNavigation = true
                     navigationController?.pushViewController(vc, animated: true)
                 }
             }

@@ -37,7 +37,15 @@ class QuickStartOptionDetailViewController: UIViewController {
         if !selectedOption.hideTryNowButton {
             tryNowButton.isHidden = false
         }
-        tryNowButton.setTitle(!selectedOption.hideTryNowButton ? "Try Calculator Now" : "Try Now", for: .normal)
+        if !selectedOption.hideTryNowButton {
+            tryNowButton.setTitle("Try Calculator Now", for: .normal)
+        } else {
+            if selectedQuickStartMenu == .createContent {
+                tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
+            } else {
+                tryNowButton.setTitle("Try Now", for: .normal)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

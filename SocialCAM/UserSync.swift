@@ -203,6 +203,10 @@ class UserSync {
             options.append(QuickStartOption.MakeMoneyOption.yourGoal.rawValue)
         }
         
+        if (resposnse?.data?.ios_makemoney_quickcam ?? false) {
+            options.append(QuickStartOption.MakeMoneyOption.quickCam.rawValue)
+        }
+        
         Defaults.shared.makeMoneyOptions = Array(Set(options))
 
     }
@@ -335,6 +339,7 @@ public struct OnboardingUserFlag: Codable {
     var ios_mobiledashboard_checkForUpdates: Bool?
     // Make Money
     var ios_makemoney_referralCommissionProgram: Bool?
+    var ios_makemoney_quickcam: Bool?
     var ios_makemoney_referralWizard: Bool?
     var ios_makemoney_contactManagerTools: Bool?
     var ios_makemoney_potentialCalculator: Bool?
@@ -364,6 +369,7 @@ public struct OnboardingUserFlag: Codable {
         case ios_mobiledashboard_checkForUpdates = "ios_mobiledashboard_checkForUpdates"
 
         case ios_makemoney_referralCommissionProgram = "ios_makemoney_referralCommissionProgram"
+        case ios_makemoney_quickcam = "ios_makemoney_quickcam"
         case ios_makemoney_referralWizard = "ios_makemoney_referralWizard"
         case ios_makemoney_contactManagerTools = "ios_makemoney_contactManagerTools"
         case ios_makemoney_potentialCalculator = "ios_makemoney_potentialCalculator"

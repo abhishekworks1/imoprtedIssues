@@ -380,6 +380,8 @@ enum QuickStartOption: Int, CaseIterable {
                 return "ios_makemoney_fundraising"
             case .yourGoal:
                 return "ios_makemoney_yourGoal"
+            case .quickCam:
+                return "ios_makemoney_quickcam"
             }
         }
         
@@ -397,6 +399,8 @@ enum QuickStartOption: Int, CaseIterable {
                 return "Your Goal"
             case .potentialCalculator:
                 return "Income Goal Calculator"
+            case .quickCam:
+                return "QuickCam"
             }
             
         }
@@ -658,6 +662,48 @@ enum QuickStartOption: Int, CaseIterable {
 <li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">With QuickCam, it's now possible to generate content that will attract other content creators, including big influencers with a large following.</span></li>
 </ul>
 """
+            case .quickCam:
+                return """
+<p><strong>Who is QuickCam for?</strong></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for anyone with a smartphone.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for people who want to create cool content.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for anyone who wants to make money on a ongoing monthly basis by referring QuickCam with powerful built-in referral tools.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for clubs, organizations, churches and non-profits who want to make money on a ongoing monthly basis for fundraising by referring QuickCam to members and supporters.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for beginners with little or no experience creating content as well as advanced content creators.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is great for moms, dads and family members creating memorable videos for family entertainment.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for those who are not in social media as well as seasoned users of social media.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for those who want to begin creating and sharing social media content.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-weight: 400;">QuickCam is for those who want to become influencers in social media.</span></li>
+<li>&nbsp;</li>
+<li><span style="font-weight: 400;">QuickCam is for social media influencers who want to become bigger influencers!</span></li>
+</ul>
+"""
             }
         }
         
@@ -674,6 +720,7 @@ enum QuickStartOption: Int, CaseIterable {
         }
 
         case referralCommissionProgram = 0
+        case quickCam
         case referralWizard
         case contactManagerTools
         case potentialCalculator
@@ -698,14 +745,17 @@ class OnBoardingViewController: UIViewController {
     @IBOutlet weak var createContentStackView: UIView!
     @IBOutlet weak var makeMoneyStackView: UIView!
     @IBOutlet weak var mobileDashboardStackView: UIView!
+    @IBOutlet weak var backButton: UIButton!
 
     var showPopUpView: Bool = false
     var shouldShowFoundingMemberView: Bool = true
     var previousSelectedQuickStartMenu: QuickStartOption = .createContent
     var previousDate = Date()
+    var fromNavigation: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        backButton.isHidden = !fromNavigation
         setupView()
         switch Defaults.shared.selectedQuickStartOption {
         case .makeMoney:
@@ -734,6 +784,10 @@ class OnBoardingViewController: UIViewController {
         for option in Defaults.shared.makeMoneyOptions {
             makeMoneyStepIndicatorView.finishedStep = option
         }
+    }
+    
+    @IBAction func backButtonClicked(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
 
     @IBAction func didTapMakeMoneyClick(_ sender: UIButton) {
