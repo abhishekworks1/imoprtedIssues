@@ -85,6 +85,7 @@ class SubscriptionsViewController: UIViewController {
     var isFreeTrialMode = false
     private var countdownTimer: Timer?
     var isFromWelcomeScreen: Bool = false
+    var onboardImageName = "free"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,11 +101,17 @@ class SubscriptionsViewController: UIViewController {
         planActiveView.isHidden = true
         timerStackView.isHidden = true
         lblBadgeRemainingDays.text = ""
+        var subscriptionStatus = "free"
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            subscriptionStatus = paidSubscriptionStatus
+        } else if let subscriptionSts = Defaults.shared.currentUser?.subscriptionStatus {
+            subscriptionStatus = subscriptionSts
+        }
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Special Price: $1.99/month"
             subScriptionTypeLabel.text = "Basic"
-            if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+            if (subscriptionStatus.lowercased() == "basic"){
                 planActiveView.isHidden = false
             }
         }
@@ -112,7 +119,7 @@ class SubscriptionsViewController: UIViewController {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Special Price: $2.99/month"
             subScriptionTypeLabel.text = "Advanced"
-            if (Defaults.shared.subscriptionType?.lowercased() == "advance"){
+            if (subscriptionStatus.lowercased() == "advance"){
                 planActiveView.isHidden = false
             }
         }
@@ -120,14 +127,13 @@ class SubscriptionsViewController: UIViewController {
             bindViewModel(appMode: appMode ?? .basic)
             lblPrice.text = "Early-Bird Special Price: $4.99/month"
             subScriptionTypeLabel.text = "Premium"
-            if (Defaults.shared.subscriptionType?.lowercased() == "pro"){
+            if (subscriptionStatus.lowercased() == "pro"){
                 planActiveView.isHidden = false
             }
         }else{
             lblPrice.text = "Free:  $0/month \n No subscription required"
             subScriptionTypeLabel.text = "Free"
-            if (Defaults.shared.subscriptionType?.lowercased() == "trial"){
-               
+            if (subscriptionStatus.lowercased() == "trial"){
                 let numberOfFreeTrialDays = Defaults.shared.numberOfFreeTrialDays ?? 0
                 lblBadgeRemainingDays.text = numberOfFreeTrialDays > 0 ? "\(numberOfFreeTrialDays)" : ""
                 planActiveView.isHidden = false
@@ -140,9 +146,10 @@ class SubscriptionsViewController: UIViewController {
 //        }
         
         setSubscriptionBadgeDetails()
-        if self.subscriptionType == .free {
+        setOnboardImageName()
+//        if self.subscriptionType == .free {
             setTimer()
-        }
+//        }
         setupFreeTrialView()
         setUpPriceTextForFreeScreen()
         tapGestureSetUp()
@@ -435,18 +442,23 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .free {
 //            btnUpgrade.isHidden = true
         }
-     
-        if (Defaults.shared.subscriptionType?.lowercased() == "basic") || (Defaults.shared.subscriptionType?.lowercased() == "advance") || (Defaults.shared.subscriptionType?.lowercased() == "pro"){
-             upGradeButtonView.isHidden = true
+        var subscriptionStatus = "free"
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            subscriptionStatus = paidSubscriptionStatus
+        } else if let subscriptionSts = Defaults.shared.currentUser?.subscriptionStatus {
+            subscriptionStatus = subscriptionSts
+        }
+        if (subscriptionStatus == "basic") || (subscriptionStatus == "advance") || (subscriptionStatus == "pro"){
+            upGradeButtonView.isHidden = true
         }
         if appMode == .free{
             upGradeButtonView.isHidden = true
         }
-        if subscriptionType == .free {
-            if planActiveView.isHidden {
+//        if subscriptionType == .free {
+//            if planActiveView.isHidden {
                // upGradeButtonView.isHidden = false
-            }
-        }
+//            }
+//        }
     }
     func setupFreeTrialView(){
         freeTrialView.isHidden = true
@@ -458,13 +470,18 @@ class SubscriptionsViewController: UIViewController {
     }
     func setUpPriceTextForFreeScreen() {
         if subscriptionType == .free {
-//            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
+            //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
-                if let diffDays = Defaults.shared.numberOfFreeTrialDays {
-                    if diffDays == 1 {
-                        lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
-                    } else if diffDays > 1 {
-                        lblPrice.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                    var dateComponent = DateComponents()
+                    dateComponent.day = 8
+                    if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                        var diffDays = futureDate.days(from: Date())
+                        if diffDays == 1 {
+                            lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                        } else if diffDays > 1 {
+                            lblPrice.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                        }
                     }
                 }
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
@@ -538,7 +555,28 @@ class SubscriptionsViewController: UIViewController {
         }
         appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? -10 : -10
     }
-    
+    func setOnboardImageName() {
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" {
+             onboardImageName = "basic"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "pro" {
+                onboardImageName = "premium"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "advance" {
+                onboardImageName = "advance"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                onboardImageName = "free"
+            } else {
+                onboardImageName = "free"
+            }
+        } else {
+            onboardImageName = "free"
+        }
+    }
     func setTimer(){
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
@@ -579,7 +617,7 @@ class SubscriptionsViewController: UIViewController {
             self.minValueLabel.text = String(format: "%02d", minutes)
             self.hourValueLabel.text = String(format: "%02d", hours)
             self.dayValueLabel.text = String(format: "%01d", days)
-            self.setImageForDays(days: "1", imageName: "freeOnboard")
+            self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
             self.timerStackView.isHidden = false
         }
     }
@@ -599,12 +637,12 @@ class SubscriptionsViewController: UIViewController {
             if let diffDays = Defaults.shared.numberOfFreeTrialDays {
                 let imageNumber = Int(diffDays)
                 if imageNumber >= 1 && imageNumber <= 6 {
-                    self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
+                    self.setImageForDays(days: "\(imageNumber)", imageName: "\(self.onboardImageName)Onboard")
                     self.setUpTimerViewForOtherDay()
                 } else if imageNumber >= 7 {
                     self.setUpTimerViewForSignupDay()
                 } else {
-                    self.setImageForDays(days: "1", imageName: "freeOnboard")
+                    self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
                 }
             }
         }
