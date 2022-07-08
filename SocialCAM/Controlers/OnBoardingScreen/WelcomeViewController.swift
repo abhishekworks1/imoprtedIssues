@@ -521,7 +521,7 @@ extension WelcomeViewController {
             let tipOftheDay = NSMutableAttributedString(string: "Tip of the Day\n", attributes: tipOftheDayAttributes)
             let tipText = NSMutableAttributedString(string: "Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income.", attributes: tipTextAttributes)
             tipOftheDay.append(tipText)
-            subscriptionDetailLabel.attributedText = tipOftheDay
+            subscriptionDetailLabel.text = ""
         }
     }
     
