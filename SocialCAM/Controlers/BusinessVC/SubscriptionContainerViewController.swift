@@ -429,7 +429,14 @@ class SubscriptionContainerViewController: UIViewController {
         subscriptionImgV.image = UIImage.init(named: imgStr)
     }
     func setSubscribeNowLabel() {
-        if (Defaults.shared.subscriptionType?.lowercased() == "basic"){
+        var subscriptionStatus = "free"
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            subscriptionStatus = paidSubscriptionStatus
+        } else if let subscriptionSts = Defaults.shared.currentUser?.subscriptionStatus {
+            subscriptionStatus = subscriptionSts
+        }
+            
+        if (subscriptionStatus.lowercased() == "basic"){
             viewDetailBasicView.isHidden = true
             activeBasicView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan Basic"
@@ -438,7 +445,7 @@ class SubscriptionContainerViewController: UIViewController {
             subscribertypeview.backgroundColor = UIColor(hexString:"C9B552")
             lbltrialDays.text = ""
 
-        }else if(Defaults.shared.subscriptionType?.lowercased() == "advance"){
+        }else if(subscriptionStatus.lowercased() == "advance"){
             viewDetailAdvancedView.isHidden = true
             activeAdvancedView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
@@ -446,7 +453,7 @@ class SubscriptionContainerViewController: UIViewController {
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"88A975")
             lbltrialDays.text = ""
-        }else if(Defaults.shared.subscriptionType?.lowercased() == "pro"){
+        }else if(subscriptionStatus.lowercased() == "pro"){
             viewDetailProView.isHidden = true
             activeProView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
