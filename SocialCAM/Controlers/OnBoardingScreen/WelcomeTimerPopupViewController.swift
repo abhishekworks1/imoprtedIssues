@@ -37,7 +37,7 @@ class WelcomeTimerPopupViewController: UIViewController {
     private var countdownTimer: Timer?
     
     var upgradeButtonAction:(()-> Void)?
-    
+    var onboardImageName = "free"
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
@@ -45,12 +45,15 @@ class WelcomeTimerPopupViewController: UIViewController {
             self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
         }
         setUpUI()
+        setOnboardImageName()
         setTimer()
         setSubscriptionMessageLabel()
+        setUpgradeButton()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         countdownTimer?.invalidate()
+        
     }
     func setUpUI() {
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
@@ -65,9 +68,30 @@ class WelcomeTimerPopupViewController: UIViewController {
         semiHalfView.layer.shadowRadius = 0
         semiHalfView.layer.masksToBounds = false
         semiHalfView.layer.cornerRadius = 81.5
-        
     }
-    func setTimer(){
+    func setOnboardImageName() {
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" {
+             onboardImageName = "basic"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "pro" {
+                onboardImageName = "premium"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "advance" {
+                onboardImageName = "advance"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                onboardImageName = "free"
+            } else {
+                onboardImageName = "free"
+            }
+        } else {
+            onboardImageName = "free"
+        }
+    }
+    func setTimer() {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
@@ -83,7 +107,6 @@ class WelcomeTimerPopupViewController: UIViewController {
             }
         } else {
             timerStackView.isHidden = true
-            upgradeNowButton.isHidden = true
         }
     }
     func showUpTimer(timerDate: Date){
@@ -97,7 +120,7 @@ class WelcomeTimerPopupViewController: UIViewController {
             self.minValueLabel.text = String(format: "%02d", minutes)
             self.hourValueLabel.text = String(format: "%02d", hours)
             self.dayValueLabel.text = String(format: "%01d", days)
-            self.setImageForDays(days: "1", imageName: "freeOnboard")
+            self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
             self.timerStackView.isHidden = false
         }
     }
@@ -116,12 +139,12 @@ class WelcomeTimerPopupViewController: UIViewController {
                 if let diffDays = Defaults.shared.numberOfFreeTrialDays {
                     let imageNumber = Int(diffDays)
                    if imageNumber >= 1 && imageNumber <= 6 {
-                        self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
+                        self.setImageForDays(days: "\(imageNumber)", imageName: "\(self.onboardImageName)Onboard")
                         self.setUpTimerViewForOtherDay()
                     } else if imageNumber >= 7 {
                         self.setUpTimerViewForSignupDay()
                     } else {
-                        self.setImageForDays(days: "1", imageName: "freeOnboard")
+                        self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
                     }
                 }
             }
@@ -146,6 +169,23 @@ class WelcomeTimerPopupViewController: UIViewController {
             } else {
                 subscriptionMessageLabel.text = ""
             }
+    }
+    
+    func setUpgradeButton() {
+        upgradeNowButton.isHidden = true
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" || paidSubscriptionStatus.lowercased() == "advance" || paidSubscriptionStatus.lowercased() == "pro" {
+                upgradeNowButton.isHidden = true
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                upgradeNowButton.isHidden = false
+            } else {
+                upgradeNowButton.isHidden = true
+            }
+        } else {
+            upgradeNowButton.isHidden = false
+        }
     }
     
     func setUpTimerViewForOtherDay() {

@@ -85,6 +85,7 @@ class SubscriptionsViewController: UIViewController {
     var isFreeTrialMode = false
     private var countdownTimer: Timer?
     var isFromWelcomeScreen: Bool = false
+    var onboardImageName = "free"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,9 +141,10 @@ class SubscriptionsViewController: UIViewController {
 //        }
         
         setSubscriptionBadgeDetails()
-        if self.subscriptionType == .free {
+        setOnboardImageName()
+//        if self.subscriptionType == .free {
             setTimer()
-        }
+//        }
         setupFreeTrialView()
         setUpPriceTextForFreeScreen()
         tapGestureSetUp()
@@ -538,7 +540,28 @@ class SubscriptionsViewController: UIViewController {
         }
         appleLogoCenterY.constant = (lblBadgeRemainingDays.text ?? "").trim.isEmpty ? -10 : -10
     }
-    
+    func setOnboardImageName() {
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" {
+             onboardImageName = "basic"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "pro" {
+                onboardImageName = "premium"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "advance" {
+                onboardImageName = "advance"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                onboardImageName = "free"
+            } else {
+                onboardImageName = "free"
+            }
+        } else {
+            onboardImageName = "free"
+        }
+    }
     func setTimer(){
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
@@ -579,7 +602,7 @@ class SubscriptionsViewController: UIViewController {
             self.minValueLabel.text = String(format: "%02d", minutes)
             self.hourValueLabel.text = String(format: "%02d", hours)
             self.dayValueLabel.text = String(format: "%01d", days)
-            self.setImageForDays(days: "1", imageName: "freeOnboard")
+            self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
             self.timerStackView.isHidden = false
         }
     }
@@ -599,12 +622,12 @@ class SubscriptionsViewController: UIViewController {
             if let diffDays = Defaults.shared.numberOfFreeTrialDays {
                 let imageNumber = Int(diffDays)
                 if imageNumber >= 1 && imageNumber <= 6 {
-                    self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
+                    self.setImageForDays(days: "\(imageNumber)", imageName: "\(self.onboardImageName)Onboard")
                     self.setUpTimerViewForOtherDay()
                 } else if imageNumber >= 7 {
                     self.setUpTimerViewForSignupDay()
                 } else {
-                    self.setImageForDays(days: "1", imageName: "freeOnboard")
+                    self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
                 }
             }
         }

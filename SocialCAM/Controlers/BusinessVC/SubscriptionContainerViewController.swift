@@ -72,6 +72,8 @@ class SubscriptionContainerViewController: UIViewController {
     private let indicatorWidthDividend: CGFloat = isLiteApp ? 2 : 4
     private var countdownTimer: Timer?
     var isFromWelcomeScreen: Bool = false
+    var onboardImageName = "free"
+    
     // MARK: -Delegate
     public weak var subscriptionDelegate: SubscriptionScreenDelegate?
     //
@@ -99,6 +101,7 @@ class SubscriptionContainerViewController: UIViewController {
         setSubscriptionBadgeDetails()
         setSubscriptionMessageLabel()
         setSubscribeNowLabel()
+        setOnboardImageName()
         setTimer()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -173,25 +176,47 @@ class SubscriptionContainerViewController: UIViewController {
     }
     func setSubscriptionMessageLabel() {
         //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
-                    if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
-//                        got this data from sagar
-//                        diffDays -> in case of ongoing trial, we will get remaining days
-//                        diffDays -> in case of Paid subscription -> we will get remaining days, after subs is cancelled
-                        if let diffDays = Defaults.shared.numberOfFreeTrialDays {
-                            if diffDays == 1 {
-                                lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
-                            } else if diffDays > 1 {
-                                lbltrialDays.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
-                            }
-                        }
-                    } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
-                        lbltrialDays.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
-                    } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
-                        lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
-                    } else {
-                        lbltrialDays.text = ""
-                    }
+        if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+            //                        got this data from sagar
+            //                        diffDays -> in case of ongoing trial, we will get remaining days
+            //                        diffDays -> in case of Paid subscription -> we will get remaining days, after subs is cancelled
+            if let diffDays = Defaults.shared.numberOfFreeTrialDays {
+                if diffDays == 1 {
+                    lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                } else if diffDays > 1 {
+                    lbltrialDays.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                }
             }
+        } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
+            lbltrialDays.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+        } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
+            lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+        } else {
+            lbltrialDays.text = ""
+        }
+    }
+    func setOnboardImageName() {
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" {
+             onboardImageName = "basic"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "pro" {
+                onboardImageName = "premium"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
+            } else if paidSubscriptionStatus.lowercased() == "advance" {
+                onboardImageName = "advance"
+                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                onboardImageName = "free"
+            } else {
+                onboardImageName = "free"
+            }
+        } else {
+            onboardImageName = "free"
+        }
+    }
     func setTimer(){
         timerStackView.isHidden = true
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
@@ -224,7 +249,7 @@ class SubscriptionContainerViewController: UIViewController {
             self.minValueLabel.text = String(format: "%02d", minutes)
             self.hourValueLabel.text = String(format: "%02d", hours)
             self.dayValueLabel.text = String(format: "%01d", days)
-            self.setImageForDays(days: "1", imageName: "freeOnboard")
+            self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
             self.timerStackView.isHidden = false
         }
     }
@@ -244,12 +269,12 @@ class SubscriptionContainerViewController: UIViewController {
             if let diffDays = Defaults.shared.numberOfFreeTrialDays {
                 let imageNumber = Int(diffDays)
                 if imageNumber >= 1 && imageNumber <= 6 {
-                    self.setImageForDays(days: "\(imageNumber)", imageName: "freeOnboard")
+                    self.setImageForDays(days: "\(imageNumber)", imageName: "\(self.onboardImageName)Onboard")
                     self.setUpTimerViewForOtherDay()
                 } else if imageNumber >= 7 {
                     self.setUpTimerViewForSignupDay()
                 } else {
-                    self.setImageForDays(days: "1", imageName: "freeOnboard")
+                    self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
                 }
             }
         }
