@@ -382,7 +382,7 @@ class StoryEditorViewController: UIViewController {
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
                 Defaults.shared.isRegistered = false
-                showEditTooltip()
+//                showEditTooltip()
             }
         }
         downloadViewGesture()
