@@ -1387,10 +1387,28 @@ class Defaults {
     
     var shouldDisplayQuickStartFirstOptionSelection: Bool {
         get {
-            return (appDefaults?.value(forKey: "shouldDisplayQuickStartFirstOptionSelection") as? Bool) ?? false
+            return (appDefaults?.value(forKey: "shouldDisplayQuickStartFirstOptionSelectionV2") as? Bool) ?? true
         }
         set {
-            appDefaults?.set(newValue, forKey: "shouldDisplayQuickStartFirstOptionSelection")
+            appDefaults?.set(newValue, forKey: "shouldDisplayQuickStartFirstOptionSelectionV2")
+        }
+    }
+    
+    var shouldDisplayTipOffDay: Bool {
+        get {
+            return (appDefaults?.value(forKey: "shouldDisplayTipOffDay") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "shouldDisplayTipOffDay")
+        }
+    }
+    
+    var tipOfDay: String? {
+        get {
+            return (appDefaults?.value(forKey: "tipOfDay") as? String) ?? ""
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "tipOfDay")
         }
     }
     
