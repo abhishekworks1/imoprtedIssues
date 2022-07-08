@@ -155,12 +155,17 @@ class WelcomeTimerPopupViewController: UIViewController {
     func setSubscriptionMessageLabel() {
 //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
-                if let diffDays = Defaults.shared.numberOfFreeTrialDays {
+                if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                    var dateComponent = DateComponents()
+                    dateComponent.day = 8
+                    if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                        var diffDays = futureDate.days(from: Date())
                     if diffDays == 1 {
                         subscriptionMessageLabel.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
                     } else if diffDays > 1 {
-                        subscriptionMessageLabel.text = "You have \(diffDays + 1) days left on your free trial. Subscribe now and earn your subscription badge."
+                        subscriptionMessageLabel.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
                     }
+                }
                 }
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
                 subscriptionMessageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."

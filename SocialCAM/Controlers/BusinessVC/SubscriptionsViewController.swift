@@ -470,13 +470,18 @@ class SubscriptionsViewController: UIViewController {
     }
     func setUpPriceTextForFreeScreen() {
         if subscriptionType == .free {
-//            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
+            //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
-                if let diffDays = Defaults.shared.numberOfFreeTrialDays {
-                    if diffDays == 1 {
-                        lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
-                    } else if diffDays > 1 {
-                        lblPrice.text = "You have \(diffDays + 1) days left on your free trial. Subscribe now and earn your subscription badge."
+                if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                    var dateComponent = DateComponents()
+                    dateComponent.day = 8
+                    if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                        var diffDays = futureDate.days(from: Date())
+                        if diffDays == 1 {
+                            lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                        } else if diffDays > 1 {
+                            lblPrice.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                        }
                     }
                 }
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
