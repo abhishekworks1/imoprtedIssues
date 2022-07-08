@@ -156,7 +156,7 @@ extension WelcomeViewController {
         self.displayNameLabel.text = Defaults.shared.publicDisplayName
         self.checkTrailPeriodExpire()
       //  self.setSubscriptionBadgeDetails()
-        
+        self.getDays()
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
@@ -182,8 +182,8 @@ extension WelcomeViewController {
             self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
         //    self.setSubscriptionBadgeDetails()
-//            self.checkIfWelcomeTimerAlertShownToday()
-            self.showWelcomeTimerAlert()
+            self.checkIfWelcomeTimerAlertShownToday()
+           // self.showWelcomeTimerAlert()
             self.getDays()
         }
     }
