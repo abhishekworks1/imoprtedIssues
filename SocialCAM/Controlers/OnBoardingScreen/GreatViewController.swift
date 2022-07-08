@@ -138,10 +138,12 @@ extension GreatViewController {
 extension GreatViewController {
     func setupUser() {
         checkTrailPeriodExpire()
-        self.setSubscriptionBadgeDetails()
+        self.getDays()
+        //self.setSubscriptionBadgeDetails()
         UserSync.shared.syncUserModel { isCompleted in
             self.checkTrailPeriodExpire()
-            self.setSubscriptionBadgeDetails()
+            //self.setSubscriptionBadgeDetails()
+            self.getDays()
         }
     }
     
@@ -325,14 +327,14 @@ extension GreatViewController {
     
     func setUpTimerViewForOtherDay() {
         timerStackView.isHidden = false
-        freeModeDayImageView.isHidden = true
-        freeModeMinImageView.isHidden = true
-        freeModeSecImageView.isHidden = true
-        freeModeHourImageView.isHidden = true
-        dayLineView.isHidden = false
-        hourLineView.isHidden = false
-        minLineView.isHidden = false
-        secLineView.isHidden = false
+        freeModeDayImageView.isHidden = false
+        freeModeMinImageView.isHidden = false
+        freeModeSecImageView.isHidden = false
+        freeModeHourImageView.isHidden = false
+        dayLineView.isHidden = true
+        hourLineView.isHidden = true
+        minLineView.isHidden = true
+        secLineView.isHidden = true
         dayLabel.isHidden = false
         hourLabel.isHidden = false
         minLabel.isHidden = false
@@ -399,6 +401,129 @@ extension GreatViewController {
         timerStackView.isHidden = true
         self.upgradeNowButton.isHidden = true
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
+    }
+    
+}
+
+extension GreatViewController {
+    func getDays() {
+        timerStackView.isHidden = true
+        freeModeDayImageView.isHidden = true
+        freeModeMinImageView.isHidden = true
+        freeModeSecImageView.isHidden = true
+        freeModeHourImageView.isHidden = true
+       // checkNewTrailPeriodExpire()
+        var diffDays = 0
+        
+        if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+            var dateComponent = DateComponents()
+            dateComponent.day = 8
+            if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                diffDays = futureDate.days(from: Date())
+                print("\(Defaults.shared.currentUser?.trialSubscriptionStartDateIOS)daysss----\(diffDays)---\(futureDate)---\(timerDate)---\(Date())----\(Defaults.shared.currentUser!.subscriptionStatus)")
+                showNewTimer(createdDate: timerDate)
+                //
+                let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
+                self.showWelcomeData(subscriptionType: subscriptionType, daysLeft: diffDays)
+            }
+        } else {
+            
+        }
+    }
+    
+    func checkNewTrailPeriodExpire() {
+        if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+            var dateComponent = DateComponents()
+            dateComponent.day = 7
+            if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                let trailDate = futureDate.timeIntervalSince(Date())
+                self.isTrialExpire = trailDate.sign == .minus ? true : false
+            }
+        }
+    }
+    
+    func showNewTimer(createdDate: Date) {
+        timerStackView.isHidden = false
+        var dateComponent = DateComponents()
+        dateComponent.day = 7
+        if let futureDate = Calendar.current.date(byAdding: dateComponent, to: createdDate) {
+            self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: futureDate)
+                let days = countdown.day!
+                let hours = countdown.hour!
+                let minutes = countdown.minute!
+                let seconds = countdown.second!
+                self.secValueLabel.text = String(format: "%02d", seconds)
+                self.minValueLabel.text = String(format: "%02d", minutes)
+                self.hourValueLabel.text = String(format: "%02d", hours)
+                self.dayValueLabel.text = String(format: "%01d", days)
+            }
+        }
+    }
+    
+    func showWelcomeData(subscriptionType: String, daysLeft: Int) {
+        if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+            var originalSubscriptionType = subscriptionType
+            if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                originalSubscriptionType = paidSubscriptionStatus
+            }
+            print("----o \(originalSubscriptionType)")
+            if daysLeft == 7 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+                self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
+            } else if daysLeft == 0 || daysLeft < 0 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+                self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: originalSubscriptionType)
+            } else if daysLeft == 1 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+                self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: originalSubscriptionType)
+            } else {
+                self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+        } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+            self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+        } else if subscriptionType == "expired" {
+            self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+        } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+            self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+            if daysLeft == 7 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+            } else {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+            self.subscribersHideTimer(subscriptionType: subscriptionType)
+        } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+            self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+            if daysLeft == 7 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+            } else {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+            self.subscribersHideTimer(subscriptionType: subscriptionType)
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
+            self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
+            if daysLeft == 7 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+            } else {
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+            }
+            self.subscribersHideTimer(subscriptionType: subscriptionType)
+        }
     }
     
 }

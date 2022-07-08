@@ -650,6 +650,7 @@ extension StoryCameraViewController {
                 self.updateProgress()
                 if self.takenVideoUrls.isEmpty {
                     self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+                    recordingTimeStackView.isHidden = true
                 }
             } else {
                 discardAllSegmentView.isHidden = false

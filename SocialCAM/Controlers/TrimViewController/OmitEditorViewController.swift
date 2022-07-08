@@ -235,7 +235,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
         }
         removeObserveState()
     }
-    
+                                                                                                      
     fileprivate func setupLayout() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.storyCollectionView.register(R.nib.imageCollectionViewCutCell)
