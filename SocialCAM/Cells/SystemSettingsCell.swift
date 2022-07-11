@@ -26,7 +26,7 @@ enum SystemSettingType {
 }
 
 enum OnboardingReferral: String {
-    case QuickMenu = "Quick Menu"
+    case QuickMenu = "QuickStart Guide"
     case QuickCamera    = "QuickCam Camera"
     case MobileDashboard        = "Mobile Dashboard"
     
@@ -104,7 +104,7 @@ class SystemSettingsCell: UITableViewCell {
                 selectButtonLeadingConstraint?.constant = -11
                 btnSelectShowAllPopup.isHidden = true
             } else if systemSettingType == .quickMenu {
-                title.text = "Quick Menu"
+                title.text = "QuickStart Guide"
                 selectButtonLeadingConstraint?.constant = 30
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)

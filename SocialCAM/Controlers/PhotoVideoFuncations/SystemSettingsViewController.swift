@@ -26,7 +26,7 @@ class SystemSettings {
 
         StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
 
-        StorySettings(name: "", settings: [StorySetting(name: "Quick Menu", selected: false)], settingsType: .quickMenu),
+        StorySettings(name: "", settings: [StorySetting(name: "QuickStart Guide", selected: false)], settingsType: .quickMenu),
 
         StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
 
