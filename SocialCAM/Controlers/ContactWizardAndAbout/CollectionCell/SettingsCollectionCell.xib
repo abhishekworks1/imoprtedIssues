@@ -52,24 +52,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7D-vm-SIX">
                                 <rect key="frame" x="65" y="12" width="91" height="30"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-1f-bzZ">
-                                        <rect key="frame" x="3.5" y="0.0" width="84" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="2.5" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-1f-bzZ">
+                                        <rect key="frame" x="5.5" y="0.0" width="80" height="30"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7D-sE-QXK" userLabel="Android Badge">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="iiO-RH-3Me">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
                                                     </imageView>
                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="9oP-Nl-Gzc">
-                                                        <rect key="frame" x="5" y="5" width="20" height="20"/>
+                                                        <rect key="frame" x="2.5" y="5" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="iwy-Pj-9XK"/>
                                                             <constraint firstAttribute="height" constant="20" id="l87-9A-Jjv"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYT-cB-E0d">
-                                                        <rect key="frame" x="12.5" y="16" width="5" height="10"/>
+                                                        <rect key="frame" x="10" y="16" width="5" height="10"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -80,7 +80,7 @@
                                                     <constraint firstItem="9oP-Nl-Gzc" firstAttribute="centerX" secondItem="x7D-sE-QXK" secondAttribute="centerX" id="FXr-Dc-L34"/>
                                                     <constraint firstItem="SYT-cB-E0d" firstAttribute="centerX" secondItem="x7D-sE-QXK" secondAttribute="centerX" id="IDJ-aQ-K1U"/>
                                                     <constraint firstItem="iiO-RH-3Me" firstAttribute="leading" secondItem="x7D-sE-QXK" secondAttribute="leading" id="JCc-GT-kav"/>
-                                                    <constraint firstAttribute="width" constant="30" id="KZH-xm-MKv"/>
+                                                    <constraint firstAttribute="width" constant="25" id="KZH-xm-MKv"/>
                                                     <constraint firstItem="iiO-RH-3Me" firstAttribute="top" secondItem="x7D-sE-QXK" secondAttribute="top" id="NH4-Uk-lHX"/>
                                                     <constraint firstAttribute="bottom" secondItem="iiO-RH-3Me" secondAttribute="bottom" id="X7j-mK-nNd"/>
                                                     <constraint firstItem="SYT-cB-E0d" firstAttribute="centerY" secondItem="x7D-sE-QXK" secondAttribute="centerY" constant="6" id="Ydg-S2-n6u"/>
@@ -89,20 +89,20 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEa-vj-puh" userLabel="Apple Badge">
-                                                <rect key="frame" x="27" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="27.5" y="0.0" width="25" height="30"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-bF-b12">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7xa-a4-Szk">
-                                                        <rect key="frame" x="6.5" y="1.5" width="17" height="17"/>
+                                                        <rect key="frame" x="4" y="1.5" width="17" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="17" id="D4t-Th-bdQ"/>
                                                             <constraint firstAttribute="height" constant="17" id="bBj-Eu-Lu2"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-p2-95d">
-                                                        <rect key="frame" x="12.5" y="16" width="5.5" height="10"/>
+                                                        <rect key="frame" x="10" y="16" width="5.5" height="10"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -112,7 +112,7 @@
                                                 <constraints>
                                                     <constraint firstItem="gpB-bF-b12" firstAttribute="leading" secondItem="LEa-vj-puh" secondAttribute="leading" id="BKb-9G-AIb"/>
                                                     <constraint firstAttribute="trailing" secondItem="gpB-bF-b12" secondAttribute="trailing" id="CCD-k9-dt3"/>
-                                                    <constraint firstAttribute="width" constant="30" id="IM6-9V-ltt"/>
+                                                    <constraint firstAttribute="width" constant="25" id="IM6-9V-ltt"/>
                                                     <constraint firstItem="DYL-p2-95d" firstAttribute="centerX" secondItem="LEa-vj-puh" secondAttribute="centerX" id="J2i-Wl-aqO"/>
                                                     <constraint firstItem="7xa-a4-Szk" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" constant="-5" id="Nmh-Ms-KAP"/>
                                                     <constraint firstItem="DYL-p2-95d" firstAttribute="centerY" secondItem="LEa-vj-puh" secondAttribute="centerY" constant="6" id="So5-RP-NNE"/>
@@ -122,20 +122,20 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gk0-sU-yV5" userLabel="Web Badge">
-                                                <rect key="frame" x="54" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="55" y="0.0" width="25" height="30"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="hjK-ce-751">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Fj2-Ga-8N1">
-                                                        <rect key="frame" x="15" y="15" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="12.5" y="15" width="0.0" height="0.0"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" id="T08-Kd-cwc"/>
                                                             <constraint firstAttribute="height" id="sEB-Ls-bsO"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC0-kT-job">
-                                                        <rect key="frame" x="12.5" y="16" width="5" height="10"/>
+                                                        <rect key="frame" x="10" y="16" width="5" height="10"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -145,7 +145,7 @@
                                                 <constraints>
                                                     <constraint firstItem="hC0-kT-job" firstAttribute="centerX" secondItem="gk0-sU-yV5" secondAttribute="centerX" id="64W-qP-d70"/>
                                                     <constraint firstItem="hC0-kT-job" firstAttribute="centerY" secondItem="gk0-sU-yV5" secondAttribute="centerY" constant="6" id="Qxp-Yl-H6Z"/>
-                                                    <constraint firstAttribute="width" constant="30" id="VTg-5a-PzB"/>
+                                                    <constraint firstAttribute="width" constant="25" id="VTg-5a-PzB"/>
                                                     <constraint firstAttribute="trailing" secondItem="hjK-ce-751" secondAttribute="trailing" id="YPA-8L-zd6"/>
                                                     <constraint firstItem="hjK-ce-751" firstAttribute="top" secondItem="gk0-sU-yV5" secondAttribute="top" id="ZNd-u2-c6Z"/>
                                                     <constraint firstItem="Fj2-Ga-8N1" firstAttribute="centerY" secondItem="gk0-sU-yV5" secondAttribute="centerY" id="amZ-Rn-yc1"/>
@@ -164,6 +164,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="mmt-qa-UQa"/>
+                                    <constraint firstAttribute="width" constant="91" id="oXA-6L-9a3"/>
                                     <constraint firstItem="nlh-1f-bzZ" firstAttribute="centerY" secondItem="p7D-vm-SIX" secondAttribute="centerY" id="v8j-GZ-cIY"/>
                                     <constraint firstItem="nlh-1f-bzZ" firstAttribute="centerX" secondItem="p7D-vm-SIX" secondAttribute="centerX" id="wXE-Ne-yIZ"/>
                                 </constraints>
@@ -299,7 +300,7 @@
         <image name="proBadge" width="62" height="73"/>
         <image name="webBadge" width="512" height="512"/>
         <namedColor name="storytag_fadedRed">
-            <color red="0.88599997758865356" green="0.30199998617172241" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88627450980392153" green="0.30196078431372547" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

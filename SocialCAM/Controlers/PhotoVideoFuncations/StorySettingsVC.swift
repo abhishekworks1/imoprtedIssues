@@ -1060,7 +1060,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
             }
         } else if settingTitle.settingsType == .notification {
-            if let baseUploadVC = R.storyboard.notificationVC.notificationVC() {
+            
+           if let baseUploadVC = R.storyboard.notificationVC.notificationVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
             }
         } else if settingTitle.settingsType == .editProfileCard {
@@ -1718,7 +1719,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             cell.socialImageView?.image = R.image.settings_ReferringChannel()
         } else if settingTitle.settingsType == .subscription {
             cell.socialImageView?.image = R.image.settings_Subscription()
-            cell.setUpSubscriptionBadges()
+           cell.setUpSubscriptionBadges()
+           
         }else if settingTitle.settingsType == .contactManager {
             cell.socialImageView?.image = R.image.settings_ContactManager()
         }else {

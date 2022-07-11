@@ -252,6 +252,7 @@ extension NotificationDetailsVC: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notificationArray.count
+      
     }
 
     // prefetch

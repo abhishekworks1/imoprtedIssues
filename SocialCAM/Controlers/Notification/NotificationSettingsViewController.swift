@@ -29,6 +29,8 @@ class NotificationSettingsViewController: UIViewController {
     // MARK: - Outlets Declaration
     @IBOutlet weak var systemSettingsTableView: UITableView!
     
+    
+    
     // MARK: - View Life Cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
