@@ -489,6 +489,21 @@ class SubscriptionsViewController: UIViewController {
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
                 lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
             }
+        } else {
+            if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+                if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                    var dateComponent = DateComponents()
+                    dateComponent.day = 8
+                    if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
+                        let diffDays = futureDate.days(from: Date())
+                        if diffDays == 1 {
+                            messageLabel.text = "Today is the last day of your 7-day free trial."
+                        } else if diffDays > 1 {
+                            messageLabel.text = "You have \(diffDays) days left on your free trial."
+                        }
+                    }
+                }
+            }
         }
     }
     
