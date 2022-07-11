@@ -348,11 +348,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         } else {
             showTableAction(UIButton())
         }
-        
-        if let count = Defaults.shared.currentUser?.unreadCount {
-            self.notificationUnreadCount = count
-        }
-        self.getUserNotificationModel { isSuccess in}
     }
   
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
@@ -367,6 +362,12 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
         }
+        
+        if let count = Defaults.shared.currentUser?.unreadCount {
+            self.notificationUnreadCount = count
+        }
+        self.getUserNotificationModel { isSuccess in}
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
