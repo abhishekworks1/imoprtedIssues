@@ -698,7 +698,9 @@ enum QuickStartOption: Int, CaseIterable {
 <p>&nbsp;</p>
 <ul>
 <li><span style="font-weight: 400;">QuickCam is for those who want to become influencers in social media.</span></li>
-<li>&nbsp;</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
 <li><span style="font-weight: 400;">QuickCam is for social media influencers who want to become bigger influencers!</span></li>
 </ul>
 """
