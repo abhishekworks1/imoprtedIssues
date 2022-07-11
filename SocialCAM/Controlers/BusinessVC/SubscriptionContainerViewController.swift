@@ -256,6 +256,16 @@ class SubscriptionContainerViewController: UIViewController {
             self.dayValueLabel.text = String(format: "%01d", days)
             self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
             self.timerStackView.isHidden = false
+            if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+                if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                    if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
+                        self.timerStackView.isHidden = true
+                    }
+                }
+                if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
+                    self.timerStackView.isHidden = true
+                }
+            }
         }
     }
     
@@ -284,6 +294,17 @@ class SubscriptionContainerViewController: UIViewController {
             }
         }
         self.timerStackView.isHidden = false
+        if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            
+            if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
+                    self.timerStackView.isHidden = true
+                }
+            }
+            if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
+                self.timerStackView.isHidden = true
+            }
+        }
     }
 }
 
