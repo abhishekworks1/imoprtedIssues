@@ -71,6 +71,10 @@ class RefferalEditProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func okAction() {
+        
+    }
+    
     func updateProfilePic(image: UIImage) {
         ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
