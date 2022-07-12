@@ -185,12 +185,12 @@ class SubscriptionContainerViewController: UIViewController {
                 dateComponent.day = 8
                 if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
                     var diffDays = futureDate.days(from: Date())
-                if diffDays == 1 {
-                    lbltrialDays.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
-                } else if diffDays > 1 {
-                    lbltrialDays.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
+                    if diffDays == 1 {
+                        lbltrialDays.text = "Today is the last day of your 7-day free trial."// Upgrade now to access these features"
+                    } else if diffDays > 1 {
+                        lbltrialDays.text = "You have \(diffDays) days left on your free trial."// Subscribe now and earn your subscription badge."
+                    }
                 }
-            }
             }
         } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
             lbltrialDays.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
@@ -198,6 +198,10 @@ class SubscriptionContainerViewController: UIViewController {
             lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
         } else {
             lbltrialDays.text = ""
+        }
+        
+        if lbltrialDays.text == "" {
+            lbltrialDays.isHidden = true
         }
     }
     func setOnboardImageName() {
@@ -469,8 +473,6 @@ class SubscriptionContainerViewController: UIViewController {
             subscribertypeLabel.text = "Basic"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"C9B552")
-            lbltrialDays.text = ""
-
         }else if(subscriptionStatus.lowercased() == "advance"){
             viewDetailAdvancedView.isHidden = true
             activeAdvancedView.isHidden = false
@@ -478,7 +480,6 @@ class SubscriptionContainerViewController: UIViewController {
             subscribertypeLabel.text = "Advanced"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"88A975")
-            lbltrialDays.text = ""
         }else if(subscriptionStatus.lowercased() == "pro"){
             viewDetailProView.isHidden = true
             activeProView.isHidden = false
@@ -486,7 +487,6 @@ class SubscriptionContainerViewController: UIViewController {
             subscribertypeLabel.text = "Premium"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"617FB1")
-            lbltrialDays.text = ""
         }else{
             subscribeNowLabel.text = "SUBSCRIBE NOW"
             viewDetailFreeView.isHidden = true
