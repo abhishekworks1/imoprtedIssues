@@ -527,15 +527,40 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JZS-T0-hB9">
                                                 <rect key="frame" x="328" y="0.0" width="47" height="54"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oaj-Kx-QAa">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DD6-Nn-a7P">
                                                         <rect key="frame" x="0.0" y="0.0" width="47" height="54"/>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="QuickStartGuide"/>
-                                                        <connections>
-                                                            <action selector="btnBusinessDashboardTapped:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Zfe-Hm-h2Q"/>
-                                                        </connections>
-                                                    </button>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QuickStart2" translatesAutoresizingMaskIntoConstraints="NO" id="IdK-8v-9bs">
+                                                                <rect key="frame" x="0.0" y="0.0" width="47" height="54"/>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oaj-Kx-QAa">
+                                                                <rect key="frame" x="0.0" y="0.0" width="47" height="54"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <connections>
+                                                                    <action selector="btnBusinessDashboardTapped:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Zfe-Hm-h2Q"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="IdK-8v-9bs" firstAttribute="top" secondItem="DD6-Nn-a7P" secondAttribute="top" id="9Ku-QU-9bQ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="IdK-8v-9bs" secondAttribute="trailing" id="G4J-mo-GyE"/>
+                                                            <constraint firstItem="Oaj-Kx-QAa" firstAttribute="leading" secondItem="DD6-Nn-a7P" secondAttribute="leading" id="KvD-U0-4In"/>
+                                                            <constraint firstAttribute="bottom" secondItem="IdK-8v-9bs" secondAttribute="bottom" id="UqR-te-1Vp"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Oaj-Kx-QAa" secondAttribute="bottom" id="dQL-Us-6Dz"/>
+                                                            <constraint firstItem="Oaj-Kx-QAa" firstAttribute="top" secondItem="DD6-Nn-a7P" secondAttribute="top" id="gMs-s2-vyW"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Oaj-Kx-QAa" secondAttribute="trailing" id="lGt-pP-Vvf"/>
+                                                            <constraint firstItem="IdK-8v-9bs" firstAttribute="leading" secondItem="DD6-Nn-a7P" secondAttribute="leading" id="tuZ-4W-xf2"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="DD6-Nn-a7P" secondAttribute="bottom" id="IoT-Pf-QXR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DD6-Nn-a7P" secondAttribute="trailing" id="N3n-bU-wae"/>
+                                                    <constraint firstItem="DD6-Nn-a7P" firstAttribute="top" secondItem="JZS-T0-hB9" secondAttribute="top" id="mba-V8-Jfa"/>
+                                                    <constraint firstItem="DD6-Nn-a7P" firstAttribute="leading" secondItem="JZS-T0-hB9" secondAttribute="leading" id="oNT-rL-o6W"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -9425,7 +9450,7 @@ Countdown</string>
     </designables>
     <resources>
         <image name="Camara-border" width="256" height="174"/>
-        <image name="QuickStartGuide" width="29" height="29"/>
+        <image name="QuickStart2" width="71" height="71"/>
         <image name="User_placeholder" width="400" height="400"/>
         <image name="advancedBadge" width="62" height="73"/>
         <image name="androidBadge" width="64" height="64"/>
@@ -9475,15 +9500,15 @@ Countdown</string>
         <image name="iconSwitchApp" width="31" height="32"/>
         <image name="icon_fps" width="33" height="33"/>
         <image name="iosbadge" width="165" height="163"/>
-        <image name="lock.fill" catalog="system" width="32" height="32"/>
+        <image name="lock.fill" catalog="system" width="128" height="128"/>
         <image name="mobiledashboard" width="29" height="29"/>
-        <image name="multiply" catalog="system" width="32" height="32"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
         <image name="openFilter" width="34" height="34"/>
         <image name="outtakes" width="38" height="38"/>
         <image name="oval" width="18" height="18"/>
         <image name="overLayOption" width="82" height="167"/>
         <image name="playIconDownload" width="16" height="16"/>
-        <image name="plus.circle.fill" catalog="system" width="32" height="32"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="prelaunchBadge" width="226" height="342"/>
         <image name="proBadge" width="62" height="73"/>
         <image name="quickcamWatermark" width="60" height="42"/>
