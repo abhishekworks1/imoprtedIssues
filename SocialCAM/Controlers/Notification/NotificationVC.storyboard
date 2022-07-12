@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -299,17 +299,22 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4W-qq-0R2">
                                                         <rect key="frame" x="0.0" y="37" width="334" height="210"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="NNv-d2-sTw">
-                                                                <rect key="frame" x="85.5" y="0.0" width="163" height="210"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="210" id="y4X-W7-hcB"/>
-                                                                </constraints>
-                                                            </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="9fr-zO-hrZ">
                                                                 <rect key="frame" x="122" y="35" width="90" height="90"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="90" id="08A-cA-ure"/>
                                                                     <constraint firstAttribute="width" constant="90" id="50x-QW-T3r"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                        <real key="value" value="45"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="NNv-d2-sTw">
+                                                                <rect key="frame" x="85.5" y="0.0" width="163" height="210"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="210" id="y4X-W7-hcB"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -413,11 +418,11 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zf-Ij-EjE">
                                                         <rect key="frame" x="142" y="416" width="50" height="65"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oyl-zD-yQc">
-                                                                <rect key="frame" x="-140.5" y="0.0" width="331" height="65"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Oyl-zD-yQc">
+                                                                <rect key="frame" x="-122.5" y="0.0" width="295" height="65"/>
                                                                 <subviews>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rn6-Zl-3in" userLabel="Social Badge Stack View">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="65"/>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rn6-Zl-3in" userLabel="Social Badge Stack View">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="136" height="65"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="1Mp-YD-mEt">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
@@ -427,24 +432,17 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="evf-6Y-8sn">
-                                                                                <rect key="frame" x="50" y="0.0" width="40" height="65"/>
+                                                                                <rect key="frame" x="48" y="0.0" width="40" height="65"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="65" id="oMH-p3-nJc"/>
                                                                                     <constraint firstAttribute="width" constant="40" id="wK1-MC-4rv"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="LWO-Rd-vPw">
-                                                                                <rect key="frame" x="100" y="0.0" width="40" height="65"/>
+                                                                                <rect key="frame" x="96" y="0.0" width="40" height="65"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="65" id="au2-7I-R2E"/>
                                                                                     <constraint firstAttribute="width" constant="40" id="tyo-vL-2d3"/>
-                                                                                </constraints>
-                                                                            </imageView>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="Elu-5c-yb8">
-                                                                                <rect key="frame" x="150" y="0.0" width="40" height="65"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="height" constant="65" id="2Vf-DT-4dG"/>
-                                                                                    <constraint firstAttribute="width" constant="40" id="cAU-ZJ-kv1"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
@@ -452,8 +450,8 @@
                                                                             <constraint firstAttribute="height" constant="65" id="FN6-da-hRe"/>
                                                                         </constraints>
                                                                     </stackView>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="jRQ-SM-hy9">
-                                                                        <rect key="frame" x="190" y="0.0" width="141" height="65"/>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jRQ-SM-hy9">
+                                                                        <rect key="frame" x="144" y="0.0" width="151" height="65"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qCc-KZ-iob" userLabel="Android Badge">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="65"/>
@@ -489,7 +487,7 @@
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05s-5h-LTZ" userLabel="Apple Badge">
-                                                                                <rect key="frame" x="48" y="0.0" width="45" height="65"/>
+                                                                                <rect key="frame" x="53" y="0.0" width="45" height="65"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bXj-6R-C6n">
                                                                                         <rect key="frame" x="5" y="7" width="35" height="23.5"/>
@@ -519,7 +517,7 @@
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fI-fV-6Ef" userLabel="Web Badge">
-                                                                                <rect key="frame" x="96" y="0.0" width="45" height="65"/>
+                                                                                <rect key="frame" x="106" y="0.0" width="45" height="65"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="cD7-kk-NDc">
                                                                                         <rect key="frame" x="12" y="12" width="21" height="41"/>
@@ -734,7 +732,6 @@
                         <outlet property="snapchatVerifiedView" destination="0Tn-C0-hYf" id="B2e-sM-Fhn"/>
                         <outlet property="socialBadgeViewHeightConstraint" destination="FN6-da-hRe" id="3ce-TQ-o9a"/>
                         <outlet property="socialBadgeicon" destination="LWO-Rd-vPw" id="68B-cB-Dha"/>
-                        <outlet property="subscriptionBadgeicon" destination="Elu-5c-yb8" id="d4q-EG-nfJ"/>
                         <outlet property="twitterVerifiedView" destination="G5A-p7-yVb" id="JS9-Hq-FaO"/>
                         <outlet property="verifiedStackView" destination="CUd-Qh-a7R" id="tqN-vk-t3d"/>
                         <outlet property="webBadgeView" destination="7fI-fV-6Ef" id="g0L-45-B3J"/>
@@ -1124,18 +1121,23 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21W-fb-01B">
                                                                                     <rect key="frame" x="0.0" y="47" width="412" height="210"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Qp7-3w-gkg">
-                                                                                            <rect key="frame" x="124.5" y="0.0" width="163" height="210"/>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="width" secondItem="Qp7-3w-gkg" secondAttribute="height" multiplier="163:210" id="1g5-61-PEN"/>
-                                                                                                <constraint firstAttribute="height" constant="210" id="hZN-9C-xLW"/>
-                                                                                            </constraints>
-                                                                                        </imageView>
                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="7bf-vi-Ttt">
                                                                                             <rect key="frame" x="161" y="35" width="90" height="90"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="90" id="7sW-Z3-oXz"/>
                                                                                                 <constraint firstAttribute="height" constant="90" id="HHL-Cp-Vtv"/>
+                                                                                            </constraints>
+                                                                                            <userDefinedRuntimeAttributes>
+                                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                                                    <real key="value" value="45"/>
+                                                                                                </userDefinedRuntimeAttribute>
+                                                                                            </userDefinedRuntimeAttributes>
+                                                                                        </imageView>
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Qp7-3w-gkg">
+                                                                                            <rect key="frame" x="-66.5" y="0.0" width="163" height="210"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" secondItem="Qp7-3w-gkg" secondAttribute="height" multiplier="163:210" id="1g5-61-PEN"/>
+                                                                                                <constraint firstAttribute="height" constant="210" id="hZN-9C-xLW"/>
                                                                                             </constraints>
                                                                                         </imageView>
                                                                                     </subviews>
@@ -1242,11 +1244,11 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r8V-Fn-pOh">
                                                                                     <rect key="frame" x="73" y="297" width="266" height="110"/>
                                                                                     <subviews>
-                                                                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Anr-5e-j3n">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="266" height="70"/>
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Anr-5e-j3n">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="267" height="70"/>
                                                                                             <subviews>
-                                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Tjm-St-o41" userLabel="Social Badge Stack View">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="70"/>
+                                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Tjm-St-o41" userLabel="Social Badge Stack View">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="70"/>
                                                                                                     <subviews>
                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JME-dW-BRr">
                                                                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
@@ -1266,7 +1268,7 @@
                                                                                                             </constraints>
                                                                                                         </view>
                                                                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQt-da-iSg">
-                                                                                                            <rect key="frame" x="55" y="0.0" width="50" height="70"/>
+                                                                                                            <rect key="frame" x="54" y="0.0" width="50" height="70"/>
                                                                                                             <subviews>
                                                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFx-52-5cw">
                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
@@ -1283,7 +1285,7 @@
                                                                                                             </constraints>
                                                                                                         </view>
                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Va-f4-x7j">
-                                                                                                            <rect key="frame" x="60" y="0.0" width="50" height="70"/>
+                                                                                                            <rect key="frame" x="58" y="0.0" width="50" height="70"/>
                                                                                                             <subviews>
                                                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9jk-6v-ZEp">
                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
@@ -1304,8 +1306,8 @@
                                                                                                         <constraint firstAttribute="height" constant="70" id="UQ6-hD-EGq"/>
                                                                                                     </constraints>
                                                                                                 </stackView>
-                                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="i5j-gs-j4f">
-                                                                                                    <rect key="frame" x="125" y="0.0" width="141" height="70"/>
+                                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="i5j-gs-j4f">
+                                                                                                    <rect key="frame" x="116" y="0.0" width="151" height="70"/>
                                                                                                     <subviews>
                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIa-1r-Um8" userLabel="Android Badge">
                                                                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="70"/>
@@ -1341,7 +1343,7 @@
                                                                                                             </constraints>
                                                                                                         </view>
                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVV-P4-f4r" userLabel="Apple Badge">
-                                                                                                            <rect key="frame" x="48" y="0.0" width="45" height="70"/>
+                                                                                                            <rect key="frame" x="53" y="0.0" width="45" height="70"/>
                                                                                                             <subviews>
                                                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="k7a-qc-AnM">
                                                                                                                     <rect key="frame" x="5" y="7" width="35" height="23.5"/>
@@ -1371,7 +1373,7 @@
                                                                                                             </constraints>
                                                                                                         </view>
                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Bf-Gr-ntu" userLabel="Web Badge">
-                                                                                                            <rect key="frame" x="96" y="0.0" width="45" height="70"/>
+                                                                                                            <rect key="frame" x="106" y="0.0" width="45" height="70"/>
                                                                                                             <subviews>
                                                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="DNd-lX-Ov3">
                                                                                                                     <rect key="frame" x="12" y="12" width="21" height="46"/>
@@ -1746,7 +1748,6 @@
         <image name="facebookVerified" width="37" height="38"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="freeAppleIcon" width="28.5" height="23.5"/>
-        <image name="iosbadge" width="165" height="163"/>
         <image name="prelaunchBadge" width="226" height="342"/>
         <image name="proBadge" width="62" height="73"/>
         <image name="rightBackDirectionIcon" width="35" height="36"/>
