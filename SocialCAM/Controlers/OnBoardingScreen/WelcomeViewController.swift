@@ -527,6 +527,7 @@ extension WelcomeViewController {
     
     func subscribersHideTimer(subscriptionType: String) {
         timerStackView.isHidden = true
+        timeStackViewHeight.constant = 0
         self.upgradeNowButton.isHidden = true
         self.updateNowEventButton.isHidden = true
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
@@ -599,7 +600,7 @@ extension WelcomeViewController {
             if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
                 originalSubscriptionType = paidSubscriptionStatus
             }
-            print("----o \(originalSubscriptionType)")
+            badgeImageView.isHidden = true
             if daysLeft == 7 {
                 subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                 self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
@@ -616,9 +617,11 @@ extension WelcomeViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             subscriptionDetailLabel.text = "Your 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+            badgeImageView.isHidden = true
         } else if subscriptionType == "expired" {
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
             subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+            badgeImageView.isHidden = true
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
             if daysLeft == 7 {
