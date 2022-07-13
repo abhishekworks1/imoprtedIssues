@@ -45,6 +45,7 @@ class GreatViewController: UIViewController {
     @IBOutlet weak var foundingMemberImageView: UIImageView!
     @IBOutlet weak var userImageView: UIImageView!
     
+    @IBOutlet weak var backToQuickStartButton: UIButton!
     @IBOutlet weak var userImageHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var userImageWidthConstraints: NSLayoutConstraint!
     var categoryString: String?
@@ -248,6 +249,7 @@ extension GreatViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
         self.upgradeNowButton.isHidden = false
+        self.backToQuickStartButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
@@ -295,6 +297,7 @@ extension GreatViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
+            self.backToQuickStartButton.setTitleColor(UIColor(red: 0.259, green: 0.522, blue: 0.957, alpha: 1), for: .normal)
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -390,6 +393,7 @@ extension GreatViewController {
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nUpgrading your subscription to Premium will be available in the next release. You'll be notified when upgrading your channel is ready."
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             self.upgradeNowButton.isHidden = true
+            self.backToQuickStartButton.setTitleColor(UIColor(red: 0.259, green: 0.522, blue: 0.957, alpha: 1), for: .normal)
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income."
@@ -400,6 +404,7 @@ extension GreatViewController {
     func subscribersHideTimer(subscriptionType: String) {
         timerStackView.isHidden = true
         self.upgradeNowButton.isHidden = true
+        self.backToQuickStartButton.setTitleColor(UIColor(red: 0.259, green: 0.522, blue: 0.957, alpha: 1), for: .normal)
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
     }
     
