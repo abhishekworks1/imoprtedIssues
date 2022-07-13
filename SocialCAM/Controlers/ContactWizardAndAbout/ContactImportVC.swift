@@ -783,7 +783,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
+    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 200,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
         
         var searchText = searchBar.text!
         var contactType = selectedContactType
@@ -792,7 +792,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)&sortBy=name&sortType=asc"
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(200)&page=\(page)&sortBy=name&sortType=asc"
 
         print("contact->\(path)")
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
@@ -842,7 +842,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
                     self.allmobileContacts = self.mobileContacts
                     if self.mobileContacts.count == 0{
-                        self.lblCurrentFilter.text = ""
+                      //  self.lblCurrentFilter.text = ""
                         self.nocontactView.isHidden = false
                         
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
@@ -861,7 +861,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts)
                     if self.emailContacts.count == 0{
-                        self.lblCurrentFilter.text = ""
+                      //  self.lblCurrentFilter.text = ""
                         self.nocontactView.isHidden = false
                         
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
@@ -1226,15 +1226,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.getContactList( page:1,filter:ContactStatus.invited)
             break
         case 5:
-            
-            if selectedContactType == ContactType.mobile{
+            self.selectedFilter = ContactStatus.opened
+            self.lblCurrentFilter.text = "Opened"
+            self.getContactList( page:1,filter:ContactStatus.opened)
+          /*  if selectedContactType == ContactType.mobile{
                 self.mobileContacts = [ContactResponse]()
                 self.contactTableView.reloadData()
             }else{
                 self.emailContacts = [ContactResponse]()
                 self.emailContactTableView.reloadData()
-            }
-             self.lblCurrentFilter.text = "Opened"
+            } */
+            
            
             break
         case 6:
@@ -1643,7 +1645,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else if contact.status == ContactStatus.subscriber{
                 cell.inviteBtn.isHidden = true
                 cell.inviteButtonView.isHidden = true
-            }else{
+            }else if contact.status == ContactStatus.invited{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
               //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
@@ -1654,6 +1656,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
                 cell.lblInviteButtonTitle.textColor = .white
                 cell.inviteButtonView.isHidden = false
+            }else{
+                cell.inviteBtn.isHidden = true
+                cell.inviteBtn.setTitle("Invited", for: .normal)
+              //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
+             //   cell.inviteBtn.backgroundColor = .black
+                cell.inviteBtn.setTitleColor(.white, for: .normal)
+                cell.buttonInvite.setTitle("", for: .normal)
+                cell.lblInviteButtonTitle.text = "Invited"
+                cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
+                cell.lblInviteButtonTitle.textColor = .white
+                cell.inviteButtonView.isHidden = true
             }
             cell.inviteBtn.isHidden = true
             if let registerUser = contact.registeredUserDetails{
@@ -2681,10 +2694,11 @@ extension ContactImportVC:UIScrollViewDelegate{
             let contentHeight = scrollView.contentSize.height
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
-            if (offsetY >= contentHeight - scrollView.frame.height) && !loadingStatus {
+            if ((offsetY) >= contentHeight - scrollView.frame.height - 150.0) && !loadingStatus {
               //  self.showLoader()
                 let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
                 self.getContactList(page: page, filter: self.selectedFilter)
+                
             }
         }
         
