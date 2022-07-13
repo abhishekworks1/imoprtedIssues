@@ -622,7 +622,7 @@ enum QuickStartOption: Int, CaseIterable {
 """
             case .yourGoal:
                 return """
-<p dir="auto" data-sourcepos="7:1-7:103">**Use TextShare as the surest and fastest way to share the QuickCam opportunity and grow your potential income because text messages are more likely to be opened than an email. **</p>
+<p dir="auto" data-sourcepos="7:1-7:103">Use TextShare as the surest and fastest way to share the QuickCam opportunity and grow your potential income because text messages are more likely to be opened than an email.</p>
 <p dir="auto" data-sourcepos="9:1-9:196">&nbsp;</p>
 <p dir="auto" data-sourcepos="9:1-9:196">Your first goal is to meet your expenses because everything after that is pure profit. When 2 of your referrals subscribe at the same level or higher than your subscription, your expenses are met.</p>
 <p dir="auto" data-sourcepos="9:1-9:196">&nbsp;</p>
