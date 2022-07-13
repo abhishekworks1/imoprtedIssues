@@ -283,7 +283,7 @@ enum QuickStartOption: Int, CaseIterable {
             case .subscriptions:
                 return """
 <ul>
-<li class="p1">Premium 7-Day Free Trial</li>
+<li class="p1">7-Day Premium Free Trial</li>
 </ul>
 <p>&nbsp;</p>
 <ul>
@@ -949,7 +949,7 @@ extension OnBoardingViewController {
                         let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                             if finalDay == "7" {
-                                self.subscriptionStatusLabel.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                                self.subscriptionStatusLabel.text = "Today is the last day of your 7-Day Premium Free Trial. Upgrade now to access these features"
                             } else {
                                 var fday = 0
                                 if let day = Int(finalDay) {
@@ -959,14 +959,14 @@ extension OnBoardingViewController {
                                     }
                                 }
                                 if fday == 0{
-                                    self.subscriptionStatusLabel.text = "Your 7-day free trial period has expired. Upgrade now to access these features."
+                                    self.subscriptionStatusLabel.text = "Your 7-Day Premium Free Trial period has expired. Upgrade now to access these features."
                                 } else {
                                     self.subscriptionStatusLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
                                 }
                                
                             }
                         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                            self.subscriptionStatusLabel.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+                            self.subscriptionStatusLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
                         }
                     }
                 }
