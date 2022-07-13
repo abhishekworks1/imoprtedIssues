@@ -1712,34 +1712,50 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                
                 if contact.status == ContactStatus.pending{
                     cell.inviteBtn.isHidden = false
-                    cell.inviteBtn.setTitle("Invite", for: .normal)
-                    cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0xE9F1FF), forState: .normal)
-                   // backgroundColor = UIColor(hex6:0xE9F1FF)
-                    cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
+//                    cell.inviteBtn.setTitle("Invite", for: .normal)
+//                    cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0x4285F4), forState: .normal)
+//                    cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                     cell.lblInviteButtonTitle.text = "Invite"
                     cell.buttonInvite.setTitle("", for: .normal)
+                    cell.buttonImageview.image = R.image.inviteContact()
                     cell.inviteButtonView.isHidden = false
-                       // cell.inviteButtonView.backgroundColor = .bb
-                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0xD4E9FD)
-                    cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
-                    cell.inviteButtonView.layer.borderWidth = 1.0
-                    cell.lblInviteButtonTitle.textColor = UIColor(hex6:0x4285F4)
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0x4285F4)
+                    cell.lblInviteButtonTitle.textColor = .white
+                }else if contact.status == ContactStatus.opened{
+                    cell.buttonInvite.isHidden = true
+                    cell.buttonImageview.image = R.image.contactOpened()
+                    cell.lblInviteButtonTitle.text = "Opened"
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE9F1FF)
+                    cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x4285F4)
+                    cell.inviteButtonView.isHidden = false
+                    
+                } else if contact.status == ContactStatus.optout{
+                    cell.buttonInvite.isHidden = true
+                    cell.buttonImageview.image = R.image.optOutContact()
+                    cell.lblInviteButtonTitle.text = "Opt-out"
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0xFFE9E9)
+                    cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0xFF0536)
+                    cell.inviteButtonView.isHidden = false
+                    
                 }else if contact.status == ContactStatus.subscriber{
                     cell.inviteBtn.isHidden = true
                     cell.inviteButtonView.isHidden = true
                 }else{
-                    cell.inviteBtn.isHidden = false
-                    cell.inviteBtn.setTitle("Invited", for: .normal)
+                    cell.buttonInvite.isHidden = true
+//                    cell.inviteBtn.setTitle("Invited", for: .normal)
                     //cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0x4285F4), forState: .normal)
                   //  cell.inviteBtn.backgroundColor = .black
-                    cell.inviteBtn.setTitleColor(.white, for: .normal)
-                    cell.buttonInvite.setTitle("", for: .normal)
+
+//                    cell.inviteBtn.setTitleColor(.white, for: .normal)
+//                    cell.buttonInvite.setTitle("", for: .normal)
+                    cell.buttonImageview.image = R.image.invitedContact()
                     cell.lblInviteButtonTitle.text = "Invited"
-                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
-                    cell.lblInviteButtonTitle.textColor = UIColor.white
+                    cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
+                    cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x909090)
                     cell.inviteButtonView.isHidden = false
                 }
                 cell.inviteBtn.isHidden = true
+                
                 if let registerUser = contact.registeredUserDetails{
                     cell.refferalView.isHidden = false
                     cell.inviteButtonView.isHidden = true
@@ -1754,7 +1770,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteButtonView.isHidden = false
                     cell.contactStatusView.isHidden = true
                 }
-               
             }
             else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
