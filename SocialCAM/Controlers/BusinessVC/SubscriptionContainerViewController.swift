@@ -465,26 +465,26 @@ class SubscriptionContainerViewController: UIViewController {
         } else if let subscriptionSts = Defaults.shared.currentUser?.subscriptionStatus {
             subscriptionStatus = subscriptionSts
         }
-            
+        subscribeNowLabel.isHidden = true
         if (subscriptionStatus.lowercased() == "basic"){
             viewDetailBasicView.isHidden = true
             activeBasicView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan Basic"
-            subscribertypeLabel.text = "Basic"
+            subscribertypeLabel.text = "Your Subscription Plan: Basic"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"C9B552")
         }else if(subscriptionStatus.lowercased() == "advance"){
             viewDetailAdvancedView.isHidden = true
             activeAdvancedView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
-            subscribertypeLabel.text = "Advanced"
+            subscribertypeLabel.text = "Your Subscription Plan: Advanced"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"88A975")
         }else if(subscriptionStatus.lowercased() == "pro"){
             viewDetailProView.isHidden = true
             activeProView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
-            subscribertypeLabel.text = "Premium"
+            subscribertypeLabel.text = "Your Subscription Plan: Premium"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"617FB1")
         }else{

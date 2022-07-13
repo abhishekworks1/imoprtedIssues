@@ -154,6 +154,19 @@ class SubscriptionsViewController: UIViewController {
         setupFreeTrialView()
         setUpPriceTextForFreeScreen()
         tapGestureSetUp()
+        if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
+                    self.timerStackView.isHidden = true
+                    self.messageLabel.isHidden = true
+                }
+            }
+            if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
+                self.timerStackView.isHidden = true
+                self.messageLabel.isHidden = true
+            }
+        }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
