@@ -483,7 +483,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">After you send your invites, each time you open Contact Manager, thereafter, you&rsquo;ll be able to track the contacts you invited and see when the recipients have opened, signed up and subscribed.</span></li>
+<li aria-level="2"><span style="font-weight: 400;">After you send your invites, each time you open Contact Inviter, thereafter, you&rsquo;ll be able to track the contacts you invited and see when the recipients have opened, signed up and subscribed.</span></li>
 </ul>
 </li>
 </ul>
@@ -603,7 +603,7 @@ enum QuickStartOption: Int, CaseIterable {
 <li><span style="font-weight: 400;">to be available with paid subscriptions and referral commissions (to be announced).<br /></span></li>
 </ul>
 </li>
-<li aria-level="2"><strong>Contact Manager</strong>
+<li aria-level="2"><strong>Contact Inviter</strong>
 <ul style="list-style-type: disc;">
 <li><span style="font-weight: 400;">Invite and track your referrals, see who has signed up and who&rsquo;s subscribing.</span></li>
 </ul>
