@@ -161,18 +161,18 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func upgradeNowOnClick(_ sender: Any) {
-        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
-        subscriptionVc.appMode = .professional
-        subscriptionVc.subscriptionType = .professional
-        subscriptionVc.isFromWelcomeScreen = true
-        self.navigationController?.isNavigationBarHidden = true
-        navigationController?.pushViewController(subscriptionVc, animated: true)
+//        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+//        subscriptionVc.appMode = .professional
+//        subscriptionVc.subscriptionType = .professional
+//        subscriptionVc.isFromWelcomeScreen = true
+//        self.navigationController?.isNavigationBarHidden = true
+//        navigationController?.pushViewController(subscriptionVc, animated: true)
         
-        /*if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+        if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
             subscriptionVC.isFromWelcomeScreen = true
             self.navigationController?.isNavigationBarHidden = true
             self.navigationController?.pushViewController(subscriptionVC, animated: true)
-        }*/
+        }
     }
     
     func openOnboarding() {
