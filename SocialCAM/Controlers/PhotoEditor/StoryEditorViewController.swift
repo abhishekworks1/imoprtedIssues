@@ -1940,11 +1940,14 @@ extension StoryEditorViewController {
                     self.isSettingsChange = true
                     self.isTiktokShare = false
                 }
-                self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
                 self.view.makeToast(R.string.localizable.linkIsCopiedToClipboard())
                 if let channelId = Defaults.shared.currentUser?.channelId {
                     UIPasteboard.general.string = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
                 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                      // Do whatever you want
+                    self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
+                  }
             }
         }
     }

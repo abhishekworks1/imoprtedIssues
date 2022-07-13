@@ -8,6 +8,7 @@
 
 import Foundation
 import AVKit
+import Toast_Swift
 
 private let externalIdQuery = "{me{displayName, bitmoji{avatar}, externalId}}"
 typealias CompletionImagePickClosure = (String, UIImage?) -> Void
@@ -79,7 +80,11 @@ class BitmojiStickerPickerViewController: UIViewController {
         SnapKitManager.shared.delegate = self
         if SnapKitManager.shared.isUserLogin {
             SnapKitManager.shared.loadUserData { (_) in
-                
+                guard SnapKitManager.shared.userData != nil else {
+                    print("User Data is nill")
+                    self.view.makeToast("BitEmoji's are not loading please try again!", duration: ToastManager.shared.duration, position: .bottom)
+                    return
+                }
             }
         }
     }

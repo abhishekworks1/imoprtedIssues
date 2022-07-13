@@ -41,7 +41,6 @@ class UserDetailsVC: UIViewController {
     @IBOutlet weak var preLunchBadge: UIImageView!
      @IBOutlet weak var foundingMergeBadge: UIImageView!
      @IBOutlet weak var socialBadgeicon: UIImageView!
-     @IBOutlet weak var subscriptionBadgeicon: UIImageView!
     
     var notificationUpdateHandler: ((_ notification: UserNotification?) -> Void)?
     var notification: UserNotification?
@@ -284,7 +283,6 @@ class UserDetailsVC: UIViewController {
             preLunchBadge.isHidden = true
             foundingMergeBadge.isHidden = true
             socialBadgeicon.isHidden = true
-            subscriptionBadgeicon.isHidden = true
           
             if  badgearry.count >  0 {
                 preLunchBadge.isHidden = false
@@ -298,10 +296,10 @@ class UserDetailsVC: UIViewController {
                 socialBadgeicon.isHidden = false
                 socialBadgeicon.image = UIImage.init(named: badgearry[2])
             }
-            if  badgearry.count >  3 {
-                subscriptionBadgeicon.isHidden = false
-                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
-            }
+//            if  badgearry.count >  3 {
+//                subscriptionBadgeicon.isHidden = false
+//                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+//            }
         }
     func setUpSubscriptionBadges() {
         androidIconImageview.isHidden = true

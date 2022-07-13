@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class WelcomeViewController: UIViewController {
 
@@ -56,7 +57,17 @@ class WelcomeViewController: UIViewController {
             tipOfTheDayView.isHidden = true
         }
     }
-
+    @IBOutlet weak var quickGuideStackViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var mobileDashboardStackViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var whatToSeeStackViewHeight: NSLayoutConstraint!
+    @IBOutlet var selectFeatureDetailLabels: [UILabel]!
+    @IBOutlet weak var whatToSeeFirstBaseView: UIView! {
+        didSet {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideWhatToSee))
+            whatToSeeFirstBaseView.addGestureRecognizer(tapGesture)
+        }
+    }
+    
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
@@ -69,7 +80,7 @@ class WelcomeViewController: UIViewController {
         UserSync.shared.getTipOfDay { tip in
             self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
         }
-        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+//        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
         self.updateNowEventButton.setTitle("", for: .normal)
     }
     
@@ -96,6 +107,10 @@ class WelcomeViewController: UIViewController {
         countdownTimer?.invalidate()
     }
     
+    @objc func hideWhatToSee() {
+        whatToSeeFirstBaseView.isHidden = true
+    }
+    
     @IBAction func whatDoYouWantSeeViewBoxOnClick(_ sender: Any) {
         if isWhatDoYouWantSeeViewChecked {
             isWhatDoYouWantSeeViewChecked = false
@@ -103,6 +118,45 @@ class WelcomeViewController: UIViewController {
         } else {
             isWhatDoYouWantSeeViewChecked = true
             whatDoYouWantSeeViewBoxButton.setImage(UIImage(named: "checkBoxActive"), for: .normal)
+        }
+    }
+    
+    @IBAction func selectFeatureChanged(_ sender: UISwitch) {
+        quickGuideStackViewHeight.constant = sender.isOn ? 200 : 132
+        mobileDashboardStackViewHeight.constant = sender.isOn ? 278 : 132
+        whatToSeeStackViewHeight.constant = sender.isOn ? 200 : 132
+        selectFeatureDetailLabels.map({ $0.isHidden = !sender.isOn })
+    }
+    
+    @IBAction func selectFeatureOnClick(_ sender: UIButton) {
+        switch sender.tag {
+        case 0:
+            Defaults.shared.isSignupLoginFlow = true
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            Utils.appDelegate?.window?.rootViewController = rootViewController
+            break
+        case 1:
+            whatToSeeFirstBaseView.isHidden = false
+        case 2:
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            if let pageViewController = rootViewController as? PageViewController,
+               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
+               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
+                navigationController.viewControllers.append(settingVC)
+            }
+            Utils.appDelegate?.window?.rootViewController = rootViewController
+            break
+        case 3:
+            if let token = Defaults.shared.sessionToken {
+                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
+                 guard let url = URL(string: urlString) else {
+                     return
+                 }
+                let safariVC = SFSafariViewController(url: url)
+                present(safariVC, animated: true, completion: nil)
+             }
+            break
+        default: break
         }
     }
     
@@ -160,7 +214,7 @@ extension WelcomeViewController {
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
-                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+//                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
                 self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
                 Defaults.shared.shouldDisplayTipOffDay = true
                 UserSync.shared.setOnboardingUserFlags()
@@ -527,6 +581,7 @@ extension WelcomeViewController {
     
     func subscribersHideTimer(subscriptionType: String) {
         timerStackView.isHidden = true
+        timeStackViewHeight.constant = 0
         self.upgradeNowButton.isHidden = true
         self.updateNowEventButton.isHidden = true
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
@@ -599,7 +654,7 @@ extension WelcomeViewController {
             if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
                 originalSubscriptionType = paidSubscriptionStatus
             }
-            print("----o \(originalSubscriptionType)")
+            badgeImageView.isHidden = true
             if daysLeft == 7 {
                 subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                 self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
@@ -616,9 +671,11 @@ extension WelcomeViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             subscriptionDetailLabel.text = "Your 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
+            badgeImageView.isHidden = true
         } else if subscriptionType == "expired" {
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
-            subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+            subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+            badgeImageView.isHidden = true
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
             if daysLeft == 7 {

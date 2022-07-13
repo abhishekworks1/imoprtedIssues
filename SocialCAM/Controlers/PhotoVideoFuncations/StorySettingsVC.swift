@@ -329,7 +329,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.twitterVerifiedView.isHidden = true
         self.snapVerifiedView.isHidden = true
         self.youTubeVerifiedView.isHidden = true
-        lblAppInfo.text = "\(Constant.Application.displayName) - 1.1.2(38.\(Constant.Application.appBuildNumber))"
+        lblAppInfo.text = "\(Constant.Application.displayName) - 1.1.2(39.\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
        
@@ -348,11 +348,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         } else {
             showTableAction(UIButton())
         }
-        
-        if let count = Defaults.shared.currentUser?.unreadCount {
-            self.notificationUnreadCount = count
-        }
-        self.getUserNotificationModel { isSuccess in}
     }
   
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
@@ -367,6 +362,12 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
         }
+        
+        if let count = Defaults.shared.currentUser?.unreadCount {
+            self.notificationUnreadCount = count
+        }
+        self.getUserNotificationModel { isSuccess in}
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
