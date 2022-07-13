@@ -2000,7 +2000,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="649"/>
                                                         <subviews>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PSp-Xg-RgW" userLabel="SegmentView">
-                                                                <rect key="frame" x="0.0" y="10" width="414" height="84"/>
+                                                                <rect key="frame" x="0.0" y="10" width="414" height="124"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLh-bw-AYh" userLabel="Filter">
                                                                         <rect key="frame" x="20" y="0.0" width="374" height="40"/>
@@ -2166,7 +2166,7 @@
                                                                 <constraints>
                                                                     <constraint firstItem="xsw-Jb-yyc" firstAttribute="top" secondItem="JNL-Ux-pG3" secondAttribute="bottom" constant="5" id="6hW-B2-JgK"/>
                                                                     <constraint firstItem="HLh-bw-AYh" firstAttribute="top" secondItem="PSp-Xg-RgW" secondAttribute="top" id="RXz-zU-J5n"/>
-                                                                    <constraint firstAttribute="height" constant="84" id="Wv2-hj-EWY"/>
+                                                                    <constraint firstAttribute="height" constant="124" id="Wv2-hj-EWY"/>
                                                                     <constraint firstItem="xsw-Jb-yyc" firstAttribute="leading" secondItem="PSp-Xg-RgW" secondAttribute="leading" id="XKy-G7-2pM"/>
                                                                     <constraint firstItem="JNL-Ux-pG3" firstAttribute="top" secondItem="HLh-bw-AYh" secondAttribute="bottom" id="f0t-Ka-UWs"/>
                                                                     <constraint firstItem="HLh-bw-AYh" firstAttribute="leading" secondItem="PSp-Xg-RgW" secondAttribute="leading" constant="20" id="hNZ-mG-yPe"/>
@@ -2177,7 +2177,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnG-39-IES" userLabel="Filter Label">
-                                                                <rect key="frame" x="0.0" y="99" width="414" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="139" width="414" height="0.0"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WS9-MM-slI">
                                                                         <rect key="frame" x="25" y="-9.5" width="19.5" height="19.5"/>
@@ -2194,7 +2194,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-76-4wK">
-                                                                <rect key="frame" x="0.0" y="104" width="414" height="545"/>
+                                                                <rect key="frame" x="0.0" y="144" width="414" height="505"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <connections>
                                                                     <outlet property="dataSource" destination="zZw-wm-uWi" id="Wej-DN-7Db"/>
@@ -2202,7 +2202,7 @@
                                                                 </connections>
                                                             </tableView>
                                                             <tableView hidden="YES" clipsSubviews="YES" tag="2" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EQF-Rk-EpR">
-                                                                <rect key="frame" x="0.0" y="104" width="414" height="545"/>
+                                                                <rect key="frame" x="0.0" y="144" width="414" height="505"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <connections>
                                                                     <outlet property="dataSource" destination="zZw-wm-uWi" id="aTb-cd-DvH"/>
@@ -2210,10 +2210,10 @@
                                                                 </connections>
                                                             </tableView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPW-kh-JdK">
-                                                                <rect key="frame" x="0.0" y="104" width="414" height="545"/>
+                                                                <rect key="frame" x="0.0" y="144" width="414" height="505"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqr-us-VqU">
-                                                                        <rect key="frame" x="162" y="217.5" width="90" height="90"/>
+                                                                        <rect key="frame" x="162" y="197.5" width="90" height="90"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="90" id="80y-jK-PG1"/>
                                                                             <constraint firstAttribute="height" constant="90" id="lF5-YX-wFo"/>
@@ -2225,7 +2225,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BdQ-i4-S60">
-                                                                        <rect key="frame" x="20" y="317.5" width="374" height="0.0"/>
+                                                                        <rect key="frame" x="20" y="297.5" width="374" height="0.0"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -4195,7 +4195,7 @@
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
