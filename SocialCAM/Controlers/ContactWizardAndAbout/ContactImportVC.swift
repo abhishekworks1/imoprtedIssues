@@ -226,7 +226,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var emailBodystr = ""
     var toEmailAddress = ""
     var isFromOnboarding = false
-    
+    var groupedContactArray = [[ContactResponse]()]
+    var groupedEmailContactArray = [[ContactResponse]()]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -783,7 +784,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
+    func groupContacts(sortedContacts:[ContactResponse])->[[ContactResponse]]{
+
+        let groupedContacts = sortedContacts.reduce([[ContactResponse]]()) {
+            guard var last = $0.last else { return [[$1]] }
+            var collection = $0
+            if (last.first!.name ?? "").first == $1.name!.first {
+                last += [$1]
+                collection[collection.count - 1] = last
+            } else {
+                collection += [[$1]]
+            }
+            return collection
+        }
+    
+       return groupedContacts
+    }
+    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 200,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
         
         var searchText = searchBar.text!
         var contactType = selectedContactType
@@ -792,7 +809,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)&sortBy=name&sortType=asc"
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(200)&page=\(page)&sortBy=name&sortType=asc"
 
         print("contact->\(path)")
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
@@ -842,7 +859,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
                     self.allmobileContacts = self.mobileContacts
                     if self.mobileContacts.count == 0{
-                        self.lblCurrentFilter.text = ""
+                      //  self.lblCurrentFilter.text = ""
                         self.nocontactView.isHidden = false
                         
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
@@ -853,6 +870,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }else{
                         self.nocontactView.isHidden = true
                     }
+                    self.groupedContactArray = self.groupContacts(sortedContacts:self.mobileContacts)
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
@@ -861,7 +879,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts)
                     if self.emailContacts.count == 0{
-                        self.lblCurrentFilter.text = ""
+                      //  self.lblCurrentFilter.text = ""
                         self.nocontactView.isHidden = false
                         
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
@@ -872,7 +890,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }else{
                         self.nocontactView.isHidden = true
                     }
-                    
+                    self.groupedEmailContactArray = self.groupContacts(sortedContacts:self.emailContacts)
+                  
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -967,6 +986,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if let indexAllHidden = self.allemailContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
                     self.allemailContactsForHide[indexAllHidden].status = ContactStatus.invited
                 }
+                
                 self.emailContactTableView.reloadData()
                 self.contactTableView.reloadData()
                 self.hideLoader()
@@ -1226,15 +1246,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.getContactList( page:1,filter:ContactStatus.invited)
             break
         case 5:
-            
-            if selectedContactType == ContactType.mobile{
+            self.selectedFilter = ContactStatus.opened
+            self.lblCurrentFilter.text = "Opened"
+            self.getContactList( page:1,filter:ContactStatus.opened)
+          /*  if selectedContactType == ContactType.mobile{
                 self.mobileContacts = [ContactResponse]()
                 self.contactTableView.reloadData()
             }else{
                 self.emailContacts = [ContactResponse]()
                 self.emailContactTableView.reloadData()
-            }
-             self.lblCurrentFilter.text = "Opened"
+            } */
+            
            
             break
         case 6:
@@ -1524,8 +1546,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         if tableView == itemsTableView{
             return 1
-        } else{
-            return 1
+        } else if tableView == emailContactTableView{
+            return self.groupedEmailContactArray.count
+        }else{
+            return self.groupedContactArray.count
+          
         }
     }
     
@@ -1537,17 +1562,44 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 return self.emailMsgListing?.list.count ?? 0
             }
         }else if tableView == emailContactTableView{
-            return emailContacts.count
+          //  return emailContacts.count
+            return self.groupedEmailContactArray[section].count
         } else {
-            if section == 0 {
-              return mobileContacts.count
-            }else {
-                return mailContacts.count
-            }
+           // return self.mobileContacts.count
+            return self.groupedContactArray[section].count
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if tableView == self.contactTableView{
+            let sections = self.groupedContactArray.map({$0.first?.name?.first?.uppercased() ?? ""})
+            return sections
+        }else if tableView == self.emailContactTableView{
+            let sections = self.groupedEmailContactArray.map({$0.first?.name?.first?.uppercased() ?? ""})
+            return sections
+        }
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView,
+                   sectionForSectionIndexTitle title: String,
+                   at index: Int) -> Int{
+            print(index)
+            print(title)
+            return 5
+           // return index
+    }
+
+    func tableView(_ tableView: UITableView,
+        titleForHeaderInSection section: Int) -> String?{
+        if tableView == self.contactTableView{
+            return self.groupedContactArray[section].first?.name?.first?.uppercased()
+        }else if tableView == self.emailContactTableView{
+            return self.groupedEmailContactArray[section].first?.name?.first?.uppercased()
+        }
+       return nil
+    }
+/*    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         if tableView == itemsTableView{
             return view
@@ -1575,8 +1627,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             return nil
         }
+    } */
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if tableView == self.contactTableView || tableView == self.emailContactTableView{
+            return 20
+        }else{
+            return 0
+        }
+       
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
@@ -1621,7 +1680,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
             //
-         
+            let emailContacts = self.groupedEmailContactArray[indexPath.section]
             let contact = emailContacts[indexPath.row]
             cell.lblDisplayName.text = contact.name ?? ""
             cell.lblNumberEmail.text = contact.email ?? ""
@@ -1643,7 +1702,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else if contact.status == ContactStatus.subscriber{
                 cell.inviteBtn.isHidden = true
                 cell.inviteButtonView.isHidden = true
-            }else{
+            }else if contact.status == ContactStatus.invited{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
               //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
@@ -1654,6 +1713,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
                 cell.lblInviteButtonTitle.textColor = .white
                 cell.inviteButtonView.isHidden = false
+            }else{
+                cell.inviteBtn.isHidden = true
+                cell.inviteBtn.setTitle("Invited", for: .normal)
+              //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
+             //   cell.inviteBtn.backgroundColor = .black
+                cell.inviteBtn.setTitleColor(.white, for: .normal)
+                cell.buttonInvite.setTitle("", for: .normal)
+                cell.lblInviteButtonTitle.text = "Invited"
+                cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
+                cell.lblInviteButtonTitle.textColor = .white
+                cell.inviteButtonView.isHidden = true
             }
             cell.inviteBtn.isHidden = true
             if let registerUser = contact.registeredUserDetails{
@@ -1679,7 +1749,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
-            if indexPath.section == 0 {
+           
                /* let contact = phoneContacts[indexPath.row] as PhoneContact
                 cell.lblDisplayName.text = contact.name ?? ""
                 cell.lblNumberEmail.text = contact.phoneNumber[0]
@@ -1690,7 +1760,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.contactImage.image = UIImage.init(named: "User_placeholder")
                 }
                 cell.phoneContactObj = contact */
-                
+                let mobileContacts = self.groupedContactArray[indexPath.section]
                 let contact = mobileContacts[indexPath.row]
                 cell.lblDisplayName.text = contact.name ?? ""
                 cell.lblNumberEmail.text = contact.mobile
@@ -1742,19 +1812,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.contactStatusView.isHidden = true
                 }
                
-            }
-            else {
-                let contact = mailContacts[indexPath.row] as PhoneContact
-                cell.lblDisplayName.text = contact.name ?? ""
-                cell.lblNumberEmail.text = contact.email[0]
-                if let imagedata =  contact.avatarData {
-                    let avtar = UIImage(data:imagedata,scale:1.0)
-                    cell.contactImage.image = avtar
-                }else {
-                    cell.contactImage.image = UIImage.init(named: "User_placeholder")
-                }
-                cell.phoneContactObj = contact
-            }
             
             cell.inviteBtn.isHidden = true
             return cell
@@ -2685,10 +2742,11 @@ extension ContactImportVC:UIScrollViewDelegate{
             let contentHeight = scrollView.contentSize.height
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
-            if (offsetY >= contentHeight - scrollView.frame.height) && !loadingStatus {
+            if ((offsetY) >= contentHeight - scrollView.frame.height - 150.0) && !loadingStatus {
               //  self.showLoader()
                 let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
                 self.getContactList(page: page, filter: self.selectedFilter)
+                
             }
         }
         
@@ -2715,13 +2773,13 @@ extension ContactImportVC:UIScrollViewDelegate{
                 return
             }
             if self.contactTableView.isHidden == true {
-                if emailContactTableView.contentSize.height > (84.0 + 50.0 + self.emailContactTableView.frame.size.height){
+                if emailContactTableView.contentSize.height > (124.0 + 50.0 + self.emailContactTableView.frame.size.height){
                     
                 }else{
                     return
                 }
             } else {
-                if contactTableView.contentSize.height > (84.0 + 50.0 + self.contactTableView.frame.size.height){
+                if contactTableView.contentSize.height > (124.0 + 50.0 + self.contactTableView.frame.size.height){
                     
                 }else{
                     return
@@ -2729,7 +2787,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
         if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
-            self.segmentViewHeight.constant = 84.0
+            self.segmentViewHeight.constant = 124.0
             self.stepViewHeight.constant = 50.0
                 UIView.animate(withDuration: 0.5, animations: {
                     

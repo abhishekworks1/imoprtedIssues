@@ -3576,11 +3576,11 @@ Countdown</string>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gqH-0A-W4C">
-                                                            <rect key="frame" x="255" y="28" width="80" height="40"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqH-0A-W4C">
+                                                            <rect key="frame" x="225" y="28" width="120" height="40"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="9vI-04-UUH">
-                                                                    <rect key="frame" x="5" y="0.0" width="94" height="40"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="9vI-04-UUH">
+                                                                    <rect key="frame" x="13" y="0.0" width="94" height="40"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehf-ef-Auo" userLabel="Android Badge">
                                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
@@ -3692,7 +3692,7 @@ Countdown</string>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="Cdb-yX-IWT"/>
                                                                 <constraint firstItem="9vI-04-UUH" firstAttribute="centerX" secondItem="gqH-0A-W4C" secondAttribute="centerX" id="jEd-8U-f0M"/>
-                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="lWU-pl-3m4"/>
+                                                                <constraint firstAttribute="width" constant="120" id="lWU-pl-3m4"/>
                                                                 <constraint firstItem="9vI-04-UUH" firstAttribute="centerY" secondItem="gqH-0A-W4C" secondAttribute="centerY" id="wXi-bI-NhA"/>
                                                             </constraints>
                                                         </view>
@@ -3707,7 +3707,7 @@ Countdown</string>
                                                         <constraint firstAttribute="bottom" secondItem="td5-zk-yno" secondAttribute="bottom" constant="5" id="aZe-m9-csN"/>
                                                         <constraint firstItem="td5-zk-yno" firstAttribute="leading" secondItem="R8R-Af-9Ma" secondAttribute="leading" constant="10" id="k6M-NJ-JiH"/>
                                                         <constraint firstItem="CWY-pP-68E" firstAttribute="leading" secondItem="td5-zk-yno" secondAttribute="trailing" constant="5" id="m9N-G0-0Sv"/>
-                                                        <constraint firstAttribute="trailing" secondItem="gqH-0A-W4C" secondAttribute="trailing" constant="40" id="nK5-a9-7GW"/>
+                                                        <constraint firstAttribute="trailing" secondItem="gqH-0A-W4C" secondAttribute="trailing" constant="10" id="nK5-a9-7GW"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kMH-eJ-gvR">
