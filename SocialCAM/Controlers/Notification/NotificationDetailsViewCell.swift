@@ -147,7 +147,7 @@ class NotificationDetailsViewCell: UICollectionViewCell {
     }
     
     func convertDate(_ date: String) -> String {
-        let convertedDate = CommonFunctions.getDateInSpecificFormat(dateInput: date, dateOutput: R.string.localizable.mmmdYyyy())
+        let convertedDate = CommonFunctions.getDateInSpecificFormat(dateInput: date, dateOutput: "h:mm a \(R.string.localizable.mmmdYyyy())")
         return convertedDate
     }
     

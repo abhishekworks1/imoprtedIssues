@@ -186,7 +186,7 @@ class SubscriptionContainerViewController: UIViewController {
                 if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
                     var diffDays = futureDate.days(from: Date())
                     if diffDays == 1 {
-                        lbltrialDays.text = "Today is the last day of your 7-day free trial."// Upgrade now to access these features"
+                        lbltrialDays.text = "Today is the last day of your 7-Day Premium Free Trial."// Upgrade now to access these features"
                     } else if diffDays > 1 {
                         lbltrialDays.text = "You have \(diffDays) days left on your free trial."// Subscribe now and earn your subscription badge."
                     }
@@ -195,7 +195,7 @@ class SubscriptionContainerViewController: UIViewController {
         } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
             lbltrialDays.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
         } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
-            lbltrialDays.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+            lbltrialDays.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
         } else {
             lbltrialDays.text = ""
         }
@@ -465,26 +465,26 @@ class SubscriptionContainerViewController: UIViewController {
         } else if let subscriptionSts = Defaults.shared.currentUser?.subscriptionStatus {
             subscriptionStatus = subscriptionSts
         }
-            
+        subscribeNowLabel.isHidden = true
         if (subscriptionStatus.lowercased() == "basic"){
             viewDetailBasicView.isHidden = true
             activeBasicView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan Basic"
-            subscribertypeLabel.text = "Basic"
+            subscribertypeLabel.text = "Your Subscription Plan: Basic"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"C9B552")
         }else if(subscriptionStatus.lowercased() == "advance"){
             viewDetailAdvancedView.isHidden = true
             activeAdvancedView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
-            subscribertypeLabel.text = "Advanced"
+            subscribertypeLabel.text = "Your Subscription Plan: Advanced"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"88A975")
         }else if(subscriptionStatus.lowercased() == "pro"){
             viewDetailProView.isHidden = true
             activeProView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
-            subscribertypeLabel.text = "Premium"
+            subscribertypeLabel.text = "Your Subscription Plan: Premium"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"617FB1")
         }else{

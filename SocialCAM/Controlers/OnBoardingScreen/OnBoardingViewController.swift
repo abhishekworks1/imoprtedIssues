@@ -283,7 +283,7 @@ enum QuickStartOption: Int, CaseIterable {
             case .subscriptions:
                 return """
 <ul>
-<li class="p1">Premium 7-Day Free Trial</li>
+<li class="p1">7-Day Premium Free Trial</li>
 </ul>
 <p>&nbsp;</p>
 <ul>
@@ -483,7 +483,7 @@ enum QuickStartOption: Int, CaseIterable {
 <ul>
 <li style="list-style-type: none;">
 <ul style="list-style-type: disc;">
-<li aria-level="2"><span style="font-weight: 400;">After you send your invites, each time you open Contact Manager, thereafter, you&rsquo;ll be able to track the contacts you invited and see when the recipients have opened, signed up and subscribed.</span></li>
+<li aria-level="2"><span style="font-weight: 400;">After you send your invites, each time you open Contact Inviter, thereafter, you&rsquo;ll be able to track the contacts you invited and see when the recipients have opened, signed up and subscribed.</span></li>
 </ul>
 </li>
 </ul>
@@ -603,7 +603,7 @@ enum QuickStartOption: Int, CaseIterable {
 <li><span style="font-weight: 400;">to be available with paid subscriptions and referral commissions (to be announced).<br /></span></li>
 </ul>
 </li>
-<li aria-level="2"><strong>Contact Manager</strong>
+<li aria-level="2"><strong>Contact Inviter</strong>
 <ul style="list-style-type: disc;">
 <li><span style="font-weight: 400;">Invite and track your referrals, see who has signed up and who&rsquo;s subscribing.</span></li>
 </ul>
@@ -622,7 +622,7 @@ enum QuickStartOption: Int, CaseIterable {
 """
             case .yourGoal:
                 return """
-<p dir="auto" data-sourcepos="7:1-7:103">**Use TextShare as the surest and fastest way to share the QuickCam opportunity and grow your potential income because text messages are more likely to be opened than an email. **</p>
+<p dir="auto" data-sourcepos="7:1-7:103">Use TextShare as the surest and fastest way to share the QuickCam opportunity and grow your potential income because text messages are more likely to be opened than an email.</p>
 <p dir="auto" data-sourcepos="9:1-9:196">&nbsp;</p>
 <p dir="auto" data-sourcepos="9:1-9:196">Your first goal is to meet your expenses because everything after that is pure profit. When 2 of your referrals subscribe at the same level or higher than your subscription, your expenses are met.</p>
 <p dir="auto" data-sourcepos="9:1-9:196">&nbsp;</p>
@@ -949,7 +949,7 @@ extension OnBoardingViewController {
                         let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                             if finalDay == "7" {
-                                self.subscriptionStatusLabel.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                                self.subscriptionStatusLabel.text = "Today is the last day of your 7-Day Premium Free Trial. Upgrade now to access these features"
                             } else {
                                 var fday = 0
                                 if let day = Int(finalDay) {
@@ -959,14 +959,14 @@ extension OnBoardingViewController {
                                     }
                                 }
                                 if fday == 0{
-                                    self.subscriptionStatusLabel.text = "Your 7-day free trial period has expired. Upgrade now to access these features."
+                                    self.subscriptionStatusLabel.text = "Your 7-Day Premium Free Trial period has expired. Upgrade now to access these features."
                                 } else {
                                     self.subscriptionStatusLabel.text = "You have \(fday) days left on your free trial. Subscribe now and earn your subscription badge."
                                 }
                                
                             }
                         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                            self.subscriptionStatusLabel.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+                            self.subscriptionStatusLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
                         }
                     }
                 }

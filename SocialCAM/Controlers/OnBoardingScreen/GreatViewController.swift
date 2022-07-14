@@ -45,6 +45,7 @@ class GreatViewController: UIViewController {
     @IBOutlet weak var foundingMemberImageView: UIImageView!
     @IBOutlet weak var userImageView: UIImageView!
     
+    @IBOutlet weak var backToQuickStartButton: UIButton!
     @IBOutlet weak var userImageHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var userImageWidthConstraints: NSLayoutConstraint!
     var categoryString: String?
@@ -98,7 +99,7 @@ extension GreatViewController {
         }
         
        // self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in \(durationString).\nSubscribe now before your 7-day free trial ends."
-        self.quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nSubscribe now before your 7-day free trial ends."
+        self.quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nSubscribe now before your 7-Day Premium Free Trial ends."
         
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
             self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
@@ -191,7 +192,7 @@ extension GreatViewController {
                     }
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                        if finalDay == "7" {
-                           quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+                           quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-Day Premium Free Trial"
                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                showTimer(createdDate: createdDate)
                            }
@@ -248,12 +249,13 @@ extension GreatViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
         self.upgradeNowButton.isHidden = false
+        self.backToQuickStartButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
             if days == "0" {
                 setImageForDays(days: days, imageName: "freeOnboard")
-                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
                 setUpTimerViewForZeroDay()
             } else if (days == "7") {
                 setUpTimerViewForSignupDay()
@@ -264,7 +266,7 @@ extension GreatViewController {
             }
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             setImageForDays(days: days, imageName: "freeOnboard")
             setUpTimerViewForZeroDay()
         } else if subscriptionType == "expired" {
@@ -295,6 +297,7 @@ extension GreatViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
+            self.backToQuickStartButton.setTitleColor(UIColor(red: 0.259, green: 0.522, blue: 0.957, alpha: 1), for: .normal)
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -390,6 +393,7 @@ extension GreatViewController {
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nUpgrading your subscription to Premium will be available in the next release. You'll be notified when upgrading your channel is ready."
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             self.upgradeNowButton.isHidden = true
+            self.backToQuickStartButton.setTitleColor(UIColor(red: 0.259, green: 0.522, blue: 0.957, alpha: 1), for: .normal)
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income."
@@ -400,6 +404,7 @@ extension GreatViewController {
     func subscribersHideTimer(subscriptionType: String) {
         timerStackView.isHidden = true
         self.upgradeNowButton.isHidden = true
+        self.backToQuickStartButton.setTitleColor(UIColor(red: 0.259, green: 0.522, blue: 0.957, alpha: 1), for: .normal)
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
     }
     
@@ -472,17 +477,17 @@ extension GreatViewController {
                 quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                 self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
             } else if daysLeft == 0 || daysLeft < 0 {
-                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
                 self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: originalSubscriptionType)
             } else if daysLeft == 1 {
-                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-Day Premium Free Trial"
                 self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: originalSubscriptionType)
             } else {
                 self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
                 quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+            quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
         } else if subscriptionType == "expired" {
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
@@ -494,7 +499,7 @@ extension GreatViewController {
             } else if daysLeft == 0 || daysLeft < 0 {
                 
             } else if daysLeft == 1 {
-                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-Day Premium Free Trial"
             } else {
                 quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }
@@ -506,7 +511,7 @@ extension GreatViewController {
             } else if daysLeft == 0 || daysLeft < 0 {
                 
             } else if daysLeft == 1 {
-                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-Day Premium Free Trial"
             } else {
                 quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }
@@ -518,7 +523,7 @@ extension GreatViewController {
             } else if daysLeft == 0 || daysLeft < 0 {
                 
             } else if daysLeft == 1 {
-                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-day free trial"
+                quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nToday is the last day of your 7-Day Premium Free Trial"
             } else {
                 quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYou have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }

@@ -161,7 +161,7 @@ class WelcomeTimerPopupViewController: UIViewController {
                     if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
                         var diffDays = futureDate.days(from: Date())
                     if diffDays == 1 {
-                        subscriptionMessageLabel.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                        subscriptionMessageLabel.text = "Today is the last day of your 7-Day Premium Free Trial. Upgrade now to access these features"
                     } else if diffDays > 1 {
                         subscriptionMessageLabel.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
                     }
@@ -170,7 +170,7 @@ class WelcomeTimerPopupViewController: UIViewController {
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
                 subscriptionMessageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
-                subscriptionMessageLabel.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+                subscriptionMessageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
             } else {
                 subscriptionMessageLabel.text = ""
             }

@@ -2175,7 +2175,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlB-Bn-Dzu" userLabel="Grate Job &lt;Display name&gt;!!!">
                                         <rect key="frame" x="49" y="272" width="294" height="67"/>
                                         <string key="text">You've completed &lt;quickstart guide category&gt; in &lt;timer value&gt;.
-Subscribe now before your 7-day free trial ends.</string>
+Subscribe now before your 7-Day Premium Free Trial ends.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.0" alpha="0.52000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2474,6 +2474,7 @@ Subscribe now before your 7-day free trial ends.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backToQuickStartButton" destination="hNx-yg-eJA" id="xbM-3i-Iwi"/>
                         <outlet property="badgeImageView" destination="AbP-U3-iqu" id="vst-pT-8i8"/>
                         <outlet property="btnClose" destination="IJC-xA-5JY" id="Lgc-VY-7Uf"/>
                         <outlet property="centerView" destination="H2I-Wf-pCn" id="l5m-ly-Rmc"/>

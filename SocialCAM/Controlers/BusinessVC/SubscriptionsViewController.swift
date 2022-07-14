@@ -154,6 +154,19 @@ class SubscriptionsViewController: UIViewController {
         setupFreeTrialView()
         setUpPriceTextForFreeScreen()
         tapGestureSetUp()
+        if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
+                    self.timerStackView.isHidden = true
+                    self.messageLabel.isHidden = true
+                }
+            }
+            if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
+                self.timerStackView.isHidden = true
+                self.messageLabel.isHidden = true
+            }
+        }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -479,7 +492,7 @@ class SubscriptionsViewController: UIViewController {
                     if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
                         var diffDays = futureDate.days(from: Date())
                         if diffDays == 1 {
-                            lblPrice.text = "Today is the last day of your 7-day free trial. Upgrade now to access these features"
+                            lblPrice.text = "Today is the last day of your 7-Day Premium Free Trial. Upgrade now to access these features"
                         } else if diffDays > 1 {
                             lblPrice.text = "You have \(diffDays) days left on your free trial. Subscribe now and earn your subscription badge."
                         }
@@ -488,7 +501,7 @@ class SubscriptionsViewController: UIViewController {
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
                 lblPrice.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
-                lblPrice.text = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+                lblPrice.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
             }
         } else {
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
@@ -498,7 +511,7 @@ class SubscriptionsViewController: UIViewController {
                     if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
                         let diffDays = futureDate.days(from: Date())
                         if diffDays == 1 {
-                            messageLabel.text = "Today is the last day of your 7-day free trial."
+                            messageLabel.text = "Today is the last day of your 7-Day Premium Free Trial."
                         } else if diffDays > 1 {
                             messageLabel.text = "You have \(diffDays) days left on your free trial."
                         }
