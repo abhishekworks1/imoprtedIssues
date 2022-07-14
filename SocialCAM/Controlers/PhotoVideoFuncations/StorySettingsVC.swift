@@ -637,10 +637,17 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.doubleButtonStackView.isHidden = !isHide
     }
     
+//    @IBAction func didTapCameraButton(_ sender: UIButton) {
+//        if let cameraScreen = R.storyboard.storyCameraViewController.storyCameraViewController() {
+//            self.navigationController?.pushViewController(cameraScreen, animated: true)
+//        }
+//    }
+    
+    
     
     @IBAction func didTapCameraButton(_ sender: UIButton) {
-        if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC() {
-            navigationController?.pushViewController(storySettingsVC, animated: true)
+        if let cameraScreen = R.storyboard.storyCameraViewController.storyCameraViewController() {
+            self.navigationController?.pushViewController(cameraScreen, animated: true)
         }
     }
     
