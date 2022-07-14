@@ -855,7 +855,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.settings_ReferringChannel())
         } else if settingTitle.settingsType == .subscription {
             hideUnhideImgButton(cell, R.image.settings_Subscription())
-           // cell.setUpSubscriptionBadges()
+            cell.setUpSubscriptionBadges()
         } else if settingTitle.settingsType == .contactManager {
             hideUnhideImgButton(cell, R.image.settings_ContactManager())
         }else if settingTitle.settingsType == .socialLogins {

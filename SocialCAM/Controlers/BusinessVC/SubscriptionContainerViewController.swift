@@ -193,9 +193,9 @@ class SubscriptionContainerViewController: UIViewController {
                 }
             }
         } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
-            lbltrialDays.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+            lbltrialDays.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features.\nTime since subscription ended"
         } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
-            lbltrialDays.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+            lbltrialDays.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
         } else {
             lbltrialDays.text = ""
         }

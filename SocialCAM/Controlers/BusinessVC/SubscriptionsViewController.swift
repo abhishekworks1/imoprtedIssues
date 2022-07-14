@@ -498,11 +498,11 @@ class SubscriptionsViewController: UIViewController {
                         }
                     }
                 }
-            } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
+            } /*else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
                 lblPrice.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
                 lblPrice.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
-            }
+            }*/
         } else {
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
                 if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
@@ -617,17 +617,17 @@ class SubscriptionsViewController: UIViewController {
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
                 self.messageLabel.isHidden = false
-                self.messageLabel.text = "Time since signing up"
+                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
                showUpTimer(timerDate: timerDate)
             } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                 self.messageLabel.isHidden = false
-                self.messageLabel.text = "Time since signing up"
+                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
                 showUpTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
                 self.messageLabel.isHidden = false
-                self.messageLabel.text = "Time since subscription ended"
+                self.messageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features.\nTime since subscription ended"
                 showUpTimer(timerDate: timerDate)
             }
         } else {
