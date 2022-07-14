@@ -70,8 +70,10 @@ class NotificationDetailsViewCell: UICollectionViewCell {
         if let userImageURL = notification?.refereeUserId?.profileImageURL {
             self.imgUserImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
         } else {
-            if let userImageUrl = Defaults.shared.currentUser?.refferedBy?.profileImageURL {
-                self.imgUserImage.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: R.image.user_placeholder())
+            if Defaults.shared.currentUser?.id == Defaults.shared.currentUser?.refferedBy?.id {
+                if let userImageUrl = Defaults.shared.currentUser?.refferedBy?.id {
+                    self.imgUserImage.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: R.image.user_placeholder())
+                }
             }
         }
         
