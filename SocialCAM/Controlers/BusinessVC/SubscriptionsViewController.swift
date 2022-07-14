@@ -110,7 +110,7 @@ class SubscriptionsViewController: UIViewController {
         }
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Special Price: $1.99/month"
+            lblPrice.text = "Early-Bird Special Price: \n$1.99/month"
             subScriptionTypeLabel.text = "Basic"
             if (subscriptionStatus.lowercased() == "basic"){
                 planActiveView.isHidden = false
@@ -118,7 +118,7 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Special Price: $2.99/month"
+            lblPrice.text = "Early-Bird Special Price: \n$2.99/month"
             subScriptionTypeLabel.text = "Advanced"
             if (subscriptionStatus.lowercased() == "advance"){
                 planActiveView.isHidden = false
@@ -126,13 +126,13 @@ class SubscriptionsViewController: UIViewController {
         }
         else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
-            lblPrice.text = "Early-Bird Special Price: $4.99/month"
+            lblPrice.text = "Early-Bird Special Price: \n$4.99/month"
             subScriptionTypeLabel.text = "Premium"
             if (subscriptionStatus.lowercased() == "pro"){
                 planActiveView.isHidden = false
             }
         }else{
-            lblPrice.text = "Free:  $0/month \n No subscription required"
+            lblPrice.text = "Free:  $0/month \nNo subscription required"
             subScriptionTypeLabel.text = "Free"
             if (subscriptionStatus.lowercased() == "trial"){
                 let numberOfFreeTrialDays = Defaults.shared.numberOfFreeTrialDays ?? 0
@@ -505,6 +505,7 @@ class SubscriptionsViewController: UIViewController {
             }
         } else {
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
+                var message = ""
                 if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
                     var dateComponent = DateComponents()
                     dateComponent.day = 8
@@ -513,9 +514,19 @@ class SubscriptionsViewController: UIViewController {
                         if diffDays == 1 {
                             messageLabel.text = "Today is the last day of your 7-Day Premium Free Trial."
                         } else if diffDays > 1 {
-                            messageLabel.text = "You have \(diffDays) days left on your free trial."
+                            message = "You have \(diffDays) days left on your free trial."
                         }
                     }
+                    if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+                        if paidSubscriptionStatus.lowercased() == "basic" {
+                            message.append("\nDuring your 7-Day Premium Free Trial, you'll have continued access to all of the Premium subscription features, such as slow and fast motion range from -5x to 5x.\nAfter the 7 days, your subscription level of Basic will activate the slow and fast motion range will be -3x to 3x.\nThe timer indicates the amount of time you can still enjoy the Premium features during the 7-Day Premium Free Trial.")
+                           } else if paidSubscriptionStatus.lowercased() == "pro" {
+                               message.append("\nThe timer indicates the amount of time you can still enjoy the Premium features during the 7-Day Premium Free Trial.")
+                          } else if paidSubscriptionStatus.lowercased() == "advance" {
+                              message.append("\nDuring your 7-Day Premium Free Trial, you'll have continued access to all of the Premium subscription features, such as slow and fast motion range from -5x to 5x.\nAfter the 7 days, your subscription level of Advanced will activate the slow and fast motion range will be -4x to 4x.\nThe timer indicates the amount of time you can still enjoy the Premium features during the 7-Day Premium Free Trial.")
+                        }
+                    }
+                    messageLabel.text = message
                 }
             }
         }
