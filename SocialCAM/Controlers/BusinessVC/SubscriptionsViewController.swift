@@ -483,7 +483,7 @@ class SubscriptionsViewController: UIViewController {
         }
     }
     func setUpPriceTextForFreeScreen() {
-        if subscriptionType == .free {
+       /* if subscriptionType == .free {
             //            Note : possible values for subscriptionStatus = free,trial,basic,advance,pro,expired
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
                 if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
@@ -503,7 +503,7 @@ class SubscriptionsViewController: UIViewController {
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
                 lblPrice.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
             }*/
-        } else {
+        } else { */
             if Defaults.shared.currentUser?.subscriptionStatus == "trial" {
                 var message = ""
                 if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
@@ -514,7 +514,7 @@ class SubscriptionsViewController: UIViewController {
                         if diffDays == 1 {
                             messageLabel.text = "Today is the last day of your 7-Day Premium Free Trial."
                         } else if diffDays > 1 {
-                            message = "You have \(diffDays) days left on your free trial."
+                            message = "You have \(diffDays) days left on your Premium free trial."
                         }
                     }
                     if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
@@ -529,7 +529,7 @@ class SubscriptionsViewController: UIViewController {
                     messageLabel.text = message
                 }
             }
-        }
+//        }
     }
     
     func setSubscriptionBadgeDetails(){
