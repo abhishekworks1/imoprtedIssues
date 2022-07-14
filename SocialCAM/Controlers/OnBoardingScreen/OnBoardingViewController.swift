@@ -390,7 +390,7 @@ enum QuickStartOption: Int, CaseIterable {
             case .referralCommissionProgram:
                 return "Referral Commissions Program"
             case .referralWizard:
-                return "Referral Wizard"
+                return "Invite Wizard"
             case .contactManagerTools:
                 return "Contact Management Tools"
             case .fundraising:
