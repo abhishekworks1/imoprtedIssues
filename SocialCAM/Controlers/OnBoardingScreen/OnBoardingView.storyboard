@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,7 +31,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="428" height="65"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="f9W-kR-o1U">
-                                                            <rect key="frame" x="10" y="17.5" width="273.5" height="30"/>
+                                                            <rect key="frame" x="10" y="17.5" width="273" height="30"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Sj-ri-LXY">
                                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="30"/>
@@ -46,7 +46,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLE-rq-D55">
-                                                                    <rect key="frame" x="52" y="0.0" width="221.5" height="30"/>
+                                                                    <rect key="frame" x="52" y="0.0" width="221" height="30"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refer_quickcam_logo" translatesAutoresizingMaskIntoConstraints="NO" id="3e3-9u-Rkp">
                                                                             <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
@@ -55,7 +55,7 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickStart Guide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-mk-tp9">
-                                                                            <rect key="frame" x="80" y="0.0" width="141.5" height="30"/>
+                                                                            <rect key="frame" x="80" y="0.0" width="141" height="30"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                             <color key="textColor" red="0.16862745098039217" green="0.41960784313725491" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -1703,7 +1703,7 @@
                                                         <rect key="frame" x="8" y="93.5" width="274" height="150.5"/>
                                                         <attributedString key="attributedText">
                                                             <fragment>
-                                                                <string key="content">Share your QuickCam referral link with your contacts. When they open your custom referral link with your profile badge, sign up and subscribe, you'll earn 50% of the subscription amount for the first 2 months, then 25% for the 3rd month and thereafter.</string>
+                                                                <string key="content">Share your QuickCam referral link with your contacts. When they open your custom invite link with your profile badge, sign up and subscribe, you'll earn 50% of the subscription amount for the first 2 months, then 25% for the 3rd month and thereafter.</string>
                                                                 <attributes>
                                                                     <font key="NSFont" metaFont="system" size="15"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
