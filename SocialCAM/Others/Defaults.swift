@@ -1420,6 +1420,15 @@ class Defaults {
         }
     }
     
+    var shouldDisplayDetailsOfWelcomeScreenFeatures: Bool {
+        get {
+            return (appDefaults?.value(forKey: "shouldDisplayDetailsOfWelcomeScreenFeatures") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "shouldDisplayDetailsOfWelcomeScreenFeatures")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
