@@ -870,6 +870,14 @@ class Defaults {
             appDefaults?.set(newValue, forKey: "isDoNotShowAgainOpenBusinessCenterPopup")
         }
     }
+    var isDoNotShowAgainOpenIncomeGoalPopup: Bool {
+        get {
+            return appDefaults?.value(forKey: "isDoNotShowAgainOpenIncomeGoalPopup") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDoNotShowAgainOpenIncomeGoalPopup")
+        }
+    }
     
     var isDoNotShowAgainDeleteContactPopup: Bool {
         get {
