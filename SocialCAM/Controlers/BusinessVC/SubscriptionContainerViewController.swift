@@ -50,7 +50,6 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var subscribertypeview: UIView!
     @IBOutlet weak var subscribertypeLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
-
     @IBOutlet weak var timerStackView: UIStackView!
     @IBOutlet weak var dayValueLabel: UILabel!
     @IBOutlet weak var hourValueLabel: UILabel!
@@ -262,15 +261,18 @@ class SubscriptionContainerViewController: UIViewController {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
+                timerDescLabel.text = "Time remaining:"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
+            timerDescLabel.text = "Time since signing up:"
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "expired" {
+            timerDescLabel.text = "Time since your subscription expired:"
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
@@ -728,7 +730,7 @@ extension SubscriptionContainerViewController {
             }
         }
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            return "Your 7-Day Premium Free Trial has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features.\nTime since signing up:"
+            return "Your 7-Day Premium Free Trial has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features."
         }
         else if subscriptionType == "expired" {
             return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features."

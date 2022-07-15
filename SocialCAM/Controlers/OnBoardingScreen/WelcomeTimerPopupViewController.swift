@@ -170,11 +170,11 @@ class WelcomeTimerPopupViewController: UIViewController {
                     }
                 }
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
-                subscriptionMessageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+                message = showMessageData(subscriptionType: Defaults.shared.currentUser?.subscriptionStatus ?? "", daysLeft: 0)
             } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
-                subscriptionMessageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+                message = showMessageData(subscriptionType: Defaults.shared.currentUser?.subscriptionStatus ?? "", daysLeft: 0)
             } else {
-                subscriptionMessageLabel.text = ""
+                message = ""
             }
         subscriptionMessageLabel.text = message
         if subscriptionMessageLabel.text == "" {
