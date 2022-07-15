@@ -139,13 +139,15 @@ class WelcomeViewController: UIViewController {
         case 1:
             whatToSeeFirstBaseView.isHidden = false
         case 2:
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            if let pageViewController = rootViewController as? PageViewController,
-               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-                navigationController.viewControllers.append(settingVC)
-            }
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+//            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+//            if let pageViewController = rootViewController as? PageViewController,
+//               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
+//               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
+//                navigationController.viewControllers.append(settingVC)
+//            }
+//            Utils.appDelegate?.window?.rootViewController = rootViewController
+            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+            navigationController?.pushViewController(storySettingsVC, animated: true)
             break
         case 3:
             if let token = Defaults.shared.sessionToken {
