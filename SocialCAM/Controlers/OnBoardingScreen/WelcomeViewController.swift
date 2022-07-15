@@ -713,3 +713,55 @@ extension WelcomeViewController {
     }
     
 }
+
+extension WelcomeViewController {
+    func showMessageData(subscriptionType: String, daysLeft: Int) -> String {
+        if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+            var originalSubscriptionType = subscriptionType
+            if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                originalSubscriptionType = paidSubscriptionStatus
+            }
+            
+            if originalSubscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                // for TRIAL user use this
+                if daysLeft == 7 {
+                    
+                }
+            } else {
+                // purchase during trail use this.
+                if daysLeft == 7 {
+                    
+                }
+            }
+            
+            
+        } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+            
+        } else if subscriptionType == "expired" {
+            
+        } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+            
+            if daysLeft == 7 {
+                
+            }
+        } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+            
+            if daysLeft == 7 {
+                
+            }
+            
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
+            
+            if daysLeft == 7 {
+                
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                
+            } else {
+                
+            }
+        }
+        return ""
+    }
+}
