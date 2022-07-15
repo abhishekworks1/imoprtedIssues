@@ -19,6 +19,8 @@ class SubscriptionContainerViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var subscriptionImgV: UIImageView!
     
+    @IBOutlet weak var timerDescLabel: UILabel!
+    @IBOutlet weak var timerContainerStackView: UIStackView!
     @IBOutlet weak var activeFreeView: UIView!
     @IBOutlet weak var viewDetailFreeView: UIView!
     
@@ -269,7 +271,7 @@ class SubscriptionContainerViewController: UIViewController {
         }
     }
     func setTimer(){
-        timerStackView.isHidden = true
+        timerContainerStackView.isHidden = true
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
@@ -286,7 +288,7 @@ class SubscriptionContainerViewController: UIViewController {
                 showUpTimer(timerDate: timerDate)
             }
         } else {
-            timerStackView.isHidden = true
+            timerContainerStackView.isHidden = true
         }
     }
     func showUpTimer(timerDate: Date){
@@ -301,15 +303,15 @@ class SubscriptionContainerViewController: UIViewController {
             self.hourValueLabel.text = String(format: "%02d", hours)
             self.dayValueLabel.text = String(format: "%01d", days)
             self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
-            self.timerStackView.isHidden = false
+            self.timerContainerStackView.isHidden = false
             if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
                 if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
                     if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
-                        self.timerStackView.isHidden = true
+                        self.timerContainerStackView.isHidden = true
                     }
                 }
                 if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
-                    self.timerStackView.isHidden = true
+                    self.timerContainerStackView.isHidden = true
                 }
             }
         }
@@ -339,16 +341,16 @@ class SubscriptionContainerViewController: UIViewController {
                 }
             }
         }
-        self.timerStackView.isHidden = false
+        self.timerContainerStackView.isHidden = false
         if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
             
             if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
                 if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
-                    self.timerStackView.isHidden = true
+                    self.timerContainerStackView.isHidden = true
                 }
             }
             if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
-                self.timerStackView.isHidden = true
+                self.timerContainerStackView.isHidden = true
             }
         }
     }
