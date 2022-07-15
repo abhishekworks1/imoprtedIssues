@@ -238,28 +238,15 @@ class SubscriptionContainerViewController: UIViewController {
                 var dateComponent = DateComponents()
                 dateComponent.day = 8
                 if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
-                    var diffDays = futureDate.days(from: Date())
-                    if diffDays == 1 {
-                        message = "Today is the last day of your 7-day free trial."// Upgrade now to access these features"
-                    } else if diffDays > 1 {
-                        message = "You have \(diffDays) days left on your free trial."// Subscribe now and earn your subscription badge."
-                    }
-                
-                    if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
-                        if paidSubscriptionStatus.lowercased() == "basic" {
-                            message.append("\nDuring your 7-Day Premium Free Trial, you'll have continued access to all of the Premium subscription features, such as slow and fast motion range from -5x to 5x.\nAfter the 7 days, your subscription level of Basic will activate the slow and fast motion range will be -3x to 3x.\nThe timer indicates the amount of time you can still enjoy the Premium features during the 7-Day Premium Free Trial.")
-                           } else if paidSubscriptionStatus.lowercased() == "pro" {
-                               message.append("\nThe timer indicates the amount of time you can still enjoy the Premium features during the 7-Day Premium Free Trial.")
-                          } else if paidSubscriptionStatus.lowercased() == "advance" {
-                              message.append("\nDuring your 7-Day Premium Free Trial, you'll have continued access to all of the Premium subscription features, such as slow and fast motion range from -5x to 5x.\nAfter the 7 days, your subscription level of Advanced will activate the slow and fast motion range will be -4x to 4x.\nThe timer indicates the amount of time you can still enjoy the Premium features during the 7-Day Premium Free Trial.")
-                        }
-                    }
+                    let diffDays = futureDate.days(from: Date())
+                   message = showMessageData(subscriptionType: Defaults.shared.currentUser?.subscriptionStatus ?? "", daysLeft: diffDays)
                 }
             }
-        } else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
-            message = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+        }
+        else  if Defaults.shared.currentUser?.subscriptionStatus == "expired" {
+            message = showMessageData(subscriptionType: Defaults.shared.currentUser?.subscriptionStatus ?? "", daysLeft: 0)
         } else  if Defaults.shared.currentUser?.subscriptionStatus == "free" {
-            message = "Your 7-day free trial is over. Subscribe now to continue using the Basic, Advanced or Premium features."
+            message = showMessageData(subscriptionType: Defaults.shared.currentUser?.subscriptionStatus ?? "", daysLeft: 0)
         } else {
             message = ""
         }
@@ -663,4 +650,96 @@ extension UIView {
         layer.insertSublayer(gradientLayer, at: 0)
     }
 
+}
+extension SubscriptionContainerViewController {
+    func showMessageData(subscriptionType: String, daysLeft: Int) -> String {
+        if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+            
+            var originalSubscriptionType = subscriptionType
+            if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                originalSubscriptionType = paidSubscriptionStatus
+            }
+            
+            if originalSubscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                // for TRIAL user use this
+                if daysLeft == 7 {
+                    return "Your 7-Day Premium Free Trial has started. Upgrade now to Premium and get your Premium Subscriber Badge and Day 1 Subscriber Badge!"
+                } else if daysLeft == 6 {
+                    return "You’re on Day 2 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 2 Subscriber Badge!"
+                } else if daysLeft == 5 {
+                    return "You’re on Day 3 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 3 Subscriber Badge!"
+                } else if daysLeft == 4 {
+                    return "You’re on Day 4 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 4 Subscriber Badge!"
+                } else if daysLeft == 3 {
+                    return "You’re on Day 5 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 5 Subscriber Badge!"
+                } else if daysLeft == 2 {
+                    return "You’re on Day 6 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 6 Subscriber Badge!"
+                } else if daysLeft == 1 {
+                    return "You’re on the last day of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
+                } else {
+                    return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge"
+                }
+            }
+            else {
+                // purchase during trail use this.
+                if originalSubscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                    if daysLeft == 7 {
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                    } else if daysLeft == 6 {
+                        return "You’re on Day 2 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                    } else if daysLeft == 5 {
+                        return "You’re on Day 3 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                    } else if daysLeft == 4 {
+                        return "You’re on Day 4 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                    } else if daysLeft == 3 {
+                        return "You’re on Day 5 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                    } else if daysLeft == 2 {
+                        return "You’re on Day 6 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                    } else if daysLeft == 1 {
+                        return "You’re on the last day of your 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                    } else {
+                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Advanced or Premium available soon"
+                    }
+                }
+                else if originalSubscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                    if daysLeft == 7 {
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                    } else if daysLeft == 6 {
+                        return "You’re on Day 2 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                    } else if daysLeft == 5 {
+                        return "You’re on Day 3 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                    } else if daysLeft == 4 {
+                        return "You’re on Day 4 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                    } else if daysLeft == 3 {
+                        return "You’re on Day 5 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                    } else if daysLeft == 2 {
+                        return "You’re on Day 6 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                    } else if daysLeft == 1 {
+                        return "You’re on the last day of your 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                    } else {
+                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Premium available soon"
+                    }
+                }
+                else if originalSubscriptionType == SubscriptionTypeForBadge.PRO.rawValue || originalSubscriptionType.lowercased() == "premium" {
+                    return "As a Premium subscriber, you are at the most feature rich subscription level."
+                }
+            }
+        }
+        else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+            return "Your 7-Day Premium Free Trial has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features.\nTime since signing up:"
+        }
+        else if subscriptionType == "expired" {
+            return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features."
+        }
+        else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+            return ""
+        }
+        else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+            return ""
+        }
+        else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType.lowercased() == "premium" {
+            return ""
+        }
+        return ""
+    }
 }
