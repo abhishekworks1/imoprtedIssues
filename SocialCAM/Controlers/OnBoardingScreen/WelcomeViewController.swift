@@ -19,7 +19,6 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var hourValueLabel: UILabel!
     @IBOutlet weak var minValueLabel: UILabel!
     @IBOutlet weak var secValueLabel: UILabel!
-    @IBOutlet weak var freeImageView: UIImageView!
     @IBOutlet weak var freeModeDayImageView: UIImageView!
     @IBOutlet weak var freeModeHourImageView: UIImageView!
     @IBOutlet weak var freeModeMinImageView: UIImageView!
@@ -44,7 +43,6 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var profileWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak var profileHeightConstraints: NSLayoutConstraint!
-    @IBOutlet weak var updateNowEventButton: UIButton!
     @IBOutlet weak var whatDoYouWantSeeView: UIView!
     @IBOutlet weak var whatDoYouWantSeeViewBoxButton: UIButton! {
         didSet {
@@ -60,6 +58,7 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var quickGuideStackViewHeight: NSLayoutConstraint!
     @IBOutlet weak var mobileDashboardStackViewHeight: NSLayoutConstraint!
     @IBOutlet weak var whatToSeeStackViewHeight: NSLayoutConstraint!
+    @IBOutlet var selectFeatureDetailSwitch: UISwitch!
     @IBOutlet var selectFeatureDetailLabels: [UILabel]!
     @IBOutlet weak var whatToSeeFirstBaseView: UIView! {
         didSet {
@@ -80,8 +79,9 @@ class WelcomeViewController: UIViewController {
         UserSync.shared.getTipOfDay { tip in
             self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
         }
+        selectFeatureDetailSwitch.setOn(Defaults.shared.shouldDisplayDetailsOfWelcomeScreenFeatures, animated: false)
+        selectFeatureChanged(selectFeatureDetailSwitch)
 //        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
-        self.updateNowEventButton.setTitle("", for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,13 +93,13 @@ class WelcomeViewController: UIViewController {
         containerView.dropShadowNew()
         
         // Shadow Color and Radius
-        let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
+        /*let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
         semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
         semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         semiHalfView.layer.shadowOpacity = 0.7
         semiHalfView.layer.shadowRadius = 0
         semiHalfView.layer.masksToBounds = false
-        semiHalfView.layer.cornerRadius = 81.5
+        semiHalfView.layer.cornerRadius = 81.5*/
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -122,6 +122,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func selectFeatureChanged(_ sender: UISwitch) {
+        Defaults.shared.shouldDisplayDetailsOfWelcomeScreenFeatures = sender.isOn
         quickGuideStackViewHeight.constant = sender.isOn ? 200 : 132
         mobileDashboardStackViewHeight.constant = sender.isOn ? 278 : 132
         whatToSeeStackViewHeight.constant = sender.isOn ? 200 : 132
@@ -415,7 +416,6 @@ extension WelcomeViewController {
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
         print("----o \(subscriptionType)")
         self.upgradeNowButton.isHidden = false
-        self.updateNowEventButton.isHidden = false
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
@@ -462,7 +462,6 @@ extension WelcomeViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
-            self.updateNowEventButton.isHidden = true
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -565,7 +564,6 @@ extension WelcomeViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             subscriptionDetailLabel.isHidden = false
             self.upgradeNowButton.isHidden = true
-            self.updateNowEventButton.isHidden = true
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
@@ -583,7 +581,6 @@ extension WelcomeViewController {
         timerStackView.isHidden = true
         timeStackViewHeight.constant = 0
         self.upgradeNowButton.isHidden = true
-        self.updateNowEventButton.isHidden = true
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
     }
 
@@ -715,4 +712,56 @@ extension WelcomeViewController {
         }
     }
     
+}
+
+extension WelcomeViewController {
+    func showMessageData(subscriptionType: String, daysLeft: Int) -> String {
+        if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+            var originalSubscriptionType = subscriptionType
+            if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
+                originalSubscriptionType = paidSubscriptionStatus
+            }
+            
+            if originalSubscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                // for TRIAL user use this
+                if daysLeft == 7 {
+                    
+                }
+            } else {
+                // purchase during trail use this.
+                if daysLeft == 7 {
+                    
+                }
+            }
+            
+            
+        } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+            
+        } else if subscriptionType == "expired" {
+            
+        } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+            
+            if daysLeft == 7 {
+                
+            }
+        } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+            
+            if daysLeft == 7 {
+                
+            }
+            
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
+            
+            if daysLeft == 7 {
+                
+            } else if daysLeft == 0 || daysLeft < 0 {
+                
+            } else if daysLeft == 1 {
+                
+            } else {
+                
+            }
+        }
+        return ""
+    }
 }

@@ -93,7 +93,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var emailMsgListing : msgTitleList? = nil
     var smsMsgListing : msgTitleList? = nil
    @IBOutlet weak var itemsTableView: UITableView!
-    
+    @IBOutlet weak var filterScrollview: UIScrollView?
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     @IBOutlet weak var lblCurrentFilter: UILabel!
@@ -1216,9 +1216,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         signedupButton.backgroundColor = ApplicationSettings.appLightWhiteColor
         subscriberButton.backgroundColor = ApplicationSettings.appLightWhiteColor
         optOutButton.backgroundColor = ApplicationSettings.appLightWhiteColor
-        hiddenButton.backgroundColor = ApplicationSettings.appLightWhiteColor
+        hiddenButton.backgroundColor  = ApplicationSettings.appLightWhiteColor
         
-        sender.backgroundColor = ApplicationSettings.appLightBlueColor
+        allButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        recentButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        inviteButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        invitedButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        openedButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        signedupButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        subscriberButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        optOutButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        hiddenButton.setTitleColor(ApplicationSettings.appTextGrayColor, for: .normal)
+        
+       
+        
+        sender.backgroundColor = ApplicationSettings.appPrimaryColor
+        sender.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+      
         
         switch sender.tag {
         case 1:
@@ -1290,6 +1304,32 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             mailContacts = allmailContacts
             contactTableView.reloadData()
             break
+        }
+    }
+    @IBAction func filterScroll(sender:UIButton){
+        if sender.tag == 1{
+            //left scroll
+            var contentOffsetX = 0.0
+            if (filterScrollview?.contentOffset.x ?? 0.0) > 70.0{
+                contentOffsetX =  (filterScrollview?.contentOffset.x ?? 70.0) - 70.0
+            }else{
+                contentOffsetX = 0.0
+            }
+            filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
+            
+        }else if sender.tag == 2{
+            //right scroll
+            
+            //left scroll
+            var contentOffsetX = 0.0
+          
+            if (filterScrollview?.contentOffset.x ?? 0) > (CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)) - 70{
+                contentOffsetX =  CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)
+            }else{
+                contentOffsetX =  (filterScrollview?.contentOffset.x ?? 0.0) + 70.0
+            }
+            filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
+            
         }
     }
     func setPreviewData(){
@@ -1586,7 +1626,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                    at index: Int) -> Int{
             print(index)
             print(title)
-            return 5
+            let newIndex = self.groupedContactArray.firstIndex(where: {$0.first?.name?.first?.uppercased() == title}) ?? 0
+            return newIndex
            // return index
     }
 

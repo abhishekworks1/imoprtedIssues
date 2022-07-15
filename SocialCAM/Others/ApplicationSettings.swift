@@ -42,6 +42,8 @@ class ApplicationSettings {
     
     static let appLightGrayColor: UIColor = UIColor.lightGray
     
+    static let appTextGrayColor: UIColor = R.color.appTextGrayColor() ?? UIColor.darkGray
+    
     static var isCameraEnabled: Bool {
         let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         return status == .authorized

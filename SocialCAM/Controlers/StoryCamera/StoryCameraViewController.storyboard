@@ -2698,32 +2698,6 @@ Countdown</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DN6-mG-mLW">
-                                <rect key="frame" x="342" y="53.666666666666657" width="25" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="JpM-Me-ISY"/>
-                                    <constraint firstAttribute="width" constant="25" id="Mq1-dN-mIj"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="icnCollectionUnselected"/>
-                                <state key="selected" image="icnCollectionSelected"/>
-                                <connections>
-                                    <action selector="showCollectionAction:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="dyR-VN-AdD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjD-ps-sQl">
-                                <rect key="frame" x="305" y="53.666666666666657" width="25" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="7KJ-sX-TAN"/>
-                                    <constraint firstAttribute="width" constant="25" id="zWG-rt-m5k"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="icnTableUnselected"/>
-                                <state key="selected" image="icnTableSelected"/>
-                                <connections>
-                                    <action selector="showTableAction:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="UUT-Bo-4XO"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNJ-5b-aFD">
                                 <rect key="frame" x="8" y="44" width="44" height="44"/>
                                 <constraints>
@@ -2736,6 +2710,38 @@ Countdown</string>
                                     <action selector="onBack:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="962-nW-lw1"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Jw-KA-oXm">
+                                <rect key="frame" x="316" y="44" width="44" height="44"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camara-border" translatesAutoresizingMaskIntoConstraints="NO" id="VTI-Z3-rHe">
+                                        <rect key="frame" x="5" y="5" width="34" height="34"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dv-kj-IuE">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button">
+                                            <color key="baseForegroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapCameraButton:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="LQH-pg-eA2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="3qk-eq-Uxx"/>
+                                    <constraint firstAttribute="bottom" secondItem="VTI-Z3-rHe" secondAttribute="bottom" constant="5" id="IXd-wC-iw2"/>
+                                    <constraint firstAttribute="bottom" secondItem="9dv-kj-IuE" secondAttribute="bottom" id="XQH-qo-8IW"/>
+                                    <constraint firstItem="VTI-Z3-rHe" firstAttribute="leading" secondItem="4Jw-KA-oXm" secondAttribute="leading" constant="5" id="dYd-4g-k6C"/>
+                                    <constraint firstItem="VTI-Z3-rHe" firstAttribute="top" secondItem="4Jw-KA-oXm" secondAttribute="top" constant="5" id="ecT-fk-eGV"/>
+                                    <constraint firstItem="9dv-kj-IuE" firstAttribute="leading" secondItem="4Jw-KA-oXm" secondAttribute="leading" id="ffy-i8-lZA"/>
+                                    <constraint firstAttribute="trailing" secondItem="VTI-Z3-rHe" secondAttribute="trailing" constant="5" id="gLt-fe-28g"/>
+                                    <constraint firstItem="9dv-kj-IuE" firstAttribute="top" secondItem="4Jw-KA-oXm" secondAttribute="top" id="oZI-ea-8H0"/>
+                                    <constraint firstAttribute="trailing" secondItem="9dv-kj-IuE" secondAttribute="trailing" id="t2I-gI-tdK"/>
+                                    <constraint firstAttribute="height" constant="44" id="vcp-1n-NII"/>
+                                </constraints>
+                            </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Dashboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXB-7J-tKn">
                                 <rect key="frame" x="112.66666666666669" y="55.333333333333336" width="150" height="21.666666666666664"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -2760,10 +2766,13 @@ Countdown</string>
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kyr-VI-eyK">
-                                <rect key="frame" x="0.0" y="88" width="375" height="121"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="145"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blueBg" translatesAutoresizingMaskIntoConstraints="NO" id="7dA-z6-KST">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="5ga-Zi-5MO"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-Fx-QyJ">
                                         <rect key="frame" x="20" y="20" width="60" height="60"/>
@@ -2816,19 +2825,49 @@ Countdown</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6j-Xx-Qth">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                                         <connections>
                                             <action selector="showProfileAction:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="gJX-ra-OXg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DN6-mG-mLW">
+                                        <rect key="frame" x="330" y="110" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="JpM-Me-ISY"/>
+                                            <constraint firstAttribute="width" constant="25" id="Mq1-dN-mIj"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="icnCollectionUnselected"/>
+                                        <state key="selected" image="icnCollectionSelected"/>
+                                        <connections>
+                                            <action selector="showCollectionAction:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="dyR-VN-AdD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjD-ps-sQl">
+                                        <rect key="frame" x="295" y="110" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="7KJ-sX-TAN"/>
+                                            <constraint firstAttribute="width" constant="25" id="zWG-rt-m5k"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="icnTableUnselected"/>
+                                        <state key="selected" image="icnTableSelected"/>
+                                        <connections>
+                                            <action selector="showTableAction:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="UUT-Bo-4XO"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="DN6-mG-mLW" secondAttribute="trailing" constant="20" id="14b-Ux-D4Y"/>
+                                    <constraint firstItem="CjD-ps-sQl" firstAttribute="centerY" secondItem="DN6-mG-mLW" secondAttribute="centerY" id="9LF-nO-7ym"/>
+                                    <constraint firstItem="DN6-mG-mLW" firstAttribute="leading" secondItem="CjD-ps-sQl" secondAttribute="trailing" constant="10" id="AVD-PP-ByG"/>
                                     <constraint firstItem="7dA-z6-KST" firstAttribute="leading" secondItem="Kyr-VI-eyK" secondAttribute="leading" id="EVm-f3-hST"/>
                                     <constraint firstAttribute="trailing" secondItem="Wp1-SL-35m" secondAttribute="trailing" constant="12" id="Ehz-nf-MAF"/>
                                     <constraint firstItem="7dA-z6-KST" firstAttribute="top" secondItem="Kyr-VI-eyK" secondAttribute="top" id="Gpt-A0-aRR"/>
-                                    <constraint firstAttribute="height" constant="121" id="LuM-GK-KIx"/>
+                                    <constraint firstAttribute="height" constant="145" id="LuM-GK-KIx"/>
                                     <constraint firstItem="ARz-uY-eCX" firstAttribute="top" secondItem="QJL-7B-Chf" secondAttribute="bottom" constant="8" id="PCQ-aW-EJU"/>
+                                    <constraint firstAttribute="bottom" secondItem="DN6-mG-mLW" secondAttribute="bottom" constant="10" id="Qbv-0S-z4g"/>
                                     <constraint firstItem="QJL-7B-Chf" firstAttribute="top" secondItem="Kyr-VI-eyK" secondAttribute="top" constant="25" id="R4e-7e-Ik9"/>
                                     <constraint firstItem="Wp1-SL-35m" firstAttribute="leading" secondItem="QJL-7B-Chf" secondAttribute="trailing" constant="10" id="SVf-gV-I2E"/>
                                     <constraint firstItem="ce4-Fx-QyJ" firstAttribute="leading" secondItem="Kyr-VI-eyK" secondAttribute="leading" constant="20" id="Wy7-jW-IZr"/>
@@ -2841,12 +2880,11 @@ Countdown</string>
                                     <constraint firstAttribute="bottom" secondItem="I6j-Xx-Qth" secondAttribute="bottom" constant="41" id="jRZ-js-XP9"/>
                                     <constraint firstItem="I6j-Xx-Qth" firstAttribute="leading" secondItem="Kyr-VI-eyK" secondAttribute="leading" id="krV-Su-8SH"/>
                                     <constraint firstItem="ce4-Fx-QyJ" firstAttribute="top" secondItem="Kyr-VI-eyK" secondAttribute="top" constant="20" symbolic="YES" id="uNS-ua-SHq"/>
-                                    <constraint firstAttribute="bottom" secondItem="7dA-z6-KST" secondAttribute="bottom" constant="21" id="wea-tM-hVd"/>
                                     <constraint firstItem="QJL-7B-Chf" firstAttribute="leading" secondItem="ce4-Fx-QyJ" secondAttribute="trailing" constant="20" id="zuf-py-AiU"/>
                                 </constraints>
                             </view>
                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UYr-tU-9P9">
-                                <rect key="frame" x="10" y="209" width="355" height="479"/>
+                                <rect key="frame" x="10" y="233" width="355" height="455"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="dIZ-xH-MNi">
                                     <size key="itemSize" width="128" height="128"/>
@@ -2857,7 +2895,7 @@ Countdown</string>
                                 <cells/>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="110" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="PB8-Zg-48F">
-                                <rect key="frame" x="0.0" y="209" width="375" height="479"/>
+                                <rect key="frame" x="0.0" y="233" width="375" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -4804,6 +4842,7 @@ Countdown</string>
                             <constraint firstItem="92p-n2-ebb" firstAttribute="top" secondItem="PB8-Zg-48F" secondAttribute="bottom" id="2V6-3J-Z9K"/>
                             <constraint firstItem="VyN-by-AzL" firstAttribute="top" secondItem="FgY-Cq-1Ko" secondAttribute="top" id="2a9-dw-KKF"/>
                             <constraint firstAttribute="bottom" secondItem="DeM-Ch-kJ2" secondAttribute="bottom" id="2w0-75-OCh"/>
+                            <constraint firstItem="4Jw-KA-oXm" firstAttribute="centerY" secondItem="VXB-7J-tKn" secondAttribute="centerY" id="5Rb-0c-Nrg"/>
                             <constraint firstItem="GZf-np-TaW" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="5aC-AN-oNZ"/>
                             <constraint firstItem="GZf-np-TaW" firstAttribute="trailing" secondItem="y7W-1e-ghQ" secondAttribute="trailing" id="5m6-d2-Tok"/>
                             <constraint firstItem="UYr-tU-9P9" firstAttribute="leading" secondItem="PB8-Zg-48F" secondAttribute="leading" constant="10" id="5nz-iq-aqw"/>
@@ -4812,10 +4851,10 @@ Countdown</string>
                             <constraint firstItem="Kyr-VI-eyK" firstAttribute="top" secondItem="GNJ-5b-aFD" secondAttribute="bottom" id="8kn-Xa-kCa"/>
                             <constraint firstItem="VXB-7J-tKn" firstAttribute="centerX" secondItem="y7W-1e-ghQ" secondAttribute="centerX" id="A5K-pL-OIu"/>
                             <constraint firstItem="Kyr-VI-eyK" firstAttribute="trailing" secondItem="y7W-1e-ghQ" secondAttribute="trailing" id="C1G-PO-Dd8"/>
+                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="4Jw-KA-oXm" secondAttribute="trailing" constant="15" id="CrT-Fq-USJ"/>
                             <constraint firstItem="VtV-CL-W0W" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="D1B-kc-kNW"/>
                             <constraint firstItem="Te4-RH-kfS" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="DFz-Qx-Qf2"/>
                             <constraint firstItem="GZf-np-TaW" firstAttribute="top" secondItem="y7W-1e-ghQ" secondAttribute="top" constant="44" id="E5p-kP-28e"/>
-                            <constraint firstItem="CjD-ps-sQl" firstAttribute="centerY" secondItem="DN6-mG-mLW" secondAttribute="centerY" id="FQX-dC-7mQ"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="centerY" secondItem="FgY-Cq-1Ko" secondAttribute="centerY" id="I2q-C5-Nvp"/>
                             <constraint firstItem="92p-n2-ebb" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="IXP-vK-Vxl"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="N37-pn-Pb5"/>
@@ -4831,16 +4870,12 @@ Countdown</string>
                             <constraint firstItem="S0X-Og-Pun" firstAttribute="leading" secondItem="GNJ-5b-aFD" secondAttribute="trailing" id="c4u-Bs-5EO"/>
                             <constraint firstItem="UYr-tU-9P9" firstAttribute="trailing" secondItem="PB8-Zg-48F" secondAttribute="trailing" constant="-10" id="cTX-Yf-b8f"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="VtV-CL-W0W" secondAttribute="trailing" id="d0S-bR-CwY"/>
-                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="DN6-mG-mLW" secondAttribute="trailing" constant="8" id="exv-jX-QHp"/>
                             <constraint firstAttribute="bottom" secondItem="VyN-by-AzL" secondAttribute="bottom" id="fl7-2D-8e9"/>
                             <constraint firstItem="GNJ-5b-aFD" firstAttribute="top" secondItem="y7W-1e-ghQ" secondAttribute="top" id="ge3-kA-PhN"/>
                             <constraint firstItem="GNJ-5b-aFD" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" constant="8" id="gzS-XF-Vq3"/>
                             <constraint firstItem="S0X-Og-Pun" firstAttribute="centerY" secondItem="VXB-7J-tKn" secondAttribute="centerY" id="h9f-ZR-FWk"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="92p-n2-ebb" secondAttribute="trailing" id="hD6-fz-d89"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="bottom" secondItem="92p-n2-ebb" secondAttribute="bottom" constant="8" id="he1-LA-uCj"/>
-                            <constraint firstItem="92p-n2-ebb" firstAttribute="top" secondItem="Te4-RH-kfS" secondAttribute="bottom" id="hmJ-2H-pxO"/>
-                            <constraint firstItem="DN6-mG-mLW" firstAttribute="centerY" secondItem="VXB-7J-tKn" secondAttribute="centerY" id="iX7-Zs-PJF"/>
-                            <constraint firstItem="DN6-mG-mLW" firstAttribute="leading" secondItem="CjD-ps-sQl" secondAttribute="trailing" constant="12" id="jAY-2N-Q2s"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="VyN-by-AzL" secondAttribute="trailing" id="k6V-YP-Rdz"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="PB8-Zg-48F" secondAttribute="trailing" id="ldJ-cf-4XN"/>
                             <constraint firstItem="VXB-7J-tKn" firstAttribute="centerY" secondItem="GNJ-5b-aFD" secondAttribute="centerY" id="lxm-OR-Gxq"/>
@@ -9658,10 +9693,10 @@ Countdown</string>
         <image name="freeAppleIcon" width="28.5" height="23.5"/>
         <image name="gameCenter" width="79" height="104"/>
         <image name="hideStoryCamIcons" width="29" height="30"/>
-        <image name="icnCollectionSelected" width="512" height="512"/>
-        <image name="icnCollectionUnselected" width="512" height="512"/>
-        <image name="icnTableSelected" width="512" height="512"/>
-        <image name="icnTableUnselected" width="512" height="512"/>
+        <image name="icnCollectionSelected" width="32" height="32"/>
+        <image name="icnCollectionUnselected" width="32" height="32"/>
+        <image name="icnTableSelected" width="32" height="32"/>
+        <image name="icnTableUnselected" width="32" height="32"/>
         <image name="icoBack" width="12" height="18"/>
         <image name="icoClose" width="26" height="26"/>
         <image name="icoCountdown" width="29" height="27"/>

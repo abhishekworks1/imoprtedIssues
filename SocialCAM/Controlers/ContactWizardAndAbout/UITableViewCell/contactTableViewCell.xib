@@ -27,6 +27,20 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sql-ce-nAr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
                         <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yef-l0-6pj">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                                <color key="backgroundColor" name="appTextGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="fEb-hi-Sny"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnF-Gg-Oxt">
+                                <rect key="frame" x="0.0" y="114.5" width="375" height="0.5"/>
+                                <color key="backgroundColor" name="appTextGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="ofW-2p-N4v"/>
+                                </constraints>
+                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="BzA-eA-hcm">
                                 <rect key="frame" x="18" y="31.5" width="52" height="52"/>
                                 <constraints>
@@ -524,25 +538,31 @@
                             <constraint firstItem="KJd-FJ-5HW" firstAttribute="leading" secondItem="ZUa-pg-gAY" secondAttribute="leading" constant="1" id="5WA-1n-YGo"/>
                             <constraint firstItem="4Gm-6d-U8F" firstAttribute="leading" secondItem="KJd-FJ-5HW" secondAttribute="trailing" constant="22" id="8bs-sC-KAf"/>
                             <constraint firstItem="Aao-jX-VqQ" firstAttribute="centerY" secondItem="sql-ce-nAr" secondAttribute="centerY" id="Ceu-KW-6aD"/>
+                            <constraint firstAttribute="trailing" secondItem="Yef-l0-6pj" secondAttribute="trailing" id="Dy3-9I-np1"/>
                             <constraint firstItem="Aao-jX-VqQ" firstAttribute="leading" secondItem="KJd-FJ-5HW" secondAttribute="trailing" constant="2" id="Gjv-p7-H7j"/>
                             <constraint firstItem="gbY-eN-rQN" firstAttribute="leading" secondItem="sql-ce-nAr" secondAttribute="leading" constant="31" id="HEz-l6-7te"/>
                             <constraint firstAttribute="bottom" secondItem="C1V-hJ-dyi" secondAttribute="bottom" constant="11" id="IK2-na-RFD"/>
                             <constraint firstItem="mCq-q2-PVm" firstAttribute="centerY" secondItem="sql-ce-nAr" secondAttribute="centerY" id="JqX-bV-7Ow"/>
+                            <constraint firstAttribute="trailing" secondItem="HnF-Gg-Oxt" secondAttribute="trailing" id="M5u-Ed-Pfd"/>
                             <constraint firstAttribute="bottom" secondItem="gbY-eN-rQN" secondAttribute="bottom" constant="0.5" id="MhY-Wu-vwK"/>
                             <constraint firstItem="BzA-eA-hcm" firstAttribute="centerY" secondItem="sql-ce-nAr" secondAttribute="centerY" id="Mw3-R4-48a"/>
                             <constraint firstAttribute="trailing" secondItem="Aao-jX-VqQ" secondAttribute="trailing" constant="10" id="N4T-yo-Vkg"/>
                             <constraint firstItem="BzA-eA-hcm" firstAttribute="leading" secondItem="sql-ce-nAr" secondAttribute="leading" constant="18" id="PAg-NV-SbL"/>
                             <constraint firstItem="ZUa-pg-gAY" firstAttribute="leading" secondItem="BzA-eA-hcm" secondAttribute="trailing" constant="10" id="SLD-pP-dQc"/>
+                            <constraint firstItem="Yef-l0-6pj" firstAttribute="leading" secondItem="sql-ce-nAr" secondAttribute="leading" id="SQc-am-dTV"/>
                             <constraint firstAttribute="trailing" secondItem="mCq-q2-PVm" secondAttribute="trailing" constant="10" id="U3N-Fw-s45"/>
                             <constraint firstItem="mCq-q2-PVm" firstAttribute="leading" secondItem="ZUa-pg-gAY" secondAttribute="trailing" constant="10" id="VOu-AB-cIp"/>
                             <constraint firstAttribute="trailing" secondItem="4Gm-6d-U8F" secondAttribute="trailing" constant="10" id="XKT-kp-vbb"/>
                             <constraint firstAttribute="trailing" secondItem="gbY-eN-rQN" secondAttribute="trailing" constant="-2" id="ZOw-m0-YgJ"/>
                             <constraint firstItem="ZUa-pg-gAY" firstAttribute="top" secondItem="sql-ce-nAr" secondAttribute="top" constant="20" id="aUp-cg-CnI"/>
                             <constraint firstItem="4Gm-6d-U8F" firstAttribute="centerY" secondItem="sql-ce-nAr" secondAttribute="centerY" id="dvT-Bh-cL3"/>
+                            <constraint firstItem="HnF-Gg-Oxt" firstAttribute="leading" secondItem="sql-ce-nAr" secondAttribute="leading" id="gOD-Ia-vyo"/>
                             <constraint firstItem="4Gm-6d-U8F" firstAttribute="leading" secondItem="ZUa-pg-gAY" secondAttribute="trailing" constant="10" id="lSj-Eq-OkB"/>
+                            <constraint firstAttribute="bottom" secondItem="HnF-Gg-Oxt" secondAttribute="bottom" id="oMJ-Um-H2I"/>
                             <constraint firstItem="C1V-hJ-dyi" firstAttribute="leading" secondItem="ZUa-pg-gAY" secondAttribute="leading" constant="-7" id="oMs-Dk-6ge"/>
                             <constraint firstItem="KJd-FJ-5HW" firstAttribute="top" secondItem="ZUa-pg-gAY" secondAttribute="bottom" id="pgs-8w-2YT"/>
                             <constraint firstAttribute="trailing" secondItem="jTK-2r-eK1" secondAttribute="trailing" constant="10" id="w92-sE-zzJ"/>
+                            <constraint firstItem="Yef-l0-6pj" firstAttribute="top" secondItem="sql-ce-nAr" secondAttribute="top" id="wDj-Mu-TEz"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -609,6 +629,9 @@
         </namedColor>
         <namedColor name="AppSkyBlueColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appTextGrayColor">
+            <color red="0.55686274509803924" green="0.56862745098039214" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
