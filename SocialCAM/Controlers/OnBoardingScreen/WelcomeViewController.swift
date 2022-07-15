@@ -181,8 +181,8 @@ class WelcomeViewController: UIViewController {
     func openOnboarding() {
         guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
         (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
-        Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
-        Utils.appDelegate?.window?.rootViewController = onBoardView
+        (onBoardView.viewControllers.first as? OnBoardingViewController)?.fromNavigation = true
+        self.navigationController?.pushViewController((onBoardView.viewControllers.first as? OnBoardingViewController)!, animated: true)
     }
     
     @IBAction func continueOnClick(_ sender: Any) {

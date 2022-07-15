@@ -87,6 +87,7 @@ enum SettingsMode: Int, Codable {
     case aboutPage
     case autoSavePic2Art
     case onboarding
+    case welcomeScreen
     case quickMenu
     case quickCamCamera
     case mobileDashboard
@@ -1134,7 +1135,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
                     vc.showPopUpView = false
                     vc.fromNavigation = true
-                    Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
                     navigationController?.pushViewController(vc, animated: true)
                 }
             }
@@ -1307,12 +1307,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     func openPotentialIncomeCalculator(){
-        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
-             incomeGoalConfirmPopupView.isHidden = false
-            btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
-            self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
-          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
-        }else{
+//        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
+//             incomeGoalConfirmPopupView.isHidden = false
+//            btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
+//            self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
+//          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+//        }else{
         if let token = Defaults.shared.sessionToken {
              let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
              guard let url = URL(string: urlString) else {
@@ -1320,7 +1320,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
              }
              presentSafariBrowser(url: url)
          }
-        }
+//        }
     }
     func viralCamLogout() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
@@ -1815,7 +1815,6 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
                     vc.showPopUpView = false
-                    Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
                     vc.fromNavigation = true
                     navigationController?.pushViewController(vc, animated: true)
                 }

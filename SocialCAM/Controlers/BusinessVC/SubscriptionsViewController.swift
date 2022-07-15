@@ -307,7 +307,6 @@ class SubscriptionsViewController: UIViewController {
             if isFromWelcomeScreen {
                 guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
                 (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
-                Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
                 Utils.appDelegate?.window?.rootViewController = onBoardView
             } else {
                 navigationController?.popViewController(animated: true)
@@ -329,8 +328,9 @@ class SubscriptionsViewController: UIViewController {
         if isFromWelcomeScreen {
             guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
             (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
-            Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
-            Utils.appDelegate?.window?.rootViewController = onBoardView
+            let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
+            welcomeNavigationVC?.viewControllers.append((R.storyboard.onBoardingView.onBoardingViewController()?.viewControllers.first)!)
+            Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
         } else {
             self.navigationController?.popToRootViewController(animated: true)
         }

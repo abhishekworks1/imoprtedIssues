@@ -231,7 +231,7 @@ extension KeycloakAuthViewController {
             
             guard let welcomeOnboardingView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
             (welcomeOnboardingView.viewControllers.first as? WelcomeViewController)?.fromLogin = true
-             Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+             Defaults.shared.onBoardingReferral = OnboardingReferral.welcomeScreen.description
              Utils.appDelegate?.window?.rootViewController = welcomeOnboardingView
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
@@ -247,7 +247,7 @@ extension KeycloakAuthViewController {
         
         guard let welcomeOnboardingView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
          (welcomeOnboardingView.viewControllers.first as? WelcomeViewController)?.fromLogin = true
-         Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
+         Defaults.shared.onBoardingReferral = OnboardingReferral.welcomeScreen.description
          Utils.appDelegate?.window?.rootViewController = welcomeOnboardingView
     }
     
