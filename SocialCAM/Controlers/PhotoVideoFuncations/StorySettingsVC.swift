@@ -255,6 +255,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
     @IBOutlet weak var settingCollectionView: UICollectionView!
     
+    @IBOutlet weak var incomeGoalConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainincomeGoalConfirmPopup: UIButton!
+    
     
     //new settings header
     
@@ -688,6 +691,18 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
         businessDashbardConfirmPopupView.isHidden = true
     }
+    @IBAction func incomeGoalConfirmConfirmPopupOkButtonClicked(_ sender: UIButton) {
+        openPotentialIncomeCalculator()
+    }
+    @IBAction func doNotShowAgainIncomeGoalOpenPopupClicked(_ sender: UIButton) {
+        btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = !btnDoNotShowAgainincomeGoalConfirmPopup.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+        Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup = btnDoNotShowAgainincomeGoalConfirmPopup.isSelected
+       
+    }
+    @IBAction func didTapCloseButtonIncomeGoal(_ sender: UIButton) {
+        incomeGoalConfirmPopupView.isHidden = true
+    }
     @IBAction func showCollectionAction(_ sender: Any) {
         btnTable.isSelected = false
         btnCollection.isSelected = true
@@ -1096,14 +1111,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         else if settingTitle.settingsType == .potentialIncomeCalculator {
-            if let token = Defaults.shared.sessionToken {
-                 let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-                 guard let url = URL(string: urlString) else {
-                     return
-                 }
-                 presentSafariBrowser(url: url)
-             }
-        }else if settingTitle.settingsType == .quickstartGuide{
+            openPotentialIncomeCalculator()
+        } else if settingTitle.settingsType == .quickstartGuide{
            
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
@@ -1281,7 +1290,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
              Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         }
     }
+    func openPotentialIncomeCalculator(){
         
+        if let token = Defaults.shared.sessionToken {
+             let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+             guard let url = URL(string: urlString) else {
+                 return
+             }
+             presentSafariBrowser(url: url)
+         }
+    }
     func viralCamLogout() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
@@ -1770,13 +1788,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
                 navigationController?.pushViewController(contactWizardController, animated: true)
             }
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
-            if let token = Defaults.shared.sessionToken {
-                 let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-                 guard let url = URL(string: urlString) else {
-                     return
-                 }
-                 presentSafariBrowser(url: url)
-             }
+            openPotentialIncomeCalculator()
         }else if settingTitle.settingsType == .quickstartGuide{
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
