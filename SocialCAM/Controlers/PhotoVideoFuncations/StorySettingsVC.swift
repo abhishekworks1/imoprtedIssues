@@ -691,9 +691,18 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
         businessDashbardConfirmPopupView.isHidden = true
     }
+    
     @IBAction func incomeGoalConfirmConfirmPopupOkButtonClicked(_ sender: UIButton) {
-        openPotentialIncomeCalculator()
+        if let token = Defaults.shared.sessionToken {
+             let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+             guard let url = URL(string: urlString) else {
+                 return
+             }
+             presentSafariBrowser(url: url)
+         }
+        incomeGoalConfirmPopupView.isHidden = true
     }
+    
     @IBAction func doNotShowAgainIncomeGoalOpenPopupClicked(_ sender: UIButton) {
         btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = !btnDoNotShowAgainincomeGoalConfirmPopup.isSelected
         Defaults.shared.isShowAllPopUpChecked = false
