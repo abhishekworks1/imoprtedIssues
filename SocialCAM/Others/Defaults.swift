@@ -235,6 +235,8 @@ class Defaults {
                             setting.settings.first?.name = R.string.localizable.howItWorks()
                         } else if setting.settingsType == .potentialIncomeCalculator {
                             setting.settings.first?.name = R.string.localizable.incomeGoalCalculator()
+                        } else if setting.settingsType == .shareSetting {
+                            setting.settings.first?.name = R.string.localizable.shareYourReferralLink()
                         }
                     }
                     //add here if you add/remove any object in storySettings array
