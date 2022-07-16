@@ -1053,8 +1053,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 verticalLines.visibleLeftSideViews = true
             }
         }
-        
-        if recordingType == .promo && (Defaults.shared.appMode != .professional || Defaults.shared.appMode != .advanced) {
+        print("ss-- \(Defaults.shared.appMode)")
+        if recordingType == .promo && !(Defaults.shared.appMode == .professional || Defaults.shared.appMode == .advanced) {
             timerValueView.isHidden = true
             verticalLines.visibleLeftSideViews = false
             verticalLines.numberOfViews = .speed3x

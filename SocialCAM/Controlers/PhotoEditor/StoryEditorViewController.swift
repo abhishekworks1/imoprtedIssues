@@ -1907,9 +1907,9 @@ extension StoryEditorViewController {
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         self.socialMediaMainView.isHidden = true
-        if Defaults.shared.appMode == .free, !(sender.tag == 3) {
-            showAlertForUpgradeSubscription()
-        } else {
+//        if Defaults.shared.appMode == .free, !(sender.tag == 3) {
+//            showAlertForUpgradeSubscription()
+//        } else {
             if SocialShare(rawValue: sender.tag) ?? SocialShare.facebook == .storiCam {
                 guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
                     return
@@ -1949,7 +1949,7 @@ extension StoryEditorViewController {
                     self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
                   }
             }
-        }
+      //  }
     }
     
    @IBAction func playPauseButtonClick(_ sender: UIButton) {

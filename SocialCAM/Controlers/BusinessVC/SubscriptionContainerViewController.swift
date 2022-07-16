@@ -520,7 +520,15 @@ class SubscriptionContainerViewController: UIViewController {
             subscribertypeLabel.text = "Your Subscription Plan: Premium"
             subscribertypeview.isHidden = false
             subscribertypeview.backgroundColor = UIColor(hexString:"617FB1")
-        }else{
+        } else if (subscriptionStatus.lowercased() == "expired" || subscriptionStatus.lowercased() == "free" || subscriptionStatus.lowercased() == "trial") {
+            viewDetailFreeView.isHidden = true
+            activeFreeView.isHidden = false
+            subscribertypeLabel.text = "Your Subscription Plan: Free"
+            subscribertypeview.isHidden = false
+            subscribertypeview.backgroundColor = UIColor(hexString:"D9D9D9")
+            subscribeNowLabel.text = "SUBSCRIBE NOW"
+            subscribeNowLabel.isHidden = false
+        } else{
             subscribeNowLabel.text = "SUBSCRIBE NOW"
             viewDetailFreeView.isHidden = true
             activeFreeView.isHidden = false
