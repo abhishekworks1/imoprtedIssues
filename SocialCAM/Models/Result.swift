@@ -420,7 +420,7 @@ class ContactResponse: Mappable {
     var registeredUserDetails: RegisteredUserDetails?
     var subscriptionStatus: String?
     var registeredUser: String?
-
+    var isSelected = false
     required init?(map: Map){
     }
 

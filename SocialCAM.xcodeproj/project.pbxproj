@@ -1161,6 +1161,7 @@
 		51EDF8D6FB5B8999C6EFA903 /* Pods_SocialScreenRecorderExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165D81CAFBC32CDFFEEDD5C1 /* Pods_SocialScreenRecorderExtension.framework */; };
 		5B9332B6723F878496140D06 /* Pods_ViralCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED41D41CDE7064D41421BB49 /* Pods_ViralCamLite.framework */; };
 		60DDD20C3175DB18D4E64440 /* Pods_SoccerCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59BE74BB4C36E79E92BD9DB /* Pods_SoccerCam.framework */; };
+		612D4378288130A300C84522 /* contactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */; };
 		6132543A2864530A0057E8C5 /* BusinessDashboardWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61325439286453070057E8C5 /* BusinessDashboardWebViewVC.swift */; };
 		6132543B2864530B0057E8C5 /* BusinessDashboardWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61325439286453070057E8C5 /* BusinessDashboardWebViewVC.swift */; };
 		614E6B4C283DFABC0039765C /* SettingsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 614E6B4B283DFABA0039765C /* SettingsCollectionCell.xib */; };
@@ -1169,7 +1170,6 @@
 		6177C7C727D23F4D00013088 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6177C7C527D23F4C00013088 /* Defaults.swift */; };
 		6177C85627D243FB00013088 /* ContactImportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6177C85427D243F800013088 /* ContactImportVC.swift */; };
 		6177C85727D243FB00013088 /* ContactImportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6177C85427D243F800013088 /* ContactImportVC.swift */; };
-		6177C85827D243FB00013088 /* ContactWizardwithAboutUs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6177C85527D243F900013088 /* ContactWizardwithAboutUs.storyboard */; };
 		6177C85927D243FB00013088 /* ContactWizardwithAboutUs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6177C85527D243F900013088 /* ContactWizardwithAboutUs.storyboard */; };
 		61D5D3C228001CD900550128 /* ContactEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D5D3C128001CD900550128 /* ContactEditVC.swift */; };
 		61D5D3C328001CD900550128 /* ContactEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D5D3C128001CD900550128 /* ContactEditVC.swift */; };
@@ -9791,7 +9791,6 @@
 		9C7546D527A8F6C30041B8D5 /* messageTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7546D127A8F6C20041B8D5 /* messageTitleCell.swift */; };
 		9C75F7FF27ACB8090026322F /* contactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F7FD27ACB8080026322F /* contactTableViewCell.swift */; };
 		9C75F80027ACB8090026322F /* contactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F7FD27ACB8080026322F /* contactTableViewCell.swift */; };
-		9C75F80127ACB8090026322F /* contactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */; };
 		9C75F80227ACB8090026322F /* contactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */; };
 		9C75F80427ACC1BC0026322F /* PhoneContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F80327ACC1BC0026322F /* PhoneContact.swift */; };
 		9C75F80527ACC1BC0026322F /* PhoneContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F80327ACC1BC0026322F /* PhoneContact.swift */; };
@@ -20717,13 +20716,11 @@
 				C215EE2B26A0136800D6C74E /* Tooltip6.gif in Resources */,
 				8205FC28236C2C2F002B2603 /* 02 Instrumental Theme (Orchestral Sunset).mp3 in Resources */,
 				8205FC3C236C2C2F002B2603 /* SF-UI-Text-Regular.otf in Resources */,
-				9C75F80127ACB8090026322F /* contactTableViewCell.xib in Resources */,
 				8205FD30236C3B06002B2603 /* LUT_M01.png in Resources */,
 				8205FD31236C3B06002B2603 /* LUT_M02.png in Resources */,
 				8205FC1C236C2C2F002B2603 /* Duration.ttf in Resources */,
 				8287D20C23826D100074FC39 /* YouTubeUpload.storyboard in Resources */,
 				49DE0C2326F3871A00E7FC65 /* EditProfileViewController.storyboard in Resources */,
-				6177C85827D243FB00013088 /* ContactWizardwithAboutUs.storyboard in Resources */,
 				C27F3470270B238400FFD738 /* EditTooltipViewController.storyboard in Resources */,
 				C2A634EA26E0E5F0003E421A /* GoogleService-Info-QuickCam.plist in Resources */,
 				C26DF1722696C4C60086F35E /* Tooltip1.gif in Resources */,
@@ -20747,6 +20744,7 @@
 				D457EB0F28537A5F00C6E7FC /* OnboardingTableViewCell.xib in Resources */,
 				8287D21623828FE00074FC39 /* YouTube.storyboard in Resources */,
 				C241CB9225CD63EE003B66EE /* ForgotPassword.storyboard in Resources */,
+				612D4378288130A300C84522 /* contactTableViewCell.xib in Resources */,
 				82D1EC4823702B4300A680E7 /* Thursday.JPG in Resources */,
 				82923883272A60C500253ADA /* StateFlagAssets.xcassets in Resources */,
 				82228397259224050074F5B0 /* Recorder.storyboard in Resources */,

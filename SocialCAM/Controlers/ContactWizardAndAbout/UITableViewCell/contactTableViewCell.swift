@@ -9,6 +9,11 @@ protocol contactCelldelegate : AnyObject {
     func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?,reInvite:Bool)
 }
 
+class SelectButton:UIButton{
+    var rowIndex:Int?
+    var sectionIndex:Int?
+    var isMobileContact = false
+}
 class contactTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblDisplayName: UILabel!
@@ -23,7 +28,7 @@ class contactTableViewCell: UITableViewCell {
     @IBOutlet weak var imgprelaunch: UIImageView!
     @IBOutlet weak var imgfoundingMember: UIImageView!
     @IBOutlet weak var imgSubscribeBadge: UIImageView!
-    
+    @IBOutlet weak var btnSelect: SelectButton!
     @IBOutlet weak var inviteButtonView: UIView!
     @IBOutlet weak var lblInviteButtonTitle: UILabel!
     @IBOutlet weak var buttonImageview: UIImageView!
@@ -52,13 +57,14 @@ class contactTableViewCell: UITableViewCell {
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
     
-    
+    var isMobileContact = false
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         let view = UIView()
         view.backgroundColor = .white
-        
+        btnSelect.setImage(R.image.selectedCheckmark(), for: .selected)
+        btnSelect.setImage(R.image.icCheckCircle(), for: .normal)
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {

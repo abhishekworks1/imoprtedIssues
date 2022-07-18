@@ -25,7 +25,10 @@ enum ShareType:Int{
     case socialShare = 4
     
 }
-
+struct ContactGroup{
+    var contacts = [ContactResponse]()
+    var char:String?
+}
 struct ContactType{
     static let mobile = "mobile"
     static let email = "email"
@@ -52,7 +55,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var line3: UILabel!
     @IBOutlet weak var line4: UILabel!
     
-
+    let characterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     @IBOutlet weak var lblNum2: UILabel!
     @IBOutlet weak var lblNum3: UILabel!
     @IBOutlet weak var lblNum4: UILabel!
@@ -92,6 +95,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var listingResponse : msgTitleList? = nil
     var emailMsgListing : msgTitleList? = nil
     var smsMsgListing : msgTitleList? = nil
+    @IBOutlet weak var lblNumberofContacts: UILabel!
+    var isSelectModeOn : Bool = false
    @IBOutlet weak var itemsTableView: UITableView!
     @IBOutlet weak var filterScrollview: UIScrollView?
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
@@ -210,6 +215,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var allmailContacts = [PhoneContact]()
     var mobileContacts = [ContactResponse]()
     var emailContacts = [ContactResponse]()
+    var selectedMobileContacts = [ContactResponse]()
+    var selectedEmailContacts = [ContactResponse]()
     var allmobileContacts = [ContactResponse]()
     var allmobileContactsForHide = [ContactResponse]()
     var allemailContactsForHide = [ContactResponse]()
@@ -228,6 +235,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var isFromOnboarding = false
     var groupedContactArray = [[ContactResponse]()]
     var groupedEmailContactArray = [[ContactResponse]()]
+    var contactSections = [ContactGroup]()
+    var emailContactSection = [ContactGroup]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -870,7 +879,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }else{
                         self.nocontactView.isHidden = true
                     }
+                    self.lblNumberofContacts.text = "Contacts(\(self.mobileContacts.count))"
                     self.groupedContactArray = self.groupContacts(sortedContacts:self.mobileContacts)
+                    self.contactSections =  self.checkForCharacter(groupedArray:self.groupedContactArray)
+                   
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
@@ -890,8 +902,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }else{
                         self.nocontactView.isHidden = true
                     }
+                    self.lblNumberofContacts.text = "Contacts(\(self.emailContacts.count))"
                     self.groupedEmailContactArray = self.groupContacts(sortedContacts:self.emailContacts)
-                  
+                    self.emailContactSection =  self.checkForCharacter(groupedArray:self.groupedContactArray)
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -912,6 +925,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
 
+    }
+    func checkForCharacter(groupedArray:[[ContactResponse]])->[ContactGroup]{
+        //"+","0","1","2","3","4","5","6","8","9",
+        let sections = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+        
+        var contactGroupedArray = [ContactGroup]()
+        var groupedArrayCopy = groupedArray
+        for section in sections{
+            let contactGroup = ContactGroup(contacts: [ContactResponse](), char:  section)
+            contactGroupedArray.append(contactGroup)
+        }
+        for (i,obj) in contactGroupedArray.enumerated(){
+            let contact = groupedArray.filter({$0.first?.name?.first?.uppercased() == obj.char })
+            contactGroupedArray[i].contacts = contact.first ?? [ContactResponse]()
+ 
+        }
+        return contactGroupedArray
+        print(contactGroupedArray)
     }
     func hideContact(contact:ContactResponse,index:Int,hide:Bool = true){
         print(contact.toJSON())
@@ -935,14 +966,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             print(response)
             switch (response.result) {
             case .success:
-              //  self.showLoader()
-               // self.mobileContacts.remove(at:index)
-                if hide{
-                  //  self.selectedFilter = ContactStatus.hidden
-                }else{
-                 //   self.selectedFilter = ContactStatus.all
-                }
-               // self.selectedFilter = ContactStatus.all
                 self.getContactList(filter:self.selectedFilter,hide:hide)
                 break
                
@@ -1072,6 +1095,43 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 //failure code here
             }
         }
+    }
+    func validateMultipleInvite(contacts:[ContactResponse], completion: @escaping (_ success: Bool?) -> ()){
+        let contact = contacts.first!
+        self.selectedContact = nil
+        var contactListids = [String]()
+        for con in  contacts{
+            contactListids.append(con.Id ?? "")
+        }
+        if selectedContactType == ContactType.mobile{
+            let inviteDetails = InviteDetails(content:contact.textLink ?? "", invitedFrom: "mobile", contactListIds: contactListids)
+            let jsonEncoder = JSONEncoder()
+            do {
+                let jsonData = try jsonEncoder.encode(inviteDetails)
+                self.inviteData = jsonData
+                completion(true)
+               
+            } catch {
+                print("error")
+            }
+        }else{
+          //  let inviteDetails = InviteEmailDetails(emailTitle:contact.textLink ?? "", emailMessage: "email", contactListIds: contactListids)
+            let inviteDetails = InviteDetails(content:contact.emailLink ?? "",subject:"Quickcam Invitation" ,invitedFrom: "mobile", contactListIds: contactListids)
+            print("inviteDetails")
+            print(inviteDetails)
+            print(contact.toJSON())
+            let jsonEncoder = JSONEncoder()
+            do {
+                let jsonData = try jsonEncoder.encode(inviteDetails)
+                self.inviteData = jsonData
+                completion(true)
+               
+            } catch {
+                print("error")
+            }
+        }
+        
+        
     }
     func validateInvite(contact:ContactResponse, completion: @escaping (_ success: Bool?) -> ()){
         self.selectedContact = nil
@@ -1555,7 +1615,81 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    
+    @IBAction func selectContactToggleClicked(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        sender.setTitleColor(R.color.appPrimaryColor(), for: .normal)
+        sender.setTitleColor(R.color.appTextGrayColor(), for: .selected)
+        if sender.isSelected{
+            self.isSelectModeOn = true
+            self.btnNext.setTitle("Invite", for: .normal)
+        }else{
+            self.isSelectModeOn = false
+            self.btnNext.setTitle("Done", for: .normal)
+        }
+        self.emailContactTableView.reloadData()
+        self.contactTableView.reloadData()
+    }
+    @objc func selectContactTapped(_ sender: SelectButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected{
+            if sender.isMobileContact{
+                self.contactSections[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0].isSelected = true
+                self.groupedContactArray[sender.sectionIndex ?? 0][sender.rowIndex ?? 0].isSelected = true
+                self.selectedMobileContacts.append( self.contactSections[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0])
+               
+                if self.selectedMobileContacts.count == 0{
+                    self.btnNext.setTitle("Invite", for: .normal)
+                }else{
+                    self.btnNext.setTitle("Invite \( self.selectedMobileContacts.count)", for: .normal)
+                }
+            }else{
+                self.groupedEmailContactArray[sender.sectionIndex ?? 0][sender.rowIndex ?? 0].isSelected = true
+                self.emailContactSection[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0].isSelected = true
+                self.selectedEmailContacts.append(self.emailContactSection[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0])
+                if self.selectedEmailContacts.count == 0{
+                    self.btnNext.setTitle("Invite", for: .normal)
+                }else{
+                    self.btnNext.setTitle("Invite \( self.selectedEmailContacts.count)", for: .normal)
+                }
+               
+            }
+        }else{
+            if sender.isMobileContact{
+                self.contactSections[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0].isSelected = false
+                let contactid =  self.contactSections[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0].Id ?? ""
+                self.selectedMobileContacts = self.selectedMobileContacts.filter({$0.Id != contactid})
+               
+                if self.selectedMobileContacts.count == 0{
+                    self.btnNext.setTitle("Invite", for: .normal)
+                }else{
+                    self.btnNext.setTitle("Invite \( self.selectedMobileContacts.count)", for: .normal)
+                }
+            }else{
+                self.emailContactSection[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0].isSelected = false
+                self.groupedEmailContactArray[sender.sectionIndex ?? 0][sender.rowIndex ?? 0].isSelected = false
+                let contactid =  self.emailContactSection[sender.sectionIndex ?? 0].contacts[sender.rowIndex ?? 0].Id ?? ""
+                self.selectedEmailContacts = self.selectedEmailContacts.filter({$0.Id != contactid})
+              
+                if self.selectedEmailContacts.count == 0{
+                    self.btnNext.setTitle("Invite", for: .normal)
+                }else{
+                    self.btnNext.setTitle("Invite \( self.selectedEmailContacts.count)", for: .normal)
+                }
+            }
+           
+        }
+        for contact in  self.selectedMobileContacts{
+            print(contact.textLink ?? "")
+            
+        }
+        for contact in  self.selectedMobileContacts{
+            print(contact.emailLink ?? "")
+            
+        }
+      
+      
+        print("Selected Mobile Contacts \(self.selectedMobileContacts.count)")
+    }
 //    MARK: - Sharing With Default Iphone Messanger App
     fileprivate func textMessage(imageUrlText: String) {
         let appURL_Id = imageUrlText
@@ -1587,9 +1721,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             return 1
         } else if tableView == emailContactTableView{
-            return self.groupedEmailContactArray.count
+            return self.emailContactSection.count
         }else{
-            return self.groupedContactArray.count
+            return self.contactSections.count
           
         }
     }
@@ -1603,19 +1737,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }else if tableView == emailContactTableView{
           //  return emailContacts.count
-            return self.groupedEmailContactArray[section].count
+            return self.emailContactSection[section].contacts.count
         } else {
            // return self.mobileContacts.count
-            return self.groupedContactArray[section].count
+            return self.contactSections[section].contacts.count
         }
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if tableView == self.contactTableView{
-            let sections = self.groupedContactArray.map({$0.first?.name?.first?.uppercased() ?? ""})
+           // let sections = self.groupedContactArray.map({$0.first?.name?.first?.uppercased() ?? ""})
+            let sections = self.contactSections.map({$0.char?.uppercased() ?? ""})
             return sections
         }else if tableView == self.emailContactTableView{
-            let sections = self.groupedEmailContactArray.map({$0.first?.name?.first?.uppercased() ?? ""})
+         //   let sections = self.groupedEmailContactArray.map({$0.first?.name?.first?.uppercased() ?? ""})
+            let sections = self.emailContactSection.map({$0.char?.uppercased() ?? ""})
             return sections
         }
         return nil
@@ -1626,56 +1762,35 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                    at index: Int) -> Int{
             print(index)
             print(title)
-            let newIndex = self.groupedContactArray.firstIndex(where: {$0.first?.name?.first?.uppercased() == title}) ?? 0
+           
+        if tableView == self.contactTableView{
+            let newIndex = self.contactSections.firstIndex(where: {$0.char == title}) ?? 0
+            print(newIndex)
             return newIndex
-           // return index
+        }else{
+            let newIndex = self.emailContactSection.firstIndex(where: {$0.char == title}) ?? 0
+            print(newIndex)
+            return newIndex
+        }
+          
     }
-
     func tableView(_ tableView: UITableView,
         titleForHeaderInSection section: Int) -> String?{
         if tableView == self.contactTableView{
-            return self.groupedContactArray[section].first?.name?.first?.uppercased()
+            
+            return nil
         }else if tableView == self.emailContactTableView{
-            return self.groupedEmailContactArray[section].first?.name?.first?.uppercased()
+            return nil
         }
        return nil
     }
-/*    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        if tableView == itemsTableView{
-            return view
-        } else {
-            if section == 0{
-                if phoneContacts.count>0{
-                    let label = cutomHeaderView(title: "Contact Numbers")
-                    view.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
-//                    let bottomLine = CALayer()
-//                    bottomLine.frame = CGRect(x: 0, y: 34.5, width: self.view.frame.size.width, height: 0.5)
-//                    bottomLine.backgroundColor = UIColor.init(hexString: "#D4D4D4").cgColor
-//                    view.layer.addSublayer(bottomLine)
-                    view.addSubview(label)
-                }
-            }else if section == 1 {
-                if mailContacts.count > 0 {
-                    let label = cutomHeaderView(title: "Contact Emails")
-                    view.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
-//                    let bottomLine = CALayer()
-//                    bottomLine.frame = CGRect(x: 0, y: 34.5, width: self.view.frame.size.width, height: 0.5)
-//                    bottomLine.backgroundColor = UIColor.init(hexString: "#D4D4D4").cgColor
-//                    view.layer.addSublayer(bottomLine)
-                    view.addSubview(label)
-                }
-            }
-            return nil
-        }
-    } */
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.contactTableView || tableView == self.emailContactTableView{
-            return 20
+            return 1
         }else{
             return 0
         }
-       
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
@@ -1721,17 +1836,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
             //
-            let emailContacts = self.groupedEmailContactArray[indexPath.section]
+            let emailContacts = self.emailContactSection[indexPath.section].contacts
             let contact = emailContacts[indexPath.row]
             cell.lblDisplayName.text = contact.name ?? ""
             cell.lblNumberEmail.text = contact.email ?? ""
             cell.contactImage.image = UIImage.init(named: "User_placeholder")
             cell.mobileContactObj = contact
             cell.inviteButtonView.layer.borderWidth = 0.0
+            cell.btnSelect.rowIndex = indexPath.row
+            cell.btnSelect.sectionIndex = indexPath.section
+            cell.btnSelect.isMobileContact = false
+            cell.btnSelect.addTarget(self, action: #selector(selectContactTapped(_:)), for: UIControl.Event.touchUpInside)
             if contact.status == ContactStatus.pending{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invite", for: .normal)
-            //    cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
+           
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                 cell.inviteButtonView.backgroundColor = UIColor(hex6:0xD4E9FD)
                 cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
@@ -1746,8 +1865,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else if contact.status == ContactStatus.invited{
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invited", for: .normal)
-              //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
-             //   cell.inviteBtn.backgroundColor = .black
+            
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
                 cell.buttonInvite.setTitle("", for: .normal)
                 cell.lblInviteButtonTitle.text = "Invited"
@@ -1757,8 +1875,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else{
                 cell.inviteBtn.isHidden = true
                 cell.inviteBtn.setTitle("Invited", for: .normal)
-              //  cell.inviteBtn.backgroundColor = UIColor(hex6:0x3C9BF4)
-             //   cell.inviteBtn.backgroundColor = .black
+              
                 cell.inviteBtn.setTitleColor(.white, for: .normal)
                 cell.buttonInvite.setTitle("", for: .normal)
                 cell.lblInviteButtonTitle.text = "Invited"
@@ -1785,34 +1902,38 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
            
             cell.inviteBtn.isHidden = true
+            if contact.isSelected{
+                cell.btnSelect.isSelected = true
+            }else{
+                cell.btnSelect.isSelected = false
+            }
+            if self.isSelectModeOn{
+                if contact.status == ContactStatus.invited ||  contact.status == ContactStatus.pending{
+                    cell.btnSelect.isHidden = false
+                }
+                cell.inviteButtonView.isHidden = true
+            }else{
+                cell.btnSelect.isHidden = true
+            }
             return cell
         }else {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
            
-               /* let contact = phoneContacts[indexPath.row] as PhoneContact
-                cell.lblDisplayName.text = contact.name ?? ""
-                cell.lblNumberEmail.text = contact.phoneNumber[0]
-                if let imagedata =  contact.avatarData {
-                    let avtar = UIImage(data:imagedata,scale:1.0)
-                    cell.contactImage.image = avtar
-                }else {
-                    cell.contactImage.image = UIImage.init(named: "User_placeholder")
-                }
-                cell.phoneContactObj = contact */
-                let mobileContacts = self.groupedContactArray[indexPath.section]
+            
+                let mobileContacts = self.contactSections[indexPath.section].contacts
                 let contact = mobileContacts[indexPath.row]
                 cell.lblDisplayName.text = contact.name ?? ""
                 cell.lblNumberEmail.text = contact.mobile
                 cell.contactImage.image = UIImage.init(named: "User_placeholder")
                 cell.mobileContactObj = contact
-               
+                cell.btnSelect.rowIndex = indexPath.row
+                cell.btnSelect.sectionIndex = indexPath.section
+                cell.btnSelect.isMobileContact = true
+                cell.btnSelect.addTarget(self, action: #selector(selectContactTapped(_:)), for: UIControl.Event.touchUpInside)
                 if contact.status == ContactStatus.pending{
                     cell.inviteBtn.isHidden = false
-//                    cell.inviteBtn.setTitle("Invite", for: .normal)
-//                    cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0x4285F4), forState: .normal)
-//                    cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                     cell.lblInviteButtonTitle.text = "Invite"
                     cell.buttonInvite.setTitle("", for: .normal)
                     cell.buttonImageview.image = R.image.inviteContact()
@@ -1840,12 +1961,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteButtonView.isHidden = true
                 }else{
                     cell.buttonInvite.isHidden = true
-//                    cell.inviteBtn.setTitle("Invited", for: .normal)
-                    //cell.inviteBtn.setBackgroundColor(color: UIColor(hex6:0x4285F4), forState: .normal)
-                  //  cell.inviteBtn.backgroundColor = .black
 
-//                    cell.inviteBtn.setTitleColor(.white, for: .normal)
-//                    cell.buttonInvite.setTitle("", for: .normal)
                     cell.buttonImageview.image = R.image.invitedContact()
                     cell.lblInviteButtonTitle.text = "Invited"
                     cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
@@ -1860,7 +1976,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.contactStatusView.isHidden = false
                     cell.lblReferralCount.text = "\(registerUser.refferal ?? 0)"
                     cell.lblSubscriberCount.text = "\(registerUser.susbscribers ?? 0)"
-                  //  cell.lblStatus.text = "\(contact.subscriptionStatus ?? "")".capitalized
+                
                     cell.lblStatus.text = ""
                     cell.setBadges()
                 }else{
@@ -1868,22 +1984,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteButtonView.isHidden = false
                     cell.contactStatusView.isHidden = true
                 }
+                if contact.isSelected{
+                    cell.btnSelect.isSelected = true
+                }else{
+                    cell.btnSelect.isSelected = false
+                }
+                if self.isSelectModeOn{
+                    if contact.status == ContactStatus.invited ||  contact.status == ContactStatus.pending{
+                        cell.btnSelect.isHidden = false
+                    }
+                    cell.inviteButtonView.isHidden = true
+                }else{
+                    cell.btnSelect.isHidden = true
+                }
             
             return cell
             }
-//            else {
-//                let contact = mailContacts[indexPath.row] as PhoneContact
-//                cell.lblDisplayName.text = contact.name ?? ""
-//                cell.lblNumberEmail.text = contact.email[0]
-//                if let imagedata =  contact.avatarData {
-//                    let avtar = UIImage(data:imagedata,scale:1.0)
-//                    cell.contactImage.image = avtar
-//                }else {
-//                    cell.contactImage.image = UIImage.init(named: "User_placeholder")
-//                }
-//                cell.phoneContactObj = contact
-//            }
-//            cell.inviteBtn.isHidden = true
+
         
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -1927,10 +2044,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 1{
                 return UISwipeActionsConfiguration(actions: [])
             }
-            let ishide = self.emailContacts[indexPath.row].hide ?? false
+            let ishide = self.emailContactSection[indexPath.section].contacts[indexPath.row].hide ?? false
             let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                  
-                self.hideContact(contact:self.emailContacts[indexPath.row],index:indexPath.row,hide:ishide)
+                let contact = self.emailContactSection[indexPath.section].contacts[indexPath.row]
+                self.hideContact(contact:contact,index:indexPath.row,hide:ishide)
                    success(true)
                })
             let title = !ishide ? "Hide" : "Unhide"
@@ -1946,10 +2063,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 1{
                 return UISwipeActionsConfiguration(actions: [])
             }
-            let ishide = self.mobileContacts[indexPath.row].hide ?? false
+            let ishide = self.contactSections[indexPath.section].contacts[indexPath.row].hide ?? false
             let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                  
-                self.hideContact(contact:self.mobileContacts[indexPath.row],index:indexPath.row,hide:ishide)
+                let contact = self.contactSections[indexPath.section].contacts[indexPath.row]
+                self.hideContact(contact:contact,index:indexPath.row,hide:ishide)
                    success(true)
                })
               
@@ -2461,9 +2578,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
-//            let imageV = self.profileView.toImage()
-//            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
-            
+
             if selectedContactType == ContactType.mobile{
                 if !MFMessageComposeViewController.canSendText() {
                         //showAlert("Text services are not available")
@@ -2486,10 +2601,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 textComposer.body = urlwithString
                 textComposer.recipients = recipients
 
-              /*  if MFMessageComposeViewController.canSendAttachments() {
-                    let imageData = imageV.jpegData(compressionQuality: 1.0)
-                    textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
-                } */
 
                 present(textComposer, animated: true)
             
@@ -2574,7 +2685,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         return defaultUrl
     }
-    
+    func inviteMultipleContactClicked(){
+        
+    }
     func didPressButton(_ contact: PhoneContact, mobileContact:ContactResponse?,reInvite :Bool = false) {
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact

@@ -250,7 +250,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jTK-2r-eK1">
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jTK-2r-eK1">
                                 <rect key="frame" x="500" y="22.5" width="100" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZy-KN-9X6">
@@ -530,6 +530,15 @@
                                     <constraint firstItem="WFS-zE-bC2" firstAttribute="centerX" secondItem="jTK-2r-eK1" secondAttribute="centerX" id="oSL-SR-PHc"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvc-uL-l7h" customClass="SelectButton" customModule="QuickCam" customModuleProvider="target">
+                                <rect key="frame" x="325" y="47.5" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="cj9-LU-Y2r"/>
+                                    <constraint firstAttribute="height" constant="20" id="rgU-eO-FGK"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="selectedCheckmark"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -548,6 +557,7 @@
                             <constraint firstItem="BzA-eA-hcm" firstAttribute="centerY" secondItem="sql-ce-nAr" secondAttribute="centerY" id="Mw3-R4-48a"/>
                             <constraint firstAttribute="trailing" secondItem="Aao-jX-VqQ" secondAttribute="trailing" constant="10" id="N4T-yo-Vkg"/>
                             <constraint firstItem="BzA-eA-hcm" firstAttribute="leading" secondItem="sql-ce-nAr" secondAttribute="leading" constant="18" id="PAg-NV-SbL"/>
+                            <constraint firstAttribute="trailing" secondItem="gvc-uL-l7h" secondAttribute="trailing" constant="30" id="QX8-LY-YWg"/>
                             <constraint firstItem="ZUa-pg-gAY" firstAttribute="leading" secondItem="BzA-eA-hcm" secondAttribute="trailing" constant="10" id="SLD-pP-dQc"/>
                             <constraint firstItem="Yef-l0-6pj" firstAttribute="leading" secondItem="sql-ce-nAr" secondAttribute="leading" id="SQc-am-dTV"/>
                             <constraint firstAttribute="trailing" secondItem="mCq-q2-PVm" secondAttribute="trailing" constant="10" id="U3N-Fw-s45"/>
@@ -561,6 +571,7 @@
                             <constraint firstAttribute="bottom" secondItem="HnF-Gg-Oxt" secondAttribute="bottom" id="oMJ-Um-H2I"/>
                             <constraint firstItem="C1V-hJ-dyi" firstAttribute="leading" secondItem="ZUa-pg-gAY" secondAttribute="leading" constant="-7" id="oMs-Dk-6ge"/>
                             <constraint firstItem="KJd-FJ-5HW" firstAttribute="top" secondItem="ZUa-pg-gAY" secondAttribute="bottom" id="pgs-8w-2YT"/>
+                            <constraint firstItem="gvc-uL-l7h" firstAttribute="centerY" secondItem="sql-ce-nAr" secondAttribute="centerY" id="vYh-kL-MMK"/>
                             <constraint firstAttribute="trailing" secondItem="jTK-2r-eK1" secondAttribute="trailing" constant="10" id="w92-sE-zzJ"/>
                             <constraint firstItem="Yef-l0-6pj" firstAttribute="top" secondItem="sql-ce-nAr" secondAttribute="top" id="wDj-Mu-TEz"/>
                         </constraints>
@@ -581,6 +592,7 @@
                 <outlet property="androidBadgeView" destination="7pq-4a-NMW" id="eIx-Q8-6cf"/>
                 <outlet property="androidIconImageview" destination="7tP-xx-6eG" id="KrJ-j2-86w"/>
                 <outlet property="androidSheildImageview" destination="clL-1k-PWD" id="tdJ-Qq-i2s"/>
+                <outlet property="btnSelect" destination="gvc-uL-l7h" id="zxQ-CI-Sni"/>
                 <outlet property="buttonImageview" destination="EYK-lz-6C8" id="0r8-UB-RQ4"/>
                 <outlet property="buttonInvite" destination="cfK-O9-5Qk" id="8fF-9y-Qcx"/>
                 <outlet property="contactImage" destination="BzA-eA-hcm" id="zVf-8f-UdZ"/>
@@ -622,6 +634,7 @@
         <image name="iosbadge" width="165" height="163"/>
         <image name="prelaunchBadge" width="226" height="342"/>
         <image name="proBadge" width="62" height="73"/>
+        <image name="selectedCheckmark" width="16" height="16"/>
         <image name="socialBadge" width="48" height="74"/>
         <image name="webBadge" width="512" height="512"/>
         <namedColor name="Active1">
