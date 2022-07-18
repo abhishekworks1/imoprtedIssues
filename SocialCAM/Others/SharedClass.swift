@@ -793,6 +793,8 @@ enum SubscriptionTypeForBadge: String {
     case TRIAL = "trial"
     case ADVANCE = "advance"
     case PRO = "pro"
+    case EXPIRE = "expired"
+    case PREMIUM = "premium"
   }
 enum FileExtension: String {
     case jpg = ".jpg"

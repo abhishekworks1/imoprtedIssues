@@ -436,10 +436,12 @@ extension WelcomeViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             setImageForDays(days: days, imageName: "freeOnboard")
-            setUpTimerViewForZeroDay()
-        } else if subscriptionType == "expired" {
+            setUpTimerViewForOtherDay()
+            //setUpTimerViewForZeroDay()
+        } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             setImageForDays(days: days, imageName: "freeOnboard")
-            setUpTimerViewForZeroDay()
+            setUpTimerViewForOtherDay()
+            //setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
             self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
@@ -461,7 +463,7 @@ extension WelcomeViewController {
                 setImageForDays(days: days, imageName: "advanceOnboard")
                 setUpTimerViewForOtherDay()
             }
-        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
+        } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == SubscriptionTypeForBadge.PREMIUM.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             self.upgradeNowButton.isHidden = true
             if (days == "7") {
@@ -599,16 +601,28 @@ extension WelcomeViewController {
         freeModeHourImageView.isHidden = true
        // checkNewTrailPeriodExpire()
         var diffDays = 0
-        
-        if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+        let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
+        if let timerStartDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+            var timerDate = timerStartDate
             var dateComponent = DateComponents()
-            dateComponent.day = 8
+            if subscriptionType == "trial" {
+                dateComponent.day = 8
+            }
+            if subscriptionType == "expired" {
+                if let timerExpireDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
+                    timerDate = timerExpireDate
+                }
+            }
+            
             if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
                 diffDays = futureDate.days(from: Date())
-                print("\(Defaults.shared.currentUser?.trialSubscriptionStartDateIOS)daysss----\(diffDays)---\(futureDate)---\(timerDate)---\(Date())----\(Defaults.shared.currentUser!.subscriptionStatus)")
-                showNewTimer(createdDate: timerDate)
-                //
-                let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
+                
+                if subscriptionType == "expired" || subscriptionType == "free" {
+                    showUpTimer(timerDate: timerDate)
+                } else {
+                    showNewTimer(createdDate: timerDate, subscriptionType: subscriptionType)
+                }
+                
                 self.showWelcomeData(subscriptionType: subscriptionType, daysLeft: diffDays)
                 self.subscriptionDetailLabel.text = self.showMessageData(subscriptionType: subscriptionType, daysLeft: diffDays)
             }
@@ -628,7 +642,22 @@ extension WelcomeViewController {
         }
     }
     
-    func showNewTimer(createdDate: Date) {
+    
+    func showUpTimer(timerDate: Date) {
+        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
+            let days = countdown.day!
+            let hours = countdown.hour!
+            let minutes = countdown.minute!
+            let seconds = countdown.second!
+            self.secValueLabel.text = String(format: "%02d", seconds)
+            self.minValueLabel.text = String(format: "%02d", minutes)
+            self.hourValueLabel.text = String(format: "%02d", hours)
+            self.dayValueLabel.text = String(format: "%01d", days)
+        }
+    }
+    
+    func showNewTimer(createdDate: Date, subscriptionType: String) {
         timerStackView.isHidden = false
         timeStackViewHeight.constant = 72
         var dateComponent = DateComponents()
