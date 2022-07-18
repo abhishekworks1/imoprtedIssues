@@ -435,11 +435,11 @@ extension WelcomeViewController {
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
-            setImageForDays(days: days, imageName: "freeOnboard")
+            setImageForDays(days: days, imageName: "freeOnboard1")
             setUpTimerViewForOtherDay()
             //setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
-            setImageForDays(days: days, imageName: "freeOnboard")
+            setImageForDays(days: days, imageName: "freeOnboard1")
             setUpTimerViewForOtherDay()
             //setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
