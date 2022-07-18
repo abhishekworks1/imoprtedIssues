@@ -2331,7 +2331,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
         
-        selectedShareTitleLabel.text = "Share your QuickCam Referral Page link"
+        selectedShareTitleLabel.text = "Share your QuickCam invite Page link"
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }
@@ -2348,7 +2348,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapQuickStartButton(_ sender: Any) {
-        selectedShareTitleLabel.text = "Share your QuickCam QuickStart Referral Link"
+        selectedShareTitleLabel.text = "Share your QuickCam QuickStart Invite Link"
         if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
            urlToShare = shareUrl
         }

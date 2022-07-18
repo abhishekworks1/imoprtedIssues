@@ -755,7 +755,7 @@ class OnBoardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        backButton.isHidden = !fromNavigation
+        backButton.isHidden = false
         setupView()
         switch Defaults.shared.selectedQuickStartOption {
         case .makeMoney:

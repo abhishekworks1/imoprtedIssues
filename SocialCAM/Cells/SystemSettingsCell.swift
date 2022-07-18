@@ -20,20 +20,22 @@ enum SystemSettingType {
     case mutehapticFeedbackOnSpeedSelection
     case autoSavePic2Art
     case onboarding
+    case welcomeScreen
     case quickMenu
     case quickCamCamera
     case mobileDashboard
 }
 
 enum OnboardingReferral: String {
+    case welcomeScreen = "Welcome Screen"
     case QuickMenu = "QuickStart Guide"
-    case QuickCamera    = "QuickCam Camera"
-    case MobileDashboard        = "Mobile Dashboard"
+    case QuickCamera = "QuickCam Camera"
+    case MobileDashboard = "Mobile Dashboard"
     
     var description: String {
-            return self.rawValue
-        }
-
+        return self.rawValue
+    }
+    
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -103,12 +105,19 @@ class SystemSettingsCell: UITableViewCell {
                 title.text = "Default Opening Screen"
                 selectButtonLeadingConstraint?.constant = -11
                 btnSelectShowAllPopup.isHidden = true
+            } else if systemSettingType == .welcomeScreen {
+                title.text = "Welcome Screen"
+                selectButtonLeadingConstraint?.constant = 30
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
+                btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.welcomeScreen.rawValue
             } else if systemSettingType == .quickMenu {
                 title.text = "QuickStart Guide"
                 selectButtonLeadingConstraint?.constant = 30
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickMenu.rawValue
+                self.btnLock?.isHidden = !self.isSubscriptionTrialOrExpired()
             } else if systemSettingType == .quickCamCamera {
                 title.text = "QuickCam Camera"
                 selectButtonLeadingConstraint?.constant = 30
@@ -183,6 +192,9 @@ class SystemSettingsCell: UITableViewCell {
         } else if systemSettingType == .mutehapticFeedbackOnSpeedSelection {
             Defaults.shared.isMutehapticFeedbackOnSpeedSelection = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .welcomeScreen {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.welcomeScreen.description
+            (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
         } else if systemSettingType == .quickMenu {
             Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
             (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
@@ -250,6 +262,8 @@ class SystemSettingsCell: UITableViewCell {
         } else if systemSettingType == .mutehapticFeedbackOnSpeedSelection {
             Defaults.shared.isMutehapticFeedbackOnSpeedSelection = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .welcomeScreen {
+            Defaults.shared.onBoardingReferral = OnboardingReferral.welcomeScreen.description
         } else if systemSettingType == .quickMenu {
             Defaults.shared.onBoardingReferral = OnboardingReferral.QuickMenu.description
         } else if systemSettingType == .quickCamCamera {

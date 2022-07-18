@@ -235,6 +235,8 @@ class Defaults {
                             setting.settings.first?.name = R.string.localizable.howItWorks()
                         } else if setting.settingsType == .potentialIncomeCalculator {
                             setting.settings.first?.name = R.string.localizable.incomeGoalCalculator()
+                        } else if setting.settingsType == .shareSetting {
+                            setting.settings.first?.name = R.string.localizable.shareYourReferralLink()
                         }
                     }
                     //add here if you add/remove any object in storySettings array
@@ -381,7 +383,7 @@ class Defaults {
             return nil
         }
         set {
-            appMode = self.appMode.getTypeFromString(type: newValue?.subscriptions?.ios?.currentStatus ?? "free")
+            appMode = self.appMode.getTypeFromString(type: newValue?.subscriptionStatus ?? "free")
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(newValue) {
                 appDefaults?.set(encoded, forKey: "loggedUser")
@@ -868,6 +870,14 @@ class Defaults {
             appDefaults?.set(newValue, forKey: "isDoNotShowAgainOpenBusinessCenterPopup")
         }
     }
+    var isDoNotShowAgainOpenIncomeGoalPopup: Bool {
+        get {
+            return appDefaults?.value(forKey: "isDoNotShowAgainOpenIncomeGoalPopup") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDoNotShowAgainOpenIncomeGoalPopup")
+        }
+    }
     
     var isDoNotShowAgainDeleteContactPopup: Bool {
         get {
@@ -1342,7 +1352,7 @@ class Defaults {
     
     var onBoardingReferral: String? {
         get {
-            return appDefaults?.string(forKey: "onboardingReferral") ?? "QuickStart Guide"
+            return appDefaults?.string(forKey: "onboardingReferral") ?? "Welcome Screen"
         }
         set {
             appDefaults?.set(newValue, forKey: "onboardingReferral")
@@ -1409,6 +1419,15 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: "tipOfDay")
+        }
+    }
+    
+    var shouldDisplayDetailsOfWelcomeScreenFeatures: Bool {
+        get {
+            return (appDefaults?.value(forKey: "shouldDisplayDetailsOfWelcomeScreenFeatures") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "shouldDisplayDetailsOfWelcomeScreenFeatures")
         }
     }
     

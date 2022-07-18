@@ -68,7 +68,15 @@ class QRCodeViewController: UIViewController {
 
         }
         setUpbadges()
-        self.lblUsername.text = "\(Defaults.shared.publicDisplayName ?? "")"
+        
+        let displayNameAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]
+        let channelNameAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 0.259, green: 0.522, blue: 0.957, alpha: 1), NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        let displayName = NSMutableAttributedString(string: "\(Defaults.shared.publicDisplayName ?? "")\n", attributes: displayNameAttributes)
+        let channelName = NSMutableAttributedString(string: "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))", attributes: channelNameAttributes)
+        displayName.append(channelName)
+        lblUsername.attributedText = displayName
+        print("----ss \(R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? ""))")
+      //  self.lblUsername.text = "@\(Defaults.shared.currentUser?.channelName ?? "")"//"\(Defaults.shared.publicDisplayName ?? "")"
       /*  if let qrImageURL = Defaults.shared.currentUser?.qrcode {
             self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
         }*/

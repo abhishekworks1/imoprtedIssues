@@ -26,6 +26,8 @@ class SystemSettings {
 
         StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
 
+        StorySettings(name: "", settings: [StorySetting(name: "Welcome Screen", selected: false)], settingsType: .welcomeScreen),
+        
         StorySettings(name: "", settings: [StorySetting(name: "QuickStart Guide", selected: false)], settingsType: .quickMenu),
 
         StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
@@ -115,6 +117,8 @@ extension SystemSettingsViewController: UITableViewDataSource {
             return cell
         } else if settingTitle.settingsType == .onboarding {
             systemSettingsCell.systemSettingType = .onboarding
+        } else if settingTitle.settingsType == .welcomeScreen {
+            systemSettingsCell.systemSettingType = .welcomeScreen
         } else if settingTitle.settingsType == .quickMenu {
             systemSettingsCell.systemSettingType = .quickMenu
         } else if settingTitle.settingsType == .quickCamCamera {

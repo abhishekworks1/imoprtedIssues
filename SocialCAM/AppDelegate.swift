@@ -257,9 +257,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 break
             case OnboardingReferral.QuickMenu.rawValue:
-              //  rootViewController = R.storyboard.onBoardingView.onBoardingViewController()
-                rootViewController = R.storyboard.welcomeOnboarding.welcomeViewController()
+                let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
+                welcomeNavigationVC?.viewControllers.append((R.storyboard.onBoardingView.onBoardingViewController()?.viewControllers.first)!)
+                rootViewController = welcomeNavigationVC
                 break
+            case OnboardingReferral.welcomeScreen.rawValue:
+                rootViewController = R.storyboard.welcomeOnboarding.welcomeViewController()
             default: break
             }
         } else {
