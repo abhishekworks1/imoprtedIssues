@@ -91,6 +91,7 @@ extension GreatViewController {
     func setupUI() {
         self.centerView.layer.cornerRadius = 8.0
         self.upgradeNowButton.layer.cornerRadius = 24.0
+        self.btnClose.isHidden = true
     }
     func setup() {
         var durationString: String = Date().offset(from: self.guidTimerDate).dateComponentsToTimeString()
@@ -267,12 +268,12 @@ extension GreatViewController {
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
-            setImageForDays(days: days, imageName: "freeOnboard")
-            setUpTimerViewForZeroDay()
-        } else if subscriptionType == "expired" {
+            setImageForDays(days: "1", imageName: "freeOnboard")
+            setUpTimerViewForOtherDay()
+        } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features.."
-            setImageForDays(days: days, imageName: "freeOnboard")
-            setUpTimerViewForZeroDay()
+            setImageForDays(days: "1", imageName: "freeOnboard")
+            setUpTimerViewForOtherDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
            // self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
@@ -419,16 +420,32 @@ extension GreatViewController {
         freeModeHourImageView.isHidden = true
        // checkNewTrailPeriodExpire()
         var diffDays = 0
-        
-        if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+        let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
+
+        if let timerStartDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+            var timerDate = timerStartDate
             var dateComponent = DateComponents()
-            dateComponent.day = 8
+            
+            if subscriptionType == "trial" {
+                dateComponent.day = 8
+            }
+            if subscriptionType == "expired" {
+                if let timerExpireDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
+                    timerDate = timerExpireDate
+                }
+            }
+
+            
             if let futureDate = Calendar.current.date(byAdding: dateComponent, to: timerDate) {
                 diffDays = futureDate.days(from: Date())
-                print("\(Defaults.shared.currentUser?.trialSubscriptionStartDateIOS)daysss----\(diffDays)---\(futureDate)---\(timerDate)---\(Date())----\(Defaults.shared.currentUser!.subscriptionStatus)")
-                showNewTimer(createdDate: timerDate)
-                //
-                let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
+                                
+                if subscriptionType == "expired" || subscriptionType == "free" {
+                    showUpTimer(timerDate: timerDate)
+                } else {
+                    showNewTimer(createdDate: timerDate, subscriptionType: subscriptionType)
+                }
+
+                
                 self.showWelcomeData(subscriptionType: subscriptionType, daysLeft: diffDays)
                 quickStartGuideLabel.text = self.showMessageData(subscriptionType: subscriptionType, daysLeft: diffDays)
             }
@@ -448,7 +465,7 @@ extension GreatViewController {
         }
     }
     
-    func showNewTimer(createdDate: Date) {
+    func showNewTimer(createdDate: Date, subscriptionType: String) {
         timerStackView.isHidden = false
         var dateComponent = DateComponents()
         dateComponent.day = 7
@@ -466,6 +483,21 @@ extension GreatViewController {
             }
         }
     }
+    
+    func showUpTimer(timerDate: Date) {
+        self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
+            let days = countdown.day!
+            let hours = countdown.hour!
+            let minutes = countdown.minute!
+            let seconds = countdown.second!
+            self.secValueLabel.text = String(format: "%02d", seconds)
+            self.minValueLabel.text = String(format: "%02d", minutes)
+            self.hourValueLabel.text = String(format: "%02d", hours)
+            self.dayValueLabel.text = String(format: "%01d", days)
+        }
+    }
+
     
     func showWelcomeData(subscriptionType: String, daysLeft: Int) {
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
@@ -490,7 +522,7 @@ extension GreatViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
-        } else if subscriptionType == "expired" {
+        } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
             quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nYour subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
