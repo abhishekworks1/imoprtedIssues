@@ -15,6 +15,7 @@ class WelcomeTimerPopupViewController: UIViewController {
     @IBOutlet weak var foundingMemberImageView: UIImageView!
     @IBOutlet weak var semiHalfView: UIView!
     
+    @IBOutlet weak var timerDescLabel: UILabel!
     @IBOutlet weak var timerStackView: UIStackView!
     @IBOutlet weak var dayValueLabel: UILabel!
     @IBOutlet weak var hourValueLabel: UILabel!
@@ -95,18 +96,22 @@ class WelcomeTimerPopupViewController: UIViewController {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
+                timerDescLabel.text = "Time remaining:"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                timerDescLabel.text = "Time since signing up:"
                 showUpTimer(timerDate: timerDate)
             }
         } else if  subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
-                showUpTimer(timerDate: timerDate)
+                timerDescLabel.text = "Time since your subscription expired:"
+               showUpTimer(timerDate: timerDate)
             }
         } else {
             timerStackView.isHidden = true
+            timerDescLabel.isHidden = true
         }
     }
     func showUpTimer(timerDate: Date){
@@ -122,6 +127,7 @@ class WelcomeTimerPopupViewController: UIViewController {
             self.dayValueLabel.text = String(format: "%01d", days)
             self.setImageForDays(days: "1", imageName: "\(self.onboardImageName)Onboard")
             self.timerStackView.isHidden = false
+            self.timerDescLabel.isHidden = false
         }
     }
     func showDownTimer(timerDate: Date){
@@ -149,6 +155,7 @@ class WelcomeTimerPopupViewController: UIViewController {
                 }
             }
             self.timerStackView.isHidden = false
+            self.timerDescLabel.isHidden = false
         }
     }
     
@@ -363,7 +370,7 @@ extension WelcomeTimerPopupViewController {
             return "Your 7-Day Premium Free Trial has ended. Your Premium subscription ensures you have continuous Premium level access."
         }
         else if subscriptionType == "expired" {
-            return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features.\nTime since your subscription expired:"
+            return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features."
         }
         else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             return ""
