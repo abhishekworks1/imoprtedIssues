@@ -117,7 +117,6 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickMenu.rawValue
-                self.btnLock?.isHidden = !self.isSubscriptionTrialOrExpired()
             } else if systemSettingType == .quickCamCamera {
                 title.text = "QuickCam Camera"
                 selectButtonLeadingConstraint?.constant = 30
@@ -200,10 +199,8 @@ class SystemSettingsCell: UITableViewCell {
             (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
         } else if systemSettingType == .quickCamCamera {
             Defaults.shared.onBoardingReferral = OnboardingReferral.QuickCamera.description
-//            (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
         } else if systemSettingType == .mobileDashboard {
             Defaults.shared.onBoardingReferral = OnboardingReferral.MobileDashboard.description
-//            (self.parentViewController as? SystemSettingsViewController)?.systemSettingsTableView.reloadData()
         }
         
     }

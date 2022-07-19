@@ -174,7 +174,7 @@ extension SystemSettingsViewController: UITableViewDelegate {
             systemSettingCell.updateAppSettings()
         }
         
-        if settingTitle.settingsType == .showAllPopups || settingTitle.settingsType == .quickMenu || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard {
+        if settingTitle.settingsType == .showAllPopups || settingTitle.settingsType == .welcomeScreen || settingTitle.settingsType == .quickMenu || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard {
             
             tableView.reloadData()
         }
