@@ -505,27 +505,27 @@ class SubscriptionContainerViewController: UIViewController {
             subscribeNowLabel.text = "Your Subscription Plan Basic"
             subscribertypeLabel.text = "Your Subscription Plan: Basic"
             subscribertypeview.isHidden = false
-            subscribertypeview.backgroundColor = UIColor(hexString:"C9B552")
+            subscribertypeview.backgroundColor = UIColor(hexString:"E5C942")
         }else if(subscriptionStatus.lowercased() == "advance"){
             viewDetailAdvancedView.isHidden = true
             activeAdvancedView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
             subscribertypeLabel.text = "Your Subscription Plan: Advanced"
             subscribertypeview.isHidden = false
-            subscribertypeview.backgroundColor = UIColor(hexString:"88A975")
+            subscribertypeview.backgroundColor = UIColor(hexString:"07BA11")
         }else if(subscriptionStatus.lowercased() == "pro"){
             viewDetailProView.isHidden = true
             activeProView.isHidden = false
             subscribeNowLabel.text = "Your Subscription Plan"
             subscribertypeLabel.text = "Your Subscription Plan: Premium"
             subscribertypeview.isHidden = false
-            subscribertypeview.backgroundColor = UIColor(hexString:"617FB1")
+            subscribertypeview.backgroundColor = UIColor(hexString:"4F38DF")
         } else if (subscriptionStatus.lowercased() == "expired" || subscriptionStatus.lowercased() == "free" || subscriptionStatus.lowercased() == "trial") {
             viewDetailFreeView.isHidden = true
             activeFreeView.isHidden = false
             subscribertypeLabel.text = "Your Subscription Plan: Free"
             subscribertypeview.isHidden = false
-            subscribertypeview.backgroundColor = UIColor(hexString:"D9D9D9")
+            subscribertypeview.backgroundColor = UIColor(hexString:"9E9E9E")
             subscribeNowLabel.text = "SUBSCRIBE NOW"
             subscribeNowLabel.isHidden = false
         } else{
