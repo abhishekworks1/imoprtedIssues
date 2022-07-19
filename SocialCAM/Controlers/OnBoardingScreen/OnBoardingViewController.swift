@@ -38,6 +38,17 @@ enum QuickStartOption: Int, CaseIterable {
     case mobileDashboard
     case makeMoney
     
+    var titleText: String {
+        switch self {
+        case .createContent:
+            return "Create Engaging Content"
+        case .mobileDashboard:
+            return "Mobile Dashboard"
+        case .makeMoney:
+            return "Make Money Referring QuickCam"
+        }
+    }
+    
     func option(for rawValue: Int) -> QuickStartOptionable? {
         switch self {
         case .createContent:
@@ -335,15 +346,33 @@ enum QuickStartOption: Int, CaseIterable {
 </ul>
 <p>&nbsp;</p>
 <ul>
-<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Subscription Badge - Earned when you set your subscription</span></li>
+<li style="font-weight: 400;" aria-level="2">Premium Subscription Badge - Earned by subscribing to the Premium plan.</li>
 </ul>
 <p>&nbsp;</p>
 <ul>
-<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Number Badge - Earned when you subscribe during the 7-Day Premium Free Trial</span></li>
+<li style="font-weight: 400;" aria-level="2">Advanced Subscription Badge - Earned by subscribing to the Advanced plan.</li>
 </ul>
 <p>&nbsp;</p>
 <ul>
-<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Social Connection Badge - Earned when you connect your social media accounts</span></li>
+<li style="font-weight: 400;" aria-level="2">Basic Subscription Badge - Earned by subscribing to the Basic plan.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2">Free User Badge - Designated for non-subscribers.</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2"><span style="font-weight: 400;">Day Subcribed Badge - Earned when you subscribe during the 7-Day Premium Free Trial.</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li data-sourcepos="13:1-16:0">
+<p data-sourcepos="13:4-14:71">Inviter Badge - Earned by inviting your contacts who join and subscribe.</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li style="font-weight: 400;" aria-level="2">Social Connection Badge - Earned when you connect your social media accounts.</li>
 </ul>
 """
             }

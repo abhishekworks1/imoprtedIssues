@@ -137,7 +137,11 @@ class WelcomeViewController: UIViewController {
             Utils.appDelegate?.window?.rootViewController = rootViewController
             break
         case 1:
-            whatToSeeFirstBaseView.isHidden = false
+            if Defaults.shared.shouldDisplayQuickStartFirstOptionSelection {
+                whatToSeeFirstBaseView.isHidden = false
+            } else {
+                openOnboarding()
+            }
         case 2:
 //            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
 //            if let pageViewController = rootViewController as? PageViewController,

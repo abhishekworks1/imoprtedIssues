@@ -17,6 +17,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBOutlet weak var quickCamHeaderView: UIView!
     @IBOutlet weak var tryNowButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var headerTitleLabel: UILabel!
 
     var selectedOption: QuickStartOptionable = QuickStartOption.CreateContentOption.quickCamCamera
     var selectedQuickStartMenu: QuickStartOption = .createContent
@@ -30,8 +31,9 @@ class QuickStartOptionDetailViewController: UIViewController {
         } else {
             descriptionLabel.text = selectedOption.description
         }
-        backButtonHeaderView.isHidden = selectedOption.isFirstStep
-        quickCamHeaderView.isHidden = !selectedOption.isFirstStep
+//        backButtonHeaderView.isHidden = selectedOption.isFirstStep
+//        quickCamHeaderView.isHidden = !selectedOption.isFirstStep
+        headerTitleLabel.text = selectedQuickStartMenu.titleText
         tryNowButton.isHidden = !selectedOption.isLastStep
         doneButton.isHidden = !selectedOption.isLastStep
         if !selectedOption.hideTryNowButton {
