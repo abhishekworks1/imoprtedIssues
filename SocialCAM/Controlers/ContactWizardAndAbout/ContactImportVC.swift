@@ -1800,16 +1800,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             var item : Titletext?
             if isSelectSMS {
                 item = self.smsMsgListing?.list[indexPath.row]
-                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                print(item?.content ?? "No Data Found")
-                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
                 cell.setText(text: item?.content ?? "")
                 cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
-                print("isselectsms")
             } else {
                 item = self.emailMsgListing?.list[indexPath.row]
                 cell.setText(text: item?.content ?? "")
-                cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: item?.subject ?? "")
+                cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
             }
           
             cell.handleRatioButtonAction = { (isSelected) in
