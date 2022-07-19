@@ -869,14 +869,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allmobileContacts = self.mobileContacts
                     if self.mobileContacts.count == 0{
                       //  self.lblCurrentFilter.text = ""
-                        self.nocontactView.isHidden = false
+                       
                         
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
+                            self.contactPermitView.isHidden = false
                             self.lblnocontact.text = "Import Contacts"
                         }else{
+                            self.nocontactView.isHidden = false
                             self.lblnocontact.text = "No contacts found with that filter criteria."
                         }
                     }else{
+                        self.contactPermitView.isHidden = true
                         self.nocontactView.isHidden = true
                     }
                     self.lblNumberofContacts.text = "Contacts(\(self.mobileContacts.count))"
