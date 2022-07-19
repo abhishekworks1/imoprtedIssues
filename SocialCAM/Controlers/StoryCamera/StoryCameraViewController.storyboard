@@ -2510,6 +2510,94 @@ Countdown</string>
                                     <constraint firstItem="BTb-8L-0rx" firstAttribute="centerX" secondItem="mvA-z9-clC" secondAttribute="centerX" id="jLC-6V-ROv"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="le9-fJ-Orz">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OO-th-ufN">
+                                        <rect key="frame" x="15" y="267" width="345" height="200"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribe Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ad7-bn-cTP">
+                                                <rect key="frame" x="20" y="20" width="183.66666666666666" height="31.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have an active subscription to use this feature. Upgrade now?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MR9-Bg-cDq">
+                                                <rect key="frame" x="20" y="66.333333333333314" width="305" height="64.666666666666686"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaU-7m-dUH">
+                                                <rect key="frame" x="205" y="151" width="120" height="40"/>
+                                                <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="76W-R4-qJ9"/>
+                                                    <constraint firstAttribute="width" constant="120" id="YRh-Bg-hXl"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Yes">
+                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapSubscriptionYesButton:" destination="aJT-JN-hbU" eventType="touchUpInside" id="RTx-XG-p7b"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAK-eb-eaT">
+                                                <rect key="frame" x="65" y="151" width="120" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="CFm-ml-QMf"/>
+                                                    <constraint firstAttribute="width" constant="120" id="Zne-a4-mJP"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Later">
+                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="baseForegroundColor" name="AppPrimaryColor"/>
+                                                </buttonConfiguration>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapSubscriptionLaterButton:" destination="aJT-JN-hbU" eventType="touchUpInside" id="EHg-yd-hwS"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="WaU-7m-dUH" firstAttribute="leading" secondItem="VAK-eb-eaT" secondAttribute="trailing" constant="20" id="EQm-8B-gV3"/>
+                                            <constraint firstItem="WaU-7m-dUH" firstAttribute="top" secondItem="MR9-Bg-cDq" secondAttribute="bottom" constant="20" id="QJK-eo-u2E"/>
+                                            <constraint firstItem="MR9-Bg-cDq" firstAttribute="top" secondItem="ad7-bn-cTP" secondAttribute="bottom" constant="15" id="XP8-HO-Uzp"/>
+                                            <constraint firstAttribute="trailing" secondItem="MR9-Bg-cDq" secondAttribute="trailing" constant="20" id="Zce-wo-OJK"/>
+                                            <constraint firstItem="VAK-eb-eaT" firstAttribute="centerY" secondItem="WaU-7m-dUH" secondAttribute="centerY" id="aS9-hE-ZbC"/>
+                                            <constraint firstItem="ad7-bn-cTP" firstAttribute="top" secondItem="8OO-th-ufN" secondAttribute="top" constant="20" id="bgd-3T-h7r"/>
+                                            <constraint firstAttribute="height" constant="200" id="rqs-kI-Weu"/>
+                                            <constraint firstAttribute="trailing" secondItem="WaU-7m-dUH" secondAttribute="trailing" constant="20" id="vRJ-ad-jK9"/>
+                                            <constraint firstItem="ad7-bn-cTP" firstAttribute="leading" secondItem="8OO-th-ufN" secondAttribute="leading" constant="20" id="xib-zt-mPm"/>
+                                            <constraint firstItem="MR9-Bg-cDq" firstAttribute="leading" secondItem="8OO-th-ufN" secondAttribute="leading" constant="20" id="yc9-E3-kiz"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.67000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="8OO-th-ufN" firstAttribute="centerX" secondItem="le9-fJ-Orz" secondAttribute="centerX" id="2wv-xw-e8u"/>
+                                    <constraint firstItem="8OO-th-ufN" firstAttribute="centerY" secondItem="le9-fJ-Orz" secondAttribute="centerY" id="6TZ-eh-kcd"/>
+                                    <constraint firstItem="8OO-th-ufN" firstAttribute="leading" secondItem="le9-fJ-Orz" secondAttribute="leading" constant="15" id="mSE-Tk-J5I"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4Wv-ah-CaL"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -2521,6 +2609,7 @@ Countdown</string>
                             <constraint firstItem="4Wv-ah-CaL" firstAttribute="top" secondItem="iW6-JF-HaK" secondAttribute="top" id="6Zx-i2-FEv"/>
                             <constraint firstItem="MqY-XQ-NHE" firstAttribute="top" secondItem="QjN-ny-SBW" secondAttribute="top" id="777-Dj-gDt"/>
                             <constraint firstItem="4Wv-ah-CaL" firstAttribute="top" secondItem="NuV-EC-Pom" secondAttribute="top" id="7iw-rI-0bq"/>
+                            <constraint firstItem="4Wv-ah-CaL" firstAttribute="bottom" secondItem="le9-fJ-Orz" secondAttribute="bottom" id="CmC-Rl-mHz"/>
                             <constraint firstItem="4Wv-ah-CaL" firstAttribute="trailing" secondItem="6VI-Pb-DwZ" secondAttribute="trailing" id="DLX-mp-QMh"/>
                             <constraint firstAttribute="trailing" secondItem="MqY-XQ-NHE" secondAttribute="trailing" id="DlQ-de-EGh"/>
                             <constraint firstItem="WI1-3t-B7u" firstAttribute="centerY" secondItem="QjN-ny-SBW" secondAttribute="centerY" id="EdQ-TU-jXP"/>
@@ -2538,10 +2627,12 @@ Countdown</string>
                             <constraint firstItem="whw-Qg-HTy" firstAttribute="centerY" secondItem="4Wv-ah-CaL" secondAttribute="centerY" id="SgR-cP-aXA"/>
                             <constraint firstItem="6VI-Pb-DwZ" firstAttribute="top" secondItem="QjN-ny-SBW" secondAttribute="top" id="VCU-iC-K57"/>
                             <constraint firstItem="6VI-Pb-DwZ" firstAttribute="top" secondItem="4Wv-ah-CaL" secondAttribute="top" id="YbR-mk-Fbq"/>
+                            <constraint firstItem="4Wv-ah-CaL" firstAttribute="trailing" secondItem="le9-fJ-Orz" secondAttribute="trailing" id="aHG-6c-tEx"/>
                             <constraint firstItem="82X-aR-ipA" firstAttribute="top" secondItem="6VI-Pb-DwZ" secondAttribute="top" id="bvY-5y-Qca"/>
                             <constraint firstItem="cP2-CL-XHV" firstAttribute="width" secondItem="QjN-ny-SBW" secondAttribute="width" id="c6J-6a-Hqf"/>
                             <constraint firstItem="kKV-Df-MAW" firstAttribute="bottom" secondItem="QjN-ny-SBW" secondAttribute="bottom" id="fst-Np-2Vj"/>
                             <constraint firstItem="kKV-Df-MAW" firstAttribute="top" secondItem="QjN-ny-SBW" secondAttribute="top" id="go3-CB-Q4y"/>
+                            <constraint firstItem="le9-fJ-Orz" firstAttribute="top" secondItem="4Wv-ah-CaL" secondAttribute="top" id="i8z-zU-btc"/>
                             <constraint firstAttribute="bottom" secondItem="mvA-z9-clC" secondAttribute="bottom" id="jCw-eX-65l"/>
                             <constraint firstItem="Vwq-vC-7MP" firstAttribute="centerY" secondItem="QjN-ny-SBW" secondAttribute="centerY" id="nX0-h4-P37"/>
                             <constraint firstItem="mvA-z9-clC" firstAttribute="leading" secondItem="4Wv-ah-CaL" secondAttribute="leading" id="nZC-ra-wuJ"/>
@@ -2549,6 +2640,7 @@ Countdown</string>
                             <constraint firstItem="MqY-XQ-NHE" firstAttribute="leading" secondItem="QjN-ny-SBW" secondAttribute="leading" id="sxR-lE-P97"/>
                             <constraint firstAttribute="centerX" secondItem="QjN-ny-SBW" secondAttribute="centerX" id="t9n-OG-HXA"/>
                             <constraint firstItem="bJn-xb-pyp" firstAttribute="centerX" secondItem="4Wv-ah-CaL" secondAttribute="centerX" id="tsc-at-M4B"/>
+                            <constraint firstItem="le9-fJ-Orz" firstAttribute="leading" secondItem="4Wv-ah-CaL" secondAttribute="leading" id="xGq-tu-ZlV"/>
                             <constraint firstItem="Vwq-vC-7MP" firstAttribute="centerX" secondItem="QjN-ny-SBW" secondAttribute="centerX" id="xMM-Jd-E52"/>
                             <constraint firstItem="iW6-JF-HaK" firstAttribute="top" secondItem="6VI-Pb-DwZ" secondAttribute="top" id="xtt-YQ-D1C"/>
                             <constraint firstItem="cP2-CL-XHV" firstAttribute="height" secondItem="QjN-ny-SBW" secondAttribute="height" id="ygb-ed-80w"/>
@@ -2647,6 +2739,7 @@ Countdown</string>
                         <outlet property="storyUploadImageView" destination="7MJ-mS-33V" id="ITK-Ts-GJ7"/>
                         <outlet property="storyUploadRoundView" destination="MSD-vT-lIi" id="EWM-UU-ct3"/>
                         <outlet property="storyUploadView" destination="nYg-n0-LSZ" id="sR9-uo-3Dg"/>
+                        <outlet property="subscriptionPopUpView" destination="le9-fJ-Orz" id="Oqx-3S-UdB"/>
                         <outlet property="swipeCameraStackView" destination="pZZ-bn-Erv" id="VJe-4g-X6K"/>
                         <outlet property="switchAppButton" destination="s3x-ka-hkz" id="Ke1-l4-B3V"/>
                         <outlet property="switchingAppView" destination="whw-Qg-HTy" id="Koc-PB-XqT"/>
@@ -6410,7 +6503,7 @@ Countdown</string>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-Qm-s1z" customClass="BottomTransparentGradientView" customModule="BoomiCam" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="121" width="173" height="58"/>
+                                                            <rect key="frame" x="0.0" y="122.33333333333333" width="173" height="56.666666666666671"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hIC-rZ-5PN">
@@ -6458,21 +6551,21 @@ Countdown</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7k-y5-LSO">
-                                                    <rect key="frame" x="8" y="120.99999999999999" width="157" height="19.333333333333329"/>
+                                                    <rect key="frame" x="8" y="122.33333333333333" width="157" height="18.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ID-NO-NzT">
-                                                    <rect key="frame" x="7.9999999999999982" y="142.33333333333334" width="28.333333333333329" height="13.333333333333343"/>
+                                                    <rect key="frame" x="8" y="143" width="27" height="13"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="11"/>
                                                     <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW7-F2-58z">
-                                                    <rect key="frame" x="7.9999999999999982" y="157.66666666666666" width="28.333333333333329" height="13.333333333333343"/>
+                                                    <rect key="frame" x="8" y="158" width="27" height="13"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="11"/>
                                                     <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -6532,13 +6625,13 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uBF-ue-vDP">
-                                        <rect key="frame" x="98.333333333333329" y="299" width="178.33333333333337" height="136.33333333333337"/>
+                                        <rect key="frame" x="104.33333333333333" y="299" width="166.66666666666669" height="136"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadStory" translatesAutoresizingMaskIntoConstraints="NO" id="SMh-eb-DFO">
-                                                <rect key="frame" x="35.666666666666671" y="0.0" width="107.00000000000001" height="106"/>
+                                                <rect key="frame" x="29.666666666666671" y="0.0" width="107.00000000000001" height="106"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="No uploads remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwk-GS-iZP">
-                                                <rect key="frame" x="0.0" y="116" width="178.33333333333334" height="20.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="116" width="166.66666666666666" height="20"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -9762,10 +9855,10 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -9774,7 +9867,7 @@ Countdown</string>
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="storytag_fadedRed">
-            <color red="0.88599997758865356" green="0.30199998617172241" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88627450980392153" green="0.30196078431372547" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="watermarkTitleColor">
             <color red="0.13725490196078433" green="0.12549019607843137" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

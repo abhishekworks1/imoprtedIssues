@@ -95,6 +95,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var signleDiscardCheckBoxClickImageView: UIImageView!
     @IBOutlet weak var discardTextMessageLabel: UILabel!
     
+    @IBOutlet weak var subscriptionPopUpView: UIView!
+    
     @IBOutlet weak var timerPicker: PickerView! {
         didSet {
             timerPicker.dataSource = self
@@ -763,6 +765,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(appSurveyPopupView)
         view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
+        view.bringSubviewToFront(subscriptionPopUpView)
         NotificationCenter.default.addObserver(self, selector: #selector(displayLaunchDetails), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         self.verifyForceUpdate(isForground: false)
@@ -1203,6 +1206,21 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
     }
     
+    @IBAction func didTapSubscriptionYesButton(_ sender: UIButton) {
+        subscriptionPopUpView.isHidden = true
+        if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+            subscriptionVC.subscriptionDelegate = self
+            self.navigationController?.pushViewController(subscriptionVC, animated: true)
+            self.cameraSliderView.selectCell = 0
+            self.cameraSliderView.collectionView.reloadData()
+        }
+    }
+    
+    @IBAction func didTapSubscriptionLaterButton(_ sender: UIButton) {
+        subscriptionPopUpView.isHidden = true
+        self.cameraSliderView.selectCell = 0
+        self.cameraSliderView.collectionView.reloadData()
+    }
     
     @IBAction func didTapDiscardCheckAndUnCheckButton(_ sender: UIButton) {
         if isDiscardSingleSegment {
@@ -3064,28 +3082,29 @@ extension StoryCameraViewController {
     }
     
     func showAlertForUpgradeSubscription() {
-        let cameraModeNames = "\(R.string.localizable.fastsloW()),\(R.string.localizable.capturE()),\(R.string.localizable.pic2Art())"
-        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(cameraModeNames), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: R.string.localizable.no(), style: .cancel, handler: { (_) in
-            self.cameraSliderView.selectCell = 0
-            self.cameraSliderView.collectionView.reloadData()
-//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
-//            }, completion: { (_ finished: Bool) -> Void in
-//                if finished {
-//                    self.currentState = .open
-//                }
-//            })
-        }))
-        alert.addAction(UIAlertAction(title: R.string.localizable.yes(), style: .default, handler: { (_) in
-            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
-                subscriptionVC.subscriptionDelegate = self
-                self.navigationController?.pushViewController(subscriptionVC, animated: true)
-                self.cameraSliderView.selectCell = 0
-                self.cameraSliderView.collectionView.reloadData()
-            }
-        }))
-        self.present(alert, animated: true, completion: nil)
+        self.subscriptionPopUpView.isHidden = false
+//        let cameraModeNames = "\(R.string.localizable.fastsloW()),\(R.string.localizable.capturE()),\(R.string.localizable.pic2Art())"
+//        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(cameraModeNames), preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: R.string.localizable.no(), style: .cancel, handler: { (_) in
+//            self.cameraSliderView.selectCell = 0
+//            self.cameraSliderView.collectionView.reloadData()
+////            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+////                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+////            }, completion: { (_ finished: Bool) -> Void in
+////                if finished {
+////                    self.currentState = .open
+////                }
+////            })
+//        }))
+//        alert.addAction(UIAlertAction(title: R.string.localizable.yes(), style: .default, handler: { (_) in
+//            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+//                subscriptionVC.subscriptionDelegate = self
+//                self.navigationController?.pushViewController(subscriptionVC, animated: true)
+//                self.cameraSliderView.selectCell = 0
+//                self.cameraSliderView.collectionView.reloadData()
+//            }
+//        }))
+//        self.present(alert, animated: true, completion: nil)
     }
     
     func presentSafariBrowser(url: URL) {
