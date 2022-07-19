@@ -305,8 +305,7 @@ class SubscriptionsViewController: UIViewController {
 //        }
         if subscriptionType == .free {
             if isFromWelcomeScreen {
-                guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
-                (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
+                guard let onBoardView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
                 Utils.appDelegate?.window?.rootViewController = onBoardView
             } else {
                 navigationController?.popViewController(animated: true)
@@ -326,10 +325,9 @@ class SubscriptionsViewController: UIViewController {
     @IBAction func btnOkayTapped(_ sender: UIButton) {
         self.thankYouViewSubScription.isHidden = true
         if isFromWelcomeScreen {
-            guard let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() else { return }
-            (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
+            guard let onBoardView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
             let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
-            welcomeNavigationVC?.viewControllers.append((R.storyboard.onBoardingView.onBoardingViewController()?.viewControllers.first)!)
+            welcomeNavigationVC?.viewControllers.append((R.storyboard.welcomeOnboarding.welcomeViewController()?.viewControllers.first)!)
             Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
         } else {
             self.navigationController?.popToRootViewController(animated: true)

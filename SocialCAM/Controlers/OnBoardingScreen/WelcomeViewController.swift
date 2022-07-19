@@ -73,6 +73,8 @@ class WelcomeViewController: UIViewController {
     let lastWelcomeTimerAlertDateKey = "lastWelcomeTimerAlertDate"
     var isWhatDoYouWantSeeViewChecked = false
 
+    var loadingView: LoadingView? = LoadingView.instanceFromNib()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
@@ -218,6 +220,7 @@ extension WelcomeViewController {
         self.checkTrailPeriodExpire()
       //  self.setSubscriptionBadgeDetails()
         self.getDays()
+        self.showLoader()
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
@@ -243,9 +246,10 @@ extension WelcomeViewController {
             self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
         //    self.setSubscriptionBadgeDetails()
-//            self.checkIfWelcomeTimerAlertShownToday()
-            self.showWelcomeTimerAlert()
+            self.checkIfWelcomeTimerAlertShownToday()
+           // self.showWelcomeTimerAlert()
             self.getDays()
+            self.hideLoader()
         }
     }
     
@@ -280,6 +284,20 @@ extension WelcomeViewController {
         }
         self.present(vc, animated: true, completion: nil)
         
+    }
+    
+    func showLoader(){
+            self.loadingView = LoadingView.instanceFromNib()
+            self.loadingView?.shouldCancelShow = true
+            self.loadingView?.loadingViewShow = true
+            self.loadingView?.hideAdView(true)
+            self.loadingView?.show(on: self.view)
+  
+    }
+    func hideLoader(){
+        DispatchQueue.main.async {
+            self.loadingView?.hide()
+        }
     }
 }
 
