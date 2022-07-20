@@ -224,6 +224,8 @@ extension WelcomeViewController {
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
+                
+                self.hideLoader()
 //                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
                 self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
                 Defaults.shared.shouldDisplayTipOffDay = true
@@ -249,7 +251,6 @@ extension WelcomeViewController {
             self.checkIfWelcomeTimerAlertShownToday()
             // self.showWelcomeTimerAlert()
             self.getDays()
-            self.hideLoader()
         }
     }
     
