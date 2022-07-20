@@ -832,8 +832,12 @@ class OnBoardingViewController: UIViewController {
     
     @IBAction func createContent(_ sender: UIButton) {
         Defaults.shared.isSignupLoginFlow = true
-        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-        Utils.appDelegate?.window?.rootViewController = rootViewController
+        if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
+            storySettingsVC.isFromCameraParentView = true
+            navigationController?.pushViewController(storySettingsVC, animated: true)
+        }
+//        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+//        Utils.appDelegate?.window?.rootViewController = rootViewController
     }
     
     @IBAction func didTapMobileDashboardClick(_ sender: UIButton) {

@@ -77,6 +77,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var timerStackView: UIStackView!
     @IBOutlet weak var flashStackView: UIStackView!
     @IBOutlet weak var lastCaptureImageView: UIImageView!
+    @IBOutlet weak var cameraScreenBackStackView: UIStackView!
+    
     
     @IBOutlet weak var backButtonView: UIStackView!
     @IBOutlet weak var photoTimerSelectedLabel: UILabel!
@@ -235,6 +237,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isDiscardCheckBoxClicked = false
     var isDiscardSingleCheckBoxClicked = false
     var totalSegDuration = ""
+    var isFromCameraParentView = false
     
     var isDisableResequence: Bool = true {
         didSet {
@@ -577,6 +580,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        if isFromCameraParentView {
+            self.cameraScreenBackStackView.isHidden = false
+        } else {
+            self.cameraScreenBackStackView.isHidden = true
+        }
         self.getReferralNotification()
         UIApplication.shared.isIdleTimerDisabled = true
         setCameraSettings()
@@ -1204,6 +1212,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
         }
         self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
+    }
+    
+    
+    @IBAction func didTapCameraBackButton(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func didTapSubscriptionYesButton(_ sender: UIButton) {
@@ -2320,6 +2333,7 @@ extension StoryCameraViewController {
             self.discardSegmentsStackView.isHidden = false
             self.settingsView.isHidden = true
             self.backButtonView.isHidden = false
+            self.cameraScreenBackStackView.isHidden = true
             cameraSliderView.isHidden = true
             self.businessDashboardStackView.isHidden = true
             self.confirmRecordedSegmentStackView.isHidden = false
@@ -2980,6 +2994,11 @@ extension StoryCameraViewController {
         self.settingsView.isHidden = false
         cameraSliderView.isHidden = false
         backButtonView.isHidden = true
+        if isFromCameraParentView {
+            self.cameraScreenBackStackView.isHidden = false
+        } else {
+            self.cameraScreenBackStackView.isHidden = true
+        }
         self.businessDashboardStackView.isHidden = false
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
