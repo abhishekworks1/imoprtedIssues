@@ -135,8 +135,12 @@ class WelcomeViewController: UIViewController {
         switch sender.tag {
         case 0:
             Defaults.shared.isSignupLoginFlow = true
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+//            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+//            Utils.appDelegate?.window?.rootViewController = rootViewController
+            if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
+                storySettingsVC.isFromCameraParentView = true
+                navigationController?.pushViewController(storySettingsVC, animated: true)
+            }
             break
         case 1:
             if Defaults.shared.shouldDisplayQuickStartFirstOptionSelection {
