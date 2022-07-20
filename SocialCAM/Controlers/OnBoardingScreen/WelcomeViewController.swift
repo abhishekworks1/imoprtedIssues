@@ -245,9 +245,9 @@ extension WelcomeViewController {
             }
             self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
-        //    self.setSubscriptionBadgeDetails()
+            //    self.setSubscriptionBadgeDetails()
             self.checkIfWelcomeTimerAlertShownToday()
-           // self.showWelcomeTimerAlert()
+            // self.showWelcomeTimerAlert()
             self.getDays()
             self.hideLoader()
         }
@@ -264,12 +264,12 @@ extension WelcomeViewController {
             showWelcomeTimerAlert()
         }
     }
-
+    
     func showWelcomeTimerAlert() {
         print("Need to show an alert today!")
         UserDefaults.standard.set(Date(), forKey: lastWelcomeTimerAlertDateKey)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeTimerPopupViewController") as! WelcomeTimerPopupViewController
-//        vc.delegate = self
+        //        vc.delegate = self
         vc.providesPresentationContextTransitionStyle = true;
         vc.definesPresentationContext = true;
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -286,15 +286,16 @@ extension WelcomeViewController {
         
     }
     
-    func showLoader(){
-            self.loadingView = LoadingView.instanceFromNib()
-            self.loadingView?.shouldCancelShow = true
-            self.loadingView?.loadingViewShow = true
-            self.loadingView?.hideAdView(true)
-            self.loadingView?.show(on: self.view)
-  
+    func showLoader() {
+        self.loadingView = LoadingView.instanceFromNib()
+        self.loadingView?.processingYourQuickieLabel.text = ""
+        self.loadingView?.shouldCancelShow = true
+        self.loadingView?.loadingViewShow = true
+        self.loadingView?.hideAdView(true)
+        self.loadingView?.show(on: self.view)
     }
-    func hideLoader(){
+    
+    func hideLoader() {
         DispatchQueue.main.async {
             self.loadingView?.hide()
         }
