@@ -2281,24 +2281,34 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.setupPage()
         }
         else if pageNo == 4 {
-            pageNo = 5
-            self.setupPage()
-            isSelectSMS = true
-            if isSelectSMS {
-                if self.shareType == ShareType.textShare{
-                    textMessageSelected(sender: UIButton())
-                }else if self.shareType == ShareType.email{
-                    emailSelected(sender: UIButton())
+            if self.shareType == ShareType.socialShare{
+                let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
+                referSuccess.callback = { message in
+                    self.pageNo = 1
+                    self.setupPage()
                 }
+                referSuccess.isFromOnboarding = self.isFromOnboarding
+                selectedPhoneContact = nil
+                navigationController?.pushViewController(referSuccess, animated: true)
             } else {
-                if self.shareType == ShareType.textShare{
-                    textMessageSelected(sender: UIButton())
-                    isSelectSMS = false
-                }else if self.shareType == ShareType.email{
-                    emailSelected(sender: UIButton())
-                    isSelectSMS = false
+                pageNo = 5
+                self.setupPage()
+                isSelectSMS = true
+                if isSelectSMS {
+                    if self.shareType == ShareType.textShare{
+                        textMessageSelected(sender: UIButton())
+                    }else if self.shareType == ShareType.email{
+                        emailSelected(sender: UIButton())
+                    }
+                } else {
+                    if self.shareType == ShareType.textShare{
+                        textMessageSelected(sender: UIButton())
+                        isSelectSMS = false
+                    }else if self.shareType == ShareType.email{
+                        emailSelected(sender: UIButton())
+                        isSelectSMS = false
+                    }
                 }
-               
             }
         }
         else if sender.tag == 3 {
