@@ -111,12 +111,16 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.welcomeScreen.rawValue
+                
+                btnSelectShowAllPopup.isUserInteractionEnabled = false
             } else if systemSettingType == .quickMenu {
                 title.text = "QuickStart Guide"
                 selectButtonLeadingConstraint?.constant = 30
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickMenu.rawValue
+                
+                btnSelectShowAllPopup.isUserInteractionEnabled = false
             } else if systemSettingType == .quickCamCamera {
                 title.text = "QuickCam Camera"
                 selectButtonLeadingConstraint?.constant = 30
@@ -124,6 +128,8 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.QuickCamera.rawValue
                 self.btnLock?.isHidden = !self.isSubscriptionTrialOrExpired()
+                
+                btnSelectShowAllPopup.isUserInteractionEnabled = false
             } else if systemSettingType == .mobileDashboard {
                 title.text = "Mobile Dashboard"
                 selectButtonLeadingConstraint?.constant = 30
@@ -131,6 +137,8 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
                 btnSelectShowAllPopup.isSelected = Defaults.shared.onBoardingReferral == OnboardingReferral.MobileDashboard.rawValue
                 self.btnLock?.isHidden = !self.isSubscriptionTrialOrExpired()
+                
+                btnSelectShowAllPopup.isUserInteractionEnabled = false
             }
         }
     }
