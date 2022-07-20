@@ -38,6 +38,8 @@ class UserSync {
                 Defaults.shared.referredByData = response.result?.user?.refferedBy
                 self.setAppModeBasedOnUserSync()
                 completion(true)
+            } else {
+                completion(false)
             }
             UserSync.shared.getOnboardingUserFlags { _ in
                 
