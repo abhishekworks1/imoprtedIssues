@@ -818,7 +818,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(200)&page=\(page)&sortBy=name&sortType=asc"
+        var lim = 200
+        if page == 1 {
+            lim = 40
+        }
+        var fil = filter
+        if fil == "opened" {
+            fil = "visited"
+        }
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(fil)&limit=\(lim)&page=\(page)&sortBy=name&sortType=asc"
 
         print("contact->\(path)")
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
@@ -839,16 +847,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.hideLoader()
                     return }
                    
-                if page == 1{
-                    if self.selectedContactType == ContactType.mobile{
-                        self.allmobileContactsForHide = [ContactResponse]()
-                        self.mobileContacts = [ContactResponse]()
-                        self.allmobileContacts = [ContactResponse]()
-                    }else{
-                        self.allemailContactsForHide = [ContactResponse]()
-                        self.emailContacts = [ContactResponse]()
-                    }
-                }
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
                
@@ -2927,7 +2925,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             let contentHeight = scrollView.contentSize.height
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
-            if ((offsetY) >= contentHeight - scrollView.frame.height - 150.0) && !loadingStatus {
+            if ((offsetY) >= contentHeight - scrollView.frame.height - 0) && !loadingStatus {
               //  self.showLoader()
                 let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
                 self.getContactList(page: page, filter: self.selectedFilter)
