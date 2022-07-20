@@ -818,7 +818,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(200)&page=\(page)&sortBy=name&sortType=asc"
+        var lim = 200
+        if page == 1 {
+            lim = 40
+        }
+        var fil = filter
+        if fil == "opened" {
+            fil = "visited"
+        }
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(fil)&limit=\(lim)&page=\(page)&sortBy=name&sortType=asc"
 
         print("contact->\(path)")
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
@@ -839,16 +847,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.hideLoader()
                     return }
                    
-                if page == 1{
-                    if self.selectedContactType == ContactType.mobile{
-                        self.allmobileContactsForHide = [ContactResponse]()
-                        self.mobileContacts = [ContactResponse]()
-                        self.allmobileContacts = [ContactResponse]()
-                    }else{
-                        self.allemailContactsForHide = [ContactResponse]()
-                        self.emailContacts = [ContactResponse]()
-                    }
-                }
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
                
@@ -1720,7 +1718,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         return UITableView.automaticDimension
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-
+        print(self.mobileContacts.count)
+        print(self.contactSections.count)
+      
         if tableView == itemsTableView{
             return 1
         } else if tableView == emailContactTableView{
@@ -1794,6 +1794,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }else{
             return 0
         }
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       /* if tableView == emailContactTableView{
+          //  return emailContacts.count
+            if indexPath.row == self.emailContacts.count{
+                let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
+                self.getContactList(page: page, filter: self.selectedFilter)
+            }
+        } else if tableView == contactTableView{
+            //  return emailContacts.count
+              if indexPath.row == self.mobileContacts.count{
+                  let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
+                  self.getContactList(page: page, filter: self.selectedFilter)
+              }
+          }*/
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{

@@ -34,7 +34,7 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var minLineView: UIView!
     @IBOutlet weak var secLineView: UIView!
     @IBOutlet weak var upgradeNowButton: UIButton!
-    
+    @IBOutlet weak var upgradeButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var timeStackViewHeight: NSLayoutConstraint!
     @IBOutlet weak var semiHalfView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -251,6 +251,8 @@ extension WelcomeViewController {
             self.checkIfWelcomeTimerAlertShownToday()
             // self.showWelcomeTimerAlert()
             self.getDays()
+            self.hideLoader()
+            self.setUpgradeButton()
         }
     }
     
@@ -263,6 +265,27 @@ extension WelcomeViewController {
             }
         } else {
             showWelcomeTimerAlert()
+        }
+    }
+    func setUpgradeButton() {
+        upgradeNowButton.isHidden = true
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" || paidSubscriptionStatus.lowercased() == "advance" || paidSubscriptionStatus.lowercased() == "pro" {
+                upgradeNowButton.isHidden = true
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                upgradeNowButton.isHidden = false
+            } else {
+                upgradeNowButton.isHidden = true
+            }
+        } else {
+            upgradeNowButton.isHidden = false
+        }
+        if upgradeNowButton.isHidden {
+            upgradeButtonHeight.constant = 0
+        } else {
+            upgradeButtonHeight.constant = 32
         }
     }
     
@@ -399,7 +422,6 @@ extension WelcomeViewController {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else if subscriptionType == "expired" {
                         subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
-                        self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
                         
@@ -412,8 +434,7 @@ extension WelcomeViewController {
                         } else {
                             fday = isTrialExpire ? 0 : fday
                             if fday == 0  {
-                                self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
-                                self.timerStackView.isHidden = true
+                               self.timerStackView.isHidden = true
                                 timeStackViewHeight.constant = 0
                                 setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
                             } else {
@@ -441,7 +462,6 @@ extension WelcomeViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
         print("----o \(subscriptionType)")
-        self.upgradeNowButton.isHidden = false
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
@@ -468,8 +488,6 @@ extension WelcomeViewController {
             //setUpTimerViewForZeroDay()
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
-            self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
-            
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -479,8 +497,6 @@ extension WelcomeViewController {
             
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
-            self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
-            
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -489,7 +505,6 @@ extension WelcomeViewController {
             }
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == SubscriptionTypeForBadge.PREMIUM.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
-            self.upgradeNowButton.isHidden = true
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -591,7 +606,6 @@ extension WelcomeViewController {
             timeStackViewHeight.constant = 72
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             subscriptionDetailLabel.isHidden = false
-            self.upgradeNowButton.isHidden = true
             badgeImageView.image = UIImage(named: "badgeIphonePre")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
@@ -608,7 +622,6 @@ extension WelcomeViewController {
     func subscribersHideTimer(subscriptionType: String) {
         timerStackView.isHidden = true
         timeStackViewHeight.constant = 0
-        self.upgradeNowButton.isHidden = true
         setUpTimerViewForZeroDaySubscription(subscriptionType: subscriptionType)
     }
 
