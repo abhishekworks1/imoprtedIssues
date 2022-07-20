@@ -16,6 +16,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBOutlet weak var backButtonHeaderView: UIView!
     @IBOutlet weak var quickCamHeaderView: UIView!
     @IBOutlet weak var tryNowButton: UIButton!
+    @IBOutlet weak var subscribeNowButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var headerTitleLabel: UILabel!
 
@@ -48,6 +49,7 @@ class QuickStartOptionDetailViewController: UIViewController {
                 tryNowButton.setTitle("Try Now", for: .normal)
             }
         }
+        subscribeNowButton.isHidden = !tryNowButton.isHidden
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -109,6 +111,14 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBAction func didTapOnBack(_ sender: UIButton) {
         if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
             navigationController?.popToViewController(viewController, animated: true)
+        }
+    }
+    
+    @IBAction func didTapOnSubscribeNow(_ sender: UIButton) {
+        if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+            subscriptionVC.isFromWelcomeScreen = true
+            self.navigationController?.isNavigationBarHidden = true
+            self.navigationController?.pushViewController(subscriptionVC, animated: true)
         }
     }
     

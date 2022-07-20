@@ -2378,7 +2378,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapQuickStartButton(_ sender: Any) {
-        selectedShareTitleLabel.text = "Share your QuickCam QuickStart Invite Link"
+        selectedShareTitleLabel.text = "Share your QuickStart Invite Link"
         if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
            urlToShare = shareUrl
         }

@@ -1957,9 +1957,6 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="24"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
                                                 <color key="value" red="0.25882352941176467" green="0.52156862745098043" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
@@ -2049,23 +2046,62 @@
                                     <constraint firstAttribute="height" constant="27" id="W8N-Gp-RWw"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ihh-kW-FPy">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ihh-kW-FPy">
                                 <rect key="frame" x="20" y="145" width="374" height="608"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickCam Camera" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97C-SZ-Pud">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickCam Camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97C-SZ-Pud">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="26.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pvk-aJ-ftS">
-                                        <rect key="frame" x="0.0" y="36.5" width="374" height="513.5"/>
+                                        <rect key="frame" x="0.0" y="36.5" width="374" height="455.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <string key="text">Quis vestibulum risus fermentum amet tristique condimentum pharetra leo facilisis interdum curabitur suspendisse vestibulum aliquam laoreet a leo phasellus hendrerit lacus sociosqu bibendum vulputate hac a ultrices.</string>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxS-U9-kWv">
+                                        <rect key="frame" x="87" y="502" width="200" height="48"/>
+                                        <color key="backgroundColor" red="0.91764705879999997" green="0.94509803920000002" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="6d7-kd-T6S"/>
+                                            <constraint firstAttribute="width" constant="226" id="Ael-Jv-Y3p"/>
+                                            <constraint firstAttribute="width" constant="200" id="huR-6g-6fa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Subscribe Now">
+                                            <color key="titleColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="24"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                                <color key="value" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                <color key="value" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Ael-Jv-Y3p"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="didTapOnSubscribeNow:" destination="cg9-jn-5oz" eventType="touchUpInside" id="0yu-G5-f4B"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htg-tR-9mC">
                                         <rect key="frame" x="0.0" y="560" width="374" height="48"/>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.94509803920000002" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2105,6 +2141,13 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="Pvk-aJ-ftS" firstAttribute="leading" secondItem="ihh-kW-FPy" secondAttribute="leading" id="8In-aV-c1r"/>
+                                    <constraint firstItem="97C-SZ-Pud" firstAttribute="leading" secondItem="ihh-kW-FPy" secondAttribute="leading" id="N8p-v4-C59"/>
+                                    <constraint firstAttribute="trailing" secondItem="htg-tR-9mC" secondAttribute="trailing" id="Pkx-6p-Gdc"/>
+                                    <constraint firstItem="htg-tR-9mC" firstAttribute="leading" secondItem="ihh-kW-FPy" secondAttribute="leading" id="dMl-Yh-BXj"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pvk-aJ-ftS" secondAttribute="trailing" id="zeA-hI-fOV"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WJ7-Mf-Pb8"/>
@@ -2141,6 +2184,7 @@
                         <outlet property="doneButton" destination="6Uc-5K-V1J" id="JFo-0y-dtt"/>
                         <outlet property="headerTitleLabel" destination="s3d-l6-5w2" id="caC-nS-Fi7"/>
                         <outlet property="quickCamHeaderView" destination="4Yh-fv-iqu" id="SHk-qA-jGn"/>
+                        <outlet property="subscribeNowButton" destination="pxS-U9-kWv" id="LaR-uX-8x5"/>
                         <outlet property="titleLabel" destination="97C-SZ-Pud" id="kHu-e8-hbF"/>
                         <outlet property="tryNowButton" destination="htg-tR-9mC" id="veE-xz-Emc"/>
                     </connections>

@@ -62,8 +62,8 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var selectFeatureDetailLabels: [UILabel]!
     @IBOutlet weak var whatToSeeFirstBaseView: UIView! {
         didSet {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideWhatToSee))
-            whatToSeeFirstBaseView.addGestureRecognizer(tapGesture)
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideWhatToSee))
+//            whatToSeeFirstBaseView.addGestureRecognizer(tapGesture)
         }
     }
     
@@ -203,6 +203,7 @@ class WelcomeViewController: UIViewController {
         Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .makeMoney
         UserSync.shared.setOnboardingUserFlags()
+        whatToSeeFirstBaseView.isHidden = true
         openOnboarding()
     }
     
@@ -210,6 +211,7 @@ class WelcomeViewController: UIViewController {
         Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .createContent
         UserSync.shared.setOnboardingUserFlags()
+        whatToSeeFirstBaseView.isHidden = true
         openOnboarding()
     }
 }
