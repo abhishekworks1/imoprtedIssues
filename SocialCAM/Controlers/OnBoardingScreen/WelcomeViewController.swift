@@ -329,6 +329,7 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     
     func showTimer(createdDate: Date) {
+        countdownTimer?.invalidate()
         timerStackView.isHidden = false
         timeStackViewHeight.constant = 72
         let currentDate = Date()
@@ -681,6 +682,7 @@ extension WelcomeViewController {
     
     
     func showUpTimer(timerDate: Date) {
+        countdownTimer?.invalidate()
         self.countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             let countdown = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: timerDate, to: Date())
             let days = countdown.day!
@@ -695,6 +697,7 @@ extension WelcomeViewController {
     }
     
     func showNewTimer(createdDate: Date, subscriptionType: String) {
+        countdownTimer?.invalidate()
         timerStackView.isHidden = false
         timeStackViewHeight.constant = 72
         var dateComponent = DateComponents()

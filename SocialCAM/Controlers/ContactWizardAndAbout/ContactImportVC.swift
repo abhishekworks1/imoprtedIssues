@@ -2361,7 +2361,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
         
-        selectedShareTitleLabel.text = "Share your QuickCam invite Page link"
+        selectedShareTitleLabel.text = "Share your QuickCam Invite Page Link"
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }
