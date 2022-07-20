@@ -1718,7 +1718,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         return UITableView.automaticDimension
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-
+        print(self.mobileContacts.count)
+        print(self.contactSections.count)
+      
         if tableView == itemsTableView{
             return 1
         } else if tableView == emailContactTableView{
@@ -1792,6 +1794,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }else{
             return 0
         }
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       /* if tableView == emailContactTableView{
+          //  return emailContacts.count
+            if indexPath.row == self.emailContacts.count{
+                let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
+                self.getContactList(page: page, filter: self.selectedFilter)
+            }
+        } else if tableView == contactTableView{
+            //  return emailContacts.count
+              if indexPath.row == self.mobileContacts.count{
+                  let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
+                  self.getContactList(page: page, filter: self.selectedFilter)
+              }
+          }*/
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
@@ -2925,7 +2942,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             let contentHeight = scrollView.contentSize.height
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
-            if ((offsetY) >= contentHeight - scrollView.frame.height - 0) && !loadingStatus {
+            if ((offsetY) >= contentHeight - scrollView.frame.height - 150.0) && !loadingStatus {
               //  self.showLoader()
                 let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
                 self.getContactList(page: page, filter: self.selectedFilter)
