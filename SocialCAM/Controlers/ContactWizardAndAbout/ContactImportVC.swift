@@ -102,7 +102,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     @IBOutlet weak var lblCurrentFilter: UILabel!
-    var selectedTitleRow : Int = 0
+    var selectedTitleRow : Int = -1
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
 
     //share page declaration
@@ -1732,7 +1732,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         print(self.contactSections.count)
       
         if tableView == itemsTableView{
-            return 1
+            return 2
         } else if tableView == emailContactTableView{
             return self.emailContactSection.count
         }else{
@@ -1743,10 +1743,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == itemsTableView{
-            if isSelectSMS {
-                return self.smsMsgListing?.list.count ?? 0
+            if section == 0 {
+              return 1
             } else {
-                return self.emailMsgListing?.list.count ?? 0
+                if isSelectSMS {
+                    return self.smsMsgListing?.list.count ?? 0
+                } else {
+                    return self.emailMsgListing?.list.count ?? 0
+                }
             }
         }else if tableView == emailContactTableView{
           //  return emailContacts.count
@@ -1822,43 +1826,49 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
-            let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            
-            var item : Titletext?
-            if isSelectSMS {
-                item = self.smsMsgListing?.list[indexPath.row]
-                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                print(item?.content ?? "No Data Found")
-                print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                cell.setText(text: item?.content ?? "")
-                cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
-                print("isselectsms")
+            if indexPath.section == 0 {
+                let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
+                cell.setText(text: "Composs your own message")
+                return cell
             } else {
-                item = self.emailMsgListing?.list[indexPath.row]
-                cell.setText(text: item?.content ?? "")
-                cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: item?.subject ?? "")
-            }
-          
-            cell.handleRatioButtonAction = { (isSelected) in
-                if isSelected {
-                    self.selectedTitleRow = indexPath.row
+                let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                
+                var item : Titletext?
+                if isSelectSMS {
+                    item = self.smsMsgListing?.list[indexPath.row]
+                    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                    print(item?.content ?? "No Data Found")
+                    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                    cell.setText(text: item?.content ?? "")
+                    cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
+                    print("isselectsms")
                 } else {
-                    self.selectedTitleRow = -1
+                    item = self.emailMsgListing?.list[indexPath.row]
+                    cell.setText(text: item?.content ?? "")
+                    cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: item?.subject ?? "")
                 }
-                self.itemsTableView.reloadData()
+              
+                cell.handleRatioButtonAction = { (isSelected) in
+                    if isSelected {
+                        self.selectedTitleRow = indexPath.row
+                    } else {
+                        self.selectedTitleRow = -1
+                    }
+                    self.itemsTableView.reloadData()
+                }
+                if selectedTitleRow == indexPath.row {
+                    //set data to share
+                    self.txtLinkWithCheckOut = item?.content ?? ""
+                    self.txtDetailForEmail = item?.subject ?? ""
+                    let finalText = "\(txtLinkWithCheckOut)"
+                    txtLinkWithCheckOut = finalText
+                    self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
+    //                self.lblpreviewText.text = self.txtLinkWithCheckOut
+                }
+                return cell
             }
-            if selectedTitleRow == indexPath.row {
-                //set data to share
-                self.txtLinkWithCheckOut = item?.content ?? ""
-                self.txtDetailForEmail = item?.subject ?? ""
-                let finalText = "\(txtLinkWithCheckOut)"
-                txtLinkWithCheckOut = finalText
-                self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
-//                self.lblpreviewText.text = self.txtLinkWithCheckOut
-            }
-            return cell
-
+           
         }  else if tableView == emailContactTableView {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -2041,18 +2051,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == itemsTableView {
-            if selectedTitleRow != indexPath.row {
-                selectedTitleRow = indexPath.row
-//                let item = self.listingResponse?.list[indexPath.row]
-//                if item != nil {
-//                    self.txtLinkWithCheckOut = item?.content ?? ""
-//                }
-                itemsTableView.reloadData()
-//                if txtLinkWithCheckOut != "" {
-//                    let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
-//                    txtLinkWithCheckOut = finalText
-//                    print(txtLinkWithCheckOut)
-//                }
+            if indexPath.section == 0 {
+                
+            } else {
+                if selectedTitleRow != indexPath.row {
+                    selectedTitleRow = indexPath.row
+    //                let item = self.listingResponse?.list[indexPath.row]
+    //                if item != nil {
+    //                    self.txtLinkWithCheckOut = item?.content ?? ""
+    //                }
+                    itemsTableView.reloadData()
+    //                if txtLinkWithCheckOut != "" {
+    //                    let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+    //                    txtLinkWithCheckOut = finalText
+    //                    print(txtLinkWithCheckOut)
+    //                }
+                }
             }
         } else{
             self.view.endEditing(true)
