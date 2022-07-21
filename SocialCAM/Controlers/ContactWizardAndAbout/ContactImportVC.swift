@@ -1795,6 +1795,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return 0
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
        /* if tableView == emailContactTableView{
           //  return emailContacts.count
