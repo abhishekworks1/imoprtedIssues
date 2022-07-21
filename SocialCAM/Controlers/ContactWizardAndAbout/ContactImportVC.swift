@@ -885,7 +885,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.contactSections =  self.checkForCharacter(groupedArray:self.groupedContactArray)
                    
                     DispatchQueue.main.async {
+                        let contentOffset = self.contactTableView.contentOffset
                         self.contactTableView.reloadData()
+                        self.contactTableView.layoutIfNeeded()
+                        self.contactTableView.setContentOffset(contentOffset, animated: false)
                     }
                 }else{
                     
@@ -907,16 +910,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.groupedEmailContactArray = self.groupContacts(sortedContacts:self.emailContacts)
                     self.emailContactSection =  self.checkForCharacter(groupedArray:self.groupedContactArray)
                     DispatchQueue.main.async {
-                        self.emailContactTableView.reloadData()
+                        if page == 1 {
+                            let contentOffset = self.emailContactTableView.contentOffset
+                            self.emailContactTableView.reloadData()
+                            self.emailContactTableView.layoutIfNeeded()
+                            self.emailContactTableView.setContentOffset(contentOffset, animated: false)
+                        }
                     }
                 }
                 self.hideLoader()
                 DispatchQueue.main.asyncAfter(deadline:.now() + 0.5) {
                     self.loadingStatus = false
                 }
-               
+                if contacts.count == lim {
+                    let page = (self.selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
+                    self.getContactList(page: page, filter: self.selectedFilter)
+                }
                 break
-               
             case .failure(let error):
                 print(error)
                 self.hideLoader()
@@ -2948,7 +2958,7 @@ extension ContactImportVC:UIScrollViewDelegate{
         }
     }
      */
-     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    /* func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView == contactTableView || scrollView == emailContactTableView{
             let offsetY = scrollView.contentOffset.y
             let contentHeight = scrollView.contentSize.height
@@ -2956,14 +2966,12 @@ extension ContactImportVC:UIScrollViewDelegate{
             print(!loadingStatus)
             if ((offsetY) >= contentHeight - scrollView.frame.height - 150.0) && !loadingStatus {
               //  self.showLoader()
-                let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
-                self.getContactList(page: page, filter: self.selectedFilter)
-                
+                selectedContactType == ContactType.mobile ? contactTableView.reloadData() : emailContactTableView.reloadData()
             }
         }
         
     }
-   
+   */
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == contactTableView || scrollView == emailContactTableView{
