@@ -745,7 +745,12 @@ enum QuickStartOption: Int, CaseIterable {
         }
         
         var hideTryNowButton: Bool {
-            return (self != .potentialCalculator || self != .referralWizard)
+            switch self {
+            case .potentialCalculator, .referralWizard:
+                return false
+            default:
+                return true
+            }
         }
 
         case referralCommissionProgram = 0
