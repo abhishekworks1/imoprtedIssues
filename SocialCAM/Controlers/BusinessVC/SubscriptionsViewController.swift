@@ -330,7 +330,8 @@ class SubscriptionsViewController: UIViewController {
             welcomeNavigationVC?.viewControllers.append((R.storyboard.welcomeOnboarding.welcomeViewController()?.viewControllers.first)!)
             Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
         } else {
-            self.navigationController?.popToRootViewController(animated: true)
+            navigationController?.popToViewController(ofClass: StoryCameraViewController.self)
+           // self.navigationController?.popToRootViewController(animated: true)
         }
 //        freeModeAlertBlurView.isHidden = true
 //        freeModeAlertView.isHidden = true
