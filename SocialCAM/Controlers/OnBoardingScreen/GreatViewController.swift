@@ -94,6 +94,20 @@ extension GreatViewController {
         self.centerView.layer.cornerRadius = 8.0
         self.upgradeNowButton.layer.cornerRadius = 24.0
         self.btnClose.isHidden = true
+        
+        let attributedString: [NSAttributedString.Key: Any] = [
+              .font: UIFont.systemFont(ofSize: 14),
+              .underlineStyle: NSUnderlineStyle.single.rawValue
+          ]
+
+        let attributeString = NSMutableAttributedString(
+                string: "Back to QuickStart Guide",
+                attributes: attributedString
+             )
+
+        self.backToQuickStartButton.setAttributedTitle(attributeString, for: .normal)
+        
+        
     }
     func setup() {
         var durationString: String = Date().offset(from: self.guidTimerDate).dateComponentsToTimeString()
