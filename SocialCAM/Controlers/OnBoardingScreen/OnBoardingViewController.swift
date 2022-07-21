@@ -745,7 +745,7 @@ enum QuickStartOption: Int, CaseIterable {
         }
         
         var hideTryNowButton: Bool {
-            return self != .potentialCalculator
+            return (self != .potentialCalculator || self != .referralWizard)
         }
 
         case referralCommissionProgram = 0
@@ -841,13 +841,15 @@ class OnBoardingViewController: UIViewController {
     }
     
     @IBAction func didTapMobileDashboardClick(_ sender: UIButton) {
-        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-        if let pageViewController = rootViewController as? PageViewController,
-           let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-           let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-            navigationController.viewControllers.append(settingVC)
-        }
-        Utils.appDelegate?.window?.rootViewController = rootViewController
+//        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+//        if let pageViewController = rootViewController as? PageViewController,
+//           let navigationController = pageViewController.pageControllers.first as? UINavigationController,
+//           let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
+//            navigationController.viewControllers.append(settingVC)
+//        }
+//        Utils.appDelegate?.window?.rootViewController = rootViewController
+        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
     
     @IBAction func didTapFollowSocialMedia(_ sender: UIButton) {

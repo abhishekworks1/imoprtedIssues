@@ -41,7 +41,11 @@ class QuickStartOptionDetailViewController: UIViewController {
             tryNowButton.isHidden = false
         }
         if !selectedOption.hideTryNowButton {
-            tryNowButton.setTitle("Try Calculator Now", for: .normal)
+            if (selectedOption as? QuickStartOption.MakeMoneyOption) == .referralWizard {
+                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+            } else {
+                tryNowButton.setTitle("Try Calculator Now", for: .normal)
+            }
         } else {
             if selectedQuickStartMenu == .createContent {
                 tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
