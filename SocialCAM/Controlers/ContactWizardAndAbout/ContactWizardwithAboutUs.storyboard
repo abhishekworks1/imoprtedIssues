@@ -2856,7 +2856,7 @@
                                                                 <rect key="frame" x="0.0" y="169" width="414" height="480"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqr-us-VqU">
-                                                                        <rect key="frame" x="162" y="125" width="90" height="90"/>
+                                                                        <rect key="frame" x="162" y="50" width="90" height="90"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="90" id="80y-jK-PG1"/>
                                                                             <constraint firstAttribute="height" constant="90" id="lF5-YX-wFo"/>
@@ -2868,7 +2868,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BdQ-i4-S60">
-                                                                        <rect key="frame" x="20" y="225" width="374" height="0.0"/>
+                                                                        <rect key="frame" x="20" y="150" width="374" height="0.0"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2881,27 +2881,27 @@
                                                                     <constraint firstItem="BdQ-i4-S60" firstAttribute="leading" secondItem="BPW-kh-JdK" secondAttribute="leading" constant="20" id="PAy-LG-N4Q"/>
                                                                     <constraint firstItem="BdQ-i4-S60" firstAttribute="centerX" secondItem="BPW-kh-JdK" secondAttribute="centerX" id="pF0-1H-5SP"/>
                                                                     <constraint firstAttribute="trailing" secondItem="BdQ-i4-S60" secondAttribute="trailing" constant="20" id="s7E-RG-17i"/>
-                                                                    <constraint firstItem="qqr-us-VqU" firstAttribute="centerY" secondItem="BPW-kh-JdK" secondAttribute="centerY" constant="-70" id="wsH-ZG-kyR"/>
+                                                                    <constraint firstItem="qqr-us-VqU" firstAttribute="top" secondItem="BPW-kh-JdK" secondAttribute="top" constant="50" id="tdp-7f-MU0"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8oi-s7-NMf">
                                                                 <rect key="frame" x="0.0" y="169" width="414" height="480"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite your friends" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMf-9v-CcW">
-                                                                        <rect key="frame" x="30" y="105" width="354" height="30"/>
+                                                                        <rect key="frame" x="30" y="50" width="354" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CE2-Op-QWU">
-                                                                        <rect key="frame" x="30" y="145" width="354" height="50.5"/>
+                                                                        <rect key="frame" x="30" y="90" width="354" height="50.5"/>
                                                                         <string key="text">You can track which of your contacts you have invited, who has signed up, and who is subscribing. We will never send sms text on your behalf.</string>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5L9-ix-dK3">
-                                                                        <rect key="frame" x="107" y="215.5" width="200" height="50"/>
+                                                                        <rect key="frame" x="107" y="160.5" width="200" height="50"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.49019607840000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="200" id="QHj-wF-hVX"/>
@@ -2918,7 +2918,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9f-Gg-9yG">
-                                                                        <rect key="frame" x="107" y="215.5" width="200" height="50"/>
+                                                                        <rect key="frame" x="107" y="160.5" width="200" height="50"/>
                                                                         <color key="backgroundColor" red="0.0" green="0.57846415039999999" blue="0.99952560660000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="200" id="L7d-aq-rQB"/>
@@ -2941,12 +2941,12 @@
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="trailing" secondItem="CE2-Op-QWU" secondAttribute="trailing" constant="30" id="0oC-DT-dR9"/>
+                                                                    <constraint firstItem="lMf-9v-CcW" firstAttribute="top" secondItem="8oi-s7-NMf" secondAttribute="top" constant="50" id="Ejw-mv-4tL"/>
                                                                     <constraint firstAttribute="trailing" secondItem="lMf-9v-CcW" secondAttribute="trailing" constant="30" id="HvM-zY-Mtd"/>
                                                                     <constraint firstItem="5L9-ix-dK3" firstAttribute="centerX" secondItem="8oi-s7-NMf" secondAttribute="centerX" id="Jlf-qR-ET3"/>
                                                                     <constraint firstItem="lMf-9v-CcW" firstAttribute="leading" secondItem="8oi-s7-NMf" secondAttribute="leading" constant="30" id="Lzj-aQ-pSx"/>
                                                                     <constraint firstItem="CE2-Op-QWU" firstAttribute="top" secondItem="lMf-9v-CcW" secondAttribute="bottom" constant="10" id="RUV-m1-Zz2"/>
                                                                     <constraint firstItem="N9f-Gg-9yG" firstAttribute="top" secondItem="CE2-Op-QWU" secondAttribute="bottom" constant="20" id="V0Z-Eh-aZG"/>
-                                                                    <constraint firstItem="CE2-Op-QWU" firstAttribute="centerY" secondItem="8oi-s7-NMf" secondAttribute="centerY" constant="-70" id="dta-P0-47P"/>
                                                                     <constraint firstItem="N9f-Gg-9yG" firstAttribute="centerX" secondItem="8oi-s7-NMf" secondAttribute="centerX" id="eW0-GJ-N6y"/>
                                                                     <constraint firstItem="5L9-ix-dK3" firstAttribute="top" secondItem="CE2-Op-QWU" secondAttribute="bottom" constant="20" id="hAm-nU-I0Z"/>
                                                                     <constraint firstItem="CE2-Op-QWU" firstAttribute="leading" secondItem="8oi-s7-NMf" secondAttribute="leading" constant="30" id="jYh-5j-F7x"/>
@@ -4701,7 +4701,7 @@
             <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
