@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21208.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -2241,7 +2241,7 @@
                                                 <rect key="frame" x="0.0" y="10" width="163" height="153"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="dJH-Mg-aho">
-                                                <rect key="frame" x="41.5" y="18" width="80" height="80"/>
+                                                <rect key="frame" x="41.5" y="23" width="80" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="DSI-7j-16z"/>
                                                     <constraint firstAttribute="height" constant="80" id="Pj0-kM-bIV"/>
@@ -2261,7 +2261,7 @@
                                             <constraint firstAttribute="width" constant="163" id="PuU-tu-35e"/>
                                             <constraint firstAttribute="bottom" secondItem="Lhu-KS-M5Q" secondAttribute="bottom" id="QOs-ST-BY9"/>
                                             <constraint firstAttribute="trailing" secondItem="Lhu-KS-M5Q" secondAttribute="trailing" id="Qa1-Dn-4Ur"/>
-                                            <constraint firstItem="dJH-Mg-aho" firstAttribute="top" secondItem="nBU-XK-imh" secondAttribute="top" constant="18" id="dWM-Zd-uNX"/>
+                                            <constraint firstItem="dJH-Mg-aho" firstAttribute="top" secondItem="nBU-XK-imh" secondAttribute="top" constant="23" id="gAt-1N-riI"/>
                                             <constraint firstAttribute="height" constant="163" id="yDO-aQ-6os"/>
                                         </constraints>
                                     </view>
@@ -2511,7 +2511,8 @@ Subscribe now before your 7-Day Premium Free Trial ends.</string>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Back to QuickStart Guide">
-                                            <color key="baseForegroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                            <color key="baseForegroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="backToQuickGuidOnClick:" destination="FTj-Uk-Zce" eventType="touchUpInside" id="HHv-c5-PSC"/>
@@ -2561,7 +2562,7 @@ Subscribe now before your 7-Day Premium Free Trial ends.</string>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="czl-64-xhy"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="H2I-Wf-pCn" firstAttribute="centerY" secondItem="czl-64-xhy" secondAttribute="centerY" id="2mj-Va-hNs"/>
                             <constraint firstItem="H2I-Wf-pCn" firstAttribute="centerX" secondItem="czl-64-xhy" secondAttribute="centerX" id="AE0-M2-VFm"/>
@@ -2641,7 +2642,7 @@ Subscribe now before your 7-Day Premium Free Trial ends.</string>
         <image name="refer_quickcam_logo" width="80" height="56"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
