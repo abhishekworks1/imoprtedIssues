@@ -7,6 +7,7 @@ import UIKit
 
 class messageTitleCell: UITableViewCell {
     
+    @IBOutlet weak var ownMessageView: UIView!
     @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var selectedButton: UIButton!
     @IBOutlet  var textLbl: UILabel!
