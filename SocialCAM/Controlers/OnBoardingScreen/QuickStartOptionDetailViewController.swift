@@ -105,7 +105,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBAction func didTapOnDoneStep(_ sender: UIButton) {
         let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
         greatVC.greatViewDelegate = self
-        greatVC.categoryString = selectedOption.title
+        greatVC.categoryString = selectedQuickStartMenu.titleText
         greatVC.guidTimerDate = guidTimerDate
         greatVC.modalPresentationStyle = .overCurrentContext
             present(greatVC, animated: true, completion: nil)

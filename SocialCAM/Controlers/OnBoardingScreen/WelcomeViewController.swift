@@ -74,6 +74,7 @@ class WelcomeViewController: UIViewController {
     var isWhatDoYouWantSeeViewChecked = false
 
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
+    var isFirstTime = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -317,6 +318,10 @@ extension WelcomeViewController {
     }
     
     func showLoader() {
+        guard isFirstTime else {
+            return
+        }
+        isFirstTime = false
         self.loadingView = LoadingView.instanceFromNib()
         self.loadingView?.processingYourQuickieLabel.text = ""
         self.loadingView?.shouldCancelShow = true
