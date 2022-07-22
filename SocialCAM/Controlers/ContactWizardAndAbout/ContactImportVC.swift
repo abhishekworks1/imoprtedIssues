@@ -100,7 +100,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
    @IBOutlet weak var itemsTableView: UITableView!
     @IBOutlet weak var filterScrollview: UIScrollView?
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
-    
     @IBOutlet weak var lblCurrentFilter: UILabel!
     var selectedTitleRow: IndexPath?
 //    Int = -1
@@ -1790,22 +1789,39 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             print(newIndex)
             return newIndex
         }
-          
     }
-    func tableView(_ tableView: UITableView,
-        titleForHeaderInSection section: Int) -> String?{
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerTitle = view as? UITableViewHeaderFooterView {
+            headerTitle.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+            headerTitle.textLabel?.textColor = UIColor.black
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         if tableView == self.contactTableView{
-            
-            return nil
+            if self.contactSections[section].contacts.count == 0 {
+                return nil
+            } else {
+                return contactSections[section].char
+            }
         }else if tableView == self.emailContactTableView{
-            return nil
+            if self.emailContactSection[section].contacts.count == 0 {
+                return nil
+            } else {
+                return emailContactSection[section].char
+            }
         }
        return nil
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.contactTableView || tableView == self.emailContactTableView{
-            return 1
+            if self.contactSections[section].contacts.count == 0 || self.emailContactSection[section].contacts.count == 0 {
+                return 0
+            } else {
+                return 30
+            }
         }else{
             return 0
         }
@@ -1861,6 +1877,25 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: item?.subject ?? "", indexPath: indexPath)
                 }
+                
+                var finalText = ""
+                if selectedTitleRow == indexPath {
+                    //set data to share
+                    if isSelectSMS {
+                        self.txtLinkWithCheckOut = cell.messageTextView.text ?? ""
+                        finalText = "\(txtLinkWithCheckOut)"
+                    } else {
+                        self.txtLinkWithCheckOut = cell.emailTextView.text ?? ""
+                        self.txtDetailForEmail = cell.emailSubTextView.text ?? ""
+                        finalText = "\(txtLinkWithCheckOut)\n\(txtDetailForEmail)"
+                    }
+                    
+                    txtLinkWithCheckOut = finalText
+                    self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
+                    //                self.lblpreviewText.text = self.txtLinkWithCheckOut
+                }
+
+                
                 return cell
                 
             } else {

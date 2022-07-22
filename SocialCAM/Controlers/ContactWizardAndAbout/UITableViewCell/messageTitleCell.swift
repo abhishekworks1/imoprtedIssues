@@ -4,9 +4,13 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class messageTitleCell: UITableViewCell {
     
+    @IBOutlet weak var emailSubTextView: IQTextView!
+    @IBOutlet weak var emailTextView: IQTextView!
+    @IBOutlet weak var messageTextView: IQTextView!
     @IBOutlet weak var ownEmailView: UIView!
     @IBOutlet weak var ownMessageView: UIView!
     @IBOutlet weak var detailView: UIView!
