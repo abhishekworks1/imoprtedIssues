@@ -689,7 +689,7 @@ extension SubscriptionContainerViewController {
                 } else if daysLeft == 1 {
                     return "You’re on the last day of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
                 } else {
-                    return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge"
+                    return "Your 7-Day Premium Free Trial has ended. Upgrade Now!"
                 }
             }
             else {
@@ -710,7 +710,7 @@ extension SubscriptionContainerViewController {
                     } else if daysLeft == 1 {
                         return "You’re on the last day of your 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
                     } else {
-                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Advanced or Premium available soon"
+                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Advanced or Premium available soon!"
                     }
                 }
                 else if originalSubscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {

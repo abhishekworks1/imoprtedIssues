@@ -1431,6 +1431,15 @@ class Defaults {
         }
     }
     
+    var showWelcomeScreenLoaderOnAppLaunch: String? {
+        get {
+            return appDefaults?.string(forKey: "showWelcomeScreenLoaderOnAppLaunch")
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "showWelcomeScreenLoaderOnAppLaunch")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

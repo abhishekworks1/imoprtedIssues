@@ -261,9 +261,10 @@ class UserSync {
     func getTipOfDay(completion: @escaping (_ tipOfDayResponse: TipOfDayResponse?) -> Void) {
         let path = API.shared.baseUrlV2 + "quotes/tipofday"
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
-                                       "userid": Defaults.shared.currentUser?.id ?? "",
-                                       "deviceType": "1",
-                                       "x-access-token": Defaults.shared.sessionToken ?? ""]
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "platformType": "ios",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         request.responseDecodable(of: TipOfDayResponse.self) {(resposnse) in
             Defaults.shared.tipOfDay = resposnse.value?.data?.content

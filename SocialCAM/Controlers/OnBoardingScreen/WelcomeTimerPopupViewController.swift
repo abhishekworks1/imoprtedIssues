@@ -288,89 +288,89 @@ extension WelcomeTimerPopupViewController {
             if originalSubscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                 // for TRIAL user use this
                 if daysLeft == 7 {
-                    return "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam Premium features for free. Learn how to create fun and engaging content, and how to make money sharing QuickCam. Upgrade now to Premium and get your Premium Subscriber Badge and Day 1 Subscriber Badge!"
+                    return "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam Premium features for free. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 1 Subscriber Badge!"
                 } else if daysLeft == 6 {
-                    return "You’re on Day 2 of your 7-Day Premium Free Trial. You have 6 more days to access all the QuickCam Premium features for free. Start creating fun and engaging content and sharing QuickCam to your contacts. Upgrade now to Premium and get your Premium Subscriber Badge and Day 2 Subscriber Badge!"
+                    return "You’re on Day 2 of your 7-Day Premium Free Trial. You have 6 more days to access all the QuickCam Premium features for free. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 2 Subscriber Badge!"
                 } else if daysLeft == 5 {
-                    return "You’re on Day 3 of your 7-Day Premium Free Trial. You have 5 more days to access all the QuickCam Premium features for free. Use the unique fast & slow motion special effects to create fun and engaging videos. Share QuickCam to your family, friends and followers on social media. Upgrade now to Premium and get your Premium Subscriber Badge and Day 3 Subscriber Badge!"
+                    return "You’re on Day 3 of your 7-Day Premium Free Trial. You have 5 more days to access all the QuickCam Premium features for free. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 3 Subscriber Badge!"
                 } else if daysLeft == 4 {
-                    return "You’re on Day 4 of your 7-Day Premium Free Trial. You have 4 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrade now to Premium and get your Premium Subscriber Badge and Day 4 Subscriber Badge!"
+                    return "You’re on Day 4 of your 7-Day Premium Free Trial. You have 4 more days to access all the QuickCam Premium features for free. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 4 Subscriber Badge!"
                 } else if daysLeft == 3 {
-                    return "You’re on Day 5 of your 7-Day Premium Free Trial. You have 3 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrade now to Premium and get your Premium Subscriber Badge and Day 5 Subscriber Badge!"
+                    return "You’re on Day 5 of your 7-Day Premium Free Trial. You have 3 more days to access all the QuickCam Premium features for free. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 5 Subscriber Badge!"
                 } else if daysLeft == 2 {
-                    return "You’re on Day 6 of your 7-Day Premium Free Trial. You have 2 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrade now to Premium and get your Premium Subscriber Badge and Day 6 Subscriber Badge!"
+                    return "You’re on Day 6 of your 7-Day Premium Free Trial. You have 2 more days to access all the QuickCam Premium features for free. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 6 Subscriber Badge!"
                 } else if daysLeft == 1 {
-                    return "You’re on the last day of your 7-Day Premium Free Trial. Today is the last day you can access all the QuickCam Premium features for free and the last day to get the Day Subscriber Badge. Upgrade now to Premium and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
+                    return "You’re on the last day of your 7-Day Premium Free Trial. Today is the last day you can access all the QuickCam Premium features for free and the last day to get the Day Subscriber Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
                 } else {
-                    return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge."
+                    return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
                 }
             }
             else {
                 // purchase during trail use this.
                 if originalSubscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                     if daysLeft == 7 {
-                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As a Basic Subscriber, you have 7 days to access all the QuickCam Premium features for free. Learn how to create fun and engaging content, and how to make money sharing QuickCam. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As a Basic Subscriber, you have 7 days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 6 {
-                        return "You’re on Day 2 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 6 more days to access all the QuickCam Premium features for free. Start creating fun and engaging content and sharing QuickCam to your contacts. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 2 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 6 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 5 {
-                        return "You’re on Day 3 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 5 more days to access all the QuickCam Premium features for free. Use the unique fast & slow motion special effects to create fun and engaging videos. Share QuickCam to your family, friends and followers on social media. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 3 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 5 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 4 {
-                        return "You’re on Day 4 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 4 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 4 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 4 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 3 {
-                        return "You’re on Day 5 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 3 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 5 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 3 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 2 {
-                        return "You’re on Day 6 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 2 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 6 of your 7-Day Premium Free Trial. As a Basic Subscriber, you have 2 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 1 {
-                        return "You’re on the last day of your 7-Day Premium Free Trial. As a Basic Subscriber, today is the last day you can access all the QuickCam Premium features for free. Upgrading to Advanced or Premium available soon."
+                        return "You’re on the last day of your 7-Day Premium Free Trial. As a Basic Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else {
-                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Advanced or Premium available soon"
+                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. \nUpgrade to Advanced or Premium available soon!"
                     }
                 }
                 else if originalSubscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                     if daysLeft == 7 {
-                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As an Advanced Subscriber, you have 7 days to access all the QuickCam Premium features for free. Learn how to create fun and engaging content, and how to make money sharing QuickCam. Upgrading to Premium available soon."
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As an Advanced Subscriber, you have 7 days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else if daysLeft == 6 {
-                        return "You’re on Day 2 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 6 more days to access all the QuickCam Premium features for free. Start creating fun and engaging content and sharing QuickCam to your contacts. Upgrading to Premium available soon."
+                        return "You’re on Day 2 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 6 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else if daysLeft == 5 {
-                        return "You’re on Day 3 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 5 more days to access all the QuickCam Premium features for free. Use the unique fast & slow motion special effects to create fun and engaging videos. Share QuickCam to your family, friends and followers on social media. Upgrading to Premium available soon."
+                        return "You’re on Day 3 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 5 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else if daysLeft == 4 {
-                        return "You’re on Day 4 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 4 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrading to Premium available soon."
+                        return "You’re on Day 4 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 4 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else if daysLeft == 3 {
-                        return "You’re on Day 5 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 3 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrading to Premium available soon."
+                        return "You’re on Day 5 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 3 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else if daysLeft == 2 {
-                        return "You’re on Day 6 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 2 more days to access all the QuickCam Premium features for free. Make money by inviting your family, friends. When they subscribe, you make money! Upgrading to Premium available soon."
+                        return "You’re on Day 6 of your 7-Day Premium Free Trial. As an Advanced Subscriber, you have 2 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else if daysLeft == 1 {
-                        return "You’re on the last day of your 7-Day Premium Free Trial. As an Advanced Subscriber, today is the last day you can access all the QuickCam Premium features for free. Upgrading to Premium available soon."
+                        return "You’re on the last day of your 7-Day Premium Free Trial. As an Advanced Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else {
-                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Advanced. Upgrade to Premium available soon."
+                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Advanced. \nUpgrade to Premium available soon."
                     }
                 }
-                else if originalSubscriptionType == SubscriptionTypeForBadge.PRO.rawValue || originalSubscriptionType.lowercased() == "premium" {
+                else if originalSubscriptionType == SubscriptionTypeForBadge.PRO.rawValue || originalSubscriptionType.lowercased() == SubscriptionTypeForBadge.PREMIUM.rawValue {
                     if daysLeft == 7 {
                         return "As a Premium Subscriber, you can access all the QuickCam Premium features and learn how to create fun and engaging content, and how to make money sharing QuickCam."
                     } else if daysLeft == 6 {
-                        return "You’re on Day 2 of your first week as a Premium subscriber. Start creating fun and engaging content and sharing QuickCam to your contacts."
+                        return "You’re on Day 2 of your first week as a Premium subscriber. \nStart creating fun and engaging content and sharing QuickCam to your contacts."
                     } else if daysLeft == 5 {
-                        return "You’re on Day 3 of your 7-Day Premium Free Trial. As an Premium Subscriber, your Premium access will continue uninterrupted after the free trial. Use the unique fast & slow motion special effects to create fun and engaging videos. Share QuickCam to your family, friends and followers on social media."
+                        return "You’re on Day 3 of your 7-Day Premium Free Trial. As a Premium Subscriber, your Premium access will continue uninterrupted after the free trial. \nUse the unique fast & slow motion special effects to create fun and engaging videos. Share QuickCam to your family, friends & contacts and followers on social media."
                     } else if daysLeft == 4 {
-                        return "You’re on Day 4 of your 7-Day Premium Free Trial. As an Premium Subscriber, your Premium access will continue uninterrupted after the free trial. Make money by inviting your family, friends. When they subscribe, you make money!"
+                        return "You’re on Day 4 of your 7-Day Premium Free Trial. \nMake money by inviting your family, friends & contacts. When they subscribe, you make money!"
                     } else if daysLeft == 3 {
-                        return "You’re on Day 5 of your 7-Day Premium Free Trial. As an Premium Subscriber, your Premium access will continue uninterrupted after the free trial. Make money by inviting your family, friends. When they subscribe, you make money!"
+                        return "You’re on Day 5 of your 7-Day Premium Free Trial. \nMake money by inviting your family, friends & contacts. When they subscribe, you make money!"
                     } else if daysLeft == 2 {
-                        return "You’re on Day 6 of your 7-Day Premium Free Trial. As an Premium Subscriber, your Premium access will continue uninterrupted after the free trial. Make money by inviting your family, friends. When they subscribe, you make money!"
+                        return "You’re on Day 6 of your 7-Day Premium Free Trial. \nMake money by inviting your family, friends & contacts. When they subscribe, you make money!"
                     } else if daysLeft == 1 {
-                        return "You’re on the last day of your 7-Day Premium Free Trial. As an Premium Subscriber, your Premium access will continue uninterrupted after the free trial."
+                        return "You’re on the last day of your 7-Day Premium Free Trial. \nAs an Premium Subscriber, your Premium access will continue uninterrupted."
                     } else {
-                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Advanced. Upgrade to Premium available soon."
+                        return "Your 7-Day Premium Free Trial has ended. \nYour Premium subscription ensures you have continuous Premium level access."
                     }
                 }
             }
         }
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            return "Your 7-Day Premium Free Trial has ended. Your Premium subscription ensures you have continuous Premium level access."
+            return "Your 7-Day Premium Free Trial has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since signing up:"
         }
         else if subscriptionType == "expired" {
-            return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features."
+            return "Your subscription has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since your subscription expired:"
         }
         else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             return ""
