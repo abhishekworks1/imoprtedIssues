@@ -1757,7 +1757,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+   /* func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if tableView == self.contactTableView{
            // let sections = self.groupedContactArray.map({$0.first?.name?.first?.uppercased() ?? ""})
             let sections = self.contactSections.map({$0.char?.uppercased() ?? ""})
@@ -1768,9 +1768,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return sections
         }
         return nil
-    }
+    }*/
 
-    func tableView(_ tableView: UITableView,
+   /* func tableView(_ tableView: UITableView,
                    sectionForSectionIndexTitle title: String,
                    at index: Int) -> Int{
             print(index)
@@ -1786,21 +1786,44 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return newIndex
         }
           
-    }
+    } */
+    
     func tableView(_ tableView: UITableView,
         titleForHeaderInSection section: Int) -> String?{
+        
         if tableView == self.contactTableView{
-            
-            return nil
+            let sections = self.contactSections.map({$0.char?.uppercased() ?? ""})
+            if self.contactSections[section].contacts.count == 0 {
+                return nil
+            } else {
+                return sections[section]
+            }
         }else if tableView == self.emailContactTableView{
-            return nil
+            let sections = self.emailContactSection.map({$0.char?.uppercased() ?? ""})
+           if self.emailContactSection[section].contacts.count == 0
+            {
+               return nil
+           } else {
+               return sections[section]
+           }
         }
        return nil
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if tableView == self.contactTableView || tableView == self.emailContactTableView{
-            return 1
+        if tableView == self.contactTableView{
+           if self.contactSections[section].contacts.count == 0 {
+                return 0
+            } else {
+                return 10
+            }
+        }else if tableView == self.emailContactTableView{
+           if self.emailContactSection[section].contacts.count == 0
+            {
+               return 0
+           } else {
+               return 10
+           }
         }else{
             return 0
         }
