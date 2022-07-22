@@ -53,7 +53,17 @@ class ReferSuccessVC: UIViewController {
         }
     }
     @IBAction func CreateContentAction(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+        if let viewControllers = self.navigationController?.viewControllers
+        {
+            if viewControllers.contains(where: {
+                return $0 is StoryCameraViewController
+            })
+            {
+                navigationController?.popToViewController(ofClass: StoryCameraViewController.self)
+            } else {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
     }
     @IBAction func ContinueAction(_ sender: Any) {
         if self.isFromOnboarding {
