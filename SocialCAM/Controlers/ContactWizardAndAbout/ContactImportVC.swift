@@ -102,7 +102,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     @IBOutlet weak var lblCurrentFilter: UILabel!
-    var selectedTitleRow : Int = -1
+    var selectedTitleRow: IndexPath?
+//    Int = -1
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
 
     //share page declaration
@@ -1831,49 +1832,66 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
+            
+            let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
+            
+            cell.handleRatioButtonAction = { (isSelected) in
+                if isSelected {
+                    self.selectedTitleRow = indexPath
+                } else {
+                    self.selectedTitleRow = IndexPath(row: 0, section: 0)
+                }
+                self.itemsTableView.reloadData()
+            }
+            
             if indexPath.section == 0 {
-                let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
-                cell.setText(text: "Composs your own message")
-                return cell
-            } else {
-                let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
-                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                
+                if shareType == .textShare || shareType == .socialShare {
+                    cell.setText(text: "Composs your own message")
+                } else if shareType == .email {
+                    cell.setText(text: "Composs your own email")
+                }
                 
                 var item : Titletext?
                 if isSelectSMS {
                     item = self.smsMsgListing?.list[indexPath.row]
-                    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-                    print(item?.content ?? "No Data Found")
-                    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
+                    print("isselectsms")
+                } else {
+                    item = self.emailMsgListing?.list[indexPath.row]
+                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: item?.subject ?? "", indexPath: indexPath)
+                }
+                return cell
+                
+            } else {
+                
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                cell.ownMessageView.isHidden = true
+                var item : Titletext?
+                if isSelectSMS {
+                    item = self.smsMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
-                    cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
+                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
-                    cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: item?.subject ?? "")
+                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: item?.subject ?? "", indexPath: indexPath)
                 }
-              
-                cell.handleRatioButtonAction = { (isSelected) in
-                    if isSelected {
-                        self.selectedTitleRow = indexPath.row
-                    } else {
-                        self.selectedTitleRow = -1
-                    }
-                    self.itemsTableView.reloadData()
-                }
-                if selectedTitleRow == indexPath.row {
+                
+
+                if selectedTitleRow == indexPath {
                     //set data to share
                     self.txtLinkWithCheckOut = item?.content ?? ""
                     self.txtDetailForEmail = item?.subject ?? ""
                     let finalText = "\(txtLinkWithCheckOut)"
                     txtLinkWithCheckOut = finalText
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
-    //                self.lblpreviewText.text = self.txtLinkWithCheckOut
+                    //                self.lblpreviewText.text = self.txtLinkWithCheckOut
                 }
                 return cell
             }
-           
+            
         }  else if tableView == emailContactTableView {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -2056,23 +2074,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == itemsTableView {
-            if indexPath.section == 0 {
-                
-            } else {
-                if selectedTitleRow != indexPath.row {
-                    selectedTitleRow = indexPath.row
-    //                let item = self.listingResponse?.list[indexPath.row]
-    //                if item != nil {
-    //                    self.txtLinkWithCheckOut = item?.content ?? ""
-    //                }
-                    itemsTableView.reloadData()
-    //                if txtLinkWithCheckOut != "" {
-    //                    let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
-    //                    txtLinkWithCheckOut = finalText
-    //                    print(txtLinkWithCheckOut)
-    //                }
-                }
-            }
+            
+            selectedTitleRow = indexPath
+            itemsTableView.reloadData()
+//            if indexPath.section == 0 {
+//                print(indexPath.row)
+//            } else {
+//                if selectedTitleRow != indexPath.row {
+//                    selectedTitleRow = indexPath.row
+//    //                let item = self.listingResponse?.list[indexPath.row]
+//    //                if item != nil {
+//    //                    self.txtLinkWithCheckOut = item?.content ?? ""
+//    //                }
+//                    itemsTableView.reloadData()
+//    //                if txtLinkWithCheckOut != "" {
+//    //                    let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+//    //                    txtLinkWithCheckOut = finalText
+//    //                    print(txtLinkWithCheckOut)
+//    //                }
+//                }
+//            }
         } else{
             self.view.endEditing(true)
             print("&&&&&&&&&&&&&&")

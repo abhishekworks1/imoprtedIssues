@@ -7,6 +7,7 @@ import UIKit
 
 class messageTitleCell: UITableViewCell {
     
+    @IBOutlet weak var ownEmailView: UIView!
     @IBOutlet weak var ownMessageView: UIView!
     @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var selectedButton: UIButton!
@@ -15,10 +16,13 @@ class messageTitleCell: UITableViewCell {
     
     var handleRatioButtonAction: ((_ isSelected: Bool) -> Void)?
     var isSelectedRadio: Bool = false
+    var shareType:ShareType = ShareType.textShare
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        ownMessageView.isHidden = true
+        ownEmailView.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,7 +30,7 @@ class messageTitleCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setSeletedState(state: Bool, details: String) {
+    func setSeletedState(state: Bool, details: String, indexPath: IndexPath) {
         isSelectedRadio = state
         if !state {
             detailView.isHidden = true
@@ -39,11 +43,27 @@ class messageTitleCell: UITableViewCell {
                 //detailsLabel.isHidden = false
                 detailsLabel.text = details
                 selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+                if indexPath == IndexPath(row: 0, section: 0) {
+                    self.ownMessageView.isHidden = false
+                    self.ownEmailView.isHidden = true
+                } else {
+                    self.ownMessageView.isHidden = true
+                    self.ownEmailView.isHidden = true
+                }
             } else {
-                detailView.isHidden = false
                 //detailsLabel.isHidden = false
                 detailsLabel.text = details
                 selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+                if indexPath == IndexPath(row: 0, section: 0) {
+                    detailView.isHidden = true
+                    self.ownMessageView.isHidden = true
+                    self.ownEmailView.isHidden = false
+                } else {
+                    detailView.isHidden = false
+                    self.ownMessageView.isHidden = true
+                    self.ownEmailView.isHidden = true
+                }
+                
             }
         }
     }
