@@ -62,8 +62,8 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var selectFeatureDetailLabels: [UILabel]!
     @IBOutlet weak var whatToSeeFirstBaseView: UIView! {
         didSet {
-//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideWhatToSee))
-//            whatToSeeFirstBaseView.addGestureRecognizer(tapGesture)
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideWhatToSee))
+            whatToSeeFirstBaseView.addGestureRecognizer(tapGesture)
         }
     }
     

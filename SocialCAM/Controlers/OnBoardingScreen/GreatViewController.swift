@@ -39,6 +39,8 @@ class GreatViewController: UIViewController {
     @IBOutlet weak var badgeImageView: UIImageView!
     @IBOutlet weak var upgradeNowButton: UIButton!
     @IBOutlet weak var displayNameLabel: UILabel!
+    
+    @IBOutlet weak var lblQuickStartGuideTitle: UILabel!
     @IBOutlet weak var quickStartGuideLabel: UILabel!
     @IBOutlet weak var btnClose: UIButton!
     
@@ -92,15 +94,31 @@ extension GreatViewController {
         self.centerView.layer.cornerRadius = 8.0
         self.upgradeNowButton.layer.cornerRadius = 24.0
         self.btnClose.isHidden = true
+        
+        let attributedString: [NSAttributedString.Key: Any] = [
+              .font: UIFont.systemFont(ofSize: 14),
+              .underlineStyle: NSUnderlineStyle.single.rawValue
+          ]
+
+        let attributeString = NSMutableAttributedString(
+                string: "Back to QuickStart Guide",
+                attributes: attributedString
+             )
+
+        self.backToQuickStartButton.setAttributedTitle(attributeString, for: .normal)
+        
+        
     }
     func setup() {
         var durationString: String = Date().offset(from: self.guidTimerDate).dateComponentsToTimeString()
         if let firstName = Defaults.shared.publicDisplayName {
-            self.displayNameLabel.text = "Great Job\n \(firstName)!!!"
+            self.displayNameLabel.text = "Great Job \(firstName)!"
         }
         
-       // self.quickStartGuideLabel.text = "You've completed \(self.categoryString!) in \(durationString).\nSubscribe now before your 7-day free trial ends."
+
         self.quickStartGuideLabel.text = "You've completed \(self.categoryString!).\nSubscribe now before your 7-Day Premium Free Trial ends."
+        
+        self.lblQuickStartGuideTitle.text = "You've completed the  \(self.categoryString!) of the QuickStart Guide."
         
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
             self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())

@@ -41,10 +41,16 @@ class QuickStartOptionDetailViewController: UIViewController {
             tryNowButton.isHidden = false
         }
         if !selectedOption.hideTryNowButton {
-            tryNowButton.setTitle("Try Calculator Now", for: .normal)
+            if (selectedOption as? QuickStartOption.MakeMoneyOption) == .referralWizard {
+                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+            } else {
+                tryNowButton.setTitle("Try Calculator Now", for: .normal)
+            }
         } else {
             if selectedQuickStartMenu == .createContent {
                 tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
+            } else if selectedQuickStartMenu == .makeMoney {
+                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
             } else {
                 tryNowButton.setTitle("Try Now", for: .normal)
             }
@@ -137,7 +143,9 @@ class QuickStartOptionDetailViewController: UIViewController {
             }
             Utils.appDelegate?.window?.rootViewController = rootViewController
         case .makeMoney:
-            if !selectedOption.hideTryNowButton {
+            if !selectedOption.hideTryNowButton,
+               (selectedOption as? QuickStartOption.MakeMoneyOption)
+                != .referralWizard {
                 if let token = Defaults.shared.sessionToken {
                     let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
                     guard let url = URL(string: urlString) else {
