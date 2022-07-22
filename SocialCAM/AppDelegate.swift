@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
         
-        Defaults.shared.showWelcomeScreenLoaderOnAppLaunch = "showWelcomeScreenLoaderOnAppLaunch"
         
         let configuration = PHGPostHogConfiguration(apiKey: Constant.PostHog.key, host: Constant.PostHog.host)
         configuration.captureApplicationLifecycleEvents = true; // Record certain application events automatically!
@@ -512,7 +511,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         Defaults.shared.postViralCamModel = nil
         IAPManager.shared.stopObserving()
-        Defaults.shared.showWelcomeScreenLoaderOnAppLaunch = ""
     }
     
     func loginWithKeycloak(code: String, redirectUrl: String) {

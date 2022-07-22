@@ -228,12 +228,7 @@ extension WelcomeViewController {
         self.checkTrailPeriodExpire()
       //  self.setSubscriptionBadgeDetails()
         self.getDays()
-        
-        if (Defaults.shared.showWelcomeScreenLoaderOnAppLaunch == "showWelcomeScreenLoaderOnAppLaunch"){
-            self.showLoader()
-            Defaults.shared.showWelcomeScreenLoaderOnAppLaunch = ""
-        }
-        
+        self.showLoader()
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
