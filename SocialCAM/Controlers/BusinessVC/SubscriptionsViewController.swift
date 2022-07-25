@@ -140,6 +140,20 @@ class SubscriptionsViewController: UIViewController {
                 planActiveView.isHidden = false
             }
         }
+        
+        if (subscriptionStatus.lowercased() == "basic"){
+            if subscriptionType == .advanced || subscriptionType == .professional {
+                upGradeButtonView.isHidden = false
+            } else {
+                upGradeButtonView.isHidden = true
+            }
+        } else if (subscriptionStatus.lowercased() == "advance") {
+            if subscriptionType == .professional {
+                upGradeButtonView.isHidden = false
+            } else {
+                upGradeButtonView.isHidden = true
+            }
+        }
 //        if Defaults.shared.allowFullAccess == true {
 //            btnUpgrade.isUserInteractionEnabled = false
 //            expiryDateHeightConstraint.constant = 0
