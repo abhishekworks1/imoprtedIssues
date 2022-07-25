@@ -114,7 +114,7 @@ class NotificationDetailsViewCell: UICollectionViewCell {
             }
         }
         if let date = notification?.createdAt {
-            self.lblNotificationDate.text = convertDate(date)
+            self.lblNotificationDate.text = "   \(convertDate(date))"
         }
     }
     
