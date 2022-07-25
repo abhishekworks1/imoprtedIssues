@@ -361,19 +361,19 @@ extension WelcomeTimerPopupViewController {
                     if daysLeft == 7 {
                         return ("You’re on Day 1 of your first week as a Premium subscriber.","As a Premium Subscriber, you can access all the QuickCam Premium features and learn how to create fun and engaging content, and how to make money sharing QuickCam.")
                     } else if daysLeft == 6 {
-                        return ("You’re on Day 2 of your first week as a Premium subscriber.","\nStart creating fun and engaging content and sharing QuickCam to your contacts.")
+                        return ("You’re on Day 2 of your first week as a Premium subscriber.","Start creating fun and engaging content and sharing QuickCam to your contacts.")
                     } else if daysLeft == 5 {
                         return ("You’re on Day 3 of your 7-Day Premium Free Trial.","As a Premium Subscriber, your Premium access will continue uninterrupted after the free trial. \nUse the unique fast & slow motion special effects to create fun and engaging videos. Share QuickCam to your family, friends & contacts and followers on social media.")
                     } else if daysLeft == 4 {
-                        return ("You’re on Day 4 of your 7-Day Premium Free Trial.","\nMake money by inviting your family, friends & contacts. When they subscribe, you make money!")
+                        return ("You’re on Day 4 of your 7-Day Premium Free Trial.","Make money by inviting your family, friends & contacts. When they subscribe, you make money!")
                     } else if daysLeft == 3 {
-                        return ("You’re on Day 5 of your 7-Day Premium Free Trial.","\nMake money by inviting your family, friends & contacts. When they subscribe, you make money!")
+                        return ("You’re on Day 5 of your 7-Day Premium Free Trial.","Make money by inviting your family, friends & contacts. When they subscribe, you make money!")
                     } else if daysLeft == 2 {
-                        return ("You’re on Day 6 of your 7-Day Premium Free Trial.","\nMake money by inviting your family, friends & contacts. When they subscribe, you make money!")
+                        return ("You’re on Day 6 of your 7-Day Premium Free Trial.","Make money by inviting your family, friends & contacts. When they subscribe, you make money!")
                     } else if daysLeft == 1 {
-                        return ("You’re on the last day of your 7-Day Premium Free Trial.","\nAs an Premium Subscriber, your Premium access will continue uninterrupted.")
+                        return ("You’re on the last day of your 7-Day Premium Free Trial.","As an Premium Subscriber, your Premium access will continue uninterrupted.")
                     } else {
-                        return ("Your 7-Day Premium Free Trial has ended.","\nYour Premium subscription ensures you have continuous Premium level access.")
+                        return ("Your 7-Day Premium Free Trial has ended.","Your Premium subscription ensures you have continuous Premium level access.")
                     }
                 }
             }
