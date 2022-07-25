@@ -655,7 +655,7 @@ extension GreatViewController {
                 }
                 else if originalSubscriptionType == SubscriptionTypeForBadge.PRO.rawValue || originalSubscriptionType.lowercased() == SubscriptionTypeForBadge.PREMIUM.rawValue {
                     if daysLeft == 7 {
-                        return "As a Premium Subscriber, you can access all the QuickCam Premium features and learn how to create fun and engaging content, and how to make money sharing QuickCam."
+                        return "You’re on Day 1 of your first week as a Premium subscriber. \nAs a Premium Subscriber, you can access all the QuickCam Premium features and learn how to create fun and engaging content, and how to make money sharing QuickCam."
                     } else if daysLeft == 6 {
                         return "You’re on Day 2 of your first week as a Premium subscriber. \nStart creating fun and engaging content and sharing QuickCam to your contacts."
                     } else if daysLeft == 5 {
