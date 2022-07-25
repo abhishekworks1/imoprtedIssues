@@ -1113,7 +1113,8 @@
                                                                                     <rect key="frame" x="10" y="25" width="392" height="35"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgc-ne-wWS">
-                                                                                            <rect key="frame" x="15" y="5" width="362" height="22"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="392" height="22"/>
+                                                                                            <color key="backgroundColor" name="AppSkyBlueColor"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="22" id="eis-Wb-Ehe"/>
                                                                                             </constraints>
@@ -1130,20 +1131,15 @@
                                                                                     </subviews>
                                                                                     <color key="backgroundColor" name="AppLightBlueColor"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="trailing" secondItem="Qgc-ne-wWS" secondAttribute="trailing" constant="15" id="6go-B6-J2S"/>
+                                                                                        <constraint firstAttribute="trailing" secondItem="Qgc-ne-wWS" secondAttribute="trailing" id="6go-B6-J2S"/>
                                                                                         <constraint firstItem="fmg-jm-MvG" firstAttribute="top" secondItem="bKi-Hn-Rlm" secondAttribute="top" constant="30" id="9ep-Ww-kQn"/>
-                                                                                        <constraint firstItem="Qgc-ne-wWS" firstAttribute="top" secondItem="bKi-Hn-Rlm" secondAttribute="top" constant="5" id="D9a-Xq-npT"/>
+                                                                                        <constraint firstItem="Qgc-ne-wWS" firstAttribute="top" secondItem="bKi-Hn-Rlm" secondAttribute="top" id="D9a-Xq-npT"/>
                                                                                         <constraint firstItem="fmg-jm-MvG" firstAttribute="centerX" secondItem="bKi-Hn-Rlm" secondAttribute="centerX" id="WEw-aT-0Yp"/>
-                                                                                        <constraint firstItem="Qgc-ne-wWS" firstAttribute="leading" secondItem="bKi-Hn-Rlm" secondAttribute="leading" constant="15" id="Y6r-fC-LcD"/>
+                                                                                        <constraint firstItem="Qgc-ne-wWS" firstAttribute="leading" secondItem="bKi-Hn-Rlm" secondAttribute="leading" id="Y6r-fC-LcD"/>
                                                                                         <constraint firstItem="fmg-jm-MvG" firstAttribute="leading" secondItem="bKi-Hn-Rlm" secondAttribute="leading" constant="15" id="Zuo-zv-6mg"/>
                                                                                         <constraint firstAttribute="bottom" secondItem="fmg-jm-MvG" secondAttribute="bottom" constant="5" id="jyt-9V-HD3"/>
                                                                                         <constraint firstAttribute="trailing" secondItem="fmg-jm-MvG" secondAttribute="trailing" constant="15" id="poj-cB-eUK"/>
                                                                                     </constraints>
-                                                                                    <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                                                            <real key="value" value="8"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                    </userDefinedRuntimeAttributes>
                                                                                 </view>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21W-fb-01B">
                                                                                     <rect key="frame" x="0.0" y="80" width="412" height="210"/>
@@ -1769,6 +1765,9 @@
         </namedColor>
         <namedColor name="AppLightBlueColor">
             <color red="0.74500000476837158" green="0.82400000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="AppSkyBlueColor">
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="editProfileScreenBackgroundColor">
             <color red="0.41960784313725491" green="0.59607843137254901" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
