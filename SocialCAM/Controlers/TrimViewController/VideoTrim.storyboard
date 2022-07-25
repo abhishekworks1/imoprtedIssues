@@ -2328,6 +2328,37 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qs2-6W-A0E">
+                                        <rect key="frame" x="349" y="115" width="40" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutToggle1" translatesAutoresizingMaskIntoConstraints="NO" id="AsT-fE-opD">
+                                                <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mG8-Zj-gPo">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="  ">
+                                                    <color key="baseForegroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="didTapCutToggleButton:" destination="cyz-fG-TfG" eventType="touchUpInside" id="V2T-FV-RT1"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="AsT-fE-opD" secondAttribute="trailing" constant="5" id="1ai-Bz-DXh"/>
+                                            <constraint firstAttribute="bottom" secondItem="AsT-fE-opD" secondAttribute="bottom" constant="5" id="BWu-ox-ghT"/>
+                                            <constraint firstItem="AsT-fE-opD" firstAttribute="top" secondItem="Qs2-6W-A0E" secondAttribute="top" constant="5" id="FdK-wL-3nC"/>
+                                            <constraint firstAttribute="width" constant="40" id="K9H-dv-bem"/>
+                                            <constraint firstItem="mG8-Zj-gPo" firstAttribute="leading" secondItem="Qs2-6W-A0E" secondAttribute="leading" id="LYU-YZ-QQv"/>
+                                            <constraint firstAttribute="trailing" secondItem="mG8-Zj-gPo" secondAttribute="trailing" id="MqF-O1-fcQ"/>
+                                            <constraint firstItem="AsT-fE-opD" firstAttribute="leading" secondItem="Qs2-6W-A0E" secondAttribute="leading" constant="5" id="PPK-hG-VlK"/>
+                                            <constraint firstAttribute="height" constant="40" id="TEW-sL-WTO"/>
+                                            <constraint firstItem="mG8-Zj-gPo" firstAttribute="top" secondItem="Qs2-6W-A0E" secondAttribute="top" id="YAC-4v-42i"/>
+                                            <constraint firstAttribute="bottom" secondItem="mG8-Zj-gPo" secondAttribute="bottom" id="Ydt-vk-yue"/>
+                                        </constraints>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyH-rI-R3h">
                                         <rect key="frame" x="177" y="406" width="60" height="60"/>
                                         <constraints>
@@ -2410,6 +2441,7 @@
                                     <constraint firstItem="lR1-QS-qci" firstAttribute="top" secondItem="KXo-He-bnK" secondAttribute="top" id="5sH-dt-QmT"/>
                                     <constraint firstItem="eZg-06-UXI" firstAttribute="centerX" secondItem="KXo-He-bnK" secondAttribute="centerX" id="6Vu-oP-jog"/>
                                     <constraint firstItem="hu7-WV-bTN" firstAttribute="leading" secondItem="u0p-TT-4gw" secondAttribute="leading" id="8ei-Fs-8Sp"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qs2-6W-A0E" secondAttribute="trailing" constant="25" id="8ns-Kq-Vhh"/>
                                     <constraint firstItem="GXP-iF-dSd" firstAttribute="centerY" secondItem="GUR-hT-EkT" secondAttribute="centerY" id="BEl-0s-6FR"/>
                                     <constraint firstItem="tyH-rI-R3h" firstAttribute="centerY" secondItem="KXo-He-bnK" secondAttribute="centerY" id="CdW-vF-bDh"/>
                                     <constraint firstItem="hu7-WV-bTN" firstAttribute="bottom" secondItem="GUR-hT-EkT" secondAttribute="bottom" id="DzB-b9-5Y4"/>
@@ -2418,6 +2450,7 @@
                                     <constraint firstItem="GXP-iF-dSd" firstAttribute="leading" secondItem="KXo-He-bnK" secondAttribute="leading" id="KTY-bB-eFl"/>
                                     <constraint firstItem="lR1-QS-qci" firstAttribute="leading" secondItem="KXo-He-bnK" secondAttribute="leading" id="KTr-oM-kpi"/>
                                     <constraint firstItem="G4S-rK-RYr" firstAttribute="top" secondItem="u0p-TT-4gw" secondAttribute="bottom" constant="5" id="MRd-pi-dQk"/>
+                                    <constraint firstItem="Qs2-6W-A0E" firstAttribute="top" secondItem="eZg-06-UXI" secondAttribute="bottom" constant="25" id="QeP-yO-Kk3"/>
                                     <constraint firstAttribute="trailing" secondItem="u0p-TT-4gw" secondAttribute="trailing" constant="20" id="Ri2-oI-Ayw"/>
                                     <constraint firstItem="hu7-WV-bTN" firstAttribute="leading" secondItem="GUR-hT-EkT" secondAttribute="leading" id="SEG-OF-aq9"/>
                                     <constraint firstItem="u0p-TT-4gw" firstAttribute="trailing" secondItem="G4S-rK-RYr" secondAttribute="trailing" id="UYw-mA-I30"/>
@@ -2463,6 +2496,7 @@
                         <outlet property="btnPlayPause" destination="tyH-rI-R3h" id="7wO-o0-reQ"/>
                         <outlet property="closeButton" destination="02K-rb-dGN" id="Coh-5j-mww"/>
                         <outlet property="combineButton" destination="HrD-gN-8OQ" id="Jhp-Bl-R7w"/>
+                        <outlet property="cutToggleImageView" destination="AsT-fE-opD" id="kJE-rS-w03"/>
                         <outlet property="doneButton" destination="MVW-11-7Cu" id="QpZ-t6-Dge"/>
                         <outlet property="doneLabel" destination="32j-fa-cAC" id="gSo-Kz-dH5"/>
                         <outlet property="doneView" destination="xOX-4Z-hPz" id="OzZ-X9-WFd"/>
@@ -2488,10 +2522,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDn-Mq-vZ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2336.231884057971" y="140.625"/>
+            <point key="canvasLocation" x="-2277" y="141"/>
         </scene>
     </scenes>
     <resources>
+        <image name="cutToggle1" width="457" height="405"/>
         <image name="iconTrimPause" width="70" height="70"/>
         <image name="iconTrimPlay" width="70" height="70"/>
         <image name="mergeAll" width="1600" height="1600"/>
@@ -2499,7 +2534,7 @@
         <image name="mergeCombine" width="34" height="34"/>
         <image name="mergeDisableIcon" width="34" height="34"/>
         <image name="mergeEnableIcon" width="34" height="34"/>
-        <image name="mergeNew" width="512" height="512"/>
+        <image name="mergeNew" width="256" height="256"/>
         <image name="mergeReset" width="30" height="30"/>
         <image name="mergeUndo" width="30" height="30"/>
         <image name="newUndo" width="512" height="512"/>
@@ -2519,7 +2554,7 @@
         <image name="se_merge_before_new" width="88" height="78"/>
         <image name="se_undo" width="32" height="32"/>
         <image name="se_undoCopy" width="30" height="44"/>
-        <image name="split1" width="40" height="40"/>
+        <image name="split1" width="256" height="256"/>
         <image name="trimBack" width="24" height="24"/>
         <image name="trimDone" width="21" height="15"/>
         <image name="trimSave" width="21" height="15"/>

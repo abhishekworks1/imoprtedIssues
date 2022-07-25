@@ -29,6 +29,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     
+    @IBOutlet weak var cutToggleImageView: UIImageView!
     @IBOutlet weak var segmentEditOptionButton: UIButton!
     @IBOutlet weak var segmentEditOptionView: UIStackView!
     @IBOutlet weak var rearrangedView: UIView! {
@@ -58,6 +59,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var rightSidePlayer: AVPlayer?
     var isScrubbingDidChange = false
     var remineTime = 0
+    var isCutToggle = false
     
     // MARK: - Public Properties
     var videoUrls: [StoryEditorMedia] = []
@@ -241,6 +243,32 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
         self.storyCollectionView.register(R.nib.imageCollectionViewCutCell)
         self.editStoryCollectionView.register(R.nib.imageCollectionViewCutCell)
     }
+    
+    
+    @IBAction func didTapCutToggleButton(_ sender: UIButton) {
+        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
+            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                return
+            }
+            if !isCutToggle {
+                cutToggleImageView.image = R.image.cutToggle()
+                cell.trimmerView.trimView.backgroundColor = .clear
+                cell.trimmerView.leftMaskView.backgroundColor = ApplicationSettings.appWhiteColor
+                cell.trimmerView.leftMaskView.alpha = 0.7
+                cell.trimmerView.rightMaskView.backgroundColor = ApplicationSettings.appWhiteColor
+                cell.trimmerView.rightMaskView.alpha = 0.7
+                isCutToggle = true
+            } else {
+                cutToggleImageView.image = R.image.cutToggle1()
+                cell.trimmerView.trimView.backgroundColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.5)
+                cell.trimmerView.trimView.alpha = 1
+                cell.trimmerView.leftMaskView.backgroundColor = ApplicationSettings.appClearColor
+                cell.trimmerView.rightMaskView.backgroundColor = ApplicationSettings.appClearColor
+                isCutToggle = false
+            }
+        }
+    }
+    
     
     func getPosition(from time: CMTime, cell: ImageCollectionViewCutCell, index: IndexPath) -> CGFloat? {
         if let cell: ImageCollectionViewCutCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCutCell {
@@ -1073,59 +1101,85 @@ extension OmitEditorViewController {
         guard let button = sender as? UIButton else {
             return
         }
-        if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell  {
-            
-            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                return
-            }
-            
-//            let finaltime = endTime.seconds - startTime.seconds
-//            if finaltime >= 1.0 {
-//                doneView.alpha = 1
-//                doneView.isUserInteractionEnabled = true
-//                if #available(iOS 13.0, *) {
-//                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
-//                    doneLabel.textColor = UIColor.white
-//                }
-//            } else {
-//                doneView.alpha = 0.5
-//                doneView.isUserInteractionEnabled = false
-//                if #available(iOS 13.0, *) {
-//                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
-//                    doneLabel.textColor = UIColor.red
-//                }
-//            }
-            self.trimMultipleVideos(cell.trimmerView)
-            print("*************************")
-            print(self.combinedstoryEditorMedias.count)
-            print("*************************")
-            DispatchQueue.main.async {
-                if self.combinedstoryEditorMedias.count > 0 {
-                    self.registerCombineAllData(data: self.combinedstoryEditorMedias)
-                    let storySegment = StorySegment()
-                    for (index, _) in self.combinedstoryEditorMedias.enumerated() {
-                        for (indexSecond, _) in self.combinedstoryEditorMedias[index].enumerated() {
-                            guard let asset = self.currentCombineAsset(index: index, secondIndex: indexSecond) else {
-                                return
-                            }
-                            storySegment.addAsset(StoryAsset(asset: asset))
+        
+        if isCutToggle {
+            if let doneHandler = self.doneHandler, let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+                do {
+                    try Utils.time {
+                        guard let asset = currentAsset(index: self.currentPage) else {
+                            return
                         }
+                        let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
+                        
+                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                        
+                        self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
+                        var urls: [StoryEditorMedia] = []
+                        for video in self.storyEditorMedias {
+                            urls.append(video.first!)
+                        }
+                        doneHandler(urls)
                     }
-                    let thumbimage = UIImage.getThumbnailFrom(asset: storySegment.assetRepresentingSegments()) ?? UIImage()
-                    
-                    guard let tempFirstSegment = self.combinedstoryEditorMedias[0][0].copy() as? StoryEditorMedia else {
-                        return
+                } catch let error {
+                    print("💩 \(error)")
+                }
+            }
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell  {
+
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+
+    //            let finaltime = endTime.seconds - startTime.seconds
+    //            if finaltime >= 1.0 {
+    //                doneView.alpha = 1
+    //                doneView.isUserInteractionEnabled = true
+    //                if #available(iOS 13.0, *) {
+    //                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+    //                    doneLabel.textColor = UIColor.white
+    //                }
+    //            } else {
+    //                doneView.alpha = 0.5
+    //                doneView.isUserInteractionEnabled = false
+    //                if #available(iOS 13.0, *) {
+    //                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+    //                    doneLabel.textColor = UIColor.red
+    //                }
+    //            }
+                self.trimMultipleVideos(cell.trimmerView)
+                DispatchQueue.main.async {
+                    if self.combinedstoryEditorMedias.count > 0 {
+                        self.registerCombineAllData(data: self.combinedstoryEditorMedias)
+                        let storySegment = StorySegment()
+                        for (index, _) in self.combinedstoryEditorMedias.enumerated() {
+                            for (indexSecond, _) in self.combinedstoryEditorMedias[index].enumerated() {
+                                guard let asset = self.currentCombineAsset(index: index, secondIndex: indexSecond) else {
+                                    return
+                                }
+                                storySegment.addAsset(StoryAsset(asset: asset))
+                            }
+                        }
+                        let thumbimage = UIImage.getThumbnailFrom(asset: storySegment.assetRepresentingSegments()) ?? UIImage()
+                        
+                        guard let tempFirstSegment = self.combinedstoryEditorMedias[0][0].copy() as? StoryEditorMedia else {
+                            return
+                        }
+                        self.storyEditorMedias.removeAll()
+                        tempFirstSegment.type = .video(thumbimage, storySegment.assetRepresentingSegments())
+                        self.storyEditorMedias.append([tempFirstSegment])
+                        
+                        var urls: [StoryEditorMedia] = []
+                        for video in self.storyEditorMedias {
+                            urls.append(video.first!)
+                        }
+                        doneHandler(urls)
+                        self.navigationController?.popViewController(animated: true)
                     }
-                    self.storyEditorMedias.removeAll()
-                    tempFirstSegment.type = .video(thumbimage, storySegment.assetRepresentingSegments())
-                    self.storyEditorMedias.append([tempFirstSegment])
-                    
-                    var urls: [StoryEditorMedia] = []
-                    for video in self.storyEditorMedias {
-                        urls.append(video.first!)
-                    }
-                    doneHandler(urls)
-                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }

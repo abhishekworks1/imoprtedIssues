@@ -137,7 +137,7 @@ open class TrimmerViewCut: UIView {
         let view = UIView()
         view.frame = .zero
  //       view.backgroundColor = ApplicationSettings.appClearColor
-        view.backgroundColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.4)
+        view.backgroundColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.5)
         view.alpha = 1
         view.layer.borderWidth = 3.0
         view.layer.cornerRadius = viewCornerRadius
@@ -478,7 +478,7 @@ open class TrimmerViewCut: UIView {
             .constraint(equalTo: leftDraggableView.leadingAnchor, constant: 0)
         
         rightMaskViewTopAnchor = rightMaskView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 30)
         rightMaskViewBottomAnchor = rightMaskView.bottomAnchor
             .constraint(equalTo: bottomAnchor, constant: 0)
         rightMaskViewTrailingAnchor = rightMaskView.trailingAnchor
