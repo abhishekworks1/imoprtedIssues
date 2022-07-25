@@ -256,8 +256,8 @@ extension WelcomeViewController {
             self.checkTrailPeriodExpire()
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
             //    self.setSubscriptionBadgeDetails()
-            self.checkIfWelcomeTimerAlertShownToday()
-            // self.showWelcomeTimerAlert()
+//            self.checkIfWelcomeTimerAlertShownToday()
+             self.showWelcomeTimerAlert()
             self.getDays()
             self.hideLoader()
             self.setUpgradeButton()
