@@ -277,7 +277,7 @@ enum QuickStartOption: Int, CaseIterable {
                 return """
 <ul>
 <li class="p1">
-<p class="p1">Get all of the tutorials videos in one location in the How It Works.</p>
+<p class="p1">Get all of the tutorials videos in one location in the Tutorials.</p>
 </li>
 </ul>
 """
