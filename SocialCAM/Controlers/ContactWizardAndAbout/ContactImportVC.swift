@@ -1720,6 +1720,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             return UITableView.automaticDimension
         } else {
+            
             return UITableView.automaticDimension
             //return 75
         }
@@ -2452,7 +2453,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
         
-        selectedShareTitleLabel.text = "Share your QuickCam Invite Page Link"
+        selectedShareTitleLabel.text = "Share your Referral Page invite link"
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }
