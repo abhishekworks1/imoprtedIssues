@@ -1869,9 +1869,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 0 {
                 
                 if shareType == .textShare || shareType == .socialShare {
-                    cell.setText(text: "Composs your own message")
+                    cell.setText(text: "Compose your own message")
                 } else if shareType == .email {
-                    cell.setText(text: "Composs your own email")
+                    cell.setText(text: "Compose your own email")
                 }
                 
                 var item : Titletext?
