@@ -1884,7 +1884,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.detailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
                 }
-                
+                cell.radioButtonWidthConstraint.constant = 20
+                cell.emailRadioButtonWidthConstraint.constant = 0
                 var finalText = ""
                 if selectedTitleRow == indexPath {
                     //set data to share
@@ -1911,19 +1912,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.ownMessageView.isHidden = true
                 var item : Titletext?
                 if isSelectSMS {
+                    cell.radioButtonWidthConstraint.constant = 20
+                    cell.emailRadioButtonWidthConstraint.constant = 0
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
                 } else {
+                    cell.radioButtonWidthConstraint.constant = 0
+                    cell.emailRadioButtonWidthConstraint.constant = 20
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
                     cell.detailsLabel.text = item?.subject ?? ""
                     cell.detailView.isHidden = false
-//                    cell.ownMessageView.isHidden = true
-//                    cell.ownEmailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
-//                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: item?.subject ?? "", indexPath: indexPath)
+
                 }
                 
 

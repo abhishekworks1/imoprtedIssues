@@ -8,6 +8,9 @@ import IQKeyboardManagerSwift
 
 class messageTitleCell: UITableViewCell {
     
+    @IBOutlet weak var emailRadioButton: UIButton!
+    @IBOutlet weak var emailRadioButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var radioButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var emailSubTextView: IQTextView!
     @IBOutlet weak var emailTextView: IQTextView!
     @IBOutlet weak var messageTextView: IQTextView!
@@ -64,23 +67,25 @@ class messageTitleCell: UITableViewCell {
     
     func setupViewForEmailSelection(isSelected: Bool, subTitle: String, indexPath: IndexPath ) {
         if !isSelected {
-            selectedButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
             if indexPath == IndexPath(row: 0, section: 0) {
+                selectedButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
                 detailView.isHidden = true
                 self.ownMessageView.isHidden = true
                 self.ownEmailView.isHidden = true
             } else {
+                emailRadioButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
                 detailView.isHidden = false
                 self.ownMessageView.isHidden = true
                 self.ownEmailView.isHidden = true
             }
         } else {
-            selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
             if indexPath == IndexPath(row: 0, section: 0) {
+                selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
                 detailView.isHidden = true
                 self.ownMessageView.isHidden = true
                 self.ownEmailView.isHidden = false
             } else {
+                emailRadioButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
                 detailView.isHidden = false
                 self.ownMessageView.isHidden = true
                 self.ownEmailView.isHidden = true
