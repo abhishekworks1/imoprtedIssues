@@ -1881,7 +1881,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     print("isselectsms")
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
-                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: item?.subject ?? "", indexPath: indexPath)
+                    cell.detailView.isHidden = true
+                    cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
                 }
                 
                 var finalText = ""
@@ -1917,7 +1918,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
-                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: item?.subject ?? "", indexPath: indexPath)
+                    cell.detailsLabel.text = item?.subject ?? ""
+                    cell.detailView.isHidden = false
+//                    cell.ownMessageView.isHidden = true
+//                    cell.ownEmailView.isHidden = true
+                    cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
+//                    cell.setSeletedState(state: selectedTitleRow == indexPath, details: item?.subject ?? "", indexPath: indexPath)
                 }
                 
 

@@ -58,16 +58,32 @@ class messageTitleCell: UITableViewCell {
                 //detailsLabel.isHidden = false
                 detailsLabel.text = details
                 selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
-                if indexPath == IndexPath(row: 0, section: 0) {
-                    detailView.isHidden = true
-                    self.ownMessageView.isHidden = true
-                    self.ownEmailView.isHidden = false
-                } else {
-                    detailView.isHidden = false
-                    self.ownMessageView.isHidden = true
-                    self.ownEmailView.isHidden = true
-                }
-                
+            }
+        }
+    }
+    
+    func setupViewForEmailSelection(isSelected: Bool, subTitle: String, indexPath: IndexPath ) {
+        if !isSelected {
+            selectedButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
+            if indexPath == IndexPath(row: 0, section: 0) {
+                detailView.isHidden = true
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = true
+            } else {
+                detailView.isHidden = false
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = true
+            }
+        } else {
+            selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+            if indexPath == IndexPath(row: 0, section: 0) {
+                detailView.isHidden = true
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = false
+            } else {
+                detailView.isHidden = false
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = true
             }
         }
     }
