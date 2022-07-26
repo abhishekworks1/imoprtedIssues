@@ -307,12 +307,18 @@ extension WelcomeViewController {
         vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         vc.upgradeButtonAction = {
-            guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
-            subscriptionVc.appMode = .professional
-            subscriptionVc.subscriptionType = .professional
-            subscriptionVc.isFromWelcomeScreen = true
-            self.navigationController?.isNavigationBarHidden = true
-            self.navigationController?.pushViewController(subscriptionVc, animated: true)
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                subscriptionVC.isFromWelcomeScreen = true
+                self.navigationController?.isNavigationBarHidden = true
+                self.navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
+            
+//            guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
+//            subscriptionVc.appMode = .professional
+//            subscriptionVc.subscriptionType = .professional
+//            subscriptionVc.isFromWelcomeScreen = true
+//            self.navigationController?.isNavigationBarHidden = true
+//            self.navigationController?.pushViewController(subscriptionVc, animated: true)
         }
         self.present(vc, animated: true, completion: nil)
         
