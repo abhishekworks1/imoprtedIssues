@@ -18,7 +18,13 @@ class PageViewController: PageboyViewController {
                 recorderNavigation.navigationBar.isHidden = true
                 viewControllers.append(recorderNavigation)
             }
-        } else {
+        } else if isQuickApp {
+            if let welcomeNavVC = R.storyboard.welcomeOnboarding.welcomeViewController() {
+                welcomeNavVC.navigationBar.isHidden = true
+                viewControllers.append(welcomeNavVC)
+            }
+        }
+        else {
             if let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController() {
                 cameraNavVC.navigationBar.isHidden = true
                 viewControllers.append(cameraNavVC)
