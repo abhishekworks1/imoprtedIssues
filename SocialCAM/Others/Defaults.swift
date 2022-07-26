@@ -1431,6 +1431,26 @@ class Defaults {
         }
     }
     
+    var quickStartCategories: [QuickStartCategory]? {
+        get {
+            if let calculatorConfig = userDefaults.object(forKey: "quickStartCategories") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode([QuickStartCategory].self, from: calculatorConfig)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                userDefaults.set(encoded, forKey: "quickStartCategories")
+                userDefaults.synchronize()
+            } else {
+                userDefaults.set(nil, forKey: "quickStartCategories")
+                userDefaults.synchronize()
+            }
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

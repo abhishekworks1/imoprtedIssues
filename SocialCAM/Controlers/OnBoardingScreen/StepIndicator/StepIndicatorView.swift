@@ -145,6 +145,10 @@ public class StepIndicatorView: UIView {
     
     // MARK: - Functions
     private func createSteps() {
+        for layer in self.containerLayer.sublayers ?? [] {
+            layer.removeFromSuperlayer()
+        }
+        self.containerLayer.removeFromSuperlayer()
         if let layers = self.layer.sublayers {
             for layer in layers {
                 layer.removeFromSuperlayer()
