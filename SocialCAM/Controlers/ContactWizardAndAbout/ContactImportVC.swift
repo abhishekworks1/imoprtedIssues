@@ -200,6 +200,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnPrevious: UIButton!
     
+    @IBOutlet weak var imgPreviewImageAspectRatioConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imgPreviewImageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imgPreviewImageWidthConstraint: NSLayoutConstraint!
     var isGmailOpened = false
     var isAppleEmailOpened = false
     
@@ -382,6 +385,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if pageNo == 4{
+            
+            if UIScreen.main.sizeType == .iPhone5 || UIScreen.main.sizeType == .iPhone6 {
+                
+                self.imgPreviewImageAspectRatioConstraint.isActive = false
+                self.imgPreviewImageHeightConstraint.isActive = true
+                self.imgPreviewImageWidthConstraint.isActive = true
+
+            } else {
+                self.imgPreviewImageAspectRatioConstraint.isActive = true
+                self.imgPreviewImageHeightConstraint.isActive = true
+                self.imgPreviewImageWidthConstraint.isActive = true
+            }
+        }
+    }
+    
     @objc func appMovedToForeground() {
         //print("App moved to foreground!")
         if isGmailOpened{
