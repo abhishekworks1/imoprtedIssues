@@ -160,11 +160,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var contactTableView: UITableView!
     @IBOutlet weak var emailContactTableView: UITableView!
     
+    @IBOutlet weak var emailSubjectTextLabel: UILabel!
+    @IBOutlet weak var emailSubjectView: UIView!
+    @IBOutlet weak var emailBodyTitleLabel: UILabel!
     @IBOutlet weak var previewMainView: UIView!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var previewImageview: UIImageView!
 //    @IBOutlet weak var lblpreviewText: UILabel!
-    @IBOutlet weak var txtvwpreviewText: UITextView!
+    @IBOutlet weak var txtvwpreviewText: UILabel!
 //    @IBOutlet weak var lblpreviewUrl: UILabel!
     @IBOutlet weak var socialSharePopupView: UIView!
     
@@ -1886,24 +1889,42 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
                 cell.radioButtonWidthConstraint.constant = 20
                 cell.emailRadioButtonWidthConstraint.constant = 0
+                
                 var finalText = ""
-                if selectedTitleRow == indexPath {
-                    //set data to share
-                    if isSelectSMS {
-                        self.txtLinkWithCheckOut = cell.messageTextView.text ?? ""
+                if isSelectSMS {
+                    cell.textViewCallBackForText = { [self] (text) in
+                        self.txtLinkWithCheckOut = text
                         finalText = "\(txtLinkWithCheckOut)"
-                    } else {
-                        self.txtLinkWithCheckOut = cell.emailTextView.text ?? ""
-                        self.txtDetailForEmail = cell.emailSubTextView.text ?? ""
-                        finalText = "\(txtLinkWithCheckOut)\n\(txtDetailForEmail)"
+                        txtLinkWithCheckOut = finalText
+                        self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
                     }
-                    
-                    txtLinkWithCheckOut = finalText
-                    self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
-                    //                self.lblpreviewText.text = self.txtLinkWithCheckOut
+                } else {
+                    cell.textViewCallBackForText = { (text) in
+                        self.txtLinkWithCheckOut = text
+                    }
+                    cell.textViewCallBackForText = { (text) in
+                        self.txtDetailForEmail = text
+                    }
+                    finalText = txtDetailForEmail//"\(txtLinkWithCheckOut)\n\(txtDetailForEmail)"
+                    if self.txtLinkWithCheckOut == "" {
+                        emailSubjectView.isHidden = true
+                    } else {
+                        emailSubjectView.isHidden = false
+                        emailSubjectTextLabel.text = txtLinkWithCheckOut
+                    }
+//                    txtLinkWithCheckOut = finalText
+                    self.txtvwpreviewText.text = "\(finalText)\n\n\(urlToShare)"
+                }
+               
+                if selectedTitleRow == indexPath {
+                    if isSelectSMS {
+                        emailBodyTitleLabel.text = "Message"
+                        emailSubjectView.isHidden = true
+                    } else {
+                        emailBodyTitleLabel.text = "Email Body"
+                    }
                 }
 
-                
                 return cell
                 
             } else {
@@ -1931,9 +1952,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
 
                 if selectedTitleRow == indexPath {
+                    
+                    if isSelectSMS {
+                        emailBodyTitleLabel.text = "Message"
+                        self.txtLinkWithCheckOut = item?.content ?? ""
+                        emailSubjectView.isHidden = true
+                    } else {
+                        emailBodyTitleLabel.text = "Email Body"
+                        self.txtDetailForEmail = item?.subject ?? ""
+                        if self.txtDetailForEmail == "" {
+                            emailSubjectView.isHidden = true
+                        } else {
+                            emailSubjectView.isHidden = false
+                            emailSubjectTextLabel.text = txtDetailForEmail
+                        }
+                    }
                     //set data to share
                     self.txtLinkWithCheckOut = item?.content ?? ""
-                    self.txtDetailForEmail = item?.subject ?? ""
                     let finalText = "\(txtLinkWithCheckOut)"
                     txtLinkWithCheckOut = finalText
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"

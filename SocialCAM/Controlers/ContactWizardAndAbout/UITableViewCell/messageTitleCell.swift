@@ -20,8 +20,10 @@ class messageTitleCell: UITableViewCell {
     @IBOutlet weak var selectedButton: UIButton!
     @IBOutlet  var textLbl: UILabel!
     @IBOutlet  var detailsLabel: UILabel!
+    var ownText: String?
     
     var handleRatioButtonAction: ((_ isSelected: Bool) -> Void)?
+    var textViewCallBackForText: ((_ newText: String) -> Void)?
     var isSelectedRadio: Bool = false
     var shareType:ShareType = ShareType.textShare
     
@@ -30,6 +32,10 @@ class messageTitleCell: UITableViewCell {
         // Initialization code
         ownMessageView.isHidden = true
         ownEmailView.isHidden = true
+        
+        messageTextView.delegate = self
+        emailSubTextView.delegate = self
+        emailTextView.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -99,6 +105,20 @@ class messageTitleCell: UITableViewCell {
     @IBAction func selectedButtonAction(_ sender: Any) {
         isSelectedRadio.toggle()
         handleRatioButtonAction?(isSelectedRadio)
+    }
+    
+}
+
+extension messageTitleCell: UITextViewDelegate {
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView == messageTextView {
+            textViewCallBackForText?(textView.text ?? "")
+        } else if textView == emailTextView{
+            textViewCallBackForText?(textView.text ?? "")
+        } else if textView == emailSubTextView {
+            textViewCallBackForText?(textView.text ?? "")
+        }
     }
     
 }
