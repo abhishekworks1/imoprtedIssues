@@ -278,7 +278,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.outtakesView,
                                              self.sceneFilterView,
                                              self.settingsView,
-                                             self.businessDashboardStackView,
+//                                             self.businessDashboardStackView,
                                              self.deleteView,
                                              self.faceFiltersView,
                                              self.zoomSliderView,
@@ -2169,7 +2169,7 @@ extension StoryCameraViewController {
                     self.switchAppButton.alpha = 1
                     self.discardSegmentsStackView.alpha = 1
                     self.confirmRecordedSegmentStackView.alpha = 1
-                    self.businessDashboardStackView.alpha = 1
+                    self.businessDashboardStackView.alpha = 0
 //                    self.recordingTimeStackView.alpha = 1
                 })
             }
@@ -2999,7 +2999,7 @@ extension StoryCameraViewController {
         } else {
             self.cameraScreenBackStackView.isHidden = true
         }
-        self.businessDashboardStackView.isHidden = false
+        self.businessDashboardStackView.isHidden = true
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
         self.outtakesView.isHidden = false

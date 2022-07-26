@@ -833,6 +833,7 @@ extension StoryEditorView {
             if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
                 followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
+            followMeStoryView.textView.becomeFirstResponder()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
