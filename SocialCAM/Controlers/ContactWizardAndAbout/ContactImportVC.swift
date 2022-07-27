@@ -203,9 +203,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnPrevious: UIButton!
     
-    @IBOutlet weak var imgPreviewImageAspectRatioConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imgPreviewImageHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imgPreviewImageWidthConstraint: NSLayoutConstraint!
     var isGmailOpened = false
     var isAppleEmailOpened = false
     
@@ -388,26 +385,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if pageNo == 4{
-            
-            if UIScreen.main.sizeType == .iPhone5 || UIScreen.main.sizeType == .iPhone6 {
-                
-                self.imgPreviewImageAspectRatioConstraint.isActive = false
-                self.imgPreviewImageHeightConstraint.isActive = true
-                self.imgPreviewImageWidthConstraint.isActive = true
-
-            } else {
-                self.imgPreviewImageAspectRatioConstraint.isActive = true
-                self.imgPreviewImageHeightConstraint.isActive = true
-                self.imgPreviewImageWidthConstraint.isActive = true
-            }
-        }
-    }
-    
     @objc func appMovedToForeground() {
         //print("App moved to foreground!")
         if isGmailOpened{
@@ -1746,7 +1723,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             return UITableView.automaticDimension
         } else {
-            
             return UITableView.automaticDimension
             //return 75
         }
@@ -1896,9 +1872,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 0 {
                 
                 if shareType == .textShare || shareType == .socialShare {
-                    cell.setText(text: "Compose your own message")
+                    cell.setText(text: "Composs your own message")
                 } else if shareType == .email {
-                    cell.setText(text: "Compose your own email")
+                    cell.setText(text: "Composs your own email")
                 }
                 
                 var item : Titletext?
@@ -2520,7 +2496,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
         
-        selectedShareTitleLabel.text = "Share your Referral Page invite link"
+        selectedShareTitleLabel.text = "Share your QuickCam Invite Page Link"
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }

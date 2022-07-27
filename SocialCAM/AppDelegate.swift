@@ -257,15 +257,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     navigationController.viewControllers.append(settingVC)
                 }
                 break
-                
-            case OnboardingReferral.QuickCamera.rawValue:
-                if let pageViewController = rootViewController as? PageViewController,
-                   let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-                   let camVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
-                    camVC.isFromCameraParentView = true
-                    navigationController.viewControllers.append(camVC)
-                }
+            case OnboardingReferral.QuickMenu.rawValue:
+                let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
+                welcomeNavigationVC?.viewControllers.append((R.storyboard.onBoardingView.onBoardingViewController()?.viewControllers.first)!)
+                rootViewController = welcomeNavigationVC
                 break
+            case OnboardingReferral.welcomeScreen.rawValue:
+                rootViewController = R.storyboard.welcomeOnboarding.welcomeViewController()
             default: break
             }
         } else {

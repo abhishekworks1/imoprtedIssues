@@ -435,9 +435,8 @@ extension StoryCameraViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         } else {
-            if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC() {
-                navigationController?.pushViewController(storySettingsVC, animated: true)
-            }
+            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+            navigationController?.pushViewController(storySettingsVC, animated: true)
         }
     }
     
