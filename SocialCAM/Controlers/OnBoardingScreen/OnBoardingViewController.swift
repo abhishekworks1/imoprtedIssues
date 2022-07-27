@@ -8,6 +8,45 @@
 
 import UIKit
 
+class QuickStartCategoryContent: Codable, Equatable {
+    static func == (lhs: QuickStartCategoryContent, rhs: QuickStartCategoryContent) -> Bool {
+        return lhs._id == rhs._id
+    }
+    
+    var _id: String?
+    var categoryId: String?
+    var title: String?
+    var video: String?
+    var cta_text: String?
+    var cta_link: String?
+    var status: String?
+    var __v: Int?
+    var template: String?
+    var region: String?
+    var sequence_no: Int?
+    var createdAt: String?
+    var updatedAt: String?
+    var isread: Bool?
+    var content: String?
+}
+
+class QuickStartCategory: Codable, Equatable {
+    static func == (lhs: QuickStartCategory, rhs: QuickStartCategory) -> Bool {
+        return lhs._id == rhs._id
+    }
+    
+    var _id: String?
+    var catId: String?
+    var label: String?
+    var region: String?
+    var template: String?
+    var completionMsg: String?
+    var ordinal: String?
+    var __v: Int?
+    var created: String?
+    var Items: [QuickStartCategoryContent]?
+}
+
 enum QuickStartSocialMediaOption: Int {
     case tiktok
     case instagram
@@ -780,6 +819,13 @@ class OnBoardingViewController: UIViewController {
     @IBOutlet weak var makeMoneyStackView: UIView!
     @IBOutlet weak var mobileDashboardStackView: UIView!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var makeMoneyTitleLabel: UILabel!
+    @IBOutlet weak var mobileDashboardTitleLabel: UILabel!
+    @IBOutlet weak var createContentTitleLabel: UILabel!
+    @IBOutlet var makeMoneyCategoriesLabels: [UILabel]!
+    @IBOutlet var mobileDashboardCategoriesLabels: [UILabel]!
+    @IBOutlet var createContentCategoriesLabels: [UILabel]!
+    @IBOutlet var lastOptionCreateContent: UIStackView!
 
     var showPopUpView: Bool = false
     var shouldShowFoundingMemberView: Bool = true
@@ -809,15 +855,34 @@ class OnBoardingViewController: UIViewController {
     }
     
     func fillStepIndicatorViews() {
-        for option in Defaults.shared.createContentOptions {
-            createContentStepIndicatorView.finishedStep = option
+        for quickStartOption in Defaults.shared.quickStartCategories ?? [] {
+            for (index, quickStartItem) in (quickStartOption.Items ?? []).enumerated() {
+                if quickStartOption.catId == "create_engaging_content" {
+                    if quickStartItem.isread ?? false {
+                        createContentStepIndicatorView.finishedStep = index
+                    }
+                }
+                if quickStartOption.catId == "make_money_referring_quickCam" {
+                    if quickStartItem.isread ?? false {
+                        makeMoneyStepIndicatorView.finishedStep = index
+                    }
+                }
+                if quickStartOption.catId == "mobile_dashboard" {
+                    if quickStartItem.isread ?? false {
+                        mobileDashboardStepIndicatorView.finishedStep = index
+                    }
+                }
+            }
         }
-        for option in Defaults.shared.mobileDashboardOptions {
-            mobileDashboardStepIndicatorView.finishedStep = option
-        }
-        for option in Defaults.shared.makeMoneyOptions {
-            makeMoneyStepIndicatorView.finishedStep = option
-        }
+//        for option in Defaults.shared.createContentOptions {
+//            createContentStepIndicatorView.finishedStep = option
+//        }
+//        for option in Defaults.shared.mobileDashboardOptions {
+//            mobileDashboardStepIndicatorView.finishedStep = option
+//        }
+//        for option in Defaults.shared.makeMoneyOptions {
+//            makeMoneyStepIndicatorView.finishedStep = option
+//        }
     }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
@@ -906,10 +971,9 @@ class OnBoardingViewController: UIViewController {
             options.append(tag)
             Defaults.shared.createContentOptions = Array(Set(options))
             for i in 0...tag {
-                if let option = QuickStartOption.createContent.option(for: i),
-                   let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
-                    quickStartDetail.selectedOption = option
-                    quickStartDetail.selectedQuickStartMenu = .createContent
+                if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })
+                    quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .createContent {
                         self.previousSelectedQuickStartMenu = .createContent
                         self.previousDate = Date()
@@ -923,10 +987,9 @@ class OnBoardingViewController: UIViewController {
             options.append(tag)
             Defaults.shared.mobileDashboardOptions = Array(Set(options))
             for i in 0...tag {
-                if let option = QuickStartOption.mobileDashboard.option(for: i),
-                   let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
-                    quickStartDetail.selectedOption = option
-                    quickStartDetail.selectedQuickStartMenu = .mobileDashboard
+                if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })
+                    quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .mobileDashboard {
                         self.previousSelectedQuickStartMenu = .mobileDashboard
                         self.previousDate = Date()
@@ -940,10 +1003,9 @@ class OnBoardingViewController: UIViewController {
             options.append(tag)
             Defaults.shared.makeMoneyOptions = Array(Set(options))
             for i in 0...tag {
-                if let option = QuickStartOption.makeMoney.option(for: i),
-                   let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
-                    quickStartDetail.selectedOption = option
-                    quickStartDetail.selectedQuickStartMenu = .makeMoney
+                if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })
+                    quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .makeMoney {
                         self.previousSelectedQuickStartMenu = .makeMoney
                         self.previousDate = Date()
@@ -962,11 +1024,15 @@ class OnBoardingViewController: UIViewController {
 extension OnBoardingViewController {
     
     func setupView() {
+        self.setUpQuickStartData()
         popupView.isHidden = !self.showPopUpView
         UserSync.shared.syncUserModel { isCompleted in
             UserSync.shared.getOnboardingUserFlags { isCompleted in
                 self.fillStepIndicatorViews()
             }
+            UserSync.shared.getQuickStartCategories(completion: { _ in
+                self.setUpQuickStartData()
+            })
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             }
@@ -1026,6 +1092,34 @@ extension OnBoardingViewController {
                 navigationController?.pushViewController(editProfileController, animated: true)
             }
         }
+    }
+    
+    func setUpQuickStartData() {
+        if Defaults.shared.quickStartCategories?.count == 3 {
+            self.createContentTitleLabel.text = Defaults.shared.quickStartCategories?[1].label
+            self.makeMoneyTitleLabel.text = Defaults.shared.quickStartCategories?[0].label
+            self.mobileDashboardTitleLabel.text = Defaults.shared.quickStartCategories?[2].label
+        }
+        if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, createContent.Items?.count ?? 0 >= 6 {
+            for label in createContentCategoriesLabels {
+                if label.tag < createContent.Items?.count ?? 0 {
+                    label.text = createContent.Items?[label.tag].title
+                }
+            }
+        }
+        lastOptionCreateContent.isHidden = !(Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first?.Items?.count == createContentCategoriesLabels.count)
+        createContentStepIndicatorView.numberOfSteps = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first?.Items?.count ?? 0
+        if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "make_money_referring_quickCam" }).first, createContent.Items?.count == makeMoneyCategoriesLabels.count {
+            for label in makeMoneyCategoriesLabels {
+                label.text = createContent.Items?[label.tag].title
+            }
+        }
+        if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "mobile_dashboard" }).first, createContent.Items?.count == mobileDashboardCategoriesLabels.count {
+            for label in mobileDashboardCategoriesLabels {
+                label.text = createContent.Items?[label.tag].title
+            }
+        }
+        self.fillStepIndicatorViews()
     }
     
 }

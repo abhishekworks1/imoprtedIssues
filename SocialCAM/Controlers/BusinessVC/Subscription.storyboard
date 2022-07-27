@@ -2530,17 +2530,32 @@ No credit card required</string>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjs-Fj-CzL">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1dg-0p-8Ju">
-                                        <rect key="frame" x="15" y="70" width="290" height="428"/>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1dg-0p-8Ju">
+                                        <rect key="frame" x="15" y="74" width="290" height="420"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank You for your Subscription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1R-H6-3ny">
-                                                <rect key="frame" x="40" y="24" width="210" height="48"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cV-xs-6Gv">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="76"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank You for your Subscription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1R-H6-3ny">
+                                                        <rect key="frame" x="12" y="8" width="266" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="10Z-lx-tWj"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.68966716530000005" green="0.8346711993" blue="0.99612838029999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="l1R-H6-3ny" firstAttribute="leading" secondItem="3cV-xs-6Gv" secondAttribute="leading" constant="12" id="JGs-Ri-pUs"/>
+                                                    <constraint firstAttribute="bottom" secondItem="l1R-H6-3ny" secondAttribute="bottom" constant="8" id="du4-cz-aas"/>
+                                                    <constraint firstItem="l1R-H6-3ny" firstAttribute="top" secondItem="3cV-xs-6Gv" secondAttribute="top" constant="8" id="uHb-ag-6lX"/>
+                                                    <constraint firstAttribute="trailing" secondItem="l1R-H6-3ny" secondAttribute="trailing" constant="12" id="vCH-uG-EmK"/>
+                                                </constraints>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivf-Oo-Mjf">
-                                                <rect key="frame" x="25" y="92" width="240" height="72"/>
+                                                <rect key="frame" x="25" y="88" width="240" height="72"/>
                                                 <string key="text">Enjoy the free features to create fun and engaging content!
 
 Here is your Badge</string>
@@ -2549,7 +2564,7 @@ Here is your Badge</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0j-NT-jnb" userLabel="Badge View">
-                                                <rect key="frame" x="100" y="184" width="90" height="100"/>
+                                                <rect key="frame" x="100" y="180" width="90" height="100"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priBadgeBG" translatesAutoresizingMaskIntoConstraints="NO" id="sqa-r6-DFd">
                                                         <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
@@ -2591,7 +2606,7 @@ Here is your Badge</string>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Zq-GE-R5g">
-                                                <rect key="frame" x="75" y="304" width="140" height="40"/>
+                                                <rect key="frame" x="75" y="300" width="140" height="40"/>
                                                 <color key="backgroundColor" systemColor="linkColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="1fy-if-pcC"/>
@@ -2614,19 +2629,18 @@ Here is your Badge</string>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="l1R-H6-3ny" secondAttribute="trailing" constant="40" id="0Pg-4k-G7o"/>
                                             <constraint firstItem="M0j-NT-jnb" firstAttribute="centerX" secondItem="1dg-0p-8Ju" secondAttribute="centerX" id="0c4-5F-48k"/>
                                             <constraint firstItem="ivf-Oo-Mjf" firstAttribute="centerX" secondItem="1dg-0p-8Ju" secondAttribute="centerX" id="BbR-cc-Fz0"/>
-                                            <constraint firstItem="l1R-H6-3ny" firstAttribute="top" secondItem="1dg-0p-8Ju" secondAttribute="top" constant="24" id="Gag-ms-edt"/>
-                                            <constraint firstItem="ivf-Oo-Mjf" firstAttribute="top" secondItem="l1R-H6-3ny" secondAttribute="bottom" constant="20" id="Idl-CN-cXR"/>
+                                            <constraint firstItem="ivf-Oo-Mjf" firstAttribute="top" secondItem="3cV-xs-6Gv" secondAttribute="bottom" constant="12" id="IEW-MP-SAs"/>
+                                            <constraint firstItem="3cV-xs-6Gv" firstAttribute="top" secondItem="1dg-0p-8Ju" secondAttribute="top" id="SNt-Ee-c50"/>
+                                            <constraint firstItem="3cV-xs-6Gv" firstAttribute="leading" secondItem="1dg-0p-8Ju" secondAttribute="leading" id="SdO-oe-vng"/>
                                             <constraint firstItem="9Zq-GE-R5g" firstAttribute="top" secondItem="M0j-NT-jnb" secondAttribute="bottom" constant="20" id="VG8-cL-M8C"/>
-                                            <constraint firstItem="l1R-H6-3ny" firstAttribute="centerX" secondItem="1dg-0p-8Ju" secondAttribute="centerX" id="WL0-eP-zcp"/>
                                             <constraint firstItem="M0j-NT-jnb" firstAttribute="top" secondItem="ivf-Oo-Mjf" secondAttribute="bottom" constant="20" id="ZNs-vF-zCZ"/>
                                             <constraint firstAttribute="trailing" secondItem="ivf-Oo-Mjf" secondAttribute="trailing" constant="25" id="dNg-0E-7f4"/>
+                                            <constraint firstAttribute="trailing" secondItem="3cV-xs-6Gv" secondAttribute="trailing" id="eMu-2L-QFo"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9Zq-GE-R5g" secondAttribute="bottom" constant="20" id="hD9-YC-ngT"/>
                                             <constraint firstItem="ivf-Oo-Mjf" firstAttribute="leading" secondItem="1dg-0p-8Ju" secondAttribute="leading" constant="25" id="lKA-rn-ZyW"/>
                                             <constraint firstItem="M0j-NT-jnb" firstAttribute="centerY" secondItem="1dg-0p-8Ju" secondAttribute="centerY" constant="20" id="qHc-Py-vPU"/>
-                                            <constraint firstItem="l1R-H6-3ny" firstAttribute="leading" secondItem="1dg-0p-8Ju" secondAttribute="leading" constant="40" id="tMH-fT-mWM"/>
                                             <constraint firstItem="9Zq-GE-R5g" firstAttribute="centerX" secondItem="1dg-0p-8Ju" secondAttribute="centerX" id="zqw-89-K7X"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -2718,9 +2732,9 @@ Here is your Badge</string>
         <image name="advancedAppleIcon" width="47" height="23.5"/>
         <image name="advancedBG" width="163" height="302"/>
         <image name="badgeIphoneAdvance" width="369" height="434"/>
-        <image name="badgeIphoneBasic" width="369" height="434"/>
-        <image name="badgeIphonePre" width="369" height="434"/>
-        <image name="badgeIphoneTrial" width="369" height="434"/>
+        <image name="badgeIphoneBasic" width="123" height="145"/>
+        <image name="badgeIphonePre" width="123" height="145"/>
+        <image name="badgeIphoneTrial" width="123" height="145"/>
         <image name="basicAppleIcon" width="28.5" height="23.5"/>
         <image name="featureIcon" width="18" height="14"/>
         <image name="freeAppleIcon" width="28.5" height="23.5"/>
@@ -2736,7 +2750,7 @@ Here is your Badge</string>
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="currentPlanButtonColor">
             <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2745,7 +2759,7 @@ Here is your Badge</string>
             <color red="0.30199998617172241" green="0.51399999856948853" blue="0.83099997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
-            <color red="0.23899999260902405" green="0.77300000190734863" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

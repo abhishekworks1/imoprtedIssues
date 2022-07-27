@@ -90,7 +90,7 @@ class SubscriptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.thankYouSubscriptionTitleLabel.text = "Thank you for your Premium Subscription"
         setupView()
         
         self.viewModel.getPackageList()

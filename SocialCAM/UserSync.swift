@@ -273,6 +273,36 @@ class UserSync {
 
     }
     
+    func getQuickStartCategories(completion: @escaping (_ isCompleted: Bool?) -> Void) {
+        let path = API.shared.baseUrlV2 + "quickstart-guide/category-item"
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "platformType": "ios",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: [QuickStartCategory].self) {(resposnse) in
+            print(resposnse.value)
+            print("Response String: \(String(data: resposnse.data!, encoding:.utf8))")
+            Defaults.shared.quickStartCategories = resposnse.value
+            completion(true)
+        }
+    }
+    
+    func readQuickStartCategories(id: String) {
+        let path = API.shared.baseUrlV2 + "quickstart-guide/item-read/\(id)"
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "platformType": "ios",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .put, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: [QuickStartCategory].self) {(resposnse) in
+            print(resposnse.value)
+            print("Response String: \(String(data: resposnse.data!, encoding:.utf8))")
+        }
+    }
+    
 }
 
 class TipOfDayResponse: Codable {

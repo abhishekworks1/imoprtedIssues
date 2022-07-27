@@ -20,36 +20,37 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var headerTitleLabel: UILabel!
 
-    var selectedOption: QuickStartOptionable = QuickStartOption.CreateContentOption.quickCamCamera
-    var selectedQuickStartMenu: QuickStartOption = .createContent
+//    var selectedOption: QuickStartOptionable = QuickStartOption.CreateContentOption.quickCamCamera
+//    var selectedQuickStartMenu: QuickStartOption = .createContent
+    var selectedQuickStartCategory: QuickStartCategory?
+    var selectedQuickStartItem: QuickStartCategoryContent?
+    
     var guidTimerDate: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = selectedOption.title
-        if let attributedString = try? NSAttributedString(htmlString: selectedOption.description, font: UIFont.systemFont(ofSize: 17)) {
+        titleLabel.text = selectedQuickStartItem?.title
+        if let attributedString = try? NSAttributedString(htmlString: selectedQuickStartItem?.content ?? "", font: UIFont.systemFont(ofSize: 17)) {
             descriptionLabel.attributedText = attributedString
         } else {
-            descriptionLabel.text = selectedOption.description
+            descriptionLabel.text = selectedQuickStartItem?.content ?? ""
         }
 //        backButtonHeaderView.isHidden = selectedOption.isFirstStep
 //        quickCamHeaderView.isHidden = !selectedOption.isFirstStep
-        headerTitleLabel.text = selectedQuickStartMenu.titleText
-        tryNowButton.isHidden = !selectedOption.isLastStep
-        doneButton.isHidden = !selectedOption.isLastStep
-        if !selectedOption.hideTryNowButton {
+        headerTitleLabel.text = selectedQuickStartCategory?.label ?? ""
+        tryNowButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
+        doneButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
+        if (selectedQuickStartItem?.title == "Income Goal Calculator" || selectedQuickStartItem?.title == "Invite Wizard") {
             tryNowButton.isHidden = false
-        }
-        if !selectedOption.hideTryNowButton {
-            if (selectedOption as? QuickStartOption.MakeMoneyOption) == .referralWizard {
+            if selectedQuickStartItem?.title == "Invite Wizard" {
                 tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
             } else {
                 tryNowButton.setTitle("Try Calculator Now", for: .normal)
             }
         } else {
-            if selectedQuickStartMenu == .createContent {
+            if selectedQuickStartCategory?.catId == "create_engaging_content" {
                 tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
-            } else if selectedQuickStartMenu == .makeMoney {
+            } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
                 tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
             } else {
                 tryNowButton.setTitle("Try Now", for: .normal)
@@ -60,41 +61,65 @@ class QuickStartOptionDetailViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        switch selectedQuickStartMenu {
-        case .createContent:
-            var options = Defaults.shared.createContentOptions
-            options.append(selectedOption.rawValue)
-            Defaults.shared.createContentOptions = Array(Set(options))
-        case .mobileDashboard:
-            var options = Defaults.shared.mobileDashboardOptions
-            options.append(selectedOption.rawValue)
-            Defaults.shared.mobileDashboardOptions = Array(Set(options))
-        case .makeMoney:
-            var options = Defaults.shared.makeMoneyOptions
-            options.append(selectedOption.rawValue)
-            Defaults.shared.makeMoneyOptions = Array(Set(options))
+//        switch selectedQuickStartMenu {
+//        case .createContent:
+//            var options = Defaults.shared.createContentOptions
+//            options.append(selectedOption.rawValue)
+//            Defaults.shared.createContentOptions = Array(Set(options))
+//        case .mobileDashboard:
+//            var options = Defaults.shared.mobileDashboardOptions
+//            options.append(selectedOption.rawValue)
+//            Defaults.shared.mobileDashboardOptions = Array(Set(options))
+//        case .makeMoney:
+//            var options = Defaults.shared.makeMoneyOptions
+//            options.append(selectedOption.rawValue)
+//            Defaults.shared.makeMoneyOptions = Array(Set(options))
+//        }
+        selectedQuickStartItem?.isread = true
+        var categories = Defaults.shared.quickStartCategories ?? []
+        for category in categories {
+            for item in category.Items ?? [] {
+                if item == selectedQuickStartItem {
+                    item.isread = true
+                }
+            }
         }
-        UserSync.shared.setOnboardingUserFlags()
+        Defaults.shared.quickStartCategories = categories
+        UserSync.shared.readQuickStartCategories(id: selectedQuickStartItem?._id ?? "")
     }
     
-    func quickStartOption(for rawValue: Int) -> QuickStartOptionable? {
-        switch selectedQuickStartMenu {
-        case .createContent:
-            return QuickStartOption.CreateContentOption(rawValue: rawValue)
-        case .mobileDashboard:
-            return QuickStartOption.MobileDashboardOption(rawValue: rawValue)
-        case .makeMoney:
-            return QuickStartOption.MakeMoneyOption(rawValue: rawValue)
-        }
-    }
+//    func quickStartOption(for rawValue: Int) -> QuickStartOptionable? {
+//        switch selectedQuickStartMenu {
+//        case .createContent:
+//            return QuickStartOption.CreateContentOption(rawValue: rawValue)
+//        case .mobileDashboard:
+//            return QuickStartOption.MobileDashboardOption(rawValue: rawValue)
+//        case .makeMoney:
+//            return QuickStartOption.MakeMoneyOption(rawValue: rawValue)
+//        }
+//        if selectedQuickStartCategory?.catId == "create_engaging_content" {
+//            if  {
+//
+//            }
+//
+//        } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
+//            if let index = selectedQuickStartCategory?.Items?.firstIndex(where: { return $0 == selectedQuickStartItem }) {
+//
+//            }
+//        } else {
+//            if let index = selectedQuickStartCategory?.Items?.firstIndex(where: { return $0 == selectedQuickStartItem }) {
+//
+//            }
+//        }
+//    }
     
     @IBAction func didTapOnNextStep(_ sender: UIButton) {
-        guard let option = quickStartOption(for: selectedOption.rawValue + 1),
+        guard let index = selectedQuickStartCategory?.Items?.firstIndex(where: { return $0 == selectedQuickStartItem }),
               let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() else {
             return
         }
-        quickStartDetail.selectedOption = option
-        quickStartDetail.selectedQuickStartMenu = selectedQuickStartMenu
+        quickStartDetail.selectedQuickStartItem = selectedQuickStartCategory?.Items?[index + 1]
+        quickStartDetail.selectedQuickStartCategory = selectedQuickStartCategory
         navigationController?.pushViewController(quickStartDetail, animated: true)
     }
     
@@ -105,7 +130,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBAction func didTapOnDoneStep(_ sender: UIButton) {
         let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
         greatVC.greatViewDelegate = self
-        greatVC.categoryString = selectedQuickStartMenu.titleText
+        greatVC.categoryString = selectedQuickStartCategory?.label
         greatVC.guidTimerDate = guidTimerDate
         greatVC.modalPresentationStyle = .overCurrentContext
             present(greatVC, animated: true, completion: nil)
@@ -129,23 +154,12 @@ class QuickStartOptionDetailViewController: UIViewController {
     }
     
     @IBAction func didTapOnTryNow(_ sender: UIButton) {
-        switch selectedQuickStartMenu {
-        case .createContent:
+        if selectedQuickStartCategory?.catId == "create_engaging_content" {
             Defaults.shared.isSignupLoginFlow = true
             let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
             Utils.appDelegate?.window?.rootViewController = rootViewController
-        case .mobileDashboard:
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            if let pageViewController = rootViewController as? PageViewController,
-               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-                navigationController.viewControllers.append(settingVC)
-            }
-            Utils.appDelegate?.window?.rootViewController = rootViewController
-        case .makeMoney:
-            if !selectedOption.hideTryNowButton,
-               (selectedOption as? QuickStartOption.MakeMoneyOption)
-                != .referralWizard {
+        } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
+            if selectedQuickStartItem?.title == "Income Goal Calculator" {
                 if let token = Defaults.shared.sessionToken {
                     let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
                     guard let url = URL(string: urlString) else {
@@ -163,6 +177,14 @@ class QuickStartOptionDetailViewController: UIViewController {
                     navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
                 }
             }
+        } else {
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            if let pageViewController = rootViewController as? PageViewController,
+               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
+               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
+                navigationController.viewControllers.append(settingVC)
+            }
+            Utils.appDelegate?.window?.rootViewController = rootViewController
         }
     }
     
