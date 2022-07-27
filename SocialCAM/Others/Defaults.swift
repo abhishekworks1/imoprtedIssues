@@ -1413,9 +1413,9 @@ class Defaults {
         }
     }
     
-    var tipOfDay: String? {
+    var tipOfDay: [String]? {
         get {
-            return (appDefaults?.value(forKey: "tipOfDay") as? String) ?? ""
+            return (appDefaults?.value(forKey: "tipOfDay") as? [String])
         }
         set {
             appDefaults?.set(newValue, forKey: "tipOfDay")
