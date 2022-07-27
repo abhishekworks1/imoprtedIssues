@@ -2275,12 +2275,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     if Defaults.shared.isDoNotShowAgainDeleteContactPopup{
                         self.deleteContactConfirmationView.isHidden = true
                         if tableView == self.emailContactTableView{
-                            let contact = self.emailContacts[indexPath.row]
+                            let emailContacts = self.emailContactSection[indexPath.section].contacts
+                            let contact = emailContacts[indexPath.row]
+                           // let contact = self.emailContacts[indexPath.row]
                             print(contact.email ?? "")
                             self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
                             
                         }else if tableView == self.contactTableView{
-                            let contact = self.mobileContacts[indexPath.row]
+                            let mobileContacts = self.contactSections[indexPath.section].contacts
+                            let contact = mobileContacts[indexPath.row]
+                           // let contact = self.mobileContacts[indexPath.row]
                             print(contact.mobile ?? "")
                             self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
                         }
@@ -2290,7 +2294,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
                     if tableView == self.emailContactTableView{
-                        let contact = self.emailContacts[indexPath.row]
+                        let emailContacts = self.emailContactSection[indexPath.section].contacts
+                        let contact = emailContacts[indexPath.row]
+                       // let contact = self.emailContacts[indexPath.row]
                         if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
                             contactEdit.contact = contact
                             contactEdit.isEmail = true
@@ -2300,7 +2306,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         }
                         print(contact.email ?? "")
                     }else if tableView == self.contactTableView{
-                        let contact = self.mobileContacts[indexPath.row]
+                        let mobileContacts = self.contactSections[indexPath.section].contacts
+                        let contact = mobileContacts[indexPath.row]
+                        //let contact = self.mobileContacts[indexPath.row]
                         if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
                             contactEdit.contact = contact
                             contactEdit.isEmail = false

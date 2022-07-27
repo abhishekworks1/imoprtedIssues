@@ -266,6 +266,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     navigationController.viewControllers.append(camVC)
                 }
                 break
+            case OnboardingReferral.QuickMenu.rawValue:
+                if let pageViewController = rootViewController as? PageViewController,
+                   let navigationController = pageViewController.pageControllers.first as? UINavigationController,
+                   let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
+                    (onBoardView.viewControllers.first as? OnBoardingViewController)?.showPopUpView = false
+                    (onBoardView.viewControllers.first as? OnBoardingViewController)?.fromNavigation = true
+                    navigationController.viewControllers.append((onBoardView.viewControllers.first as? OnBoardingViewController)!)
+                }
+                break
             default: break
             }
         } else {
