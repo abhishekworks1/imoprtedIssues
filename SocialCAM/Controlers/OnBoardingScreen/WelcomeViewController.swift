@@ -66,7 +66,16 @@ class WelcomeViewController: UIViewController {
             whatToSeeFirstBaseView.addGestureRecognizer(tapGesture)
         }
     }
-    
+    @IBOutlet weak var lblAppInfo: UILabel! {
+        didSet {
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(39.\(Constant.Application.appBuildNumber))"
+        }
+    }
+    @IBOutlet weak var imgAppLogo: UIImageView! {
+        didSet {
+            setupUI()
+        }
+    }
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
@@ -85,6 +94,42 @@ class WelcomeViewController: UIViewController {
         selectFeatureDetailSwitch.setOn(Defaults.shared.shouldDisplayDetailsOfWelcomeScreenFeatures, animated: false)
         selectFeatureChanged(selectFeatureDetailSwitch)
 //        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+    }
+    
+    private func setupUI() {
+        #if SOCIALCAMAPP
+        imgAppLogo.image = R.image.socialCamSplashLogo()
+        #elseif VIRALCAMAPP
+        imgAppLogo.image = R.image.viralcamrgb()
+        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
+        imgAppLogo.image = R.image.soccercamWatermarkLogo()
+        #elseif QUICKCAMAPP
+        imgAppLogo.image = R.image.ssuQuickCam()
+        #elseif SNAPCAMAPP
+        imgAppLogo.image = R.image.snapcamWatermarkLogo()
+        #elseif SPEEDCAMAPP
+        imgAppLogo.image = R.image.ssuSpeedCam()
+        #elseif TIMESPEEDAPP
+        imgAppLogo.image = R.image.timeSpeedWatermarkLogo()
+        #elseif FASTCAMAPP
+        imgAppLogo.image = R.image.ssuFastCam()
+        #elseif BOOMICAMAPP
+        imgAppLogo.image = R.image.boomicamWatermarkLogo()
+        #elseif VIRALCAMLITEAPP
+        imgAppLogo.image = R.image.viralcamLiteWatermark()
+        #elseif FASTCAMLITEAPP
+        imgAppLogo.image = R.image.ssuFastCamLite()
+        #elseif QUICKCAMLITEAPP || QUICKAPP
+        imgAppLogo.image = (Defaults.shared.releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
+        #elseif SPEEDCAMLITEAPP
+        imgAppLogo.image = R.image.speedcamLiteSsu()
+        #elseif SNAPCAMLITEAPP
+        imgAppLogo.image = R.image.snapcamliteSplashLogo()
+        #elseif RECORDERAPP
+        imgAppLogo.image = R.image.socialScreenRecorderWatermarkLogo()
+        #else
+        imgAppLogo.image = R.image.pic2artWatermarkLogo()
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {

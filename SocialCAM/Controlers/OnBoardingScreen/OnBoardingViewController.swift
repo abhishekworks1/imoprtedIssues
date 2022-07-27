@@ -826,6 +826,16 @@ class OnBoardingViewController: UIViewController {
     @IBOutlet var mobileDashboardCategoriesLabels: [UILabel]!
     @IBOutlet var createContentCategoriesLabels: [UILabel]!
     @IBOutlet var lastOptionCreateContent: UIStackView!
+    @IBOutlet weak var lblAppInfo: UILabel! {
+        didSet {
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(39.\(Constant.Application.appBuildNumber))"
+        }
+    }
+    @IBOutlet weak var imgAppLogo: UIImageView! {
+        didSet {
+            setupUI()
+        }
+    }
 
     var showPopUpView: Bool = false
     var shouldShowFoundingMemberView: Bool = true
@@ -847,6 +857,42 @@ class OnBoardingViewController: UIViewController {
             self.mainContainerStackView.layoutIfNeeded()
         default: break
         }
+    }
+    
+    private func setupUI() {
+        #if SOCIALCAMAPP
+        imgAppLogo.image = R.image.socialCamSplashLogo()
+        #elseif VIRALCAMAPP
+        imgAppLogo.image = R.image.viralcamrgb()
+        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
+        imgAppLogo.image = R.image.soccercamWatermarkLogo()
+        #elseif QUICKCAMAPP
+        imgAppLogo.image = R.image.ssuQuickCam()
+        #elseif SNAPCAMAPP
+        imgAppLogo.image = R.image.snapcamWatermarkLogo()
+        #elseif SPEEDCAMAPP
+        imgAppLogo.image = R.image.ssuSpeedCam()
+        #elseif TIMESPEEDAPP
+        imgAppLogo.image = R.image.timeSpeedWatermarkLogo()
+        #elseif FASTCAMAPP
+        imgAppLogo.image = R.image.ssuFastCam()
+        #elseif BOOMICAMAPP
+        imgAppLogo.image = R.image.boomicamWatermarkLogo()
+        #elseif VIRALCAMLITEAPP
+        imgAppLogo.image = R.image.viralcamLiteWatermark()
+        #elseif FASTCAMLITEAPP
+        imgAppLogo.image = R.image.ssuFastCamLite()
+        #elseif QUICKCAMLITEAPP || QUICKAPP
+        imgAppLogo.image = (Defaults.shared.releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
+        #elseif SPEEDCAMLITEAPP
+        imgAppLogo.image = R.image.speedcamLiteSsu()
+        #elseif SNAPCAMLITEAPP
+        imgAppLogo.image = R.image.snapcamliteSplashLogo()
+        #elseif RECORDERAPP
+        imgAppLogo.image = R.image.socialScreenRecorderWatermarkLogo()
+        #else
+        imgAppLogo.image = R.image.pic2artWatermarkLogo()
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
