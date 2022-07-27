@@ -2335,6 +2335,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
          self.searchBar.showsCancelButton = true
          self.filterOptionView.isHidden = true
+        contactTableView.reloadData()
+        emailContactTableView.reloadData()
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //print(searchText)
