@@ -392,20 +392,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if pageNo == 4{
-            
-            if UIScreen.main.sizeType == .iPhone5 || UIScreen.main.sizeType == .iPhone6 {
-                
-                self.imgPreviewImageAspectRatioConstraint.isActive = false
-                self.imgPreviewImageHeightConstraint.isActive = true
-                self.imgPreviewImageWidthConstraint.isActive = true
-
-            } else {
-                self.imgPreviewImageAspectRatioConstraint.isActive = true
-                self.imgPreviewImageHeightConstraint.isActive = true
-                self.imgPreviewImageWidthConstraint.isActive = true
-            }
-        }
+//        if pageNo == 4{
+//            
+//            if UIScreen.main.sizeType == .iPhone5 || UIScreen.main.sizeType == .iPhone6 {
+//                
+//                self.imgPreviewImageAspectRatioConstraint.isActive = false
+//                self.imgPreviewImageHeightConstraint.isActive = true
+//                self.imgPreviewImageWidthConstraint.isActive = true
+//
+//            } else {
+//                self.imgPreviewImageAspectRatioConstraint.isActive = true
+//                self.imgPreviewImageHeightConstraint.isActive = true
+//                self.imgPreviewImageWidthConstraint.isActive = true
+//            }
+//        }
     }
     
     @objc func appMovedToForeground() {
@@ -1883,7 +1883,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
-            
+            cell.delegate = self
             cell.handleRatioButtonAction = { (isSelected) in
                 if isSelected {
                     self.selectedTitleRow = indexPath
@@ -1915,31 +1915,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.emailRadioButtonWidthConstraint.constant = 0
                 
                 var finalText = ""
-                if isSelectSMS {
-                    cell.textViewCallBackForText = { [self] (text) in
-                        self.txtLinkWithCheckOut = text
-                        finalText = "\(txtLinkWithCheckOut)"
-                        txtLinkWithCheckOut = finalText
-                        self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
-                    }
-                } else {
-                    cell.textViewCallBackForText = { (text) in
-                        self.txtLinkWithCheckOut = text
-                    }
-                    cell.textViewCallBackForText = { (text) in
-                        self.txtDetailForEmail = text
-                    }
-                    finalText = txtDetailForEmail//"\(txtLinkWithCheckOut)\n\(txtDetailForEmail)"
-                    if self.txtLinkWithCheckOut == "" {
-                        emailSubjectView.isHidden = true
-                    } else {
-                        emailSubjectView.isHidden = false
-                        emailSubjectTextLabel.text = txtLinkWithCheckOut
-                    }
-//                    txtLinkWithCheckOut = finalText
-                    self.txtvwpreviewText.text = "\(finalText)\n\n\(urlToShare)"
-                }
-               
+            
                 if selectedTitleRow == indexPath {
                     if isSelectSMS {
                         emailBodyTitleLabel.text = "Message"
@@ -3259,6 +3235,29 @@ extension UIButton {
             let colorImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             self.setBackgroundImage(colorImage, for: forState)
+        }
+    }
+}
+
+extension ContactImportVC: MessageTitleDelagate {
+    func getTextFromWhenUserEnter(textViewText: String, tag: Int) {
+        switch tag {
+        case 1:
+            self.txtLinkWithCheckOut = textViewText
+            self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
+        case 2:
+            self.txtLinkWithCheckOut = textViewText
+            if textViewText == "" {
+                emailSubjectView.isHidden = true
+            } else {
+                emailSubjectView.isHidden = false
+                emailSubjectTextLabel.text = textViewText
+            }
+        case 3:
+            self.txtDetailForEmail = textViewText
+            self.txtvwpreviewText.text = "\(textViewText)\n\n\(urlToShare)"
+        default:
+            break
         }
     }
 }

@@ -6,13 +6,17 @@
 import UIKit
 import IQKeyboardManagerSwift
 
+protocol MessageTitleDelagate {
+    func getTextFromWhenUserEnter(textViewText: String,tag: Int)
+}
+
 class messageTitleCell: UITableViewCell {
     
     @IBOutlet weak var emailRadioButton: UIButton!
     @IBOutlet weak var emailRadioButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var radioButtonWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var emailSubTextView: IQTextView!
-    @IBOutlet weak var emailTextView: IQTextView!
+    @IBOutlet weak var emailBodyTextView: IQTextView!
+    @IBOutlet weak var emailSubjectTextView: IQTextView!
     @IBOutlet weak var messageTextView: IQTextView!
     @IBOutlet weak var ownEmailView: UIView!
     @IBOutlet weak var ownMessageView: UIView!
@@ -20,10 +24,11 @@ class messageTitleCell: UITableViewCell {
     @IBOutlet weak var selectedButton: UIButton!
     @IBOutlet  var textLbl: UILabel!
     @IBOutlet  var detailsLabel: UILabel!
-    var ownText: String?
+    var delegate: MessageTitleDelagate?
+    
     
     var handleRatioButtonAction: ((_ isSelected: Bool) -> Void)?
-    var textViewCallBackForText: ((_ newText: String) -> Void)?
+//    var textViewCallBackForText: ((_ newText: String) -> Void)?
     var isSelectedRadio: Bool = false
     var shareType:ShareType = ShareType.textShare
     
@@ -34,8 +39,8 @@ class messageTitleCell: UITableViewCell {
         ownEmailView.isHidden = true
         
         messageTextView.delegate = self
-        emailSubTextView.delegate = self
-        emailTextView.delegate = self
+        emailSubjectTextView.delegate = self
+        emailBodyTextView.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -113,11 +118,11 @@ extension messageTitleCell: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView == messageTextView {
-            textViewCallBackForText?(textView.text ?? "")
-        } else if textView == emailTextView{
-            textViewCallBackForText?(textView.text ?? "")
-        } else if textView == emailSubTextView {
-            textViewCallBackForText?(textView.text ?? "")
+            delegate?.getTextFromWhenUserEnter(textViewText: textView.text ?? "", tag: 1)
+        } else if textView == emailSubjectTextView{
+            delegate?.getTextFromWhenUserEnter(textViewText: textView.text ?? "", tag: 2)
+        } else if textView == emailBodyTextView {
+            delegate?.getTextFromWhenUserEnter(textViewText: textView.text ?? "", tag: 3)
         }
     }
     
