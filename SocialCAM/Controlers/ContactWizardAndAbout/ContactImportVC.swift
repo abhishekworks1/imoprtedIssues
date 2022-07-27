@@ -202,7 +202,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnPrevious: UIButton!
+    @IBOutlet weak var previewTitleLabel: UILabel!
+    @IBOutlet weak var chooseMessageTitleTextLabel: UILabel!
     
+    @IBOutlet weak var subTitleOfPreview: UILabel!
     @IBOutlet weak var imgPreviewImageAspectRatioConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageWidthConstraint: NSLayoutConstraint!
@@ -917,7 +920,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.contactTableView.setContentOffset(contentOffset, animated: false)
                     }
                 }else{
-                    
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts)
                     if self.emailContacts.count == 0{
@@ -925,7 +927,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.nocontactView.isHidden = false
                         
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
-                            self.lblnocontact.text = "Import Contacts"
+                            self.lblnocontact.text = "Invite Your Friends"
                         }else{
                             self.lblnocontact.text = "No contacts found with that filter criteria."
                         }
@@ -1465,6 +1467,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func textMessageSelected(sender: UIButton) {
+        itemsTableView.reloadData()
+        selectedTitleRow = nil
         self.shareType = ShareType.textShare
         searchBar.showsCancelButton = false
         if !isSelectSMS {
@@ -1491,6 +1495,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         isSelectSMS = false
     }
     @IBAction func emailSelected(sender: UIButton) {
+        itemsTableView.reloadData()
+        selectedTitleRow = nil
         searchBar.showsCancelButton = false
         self.shareType = ShareType.email
         
@@ -1883,6 +1889,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
+            
+            if isSelectSMS {
+                previewTitleLabel.text = "Preview Message"
+                subTitleOfPreview.text = "Your invitation will appear similar to this depending on your contact’s messaging app."
+            } else {
+                previewTitleLabel.text = "Preview Email"
+                subTitleOfPreview.text = "Your invitation will appear similar to this depending on your contact’s email app."
+            }
+            
             cell.delegate = self
             cell.handleRatioButtonAction = { (isSelected) in
                 if isSelected {
@@ -1897,8 +1912,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
                 if shareType == .textShare || shareType == .socialShare {
                     cell.setText(text: "Compose your own message")
+                    chooseMessageTitleTextLabel.text = "Choose the message to send"
                 } else if shareType == .email {
                     cell.setText(text: "Compose your own email")
+                    chooseMessageTitleTextLabel.text = "Choose the email to send"
                 }
                 
                 var item : Titletext?
@@ -1933,6 +1950,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.ownMessageView.isHidden = true
                 var item : Titletext?
                 if isSelectSMS {
+                    cell.detailView.isHidden = true
                     cell.radioButtonWidthConstraint.constant = 20
                     cell.emailRadioButtonWidthConstraint.constant = 0
                     item = self.smsMsgListing?.list[indexPath.row]
@@ -2367,6 +2385,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
+        selectedTitleRow = nil
         pageNo = pageNo - 1
         setupPage()
     }
