@@ -1096,7 +1096,7 @@ extension WelcomeViewController {
             }
         }
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            return "Your 7-Day Premium Free Trial has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since signing up:"
+            return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge! \nTime since signing up:"
         }
         else if subscriptionType == "expired" {
             return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since your subscription expired:"
