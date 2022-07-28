@@ -485,7 +485,7 @@ extension WelcomeViewController {
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else if subscriptionType == "expired" {
-                        subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+                        subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
                         
