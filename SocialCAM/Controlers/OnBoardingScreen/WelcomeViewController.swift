@@ -95,6 +95,7 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         selectFeatureDetailSwitch.setOn(Defaults.shared.shouldDisplayDetailsOfWelcomeScreenFeatures, animated: false)
         selectFeatureChanged(selectFeatureDetailSwitch)
+        self.activityIndicator.hidesWhenStopped = true
 //        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
     }
     
@@ -379,22 +380,24 @@ extension WelcomeViewController {
     }
     
     func showLoader() {
-        guard isFirstTime else {
-            return
-        }
-        isFirstTime = false
-        self.loadingView = LoadingView.instanceFromNib()
-        self.loadingView?.processingYourQuickieLabel.text = ""
-        self.loadingView?.shouldCancelShow = true
-        self.loadingView?.loadingViewShow = true
-        self.loadingView?.hideAdView(true)
-        self.loadingView?.show(on: self.view)
+        self.activityIndicator.startAnimating()
+//        guard isFirstTime else {
+//            return
+//        }
+//        isFirstTime = false
+//        self.loadingView = LoadingView.instanceFromNib()
+//        self.loadingView?.processingYourQuickieLabel.text = ""
+//        self.loadingView?.shouldCancelShow = true
+//        self.loadingView?.loadingViewShow = true
+//        self.loadingView?.hideAdView(true)
+//        self.loadingView?.show(on: self.view)
     }
     
     func hideLoader() {
-        DispatchQueue.main.async {
-            self.loadingView?.hide()
-        }
+        self.activityIndicator.stopAnimating()
+//        DispatchQueue.main.async {
+//            self.loadingView?.hide()
+//        }
     }
 }
 
