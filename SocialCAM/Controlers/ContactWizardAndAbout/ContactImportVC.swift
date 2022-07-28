@@ -903,7 +903,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             self.nocontactView.isHidden = false
-                            self.lblnocontact.text = "No contacts found with that filter criteria."
+                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
                         }
                     }else{
                         self.contactPermitView.isHidden = true
@@ -929,7 +929,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
                             self.lblnocontact.text = "Invite Your Friends"
                         }else{
-                            self.lblnocontact.text = "No contacts found with that filter criteria."
+                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
                         }
                     }else{
                         self.nocontactView.isHidden = true
