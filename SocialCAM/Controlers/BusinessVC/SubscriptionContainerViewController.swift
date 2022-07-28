@@ -675,19 +675,19 @@ extension SubscriptionContainerViewController {
             if originalSubscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                 // for TRIAL user use this
                 if daysLeft == 7 {
-                    return "Your 7-Day Premium Free Trial has started. Upgrade now to Premium and get your Premium Subscriber Badge and Day 1 Subscriber Badge!"
+                    return "Your 7-Day Premium Free Trial has started. Upgrade to Premium now and get your Premium Subscriber Badge and Day 1 Subscriber Badge!"
                 } else if daysLeft == 6 {
-                    return "You’re on Day 2 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 2 Subscriber Badge!"
+                    return "You’re on Day 2 of your 7-Day Premium Free Trial. Upgrade to Premium now and get your Premium Subscriber Badge and Day 2 Subscriber Badge!"
                 } else if daysLeft == 5 {
-                    return "You’re on Day 3 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 3 Subscriber Badge!"
+                    return "You’re on Day 3 of your 7-Day Premium Free Trial. Upgrade to Premium now and get your Premium Subscriber Badge and Day 3 Subscriber Badge!"
                 } else if daysLeft == 4 {
-                    return "You’re on Day 4 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 4 Subscriber Badge!"
+                    return "You’re on Day 4 of your 7-Day Premium Free Trial. Upgrade to Premium now and get your Premium Subscriber Badge and Day 4 Subscriber Badge!"
                 } else if daysLeft == 3 {
-                    return "You’re on Day 5 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 5 Subscriber Badge!"
+                    return "You’re on Day 5 of your 7-Day Premium Free Trial. Upgrade to Premium now and get your Premium Subscriber Badge and Day 5 Subscriber Badge!"
                 } else if daysLeft == 2 {
-                    return "You’re on Day 6 of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 6 Subscriber Badge!"
+                    return "You’re on Day 6 of your 7-Day Premium Free Trial. Upgrade to Premium now and get your Premium Subscriber Badge and Day 6 Subscriber Badge!"
                 } else if daysLeft == 1 {
-                    return "You’re on the last day of your 7-Day Premium Free Trial. Upgrade now to Premium and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
+                    return "You’re on the last day of your 7-Day Premium Free Trial. Upgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
                 } else {
                     return "Your 7-Day Premium Free Trial has ended. Upgrade Now!"
                 }

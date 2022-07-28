@@ -39,24 +39,31 @@ class WelcomeTimerPopupViewController: UIViewController {
     @IBOutlet weak var upgradeNowButton: UIButton!
     
     private var countdownTimer: Timer?
+    weak var tipTimer: Timer?
+    var currentSelectedTip: Int = 0 
+    var tipArray = [String]()
     
     var upgradeButtonAction:(()-> Void)?
     var onboardImageName = "free"
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
-        UserSync.shared.getTipOfDay { tip in
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
-        }
-        setUpUI()
+       setUpUI()
         setOnboardImageName()
-        setTimer()
         setSubscriptionMessageLabel()
         setUpgradeButton()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        setTimer()
+        UserSync.shared.getTipOfDay { tip in
+            self.tipArray = Defaults.shared.tipOfDay ?? [String]()
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+            self.startTipTimer()
+        }
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         countdownTimer?.invalidate()
+        tipTimer?.invalidate()
         
     }
     func setUpUI() {
@@ -72,6 +79,31 @@ class WelcomeTimerPopupViewController: UIViewController {
         semiHalfView.layer.shadowRadius = 0
         semiHalfView.layer.masksToBounds = false
         semiHalfView.layer.cornerRadius = 81.5
+        
+        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+    }
+    func startTipTimer() {
+        if currentSelectedTip < tipArray.count {
+            tipOfTheDayLabel.text = tipArray[currentSelectedTip]
+        }
+        tipTimer =  Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] (_) in
+            guard let `self` = self else {
+                return
+            }
+            self.manageTip()
+        }
+//        tipTimer?.tolerance = 0.1
+    }
+    func manageTip() {
+        let nIndex = currentSelectedTip + 1
+        if nIndex < tipArray.count {
+            currentSelectedTip += 1
+        } else {
+            currentSelectedTip = 0
+        }
+        if currentSelectedTip < tipArray.count {
+            self.tipOfTheDayLabel.text = self.tipArray[self.currentSelectedTip]
+        }
     }
     func setOnboardImageName() {
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
@@ -99,17 +131,17 @@ class WelcomeTimerPopupViewController: UIViewController {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
-                timerDescLabel.text = "Time remaining:"
+                timerDescLabel.text = "Time left in premium free trial"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
-                timerDescLabel.text = "Time since signing up:"
+                timerDescLabel.text = "Time since signed up"
                 showUpTimer(timerDate: timerDate)
             }
         } else if  subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
-                timerDescLabel.text = "Time since your subscription expired:"
+                timerDescLabel.text = "Time since your subscription expired"
                showUpTimer(timerDate: timerDate)
             }
         } else {
@@ -321,17 +353,17 @@ extension WelcomeTimerPopupViewController {
                 // purchase during trail use this.
                 if originalSubscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                     if daysLeft == 7 {
-                        return ("You’re on Day 1 of the 7-Day Premium Free Trial.","As a Basic Subscriber, you have 7 days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon.")
+                        return ("You’re on Day 1 of the 7-Day Premium Free Trial.","As a Basic Subscriber, you’ll continue to have access to all the QuickCam Premium features for free during the 7 days before access drops to Basic subscription level. \nUpgrading to Advanced or Premium available soon.")
                     } else if daysLeft == 6 {
-                        return ("You’re on Day 2 of your 7-Day Premium Free Trial.","As a Basic Subscriber, you have 6 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon.")
+                        return ("You’re on Day 2 of your 7-Day Premium Free Trial.","Upgrading to Advanced or Premium available soon.")
                     } else if daysLeft == 5 {
-                        return ("You’re on Day 3 of your 7-Day Premium Free Trial.","As a Basic Subscriber, you have 5 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon.")
+                        return ("You’re on Day 3 of your 7-Day Premium Free Trial.","Upgrading to Advanced or Premium available soon.")
                     } else if daysLeft == 4 {
-                        return ("You’re on Day 4 of your 7-Day Premium Free Trial.","As a Basic Subscriber, you have 4 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon.")
+                        return ("You’re on Day 4 of your 7-Day Premium Free Trial.","Upgrading to Advanced or Premium available soon.")
                     } else if daysLeft == 3 {
-                        return ("You’re on Day 5 of your 7-Day Premium Free Trial.","As a Basic Subscriber, you have 3 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon.")
+                        return ("You’re on Day 5 of your 7-Day Premium Free Trial.","Upgrading to Advanced or Premium available soon.")
                     } else if daysLeft == 2 {
-                        return ("You’re on Day 6 of your 7-Day Premium Free Trial.","As a Basic Subscriber, you have 2 more days to access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon.")
+                        return ("You’re on Day 6 of your 7-Day Premium Free Trial.","Upgrading to Advanced or Premium available soon.")
                     } else if daysLeft == 1 {
                         return ("You’re on the last day of your 7-Day Premium Free Trial.","As a Basic Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon.")
                     } else {
@@ -340,17 +372,17 @@ extension WelcomeTimerPopupViewController {
                 }
                 else if originalSubscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                     if daysLeft == 7 {
-                        return ("You’re on Day 1 of the 7-Day Premium Free Trial.","As an Advanced Subscriber, you have 7 days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon.")
+                        return ("You’re on Day 1 of the 7-Day Premium Free Trial.","As an Advanced Subscriber,you’ll continue to have access to all the QuickCam Premium features for free during the 7 days before access drops to Advanced subscription level. \nUpgrading to Premium available soon.")
                     } else if daysLeft == 6 {
-                        return ("You’re on Day 2 of your 7-Day Premium Free Trial.","As an Advanced Subscriber, you have 6 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon.")
+                        return ("You’re on Day 2 of your 7-Day Premium Free Trial.","Upgrading to Premium available soon.")
                     } else if daysLeft == 5 {
-                        return ("You’re on Day 3 of your 7-Day Premium Free Trial.","As an Advanced Subscriber, you have 5 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon.")
+                        return ("You’re on Day 3 of your 7-Day Premium Free Trial.","Upgrading to Premium available soon.")
                     } else if daysLeft == 4 {
-                        return ("You’re on Day 4 of your 7-Day Premium Free Trial.","As an Advanced Subscriber, you have 4 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon.")
+                        return ("You’re on Day 4 of your 7-Day Premium Free Trial.","Upgrading to Premium available soon.")
                     } else if daysLeft == 3 {
-                        return ("You’re on Day 5 of your 7-Day Premium Free Trial.","As an Advanced Subscriber, you have 3 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon.")
+                        return ("You’re on Day 5 of your 7-Day Premium Free Trial.","Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial.")
                     } else if daysLeft == 2 {
-                        return ("You’re on Day 6 of your 7-Day Premium Free Trial.","As an Advanced Subscriber, you have 2 more days to access all the QuickCam Premium features for free. \nUpgrading to Premium available soon.")
+                        return ("You’re on Day 6 of your 7-Day Premium Free Trial.","Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial.")
                     } else if daysLeft == 1 {
                         return ("You’re on the last day of your 7-Day Premium Free Trial.","As an Advanced Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Premium available soon.")
                     } else {
@@ -379,10 +411,10 @@ extension WelcomeTimerPopupViewController {
             }
         }
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            return ("Your 7-Day Premium Free Trial has ended.","Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since signing up:")
+            return ("Your 7-Day Premium Free Trial has ended.","You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!")
         }
         else if subscriptionType == "expired" {
-            return ("Your subscription has  ended.","Please upgrade now to resume using the Basic, Advanced or Premium subscription features.")
+            return ("Your subscription has ended.","Please upgrade now to resume using the Basic, Advanced or Premium subscription features.")
         }
         else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             return ("","")

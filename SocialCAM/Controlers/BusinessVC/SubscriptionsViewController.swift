@@ -278,9 +278,9 @@ class SubscriptionsViewController: UIViewController {
             monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             days7TrialSubTitleLabel.text = "-  Access to all Premium Features\n-  No credit card required"
             
-            quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 1 minute"
+            quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 30 seconds"
             
-            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
+            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 30 seconds\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
             
             mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Income Goal Calculator\n- Custom Referral page for affiliates\n- Invite Wizard with Text and Email Inviter\n- QR Code Profile Badge"
             
