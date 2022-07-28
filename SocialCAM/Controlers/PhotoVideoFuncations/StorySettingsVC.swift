@@ -651,6 +651,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     @IBAction func didTapCameraButton(_ sender: UIButton) {
         if let cameraScreen = R.storyboard.storyCameraViewController.storyCameraViewController() {
+            cameraScreen.isFromCameraParentView = true
             self.navigationController?.pushViewController(cameraScreen, animated: true)
         }
     }

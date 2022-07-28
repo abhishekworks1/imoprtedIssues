@@ -6,10 +6,17 @@
 import UIKit
 import IQKeyboardManagerSwift
 
+protocol MessageTitleDelagate {
+    func getTextFromWhenUserEnter(textViewText: String,tag: Int)
+}
+
 class messageTitleCell: UITableViewCell {
     
-    @IBOutlet weak var emailSubTextView: IQTextView!
-    @IBOutlet weak var emailTextView: IQTextView!
+    @IBOutlet weak var emailRadioButton: UIButton!
+    @IBOutlet weak var emailRadioButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var radioButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emailBodyTextView: IQTextView!
+    @IBOutlet weak var emailSubjectTextView: IQTextView!
     @IBOutlet weak var messageTextView: IQTextView!
     @IBOutlet weak var ownEmailView: UIView!
     @IBOutlet weak var ownMessageView: UIView!
@@ -17,8 +24,11 @@ class messageTitleCell: UITableViewCell {
     @IBOutlet weak var selectedButton: UIButton!
     @IBOutlet  var textLbl: UILabel!
     @IBOutlet  var detailsLabel: UILabel!
+    var delegate: MessageTitleDelagate?
+    
     
     var handleRatioButtonAction: ((_ isSelected: Bool) -> Void)?
+//    var textViewCallBackForText: ((_ newText: String) -> Void)?
     var isSelectedRadio: Bool = false
     var shareType:ShareType = ShareType.textShare
     
@@ -27,6 +37,10 @@ class messageTitleCell: UITableViewCell {
         // Initialization code
         ownMessageView.isHidden = true
         ownEmailView.isHidden = true
+        
+        messageTextView.delegate = self
+        emailSubjectTextView.delegate = self
+        emailBodyTextView.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -58,16 +72,34 @@ class messageTitleCell: UITableViewCell {
                 //detailsLabel.isHidden = false
                 detailsLabel.text = details
                 selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
-                if indexPath == IndexPath(row: 0, section: 0) {
-                    detailView.isHidden = true
-                    self.ownMessageView.isHidden = true
-                    self.ownEmailView.isHidden = false
-                } else {
-                    detailView.isHidden = false
-                    self.ownMessageView.isHidden = true
-                    self.ownEmailView.isHidden = true
-                }
-                
+            }
+        }
+    }
+    
+    func setupViewForEmailSelection(isSelected: Bool, subTitle: String, indexPath: IndexPath ) {
+        if !isSelected {
+            if indexPath == IndexPath(row: 0, section: 0) {
+                selectedButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
+                detailView.isHidden = true
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = true
+            } else {
+                emailRadioButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
+                detailView.isHidden = false
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = true
+            }
+        } else {
+            if indexPath == IndexPath(row: 0, section: 0) {
+                selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+                detailView.isHidden = true
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = false
+            } else {
+                emailRadioButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+                detailView.isHidden = false
+                self.ownMessageView.isHidden = true
+                self.ownEmailView.isHidden = true
             }
         }
     }
@@ -78,6 +110,20 @@ class messageTitleCell: UITableViewCell {
     @IBAction func selectedButtonAction(_ sender: Any) {
         isSelectedRadio.toggle()
         handleRatioButtonAction?(isSelectedRadio)
+    }
+    
+}
+
+extension messageTitleCell: UITextViewDelegate {
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView == messageTextView {
+            delegate?.getTextFromWhenUserEnter(textViewText: textView.text ?? "", tag: 1)
+        } else if textView == emailSubjectTextView{
+            delegate?.getTextFromWhenUserEnter(textViewText: textView.text ?? "", tag: 2)
+        } else if textView == emailBodyTextView {
+            delegate?.getTextFromWhenUserEnter(textViewText: textView.text ?? "", tag: 3)
+        }
     }
     
 }
