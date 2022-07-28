@@ -15,6 +15,7 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var thankYouSubscriptionTypeBadgeBGImageView: UIImageView!
     @IBOutlet weak var thankYouSubscriptionTitleLabel: UILabel!
     @IBOutlet weak var thankYouSubscriptionTypeLabel: UILabel!
+    @IBOutlet weak var thankYouSubscriptionBadgeLabel: UILabel!
     @IBOutlet weak var thankYouViewSubScription: UIView!
     @IBOutlet weak var subScriptionTypeLabel: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
@@ -90,7 +91,6 @@ class SubscriptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.thankYouSubscriptionTitleLabel.text = "Thank you for your Premium Subscription"
         setupView()
         
         self.viewModel.getPackageList()
@@ -966,29 +966,33 @@ extension SubscriptionsViewController {
                 AppEventBus.post("changeMode")
                 switch self.subscriptionType {
                 case .free:
-                    self.thankYouSubscriptionTypeLabel.text = "Enjoy the free features to create fun and engaging content!\n\nHere is your Free Badge"
-                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Free Subscription"
+                    self.thankYouSubscriptionTypeLabel.text = "Enjoy using the Free features to create fun and engaging content!"
+//                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Free Subscription"
+                    self.thankYouSubscriptionBadgeLabel.text = "You have been awarded the\nFree Subscription Badge!"
                     let firstColor = UIColor.init(hexString: "C3C3C3")
                     self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphoneTrial()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.freeAppleIcon()
                 case .basic:
-                    self.thankYouSubscriptionTypeLabel.text = "Enjoy the Basic features to create fun and engaging content!\n\nHere is your Basic Subscription Badge"
-                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Basic Subscription"
+                    self.thankYouSubscriptionTypeLabel.text = "Enjoy using the Basic features to create fun and engaging content!"
+//                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Basic Subscription"
+                    self.thankYouSubscriptionBadgeLabel.text = "You have been awarded the\nBasic Subscription Badge!"
                     let firstColor = UIColor.init(hexString: "FDE774")
                     self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphoneBasic()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.basicAppleIcon()
                 case .advanced:
-                    self.thankYouSubscriptionTypeLabel.text = "Enjoy the Advance features to create fun and engaging content!\n\nHere is your Advance Subscription Badge"
-                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Advance Subscription"
+                    self.thankYouSubscriptionTypeLabel.text = "Enjoy using the Advanced features to create fun and engaging content!"
+//                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Advance Subscription"
+                    self.thankYouSubscriptionBadgeLabel.text = "You have been awarded the\nAdvanced Subscription Badge!"
                     let firstColor = UIColor.init(hexString: "77C159")
                     self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphoneAdvance()
                     self.thankYouSubscriptionTypeAppleIconImageView.image = R.image.advancedAppleIcon()
                 case .professional:
-                    self.thankYouSubscriptionTypeLabel.text = "Enjoy the Premium features to create fun and engaging content!\n\nHere is your Premium Subscription Badge"
-                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Premium Subscription"
+                    self.thankYouSubscriptionTypeLabel.text = "Enjoy using the Premium features to create fun and engaging content!"
+//                    self.thankYouSubscriptionTitleLabel.text = "Thank you for your Premium Subscription"
+                    self.thankYouSubscriptionBadgeLabel.text = "You have been awarded the\nPremium Subscription Badge!"
                     let firstColor = UIColor.init(hexString: "4D83D4")
                     self.thankYouiPhoneLabel.textColor = firstColor
                     self.thankYouSubscriptionTypeBadgeBGImageView.image = R.image.badgeIphonePre()

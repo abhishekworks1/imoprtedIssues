@@ -267,7 +267,10 @@ class UserSync {
                                               "x-access-token": Defaults.shared.sessionToken ?? ""]
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         request.responseDecodable(of: TipOfDayResponse.self) {(resposnse) in
-            Defaults.shared.tipOfDay = resposnse.value?.data?.content
+            let tips = resposnse.value?.data?.map { item in
+                return item.content ?? ""
+            }
+            Defaults.shared.tipOfDay = tips?.shuffled()
             completion(resposnse.value)
         }
 
@@ -309,7 +312,7 @@ class TipOfDayResponse: Codable {
     
     var message: String?
     var success: Bool?
-    var data: TipOfDay?
+    var data: [TipOfDay]?
     
     private enum CodingKeys: String, CodingKey {
         case message = "message"

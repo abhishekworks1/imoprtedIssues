@@ -1911,10 +1911,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 0 {
                 
                 if shareType == .textShare || shareType == .socialShare {
-                    cell.setText(text: "Compose your own message")
+                    cell.setText(text: "Compose your message")
                     chooseMessageTitleTextLabel.text = "Choose the message to send"
                 } else if shareType == .email {
-                    cell.setText(text: "Compose your own email")
+                    cell.setText(text: "Compose your email")
                     chooseMessageTitleTextLabel.text = "Choose the email to send"
                 }
                 

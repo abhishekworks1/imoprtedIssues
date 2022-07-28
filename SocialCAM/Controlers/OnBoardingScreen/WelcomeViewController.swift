@@ -87,9 +87,9 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
         UserSync.shared.getTipOfDay { tip in
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
         }
         selectFeatureDetailSwitch.setOn(Defaults.shared.shouldDisplayDetailsOfWelcomeScreenFeatures, animated: false)
         selectFeatureChanged(selectFeatureDetailSwitch)
