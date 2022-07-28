@@ -1146,15 +1146,11 @@ extension OnBoardingViewController {
             self.makeMoneyTitleLabel.text = Defaults.shared.quickStartCategories?[0].label
             self.mobileDashboardTitleLabel.text = Defaults.shared.quickStartCategories?[2].label
         }
-        if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, createContent.Items?.count ?? 0 >= 6 {
+        if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, createContent.Items?.count == createContentCategoriesLabels.count {
             for label in createContentCategoriesLabels {
-                if label.tag < createContent.Items?.count ?? 0 {
-                    label.text = createContent.Items?[label.tag].title
-                }
+                label.text = createContent.Items?[label.tag].title
             }
         }
-        lastOptionCreateContent.isHidden = !(Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first?.Items?.count == createContentCategoriesLabels.count)
-        createContentStepIndicatorView.numberOfSteps = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first?.Items?.count ?? 0
         if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "make_money_referring_quickCam" }).first, createContent.Items?.count == makeMoneyCategoriesLabels.count {
             for label in makeMoneyCategoriesLabels {
                 label.text = createContent.Items?[label.tag].title

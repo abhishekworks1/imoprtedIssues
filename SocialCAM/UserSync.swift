@@ -277,7 +277,7 @@ class UserSync {
     }
     
     func getQuickStartCategories(completion: @escaping (_ isCompleted: Bool?) -> Void) {
-        let path = API.shared.baseUrlV2 + "quickstart-guide/category-item"
+        let path = API.shared.baseUrlV2 + "quickstart-guide/category-item?platformType=ios"
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                               "userid": Defaults.shared.currentUser?.id ?? "",
                                               "deviceType": "1",
@@ -287,7 +287,14 @@ class UserSync {
         request.responseDecodable(of: [QuickStartCategory].self) {(resposnse) in
             print(resposnse.value)
             print("Response String: \(String(data: resposnse.data!, encoding:.utf8))")
-            Defaults.shared.quickStartCategories = resposnse.value
+            var sorted: [QuickStartCategory] = []
+            for value in resposnse.value ?? [] {
+                let items = value.Items?.sorted(by: { return $0.sequence_no ?? 0 < $1.sequence_no ?? 0 })
+                let newValue = value
+                newValue.Items = items
+                sorted.append(newValue)
+            }
+            Defaults.shared.quickStartCategories = sorted
             completion(true)
         }
     }
