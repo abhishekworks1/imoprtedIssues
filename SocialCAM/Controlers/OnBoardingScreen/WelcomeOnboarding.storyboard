@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,12 +44,18 @@
                                             <constraint firstAttribute="height" constant="1" id="2uJ-Oy-tDt"/>
                                         </constraints>
                                     </view>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Pc7-Ll-eTJ">
+                                        <rect key="frame" x="381" y="9.6666666666666643" width="37" height="37"/>
+                                        <color key="color" name="AppPrimaryColor"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="2a6-lT-Pis"/>
                                     <constraint firstItem="Ps0-2r-Qz2" firstAttribute="leading" secondItem="yCl-PW-vTI" secondAttribute="leading" constant="18" id="2lG-QW-JdH"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pc7-Ll-eTJ" secondAttribute="trailing" constant="10" id="CCf-UV-rbx"/>
                                     <constraint firstAttribute="bottom" secondItem="xnk-IE-Ah0" secondAttribute="bottom" id="G7t-yn-bsr"/>
+                                    <constraint firstItem="Pc7-Ll-eTJ" firstAttribute="centerY" secondItem="2RC-DU-mGt" secondAttribute="centerY" id="Kpm-iv-kEN"/>
                                     <constraint firstItem="2RC-DU-mGt" firstAttribute="leading" secondItem="Ps0-2r-Qz2" secondAttribute="trailing" constant="5" id="Xgw-hk-A31"/>
                                     <constraint firstItem="xnk-IE-Ah0" firstAttribute="leading" secondItem="yCl-PW-vTI" secondAttribute="leading" id="dOU-kC-cNl"/>
                                     <constraint firstItem="xnk-IE-Ah0" firstAttribute="top" secondItem="Ps0-2r-Qz2" secondAttribute="bottom" constant="16" id="kkm-D2-pre"/>
@@ -1121,6 +1128,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5t2-hA-8DH"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Pc7-Ll-eTJ" id="YwA-0L-GHU"/>
                         <outlet property="badgeImageView" destination="29v-gk-ab5" id="o5c-V6-XUQ"/>
                         <outlet property="containerView" destination="uqb-pj-Y48" id="aqg-8C-AYl"/>
                         <outlet property="dayLabel" destination="ITb-k2-oNp" id="7jW-XU-luX"/>
@@ -1171,7 +1179,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="915.94202898550736" y="81.696428571428569"/>
+            <point key="canvasLocation" x="915.42056074766344" y="81.641468682505405"/>
         </scene>
         <!--Welcome Timer Popup View Controller-->
         <scene sceneID="1b4-je-yuP">
@@ -1659,6 +1667,9 @@
         <image name="welcome_mobiledashboard" width="32" height="32"/>
         <image name="welcome_quickstartguide" width="32" height="32"/>
         <image name="welcome_whatseefirst_makemoney" width="32" height="32"/>
+        <namedColor name="AppPrimaryColor">
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

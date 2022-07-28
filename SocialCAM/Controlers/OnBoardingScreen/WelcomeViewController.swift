@@ -76,6 +76,8 @@ class WelcomeViewController: UIViewController {
             setupUI()
         }
     }
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
