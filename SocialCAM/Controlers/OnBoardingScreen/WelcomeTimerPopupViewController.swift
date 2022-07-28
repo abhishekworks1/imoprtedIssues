@@ -39,24 +39,31 @@ class WelcomeTimerPopupViewController: UIViewController {
     @IBOutlet weak var upgradeNowButton: UIButton!
     
     private var countdownTimer: Timer?
+    weak var tipTimer: Timer?
+    var currentSelectedTip: Int = 0 
+    var tipArray = [String]()
     
     var upgradeButtonAction:(()-> Void)?
     var onboardImageName = "free"
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
-        UserSync.shared.getTipOfDay { tip in
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
-        }
-        setUpUI()
+       setUpUI()
         setOnboardImageName()
-        setTimer()
         setSubscriptionMessageLabel()
         setUpgradeButton()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        setTimer()
+        UserSync.shared.getTipOfDay { tip in
+            self.tipArray = Defaults.shared.tipOfDay ?? [String]()
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+            self.startTipTimer()
+        }
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         countdownTimer?.invalidate()
+        tipTimer?.invalidate()
         
     }
     func setUpUI() {
@@ -72,6 +79,31 @@ class WelcomeTimerPopupViewController: UIViewController {
         semiHalfView.layer.shadowRadius = 0
         semiHalfView.layer.masksToBounds = false
         semiHalfView.layer.cornerRadius = 81.5
+        
+        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+    }
+    func startTipTimer() {
+        if currentSelectedTip < tipArray.count {
+            tipOfTheDayLabel.text = tipArray[currentSelectedTip]
+        }
+        tipTimer =  Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] (_) in
+            guard let `self` = self else {
+                return
+            }
+            self.manageTip()
+        }
+//        tipTimer?.tolerance = 0.1
+    }
+    func manageTip() {
+        let nIndex = currentSelectedTip + 1
+        if nIndex < tipArray.count {
+            currentSelectedTip += 1
+        } else {
+            currentSelectedTip = 0
+        }
+        if currentSelectedTip < tipArray.count {
+            self.tipOfTheDayLabel.text = self.tipArray[self.currentSelectedTip]
+        }
     }
     func setOnboardImageName() {
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
