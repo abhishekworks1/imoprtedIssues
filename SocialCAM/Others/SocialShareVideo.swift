@@ -28,20 +28,25 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         switch referType {
         case .viralCam:
             attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? websiteUrl
+            UIPasteboard.general.string = attachmentUrl
         case .socialCam:
             attachmentUrl = Constant.URLs.socialCamWebsiteURL
+            UIPasteboard.general.string = attachmentUrl
         case .tiktokShare:
             attachmentUrl = Defaults.shared.postViralCamModel?.referLink ?? ""
+            UIPasteboard.general.string = attachmentUrl
         case .pic2art:
             attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+            UIPasteboard.general.string = attachmentUrl
         case .soccercam:
             attachmentUrl = "\(Constant.URLs.soccercamWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+            UIPasteboard.general.string = attachmentUrl
         case .futbolcam:
             attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+            UIPasteboard.general.string = attachmentUrl
         default:
             break
         }
-        UIPasteboard.general.string = attachmentUrl
     }
     
     func sharePhoto(image: UIImage, socialType: SocialShare, referType: ReferType = .none) {
