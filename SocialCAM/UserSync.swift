@@ -286,7 +286,6 @@ class UserSync {
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         request.responseDecodable(of: [QuickStartCategory].self) {(resposnse) in
             print(resposnse.value)
-            print("Response String: \(String(data: resposnse.data!, encoding:.utf8))")
             var sorted: [QuickStartCategory] = []
             for value in resposnse.value ?? [] {
                 let items = value.Items?.sorted(by: { return $0.sequence_no ?? 0 < $1.sequence_no ?? 0 })
