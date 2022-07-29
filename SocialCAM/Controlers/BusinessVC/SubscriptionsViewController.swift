@@ -92,7 +92,6 @@ class SubscriptionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
         self.viewModel.getPackageList()
         setupUI()
         print(subscriptionType)
@@ -178,6 +177,27 @@ class SubscriptionsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         navigationBarView.addBottomShadow()
         bottomView.addShadow(location: .top)
+      
+        switch appMode {
+        case .professional:
+            let firstColor = UIColor.init(hexString: "4D83D4")
+            let secondColor = UIColor.init(hexString: "92C5F4")
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
+        case .advanced:
+            let firstColor = UIColor.init(hexString: "77C159")
+            let secondColor = UIColor.init(hexString: "BADDAB")
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
+        case .basic:
+            let firstColor = UIColor.init(hexString: "FDE774")
+            let secondColor = UIColor.init(hexString: "FDDC66")
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
+        case .free:
+            let firstColor = UIColor.init(hexString: "C3C3C3")
+            let secondColor = UIColor.init(hexString: "D7D7D7")
+            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
+        default:
+            break
+        }
     }
     
     func tapGestureSetUp() {
@@ -204,8 +224,6 @@ class SubscriptionsViewController: UIViewController {
             subScriptionBadgeImageView.image = R.image.badgeIphonePre()
             appleIconImageView.image = R.image.preAppleIcon()
             let firstColor = UIColor.init(hexString: "4D83D4")
-            let secondColor = UIColor.init(hexString: "92C5F4")
-            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             upGradeButtonView.backgroundColor = firstColor
             yourPlanActiveLabel.textColor = firstColor
             planActiveView.isHidden = true
@@ -227,12 +245,10 @@ class SubscriptionsViewController: UIViewController {
             appleIconImageView.image = R.image.advancedAppleIcon()
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "77C159")
             let firstColor = UIColor.init(hexString: "77C159")
-            let secondColor = UIColor.init(hexString: "BADDAB")
             upGradeButtonView.backgroundColor = firstColor
             yourPlanActiveLabel.textColor = firstColor
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
-            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             quickCamModeSubTitles.text = "-  Record in 2x, 3x and 4x fast motion\n-  Record in -2x, -3x and -4x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 2 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 2 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
@@ -243,15 +259,12 @@ class SubscriptionsViewController: UIViewController {
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "EAB140")
             subScriptionBadgeImageView.image = R.image.badgeIphoneBasic()
             appleIconImageView.image = R.image.basicAppleIcon()
-            
             let firstColor = UIColor.init(hexString: "FDE774")
-            let secondColor = UIColor.init(hexString: "FDDC66")
             //DCAF54
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
             upGradeButtonView.backgroundColor = firstColor
             yourPlanActiveLabel.textColor =  UIColor.init(hexString: "DCAF54")
-            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             pic2ArtTitleLabel.isHidden = true
             pic2ArtSubTitleLabel.isHidden = true
             days7TrialTitleLabel.isHidden = true
@@ -270,12 +283,10 @@ class SubscriptionsViewController: UIViewController {
             subScriptionBadgeImageView.image = R.image.badgeIphoneTrial()
             appleIconImageView.image = R.image.freeAppleIcon()
             let firstColor = UIColor.init(hexString: "C3C3C3")
-            let secondColor = UIColor.init(hexString: "D7D7D7")
             upGradeButtonView.backgroundColor = firstColor
             yourPlanActiveLabel.textColor = firstColor
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
-            monthlyPriceView.applyGradient(isVertical: false, colorArray: [firstColor, secondColor])
             days7TrialSubTitleLabel.text = "-  Access to all Premium Features\n-  No credit card required"
             
             quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 30 seconds"
