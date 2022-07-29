@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import WebKit
 
 class QuickStartOptionDetailViewController: UIViewController {
 
@@ -19,6 +20,7 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBOutlet weak var subscribeNowButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var headerTitleLabel: UILabel!
+    @IBOutlet weak var webview: WKWebView!
 
 //    var selectedOption: QuickStartOptionable = QuickStartOption.CreateContentOption.quickCamCamera
 //    var selectedQuickStartMenu: QuickStartOption = .createContent
@@ -35,6 +37,8 @@ class QuickStartOptionDetailViewController: UIViewController {
         } else {
             descriptionLabel.text = selectedQuickStartItem?.content ?? ""
         }
+        let headerString = "<head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head>"
+        webview.loadHTMLString(headerString + (selectedQuickStartItem?.content ?? ""), baseURL: nil)
 //        backButtonHeaderView.isHidden = selectedOption.isFirstStep
 //        quickCamHeaderView.isHidden = !selectedOption.isFirstStep
         headerTitleLabel.text = selectedQuickStartCategory?.label ?? ""
