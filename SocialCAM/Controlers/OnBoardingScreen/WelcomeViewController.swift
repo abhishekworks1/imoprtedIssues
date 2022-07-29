@@ -333,11 +333,11 @@ extension WelcomeViewController {
     func setUpgradeButton() {
         upgradeNowButton.isHidden = true
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
-            if paidSubscriptionStatus.lowercased() == "basic" || paidSubscriptionStatus.lowercased() == "advance" || paidSubscriptionStatus.lowercased() == "pro" {
+            if paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.BASIC.rawValue || paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.ADVANCE.rawValue || paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.PREMIUM.rawValue || paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.PRO.rawValue {
                 upgradeNowButton.isHidden = true
             }
         } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
-            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+            if subscriptionStatus == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue || subscriptionStatus == SubscriptionTypeForBadge.EXPIRE.rawValue {
                 upgradeNowButton.isHidden = false
             } else {
                 upgradeNowButton.isHidden = true
@@ -380,7 +380,13 @@ extension WelcomeViewController {
     }
     
     func showLoader() {
-        self.activityIndicator.startAnimating()
+        guard isFirstTime else {
+            self.activityIndicator.startAnimating()
+            upgradeNowButton.isHidden = false
+            return
+        }
+        upgradeNowButton.isHidden = true
+        isFirstTime = false
 //        guard isFirstTime else {
 //            return
 //        }
