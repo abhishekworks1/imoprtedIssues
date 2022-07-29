@@ -436,6 +436,7 @@ extension StoryCameraViewController {
             }
         } else {
             if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC() {
+                storySettingsVC.displayCameraIcon = false
                 navigationController?.pushViewController(storySettingsVC, animated: true)
             }
         }

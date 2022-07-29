@@ -57,12 +57,15 @@ class StorySettingsOptionsVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var skipYTLoginTooltipView: UIView!
-   
+    @IBOutlet weak var cameraView: UIView!
+
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
+    var displayCameraIcon = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        cameraView.isHidden = !displayCameraIcon
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -94,6 +97,7 @@ class StorySettingsOptionsVC: UIViewController {
     
     @IBAction func didTapCameraButton(_ sender: UIButton) {
         if let cameraScreen = R.storyboard.storyCameraViewController.storyCameraViewController() {
+            cameraScreen.isFromCameraParentView = true
             self.navigationController?.pushViewController(cameraScreen, animated: true)
         }
     }
