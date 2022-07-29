@@ -1852,7 +1852,7 @@
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
                                                                                                     </subviews>
-                                                                                                    <color key="backgroundColor" red="0.81960784313725488" green="0.88627450980392153" blue="0.99607843137254903" alpha="0.77000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                                    <color key="backgroundColor" red="0.35294117647058826" green="0.63921568627450975" blue="0.90980392156862744" alpha="0.77000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstItem="AcD-rA-L77" firstAttribute="top" secondItem="iLl-o2-776" secondAttribute="top" constant="10" id="4cY-Mh-Zfc"/>
                                                                                                         <constraint firstAttribute="trailing" secondItem="AcD-rA-L77" secondAttribute="trailing" constant="5" id="ksW-yO-IPh"/>
@@ -1880,29 +1880,29 @@
                                                                                             <rect key="frame" x="0.0" y="148" width="355" height="357"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Body" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeX-Ad-mhL">
-                                                                                                    <rect key="frame" x="10" y="10" width="95" height="21.5"/>
+                                                                                                    <rect key="frame" x="10" y="10" width="95" height="106.5"/>
                                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                                                     <nil key="textColor"/>
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-vs-FDP">
-                                                                                                    <rect key="frame" x="5" y="41.5" width="345" height="305.5"/>
+                                                                                                    <rect key="frame" x="5" y="126.5" width="345" height="220.5"/>
                                                                                                     <subviews>
                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMM-4K-lYH">
-                                                                                                            <rect key="frame" x="5" y="10" width="335" height="105.5"/>
+                                                                                                            <rect key="frame" x="5" y="10" width="335" height="20.5"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                                             <nil key="textColor"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
                                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickcamWatermarkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
-                                                                                                            <rect key="frame" x="10" y="125.5" width="160" height="170"/>
+                                                                                                            <rect key="frame" x="10" y="40.5" width="160" height="170"/>
                                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="height" constant="170" id="H2m-0R-0h5"/>
                                                                                                             </constraints>
                                                                                                         </imageView>
                                                                                                     </subviews>
-                                                                                                    <color key="backgroundColor" red="0.81960784313725488" green="0.88627450980392153" blue="0.99607843137254903" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                                    <color key="backgroundColor" red="0.35294117647058826" green="0.63921568627450975" blue="0.90980392156862744" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstItem="BMM-4K-lYH" firstAttribute="top" secondItem="BrD-vs-FDP" secondAttribute="top" constant="10" id="JrY-Gp-y0l"/>
                                                                                                         <constraint firstItem="lEB-VG-O9L" firstAttribute="top" secondItem="BMM-4K-lYH" secondAttribute="bottom" constant="10" id="LI9-DJ-d8z"/>
@@ -2297,7 +2297,7 @@
                                                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fwr-fk-gI3" userLabel="Text Message">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="160" height="35"/>
                                                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                                                                <state key="normal" title="Phone">
+                                                                                                <state key="normal" title="Text">
                                                                                                     <color key="titleColor" name="AppPrimaryColor"/>
                                                                                                 </state>
                                                                                                 <connections>
@@ -2972,7 +2972,7 @@
                                                                             <constraint firstAttribute="height" constant="90" id="lF5-YX-wFo"/>
                                                                         </constraints>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                        <state key="normal" image="NoContacts"/>
+                                                                        <state key="normal" image="sync"/>
                                                                         <connections>
                                                                             <action selector="syncButtonClickedWithSender:" destination="zZw-wm-uWi" eventType="touchUpInside" id="Rp9-0n-GDE"/>
                                                                         </connections>
@@ -4406,6 +4406,7 @@
                         <outlet property="imageQrCode" destination="F7c-bD-knR" id="cy3-mJ-2ti"/>
                         <outlet property="imgProfileBadge" destination="TlO-1u-JwI" id="cl3-yg-QKs"/>
                         <outlet property="imgProfilePic" destination="Xhi-DO-9vS" id="QKr-lb-Srt"/>
+                        <outlet property="inviteAgainLabel" destination="4ek-so-tRU" id="0aG-Qc-naA"/>
                         <outlet property="inviteAgainpopup" destination="Bxs-kp-e47" id="2XR-0G-X9U"/>
                         <outlet property="inviteButton" destination="oDX-5x-Ad7" id="bRi-vr-TuN"/>
                         <outlet property="invitedButton" destination="Sgl-6E-Evx" id="Far-cd-HLd"/>
@@ -4753,7 +4754,6 @@
     </scenes>
     <resources>
         <image name="ManualEmail" width="500" height="500"/>
-        <image name="NoContacts" width="46" height="46"/>
         <image name="PotentialIncomeCalculator" width="512" height="512"/>
         <image name="QRCodeShare" width="500" height="458"/>
         <image name="QuickStart" width="512" height="512"/>

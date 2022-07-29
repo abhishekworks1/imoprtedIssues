@@ -76,6 +76,8 @@ class WelcomeViewController: UIViewController {
             setupUI()
         }
     }
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
@@ -85,14 +87,15 @@ class WelcomeViewController: UIViewController {
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
     var isFirstTime = true
     
+    weak var tipTimer: Timer?
+    var currentSelectedTip: Int = 0
+    var tipArray = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
-        UserSync.shared.getTipOfDay { tip in
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
-        }
         selectFeatureDetailSwitch.setOn(Defaults.shared.shouldDisplayDetailsOfWelcomeScreenFeatures, animated: false)
         selectFeatureChanged(selectFeatureDetailSwitch)
+        self.activityIndicator.hidesWhenStopped = true
 //        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
     }
     
@@ -153,6 +156,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         countdownTimer?.invalidate()
+        tipTimer?.invalidate()
     }
     
     @objc func hideWhatToSee() {
@@ -274,6 +278,12 @@ extension WelcomeViewController {
       //  self.setSubscriptionBadgeDetails()
         self.getDays()
         self.showLoader()
+        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+        UserSync.shared.getTipOfDay { tip in
+            self.tipArray = Defaults.shared.tipOfDay ?? [String]()
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+            self.startTipTimer()
+        }
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
@@ -302,7 +312,7 @@ extension WelcomeViewController {
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
             //    self.setSubscriptionBadgeDetails()
             self.checkIfWelcomeTimerAlertShownToday()
-            // self.showWelcomeTimerAlert()
+//             self.showWelcomeTimerAlert()
             self.getDays()
             self.hideLoader()
             self.setUpgradeButton()
@@ -370,27 +380,51 @@ extension WelcomeViewController {
     }
     
     func showLoader() {
-        guard isFirstTime else {
-            return
-        }
-        isFirstTime = false
-        self.loadingView = LoadingView.instanceFromNib()
-        self.loadingView?.processingYourQuickieLabel.text = ""
-        self.loadingView?.shouldCancelShow = true
-        self.loadingView?.loadingViewShow = true
-        self.loadingView?.hideAdView(true)
-        self.loadingView?.show(on: self.view)
+        self.activityIndicator.startAnimating()
+//        guard isFirstTime else {
+//            return
+//        }
+//        isFirstTime = false
+//        self.loadingView = LoadingView.instanceFromNib()
+//        self.loadingView?.processingYourQuickieLabel.text = ""
+//        self.loadingView?.shouldCancelShow = true
+//        self.loadingView?.loadingViewShow = true
+//        self.loadingView?.hideAdView(true)
+//        self.loadingView?.show(on: self.view)
     }
     
     func hideLoader() {
-        DispatchQueue.main.async {
-            self.loadingView?.hide()
-        }
+        self.activityIndicator.stopAnimating()
+//        DispatchQueue.main.async {
+//            self.loadingView?.hide()
+//        }
     }
 }
 
 extension WelcomeViewController {
-    
+    func startTipTimer() {
+        if currentSelectedTip < tipArray.count {
+            tipOfTheDayLabel.text = tipArray[currentSelectedTip]
+        }
+        tipTimer =  Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] (_) in
+            guard let `self` = self else {
+                return
+            }
+            self.manageTip()
+        }
+//        tipTimer?.tolerance = 0.1
+    }
+    func manageTip() {
+        let nIndex = currentSelectedTip + 1
+        if nIndex < tipArray.count {
+            currentSelectedTip += 1
+        } else {
+            currentSelectedTip = 0
+        }
+        if currentSelectedTip < tipArray.count {
+            self.tipOfTheDayLabel.text = self.tipArray[self.currentSelectedTip]
+        }
+    }
     func showTimer(createdDate: Date) {
         countdownTimer?.invalidate()
         timerStackView.isHidden = false
@@ -485,7 +519,7 @@ extension WelcomeViewController {
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else if subscriptionType == "expired" {
-                        subscriptionDetailLabel.text = "Your subscription has  ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+                        subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
                         
@@ -1067,7 +1101,7 @@ extension WelcomeViewController {
             }
         }
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            return "Your 7-Day Premium Free Trial has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since signing up:"
+            return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge! \nTime since signing up:"
         }
         else if subscriptionType == "expired" {
             return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since your subscription expired:"

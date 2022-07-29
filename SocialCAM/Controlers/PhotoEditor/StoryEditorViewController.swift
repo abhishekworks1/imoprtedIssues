@@ -3053,6 +3053,7 @@ extension StoryEditorViewController {
         
         let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
 
+        activityController.excludedActivityTypes = [.copyToPasteboard]
         activityController.popoverPresentationController?.sourceView = self.view
         activityController.popoverPresentationController?.sourceRect = self.view.frame
 

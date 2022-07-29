@@ -152,7 +152,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var stepViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var inviteAgainpopup: UIView!
-    
+    @IBOutlet weak var inviteAgainLabel: UILabel!
     @IBOutlet weak var contactSentConfirmPopup: UIView!
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     var isIncludeQrImg = Defaults.shared.includeQRImgForShare
@@ -2772,6 +2772,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.selectedContactManage = mobilecontact
             if reInvite{
                 self.inviteAgainpopup.isHidden = false
+                self.inviteAgainLabel.text = "Invite \(mobilecontact.name ?? "") again?"
                 return
             }
             
@@ -2898,6 +2899,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             if reInvite{
                 self.inviteAgainpopup.isHidden = false
+                self.inviteAgainLabel.text = "Invite \(mobilecontact.name ?? "") again?"
                 return
             }
         
