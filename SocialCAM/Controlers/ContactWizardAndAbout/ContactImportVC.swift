@@ -101,7 +101,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var filterScrollview: UIScrollView?
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var lblCurrentFilter: UILabel!
+    
+    @IBOutlet weak var rightFilterArrowButton: UIButton!
+    @IBOutlet weak var leftFilterArrowButton: UIButton!
     var selectedTitleRow: IndexPath?
+    var deleteContactIndexPath: IndexPath?
 //    Int = -1
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
 
@@ -383,13 +387,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         selectedContactType = ContactType.mobile
         self.emailContactTableView.isHidden = true
         
+        if selectedFilter == ContactStatus.all {
+            leftFilterArrowButton.tintColor = .lightGray
+            rightFilterArrowButton.tintColor = .black
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
-      
+      super.viewDidAppear(animated)
         if pageNo == 4{
             self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
         }
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -903,7 +910,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             self.nocontactView.isHidden = false
-                            self.lblnocontact.text = "No contacts found with that filter criteria."
+                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
                         }
                     }else{
                         self.contactPermitView.isHidden = true
@@ -924,14 +931,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.emailContacts.append(contentsOf:contacts)
                     if self.emailContacts.count == 0{
                       //  self.lblCurrentFilter.text = ""
-                        self.nocontactView.isHidden = false
-                        
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
-                            self.lblnocontact.text = "Invite Your Friends"
+                            self.contactPermitView.isHidden = false
+                            self.lblnocontact.text = "Import Contacts"
                         }else{
-                            self.lblnocontact.text = "No contacts found with that filter criteria."
+                            self.nocontactView.isHidden = false
+                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
                         }
                     }else{
+                        self.contactPermitView.isHidden = true
                         self.nocontactView.isHidden = true
                     }
                     self.lblNumberofContacts.text = "Contacts(\(self.emailContacts.count))"
@@ -1100,7 +1108,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     // /api/contact-list/623d521766010bedccb2bfe7
-    func deleteContact(contact:ContactResponse,isEmail:Bool = false,index:Int){
+    func deleteContact(contact:ContactResponse,isEmail:Bool = false,index:IndexPath){
         let path = API.shared.baseUrlV2 + "contact-list/\(contact.Id ?? "")"
         print(path)
         var request = URLRequest(url:URL(string:path)!)
@@ -1117,11 +1125,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             switch (response.result) {
             case .success:
                 if isEmail{
-                    self.emailContacts.remove(at:index)
-                    self.emailContactTableView.reloadData()
+                    self.emailContacts.remove(at:index.row + 1)
+                    self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
+//                    self.emailContactTableView.reloadData()
                 }else{
-                    self.mobileContacts.remove(at:index)
-                    self.contactTableView.reloadData()
+                    self.mobileContacts.remove(at:index.row + 1)
+                    self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
+//                    self.contactTableView.reloadData()
                 }
                 self.hideLoader()
                 break
@@ -1339,6 +1349,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "All"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
+            leftFilterArrowButton.tintColor = .lightGray
+            rightFilterArrowButton.tintColor = .black
             break
         case 2:
             self.selectedFilter = ContactStatus.recent
@@ -1396,6 +1408,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "Hidden"
           //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.hidden,hide:true)
+            rightFilterArrowButton.tintColor = .lightGray
+            leftFilterArrowButton.tintColor = .black
             break
         default:
             mobileContacts = allmobileContacts
@@ -1413,6 +1427,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 70.0) - 70.0
             }else{
                 contentOffsetX = 0.0
+                leftFilterArrowButton.tintColor = .lightGray
+                rightFilterArrowButton.tintColor = .black
             }
             filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
             
@@ -1424,6 +1440,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
           
             if (filterScrollview?.contentOffset.x ?? 0) > (CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)) - 70{
                 contentOffsetX =  CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)
+                rightFilterArrowButton.tintColor = .lightGray
+                leftFilterArrowButton.tintColor = .black
             }else{
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 0.0) + 70.0
             }
@@ -2279,18 +2297,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             let contact = emailContacts[indexPath.row]
                            // let contact = self.emailContacts[indexPath.row]
                             print(contact.email ?? "")
-                            self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
+                            self.deleteContact(contact: contact, isEmail: true, index: indexPath)
                             
                         }else if tableView == self.contactTableView{
                             let mobileContacts = self.contactSections[indexPath.section].contacts
                             let contact = mobileContacts[indexPath.row]
                            // let contact = self.mobileContacts[indexPath.row]
                             print(contact.mobile ?? "")
-                            self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
+                            self.deleteContact(contact: contact, isEmail: false, index: indexPath)
                         }
                     }else{
                         self.deleteContactConfirmationView.tag = indexPath.row
+                        self.deleteContactIndexPath = indexPath
+                        print(self.deleteContactIndexPath)
                         self.deleteContactConfirmationView.isHidden = false
+                        
                     }
                 },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
                     if tableView == self.emailContactTableView{
@@ -3000,13 +3021,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func deleteContactYesClick(_ sender: UIButton) {
         deleteContactConfirmationView.isHidden = true
         if selectedContactType == ContactType.mobile{
-            let contact = self.mobileContacts[deleteContactConfirmationView.tag]
+            let contact = self.mobileContacts[(deleteContactIndexPath?.row ?? 0) + 1]
+            print(contact.name ?? "")
             print(contact.mobile ?? "")
-            self.deleteContact(contact: contact, isEmail: false, index: deleteContactConfirmationView.tag)
+            self.deleteContact(contact: contact, isEmail: false, index: deleteContactIndexPath!)
         }else{
-            let contact = self.emailContacts[deleteContactConfirmationView.tag]
+            let contact = self.emailContacts[(deleteContactIndexPath?.row ?? 0) + 1]
             print(contact.mobile ?? "")
-            self.deleteContact(contact: contact, isEmail: true, index: deleteContactConfirmationView.tag)
+            self.deleteContact(contact: contact, isEmail: true, index: deleteContactIndexPath!)
         }
     }
     @IBAction func deleteContactNoClick(_ sender: UIButton) {

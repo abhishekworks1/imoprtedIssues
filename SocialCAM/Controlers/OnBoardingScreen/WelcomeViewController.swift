@@ -43,6 +43,8 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var profileWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak var profileHeightConstraints: NSLayoutConstraint!
+    
+    @IBOutlet weak var tipOfDayActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var whatDoYouWantSeeView: UIView!
     @IBOutlet weak var whatDoYouWantSeeViewBoxButton: UIButton! {
         didSet {
@@ -278,10 +280,12 @@ extension WelcomeViewController {
       //  self.setSubscriptionBadgeDetails()
         self.getDays()
         self.showLoader()
-        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
-        UserSync.shared.getTipOfDay { tip in
+//        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+        checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
+        UserSync.shared.getTipOfDay { [self] tip in
             self.tipArray = Defaults.shared.tipOfDay ?? [String]()
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+//            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+            checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
             self.startTipTimer()
         }
         UserSync.shared.syncUserModel { isCompleted in
@@ -319,6 +323,17 @@ extension WelcomeViewController {
         }
     }
     
+    func checkTipOfDayText(tipOfDay: String) {
+        if tipOfDay == "" || tipOfDay == nil  {
+            tipOfDayActivityIndicator.isHidden = false
+            tipOfDayActivityIndicator.startAnimating()
+        } else {
+            tipOfDayActivityIndicator.stopAnimating()
+            tipOfDayActivityIndicator.isHidden = true
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+        }
+    }
+    
     func checkIfWelcomeTimerAlertShownToday() {
         if let lastAlertDate = UserDefaults.standard.object(forKey: lastWelcomeTimerAlertDateKey) as? Date {
             if Calendar.current.isDateInToday(lastAlertDate) {
@@ -333,11 +348,11 @@ extension WelcomeViewController {
     func setUpgradeButton() {
         upgradeNowButton.isHidden = true
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
-            if paidSubscriptionStatus.lowercased() == "basic" || paidSubscriptionStatus.lowercased() == "advance" || paidSubscriptionStatus.lowercased() == "pro" {
+            if paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.BASIC.rawValue || paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.ADVANCE.rawValue || paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.PREMIUM.rawValue || paidSubscriptionStatus.lowercased() == SubscriptionTypeForBadge.PRO.rawValue {
                 upgradeNowButton.isHidden = true
             }
         } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
-            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+            if subscriptionStatus == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue || subscriptionStatus == SubscriptionTypeForBadge.EXPIRE.rawValue {
                 upgradeNowButton.isHidden = false
             } else {
                 upgradeNowButton.isHidden = true
@@ -380,7 +395,13 @@ extension WelcomeViewController {
     }
     
     func showLoader() {
-        self.activityIndicator.startAnimating()
+        guard isFirstTime else {
+            self.activityIndicator.startAnimating()
+            upgradeNowButton.isHidden = false
+            return
+        }
+        upgradeNowButton.isHidden = true
+        isFirstTime = false
 //        guard isFirstTime else {
 //            return
 //        }
@@ -404,7 +425,8 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     func startTipTimer() {
         if currentSelectedTip < tipArray.count {
-            tipOfTheDayLabel.text = tipArray[currentSelectedTip]
+//            tipOfTheDayLabel.text = tipArray[currentSelectedTip]
+            checkTipOfDayText(tipOfDay: tipArray[currentSelectedTip])
         }
         tipTimer =  Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] (_) in
             guard let `self` = self else {
@@ -422,7 +444,8 @@ extension WelcomeViewController {
             currentSelectedTip = 0
         }
         if currentSelectedTip < tipArray.count {
-            self.tipOfTheDayLabel.text = self.tipArray[self.currentSelectedTip]
+//            self.tipOfTheDayLabel.text = self.tipArray[self.currentSelectedTip]
+            checkTipOfDayText(tipOfDay: self.tipArray[self.currentSelectedTip])
         }
     }
     func showTimer(createdDate: Date) {

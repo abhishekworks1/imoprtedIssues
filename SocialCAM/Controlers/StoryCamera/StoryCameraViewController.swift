@@ -97,6 +97,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var signleDiscardCheckBoxClickImageView: UIImageView!
     @IBOutlet weak var discardTextMessageLabel: UILabel!
     
+    @IBOutlet weak var subscrptionMessageLabel: UILabel!
+    @IBOutlet weak var subScribeNowTitleLabel: UILabel!
     @IBOutlet weak var subscriptionPopUpView: UIView!
     
     @IBOutlet weak var timerPicker: PickerView! {
@@ -1632,12 +1634,16 @@ extension StoryCameraViewController {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
                             if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
+                                self.subScribeNowTitleLabel.text = "Upgrade Now"
+                                self.subscrptionMessageLabel.text = "You must be a Basic, Advanced or Premium subscriber to use Pic2Art. Upgrade now?"
                                 self.showAlertForUpgradeSubscription()
                             }
                         } else {
                             self.showAlertForUpgradeSubscription()
                         }
                     } else if isQuickApp && Defaults.shared.appMode == .basic {
+                        self.subScribeNowTitleLabel.text = "Upgrade Now"
+                        self.subscrptionMessageLabel.text = "You must be an Advanced or Premium subscriber to use Pic2Art. Upgrade now?"
                         self.showAlertForUpgradeSubscription()
                     }else {
                         if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
@@ -1674,6 +1680,8 @@ extension StoryCameraViewController {
                     if isQuickApp && Defaults.shared.appMode == .free {
                         if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
                             if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
+                                self.subscrptionMessageLabel.text = "You must be a Basic, Advanced or Premium subscriber to use QuickCam camera mode. Upgrade now?"
+                                self.subScribeNowTitleLabel.text = "Upgrade Now"
                                 self.showAlertForUpgradeSubscription()
                             }} else {
                                 self.showAlertForUpgradeSubscription()
