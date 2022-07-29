@@ -931,14 +931,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.emailContacts.append(contentsOf:contacts)
                     if self.emailContacts.count == 0{
                       //  self.lblCurrentFilter.text = ""
-                        self.nocontactView.isHidden = false
-                        
                         if self.hasContactPermission() == false && self.selectedFilter == ContactStatus.all{
-                            self.lblnocontact.text = "Invite Your Friends"
+                            self.contactPermitView.isHidden = false
+                            self.lblnocontact.text = "Import Contacts"
                         }else{
+                            self.nocontactView.isHidden = false
                             self.lblnocontact.text = "No contacts found with '\(searchText)' status"
                         }
                     }else{
+                        self.contactPermitView.isHidden = true
                         self.nocontactView.isHidden = true
                     }
                     self.lblNumberofContacts.text = "Contacts(\(self.emailContacts.count))"
