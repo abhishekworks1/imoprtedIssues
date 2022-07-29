@@ -10,6 +10,7 @@ import UIKit
 
 class WelcomeTimerPopupViewController: UIViewController {
 
+    @IBOutlet weak var tipOfDayActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var topMessageView: UIView!
     @IBOutlet weak var topMessageLabel: UILabel!
     @IBOutlet weak var topMessageHeight: NSLayoutConstraint!
@@ -56,7 +57,8 @@ class WelcomeTimerPopupViewController: UIViewController {
         setTimer()
         UserSync.shared.getTipOfDay { tip in
             self.tipArray = Defaults.shared.tipOfDay ?? [String]()
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+//            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+            self.checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
             self.startTipTimer()
         }
     }
@@ -80,11 +82,13 @@ class WelcomeTimerPopupViewController: UIViewController {
         semiHalfView.layer.masksToBounds = false
         semiHalfView.layer.cornerRadius = 81.5
         
-        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+//        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+        checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
     }
     func startTipTimer() {
         if currentSelectedTip < tipArray.count {
-            tipOfTheDayLabel.text = tipArray[currentSelectedTip]
+//            tipOfTheDayLabel.text = tipArray[currentSelectedTip]
+            checkTipOfDayText(tipOfDay: tipArray[currentSelectedTip])
         }
         tipTimer =  Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] (_) in
             guard let `self` = self else {
@@ -94,6 +98,18 @@ class WelcomeTimerPopupViewController: UIViewController {
         }
 //        tipTimer?.tolerance = 0.1
     }
+    
+    func checkTipOfDayText(tipOfDay: String) {
+        if tipOfDay == "" || tipOfDay == nil  {
+            tipOfDayActivityIndicator.isHidden = false
+            tipOfDayActivityIndicator.startAnimating()
+        } else {
+            tipOfDayActivityIndicator.stopAnimating()
+            tipOfDayActivityIndicator.isHidden = true
+            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+        }
+    }
+    
     func manageTip() {
         let nIndex = currentSelectedTip + 1
         if nIndex < tipArray.count {
@@ -102,7 +118,8 @@ class WelcomeTimerPopupViewController: UIViewController {
             currentSelectedTip = 0
         }
         if currentSelectedTip < tipArray.count {
-            self.tipOfTheDayLabel.text = self.tipArray[self.currentSelectedTip]
+//            self.tipOfTheDayLabel.text = self.tipArray[self.currentSelectedTip]
+            checkTipOfDayText(tipOfDay: self.tipArray[self.currentSelectedTip])
         }
     }
     func setOnboardImageName() {
