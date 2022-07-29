@@ -101,6 +101,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var filterScrollview: UIScrollView?
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var lblCurrentFilter: UILabel!
+    
+    @IBOutlet weak var rightFilterArrowButton: UIButton!
+    @IBOutlet weak var leftFilterArrowButton: UIButton!
     var selectedTitleRow: IndexPath?
 //    Int = -1
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
@@ -383,6 +386,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         selectedContactType = ContactType.mobile
         self.emailContactTableView.isHidden = true
         
+        if selectedFilter == ContactStatus.all {
+            leftFilterArrowButton.tintColor = .lightGray
+            rightFilterArrowButton.tintColor = .black
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
       
@@ -1339,6 +1346,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "All"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
+            leftFilterArrowButton.tintColor = .lightGray
+            rightFilterArrowButton.tintColor = .black
             break
         case 2:
             self.selectedFilter = ContactStatus.recent
@@ -1396,6 +1405,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "Hidden"
           //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.hidden,hide:true)
+            rightFilterArrowButton.tintColor = .lightGray
+            leftFilterArrowButton.tintColor = .black
             break
         default:
             mobileContacts = allmobileContacts
@@ -1413,6 +1424,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 70.0) - 70.0
             }else{
                 contentOffsetX = 0.0
+                leftFilterArrowButton.tintColor = .lightGray
+                rightFilterArrowButton.tintColor = .black
             }
             filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
             
@@ -1424,6 +1437,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
           
             if (filterScrollview?.contentOffset.x ?? 0) > (CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)) - 70{
                 contentOffsetX =  CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)
+                rightFilterArrowButton.tintColor = .lightGray
+                leftFilterArrowButton.tintColor = .black
             }else{
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 0.0) + 70.0
             }
