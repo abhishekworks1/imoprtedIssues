@@ -208,6 +208,15 @@ class SubscriptionsViewController: UIViewController {
     
    @objc func didTapThankYouView(sender: UITapGestureRecognizer)  {
         self.thankYouViewSubScription.isHidden = true
+       if isFromWelcomeScreen {
+           guard let onBoardView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
+           let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
+           welcomeNavigationVC?.viewControllers.append((R.storyboard.welcomeOnboarding.welcomeViewController()?.viewControllers.first)!)
+           Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
+       } else {
+           navigationController?.popToViewController(ofClass: StoryCameraViewController.self)
+          // self.navigationController?.popToRootViewController(animated: true)
+       }
     }
     
     func setupView() {

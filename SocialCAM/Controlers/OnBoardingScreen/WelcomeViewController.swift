@@ -279,6 +279,7 @@ extension WelcomeViewController {
         self.checkTrailPeriodExpire()
       //  self.setSubscriptionBadgeDetails()
         self.getDays()
+        self.setUpgradeButton()
         self.showLoader()
 //        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
         checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
