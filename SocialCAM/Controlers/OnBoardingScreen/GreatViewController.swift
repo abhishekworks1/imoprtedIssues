@@ -118,7 +118,7 @@ extension GreatViewController {
 
         self.quickStartGuideLabel.text = "You've completed QuickStart Guide - \(self.categoryString ?? "").\nSubscribe now before your 7-Day Premium Free Trial ends."
         
-        self.lblQuickStartGuideTitle.text = "You've completed the QuickStart Guide - \(self.categoryString ?? "") of the QuickStart Guide."
+        self.lblQuickStartGuideTitle.text = "You’ve completed the \(self.categoryString ?? "") section of QuickStart Guide."
         
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
             self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
