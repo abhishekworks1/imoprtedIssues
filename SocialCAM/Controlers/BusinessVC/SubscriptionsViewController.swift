@@ -207,7 +207,10 @@ class SubscriptionsViewController: UIViewController {
     }
     
    @objc func didTapThankYouView(sender: UITapGestureRecognizer)  {
-        self.thankYouViewSubScription.isHidden = true
+       self.thankYouViewSubScription.isHidden = true
+       planActiveView.isHidden = false
+       upGradeButtonView.isHidden = true
+
        if isFromWelcomeScreen {
            guard let onBoardView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
            let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
