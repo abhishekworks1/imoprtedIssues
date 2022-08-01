@@ -296,7 +296,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.emailContactTableView.rowHeight = UITableView.automaticDimension
         
         searchBar.delegate = self
-        
+        filterScrollview?.delegate = self
           
         if let channelId = Defaults.shared.currentUser?.channelId {
             //self.txtLinkWithCheckOut = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
@@ -910,7 +910,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             self.nocontactView.isHidden = false
-                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
+                            if searchText.count > 0 {
+                                self.nocontactView.isHidden = false
+                                self.lblnocontact.text = "No contacts found with that filter criteria."
+                            } else {
+                                self.nocontactView.isHidden = false
+                                self.lblnocontact.text = "No contacts found with '\(filter.capitalized)' status."
+                            }
                         }
                     }else{
                         self.contactPermitView.isHidden = true
@@ -935,8 +941,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.contactPermitView.isHidden = false
                             self.lblnocontact.text = "Import Contacts"
                         }else{
-                            self.nocontactView.isHidden = false
-                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
+                            if searchText.count > 0 {
+                                self.nocontactView.isHidden = false
+                                self.lblnocontact.text = "No contacts found with that filter criteria."
+                            } else {
+                                self.nocontactView.isHidden = false
+                                self.lblnocontact.text = "No contacts found with '\(filter)' status"
+                            }
                         }
                     }else{
                         self.contactPermitView.isHidden = true

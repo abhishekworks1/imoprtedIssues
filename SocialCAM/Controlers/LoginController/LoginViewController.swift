@@ -182,14 +182,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.lblLoginTooltip.text = R.string.localizable.loginTooltip(Constant.Application.displayName)
         self.doNotShowAgainView.isHidden = false
         isLoginButtonPressed = true
-        if Defaults.shared.isLoginTooltipHide == false {
+        /*if Defaults.shared.isLoginTooltipHide == false {
             self.hideShowTooltipView(shouldShow: true)
-        } else {
+        } else { */
             Defaults.shared.callHapticFeedback(isHeavy: false)
             isLoginButtonPressed = false
             
             goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)")
-        }
+//        }
         Defaults.shared.addEventWithName(eventName: Constant.EventName.click_Login)
 
     }
