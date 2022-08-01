@@ -105,7 +105,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var rightFilterArrowButton: UIButton!
     @IBOutlet weak var leftFilterArrowButton: UIButton!
     var selectedTitleRow: IndexPath?
-    var deleteContactIndexPath: IndexPath?
+//    var deleteContactIndexPath: IndexPath?
 //    Int = -1
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
 
@@ -1108,7 +1108,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     // /api/contact-list/623d521766010bedccb2bfe7
-    func deleteContact(contact:ContactResponse,isEmail:Bool = false,index:IndexPath){
+    func deleteContact(contact:ContactResponse,isEmail:Bool = false,index:Int){
         let path = API.shared.baseUrlV2 + "contact-list/\(contact.Id ?? "")"
         print(path)
         var request = URLRequest(url:URL(string:path)!)
@@ -1125,11 +1125,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             switch (response.result) {
             case .success:
                 if isEmail{
-                    self.emailContacts.remove(at:index.row + 1)
+                    self.emailContacts.remove(at:index)
                     self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
 //                    self.emailContactTableView.reloadData()
                 }else{
-                    self.mobileContacts.remove(at:index.row + 1)
+                    self.mobileContacts.remove(at:index)
                     self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
 //                    self.contactTableView.reloadData()
                 }
@@ -2295,24 +2295,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         if tableView == self.emailContactTableView{
                             let emailContacts = self.emailContactSection[indexPath.section].contacts
                             let contact = emailContacts[indexPath.row]
-                           // let contact = self.emailContacts[indexPath.row]
                             print(contact.email ?? "")
-                            self.deleteContact(contact: contact, isEmail: true, index: indexPath)
+                            self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
                             
                         }else if tableView == self.contactTableView{
                             let mobileContacts = self.contactSections[indexPath.section].contacts
                             let contact = mobileContacts[indexPath.row]
-                           // let contact = self.mobileContacts[indexPath.row]
                             print(contact.mobile ?? "")
-                            self.deleteContact(contact: contact, isEmail: false, index: indexPath)
+                            self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
                         }
                     }else{
+                        self.deleteContactConfirmationView.superview?.tag = indexPath.section
                         self.deleteContactConfirmationView.tag = indexPath.row
-                        self.deleteContactIndexPath = indexPath
-                        print(self.deleteContactIndexPath)
+                        print(self.deleteContactConfirmationView.superview?.tag ?? 0)
+                        print(self.deleteContactConfirmationView.tag)
                         self.deleteContactConfirmationView.isHidden = false
-                        
                     }
+                    
                 },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
                     if tableView == self.emailContactTableView{
                         let emailContacts = self.emailContactSection[indexPath.section].contacts
@@ -3021,14 +3020,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func deleteContactYesClick(_ sender: UIButton) {
         deleteContactConfirmationView.isHidden = true
         if selectedContactType == ContactType.mobile{
-            let contact = self.mobileContacts[(deleteContactIndexPath?.row ?? 0) + 1]
+            
+            let mobileContacts = self.contactSections[deleteContactConfirmationView.superview?.tag ?? 0].contacts
+            let contact = mobileContacts[deleteContactConfirmationView.tag]
             print(contact.name ?? "")
             print(contact.mobile ?? "")
-            self.deleteContact(contact: contact, isEmail: false, index: deleteContactIndexPath!)
+            self.deleteContact(contact: contact, isEmail: false, index: deleteContactConfirmationView.tag)
+            
         }else{
-            let contact = self.emailContacts[(deleteContactIndexPath?.row ?? 0) + 1]
-            print(contact.mobile ?? "")
-            self.deleteContact(contact: contact, isEmail: true, index: deleteContactIndexPath!)
+            
+            let emailContacts = self.emailContactSection[deleteContactConfirmationView.superview?.tag ?? 0].contacts
+            let contact = emailContacts[deleteContactConfirmationView.tag]
+            print(contact.email ?? "")
+            self.deleteContact(contact: contact, isEmail: true, index: deleteContactConfirmationView.tag)
+            
         }
     }
     @IBAction func deleteContactNoClick(_ sender: UIButton) {
