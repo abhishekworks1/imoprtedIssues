@@ -67,25 +67,31 @@
                                 <rect key="frame" x="0.0" y="104" width="428" height="780"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9If-4S-XgP">
-                                        <rect key="frame" x="0.0" y="0.0" width="428" height="1320.6666666666667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="428" height="1330.6666666666667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTb-xw-84d">
-                                                <rect key="frame" x="0.0" y="0.0" width="428" height="678.66666666666663"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="428" height="688.66666666666663"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bxM-NY-VEx">
-                                                        <rect key="frame" x="14" y="20" width="400" height="638.66666666666663"/>
+                                                        <rect key="frame" x="14" y="20" width="400" height="648.66666666666663"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d6A-Pi-8Px">
-                                                                <rect key="frame" x="3.6666666666666572" y="0.0" width="392.66666666666674" height="638.66666666666663"/>
+                                                                <rect key="frame" x="3.6666666666666572" y="0.0" width="392.66666666666674" height="648.66666666666663"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dcz-pF-MFe">
                                                                         <rect key="frame" x="0.0" y="0.0" width="392.66666666666669" height="0.0"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3B-qa-hTg">
+                                                                        <rect key="frame" x="0.0" y="10" width="392.66666666666669" height="0.0"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g4i-xM-IlI">
-                                                                        <rect key="frame" x="0.0" y="10" width="392.66666666666669" height="490.66666666666669"/>
+                                                                        <rect key="frame" x="0.0" y="20.000000000000028" width="392.66666666666669" height="490.66666666666674"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqb-pj-Y48">
                                                                                 <rect key="frame" x="0.0" y="120.00000000000003" width="392.66666666666669" height="350.66666666666674"/>
@@ -114,7 +120,7 @@
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAYS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITb-k2-oNp">
-                                                                                                        <rect key="frame" x="22.666666666666671" y="45" width="31" height="15"/>
+                                                                                                        <rect key="frame" x="22.666666666666671" y="44.999999999999943" width="31" height="15"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="height" constant="15" id="NOm-Ph-xtv"/>
                                                                                                         </constraints>
@@ -161,7 +167,7 @@
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOURS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9N-Ov-xhv">
-                                                                                                        <rect key="frame" x="16.666666666666654" y="45" width="42.666666666666657" height="15"/>
+                                                                                                        <rect key="frame" x="16.666666666666654" y="44.999999999999943" width="42.666666666666657" height="15"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="height" constant="15" id="JBh-N6-zza"/>
                                                                                                         </constraints>
@@ -208,7 +214,7 @@
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MINUTES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4B5-xz-Vr5">
-                                                                                                        <rect key="frame" x="11" y="45" width="54" height="15"/>
+                                                                                                        <rect key="frame" x="11" y="44.999999999999943" width="54" height="15"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="height" constant="15" id="Q7C-Sv-ncz"/>
                                                                                                         </constraints>
@@ -255,7 +261,7 @@
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECONDS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21s-Wd-ut5">
-                                                                                                        <rect key="frame" x="9" y="45" width="58" height="15"/>
+                                                                                                        <rect key="frame" x="9" y="44.999999999999943" width="58" height="15"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="height" constant="15" id="0Th-xY-i3Y"/>
                                                                                                         </constraints>
@@ -387,7 +393,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4g-0u-DW9">
-                                                                        <rect key="frame" x="0.0" y="510.66666666666663" width="392.66666666666669" height="128"/>
+                                                                        <rect key="frame" x="0.0" y="520.66666666666663" width="392.66666666666669" height="128"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip of the Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BgF-bO-dg1">
                                                                                 <rect key="frame" x="12" y="12.000000000000002" width="110" height="19.666666666666671"/>
@@ -486,7 +492,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-CT-dSx">
-                                                <rect key="frame" x="14" y="688.66666666666663" width="400" height="549.99999999999989"/>
+                                                <rect key="frame" x="14" y="698.66666666666663" width="400" height="549.99999999999989"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the feature to continue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gs3-Xv-CKX">
                                                         <rect key="frame" x="13.999999999999986" y="5" width="240.66666666666663" height="20.333333333333332"/>
@@ -767,7 +773,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGZ-xC-6eb">
-                                                <rect key="frame" x="0.0" y="1238.6666666666667" width="428" height="82"/>
+                                                <rect key="frame" x="0.0" y="1248.6666666666667" width="428" height="82"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8gc-cA-56d">
                                                         <rect key="frame" x="0.0" y="0.0" width="428" height="82"/>
@@ -1135,6 +1141,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="Pc7-Ll-eTJ" id="YwA-0L-GHU"/>
                         <outlet property="badgeImageView" destination="29v-gk-ab5" id="o5c-V6-XUQ"/>
+                        <outlet property="channelNameLabel" destination="v3B-qa-hTg" id="aUs-RK-O6p"/>
                         <outlet property="containerView" destination="uqb-pj-Y48" id="aqg-8C-AYl"/>
                         <outlet property="dayLabel" destination="ITb-k2-oNp" id="7jW-XU-luX"/>
                         <outlet property="dayLineView" destination="n0a-cH-eZm" id="une-zn-Kpp"/>
