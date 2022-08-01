@@ -1817,6 +1817,57 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-rA-2hc">
+                                                                <rect key="frame" x="10" y="131.5" width="355" height="356.5"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwD-u2-BGb">
+                                                                        <rect key="frame" x="40" y="5" width="275" height="346.5"/>
+                                                                        <subviews>
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickcamWatermarkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="kFs-4o-hd7">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="275" height="230"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="230" id="exl-Gm-fPZ"/>
+                                                                                </constraints>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                                        <real key="value" value="8"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </imageView>
+                                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2T-my-dTZ">
+                                                                                <rect key="frame" x="0.0" y="230" width="275" height="116.5"/>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <color key="textColor" systemColor="labelColor"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                            </textView>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" red="0.81960784313725488" green="0.88627450980392153" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="D2T-my-dTZ" firstAttribute="top" secondItem="kFs-4o-hd7" secondAttribute="bottom" id="0cX-lg-qoz"/>
+                                                                            <constraint firstItem="kFs-4o-hd7" firstAttribute="leading" secondItem="hwD-u2-BGb" secondAttribute="leading" id="4WO-sZ-Rah"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="D2T-my-dTZ" secondAttribute="trailing" id="5tN-Bt-E1k"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="D2T-my-dTZ" secondAttribute="bottom" id="NWf-Wi-cWU"/>
+                                                                            <constraint firstItem="D2T-my-dTZ" firstAttribute="leading" secondItem="hwD-u2-BGb" secondAttribute="leading" id="PqN-P0-DgF"/>
+                                                                            <constraint firstItem="kFs-4o-hd7" firstAttribute="top" secondItem="hwD-u2-BGb" secondAttribute="top" id="WV9-Rj-r8z"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="kFs-4o-hd7" secondAttribute="trailing" id="sSv-4V-fXw"/>
+                                                                        </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                                <real key="value" value="8"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </view>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="hwD-u2-BGb" firstAttribute="centerX" secondItem="Zad-rA-2hc" secondAttribute="centerX" id="Lxg-Tc-X5s"/>
+                                                                    <constraint firstItem="hwD-u2-BGb" firstAttribute="top" secondItem="Zad-rA-2hc" secondAttribute="top" constant="5" id="NFg-pF-G02"/>
+                                                                    <constraint firstItem="hwD-u2-BGb" firstAttribute="leading" secondItem="Zad-rA-2hc" secondAttribute="leading" constant="40" id="WW4-LY-cxT"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="hwD-u2-BGb" secondAttribute="bottom" constant="5" id="hQz-8u-hb7"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="hwD-u2-BGb" secondAttribute="trailing" constant="40" id="mBB-E8-5Z9"/>
+                                                                </constraints>
+                                                            </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRS-xh-oFY">
                                                                 <rect key="frame" x="10" y="131.5" width="355" height="356.5"/>
                                                                 <subviews>
@@ -1880,22 +1931,22 @@
                                                                                             <rect key="frame" x="0.0" y="148" width="355" height="357"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Body" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeX-Ad-mhL">
-                                                                                                    <rect key="frame" x="10" y="10" width="95" height="106.5"/>
+                                                                                                    <rect key="frame" x="10" y="10" width="95" height="21.5"/>
                                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                                                     <nil key="textColor"/>
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-vs-FDP">
-                                                                                                    <rect key="frame" x="5" y="126.5" width="345" height="220.5"/>
+                                                                                                    <rect key="frame" x="5" y="41.5" width="345" height="305.5"/>
                                                                                                     <subviews>
                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMM-4K-lYH">
-                                                                                                            <rect key="frame" x="5" y="10" width="335" height="20.5"/>
+                                                                                                            <rect key="frame" x="5" y="10" width="335" height="105.5"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                                             <nil key="textColor"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
                                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickcamWatermarkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
-                                                                                                            <rect key="frame" x="10" y="40.5" width="160" height="170"/>
+                                                                                                            <rect key="frame" x="10" y="125.5" width="160" height="170"/>
                                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="height" constant="170" id="H2m-0R-0h5"/>
@@ -1964,15 +2015,19 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="Gfd-b1-m2d" firstAttribute="leading" secondItem="5Xk-jO-Vsy" secondAttribute="leading" constant="30" id="2bf-Ud-p6j"/>
+                                                            <constraint firstItem="Zad-rA-2hc" firstAttribute="top" secondItem="Gfd-b1-m2d" secondAttribute="bottom" constant="10" id="3U7-TE-yTk"/>
                                                             <constraint firstItem="bRS-xh-oFY" firstAttribute="leading" secondItem="5Xk-jO-Vsy" secondAttribute="leading" constant="10" id="9Nl-gC-2Dk"/>
                                                             <constraint firstItem="YBq-W3-UUF" firstAttribute="top" secondItem="5Xk-jO-Vsy" secondAttribute="top" constant="20" id="HeQ-xh-qyi"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Zad-rA-2hc" secondAttribute="trailing" constant="10" id="IIR-CT-7Gs"/>
                                                             <constraint firstItem="Gfd-b1-m2d" firstAttribute="centerX" secondItem="5Xk-jO-Vsy" secondAttribute="centerX" id="M9m-Y8-9Pm"/>
+                                                            <constraint firstItem="Zad-rA-2hc" firstAttribute="leading" secondItem="5Xk-jO-Vsy" secondAttribute="leading" constant="10" id="Mw2-ys-E1w"/>
                                                             <constraint firstItem="YBq-W3-UUF" firstAttribute="centerX" secondItem="5Xk-jO-Vsy" secondAttribute="centerX" id="Okz-kL-qEx"/>
                                                             <constraint firstAttribute="bottom" secondItem="bRS-xh-oFY" secondAttribute="bottom" constant="10" id="Xy8-4i-TbD"/>
                                                             <constraint firstItem="Gfd-b1-m2d" firstAttribute="top" secondItem="YBq-W3-UUF" secondAttribute="bottom" constant="20" id="YGd-KY-16c"/>
                                                             <constraint firstItem="bRS-xh-oFY" firstAttribute="top" secondItem="Gfd-b1-m2d" secondAttribute="bottom" constant="10" id="f1U-RK-iAF"/>
                                                             <constraint firstAttribute="trailing" secondItem="bRS-xh-oFY" secondAttribute="trailing" constant="10" id="sik-Qv-lsE"/>
                                                             <constraint firstAttribute="trailing" secondItem="Gfd-b1-m2d" secondAttribute="trailing" constant="30" id="utR-KY-W5A"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Zad-rA-2hc" secondAttribute="bottom" constant="10" id="wRO-CR-Rnh"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
@@ -4396,6 +4451,7 @@
                         <outlet property="emailBodyTitleLabel" destination="HeX-Ad-mhL" id="Knt-Yv-WhS"/>
                         <outlet property="emailButton" destination="3D0-oP-7Fj" id="mEf-h8-lDc"/>
                         <outlet property="emailContactTableView" destination="EQF-Rk-EpR" id="35A-0m-PUu"/>
+                        <outlet property="emailMaualtextView" destination="bRS-xh-oFY" id="CDQ-9N-TpT"/>
                         <outlet property="emailOptionsMainView" destination="Ot8-Jt-5Wh" id="mER-Tn-yff"/>
                         <outlet property="emailSeperatorView" destination="87D-K1-aoc" id="V1O-PA-R0z"/>
                         <outlet property="emailSeperatorViewHeight" destination="Huv-mm-7Q2" id="p7R-fk-XNB"/>
@@ -4433,6 +4489,10 @@
                         <outlet property="line3" destination="VOy-fx-rvC" id="3Ab-Er-Zes"/>
                         <outlet property="line4" destination="WzG-xE-nxf" id="6WE-8e-rPL"/>
                         <outlet property="manualEmailView" destination="8KC-xE-bJ4" id="guO-vf-u1k"/>
+                        <outlet property="messageImagePreviewView" destination="hwD-u2-BGb" id="iDs-3q-pn2"/>
+                        <outlet property="messageImageView" destination="kFs-4o-hd7" id="Bhd-Hx-ogr"/>
+                        <outlet property="messageMaualtextView" destination="Zad-rA-2hc" id="FGq-S1-IZx"/>
+                        <outlet property="messageTextPreviewTextView" destination="D2T-my-dTZ" id="Q14-Oi-Qfu"/>
                         <outlet property="nocontactView" destination="BPW-kh-JdK" id="rZj-ci-Ywn"/>
                         <outlet property="openedButton" destination="24A-fl-cTs" id="3a7-C1-t1J"/>
                         <outlet property="optOutButton" destination="qx3-Pj-rJm" id="C25-en-zEJ"/>
@@ -4822,7 +4882,7 @@
             <color red="0.74500000476837158" green="0.82400000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -78,6 +78,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var manualEmailView: UIView!
     @IBOutlet weak var socialShareView: UIView!
     @IBOutlet weak var businessDashboardView: UIView!
+    @IBOutlet weak var emailMaualtextView: UIView!
+    @IBOutlet weak var messageMaualtextView: UIView!
+    @IBOutlet weak var messageImagePreviewView: UIView!
+    @IBOutlet weak var messageImageView: UIImageView!
+    @IBOutlet weak var messageTextPreviewTextView: UITextView!
     
     @IBOutlet weak var selectedShareTitleLabel: UILabel!
     @IBOutlet weak var nocontactView: UIView!
@@ -271,6 +276,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        frwrdarrow2.setImageColor(color: UIColor(hexString: "7D46F5"))
 //        frwrdarrow3.setImageColor(color: UIColor(hexString: "E48C4C"))
 
+        messageImagePreviewView.dropShadowNew()
         itemsTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER)
         
         itemsTableView.allowsSelection = true
@@ -1467,6 +1473,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             switch result {
             case let .success(data, isExpired):
                 self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.user_placeholder())
+                self.messageImageView.sd_setImage(with: data.imageUrl, placeholderImage: R.image.user_placeholder())
                 break
                 // do something
             case let .failure(error, isExpired): break
@@ -1481,6 +1488,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
+                self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
             }
 //            if ogData.imageUrl != nil {
              //  self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
@@ -1961,8 +1969,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     if isSelectSMS {
                         emailBodyTitleLabel.text = "Message"
                         emailSubjectView.isHidden = true
+                        emailMaualtextView.isHidden = true
                     } else {
                         emailBodyTitleLabel.text = "Email Body"
+                        emailMaualtextView.isHidden = false
                     }
                 }
 
@@ -1974,6 +1984,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.ownMessageView.isHidden = true
                 var item : Titletext?
                 if isSelectSMS {
+                    emailMaualtextView.isHidden = true
                     cell.detailView.isHidden = true
                     cell.radioButtonWidthConstraint.constant = 20
                     cell.emailRadioButtonWidthConstraint.constant = 0
@@ -1982,6 +1993,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
                 } else {
+                    emailMaualtextView.isHidden = false
                     cell.radioButtonWidthConstraint.constant = 0
                     cell.emailRadioButtonWidthConstraint.constant = 20
                     item = self.emailMsgListing?.list[indexPath.row]
@@ -1999,7 +2011,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         emailBodyTitleLabel.text = "Message"
                         self.txtLinkWithCheckOut = item?.content ?? ""
                         emailSubjectView.isHidden = true
+                        emailMaualtextView.isHidden = true
                     } else {
+                        emailMaualtextView.isHidden = false
                         emailBodyTitleLabel.text = "Email Body"
                         self.txtDetailForEmail = item?.subject ?? ""
                         if self.txtDetailForEmail == "" {
@@ -2014,6 +2028,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     let finalText = "\(txtLinkWithCheckOut)"
                     txtLinkWithCheckOut = finalText
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
+                    self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
                     //                self.lblpreviewText.text = self.txtLinkWithCheckOut
                 }
                 return cell
@@ -3352,7 +3367,7 @@ extension ContactImportVC: MessageTitleDelagate {
         switch tag {
         case 1:
             self.txtLinkWithCheckOut = textViewText
-            self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
+            self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
         case 2:
             self.txtLinkWithCheckOut = textViewText
             if textViewText == "" {
