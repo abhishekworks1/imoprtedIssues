@@ -1349,8 +1349,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "All"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
-            leftFilterArrowButton.tintColor = .lightGray
-            rightFilterArrowButton.tintColor = .black
+//            leftFilterArrowButton.tintColor = .lightGray
+//            rightFilterArrowButton.tintColor = .black
             break
         case 2:
             self.selectedFilter = ContactStatus.recent
@@ -1408,8 +1408,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "Hidden"
           //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.hidden,hide:true)
-            rightFilterArrowButton.tintColor = .lightGray
-            leftFilterArrowButton.tintColor = .black
+//            rightFilterArrowButton.tintColor = .lightGray
+//            leftFilterArrowButton.tintColor = .black
             break
         default:
             mobileContacts = allmobileContacts
@@ -1427,8 +1427,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 70.0) - 70.0
             }else{
                 contentOffsetX = 0.0
-                leftFilterArrowButton.tintColor = .lightGray
-                rightFilterArrowButton.tintColor = .black
             }
             filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
             
@@ -1440,13 +1438,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
           
             if (filterScrollview?.contentOffset.x ?? 0) > (CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)) - 70{
                 contentOffsetX =  CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)
-                rightFilterArrowButton.tintColor = .lightGray
-                leftFilterArrowButton.tintColor = .black
             }else{
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 0.0) + 70.0
             }
             filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
-            
         }
     }
     func setPreviewData(){
@@ -3203,10 +3198,23 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
 
             // update the new position acquired
-            self.lastContentOffset = scrollView.contentOffset.y //
-             
+            self.lastContentOffset = scrollView.contentOffset.y
         }
-      
+        else if scrollView == filterScrollview
+        {
+            let rightOffset = CGPoint(x: scrollView.contentSize.width - scrollView.bounds.size.width, y: 0)
+            if scrollView.contentOffset.x == 0.0 {
+                leftFilterArrowButton.tintColor = .lightGray
+                rightFilterArrowButton.tintColor = .black
+            } else if scrollView.contentOffset.x == rightOffset.x {
+                leftFilterArrowButton.tintColor = .black
+                rightFilterArrowButton.tintColor = .lightGray
+             } else {
+                leftFilterArrowButton.tintColor = .black
+                rightFilterArrowButton.tintColor = .black
+            }
+        }
+
     }
 }
 extension ContactImportVC:EasyTipViewDelegate,SharingDelegate {
