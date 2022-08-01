@@ -864,7 +864,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else if settingTitle.settingsType == .accountSettings {
             hideUnhideImgButton(cell, R.image.settings_Account())
         } else if settingTitle.settingsType == .cameraSettings {
-            hideUnhideImgButton(cell, R.image.settings_CameraSettings())
+            hideUnhideImgButton(cell, R.image.cameraSettingIcon())
         } else if settingTitle.settingsType == .system {
             hideUnhideImgButton(cell, R.image.settings_System())
         } else if settingTitle.settingsType == .help {
@@ -1737,7 +1737,7 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         }else if settingTitle.settingsType == .accountSettings {
             cell.socialImageView?.image = R.image.settings_Account()
         } else if settingTitle.settingsType == .cameraSettings {
-            cell.socialImageView?.image = R.image.settings_CameraSettings()
+            cell.socialImageView?.image = R.image.cameraSettingIcon()
         } else if settingTitle.settingsType == .system {
             cell.socialImageView?.image = R.image.settings_System()
         } else if settingTitle.settingsType == .help {
