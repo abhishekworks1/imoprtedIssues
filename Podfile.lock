@@ -1,0 +1,547 @@
+PODS:
+  - Alamofire (5.5.0)
+  - AppAuth (1.5.0):
+    - AppAuth/Core (= 1.5.0)
+    - AppAuth/ExternalUserAgent (= 1.5.0)
+  - AppAuth/Core (1.5.0)
+  - AppAuth/ExternalUserAgent (1.5.0):
+    - AppAuth/Core
+  - AWSCore (2.25.0)
+  - AWSS3 (2.25.0):
+    - AWSCore (= 2.25.0)
+  - Bagel (1.4.0):
+    - CocoaAsyncSocket
+  - CocoaAsyncSocket (7.6.5)
+  - CropPickerView (0.3.0)
+  - Differentiator (4.0.1)
+  - ESPullToRefresh (2.9.3)
+  - FBAEMKit (11.1.0):
+    - FBAEMKit/AEM (= 11.1.0)
+  - FBAEMKit/AEM (11.1.0):
+    - FBSDKCoreKit_Basics (~> 11.1.0)
+  - FBSDKCoreKit (11.1.0):
+    - FBSDKCoreKit/Core (= 11.1.0)
+  - FBSDKCoreKit/Core (11.1.0):
+    - FBAEMKit (~> 11.1.0)
+    - FBSDKCoreKit_Basics (~> 11.1.0)
+  - FBSDKCoreKit_Basics (11.1.0):
+    - FBSDKCoreKit_Basics/Basics (= 11.1.0)
+  - FBSDKCoreKit_Basics/Basics (11.1.0)
+  - FBSDKLoginKit (11.1.0):
+    - FBSDKLoginKit/Login (= 11.1.0)
+  - FBSDKLoginKit/Login (11.1.0):
+    - FBSDKCoreKit (~> 11.1.0)
+    - FBSDKCoreKit_Basics (~> 11.1.0)
+  - FBSDKShareKit (11.1.0):
+    - FBSDKShareKit/Share (= 11.1.0)
+  - FBSDKShareKit/Share (11.1.0):
+    - FBSDKCoreKit (~> 11.1.0)
+    - FBSDKCoreKit_Basics (~> 11.1.0)
+  - Firebase/Analytics (8.7.0):
+    - Firebase/Core
+  - Firebase/Auth (8.7.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 8.7.0)
+  - Firebase/Core (8.7.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (~> 8.7.0)
+  - Firebase/CoreOnly (8.7.0):
+    - FirebaseCore (= 8.7.0)
+  - Firebase/Crashlytics (8.7.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 8.7.0)
+  - Firebase/Messaging (8.7.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 8.7.0)
+  - FirebaseAnalytics (8.7.0):
+    - FirebaseAnalytics/AdIdSupport (= 8.7.0)
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (8.7.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleAppMeasurement (= 8.7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - FirebaseAuth (8.7.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - FirebaseCore (8.7.0):
+    - FirebaseCoreDiagnostics (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+  - FirebaseCoreDiagnostics (8.14.0):
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+    - nanopb (~> 2.30908.0)
+  - FirebaseCrashlytics (8.7.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleDataTransport (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - FirebaseInstallations (8.14.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - FirebaseMessaging (8.7.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleDataTransport (~> 9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Reachability (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
+    - nanopb (~> 2.30908.0)
+  - FLAnimatedImage (1.0.16)
+  - FontAwesome.swift (1.9.1)
+  - FSPagerView (0.8.3)
+  - Gemini (1.4.0)
+  - GMStepper (2.2)
+  - GoogleAPIClientForREST (1.7.0):
+    - GoogleAPIClientForREST/Core (= 1.7.0)
+    - GTMSessionFetcher (< 2.0, >= 1.6.1)
+  - GoogleAPIClientForREST/Core (1.7.0):
+    - GTMSessionFetcher (< 2.0, >= 1.6.1)
+  - GoogleAPIClientForREST/YouTube (1.7.0):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (< 2.0, >= 1.6.1)
+  - GoogleAppMeasurement (8.7.0):
+    - GoogleAppMeasurement/AdIdSupport (= 8.7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (8.7.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - GoogleDataTransport (9.1.2):
+    - GoogleUtilities/Environment (~> 7.2)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMaps (3.1.0):
+    - GoogleMaps/Maps (= 3.1.0)
+  - GoogleMaps/Base (3.1.0)
+  - GoogleMaps/Maps (3.1.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (3.1.0):
+    - GoogleMaps (= 3.1.0)
+    - GooglePlaces (= 3.1.0)
+  - GooglePlaces (3.1.0):
+    - GoogleMaps/Base (= 3.1.0)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleUtilities/AppDelegateSwizzler (7.7.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.7.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.7.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.7.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.7.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.7.0)"
+  - GoogleUtilities/Reachability (7.7.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.7.0):
+    - GoogleUtilities/Logger
+  - GTMAppAuth (1.2.3):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - GTMSessionFetcher (1.7.1):
+    - GTMSessionFetcher/Full (= 1.7.1)
+  - GTMSessionFetcher/Core (1.7.1)
+  - GTMSessionFetcher/Full (1.7.1):
+    - GTMSessionFetcher/Core (= 1.7.1)
+  - InfiniteLayout (0.5):
+    - InfiniteLayout/Core (= 0.5)
+  - InfiniteLayout/CocoaProxy (0.5)
+  - InfiniteLayout/Core (0.5):
+    - InfiniteLayout/CocoaProxy
+  - IQKeyboardManagerSwift (6.5.9)
+  - JPSVolumeButtonHandler (1.0.5)
+  - Moya (14.0.0):
+    - Moya/Core (= 14.0.0)
+  - Moya-ObjectMapper/Core (2.9):
+    - Moya (~> 14.0.0-beta.6)
+    - ObjectMapper
+  - Moya-ObjectMapper/RxSwift (2.9):
+    - Moya-ObjectMapper/Core
+    - Moya/RxSwift
+    - RxSwift
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (14.0.0):
+    - Moya/Core
+    - RxSwift (~> 5.0)
+  - MXPagerView (0.2.1)
+  - MXParallaxHeader (0.6.1)
+  - MXSegmentedPager (3.3.0):
+    - MXPagerView (= 0.2.1)
+    - MXParallaxHeader (= 0.6.1)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
+  - "NSObject+Rx (5.0.2)":
+    - RxSwift (~> 5.0)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
+  - ObjectMapper (4.2.0)
+  - OnlyPictures (1.0.0)
+  - Pageboy (3.6.2)
+  - Parchment (3.1.0)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
+  - PostHog (1.4.4)
+  - ProgressHUD (2.70)
+  - PromisesObjC (2.1.0)
+  - R.swift (5.3.1):
+    - R.swift.Library (~> 5.3.0)
+  - R.swift.Library (5.3.0)
+  - Reorder (0.1.2)
+  - RxCocoa (5.1.3):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
+  - RxRelay (5.1.3):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.3)
+  - SCRecorder (2.7.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+  - Sentry (7.1.3):
+    - Sentry/Core (= 7.1.3)
+  - Sentry/Core (7.1.3)
+  - SkyFloatingLabelTextField (4.0.0)
+  - SnapSDK/SCSDKBitmojiKit (1.13.0):
+    - PINCache (< 3.1, >= 2.3)
+    - PINOperation (~> 1.2.1)
+    - SnapSDK/SCSDKCoreKit
+  - SnapSDK/SCSDKCoreKit (1.13.0)
+  - SnapSDK/SCSDKCreativeKit (1.13.0):
+    - SnapSDK/SCSDKCoreKit
+  - SnapSDK/SCSDKLoginKit (1.13.0):
+    - SnapSDK/SCSDKCoreKit
+  - Spring (1.0.6)
+  - SSSpinnerButton (3.0.2)
+  - SwiftVideoGenerator (1.1.6)
+  - SwiftySound (1.2.0)
+  - TagListView (1.4.1)
+  - TGPControls (5.1.0)
+  - Tiercel (3.2.3)
+  - TikTokOpenSDK (5.0.13)
+  - Toast-Swift (5.0.1)
+  - TwitterCore (3.2.0)
+  - TwitterKit5 (5.2.0):
+    - TwitterCore (>= 3.1.0)
+  - URLEmbeddedView (0.18.0)
+  - YoutubePlayerView (1.1.0)
+
+DEPENDENCIES:
+  - AWSS3 (~> 2.25.0)
+  - Bagel
+  - CropPickerView
+  - ESPullToRefresh (= 2.9.3)
+  - FBSDKCoreKit (= 11.1.0)
+  - FBSDKLoginKit (= 11.1.0)
+  - FBSDKShareKit (= 11.1.0)
+  - Firebase/Analytics (~> 8.7.0)
+  - Firebase/Auth (~> 8.7.0)
+  - Firebase/Core (~> 8.7.0)
+  - Firebase/Crashlytics (~> 8.7.0)
+  - Firebase/Messaging
+  - FLAnimatedImage (~> 1.0.16)
+  - FontAwesome.swift (~> 1.9.1)
+  - FSPagerView (~> 0.8.3)
+  - Gemini (= 1.4.0)
+  - GMStepper (= 2.2)
+  - GoogleAPIClientForREST (~> 1.5)
+  - GoogleAPIClientForREST/YouTube (~> 1.5)
+  - GooglePlacePicker (= 3.1.0)
+  - GooglePlaces (= 3.1.0)
+  - GoogleSignIn (~> 5.0)
+  - InfiniteLayout (= 0.5.0)
+  - IQKeyboardManagerSwift (~> 6.5.6)
+  - JPSVolumeButtonHandler (= 1.0.5)
+  - Moya-ObjectMapper/RxSwift (= 2.9)
+  - Moya/RxSwift (~> 14.0)
+  - MXPagerView (from `https://github.com/simformsolutions/MXPagerView`)
+  - MXSegmentedPager (from `https://github.com/simformsolutions/MXSegmentedPager`)
+  - "NSObject+Rx (= 5.0.2)"
+  - NVActivityIndicatorView (= 5.1.1)
+  - OnlyPictures (from `https://github.com/simformsolutions/OnlyPictures`)
+  - Pageboy (~> 3.6)
+  - Parchment (= 3.1.0)
+  - PostHog
+  - ProgressHUD (~> 2.70)
+  - R.swift (= 5.3.1)
+  - Reorder
+  - RxCocoa (= 5.1.3)
+  - RxDataSources (= 4.0.1)
+  - SCRecorder (from `https://github.com/jasminpsimform/SCRecorder`)
+  - SDWebImage (~> 5.11.1)
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `7.1.3`)
+  - SkyFloatingLabelTextField (= 4.0.0)
+  - SnapSDK/SCSDKBitmojiKit (= 1.13.0)
+  - SnapSDK/SCSDKCreativeKit (= 1.13.0)
+  - SnapSDK/SCSDKLoginKit (= 1.13.0)
+  - Spring (from `https://github.com/MengTo/Spring.git`)
+  - SSSpinnerButton
+  - SwiftVideoGenerator (from `https://github.com/jasminpsimform/swift-video-generator`, branch `swift5`)
+  - SwiftySound (= 1.2)
+  - TagListView (~> 1.4.1)
+  - TGPControls (= 5.1.0)
+  - Tiercel (= 3.2.3)
+  - TikTokOpenSDK
+  - Toast-Swift (= 5.0.1)
+  - TwitterKit5
+  - URLEmbeddedView (= 0.18.0)
+  - YoutubePlayerView (from `https://github.com/simformsolutions/YoutubePlayerView.git`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AppAuth
+    - AWSCore
+    - AWSS3
+    - Bagel
+    - CocoaAsyncSocket
+    - CropPickerView
+    - Differentiator
+    - ESPullToRefresh
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - FBSDKShareKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCrashlytics
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - FLAnimatedImage
+    - FontAwesome.swift
+    - FSPagerView
+    - Gemini
+    - GMStepper
+    - GoogleAPIClientForREST
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - InfiniteLayout
+    - IQKeyboardManagerSwift
+    - JPSVolumeButtonHandler
+    - Moya
+    - Moya-ObjectMapper
+    - MXParallaxHeader
+    - nanopb
+    - "NSObject+Rx"
+    - NVActivityIndicatorView
+    - ObjectMapper
+    - Pageboy
+    - Parchment
+    - PINCache
+    - PINOperation
+    - PostHog
+    - ProgressHUD
+    - PromisesObjC
+    - R.swift
+    - R.swift.Library
+    - Reorder
+    - RxCocoa
+    - RxDataSources
+    - RxRelay
+    - RxSwift
+    - SDWebImage
+    - SkyFloatingLabelTextField
+    - SnapSDK
+    - SSSpinnerButton
+    - SwiftySound
+    - TagListView
+    - TGPControls
+    - Tiercel
+    - TikTokOpenSDK
+    - Toast-Swift
+    - TwitterCore
+    - TwitterKit5
+    - URLEmbeddedView
+
+EXTERNAL SOURCES:
+  MXPagerView:
+    :git: https://github.com/simformsolutions/MXPagerView
+  MXSegmentedPager:
+    :git: https://github.com/simformsolutions/MXSegmentedPager
+  OnlyPictures:
+    :git: https://github.com/simformsolutions/OnlyPictures
+  SCRecorder:
+    :git: https://github.com/jasminpsimform/SCRecorder
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 7.1.3
+  Spring:
+    :git: https://github.com/MengTo/Spring.git
+  SwiftVideoGenerator:
+    :branch: swift5
+    :git: https://github.com/jasminpsimform/swift-video-generator
+  YoutubePlayerView:
+    :git: https://github.com/simformsolutions/YoutubePlayerView.git
+
+CHECKOUT OPTIONS:
+  MXPagerView:
+    :commit: fd4fadaf158e9c5760fce7b82b40d3a4ad72ee3a
+    :git: https://github.com/simformsolutions/MXPagerView
+  MXSegmentedPager:
+    :commit: 18c89932dc16195362e912d165a0c16ee36a81c3
+    :git: https://github.com/simformsolutions/MXSegmentedPager
+  OnlyPictures:
+    :commit: a65ea85dc8f82a738aed4a42fc2b3f4ea91b41c6
+    :git: https://github.com/simformsolutions/OnlyPictures
+  SCRecorder:
+    :commit: 0f1c63e5922fec91a83fe26998886da9a75d3a78
+    :git: https://github.com/jasminpsimform/SCRecorder
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 7.1.3
+  Spring:
+    :commit: 50d92a5b9e08848387ae95bf44c6ad20834f7083
+    :git: https://github.com/MengTo/Spring.git
+  SwiftVideoGenerator:
+    :commit: 98ce8526fec2ea2afeb841984e050d6cebeee413
+    :git: https://github.com/jasminpsimform/swift-video-generator
+  YoutubePlayerView:
+    :commit: 31105c178310677ad3916f5ab78340fa18df1096
+    :git: https://github.com/simformsolutions/YoutubePlayerView.git
+
+SPEC CHECKSUMS:
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
+  AWSCore: 9c51a3004e9e91528160ea978fd0c5d92780a45e
+  AWSS3: 2c211728c36d1dbf4d0075d0e8ba317a561bc80c
+  Bagel: c3fa6bcbd52db9ca976edbafd7638f0553ded101
+  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  CropPickerView: 7149fca438041a7a78d88e88dd0de805c182fc6a
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  ESPullToRefresh: 0d68daa602b343c81753a1b95e09fd0bfcddfd40
+  FBAEMKit: 5c8a8d08e5b2c79628490784883e0fcc75b12615
+  FBSDKCoreKit: 7ccb8b4bb2b5ee2ad94327b774dc23f03509675d
+  FBSDKCoreKit_Basics: 8f978bce195845f609b0ec6b425949d0d24f525b
+  FBSDKLoginKit: d65eb587a9eaa89295338fb0bb3b358bde0b7ae4
+  FBSDKShareKit: b2142706d3f2410fb0ea76ad5a63238c71307117
+  Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
+  FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
+  FirebaseAuth: 2e7d029977648c67a5d51a263d4cbab76d34cf12
+  FirebaseCore: f4804c1d3f4bbbefc88904d15653038f2c99ddf7
+  FirebaseCoreDiagnostics: fd0c8490f34287229c1d6c103d3a55f81ec85712
+  FirebaseCrashlytics: 6fac03d1eef054833b71c929c93ab95c12989728
+  FirebaseInstallations: 7d1d967a307c12f1aadd76844fc321cef699b1ce
+  FirebaseMessaging: 93227dd71d7888e200baef65043f81acb2b6596e
+  FLAnimatedImage: 8f3e854ebf9680b71f0b6e700939687fc4d82b4b
+  FontAwesome.swift: 6b52cb7be66eacd28cbfaa0ca7ffd0de4a186a1d
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  Gemini: 4ad915cca8805577fe3021e02feeca2b77dcdbfc
+  GMStepper: 89fb106944dfcc3aa3add7164e3ebd463ea2104b
+  GoogleAPIClientForREST: 2d4140915e2ec6d1bcb39c9df4a534c75706c595
+  GoogleAppMeasurement: 2be61ce546ad074dbe4dd545f222ac6033bb1d9e
+  GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
+  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
+  GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
+  GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  GTMAppAuth: 987526d41b07efb1bedda5e936fe0cb718a03113
+  GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
+  InfiniteLayout: 2c55b0fc14b6a9d924fbe13c0e2d88b1cbf5423d
+  IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  JPSVolumeButtonHandler: 53110330c9168ed325def93eabff39f0fe3e8082
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  Moya-ObjectMapper: 967a99d9ea3aa9c93ddbe112aeca3667f53bfe93
+  MXPagerView: ede184b5191b2ed689ccf05a750a9978cce42414
+  MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
+  MXSegmentedPager: 62d81243116dde41be1c4fdfcb01c2fb08e214a6
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  "NSObject+Rx": 2eb2cf51fd1c554118449a7fbc36e4cd620b9e94
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  OnlyPictures: a91e5b202783fb3a36d4e2f1899d400a22b26259
+  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  Parchment: 6250722ed0456d68f6bae03118eda722a28486f3
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+  PostHog: 4b6321b521569092d4ef3a02238d9435dbaeb99f
+  ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
+  PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
+  R.swift: 56ec7e3aef34b9eee47a659e42462db2c1cc5ac3
+  R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
+  Reorder: 8c82f884c41e830039ddb909262af7aee9203bf0
+  RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
+  RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
+  RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
+  SCRecorder: bbb521dbc222908876ec9cd9156bbc8a893bed44
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  Sentry: 6d963d64804dd06d96e778be729613f481394312
+  SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
+  SnapSDK: f4f7cf3b2261233e096f8c43706d94e785ca102c
+  Spring: 3d113f14575ef79aec9c5f906dfa4f5001c03254
+  SSSpinnerButton: ba9ec6858f2f6fa902a5131d3aec5282588241f8
+  SwiftVideoGenerator: d98e53119b9bc8b42052c8b2f95736fc683146c7
+  SwiftySound: 9eb28bb14edb601b40027e44319e0ef8383f88bf
+  TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
+  TGPControls: 52c0770bee9c9aee364f1559cc627fc01ea5e8b2
+  Tiercel: 912fdb367950c356eb2100279920bce9f5ebc453
+  TikTokOpenSDK: b64f271e359120b21ec583aad113136383178798
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
+  TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
+  URLEmbeddedView: 3fe17ae535d2b8d38c3b08ab8ba0aea5efe5d1cd
+  YoutubePlayerView: 9e21d0286415264c6b6a5f3c5cb53ed9272e2bd6
+
+PODFILE CHECKSUM: 9910431ef74b9b3bbfcad4aea34e9a68c0774d40
+
+COCOAPODS: 1.11.2

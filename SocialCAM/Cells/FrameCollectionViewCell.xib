@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FrameCollectionViewCell" id="8Hz-YA-0Rr" customClass="FrameCollectionViewCell" customModule="ProManager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="112" height="106"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="112" height="106"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9g-me-OWn">
+                        <rect key="frame" x="3" y="0.0" width="106" height="106"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TkW-5P-fpI">
+                                <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bQR-x8-v8h">
+                                        <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bQR-x8-v8h" secondAttribute="trailing" id="HHI-2m-cqr"/>
+                                    <constraint firstItem="bQR-x8-v8h" firstAttribute="leading" secondItem="TkW-5P-fpI" secondAttribute="leading" id="fWH-El-daH"/>
+                                    <constraint firstItem="bQR-x8-v8h" firstAttribute="top" secondItem="TkW-5P-fpI" secondAttribute="top" id="wTq-If-DZ8"/>
+                                    <constraint firstAttribute="bottom" secondItem="bQR-x8-v8h" secondAttribute="bottom" id="yhu-4u-d1m"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="TkW-5P-fpI" secondAttribute="trailing" id="YfV-qi-53p"/>
+                            <constraint firstItem="TkW-5P-fpI" firstAttribute="top" secondItem="O9g-me-OWn" secondAttribute="top" id="cox-3j-bnf"/>
+                            <constraint firstItem="TkW-5P-fpI" firstAttribute="leading" secondItem="O9g-me-OWn" secondAttribute="leading" id="eOo-T4-fjB"/>
+                            <constraint firstAttribute="bottom" secondItem="TkW-5P-fpI" secondAttribute="bottom" id="vWo-w2-6zh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="O9g-me-OWn" secondAttribute="bottom" id="2Uf-4Z-bTu"/>
+                <constraint firstAttribute="trailing" secondItem="O9g-me-OWn" secondAttribute="trailing" constant="3" id="UZn-1E-g6e"/>
+                <constraint firstItem="O9g-me-OWn" firstAttribute="leading" secondItem="8Hz-YA-0Rr" secondAttribute="leading" constant="3" id="ilH-ao-7Yw"/>
+                <constraint firstItem="O9g-me-OWn" firstAttribute="top" secondItem="8Hz-YA-0Rr" secondAttribute="top" id="oJr-9o-WMQ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Ep9-F6-MCu"/>
+            <size key="customSize" width="112" height="106"/>
+            <connections>
+                <outlet property="frameImageView" destination="bQR-x8-v8h" id="UBS-FJ-HJC"/>
+                <outlet property="imageView" destination="TkW-5P-fpI" id="a5h-Ti-wrG"/>
+            </connections>
+            <point key="canvasLocation" x="56" y="612.59370314842579"/>
+        </collectionViewCell>
+    </objects>
+</document>
