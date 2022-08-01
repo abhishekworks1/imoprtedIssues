@@ -2443,6 +2443,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }else if pageNo == 3 {
+                guard selectedTitleRow != nil else {
+                    DispatchQueue.main.async {
+                        self.view.makeToast("Please Choose Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                    }
+                    return
+                }
                 let rows = itemsTableView.numberOfRows(inSection: 0)
                 if rows == 0 {
                     showAlert(alertMessage: "No text available to send")
@@ -2478,6 +2484,36 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.setupPage()
         }
         else if pageNo == 3 {
+            guard selectedTitleRow != nil else {
+                DispatchQueue.main.async {
+                    self.view.makeToast("Please Choose Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                }
+                return
+            }
+            if selectedTitleRow == IndexPath(row: 0, section: 0)  {
+                if isSelectSMS {
+                    guard txtLinkWithCheckOut != "" else {
+                        DispatchQueue.main.async {
+                            self.view.makeToast("Please Enter Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                        }
+                        return
+                    }
+                } else {
+                    guard emailSubjectTextLabel.text != "" || emailSubjectTextLabel.text != nil else {
+                        DispatchQueue.main.async {
+                            self.view.makeToast("Please Enter Email Subject to send", duration: ToastManager.shared.duration, position: .bottom)
+                        }
+                        return
+                    }
+                    
+                    guard txtDetailForEmail != "" else {
+                        DispatchQueue.main.async {
+                            self.view.makeToast("Please Enter Email Body to send", duration: ToastManager.shared.duration, position: .bottom)
+                        }
+                        return
+                    }
+                }
+            }
             let rows = itemsTableView.numberOfRows(inSection: 0)
             if rows == 0 {
                 showAlert(alertMessage: "No text available to send")
