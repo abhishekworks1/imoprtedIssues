@@ -1275,10 +1275,10 @@ extension StoryEditorViewController {
                     controllers.count > 0 {
                     for controller in controllers {
                         if let storyCameraVC = controller as? StoryCameraViewController {
-                          //  navigationController?.popToViewController(storyCameraVC, animated: true)
-                            guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
-                            storyCamVC.isfromPicsArt = true
-                            self.navigationController?.pushViewController(storyCamVC, animated: true)
+                            navigationController?.popToViewController(storyCameraVC, animated: true)
+//                            guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+//                            storyCamVC.isfromPicsArt = true
+//                            self.navigationController?.pushViewController(storyCamVC, animated: true)
                             return
                         }
                     }
@@ -1587,9 +1587,17 @@ extension StoryEditorViewController {
                             self.saveImageOrVideoInGallery(image: image)
                         }
                         if isFromDoneTap{
-                            guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
-                            storyCamVC.isfromPicsArt = true
-                            self.navigationController?.pushViewController(storyCamVC, animated: true)
+                            if let controllers = navigationController?.viewControllers,
+                                controllers.count > 0 {
+                                for controller in controllers {
+                                    if let storyCameraVC = controller as? StoryCameraViewController {
+                                        navigationController?.popToViewController(storyCameraVC, animated: true)
+                                    }
+                                }
+                            }
+//                            guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+//                            storyCamVC.isfromPicsArt = true
+//                            self.navigationController?.pushViewController(storyCamVC, animated: true)
                         }
                     } else {
                         if type == .more {
@@ -2227,10 +2235,10 @@ extension StoryEditorViewController {
                 controllers.count > 0 {
                 for controller in controllers {
                     if let storyCameraVC = controller as? StoryCameraViewController {
-                        //navigationController?.popToViewController(storyCameraVC, animated: true)
-                        guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
-                        storyCamVC.isfromPicsArt = true
-                        self.navigationController?.pushViewController(storyCamVC, animated: true)
+                        navigationController?.popToViewController(storyCameraVC, animated: true)
+//                        guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+//                        storyCamVC.isfromPicsArt = true
+//                        self.navigationController?.pushViewController(storyCamVC, animated: true)
                         return
                     }
                 }
