@@ -1877,18 +1877,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.contactTableView {
             if self.contactSections[section].contacts.count == 0 {
-                return 0
+                return .leastNormalMagnitude
             } else {
                 return 30
             }
         } else if tableView == self.emailContactTableView {
             if self.emailContactSection[section].contacts.count == 0 {
-                return 0
+                return .leastNormalMagnitude
             } else {
                 return 30
             }
         } else{
-            return 0
+            return .leastNormalMagnitude
         }
     }
     
