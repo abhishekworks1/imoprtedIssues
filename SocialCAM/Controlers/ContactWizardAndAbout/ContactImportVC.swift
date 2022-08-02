@@ -3209,8 +3209,8 @@ extension ContactImportVC:UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == contactTableView || scrollView == emailContactTableView{
-         /*  let offsetY = scrollView.contentOffset.y
-            print("offsetY \(offsetY)")
+           let offsetY = scrollView.contentOffset.y
+//            print("offsetY \(offsetY)")
             if offsetY <= 84.0 + 50.0{
                 segmentViewHeight.constant = 84.0 - offsetY
                 if offsetY > 84.0 && segmentViewHeight.constant == 0{
@@ -3222,7 +3222,7 @@ extension ContactImportVC:UIScrollViewDelegate{
                 segmentViewHeight.constant = 0.0
                 stepViewHeight.constant = 0.0
             }
-            */
+            
             if self.loadingStatus{
                 return
             }
