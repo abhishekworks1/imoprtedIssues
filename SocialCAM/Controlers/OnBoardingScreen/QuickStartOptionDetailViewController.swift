@@ -56,6 +56,8 @@ class QuickStartOptionDetailViewController: UIViewController {
                 tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
             } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
                 tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+            } else if selectedQuickStartCategory?.catId == "mobile_dashboard" {
+                tryNowButton.setTitle("Try Mobile Dashboard Now", for: .normal)
             } else {
                 tryNowButton.setTitle("Try Now", for: .normal)
             }
