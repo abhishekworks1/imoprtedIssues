@@ -152,6 +152,28 @@ class EditProfilePicViewController: UIViewController {
         self.setUpSubscriptionBadges()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.addLeftViewToTxtDisplayName()
+    }
+    
+    func addLeftViewToTxtDisplayName() {
+        self.txtDisplayName.leftViewMode = UITextField.ViewMode.always
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: self.txtDisplayName.frame.size.height))
+        
+        let dividerView = UIView(frame: CGRect(x: 40, y: 0, width: 1, height: self.txtDisplayName.frame.size.height))
+        dividerView.backgroundColor = UIColor(red: 0.0, green: 125/255, blue: 255/255, alpha: 1.0)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: self.txtDisplayName.frame.size.height))
+        label.textAlignment = .center
+        leftView.addSubview(dividerView)
+        leftView.addSubview(label)
+        label.text = "@"
+        self.txtDisplayName.leftView = leftView
+        self.txtDisplayName.layer.borderWidth = 1.0
+        self.txtDisplayName.layer.cornerRadius = 8.0
+        self.txtDisplayName.borderColorV = UIColor(red: 0.0, green: 125/255, blue: 255/255, alpha: 1.0)
+    }
+    
     func settingSocialPlatforms() {
         if imageSource != "" {
             self.socialPlatforms.append(self.imageSource.lowercased())
