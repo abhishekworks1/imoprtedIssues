@@ -247,11 +247,11 @@ class SubscriptionsViewController: UIViewController {
             yourPlanActiveLabel.textColor = firstColor
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
-            quickCamModeSubTitles.text = "-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 3 minutes\n- Save Mode"
+            quickCamModeSubTitles.text = "- Record in 2x, 3x, 4x and 5x fast motion\n- Record in -2x, -3x, -4x and -5x slow motion\n- Zoom in and out\n- Record in normal speed\n- Record up to 3 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 5 min\n- Edit up to 20 segments\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Income Goal Calculator\n- Custom Invite Page\n- Custom Referral page for affiliates\n- Invite Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Premium Subscriber Badge"
-            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Invite Wizard with Contact Inviter\n\t- TextShare\n\t- Manual Email\n\t- QRCodeShare\n\t- SocialShare\n- Income Goal Calculator\n- Notifications\n- iPhone Premium Subscriber Badge"
+            businessDashboardSubTitleLabel.text = "- Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions and Payout"
             
             //"- Referral Duplication System\n- Custom Referral page for affiliates\n- Invite Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Premium Subscriber Badge Business Dashboard (Web access)"
         case .advanced:
@@ -268,11 +268,11 @@ class SubscriptionsViewController: UIViewController {
             yourPlanActiveLabel.textColor = firstColor
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
-            quickCamModeSubTitles.text = "-  Record in 2x, 3x and 4x fast motion\n-  Record in -2x, -3x and -4x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 2 minutes\n- Save Mode"
+            quickCamModeSubTitles.text = "- Record in 2x, 3x and 4x fast motion\n- Record in -2x, -3x and -4x slow motion\n- Zoom in and out\n- Record in normal speed\n- Record up to 2 minutes\n- Save Mode"
             pic2ArtSubTitleLabel.text = "- 44 Pic2Art filters\n- Pic2Art Photo Editor"
             videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 2 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Income Goal Calculator\n- Custom Invite Page\n- Custom Referral page for affiliates\n- Invite Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Advanced Subscriber Badge"
-            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Invite Wizard with Contact Inviter\n\t- TextShare\n\t- Manual Email\n\t- QRCodeShare\n\t- SocialShare\n- Income Goal Calculator\n- Notifications\n- iPhone Advanced Subscriber Badge"
+            businessDashboardSubTitleLabel.text = "- Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions and Payout"
         case .basic:
             subScriptionTypeLabel.text = "Basic"
             subScriptionTypeLabel.textColor = UIColor.init(hexString: "EAB140")
@@ -283,15 +283,15 @@ class SubscriptionsViewController: UIViewController {
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
             upGradeButtonView.backgroundColor = firstColor
-            yourPlanActiveLabel.textColor =  UIColor.init(hexString: "DCAF54")
+            yourPlanActiveLabel.textColor = UIColor.init(hexString: "DCAF54")
             pic2ArtTitleLabel.isHidden = true
             pic2ArtSubTitleLabel.isHidden = true
             days7TrialTitleLabel.isHidden = true
             days7TrialSubTitleLabel.isHidden = true
-            quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 1 minute"
-            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Income Goal Calculator\n- Custom Invite Page\n- Invite Wizard with Text and Email Inviter\n- Custom Referral page for affiliates\n- Invite Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- iPhone Basic Subscriber Badge"
-            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+            quickCamModeSubTitles.text = "- Record in 2x and 3x fast motion\n- Record in -2x and -3x slow motion\n- Zoom in and out\n- Record in normal speed\n- Record up to 1 minute"
+            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 1 minutes\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Invite link sticker\n- Referral link\n- Share on all supported social media"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Invite Wizard with Contact Inviter\n\t- TextShare\n\t- Manual Email\n\t- QRCodeShare\n\t- SocialShare\n- Income Goal Calculator\n- Notifications\n- iPhone Basic Subscriber Badge"
+            businessDashboardSubTitleLabel.text = "- Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions and Payout"
         case .free:
             pic2ArtTitleLabel.isHidden = true
             pic2ArtSubTitleLabel.isHidden = true
@@ -306,15 +306,15 @@ class SubscriptionsViewController: UIViewController {
             yourPlanActiveLabel.textColor = firstColor
             planActiveView.isHidden = true
             upGradeButtonView.isHidden = false
-            days7TrialSubTitleLabel.text = "-  Access to all Premium Features\n-  No credit card required"
+            days7TrialSubTitleLabel.text = "- Access to all Premium Features\n- No credit card required"
             
-            quickCamModeSubTitles.text = "-  Record in 2x and 3x fast motion\n-  Record in -2x and -3x slow motion\n-  Zoom in and out\n-  Record in normal speed\n-  Record up to 30 seconds"
+            quickCamModeSubTitles.text = "- Record in 2x and 3x fast motion\n- Record in -2x and -3x slow motion\n- Zoom in and out\n- Record in normal speed\n- Record up to 30 seconds"
             
-            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 30 seconds\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Share on all supported social media"
+            videoEditorSubTitlesLabel.text = "- Edit existing videos, up to 30 seconds\n- Bitmoji integration\n- Trim, Cut & Crop\n- Watermarks\n- Referral link\n- Invite link sticker\n- Share on all supported social media"
             
-            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Income Goal Calculator\n- Custom Referral page for affiliates\n- Invite Wizard with Text and Email Inviter\n- QR Code Profile Badge"
+            mobileDashboardSubTitlesLabel.text = "- Referral Duplication System\n- Invite Wizard with Contact Inviter\n\t- TextShare\n\t- Manual Email\n\t- QRCodeShare\n\t- SocialShare\n- Income Goal Calculator\n- Notifications\n- Free User Badge"
             
-            businessDashboardSubTitleLabel.text = "-  Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions"
+            businessDashboardSubTitleLabel.text = "- Free while in Beta\n- Automated email inviter\n- Custom Referral pages\n- Referral Commissions and Payout"
         default:
             break
         }
