@@ -950,7 +950,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                     self.lblNumberofContacts.text = "Contacts(\(self.emailContacts.count))"
                     self.groupedEmailContactArray = self.groupContacts(sortedContacts:self.emailContacts)
-                    self.emailContactSection =  self.checkForCharacter(groupedArray:self.groupedContactArray)
+                    self.emailContactSection =  self.checkForCharacter(groupedArray:self.groupedEmailContactArray)
                     DispatchQueue.main.async {
                         if page == 1 {
                             let contentOffset = self.emailContactTableView.contentOffset
