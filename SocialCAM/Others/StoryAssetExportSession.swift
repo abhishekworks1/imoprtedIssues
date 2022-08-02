@@ -530,7 +530,13 @@ class StoryAssetExportSession {
             displaynameTextImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
         }
         if Defaults.shared.fastestEverWatermarkSetting == .show {
-            watermarkImageRect = CGRect(origin: fastesteverOrigin, size: fastesteverImageSize)
+            var fastestImageSize: CGSize = fastesteverImageSize
+            fastestImageSize.height = fastestImageSize.height + 50
+            fastestImageSize.width = fastestImageSize.width + 120
+            var fastestOrigin: CGPoint = fastesteverOrigin
+            fastestOrigin.y = fastestOrigin.y - 40
+            fastestOrigin.x = fastestOrigin.x + 40
+            watermarkImageRect = CGRect(origin: fastestOrigin, size: fastestImageSize)
             fastesteverImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
         }
         if let newImage = UIGraphicsGetImageFromCurrentImageContext() {

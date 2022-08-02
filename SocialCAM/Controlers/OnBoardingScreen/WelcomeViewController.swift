@@ -80,6 +80,7 @@ class WelcomeViewController: UIViewController {
     }
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
 
+    @IBOutlet weak var channelNameLabel: UILabel!
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
@@ -275,7 +276,8 @@ extension WelcomeViewController {
             self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
         }
         
-        self.displayNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"//Defaults.shared.publicDisplayName
+        self.displayNameLabel.text = Defaults.shared.publicDisplayName
+        self.channelNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"
         self.checkTrailPeriodExpire()
       //  self.setSubscriptionBadgeDetails()
         self.getDays()
@@ -314,7 +316,8 @@ extension WelcomeViewController {
                 self.view.setNeedsUpdateConstraints()
             }
             self.checkTrailPeriodExpire()
-            self.displayNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"//Defaults.shared.publicDisplayName
+            self.displayNameLabel.text = Defaults.shared.publicDisplayName
+            self.channelNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"
             //    self.setSubscriptionBadgeDetails()
             self.checkIfWelcomeTimerAlertShownToday()
 //             self.showWelcomeTimerAlert()
