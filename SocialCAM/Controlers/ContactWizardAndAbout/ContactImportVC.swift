@@ -82,7 +82,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var messageMaualtextView: UIView!
     @IBOutlet weak var messageImagePreviewView: UIView!
     @IBOutlet weak var messageImageView: UIImageView!
-    @IBOutlet weak var messageTextPreviewTextView: UITextView!
+    @IBOutlet weak var messageTextPreviewTextView: UILabel!
     
     @IBOutlet weak var selectedShareTitleLabel: UILabel!
     @IBOutlet weak var nocontactView: UIView!
