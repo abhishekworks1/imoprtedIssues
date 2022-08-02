@@ -277,11 +277,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        frwrdarrow3.setImageColor(color: UIColor(hexString: "E48C4C"))
 
         messageImagePreviewView.dropShadowNew()
+       
         itemsTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER)
         
         itemsTableView.allowsSelection = true
         itemsTableView.dataSource = self
         itemsTableView.delegate = self
+        itemsTableView.sectionHeaderHeight = 0.0
+        itemsTableView.sectionFooterHeight = 0.0
         
         contactTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER_CONTACT, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT)
         
@@ -1882,24 +1885,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.contactTableView {
-            if self.contactSections[section].contacts.count == 0 {
-                return 0
-            } else {
+            if self.contactSections[section].contacts.count > 0 {
                 return 30
             }
         } else if tableView == self.emailContactTableView {
-            if self.emailContactSection[section].contacts.count == 0 {
-                return 0
-            } else {
+            if self.emailContactSection[section].contacts.count > 0 {
                 return 30
             }
-        } else{
+        } else if tableView == itemsTableView {
             return 0
         }
+        return .leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
+        if tableView == itemsTableView {
+            return 0
+        }
+        return .leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
