@@ -208,8 +208,6 @@ class SubscriptionsViewController: UIViewController {
     
    @objc func didTapThankYouView(sender: UITapGestureRecognizer)  {
        self.thankYouViewSubScription.isHidden = true
-       planActiveView.isHidden = false
-       upGradeButtonView.isHidden = true
 
        if isFromWelcomeScreen {
            guard let onBoardView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
@@ -217,7 +215,16 @@ class SubscriptionsViewController: UIViewController {
            welcomeNavigationVC?.viewControllers.append((R.storyboard.welcomeOnboarding.welcomeViewController()?.viewControllers.first)!)
            Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
        } else {
-           navigationController?.popToViewController(ofClass: StoryCameraViewController.self)
+           for controller in self.navigationController!.viewControllers as Array {
+               if controller.isKind(of: StoryCameraViewController.self) {
+                   self.navigationController!.popToViewController(controller, animated: true)
+                   break
+               } else if controller.isKind(of: StorySettingsVC.self) {
+                   self.navigationController!.popToViewController(controller, animated: true)
+                   break
+               }
+           }
+//           navigationController?.popToViewController(ofClass: StoryCameraViewController.self)
           // self.navigationController?.popToRootViewController(animated: true)
        }
     }
@@ -353,8 +360,15 @@ class SubscriptionsViewController: UIViewController {
             welcomeNavigationVC?.viewControllers.append((R.storyboard.welcomeOnboarding.welcomeViewController()?.viewControllers.first)!)
             Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
         } else {
-            navigationController?.popToViewController(ofClass: StoryCameraViewController.self)
-           // self.navigationController?.popToRootViewController(animated: true)
+            for controller in self.navigationController!.viewControllers as Array {
+                if controller.isKind(of: StoryCameraViewController.self) {
+                    self.navigationController!.popToViewController(controller, animated: true)
+                    break
+                } else if controller.isKind(of: StorySettingsVC.self) {
+                    self.navigationController!.popToViewController(controller, animated: true)
+                    break
+                }
+            }
         }
 //        freeModeAlertBlurView.isHidden = true
 //        freeModeAlertView.isHidden = true
