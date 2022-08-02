@@ -162,8 +162,10 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBAction func didTapOnTryNow(_ sender: UIButton) {
         if selectedQuickStartCategory?.catId == "create_engaging_content" {
             Defaults.shared.isSignupLoginFlow = true
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+            if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
+                storySettingsVC.isFromCameraParentView = true
+                navigationController?.pushViewController(storySettingsVC, animated: true)
+            }
         } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
             if selectedQuickStartItem?.title == "Income Goal Calculator" {
                 if let token = Defaults.shared.sessionToken {
@@ -184,13 +186,8 @@ class QuickStartOptionDetailViewController: UIViewController {
                 }
             }
         } else {
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            if let pageViewController = rootViewController as? PageViewController,
-               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-                navigationController.viewControllers.append(settingVC)
-            }
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+            navigationController?.pushViewController(storySettingsVC, animated: true)
         }
     }
     
