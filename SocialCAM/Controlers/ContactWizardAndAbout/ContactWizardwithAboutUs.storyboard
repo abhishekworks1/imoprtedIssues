@@ -1067,6 +1067,14 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WCA-F4-kvb">
+                                                        <rect key="frame" x="20" y="54" width="335" height="444"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="zZw-wm-uWi" id="h5c-v4-5Of"/>
+                                                            <outlet property="delegate" destination="zZw-wm-uWi" id="wA4-9l-rzZ"/>
+                                                        </connections>
+                                                    </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0K-Yx-xer">
                                                         <rect key="frame" x="0.0" y="498" width="375" height="70"/>
                                                         <subviews>
@@ -1151,18 +1159,9 @@
                                                             <constraint firstAttribute="trailing" secondItem="PvM-Tl-xDM" secondAttribute="trailing" constant="20" id="y5w-4F-MNd"/>
                                                         </constraints>
                                                     </view>
-                                                    <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WCA-F4-kvb">
-                                                        <rect key="frame" x="20" y="54" width="335" height="444"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <connections>
-                                                            <outlet property="dataSource" destination="zZw-wm-uWi" id="h5c-v4-5Of"/>
-                                                            <outlet property="delegate" destination="zZw-wm-uWi" id="wA4-9l-rzZ"/>
-                                                        </connections>
-                                                    </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="W0K-Yx-xer" secondAttribute="bottom" id="0ty-EM-221"/>
                                                     <constraint firstAttribute="trailing" secondItem="W0K-Yx-xer" secondAttribute="trailing" id="4ta-Rf-njd"/>
                                                     <constraint firstItem="unL-n1-Ynh" firstAttribute="top" secondItem="R1E-ez-P99" secondAttribute="top" constant="10" id="YOA-f6-ce1"/>
                                                     <constraint firstItem="unL-n1-Ynh" firstAttribute="leading" secondItem="R1E-ez-P99" secondAttribute="leading" constant="20" id="cAx-Qe-Yxu"/>
@@ -4428,6 +4427,7 @@
                             <constraint firstItem="whI-Sq-5YS" firstAttribute="centerY" secondItem="QrJ-L9-QPx" secondAttribute="centerY" id="OSn-Ap-Iwe"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="trailing" secondItem="avT-s4-27w" secondAttribute="trailing" id="PhT-yk-5e2"/>
                             <constraint firstItem="Bxs-kp-e47" firstAttribute="leading" secondItem="9OK-5u-VZy" secondAttribute="leading" id="R3v-tY-S1z"/>
+                            <constraint firstItem="9OK-5u-VZy" firstAttribute="bottom" secondItem="W0K-Yx-xer" secondAttribute="bottom" id="Sbl-k8-aoT"/>
                             <constraint firstItem="whI-Sq-5YS" firstAttribute="centerX" secondItem="9OK-5u-VZy" secondAttribute="centerX" id="TkW-Sm-u9n"/>
                             <constraint firstItem="9OK-5u-VZy" firstAttribute="top" secondItem="CIX-NF-Cdz" secondAttribute="top" constant="44" id="U2O-4a-hOg"/>
                             <constraint firstItem="vb4-mf-4aB" firstAttribute="bottom" secondItem="16O-Ph-jEp" secondAttribute="bottom" id="WJ8-uu-o8O"/>
