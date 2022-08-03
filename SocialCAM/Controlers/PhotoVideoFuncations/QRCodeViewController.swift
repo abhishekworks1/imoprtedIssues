@@ -16,6 +16,7 @@ enum RefferelType:Int{
 }
 class QRCodeViewController: UIViewController {
 
+    @IBOutlet weak var selectedTabTextLabel: UILabel!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var imageQrCode: UIImageView!
     @IBOutlet weak var imgProfilePic: UIImageView!
@@ -148,6 +149,7 @@ class QRCodeViewController: UIViewController {
         Utils.appDelegate?.window?.makeToast(R.string.localizable.qrCodeImageSaved())
     }
     @IBAction func quickStartClicked(_ sender: UIButton) {
+        selectedTabTextLabel.text = "QuickStart"
         quickStartButton.setTitleColor(themeBlueColor, for: .normal)
         quickStartBottomLine.backgroundColor = themeBlueColor
         quickStartBottomLineHeight.constant = 2.0
@@ -171,6 +173,7 @@ class QRCodeViewController: UIViewController {
         
     }
     @IBAction func refferalPageClicked(_ sender: UIButton) {
+        selectedTabTextLabel.text = "Referral Page"
         refferalPageButton.setTitleColor(themeBlueColor, for: .normal)
         refferalPageBottomLine.backgroundColor = themeBlueColor
         refferalPageBottomLineHeight.constant = 2.0
