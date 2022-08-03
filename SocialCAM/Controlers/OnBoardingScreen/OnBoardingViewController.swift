@@ -1142,9 +1142,15 @@ extension OnBoardingViewController {
     
     func setUpQuickStartData() {
         if Defaults.shared.quickStartCategories?.count == 3 {
-            self.createContentTitleLabel.text = Defaults.shared.quickStartCategories?[1].label
-            self.makeMoneyTitleLabel.text = Defaults.shared.quickStartCategories?[0].label
-            self.mobileDashboardTitleLabel.text = Defaults.shared.quickStartCategories?[2].label
+            if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first {
+                self.createContentTitleLabel.text = createContent.label
+            }
+            if let makeMoney = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "make_money_referring_quickCam" }).first {
+                self.makeMoneyTitleLabel.text = makeMoney.label
+            }
+            if let mobileDashboard = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "mobile_dashboard" }).first {
+                self.mobileDashboardTitleLabel.text = mobileDashboard.label
+            }
         }
         if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, createContent.Items?.count == createContentCategoriesLabels.count {
             for label in createContentCategoriesLabels {

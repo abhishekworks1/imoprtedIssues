@@ -277,11 +277,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        frwrdarrow3.setImageColor(color: UIColor(hexString: "E48C4C"))
 
         messageImagePreviewView.dropShadowNew()
+       
         itemsTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER)
         
         itemsTableView.allowsSelection = true
         itemsTableView.dataSource = self
         itemsTableView.delegate = self
+        itemsTableView.sectionHeaderHeight = 0.0
+        itemsTableView.sectionFooterHeight = 0.0
         
         contactTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER_CONTACT, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT)
         
@@ -302,7 +305,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.emailContactTableView.rowHeight = UITableView.automaticDimension
         
         searchBar.delegate = self
-        
+        filterScrollview?.delegate = self
           
         if let channelId = Defaults.shared.currentUser?.channelId {
             //self.txtLinkWithCheckOut = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
@@ -916,7 +919,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             self.nocontactView.isHidden = false
-                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
+                            if searchText.count > 0 {
+                                self.lblnocontact.text = "No contacts found with '\(searchText)' status."
+                            } else {
+                                self.lblnocontact.text = "No contacts found with '\(filter)' status."
+                            }
+                            self.nocontactView.isHidden = false
                         }
                     }else{
                         self.contactPermitView.isHidden = true
@@ -941,8 +949,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.contactPermitView.isHidden = false
                             self.lblnocontact.text = "Import Contacts"
                         }else{
+                            if searchText.count > 0 {
+                                self.lblnocontact.text = "No contacts found with '\(searchText)' status."
+                            } else {
+                                self.lblnocontact.text = "No contacts found with '\(filter)' status"
+                            }
                             self.nocontactView.isHidden = false
-                            self.lblnocontact.text = "No contacts found with '\(searchText)' status"
                         }
                     }else{
                         self.contactPermitView.isHidden = true
@@ -1355,8 +1367,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "All"
            // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
-            leftFilterArrowButton.tintColor = .lightGray
-            rightFilterArrowButton.tintColor = .black
+//            leftFilterArrowButton.tintColor = .lightGray
+//            rightFilterArrowButton.tintColor = .black
             break
         case 2:
             self.selectedFilter = ContactStatus.recent
@@ -1414,8 +1426,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblCurrentFilter.text = "Hidden"
           //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.hidden,hide:true)
-            rightFilterArrowButton.tintColor = .lightGray
-            leftFilterArrowButton.tintColor = .black
+//            rightFilterArrowButton.tintColor = .lightGray
+//            leftFilterArrowButton.tintColor = .black
             break
         default:
             mobileContacts = allmobileContacts
@@ -1433,8 +1445,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 70.0) - 70.0
             }else{
                 contentOffsetX = 0.0
-                leftFilterArrowButton.tintColor = .lightGray
-                rightFilterArrowButton.tintColor = .black
             }
             filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
             
@@ -1446,13 +1456,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
           
             if (filterScrollview?.contentOffset.x ?? 0) > (CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)) - 70{
                 contentOffsetX =  CGFloat(filterScrollview?.contentSize.width ?? 0.0) - (filterScrollview?.frame.width  ?? 0.0)
-                rightFilterArrowButton.tintColor = .lightGray
-                leftFilterArrowButton.tintColor = .black
             }else{
                 contentOffsetX =  (filterScrollview?.contentOffset.x ?? 0.0) + 70.0
             }
             filterScrollview?.setContentOffset(CGPoint(x:contentOffsetX, y: filterScrollview?.contentOffset.y ?? 0.0), animated: true)
-            
         }
     }
     func setPreviewData(){
@@ -1876,24 +1883,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.contactTableView {
-            if self.contactSections[section].contacts.count == 0 {
-                return 0
-            } else {
+            if self.contactSections[section].contacts.count > 0 {
                 return 30
             }
         } else if tableView == self.emailContactTableView {
-            if self.emailContactSection[section].contacts.count == 0 {
-                return 0
-            } else {
+            if self.emailContactSection[section].contacts.count > 0 {
                 return 30
             }
-        } else{
+        } else if tableView == itemsTableView {
             return 0
         }
+        return .leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
+        if tableView == itemsTableView {
+            return 0
+        }
+        return .leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -3209,8 +3216,8 @@ extension ContactImportVC:UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == contactTableView || scrollView == emailContactTableView{
-         /*  let offsetY = scrollView.contentOffset.y
-            print("offsetY \(offsetY)")
+           let offsetY = scrollView.contentOffset.y
+//            print("offsetY \(offsetY)")
             if offsetY <= 84.0 + 50.0{
                 segmentViewHeight.constant = 84.0 - offsetY
                 if offsetY > 84.0 && segmentViewHeight.constant == 0{
@@ -3222,7 +3229,7 @@ extension ContactImportVC:UIScrollViewDelegate{
                 segmentViewHeight.constant = 0.0
                 stepViewHeight.constant = 0.0
             }
-            */
+            
             if self.loadingStatus{
                 return
             }
@@ -3259,10 +3266,23 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
 
             // update the new position acquired
-            self.lastContentOffset = scrollView.contentOffset.y //
-             
+            self.lastContentOffset = scrollView.contentOffset.y
         }
-      
+        else if scrollView == filterScrollview
+        {
+            let rightOffset = CGPoint(x: scrollView.contentSize.width - scrollView.bounds.size.width, y: 0)
+            if scrollView.contentOffset.x == 0.0 {
+                leftFilterArrowButton.tintColor = .lightGray
+                rightFilterArrowButton.tintColor = .black
+            } else if scrollView.contentOffset.x == rightOffset.x {
+                leftFilterArrowButton.tintColor = .black
+                rightFilterArrowButton.tintColor = .lightGray
+             } else {
+                leftFilterArrowButton.tintColor = .black
+                rightFilterArrowButton.tintColor = .black
+            }
+        }
+
     }
 }
 extension ContactImportVC:EasyTipViewDelegate,SharingDelegate {

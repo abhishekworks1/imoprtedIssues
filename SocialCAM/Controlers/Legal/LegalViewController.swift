@@ -21,18 +21,30 @@ class LegalViewController: UIViewController {
     // MARK: - Variables
     
     internal var isTermsAndConditions = true
-    
+    var otherLink = OtherLinks.privacyPolicy
     // MARK: -
     // MARK: - ViewController Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showHUD()
-        self.lblTitle.text = isTermsAndConditions ? R.string.localizable.termsAndConditions() : R.string.localizable.privacyPolicy()
-        
+        if otherLink == .website {
+            self.lblTitle.text = OtherLinks.website.rawValue
+        } else if otherLink == .cookiePolicy {
+            self.lblTitle.text = OtherLinks.cookiePolicy.rawValue
+        } else {
+            self.lblTitle.text = isTermsAndConditions ? R.string.localizable.termsAndConditions() : R.string.localizable.privacyPolicy()
+        }
         // FOR NOW URL IS STATIC. IT WILL BE DYNAMIC APP WISE
         
-        guard let legalUrl = URL(string: isTermsAndConditions ? termsAndConditionsUrl : privacyPolicyUrl) else { return }
+        guard var legalUrl = URL(string: isTermsAndConditions ? termsAndConditionsUrl : privacyPolicyUrl) else { return }
+        
+        if otherLink == .cookiePolicy {
+            legalUrl = URL(string: "https://quickcam.app/cookie-policy")!
+        } else if otherLink == .website {
+            legalUrl = URL(string: "https://quickcam.app/")!
+        }
+        
         let urlRequest = URLRequest(url: legalUrl)
         webView.load(urlRequest)
         webView.uiDelegate = self
@@ -66,4 +78,11 @@ extension LegalViewController: WKUIDelegate, WKNavigationDelegate {
         self.dismissHUD()
     }
     
+}
+
+enum OtherLinks: String {
+    case website = "Website"
+    case privacyPolicy = "Privacy Policy"
+    case cookiePolicy = "Cookie Policy"
+    case termsofUse = "Terms and Conditions"
 }

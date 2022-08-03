@@ -294,7 +294,7 @@ extension WelcomeViewController {
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
-                
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.syncUserdata())
                 self.hideLoader()
 //                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
                 self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay

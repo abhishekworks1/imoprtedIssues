@@ -56,6 +56,8 @@ class QuickStartOptionDetailViewController: UIViewController {
                 tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
             } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
                 tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+            } else if selectedQuickStartCategory?.catId == "mobile_dashboard" {
+                tryNowButton.setTitle("Try Mobile Dashboard Now", for: .normal)
             } else {
                 tryNowButton.setTitle("Try Now", for: .normal)
             }
@@ -160,8 +162,10 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBAction func didTapOnTryNow(_ sender: UIButton) {
         if selectedQuickStartCategory?.catId == "create_engaging_content" {
             Defaults.shared.isSignupLoginFlow = true
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+            if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
+                storySettingsVC.isFromCameraParentView = true
+                navigationController?.pushViewController(storySettingsVC, animated: true)
+            }
         } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
             if selectedQuickStartItem?.title == "Income Goal Calculator" {
                 if let token = Defaults.shared.sessionToken {
@@ -182,13 +186,8 @@ class QuickStartOptionDetailViewController: UIViewController {
                 }
             }
         } else {
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            if let pageViewController = rootViewController as? PageViewController,
-               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-                navigationController.viewControllers.append(settingVC)
-            }
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+            navigationController?.pushViewController(storySettingsVC, animated: true)
         }
     }
     
