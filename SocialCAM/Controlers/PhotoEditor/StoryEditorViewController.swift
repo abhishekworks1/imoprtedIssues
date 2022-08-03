@@ -207,7 +207,12 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var closeLabel: UILabel!
     @IBOutlet weak var showHideLabel: UILabel!
     @IBOutlet weak var showHideView: UIView!
-    @IBOutlet weak var cropPopupBlurView: UIVisualEffectView!
+    @IBOutlet weak var cropPopupBlurView: UIVisualEffectView! {
+        didSet {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hidewatermarkOptionsView))
+            cropPopupBlurView.addGestureRecognizer(tapGesture)
+        }
+    }
     @IBOutlet weak var croppedAlertView: UIView!
     
     @IBOutlet weak var socialMediaMainView: UIView!
@@ -520,6 +525,14 @@ class StoryEditorViewController: UIViewController {
         self.view.layoutIfNeeded()
         for storyEditor in storyEditors {
             storyEditor.frame = mediaImageView.frame
+        }
+    }
+    
+    @objc func hidewatermarkOptionsView() {
+        if watermarkOptionsView.isHidden == false {
+            hideWatermarkView(isHide: true)
+        } else {
+            self.hideCropPopView(isHide: true)
         }
     }
     
