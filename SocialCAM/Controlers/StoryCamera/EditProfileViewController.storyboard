@@ -1454,12 +1454,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPQ-bN-f5h">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="381"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="453"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="402" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="chH-Y2-fKn" customClass="SelfSizedTableView" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="18" y="381" width="378" height="402"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="402" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="chH-Y2-fKn" customClass="SelfSizedTableView" customModule="BoomiCam" customModuleProvider="target">
+                                <rect key="frame" x="18" y="443" width="378" height="340"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="340" id="p7h-z4-TM6"/>
+                                </constraints>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="eeV-Sz-87S">
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1717,7 +1720,7 @@
                             <constraint firstItem="78x-P1-uUM" firstAttribute="leading" secondItem="5Hh-ds-HS5" secondAttribute="leading" id="6YH-9q-rRZ"/>
                             <constraint firstItem="54W-eT-cqc" firstAttribute="trailing" secondItem="chH-Y2-fKn" secondAttribute="trailing" id="6dO-Cq-Zhy"/>
                             <constraint firstItem="54W-eT-cqc" firstAttribute="top" secondItem="chH-Y2-fKn" secondAttribute="bottom" constant="15" id="HW9-Rw-Z0I"/>
-                            <constraint firstItem="chH-Y2-fKn" firstAttribute="top" secondItem="RPQ-bN-f5h" secondAttribute="bottom" id="WIn-KW-ZMP"/>
+                            <constraint firstItem="chH-Y2-fKn" firstAttribute="top" secondItem="RPQ-bN-f5h" secondAttribute="bottom" constant="-10" id="WIn-KW-ZMP"/>
                             <constraint firstAttribute="trailing" secondItem="chH-Y2-fKn" secondAttribute="trailing" constant="18" id="Wuh-9H-WRO"/>
                             <constraint firstItem="5Hh-ds-HS5" firstAttribute="trailing" secondItem="78x-P1-uUM" secondAttribute="trailing" id="X61-VP-Vey"/>
                             <constraint firstItem="78x-P1-uUM" firstAttribute="top" secondItem="LWj-XU-ipu" secondAttribute="top" id="fVK-rF-eoC"/>
