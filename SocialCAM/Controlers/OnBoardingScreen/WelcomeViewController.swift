@@ -81,6 +81,28 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
 
     @IBOutlet weak var channelNameLabel: UILabel!
+    
+    //Badges
+    @IBOutlet weak var preLaunchBadgeImageView: UIImageView!
+    @IBOutlet weak var foundingMemberBadgeImageView: UIImageView!
+    @IBOutlet weak var socialBadgeImageView: UIImageView!
+    @IBOutlet weak var dayBadgeImageView: UIImageView!
+
+    @IBOutlet weak var iosBadgeView: UIView!
+    @IBOutlet weak var iosShieldImageview: UIImageView!
+    @IBOutlet weak var iosIconImageview: UIImageView!
+    @IBOutlet weak var iosRemainingDaysLabel: UILabel!
+    
+    @IBOutlet weak var androidBadgeView: UIView!
+    @IBOutlet weak var androidShieldImageview: UIImageView!
+    @IBOutlet weak var androidIconImageview: UIImageView!
+    @IBOutlet weak var androidRemainingDaysLabel: UILabel!
+
+    @IBOutlet weak var webBadgeView: UIView!
+    @IBOutlet weak var webShieldImageview: UIImageView!
+    @IBOutlet weak var webIconImageview: UIImageView!
+    @IBOutlet weak var webRemainingDaysLabel: UILabel!
+
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
