@@ -23,7 +23,7 @@ class ReferSuccessVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblName.text = "Great Job \(Defaults.shared.currentUser?.firstName ?? "") 👍🏻"
+        lblName.text = "Great Job 👍🏻"//\(Defaults.shared.currentUser?.firstName ?? "") "
         // Do any additional setup after loading the view.
     }
 
@@ -66,7 +66,16 @@ class ReferSuccessVC: UIViewController {
         }
     }
     @IBAction func ContinueAction(_ sender: Any) {
-        if self.isFromOnboarding {
+        for controller in self.navigationController!.viewControllers as Array {
+            if controller.isKind(of: StorySettingsVC.self) {
+                self.navigationController!.popToViewController(controller, animated: true)
+                break
+            } else if controller.isKind(of: QuickStartOptionDetailViewController.self) {
+                self.navigationController!.popToViewController(controller, animated: true)
+                break
+            }
+        }
+        /*if self.isFromOnboarding {
             let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
             Utils.appDelegate?.window?.rootViewController = rootViewController
         } else {
@@ -76,6 +85,15 @@ class ReferSuccessVC: UIViewController {
                     break
                 }
             }
+        }*/
+    }
+    @IBAction func backAction(_ sender: Any) {
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        if viewControllers.count >= 3 {
+          self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+        } else {
+            self.navigationController!.popToRootViewController(animated: true)
+          
         }
     }
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
