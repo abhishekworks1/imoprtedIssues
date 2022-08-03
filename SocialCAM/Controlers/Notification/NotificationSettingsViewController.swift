@@ -45,6 +45,7 @@ class NotificationSettingsViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func onBackPressed(_ sender: UIButton) {
+        self.setReferralNotification()
         navigationController?.popViewController(animated: true)
     }
     
