@@ -374,6 +374,11 @@ class ShareSettingViewController: UIViewController {
                 let image = self.profileView.toImage()
                 shareItems.append(image)
             }
+            if isIncludeQrImg {
+                let image = self.imageQrCode.toImage()
+                shareItems.append(image)
+            }
+            print(shareItems)
             let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
             self.present(shareVC, animated: true, completion: nil)
         }
