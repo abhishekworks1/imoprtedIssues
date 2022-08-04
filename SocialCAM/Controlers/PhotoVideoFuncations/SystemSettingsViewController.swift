@@ -23,16 +23,24 @@ class SystemSettings {
     
     static var systemSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
-
+        
         StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
-
+        
         StorySettings(name: "", settings: [StorySetting(name: "Welcome Screen", selected: false)], settingsType: .welcomeScreen),
         
         StorySettings(name: "", settings: [StorySetting(name: "QuickStart Guide", selected: false)], settingsType: .quickMenu),
-
+        
         StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
-
-        StorySettings(name: "", settings: [StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .mobileDashboard)
+        
+        StorySettings(name: "", settings: [StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .mobileDashboard),
+        
+        StorySettings(name: "", settings: [StorySetting(name: "Haptic Feedback", selected: false)], settingsType: .hapticFeedBack),
+        
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.all(), selected: false)], settingsType: .hapticAll),
+        
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.some(), selected: false)], settingsType: .hapticSome),
+        
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticNone)
     ]
 }
 
@@ -125,6 +133,14 @@ extension SystemSettingsViewController: UITableViewDataSource {
             systemSettingsCell.systemSettingType = .quickCamCamera
         } else if settingTitle.settingsType == .mobileDashboard {
             systemSettingsCell.systemSettingType = .mobileDashboard
+        }else if settingTitle.settingsType == .hapticFeedBack {
+            systemSettingsCell.systemSettingType = .hapticFeedBack
+        } else if settingTitle.settingsType == .hapticAll {
+            systemSettingsCell.systemSettingType = .hapticAll
+        } else if settingTitle.settingsType == .hapticSome {
+            systemSettingsCell.systemSettingType = .hapticSome
+        } else if settingTitle.settingsType == .hapticNone {
+            systemSettingsCell.systemSettingType = .hapticNone
         }
         return systemSettingsCell
     }
@@ -176,6 +192,15 @@ extension SystemSettingsViewController: UITableViewDelegate {
         
         if settingTitle.settingsType == .showAllPopups || settingTitle.settingsType == .welcomeScreen || settingTitle.settingsType == .quickMenu || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard {
             
+            tableView.reloadData()
+        }else if settingTitle.settingsType == .hapticAll{
+            Defaults.shared.allowHaptic = HapticSetting.all.rawValue
+            tableView.reloadData()
+        } else if settingTitle.settingsType == .hapticSome{
+            Defaults.shared.allowHaptic = HapticSetting.some.rawValue
+            tableView.reloadData()
+        } else if settingTitle.settingsType == .hapticNone{
+            Defaults.shared.allowHaptic = HapticSetting.none.rawValue
             tableView.reloadData()
         }
     }

@@ -43,9 +43,9 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.light(), selected: false)], settingsType: .watermarkAlpha30),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.medium(), selected: false)], settingsType: .watermarkAlpha50),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.more(), selected: false)], settingsType: .watermarkAlpha80),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.all(), selected: false)], settingsType: .hapticAll),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.some(), selected: false)], settingsType: .hapticSome),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticNone)
+//        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.all(), selected: false)], settingsType: .hapticAll),
+//        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.some(), selected: false)], settingsType: .hapticSome),
+//        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticNone)
     ]
 }
 enum HapticSetting: Int{
