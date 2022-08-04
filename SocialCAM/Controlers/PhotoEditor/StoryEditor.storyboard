@@ -4490,8 +4490,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVV-XV-c1n">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tooltip Screen – 6" translatesAutoresizingMaskIntoConstraints="NO" id="Zd0-Eb-KTx">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tooltip Screen – 6" translatesAutoresizingMaskIntoConstraints="NO" id="Zd0-Eb-KTx">
+                                        <rect key="frame" x="20" y="206" width="374" height="484"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHb-Pg-DYp">
                                         <rect key="frame" x="344" y="50" width="50" height="50"/>
@@ -4511,12 +4511,12 @@
                                 </subviews>
                                 <color key="backgroundColor" name="transparentBackgroundView"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Zd0-Eb-KTx" secondAttribute="trailing" id="7JF-T2-IMp"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zd0-Eb-KTx" secondAttribute="bottom" id="7Vk-Kd-6OJ"/>
                                     <constraint firstItem="dHb-Pg-DYp" firstAttribute="top" secondItem="ZVV-XV-c1n" secondAttribute="top" constant="50" id="Aej-Lk-SOM"/>
-                                    <constraint firstItem="Zd0-Eb-KTx" firstAttribute="leading" secondItem="ZVV-XV-c1n" secondAttribute="leading" id="G87-Fi-Rzd"/>
+                                    <constraint firstItem="Zd0-Eb-KTx" firstAttribute="centerX" secondItem="ZVV-XV-c1n" secondAttribute="centerX" id="P7a-IY-Eqg"/>
+                                    <constraint firstItem="Zd0-Eb-KTx" firstAttribute="leading" secondItem="ZVV-XV-c1n" secondAttribute="leading" constant="20" id="YnP-D9-VgC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zd0-Eb-KTx" secondAttribute="trailing" constant="20" id="eQS-gW-tuF"/>
+                                    <constraint firstItem="Zd0-Eb-KTx" firstAttribute="centerY" secondItem="ZVV-XV-c1n" secondAttribute="centerY" id="qPW-U2-Krb"/>
                                     <constraint firstAttribute="trailing" secondItem="dHb-Pg-DYp" secondAttribute="trailing" constant="20" id="s41-XO-6Ju"/>
-                                    <constraint firstItem="Zd0-Eb-KTx" firstAttribute="top" secondItem="ZVV-XV-c1n" secondAttribute="top" id="wpB-rn-BAm"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -4555,7 +4555,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Tooltip Screen – 6" width="1308" height="3195"/>
+        <image name="Tooltip Screen – 6" width="365" height="484"/>
         <image name="Whatsapp" width="48" height="48"/>
         <image name="addNewMusic" width="34" height="34"/>
         <image name="btnSkipEditTooltip" width="97" height="42"/>
