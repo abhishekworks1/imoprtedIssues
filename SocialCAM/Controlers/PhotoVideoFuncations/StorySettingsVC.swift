@@ -759,7 +759,14 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         }
         
     }
-    
+    @IBAction func btnShareTapped(_ sender: UIButton) {
+            self.goToShareScreen()
+    }
+    func goToShareScreen() {
+        if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+            self.navigationController?.pushViewController(shareSettingVC, animated: true)
+        }
+    }
 }
 
 extension StorySettingsVC {
