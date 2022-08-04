@@ -75,7 +75,7 @@ class WelcomeViewController: UIViewController {
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
         didSet {
-            setupUI()
+//            setupUI()
         }
     }
     @IBOutlet var activityIndicator: UIActivityIndicatorView!

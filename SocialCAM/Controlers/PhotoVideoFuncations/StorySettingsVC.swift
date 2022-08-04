@@ -335,7 +335,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.youTubeVerifiedView.isHidden = true
         lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(39.\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
-        setupUI()
+//        setupUI()
        
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         longpress.minimumPressDuration = 0.5
