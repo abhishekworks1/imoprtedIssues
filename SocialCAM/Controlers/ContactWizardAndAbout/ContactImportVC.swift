@@ -572,6 +572,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = .white
             lblNum5.backgroundColor = .white
+            
+            if self.shareType == .email{
+                self.isSelectSMS = false
+            }else{
+                self.isSelectSMS = true
+            }
             itemsTableView.reloadData()
         }
         else if pageNo == 4 {
@@ -592,6 +598,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = blueColor1
             lblNum5.backgroundColor = .white
+            if self.shareType == .email{
+                self.isSelectSMS = false
+            }else{
+                self.isSelectSMS = true
+            }
            /*if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
@@ -1812,7 +1823,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if section == 0 {
               return 1
             } else {
-                if isSelectSMS {
+                if self.shareType == .textShare{    //if isSelectSMS {
                     return self.smsMsgListing?.list.count ?? 0
                 } else {
                     return self.emailMsgListing?.list.count ?? 0
@@ -1923,7 +1934,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
             
-            if isSelectSMS {
+            if self.shareType == .textShare{//isSelectSMS {
                 previewTitleLabel.text = "Preview Message"
                 subTitleOfPreview.text = "Your invitation will appear similar to this depending on your contact’s messaging app."
             } else {
@@ -1991,6 +2002,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.emailRadioButtonWidthConstraint.constant = 0
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
+                    print(item?.content ?? "")
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
                 } else {
@@ -2000,6 +2012,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
                     cell.detailsLabel.text = item?.subject ?? ""
+                    print(item?.content ?? "")
                     cell.detailView.isHidden = false
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
 
@@ -2013,6 +2026,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.txtLinkWithCheckOut = item?.content ?? ""
                         emailSubjectView.isHidden = true
                         emailMaualtextView.isHidden = true
+                        if self.txtLinkWithCheckOut == "" {
+                        } else {
+                            emailSubjectTextLabel.text = txtLinkWithCheckOut
+                        }
                     } else {
                         emailMaualtextView.isHidden = false
                         emailBodyTitleLabel.text = "Email Body"
@@ -2028,6 +2045,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.txtLinkWithCheckOut = item?.content ?? ""
                     let finalText = "\(txtLinkWithCheckOut)"
                     txtLinkWithCheckOut = finalText
+                    print(self.txtLinkWithCheckOut)
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
                     self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
                     //                self.lblpreviewText.text = self.txtLinkWithCheckOut
