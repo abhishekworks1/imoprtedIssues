@@ -58,6 +58,10 @@ class PageViewController: PageboyViewController {
             }
             self.changeBackgroundImage()
         }
+        if isQuickApp {
+            self.isScrollEnabled = false
+        }
+        
     }
     
     @objc func nextPage(_ sender: UIBarButtonItem) {

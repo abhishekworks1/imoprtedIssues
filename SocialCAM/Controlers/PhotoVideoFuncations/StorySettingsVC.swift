@@ -91,6 +91,7 @@ enum SettingsMode: Int, Codable {
     case quickMenu
     case quickCamCamera
     case mobileDashboard
+    case hapticFeedBack
 }
 
 class StorySetting: Codable {
@@ -759,7 +760,14 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         }
         
     }
-    
+    @IBAction func btnShareTapped(_ sender: UIButton) {
+            self.goToShareScreen()
+    }
+    func goToShareScreen() {
+        if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+            self.navigationController?.pushViewController(shareSettingVC, animated: true)
+        }
+    }
 }
 
 extension StorySettingsVC {

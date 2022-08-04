@@ -33,6 +33,7 @@ class SelectLinkViewController: UIViewController {
     private var currentStoryIndex = 0
     private lazy var yourAffiliateLinkVC = YourAffiliateLinkViewController()
     private lazy var storyEditorVC = StoryEditorViewController()
+    var dismissCallback: ((_ dismissCompletion: Bool) -> Void)?
     
     // MARK: - View life cycle
     override func viewDidLoad() {
@@ -78,6 +79,7 @@ class SelectLinkViewController: UIViewController {
     }
     
     @IBAction func didTapCloseButton(_ sender: UIButton) {
+        dismissCallback?(true)
         dismiss(animated: true, completion: nil)
     }
     

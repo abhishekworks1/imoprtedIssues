@@ -2956,6 +2956,25 @@ Countdown</string>
                                             <action selector="showProfileAction:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="gJX-ra-OXg"/>
                                         </connections>
                                     </button>
+                                    <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMd-K4-FPT">
+                                        <rect key="frame" x="12" y="110" width="140" height="33"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="140" id="T4v-FD-LQ7"/>
+                                            <constraint firstAttribute="height" constant="33" id="jAr-Aw-Ij9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Share profile" image="iconShare">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="icoGridView"/>
+                                        <connections>
+                                            <action selector="btnShareTapped:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="ZyE-8D-fWA"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DN6-mG-mLW">
                                         <rect key="frame" x="330" y="110" width="25" height="25"/>
                                         <constraints>
@@ -2991,6 +3010,8 @@ Countdown</string>
                                     <constraint firstItem="7dA-z6-KST" firstAttribute="leading" secondItem="Kyr-VI-eyK" secondAttribute="leading" id="EVm-f3-hST"/>
                                     <constraint firstAttribute="trailing" secondItem="Wp1-SL-35m" secondAttribute="trailing" constant="12" id="Ehz-nf-MAF"/>
                                     <constraint firstItem="7dA-z6-KST" firstAttribute="top" secondItem="Kyr-VI-eyK" secondAttribute="top" id="Gpt-A0-aRR"/>
+                                    <constraint firstItem="EMd-K4-FPT" firstAttribute="top" secondItem="DN6-mG-mLW" secondAttribute="top" id="GsD-vS-BdM"/>
+                                    <constraint firstItem="EMd-K4-FPT" firstAttribute="leading" secondItem="Kyr-VI-eyK" secondAttribute="leading" constant="12" id="KXN-TK-hrr"/>
                                     <constraint firstAttribute="height" constant="145" id="LuM-GK-KIx"/>
                                     <constraint firstItem="ARz-uY-eCX" firstAttribute="top" secondItem="QJL-7B-Chf" secondAttribute="bottom" constant="8" id="PCQ-aW-EJU"/>
                                     <constraint firstAttribute="bottom" secondItem="DN6-mG-mLW" secondAttribute="bottom" constant="10" id="Qbv-0S-z4g"/>
@@ -9833,6 +9854,7 @@ Countdown</string>
         <image name="icoCountdown" width="29" height="27"/>
         <image name="icoCountdownPhoto" width="36" height="28"/>
         <image name="icoDone" width="13" height="20"/>
+        <image name="icoGridView" width="22" height="22"/>
         <image name="icoPauseCountdown" width="24" height="24"/>
         <image name="icoSegmentLength" width="35" height="21"/>
         <image name="icoUpWhite" width="128" height="128"/>
@@ -9840,6 +9862,7 @@ Countdown</string>
         <image name="iconInversePosition" width="298" height="81"/>
         <image name="iconPosition" width="298" height="81"/>
         <image name="iconPositionImage" width="20" height="22"/>
+        <image name="iconShare" width="17" height="20"/>
         <image name="iconSwitchApp" width="31" height="32"/>
         <image name="icon_fps" width="33" height="33"/>
         <image name="iosbadge" width="165" height="163"/>
