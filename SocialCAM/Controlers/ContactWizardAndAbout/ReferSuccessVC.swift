@@ -70,9 +70,11 @@ class ReferSuccessVC: UIViewController {
             if controller.isKind(of: StorySettingsVC.self) {
                 self.navigationController!.popToViewController(controller, animated: true)
                 break
-            } else if controller.isKind(of: QuickStartOptionDetailViewController.self) {
+            } else if controller.isKind(of: OnBoardingViewController.self) {
                 self.navigationController!.popToViewController(controller, animated: true)
                 break
+            } else {
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }
         /*if self.isFromOnboarding {
