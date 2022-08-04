@@ -39,6 +39,7 @@ class WelcomeTimerPopupViewController: UIViewController {
     
     @IBOutlet weak var upgradeNowButton: UIButton!
     
+    @IBOutlet weak var popUpScrollview: UIScrollView!
     private var countdownTimer: Timer?
     weak var tipTimer: Timer?
     var currentSelectedTip: Int = 0 
