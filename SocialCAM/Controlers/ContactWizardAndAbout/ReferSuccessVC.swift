@@ -73,8 +73,6 @@ class ReferSuccessVC: UIViewController {
             } else if controller.isKind(of: OnBoardingViewController.self) {
                 self.navigationController!.popToViewController(controller, animated: true)
                 break
-            } else {
-                self.navigationController?.popToRootViewController(animated: true)
             }
         }
         /*if self.isFromOnboarding {
