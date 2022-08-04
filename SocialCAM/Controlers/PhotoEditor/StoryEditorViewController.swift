@@ -102,6 +102,7 @@ class StoryEditorViewController: UIViewController {
 
     @IBOutlet weak var shareCollectionViewHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var ssuButton: UIButton!
     @IBOutlet weak var shareViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -2036,23 +2037,20 @@ extension StoryEditorViewController {
     @IBAction func ssuButtonClicked(sender: UIButton) {
         if isQuickApp {
             isVideoModified = true
-            let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
-            if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
-                self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
-                self.isSettingsChange = true
-            }
             if !isShowToolTipView {
-                
                 openActionSheet()
                 isShowToolTipView = true
                 UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
+            } else {
+                let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
+                if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
+                    self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
+                    self.isSettingsChange = true
+                }
             }
-            
-            
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
-                
                 let navigation: UINavigationController = UINavigationController(rootViewController: ssuTagSelectionViewController)
                 navigation.isNavigationBarHidden = true
                 self.present(navigation, animated: true)
@@ -2064,9 +2062,13 @@ extension StoryEditorViewController {
     func openActionSheet() {
         if Constant.Connectivity.isConnectedToInternet {
             if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
-//                selectLinkVC.modalPresentationStyle = .fullScreen
                 selectLinkVC.modalPresentationStyle = .overCurrentContext
                 selectLinkVC.storyEditors = storyEditors
+                selectLinkVC.dismissCallback = { (dismissCompletion) -> Void in
+                    if dismissCompletion {
+                        self.ssuButtonClicked(sender: self.ssuButton)
+                    }
+                }
                 navigationController?.present(selectLinkVC, animated: true, completion: {
                     selectLinkVC.backgroundView.isUserInteractionEnabled = true
                     selectLinkVC.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
