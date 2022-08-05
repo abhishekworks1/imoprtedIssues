@@ -365,15 +365,17 @@ class EditProfilePicViewController: UIViewController {
         if sender.tag == 101 {
             isForEditName = true
             self.txtDisplayName.text = Defaults.shared.publicDisplayName
-             self.setDisplayNamePopupView.isHidden = false
-        } else if sender.tag = 102 {
+            self.txtDisplayName.isHidden = false
+            self.txtChannelName.isHidden = true
+            self.setDisplayNamePopupView.isHidden = false
+        } else if sender.tag == 102 {
             isForEditName = false
             self.txtChannelName.text = Defaults.shared.channelId
+            self.txtDisplayName.isHidden = true
+            self.txtChannelName.isHidden = false
             self.setDisplayNamePopupView.isHidden = false
         }
-       
-        
-   }
+    }
     
     @IBAction func btnFlagSelectionsTapped(_ sender: UIButton) {
         if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
