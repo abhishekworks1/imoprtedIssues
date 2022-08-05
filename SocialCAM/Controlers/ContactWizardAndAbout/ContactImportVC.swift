@@ -932,7 +932,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         }else{
                             self.nocontactView.isHidden = false
                             if searchText.count > 0 {
-                                self.lblnocontact.text = "No contacts found with '\(searchText)' status."
+                                self.lblnocontact.text = "No contacts found containing '\(searchText)'."
                             } else {
                                 self.lblnocontact.text = "No contacts found with '\(filter)' status."
                             }
@@ -962,9 +962,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             if searchText.count > 0 {
-                                self.lblnocontact.text = "No contacts found with '\(searchText)' status."
+                                self.lblnocontact.text = "No contacts found containing '\(searchText)'."
                             } else {
-                                self.lblnocontact.text = "No contacts found with '\(filter)' status"
+                                self.lblnocontact.text = "No contacts found with '\(filter)' status."
                             }
                             self.nocontactView.isHidden = false
                         }
