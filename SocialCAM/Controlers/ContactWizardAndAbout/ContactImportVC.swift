@@ -443,12 +443,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func showLoader(){
-            self.loadingView = LoadingView.instanceFromNib()
-            self.loadingView?.shouldCancelShow = true
-            self.loadingView?.loadingViewShow = true
-            self.loadingView?.hideAdView(true)
-            self.loadingView?.show(on: self.view)
-  
+        self.loadingView = LoadingView.instanceFromNib()
+        self.loadingView?.loadingText = "Please wait while your contacts are loaded."
+        self.loadingView?.shouldCancelShow = true
+        self.loadingView?.loadingViewShow = true
+        self.loadingView?.hideAdView(true)
+        self.loadingView?.show(on: self.view)
+        
     }
     func hideLoader(){
         DispatchQueue.main.async {

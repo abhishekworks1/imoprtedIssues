@@ -74,7 +74,11 @@ public class LoadingView: UIView {
     @IBInspectable public var variantKey: String = ""
    
     var isResized = true
-    
+    var loadingText = "Processing Your Quickie" {
+        didSet {
+            processingYourQuickieLabel.text = loadingText
+        }
+    }
     @IBOutlet weak var lblTotalCount: UILabel!
     @IBOutlet weak var lblDescriptionText: UILabel!
     @IBOutlet weak var lblCompleted: UILabel!
@@ -188,7 +192,7 @@ public class LoadingView: UIView {
     
     override open func awakeFromNib() {
         super.awakeFromNib()
-        processingYourQuickieLabel.text = "Processing Your Quickie"
+        processingYourQuickieLabel.text = loadingText
         setup()
     }
     
