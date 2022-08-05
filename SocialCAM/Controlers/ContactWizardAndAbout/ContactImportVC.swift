@@ -598,11 +598,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = blueColor1
             lblNum5.backgroundColor = .white
-            if self.shareType == .email{
-                self.isSelectSMS = false
-            }else{
-                self.isSelectSMS = true
-            }
+            
            /*if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
@@ -621,6 +617,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             page3NextBtn.backgroundColor = blueColor1
             page3NextBtn.setTitleColor(.white, for: .normal)
             self.previewMainView.isHidden = false
+            if self.shareType == .email{
+                self.isSelectSMS = false
+                emailMaualtextView.isHidden = false
+            }else{
+                self.isSelectSMS = true
+                emailMaualtextView.isHidden = true
+            }
         }
         else if pageNo == 5 {
             page0view.isHidden = true
