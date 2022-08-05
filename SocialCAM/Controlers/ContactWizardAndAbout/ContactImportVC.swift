@@ -1937,9 +1937,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if self.shareType == .textShare{//isSelectSMS {
                 previewTitleLabel.text = "Preview Message"
                 subTitleOfPreview.text = "Your invitation will appear similar to this depending on your contact’s messaging app."
-            } else {
+            } else if self.shareType == .email {
                 previewTitleLabel.text = "Preview Email"
                 subTitleOfPreview.text = "Your invitation will appear similar to this depending on your contact’s email app."
+            } else if self.shareType == .socialShare {
+                if isSelectSMS {
+                    previewTitleLabel.text = "Preview Message"
+                } else {
+                    previewTitleLabel.text = "Preview Email"
+                }
+                subTitleOfPreview.text = "Your social post will appear similar to this, depending on the social media platform."
             }
             
             cell.delegate = self
