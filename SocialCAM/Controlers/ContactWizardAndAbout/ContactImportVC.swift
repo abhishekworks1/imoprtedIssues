@@ -2259,12 +2259,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                }
 //            }
         } else{
+            if tableView == emailContactTableView {
+                
+            } else {
             self.view.endEditing(true)
             print("&&&&&&&&&&&&&&")
             print(indexPath.row)
             let contact = mobileContacts[indexPath.row] as ContactResponse
             selectedPhoneContact = contact
             print("&&&&&&&&&&&&&&")
+            }
         }
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
