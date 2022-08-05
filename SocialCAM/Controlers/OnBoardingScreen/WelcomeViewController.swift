@@ -328,13 +328,15 @@ extension WelcomeViewController {
     }
     
     func checkTipOfDayText(tipOfDay: String) {
-        if tipOfDay == "" || tipOfDay == nil  {
-            tipOfDayActivityIndicator.isHidden = false
-            tipOfDayActivityIndicator.startAnimating()
-        } else {
+        tipOfDayActivityIndicator.isHidden = false
+        tipOfDayActivityIndicator.startAnimating()
+        tipOfTheDayLabel.text = ""
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
+            // Do whatever you want
             tipOfDayActivityIndicator.stopAnimating()
             tipOfDayActivityIndicator.isHidden = true
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+            tipOfTheDayLabel.text = tipOfDay
         }
     }
     
