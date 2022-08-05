@@ -531,8 +531,8 @@ class StoryAssetExportSession {
         }
         if Defaults.shared.fastestEverWatermarkSetting == .show {
             var fastestImageSize: CGSize = fastesteverImageSize
-            fastestImageSize.height = fastestImageSize.height + 50
-            fastestImageSize.width = fastestImageSize.width + 120
+            fastestImageSize.height = fastestImageSize.height + 30
+            fastestImageSize.width = fastestImageSize.width + 140
             var fastestOrigin: CGPoint = fastesteverOrigin
             fastestOrigin.y = fastestOrigin.y - 40
             fastestOrigin.x = fastestOrigin.x + 40
