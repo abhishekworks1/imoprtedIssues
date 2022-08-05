@@ -111,6 +111,7 @@ class EditProfilePicViewController: UIViewController {
         self.scrollView.delegate = self
         
         self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
+        self.lblUserName.isHidden = true
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
@@ -120,7 +121,7 @@ class EditProfilePicViewController: UIViewController {
         
         
         DispatchQueue.main.async {
-            self.lblChannelName.text = Defaults.shared.channelId
+            self.lblChannelName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
             
             if let flages = Defaults.shared.currentUser?.userStateFlags,
                flages.count > 0 {
@@ -364,17 +365,21 @@ class EditProfilePicViewController: UIViewController {
     @IBAction func editPublicDisplayNameTapped(_ sender: UIButton) {
         if sender.tag == 101 {
             isForEditName = true
+            self.editNamePopupTitle.text = "Public Name Display"
+            self.editNamePopupMessage.text = "Enter how you want your public name displayed."
             self.txtDisplayName.text = Defaults.shared.publicDisplayName
             self.txtDisplayName.isHidden = false
             self.txtChannelName.isHidden = true
             self.setDisplayNamePopupView.isHidden = false
-        } else if sender.tag == 102 {
+        } /*else if sender.tag == 102 {
             isForEditName = false
-            self.txtChannelName.text = Defaults.shared.channelId
+            self.editNamePopupTitle.text = "Channel Name Display"
+            self.editNamePopupMessage.text = "Enter how you want your channel name displayed. You can use capital letters to make your channel name stand out."
+            self.txtChannelName.text = Defaults.shared.currentUser?.channelId
             self.txtDisplayName.isHidden = true
             self.txtChannelName.isHidden = false
             self.setDisplayNamePopupView.isHidden = false
-        }
+        }*/
     }
     
     @IBAction func btnFlagSelectionsTapped(_ sender: UIButton) {
