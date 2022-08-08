@@ -833,7 +833,7 @@ class OnBoardingViewController: UIViewController {
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
         didSet {
-            setupUI()
+//            setupUI()
         }
     }
 

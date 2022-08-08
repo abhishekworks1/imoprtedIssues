@@ -110,6 +110,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var rightFilterArrowButton: UIButton!
     @IBOutlet weak var leftFilterArrowButton: UIButton!
     var selectedTitleRow: IndexPath?
+    var isTitleRawSelected: Bool =  false
 //    var deleteContactIndexPath: IndexPath?
 //    Int = -1
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
@@ -443,12 +444,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func showLoader(){
-            self.loadingView = LoadingView.instanceFromNib()
-            self.loadingView?.shouldCancelShow = true
-            self.loadingView?.loadingViewShow = true
-            self.loadingView?.hideAdView(true)
-            self.loadingView?.show(on: self.view)
-  
+        self.loadingView = LoadingView.instanceFromNib()
+        self.loadingView?.loadingText = "Please wait while your contacts are loaded."
+        self.loadingView?.shouldCancelShow = true
+        self.loadingView?.loadingViewShow = true
+        self.loadingView?.hideAdView(true)
+        self.loadingView?.show(on: self.view)
+        
     }
     func hideLoader(){
         DispatchQueue.main.async {
@@ -572,7 +574,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = .white
             lblNum5.backgroundColor = .white
-            itemsTableView.reloadData()
+            
+            if self.shareType == .email{
+                self.isSelectSMS = false
+            }else{
+                self.isSelectSMS = true
+            }
+            if self.isTitleRawSelected == false{
+                itemsTableView.reloadData()
+            }
+          
         }
         else if pageNo == 4 {
             page0view.isHidden = true
@@ -592,6 +603,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = blueColor1
             lblNum5.backgroundColor = .white
+            
            /*if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
@@ -610,6 +622,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             page3NextBtn.backgroundColor = blueColor1
             page3NextBtn.setTitleColor(.white, for: .normal)
             self.previewMainView.isHidden = false
+            if self.shareType == .email{
+                self.isSelectSMS = false
+                emailMaualtextView.isHidden = false
+                messageImagePreviewView.isHidden = true
+            }else{
+                self.isSelectSMS = true
+                emailMaualtextView.isHidden = true
+                messageImagePreviewView.isHidden = false
+            }
         }
         else if pageNo == 5 {
             page0view.isHidden = true
@@ -920,7 +941,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         }else{
                             self.nocontactView.isHidden = false
                             if searchText.count > 0 {
-                                self.lblnocontact.text = "No contacts found with '\(searchText)' status."
+                                self.lblnocontact.text = "No contacts found containing '\(searchText)'."
                             } else {
                                 self.lblnocontact.text = "No contacts found with '\(filter)' status."
                             }
@@ -950,9 +971,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                             self.lblnocontact.text = "Import Contacts"
                         }else{
                             if searchText.count > 0 {
-                                self.lblnocontact.text = "No contacts found with '\(searchText)' status."
+                                self.lblnocontact.text = "No contacts found containing '\(searchText)'."
                             } else {
-                                self.lblnocontact.text = "No contacts found with '\(filter)' status"
+                                self.lblnocontact.text = "No contacts found with '\(filter)' status."
                             }
                             self.nocontactView.isHidden = false
                         }
@@ -1502,6 +1523,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func textMessageSelected(sender: UIButton) {
         itemsTableView.reloadData()
         selectedTitleRow = nil
+        isTitleRawSelected = false
         self.shareType = ShareType.textShare
         searchBar.showsCancelButton = false
         if !isSelectSMS {
@@ -1530,6 +1552,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func emailSelected(sender: UIButton) {
         itemsTableView.reloadData()
         selectedTitleRow = nil
+        isTitleRawSelected = false
         searchBar.showsCancelButton = false
         self.shareType = ShareType.email
         
@@ -1812,7 +1835,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if section == 0 {
               return 1
             } else {
-                if isSelectSMS {
+                if self.shareType == .textShare{    //if isSelectSMS {
                     return self.smsMsgListing?.list.count ?? 0
                 } else {
                     return self.emailMsgListing?.list.count ?? 0
@@ -1923,12 +1946,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
             
-            if isSelectSMS {
+            if self.shareType == .textShare{//isSelectSMS {
                 previewTitleLabel.text = "Preview Message"
                 subTitleOfPreview.text = "Your invitation will appear similar to this depending on your contact’s messaging app."
-            } else {
+            } else if self.shareType == .email {
                 previewTitleLabel.text = "Preview Email"
                 subTitleOfPreview.text = "Your invitation will appear similar to this depending on your contact’s email app."
+            } else if self.shareType == .socialShare {
+                if isSelectSMS {
+                    previewTitleLabel.text = "Preview Message"
+                } else {
+                    previewTitleLabel.text = "Preview Email"
+                }
+                subTitleOfPreview.text = "Your social post will appear similar to this, depending on the social media platform."
             }
             
             cell.delegate = self
@@ -1938,9 +1968,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 } else {
                     self.selectedTitleRow = IndexPath(row: 0, section: 0)
                 }
+                self.isTitleRawSelected = true
                 self.itemsTableView.reloadData()
             }
-            
+           
             if indexPath.section == 0 {
                 
                 if shareType == .textShare || shareType == .socialShare {
@@ -1956,10 +1987,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
+                    if self.txtLinkWithCheckOut != "" {
+                        cell.messageTextView.text = self.txtLinkWithCheckOut
+                    }
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.detailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
+                    if self.txtLinkWithCheckOut != "" {
+                        cell.emailSubjectTextView.text = self.txtLinkWithCheckOut
+                    }
+                    if self.txtDetailForEmail != "" {
+                        cell.emailBodyTextView.text = self.txtDetailForEmail
+                    }
                 }
                 cell.radioButtonWidthConstraint.constant = 20
                 cell.emailRadioButtonWidthConstraint.constant = 0
@@ -1991,6 +2031,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.emailRadioButtonWidthConstraint.constant = 0
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
+                    print(item?.content ?? "")
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
                 } else {
@@ -2000,6 +2041,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
                     cell.detailsLabel.text = item?.subject ?? ""
+                    print(item?.content ?? "")
                     cell.detailView.isHidden = false
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
 
@@ -2013,6 +2055,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.txtLinkWithCheckOut = item?.content ?? ""
                         emailSubjectView.isHidden = true
                         emailMaualtextView.isHidden = true
+                        if self.txtLinkWithCheckOut == "" {
+                        } else {
+                            emailSubjectTextLabel.text = txtLinkWithCheckOut
+                        }
                     } else {
                         emailMaualtextView.isHidden = false
                         emailBodyTitleLabel.text = "Email Body"
@@ -2028,6 +2074,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.txtLinkWithCheckOut = item?.content ?? ""
                     let finalText = "\(txtLinkWithCheckOut)"
                     txtLinkWithCheckOut = finalText
+                    print(self.txtLinkWithCheckOut)
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
                     self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
                     //                self.lblpreviewText.text = self.txtLinkWithCheckOut
@@ -2053,39 +2100,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.btnSelect.addTarget(self, action: #selector(selectContactTapped(_:)), for: UIControl.Event.touchUpInside)
             if contact.status == ContactStatus.pending{
                 cell.inviteBtn.isHidden = false
-                cell.inviteBtn.setTitle("Invite", for: .normal)
-           
-                cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
-                cell.inviteButtonView.backgroundColor = UIColor(hex6:0xD4E9FD)
-                cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
-                cell.inviteButtonView.layer.borderWidth = 1.0
-                cell.lblInviteButtonTitle.textColor = UIColor(hex6:0x4285F4)
                 cell.lblInviteButtonTitle.text = "Invite"
                 cell.buttonInvite.setTitle("", for: .normal)
+                cell.buttonImageview.image = R.image.inviteContact()
                 cell.inviteButtonView.isHidden = false
+                cell.inviteButtonView.backgroundColor = UIColor(hex6:0x4285F4)
+                cell.lblInviteButtonTitle.textColor = .white
             }else if contact.status == ContactStatus.subscriber{
                 cell.inviteBtn.isHidden = true
                 cell.inviteButtonView.isHidden = true
             }else if contact.status == ContactStatus.invited{
-                cell.inviteBtn.isHidden = false
-                cell.inviteBtn.setTitle("Invited", for: .normal)
-            
-                cell.inviteBtn.setTitleColor(.white, for: .normal)
-                cell.buttonInvite.setTitle("", for: .normal)
+                cell.buttonInvite.isHidden = false
+
+                cell.buttonImageview.image = R.image.invitedContact()
                 cell.lblInviteButtonTitle.text = "Invited"
-                cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
-                cell.lblInviteButtonTitle.textColor = .white
+                cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
+                cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x909090)
                 cell.inviteButtonView.isHidden = false
             }else{
-                cell.inviteBtn.isHidden = true
-                cell.inviteBtn.setTitle("Invited", for: .normal)
-              
-                cell.inviteBtn.setTitleColor(.white, for: .normal)
-                cell.buttonInvite.setTitle("", for: .normal)
+                cell.buttonInvite.isHidden = false
+
+                cell.buttonImageview.image = R.image.invitedContact()
                 cell.lblInviteButtonTitle.text = "Invited"
-                cell.inviteButtonView.backgroundColor = UIColor(hex6:0x3C7DF4)
-                cell.lblInviteButtonTitle.textColor = .white
-                cell.inviteButtonView.isHidden = true
+                cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
+                cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x909090)
+                cell.inviteButtonView.isHidden = false
             }
             cell.inviteBtn.isHidden = true
             if let registerUser = contact.registeredUserDetails{
@@ -2164,7 +2203,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteBtn.isHidden = true
                     cell.inviteButtonView.isHidden = true
                 }else{
-                    cell.buttonInvite.isHidden = true
+                    cell.buttonInvite.isHidden = false
 
                     cell.buttonImageview.image = R.image.invitedContact()
                     cell.lblInviteButtonTitle.text = "Invited"
@@ -2218,6 +2257,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == itemsTableView {
             
+            self.isTitleRawSelected = true
             selectedTitleRow = indexPath
             itemsTableView.reloadData()
 //            if indexPath.section == 0 {
@@ -2238,12 +2278,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                }
 //            }
         } else{
+            if tableView == emailContactTableView {
+                
+            } else {
             self.view.endEditing(true)
             print("&&&&&&&&&&&&&&")
             print(indexPath.row)
             let contact = mobileContacts[indexPath.row] as ContactResponse
             selectedPhoneContact = contact
             print("&&&&&&&&&&&&&&")
+            }
         }
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -2435,7 +2479,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
-        selectedTitleRow = nil
+<<<<<<< HEAD
+     //   selectedTitleRow = nil
+=======
+//        selectedTitleRow = nil
+>>>>>>> Build_Release_1.1.1
         pageNo = pageNo - 1
         setupPage()
     }
@@ -2555,16 +2603,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 isSelectSMS = true
                 if isSelectSMS {
                     if self.shareType == ShareType.textShare{
-                        textMessageSelected(sender: UIButton())
+                      //  textMessageSelected(sender: UIButton())
                     }else if self.shareType == ShareType.email{
-                        emailSelected(sender: UIButton())
+                      //  emailSelected(sender: UIButton())
                     }
                 } else {
                     if self.shareType == ShareType.textShare{
-                        textMessageSelected(sender: UIButton())
+                      //  textMessageSelected(sender: UIButton())
                         isSelectSMS = false
                     }else if self.shareType == ShareType.email{
-                        emailSelected(sender: UIButton())
+                      //  emailSelected(sender: UIButton())
                         isSelectSMS = false
                     }
                 }

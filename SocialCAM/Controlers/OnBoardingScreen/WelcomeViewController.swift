@@ -75,7 +75,7 @@ class WelcomeViewController: UIViewController {
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
         didSet {
-            setupUI()
+//            setupUI()
         }
     }
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
@@ -316,11 +316,7 @@ extension WelcomeViewController {
         UserSync.shared.syncUserModel { isCompleted in
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
-                let seconds = 1.0
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    Utils.appDelegate?.window?.makeToast(R.string.localizable.syncUserdata())
-                    self.hideLoader()
-                }
+                self.hideLoader()
                 
 //                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
                 self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
@@ -355,13 +351,15 @@ extension WelcomeViewController {
     }
     
     func checkTipOfDayText(tipOfDay: String) {
-        if tipOfDay == "" || tipOfDay == nil  {
-            tipOfDayActivityIndicator.isHidden = false
-            tipOfDayActivityIndicator.startAnimating()
-        } else {
+        tipOfDayActivityIndicator.isHidden = false
+        tipOfDayActivityIndicator.startAnimating()
+        tipOfTheDayLabel.text = ""
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
+            // Do whatever you want
             tipOfDayActivityIndicator.stopAnimating()
             tipOfDayActivityIndicator.isHidden = true
-            self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
+            tipOfTheDayLabel.text = tipOfDay
         }
     }
     

@@ -24,6 +24,10 @@ enum SystemSettingType {
     case quickMenu
     case quickCamCamera
     case mobileDashboard
+    case hapticNone
+    case hapticAll
+    case hapticSome
+    case hapticFeedBack
 }
 
 enum OnboardingReferral: String {
@@ -102,6 +106,7 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isMutehapticFeedbackOnSpeedSelection
             } else if systemSettingType == .onboarding {
                 title.font = UIFont.boldSystemFont(ofSize: 17)
+                title.textColor = R.color.appBlackColor()
                 title.text = "Default Opening Screen"
                 selectButtonLeadingConstraint?.constant = -11
                 btnSelectShowAllPopup.isHidden = true
@@ -139,6 +144,31 @@ class SystemSettingsCell: UITableViewCell {
                 self.btnLock?.isHidden = !self.isSubscriptionTrialOrExpired()
                 
                 btnSelectShowAllPopup.isUserInteractionEnabled = false
+                
+            } else if systemSettingType == .hapticFeedBack {
+                title.font = UIFont.boldSystemFont(ofSize: 17)
+                title.textColor = R.color.appPrimaryColor()
+                title.text = R.string.localizable.hapticFeedback()
+                btnSelectShowAllPopup.setImage(R.image.iconWaterMarkOpacity(), for: .normal)
+                selectButtonLeadingConstraint?.constant = 5
+            } else if systemSettingType == .hapticAll {
+                title.text = R.string.localizable.all()
+                selectButtonLeadingConstraint?.constant = 30
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
+                btnSelectShowAllPopup.isSelected = Defaults.shared.allowHaptic == HapticSetting.all.rawValue
+            } else if systemSettingType == .hapticSome {
+                title.text = R.string.localizable.some()
+                selectButtonLeadingConstraint?.constant = 30
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
+                btnSelectShowAllPopup.isSelected = Defaults.shared.allowHaptic == HapticSetting.some.rawValue
+            }  else if systemSettingType == .hapticNone {
+                title.text = R.string.localizable.none()
+                selectButtonLeadingConstraint?.constant = 30
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_selected(), for: .selected)
+                btnSelectShowAllPopup.setImage(R.image.settings_radio_deselected(), for: .normal)
+                btnSelectShowAllPopup.isSelected = Defaults.shared.allowHaptic == HapticSetting.none.rawValue
             }
         }
     }
