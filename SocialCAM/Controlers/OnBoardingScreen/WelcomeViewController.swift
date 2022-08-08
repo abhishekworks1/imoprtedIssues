@@ -81,6 +81,28 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
 
     @IBOutlet weak var channelNameLabel: UILabel!
+    
+    //Badges
+    @IBOutlet weak var preLaunchBadgeImageView: UIImageView!
+    @IBOutlet weak var foundingMemberBadgeImageView: UIImageView!
+    @IBOutlet weak var socialBadgeImageView: UIImageView!
+    @IBOutlet weak var dayBadgeImageView: UIImageView!
+
+    @IBOutlet weak var iosBadgeView: UIView!
+    @IBOutlet weak var iosShieldImageview: UIImageView!
+    @IBOutlet weak var iosIconImageview: UIImageView!
+    @IBOutlet weak var iosRemainingDaysLabel: UILabel!
+    
+    @IBOutlet weak var androidBadgeView: UIView!
+    @IBOutlet weak var androidShieldImageview: UIImageView!
+    @IBOutlet weak var androidIconImageview: UIImageView!
+    @IBOutlet weak var androidRemainingDaysLabel: UILabel!
+
+    @IBOutlet weak var webBadgeView: UIView!
+    @IBOutlet weak var webShieldImageview: UIImageView!
+    @IBOutlet weak var webIconImageview: UIImageView!
+    @IBOutlet weak var webRemainingDaysLabel: UILabel!
+
     private var countdownTimer: Timer?
     var isTrialExpire = false
     var fromLogin = false
@@ -324,6 +346,7 @@ extension WelcomeViewController {
             self.getDays()
             self.hideLoader()
             self.setUpgradeButton()
+            self.setUpSubscriptionBadges()
         }
     }
     
@@ -914,9 +937,11 @@ extension WelcomeViewController {
 
 extension WelcomeViewController {
     
-    /*func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
-        badgeView.isHidden = false
+    func setUpSubscriptionBadges() {
+        dayBadgeImageView.isHidden = true
+        preLaunchBadgeImageView.isHidden = true
+        socialBadgeImageView.isHidden = true
+        foundingMemberBadgeImageView.isHidden = true
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
@@ -924,19 +949,34 @@ extension WelcomeViewController {
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
+                print("badgeCode:\(badgeCode)")
                 let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
                 let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
                 let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                 iosIconImageview.isHidden = true
                 androidIconImageview.isHidden = true
                 webIconImageview.isHidden = true
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLaunchBadgeImageView.isHidden = false
+                    preLaunchBadgeImageView.image = UIImage(named: "prelaunchBadge")
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMemberBadgeImageView.isHidden = false
+                    foundingMemberBadgeImageView.image = UIImage(named: "foundingMemberBadge")
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeImageView.isHidden = false
+                    socialBadgeImageView.image = UIImage(named: "socialBadge")
+                default:
+                    break
+                }
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
+                    var hideDayBadge = false
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.badgeIphoneTrial()
+                        iosRemainingDaysLabel.text = finalDay
+                        iosShieldImageview.image = R.image.badgeIphoneTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
@@ -946,59 +986,62 @@ extension WelcomeViewController {
                         } else {*/
                             //iOS shield hide
                             //square badge show
-                            lbliosDaysRemains.text = ""
-                            iosSheildImageview.image = R.image.badgeIphoneFree()
+                            iosRemainingDaysLabel.text = ""
+                            iosShieldImageview.image = R.image.badgeIphoneFree()
 //                        }
+                        hideDayBadge = true
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.badgeIphoneBasic()
+                        iosRemainingDaysLabel.text = finalDay
+                        iosShieldImageview.image = R.image.badgeIphoneBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.badgeIphoneAdvance()
+                        iosRemainingDaysLabel.text = finalDay
+                        iosShieldImageview.image = R.image.badgeIphoneAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         iosBadgeView.isHidden = false
-                        lbliosDaysRemains.text = finalDay
-                        iosSheildImageview.image = R.image.badgeIphonePre()
+                        iosRemainingDaysLabel.text = finalDay
+                        iosShieldImageview.image = R.image.badgeIphonePre()
                     }
+                    dayBadgeImageView.isHidden = hideDayBadge
+                    dayBadgeImageView.image = UIImage(named: "day_badge_\(finalDay)")
                 }
                 // Setup For Android Badge
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.badgeAndroidTrial()
+                        androidRemainingDaysLabel.text = finalDay
+                        androidShieldImageview.image = R.image.badgeAndroidTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         androidBadgeView.isHidden = false
                         if freeTrialDay > 0 {
-                            lblandroidDaysRemains.text = finalDay
-                            androidSheildImageview.image = R.image.badgeAndroidTrial()
+                            androidRemainingDaysLabel.text = finalDay
+                            androidShieldImageview.image = R.image.badgeAndroidTrial()
                         } else {
-                            lblandroidDaysRemains.text = ""
-                            androidSheildImageview.image = R.image.badgeAndroidFree()
+                            androidRemainingDaysLabel.text = ""
+                            androidShieldImageview.image = R.image.badgeAndroidFree()
                         }
                     }
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.badgeAndroidBasic()
+                        androidRemainingDaysLabel.text = finalDay
+                        androidShieldImageview.image = R.image.badgeAndroidBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.badgeAndroidAdvance()
+                        androidRemainingDaysLabel.text = finalDay
+                        androidShieldImageview.image = R.image.badgeAndroidAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         androidBadgeView.isHidden = false
-                        lblandroidDaysRemains.text = finalDay
-                        androidSheildImageview.image = R.image.badgeAndroidPre()
+                        androidRemainingDaysLabel.text = finalDay
+                        androidShieldImageview.image = R.image.badgeAndroidPre()
                     }
                 }
                 
@@ -1006,39 +1049,39 @@ extension WelcomeViewController {
                 {
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.badgeWebTrial()
+                        webRemainingDaysLabel.text = finalDay
+                        webShieldImageview.image = R.image.badgeWebTrial()
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         webBadgeView.isHidden = false
                         if freeTrialDay > 0 {
-                            lblwebDaysRemains.text = finalDay
-                            webSheildImageview.image = R.image.badgeWebTrial()
+                            webRemainingDaysLabel.text = finalDay
+                            webShieldImageview.image = R.image.badgeWebTrial()
                         } else {
-                            lblwebDaysRemains.text = ""
-                            webSheildImageview.image = R.image.badgeWebFree()
+                            webRemainingDaysLabel.text = ""
+                            webShieldImageview.image = R.image.badgeWebFree()
                         }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.badgeWebBasic()
+                        webRemainingDaysLabel.text = finalDay
+                        webShieldImageview.image = R.image.badgeWebBasic()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.badgeWebAdvance()
+                        webRemainingDaysLabel.text = finalDay
+                        webShieldImageview.image = R.image.badgeWebAdvance()
                     }
                     if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                         webBadgeView.isHidden = false
-                        lblwebDaysRemains.text = finalDay
-                        webSheildImageview.image = R.image.badgeWebPre()
+                        webRemainingDaysLabel.text = finalDay
+                        webShieldImageview.image = R.image.badgeWebPre()
                     }
                 }
             }
         }
-    }*/
+    }
     
     func showMessageData(subscriptionType: String, daysLeft: Int) -> String {
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
