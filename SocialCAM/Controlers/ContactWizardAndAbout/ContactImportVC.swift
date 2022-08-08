@@ -2479,11 +2479,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
-<<<<<<< HEAD
-     //   selectedTitleRow = nil
-=======
 //        selectedTitleRow = nil
->>>>>>> Build_Release_1.1.1
         pageNo = pageNo - 1
         setupPage()
     }
