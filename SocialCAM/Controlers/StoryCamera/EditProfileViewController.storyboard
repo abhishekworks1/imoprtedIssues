@@ -739,16 +739,16 @@
                                     <constraint firstItem="bOW-To-OWl" firstAttribute="centerY" secondItem="xPd-JQ-tiK" secondAttribute="centerY" id="uV6-a1-KW0"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T4E-7a-dfZ" userLabel="Display Name BackGround View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T4E-7a-dfZ" userLabel="Display Name BackGround View">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCO-3S-cvh" userLabel="Activate Affiliate Link Popup">
-                                        <rect key="frame" x="41.5" y="318" width="331" height="260"/>
+                                        <rect key="frame" x="41.5" y="345" width="331" height="206"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4oO-kG-Deu">
-                                                <rect key="frame" x="0.0" y="0.0" width="331" height="174"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="331" height="120"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel Name Display" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hm-fS-uDZ">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hm-fS-uDZ">
                                                         <rect key="frame" x="0.0" y="0.0" width="331" height="50"/>
                                                         <color key="backgroundColor" red="0.027450980392156862" green="0.49019607843137253" blue="0.99215686274509807" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -758,14 +758,14 @@
                                                         <color key="textColor" name="AppBlackColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter how you want your channel name displayed. You can use capital letters to make your channel name stand out." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dh6-oE-ZBf">
-                                                        <rect key="frame" x="20" y="60" width="291" height="54"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dh6-oE-ZBf">
+                                                        <rect key="frame" x="20" y="60" width="291" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Public display name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18H-2n-iw3">
-                                                        <rect key="frame" x="20" y="124" width="291" height="40"/>
+                                                        <rect key="frame" x="20" y="70" width="291" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="rFY-yV-lpe"/>
                                                         </constraints>
@@ -799,7 +799,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6VP-N3-97E">
-                                                <rect key="frame" x="60.5" y="194" width="210" height="46"/>
+                                                <rect key="frame" x="60.5" y="140" width="210" height="46"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hN2-Hv-f1m">
                                                         <rect key="frame" x="0.0" y="0.0" width="90" height="46"/>
@@ -867,8 +867,8 @@
                                     <constraint firstItem="XCO-3S-cvh" firstAttribute="width" secondItem="T4E-7a-dfZ" secondAttribute="width" multiplier="0.8" id="aQe-M0-5XV"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vKu-ub-lf0" userLabel="Public Display Name Tooltip View">
-                                <rect key="frame" x="0.0" y="0.0" width="412.5" height="896"/>
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vKu-ub-lf0" userLabel="Public Display Name Tooltip View">
+                                <rect key="frame" x="500" y="0.0" width="412.5" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgg-v1-fhG" userLabel="Public Display Name Tooltip Popup">
                                         <rect key="frame" x="41.5" y="360.5" width="330" height="175"/>
@@ -929,8 +929,8 @@
                                     <constraint firstItem="bgg-v1-fhG" firstAttribute="centerX" secondItem="vKu-ub-lf0" secondAttribute="centerX" id="b1J-C3-NLX"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfS-NO-u5c" userLabel="Discard Popup View">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jfS-NO-u5c" userLabel="Discard Popup View">
+                                <rect key="frame" x="500" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yD8-H8-Lb4" userLabel="Activate Affiliate Link Popup">
                                         <rect key="frame" x="41.5" y="354" width="331" height="188.5"/>
@@ -1060,8 +1060,8 @@
                                     <constraint firstItem="yD8-H8-Lb4" firstAttribute="width" secondItem="jfS-NO-u5c" secondAttribute="width" multiplier="0.8" id="ga9-MS-Aav"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hlf-Uc-W7z" userLabel="Back Ground View">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hlf-Uc-W7z" userLabel="Back Ground View">
+                                <rect key="frame" x="500" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sba-S2-psU" userLabel="Activate Affiliate Link Popup">
                                         <rect key="frame" x="41.5" y="329" width="331" height="238.5"/>
@@ -3535,7 +3535,7 @@
         <image name="gmail" width="45" height="45"/>
         <image name="icoGridView" width="22" height="22"/>
         <image name="iconQuickCam" width="32" height="32"/>
-        <image name="iconShare" width="21" height="22"/>
+        <image name="iconShare" width="17" height="20"/>
         <image name="icondownload" width="24" height="24"/>
         <image name="instagram" width="45" height="45"/>
         <image name="iosbadge" width="165" height="163"/>
@@ -3564,7 +3564,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>

@@ -154,7 +154,7 @@ class EditProfilePicViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.addLeftViewToTxtDisplayName()
+//        self.addLeftViewToTxtDisplayName()
     }
     
     func addLeftViewToTxtDisplayName() {
