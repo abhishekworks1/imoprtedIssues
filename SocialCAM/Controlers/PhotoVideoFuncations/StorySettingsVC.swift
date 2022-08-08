@@ -91,6 +91,7 @@ enum SettingsMode: Int, Codable {
     case quickMenu
     case quickCamCamera
     case mobileDashboard
+    case hapticFeedBack
 }
 
 class StorySetting: Codable {
@@ -335,7 +336,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.youTubeVerifiedView.isHidden = true
         lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(39.\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
-        setupUI()
+//        setupUI()
        
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         longpress.minimumPressDuration = 0.5
@@ -759,7 +760,14 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         }
         
     }
-    
+    @IBAction func btnShareTapped(_ sender: UIButton) {
+            self.goToShareScreen()
+    }
+    func goToShareScreen() {
+        if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+            self.navigationController?.pushViewController(shareSettingVC, animated: true)
+        }
+    }
 }
 
 extension StorySettingsVC {
