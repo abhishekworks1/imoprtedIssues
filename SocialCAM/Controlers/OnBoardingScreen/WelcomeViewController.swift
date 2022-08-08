@@ -940,7 +940,10 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     
     func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
+        dayBadgeImageView.isHidden = true
+        preLaunchBadgeImageView.isHidden = true
+        socialBadgeImageView.isHidden = true
+        foundingMemberBadgeImageView.isHidden = true
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
@@ -948,15 +951,30 @@ extension WelcomeViewController {
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
+                print("badgeCode:\(badgeCode)")
                 let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
                 let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
                 let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                 iosIconImageview.isHidden = true
                 androidIconImageview.isHidden = true
                 webIconImageview.isHidden = true
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLaunchBadgeImageView.isHidden = false
+                    preLaunchBadgeImageView.image = UIImage(named: "prelaunchBadge")
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMemberBadgeImageView.isHidden = false
+                    foundingMemberBadgeImageView.image = UIImage(named: "foundingMemberBadge")
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeImageView.isHidden = false
+                    socialBadgeImageView.image = UIImage(named: "socialBadge")
+                default:
+                    break
+                }
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
+                    var hideDayBadge = false
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
                         iosRemainingDaysLabel.text = finalDay
@@ -973,6 +991,7 @@ extension WelcomeViewController {
                             iosRemainingDaysLabel.text = ""
                             iosShieldImageview.image = R.image.badgeIphoneFree()
 //                        }
+                        hideDayBadge = true
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -990,6 +1009,8 @@ extension WelcomeViewController {
                         iosRemainingDaysLabel.text = finalDay
                         iosShieldImageview.image = R.image.badgeIphonePre()
                     }
+                    dayBadgeImageView.isHidden = hideDayBadge
+                    dayBadgeImageView.image = UIImage(named: "day_badge_\(finalDay)")
                 }
                 // Setup For Android Badge
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
