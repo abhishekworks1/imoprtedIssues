@@ -621,9 +621,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if self.shareType == .email{
                 self.isSelectSMS = false
                 emailMaualtextView.isHidden = false
+                messageImagePreviewView.isHidden = true
             }else{
                 self.isSelectSMS = true
                 emailMaualtextView.isHidden = true
+                messageImagePreviewView.isHidden = false
             }
         }
         else if pageNo == 5 {
