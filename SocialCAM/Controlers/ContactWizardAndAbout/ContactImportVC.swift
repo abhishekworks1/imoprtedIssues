@@ -17,6 +17,7 @@ import URLEmbeddedView
 import FBSDKShareKit
 import SCSDKCreativeKit
 import Toast_Swift
+import SDWebImage
 
 enum ShareType:Int{
     case textShare = 1
@@ -162,6 +163,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var inviteAgainpopup: UIView!
     @IBOutlet weak var inviteAgainLabel: UILabel!
     @IBOutlet weak var contactSentConfirmPopup: UIView!
+    @IBOutlet weak var contactSentConfirmLabel: UILabel!
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     var isIncludeQrImg = Defaults.shared.includeQRImgForShare
     @IBOutlet weak var syncButton: UIButton!
@@ -431,8 +433,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         //print("App moved to foreground!")
         if isGmailOpened{
             self.contactSentConfirmPopup.isHidden = false
+            self.contactSentConfirmLabel.text = "Did you invite \(self.selectedContact?.name ?? "") ?"
         }else if isAppleEmailOpened{
             self.contactSentConfirmPopup.isHidden = false
+            self.contactSentConfirmLabel.text = "Did you invite \(self.selectedContact?.name ?? "") ?"
         }
         isGmailOpened = false
         isAppleEmailOpened = false
@@ -1344,7 +1348,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         @unknown default:
             break
         }
-       
        //ContactPermission()
     }
     @IBAction func filterOptionClicked(sender: UIButton) {
@@ -1488,8 +1491,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         OpenGraphDataDownloader.shared.fetchOGData(urlString: link) { result in
             switch result {
             case let .success(data, isExpired):
-                self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.user_placeholder())
-                self.messageImageView.sd_setImage(with: data.imageUrl, placeholderImage: R.image.user_placeholder())
+                SDImageCache.shared.clearMemory()
+                SDImageCache.shared.clearDisk()
+                DispatchQueue.main.async {
+                    self.messageImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+                    self.previewImageview.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+                    self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
+                    self.messageImageView.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
+                    self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
+                    self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
+                }
                 break
                 // do something
             case let .failure(error, isExpired): break
@@ -1497,20 +1508,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
         
-        OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
+     /*   OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
             guard let `self` = self else { return }
             if let _ = error {
                 return
             }
-            DispatchQueue.main.async {
-                self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
-                self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
-            }
+            
 //            if ogData.imageUrl != nil {
              //  self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
            
 //            }
-        }
+        } */
         
     }
     
@@ -3074,6 +3082,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         print(result)
         if result == .sent{
             self.contactSentConfirmPopup.isHidden = false
+            self.contactSentConfirmLabel.text = "Did you invite \(self.selectedContact?.name ?? "") ?"
           /*  if Defaults.shared.isContactConfirmPopUpChecked{
                 self.contactSentConfirmPopup.isHidden = true
             }else{
@@ -3090,6 +3099,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                                error: Swift.Error?) {
         if result == .sent{
             self.contactSentConfirmPopup.isHidden = false
+            self.contactSentConfirmLabel.text = "Did you invite \(self.selectedContact?.name ?? "") ?"
         }
         
         controller.dismiss(animated: true, completion: nil)
