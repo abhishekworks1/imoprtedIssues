@@ -1980,10 +1980,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
+                    if self.txtLinkWithCheckOut != "" {
+                        cell.messageTextView.text = self.txtLinkWithCheckOut
+                    }
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.detailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
+                    if self.txtLinkWithCheckOut != "" {
+                        cell.emailSubjectTextView.text = self.txtLinkWithCheckOut
+                    }
+                    if self.txtDetailForEmail != "" {
+                        cell.emailBodyTextView.text = self.txtDetailForEmail
+                    }
                 }
                 cell.radioButtonWidthConstraint.constant = 20
                 cell.emailRadioButtonWidthConstraint.constant = 0
@@ -2462,7 +2471,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
-        selectedTitleRow = nil
+//        selectedTitleRow = nil
         pageNo = pageNo - 1
         setupPage()
     }
