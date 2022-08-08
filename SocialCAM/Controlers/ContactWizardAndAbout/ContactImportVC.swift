@@ -110,6 +110,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var rightFilterArrowButton: UIButton!
     @IBOutlet weak var leftFilterArrowButton: UIButton!
     var selectedTitleRow: IndexPath?
+    var isTitleRawSelected: Bool =  false
 //    var deleteContactIndexPath: IndexPath?
 //    Int = -1
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
@@ -579,7 +580,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else{
                 self.isSelectSMS = true
             }
-            itemsTableView.reloadData()
+            if self.isTitleRawSelected == false{
+                itemsTableView.reloadData()
+            }
+          
         }
         else if pageNo == 4 {
             page0view.isHidden = true
@@ -621,9 +625,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if self.shareType == .email{
                 self.isSelectSMS = false
                 emailMaualtextView.isHidden = false
+                messageImagePreviewView.isHidden = true
             }else{
                 self.isSelectSMS = true
                 emailMaualtextView.isHidden = true
+                messageImagePreviewView.isHidden = false
             }
         }
         else if pageNo == 5 {
@@ -1517,6 +1523,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func textMessageSelected(sender: UIButton) {
         itemsTableView.reloadData()
         selectedTitleRow = nil
+        isTitleRawSelected = false
         self.shareType = ShareType.textShare
         searchBar.showsCancelButton = false
         if !isSelectSMS {
@@ -1545,6 +1552,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func emailSelected(sender: UIButton) {
         itemsTableView.reloadData()
         selectedTitleRow = nil
+        isTitleRawSelected = false
         searchBar.showsCancelButton = false
         self.shareType = ShareType.email
         
@@ -1960,9 +1968,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 } else {
                     self.selectedTitleRow = IndexPath(row: 0, section: 0)
                 }
+                self.isTitleRawSelected = true
                 self.itemsTableView.reloadData()
             }
-            
+           
             if indexPath.section == 0 {
                 
                 if shareType == .textShare || shareType == .socialShare {
@@ -1978,10 +1987,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
+                    if self.txtLinkWithCheckOut != "" {
+                        cell.messageTextView.text = self.txtLinkWithCheckOut
+                    }
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.detailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
+                    if self.txtLinkWithCheckOut != "" {
+                        cell.emailSubjectTextView.text = self.txtLinkWithCheckOut
+                    }
+                    if self.txtDetailForEmail != "" {
+                        cell.emailBodyTextView.text = self.txtDetailForEmail
+                    }
                 }
                 cell.radioButtonWidthConstraint.constant = 20
                 cell.emailRadioButtonWidthConstraint.constant = 0
@@ -2239,6 +2257,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == itemsTableView {
             
+            self.isTitleRawSelected = true
             selectedTitleRow = indexPath
             itemsTableView.reloadData()
 //            if indexPath.section == 0 {
@@ -2460,7 +2479,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
-        selectedTitleRow = nil
+<<<<<<< HEAD
+     //   selectedTitleRow = nil
+=======
+//        selectedTitleRow = nil
+>>>>>>> Build_Release_1.1.1
         pageNo = pageNo - 1
         setupPage()
     }
@@ -2580,16 +2603,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 isSelectSMS = true
                 if isSelectSMS {
                     if self.shareType == ShareType.textShare{
-                        textMessageSelected(sender: UIButton())
+                      //  textMessageSelected(sender: UIButton())
                     }else if self.shareType == ShareType.email{
-                        emailSelected(sender: UIButton())
+                      //  emailSelected(sender: UIButton())
                     }
                 } else {
                     if self.shareType == ShareType.textShare{
-                        textMessageSelected(sender: UIButton())
+                      //  textMessageSelected(sender: UIButton())
                         isSelectSMS = false
                     }else if self.shareType == ShareType.email{
-                        emailSelected(sender: UIButton())
+                      //  emailSelected(sender: UIButton())
                         isSelectSMS = false
                     }
                 }
