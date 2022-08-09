@@ -2479,11 +2479,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func previousClick(_ sender: UIButton) {
-<<<<<<< HEAD
-     //   selectedTitleRow = nil
-=======
-//        selectedTitleRow = nil
->>>>>>> Build_Release_1.1.1
+
+//      selectedTitleRow = nil
         pageNo = pageNo - 1
         setupPage()
     }
@@ -3282,13 +3279,13 @@ extension ContactImportVC:UIScrollViewDelegate{
                 return
             }
             if self.contactTableView.isHidden == true {
-                if emailContactTableView.contentSize.height > (124.0 + 50.0 + self.emailContactTableView.frame.size.height){
+                if emailContactTableView.contentSize.height > (84.0 + 50.0 + self.emailContactTableView.frame.size.height){
                     
                 }else{
                     return
                 }
             } else {
-                if contactTableView.contentSize.height > (124.0 + 50.0 + self.contactTableView.frame.size.height){
+                if contactTableView.contentSize.height > (84.0 + 50.0 + self.contactTableView.frame.size.height){
                     
                 }else{
                     return
@@ -3296,7 +3293,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
         if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
-            self.segmentViewHeight.constant = 124.0
+            self.segmentViewHeight.constant = 84.0
             self.stepViewHeight.constant = 50.0
                 UIView.animate(withDuration: 0.5, animations: {
                     
