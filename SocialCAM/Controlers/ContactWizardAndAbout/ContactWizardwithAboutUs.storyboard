@@ -1718,7 +1718,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwD-u2-BGb">
                                                                                         <rect key="frame" x="30" y="5" width="305" height="250"/>
                                                                                         <subviews>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickcamWatermarkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="kFs-4o-hd7">
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraWithBG" translatesAutoresizingMaskIntoConstraints="NO" id="kFs-4o-hd7">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="305" height="230"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="height" constant="230" id="exl-Gm-fPZ"/>
@@ -1859,7 +1859,7 @@
                                                                                                             <nil key="textColor"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
-                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickcamWatermarkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
+                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraWithBG" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
                                                                                                             <rect key="frame" x="10" y="125.5" width="160" height="170"/>
                                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                             <constraints>
@@ -4469,6 +4469,7 @@
                         <outlet property="businessDashboardView" destination="0NX-5J-Jhs" id="Pug-XL-meg"/>
                         <outlet property="chooseMessageTitleTextLabel" destination="unL-n1-Ynh" id="5k6-EF-i3v"/>
                         <outlet property="contactPermitView" destination="8oi-s7-NMf" id="dHm-ZG-nHe"/>
+                        <outlet property="contactSentConfirmLabel" destination="qbY-lu-LxV" id="NDF-fn-rBL"/>
                         <outlet property="contactSentConfirmPopup" destination="aSt-SD-WG4" id="7xc-wP-DgO"/>
                         <outlet property="contactTableView" destination="4u1-76-4wK" id="C6l-nF-rI9"/>
                         <outlet property="deleteContactConfirmationView" destination="CIX-NF-Cdz" id="L2P-yP-2Bd"/>
@@ -4859,6 +4860,7 @@
         <image name="appleEmail" width="512" height="512"/>
         <image name="arrowCircle" width="500" height="500"/>
         <image name="avtarContact" width="23" height="24"/>
+        <image name="cameraWithBG" width="304" height="213"/>
         <image name="checkBoxActive" width="20" height="20"/>
         <image name="checkBoxInActive" width="20" height="20"/>
         <image name="circleHelpQuestionMark" width="16" height="16"/>
@@ -4882,7 +4884,6 @@
         <image name="multiply" catalog="system" width="128" height="111"/>
         <image name="phoneContact" width="23" height="23"/>
         <image name="prelaunchBadge" width="226" height="342"/>
-        <image name="quickcamWatermarkLogo" width="150" height="150"/>
         <image name="rightContact" width="25" height="19"/>
         <image name="shareIcon" width="19" height="21"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
