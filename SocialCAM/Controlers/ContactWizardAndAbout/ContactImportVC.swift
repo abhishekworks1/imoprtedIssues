@@ -2119,10 +2119,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteButtonView.isHidden = true
             }else if contact.status == ContactStatus.invited{
                 cell.buttonInvite.isHidden = false
-
                 cell.buttonImageview.image = R.image.invitedContact()
                 cell.lblInviteButtonTitle.text = "Invited"
                 cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
+                cell.inviteButtonView.layer.borderWidth = 1.5
+                cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
                 cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x909090)
                 cell.inviteButtonView.isHidden = false
             }else{
@@ -2217,6 +2218,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.lblInviteButtonTitle.text = "Invited"
                     cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
                     cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x909090)
+                    cell.inviteButtonView.layer.borderWidth = 1.5
+                    cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
                     cell.inviteButtonView.isHidden = false
                 }
                 cell.inviteBtn.isHidden = true
