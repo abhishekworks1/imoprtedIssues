@@ -44,6 +44,8 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var setDisplayNamePopupView: UIView!
     @IBOutlet weak var txtDisplayName: UITextField!
     @IBOutlet weak var lblDisplayName: UILabel!
+    @IBOutlet weak var txtChannelName: UITextField!
+    @IBOutlet weak var lblChannelName: UILabel!
     @IBOutlet weak var displayNameViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnSetPublicDisplayName: UIButton!
     @IBOutlet var scrollView: UIScrollView!
@@ -51,6 +53,11 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var popupImgHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dicardPopupView: UIView!
     @IBOutlet weak var publicDisplayNameTooltipView: UIView!
+    
+    @IBOutlet weak var editNamePopupTitle: UILabel!
+    @IBOutlet weak var editNamePopupMessage: UILabel!
+    
+    
     @IBOutlet weak var btnPublicDisplayNameTooltip: UIButton!
     @IBOutlet weak var publicDisplayNameView: UIView!
     @IBOutlet weak var showFlagsView: UIView!
@@ -96,7 +103,7 @@ class EditProfilePicViewController: UIViewController {
     var isFlagSelected = false
     var isShareButtonSelected = false
     var isPublicNameEdit = false
-    
+    var isForEditName = false
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +111,7 @@ class EditProfilePicViewController: UIViewController {
         self.scrollView.delegate = self
         
         self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
+        self.lblUserName.isHidden = true
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
@@ -113,6 +121,8 @@ class EditProfilePicViewController: UIViewController {
         
         
         DispatchQueue.main.async {
+            self.lblChannelName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
+            
             if let flages = Defaults.shared.currentUser?.userStateFlags,
                flages.count > 0 {
                 self.btnSetFlags.isHidden = true
@@ -154,24 +164,25 @@ class EditProfilePicViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.addLeftViewToTxtDisplayName()
-    }
+        self.addLeftViewToTxtField(textField: self.txtDisplayName)
+        self.addLeftViewToTxtField(textField: self.txtChannelName)
+  }
     
-    func addLeftViewToTxtDisplayName() {
-        self.txtDisplayName.leftViewMode = UITextField.ViewMode.always
-        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: self.txtDisplayName.frame.size.height))
+    func addLeftViewToTxtField(textField : UITextField) {
+        textField.leftViewMode = UITextField.ViewMode.always
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: textField.frame.size.height))
         
-        let dividerView = UIView(frame: CGRect(x: 40, y: 0, width: 1, height: self.txtDisplayName.frame.size.height))
+        let dividerView = UIView(frame: CGRect(x: 40, y: 0, width: 1, height: textField.frame.size.height))
         dividerView.backgroundColor = UIColor(red: 0.0, green: 125/255, blue: 255/255, alpha: 1.0)
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: self.txtDisplayName.frame.size.height))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: textField.frame.size.height))
         label.textAlignment = .center
         leftView.addSubview(dividerView)
         leftView.addSubview(label)
         label.text = "@"
-        self.txtDisplayName.leftView = leftView
-        self.txtDisplayName.layer.borderWidth = 1.0
-        self.txtDisplayName.layer.cornerRadius = 8.0
-        self.txtDisplayName.borderColorV = UIColor(red: 0.0, green: 125/255, blue: 255/255, alpha: 1.0)
+        textField.leftView = leftView
+        textField.layer.borderWidth = 1.0
+        textField.layer.cornerRadius = 8.0
+        textField.borderColorV = UIColor(red: 0.0, green: 125/255, blue: 255/255, alpha: 1.0)
     }
     
     func settingSocialPlatforms() {
@@ -320,9 +331,15 @@ class EditProfilePicViewController: UIViewController {
     }
     
     @IBAction func btnSetDisplayYesTapped(_ sender: UIButton) {
-        self.setDisplayNamePopupView.isHidden = true
-        self.showHUD()
-        self.editDisplayName()
+        if isForEditName {
+            self.setDisplayNamePopupView.isHidden = true
+            self.showHUD()
+            self.editDisplayName()
+        } else {
+            self.setDisplayNamePopupView.isHidden = true
+            self.showHUD()
+            self.editChannelName()
+        }
     }
     
     @IBAction func btnSetDisplayNoTapped(_ sender: UIButton) {
@@ -346,8 +363,23 @@ class EditProfilePicViewController: UIViewController {
     }
     
     @IBAction func editPublicDisplayNameTapped(_ sender: UIButton) {
-        self.txtDisplayName.text = Defaults.shared.publicDisplayName
-        self.setDisplayNamePopupView.isHidden = false
+        if sender.tag == 101 {
+            isForEditName = true
+            self.editNamePopupTitle.text = "Public Name Display"
+            self.editNamePopupMessage.text = "Enter how you want your public name displayed."
+            self.txtDisplayName.text = Defaults.shared.publicDisplayName
+            self.txtDisplayName.isHidden = false
+            self.txtChannelName.isHidden = true
+            self.setDisplayNamePopupView.isHidden = false
+        } /*else if sender.tag == 102 {
+            isForEditName = false
+            self.editNamePopupTitle.text = "Channel Name Display"
+            self.editNamePopupMessage.text = "Enter how you want your channel name displayed. You can use capital letters to make your channel name stand out."
+            self.txtChannelName.text = Defaults.shared.currentUser?.channelId
+            self.txtDisplayName.isHidden = true
+            self.txtChannelName.isHidden = false
+            self.setDisplayNamePopupView.isHidden = false
+        }*/
     }
     
     @IBAction func btnFlagSelectionsTapped(_ sender: UIButton) {
@@ -750,7 +782,26 @@ extension EditProfilePicViewController {
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
-    
+    func editChannelName() {
+        let displayName = self.txtChannelName.text
+        self.dismissHUD()
+        /*ProManagerApi.editDisplayName(publicDisplayName: displayName?.isEmpty ?? true ? "" : displayName, privateDisplayName: nil).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            self.isPublicNameEdit = true
+            if response.status == ResponseType.success {
+                self.storyCameraVC.syncUserModel { _ in
+                    self.setPublicDisplayName()
+                    self.view.makeToast("Your changes are saved.")
+                }
+            }
+        }, onError: { error in
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag) */
+    }
+   
     func setCountrys(_ countrys: [Country]) {
         var arrayCountry: [[String: Any]] = []
         for country in countrys {
