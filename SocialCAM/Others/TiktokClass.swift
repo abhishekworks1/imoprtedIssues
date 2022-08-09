@@ -46,7 +46,7 @@ open class TiktokShare: TikTokOpenSDKApplicationDelegate, TikTokOpenSDKLogDelega
         shareRequest.state = text
         shareRequest.send(complete: { (tikTokOpenPlatformShareResponse) in
             if tikTokOpenPlatformShareResponse.isSucceed {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
+                Utils.customaizeToastMessage(title: R.string.localizable.postSuccess(), toastView: (Utils.appDelegate?.window)!)
             } else {
                 
             }

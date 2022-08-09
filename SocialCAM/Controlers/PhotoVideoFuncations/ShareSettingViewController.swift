@@ -387,7 +387,7 @@ class ShareSettingViewController: UIViewController {
     @IBAction func downloadButtonClicked(_ sender: UIButton) {
             let image = self.profileView.toImage()
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        Utils.appDelegate?.window?.makeToast(R.string.localizable.profileCardSaved())
+            Utils.customaizeToastMessage(title: R.string.localizable.profileCardSaved(), toastView: (Utils.appDelegate?.window)!)
     }
     @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected

@@ -250,7 +250,7 @@ class EditProfilePicViewController: UIViewController {
             self.view.isUserInteractionEnabled = false
         } else {
             if !isPublicNameEdit {
-                self.view.makeToast(R.string.localizable.noChangesMade())
+                Utils.customaizeToastMessage(title: R.string.localizable.noChangesMade(), toastView: self.view)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -775,7 +775,7 @@ extension EditProfilePicViewController {
             if response.status == ResponseType.success {
                 self.storyCameraVC.syncUserModel { _ in
                     self.setPublicDisplayName()
-                    self.view.makeToast("Your changes are saved.")
+                    Utils.customaizeToastMessage(title: "Your changes are saved.", toastView: self.view)
                 }
             }
         }, onError: { error in
@@ -860,7 +860,7 @@ extension EditProfilePicViewController {
             }
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { (isComplete) in
-                self.view.makeToast("Your changes are saved.")
+                Utils.customaizeToastMessage(title: "Your changes are saved.", toastView: self.view)
                 self.isImageSelected = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     // Do whatever you want

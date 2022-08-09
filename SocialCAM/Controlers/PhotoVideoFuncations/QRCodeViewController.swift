@@ -146,7 +146,7 @@ class QRCodeViewController: UIViewController {
     @IBAction func downloadButtonClicked(_ sender: UIButton) {
             let image = self.profileView.toImage()
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        Utils.appDelegate?.window?.makeToast(R.string.localizable.qrCodeImageSaved())
+        Utils.customaizeToastMessage(title: R.string.localizable.qrCodeImageSaved(), toastView: (Utils.appDelegate?.window)!)
     }
     @IBAction func quickStartClicked(_ sender: UIButton) {
         selectedTabTextLabel.text = "QuickStart"

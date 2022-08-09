@@ -173,7 +173,7 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             }
         case .channelManagement:
             if isLiteApp {
-                self.view.makeToast(R.string.localizable.thisFeatureIsNotAvailable())
+                Utils.customaizeToastMessage(title: R.string.localizable.thisFeatureIsNotAvailable(), toastView: self.view)
             } else if let chVc = R.storyboard.preRegistration.channelListViewController() {
                 chVc.remainingPackageCountForOthers = Defaults.shared.currentUser?.remainingOtherUserPackageCount ?? 0
                 self.navigationController?.pushViewController(chVc, animated: true)
@@ -190,16 +190,16 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             break
         case .announcement:
             if isLiteApp {
-                self.view.makeToast(R.string.localizable.thisFeatureIsNotAvailable())
+                Utils.customaizeToastMessage(title: R.string.localizable.thisFeatureIsNotAvailable(), toastView: self.view)
             } else {
-                self.view.makeToast(R.string.localizable.comingSoon())
+                Utils.customaizeToastMessage(title: R.string.localizable.comingSoon(), toastView: self.view)
             }
             break
         default:
             if isLiteApp {
-            self.view.makeToast(R.string.localizable.thisFeatureIsNotAvailable())
+                Utils.customaizeToastMessage(title: R.string.localizable.thisFeatureIsNotAvailable(), toastView: self.view)
             } else {
-                self.view.makeToast(R.string.localizable.comingSoon())
+                Utils.customaizeToastMessage(title: R.string.localizable.comingSoon(), toastView: self.view)
             }
             break
         }

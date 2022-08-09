@@ -665,7 +665,7 @@ extension StoryCameraViewController {
     
     @IBAction func btnNotYetTapped(_ sender: UIButton) {
         appSurveyPopupView.isHidden = true
-        self.view.makeToast(R.string.localizable.youCanFillUpThisFormAnytimeFromOurSettingsMenu())
+        Utils.customaizeToastMessage(title: R.string.localizable.youCanFillUpThisFormAnytimeFromOurSettingsMenu(), toastView: self.view)
     }
     
     @IBAction func btnSureTapped(_ sender: UIButton) {
@@ -868,7 +868,7 @@ extension StoryCameraViewController: PickerViewDataSource {
 
 extension StoryCameraViewController: OuttakesTakenDelegate {
     func didTakeOuttakes(_ message: String) {
-        self.view.makeToast(message, duration: 2.0, position: .bottom)
+        Utils.customaizeToastMessage(title: message, toastView: self.view)
     }
 }
 

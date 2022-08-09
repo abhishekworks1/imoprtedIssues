@@ -80,10 +80,10 @@ class CartViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
                 if self.myCart?.individualChannels?.count == 1 {
 //                    UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.congratulationsYourChannelNameHasBeenReserved())
-                    self.view.makeToast(R.string.localizable.congratulationsYourChannelNameHasBeenReserved())
+                    Utils.customaizeToastMessage(title: R.string.localizable.congratulationsYourChannelNameHasBeenReserved(), toastView: self.view)
 
                 } else {
-                    self.view.makeToast(R.string.localizable.congratulationsYourChannelNamesHaveBeenReserved())
+                    Utils.customaizeToastMessage(title: R.string.localizable.congratulationsYourChannelNamesHaveBeenReserved(), toastView: self.view)
 //                    UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.congratulationsYourChannelNamesHaveBeenReserved())
                 }
                 if self.fromSignup {

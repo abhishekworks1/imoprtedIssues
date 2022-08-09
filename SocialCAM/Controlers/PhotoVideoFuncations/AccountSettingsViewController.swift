@@ -79,7 +79,7 @@ class AccountSettingsViewController: UIViewController {
             self.showHUD()
             self.editDisplayName()
         } else {
-            self.view.makeToast(R.string.localizable.noChangesMade())
+            Utils.customaizeToastMessage(title: R.string.localizable.noChangesMade(), toastView: self.view)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -266,7 +266,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
             }
             if response.status == ResponseType.success {
                 self.storyCameraVC.syncUserModel { _ in
-                    self.view.makeToast("Account updated.")
+                    Utils.customaizeToastMessage(title: "Account updated.", toastView: self.view)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         // Do whatever you want
                         self.navigationController?.popViewController(animated: true)

@@ -62,6 +62,6 @@ class PatentsViewController: UIViewController {
 
 extension PatentsViewController: UIDocumentPickerDelegate {
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        Utils.appDelegate?.window?.makeToast(R.string.localizable.patentPopup())
+        Utils.customaizeToastMessage(title: R.string.localizable.patentPopup(), toastView: (Utils.appDelegate?.window)!)
     }
 }

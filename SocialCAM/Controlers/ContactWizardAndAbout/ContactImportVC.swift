@@ -1643,7 +1643,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                //App not installed.
                 debugPrint("please install Telegram")
                 DispatchQueue.runOnMainThread {
-                    Utils.appDelegate?.window?.makeToast("please install Telegram")
+                    Utils.customaizeToastMessage(title: "please install Telegram", toastView: (Utils.appDelegate?.window)!)
+                    
                 }
             }
     }
@@ -1662,7 +1663,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             debugPrint("please install Twitter")
             DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast("Please install Twitter")
+                Utils.customaizeToastMessage(title: "Please install Twitter", toastView: (Utils.appDelegate?.window)!)
             }
         }
     }
@@ -1683,7 +1684,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } catch {
             print(error)
             DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast("Please install FB Messanger")
+                Utils.customaizeToastMessage(title: "Please install FB Messanger", toastView: (Utils.appDelegate?.window)!)
             }
         }
         dialog.show()
@@ -1716,7 +1717,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 } else {
                     debugPrint("please install WhatsApp")
                     DispatchQueue.runOnMainThread {
-                        Utils.appDelegate?.window?.makeToast("Please install WhatsApp")
+                        Utils.customaizeToastMessage(title: "Please install WhatsApp", toastView: (Utils.appDelegate?.window)!)
                     }
                 }
             }
@@ -2501,7 +2502,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if self.selectedContactManage == nil{
 //                    self.view.makeToast(("Please select contact"))
                     DispatchQueue.main.async {
-                        self.view.makeToast("Please select contact", duration: ToastManager.shared.duration, position: .bottom)
+                        Utils.customaizeToastMessage(title: "Please select contact", toastView: self.view)
                     }
                     
                 }
@@ -2509,13 +2510,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if self.selectedContactManage == nil{
 //                    showToast("Please select contact")
                     DispatchQueue.main.async {
-                        self.view.makeToast("Please select contact", duration: ToastManager.shared.duration, position: .bottom)
+                        Utils.customaizeToastMessage(title: "Please select contact", toastView: self.view)
                     }
                 }
             }else if pageNo == 3 {
                 guard selectedTitleRow != nil else {
                     DispatchQueue.main.async {
-                        self.view.makeToast("Please Choose Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                        Utils.customaizeToastMessage(title: "Please Choose Message to send", toastView: self.view)
                     }
                     return
                 }
@@ -2556,7 +2557,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         else if pageNo == 3 {
             guard selectedTitleRow != nil else {
                 DispatchQueue.main.async {
-                    self.view.makeToast("Please Choose Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                    Utils.customaizeToastMessage(title: "Please Choose Message to send", toastView: self.view)
                 }
                 return
             }
@@ -2564,21 +2565,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if isSelectSMS {
                     guard txtLinkWithCheckOut != "" else {
                         DispatchQueue.main.async {
-                            self.view.makeToast("Please Enter Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                            Utils.customaizeToastMessage(title: "Please Enter Message to send", toastView: self.view)
                         }
                         return
                     }
                 } else {
                     guard emailSubjectTextLabel.text != "" || emailSubjectTextLabel.text != nil else {
                         DispatchQueue.main.async {
-                            self.view.makeToast("Please Enter Email Subject to send", duration: ToastManager.shared.duration, position: .bottom)
+                            Utils.customaizeToastMessage(title: "Please Enter Email Subject to send", toastView: self.view)
                         }
                         return
                     }
                     
                     guard txtDetailForEmail != "" else {
                         DispatchQueue.main.async {
-                            self.view.makeToast("Please Enter Email Body to send", duration: ToastManager.shared.duration, position: .bottom)
+                            Utils.customaizeToastMessage(title: "Please Enter Email Body to send", toastView: self.view)
                         }
                         return
                     }
@@ -2715,7 +2716,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if let channelId = Defaults.shared.currentUser?.channelId {
             UIPasteboard.general.string = urlToShare//"\(websiteUrl)/\(channelId)"
             DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.linkCopied())
+                Utils.customaizeToastMessage(title: R.string.localizable.linkCopied(), toastView: (Utils.appDelegate?.window)!)
+                
             }
 //        }
     }

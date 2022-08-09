@@ -157,7 +157,7 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
                 if isLogin {
                     self.shareTwitteWithHandler(url, image: image, text: text)
                 } else {
-                    Utils.appDelegate?.window?.makeToast(R.string.localizable.pleaseFirstLoginOnTwitter())
+                    Utils.customaizeToastMessage(title: R.string.localizable.pleaseFirstLoginOnTwitter(), toastView: (Utils.appDelegate?.window)!)
                 }
             }
         }

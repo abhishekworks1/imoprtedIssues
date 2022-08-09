@@ -312,7 +312,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             group.notify(queue: .main) {
                 let photoText = (self.selectedItemArray.count == 1) ? "photo" : "photos"
                 let message = "\(self.selectedItemArray.count) \(photoText) saved"
-                self.view.makeToast(message, duration: 2.0, position: .bottom)
+                Utils.customaizeToastMessage(title: message, toastView: self.view)
             }
         case .video:
             break
@@ -512,10 +512,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                 SCAlbum.shared.save(image: image) { (isSuccess) in
                     if isSuccess {
                         DispatchQueue.main.async {
-                            self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                            Utils.customaizeToastMessage(title: R.string.localizable.photoSaved(), toastView: self.view)
                         }
                     } else {
-                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                        Utils.customaizeToastMessage(title: R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), toastView: self.view)
                     }
                 }
             }
@@ -549,10 +549,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                     SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
                         if isSuccess {
                             DispatchQueue.main.async {
-                                self.view.makeToast(R.string.localizable.videoSaved())
+                                Utils.customaizeToastMessage(title: R.string.localizable.videoSaved(), toastView: self.view)
                             }
                         } else {
-                            self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                            Utils.customaizeToastMessage(title: R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), toastView: self.view)
                         }
                     }
                 }

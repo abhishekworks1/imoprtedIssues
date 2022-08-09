@@ -1593,7 +1593,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if appMode != .free {
                 if let textField = objAlert.textFields?[0],
                     textField.text!.count > 0, textField.text?.lowercased() != proModeCode {
-                    self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+                    Utils.customaizeToastMessage(title: R.string.localizable.pleaseEnterValidCode(), toastView: self.view)
                     return
                 }
             }
