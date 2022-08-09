@@ -102,7 +102,7 @@
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="AQD-oq-bKn">
+                                                                                    <stackView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="AQD-oq-bKn">
                                                                                         <rect key="frame" x="8" y="210.66666666666669" width="376.66666666666669" height="72"/>
                                                                                         <subviews>
                                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-ny-uw1">
@@ -1629,6 +1629,7 @@
                                     <constraint firstItem="FaF-1B-nrt" firstAttribute="top" secondItem="EpB-IZ-vOd" secondAttribute="bottom" constant="25" id="gAP-Ks-exb"/>
                                     <constraint firstItem="EpB-IZ-vOd" firstAttribute="leading" secondItem="aRP-bx-rFQ" secondAttribute="leading" id="kAk-EX-lyD"/>
                                     <constraint firstItem="FaF-1B-nrt" firstAttribute="leading" secondItem="aRP-bx-rFQ" secondAttribute="leading" constant="12" id="u7Y-be-JD5"/>
+                                    <constraint firstItem="kse-1A-FkW" firstAttribute="top" secondItem="aRP-bx-rFQ" secondAttribute="topMargin" constant="12" id="xhP-4S-d6A"/>
                                     <constraint firstAttribute="trailing" secondItem="EpB-IZ-vOd" secondAttribute="trailing" id="zzk-Cv-MWn"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1835,35 +1836,35 @@
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NE3-EN-xJd">
-                                                                                                <rect key="frame" x="28" y="9.3333333333333144" width="328" height="72"/>
+                                                                                                <rect key="frame" x="192" y="9.3333333333333144" width="0.0" height="72"/>
                                                                                                 <subviews>
-                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Wz-Spg">
-                                                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="72"/>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Wz-Spg">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="puA-bI-GMT">
-                                                                                                        <rect key="frame" x="48" y="0.0" width="40" height="72"/>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="puA-bI-GMT">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RQK-vI-cwa">
-                                                                                                        <rect key="frame" x="96" y="0.0" width="40" height="72"/>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RQK-vI-cwa">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="VKa-6d-oed">
-                                                                                                        <rect key="frame" x="144" y="0.0" width="40" height="72"/>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="VKa-6d-oed">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqn-4e-Fku" userLabel="Apple Badge">
-                                                                                                        <rect key="frame" x="192" y="0.0" width="40" height="72"/>
+                                                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqn-4e-Fku" userLabel="Apple Badge">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="512"/>
                                                                                                         <subviews>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="vQi-2c-6nq">
-                                                                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="72"/>
+                                                                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="512"/>
                                                                                                             </imageView>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bib-NZ-kRh">
-                                                                                                                <rect key="frame" x="11.666666666666657" y="20.666666666666686" width="17" height="17"/>
+                                                                                                                <rect key="frame" x="11.666666666666657" y="240.66666666666669" width="17" height="17"/>
                                                                                                                 <constraints>
                                                                                                                     <constraint firstAttribute="width" constant="17" id="2Kj-xa-FeR"/>
                                                                                                                     <constraint firstAttribute="height" constant="17" id="JQ6-3G-snE"/>
                                                                                                                 </constraints>
                                                                                                             </imageView>
                                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbO-jh-fM5">
-                                                                                                                <rect key="frame" x="17.666666666666686" y="37.333333333333371" width="5" height="9.6666666666666643"/>
+                                                                                                                <rect key="frame" x="17.666666666666657" y="257.33333333333331" width="5" height="9.6666666666666856"/>
                                                                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
                                                                                                                 <color key="textColor" name="Active1"/>
                                                                                                                 <nil key="highlightedColor"/>
@@ -1888,21 +1889,21 @@
                                                                                                             </mask>
                                                                                                         </variation>
                                                                                                     </view>
-                                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMn-t9-uJS" userLabel="Android Badge">
-                                                                                                        <rect key="frame" x="240" y="0.0" width="40" height="72"/>
+                                                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMn-t9-uJS" userLabel="Android Badge">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                         <subviews>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="ugY-Vz-kjt">
-                                                                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="72"/>
+                                                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                             </imageView>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="MaN-0K-MfF">
-                                                                                                                <rect key="frame" x="5" y="21" width="30" height="30"/>
+                                                                                                                <rect key="frame" x="-15" y="241.00000000000006" width="30" height="30"/>
                                                                                                                 <constraints>
                                                                                                                     <constraint firstAttribute="width" constant="30" id="NVn-VB-Nqw"/>
                                                                                                                     <constraint firstAttribute="height" constant="30" id="iVH-PK-2yl"/>
                                                                                                                 </constraints>
                                                                                                             </imageView>
                                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaK-rs-DdR">
-                                                                                                                <rect key="frame" x="17.666666666666686" y="37.333333333333371" width="5" height="9.6666666666666643"/>
+                                                                                                                <rect key="frame" x="-2.3333333333333428" y="257.33333333333331" width="5" height="9.6666666666666856"/>
                                                                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
                                                                                                                 <color key="textColor" name="Active1"/>
                                                                                                                 <nil key="highlightedColor"/>
@@ -1926,21 +1927,21 @@
                                                                                                             </mask>
                                                                                                         </variation>
                                                                                                     </view>
-                                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGJ-xr-Kih" userLabel="Web Badge">
-                                                                                                        <rect key="frame" x="288" y="0.0" width="40" height="72"/>
+                                                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGJ-xr-Kih" userLabel="Web Badge">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                         <subviews>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Mgb-Qu-gWQ">
-                                                                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="72"/>
+                                                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                             </imageView>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="a9Z-lE-UjX">
-                                                                                                                <rect key="frame" x="5" y="21" width="30" height="30"/>
+                                                                                                                <rect key="frame" x="-15" y="241.00000000000006" width="30" height="30"/>
                                                                                                                 <constraints>
                                                                                                                     <constraint firstAttribute="width" constant="30" id="z9L-wF-v3h"/>
                                                                                                                     <constraint firstAttribute="height" constant="30" id="zDe-qi-ZGy"/>
                                                                                                                 </constraints>
                                                                                                             </imageView>
                                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40b-sY-4El">
-                                                                                                                <rect key="frame" x="17.666666666666686" y="37.333333333333371" width="5" height="9.6666666666666643"/>
+                                                                                                                <rect key="frame" x="-2.3333333333333428" y="257.33333333333331" width="5" height="9.6666666666666856"/>
                                                                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
                                                                                                                 <color key="textColor" name="Active1"/>
                                                                                                                 <nil key="highlightedColor"/>
@@ -1990,7 +1991,7 @@
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
-                                                                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="yNw-Z8-xOt">
+                                                                                            <stackView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="yNw-Z8-xOt">
                                                                                                 <rect key="frame" x="0.0" y="131.66666666666663" width="384" height="72"/>
                                                                                                 <subviews>
                                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDb-ff-gpV">
@@ -2213,9 +2214,9 @@
                                                                                         </constraints>
                                                                                         <variation key="default">
                                                                                             <mask key="constraints">
+                                                                                                <exclude reference="gXH-9K-7OX"/>
                                                                                                 <exclude reference="8vy-8y-uEn"/>
                                                                                                 <exclude reference="ixk-dd-DEz"/>
-                                                                                                <exclude reference="gXH-9K-7OX"/>
                                                                                                 <exclude reference="J92-pn-Uvo"/>
                                                                                             </mask>
                                                                                         </variation>
@@ -3150,7 +3151,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
