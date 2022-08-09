@@ -897,7 +897,7 @@ extension EditProfilePicViewController {
         let currentSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         if currentSocialPlatformCount == 4 && previousSocialPlatformCount == 3 {
             self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.currentUser?.channelId ?? "")")
-            self.showHideSocialBadgePopupView(isHide: false)
+//            self.showHideSocialBadgePopupView(isHide: false)
         }
         ProManagerApi.addSocialPlatforms(socialPlatforms: Defaults.shared.socialPlatforms?.uniq() ?? []).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
