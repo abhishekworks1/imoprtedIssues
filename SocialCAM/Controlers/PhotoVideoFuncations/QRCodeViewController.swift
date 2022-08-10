@@ -76,7 +76,7 @@ class QRCodeViewController: UIViewController {
         let channelName = NSMutableAttributedString(string: "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))", attributes: channelNameAttributes)
         displayName.append(channelName)
         lblUsername.attributedText = displayName
-        print("----ss \(R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? ""))")
+       // print("----ss \(R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? ""))")
       //  self.lblUsername.text = "@\(Defaults.shared.currentUser?.channelName ?? "")"//"\(Defaults.shared.publicDisplayName ?? "")"
       /*  if let qrImageURL = Defaults.shared.currentUser?.qrcode {
             self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)

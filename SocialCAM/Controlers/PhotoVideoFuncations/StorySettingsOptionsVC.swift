@@ -289,7 +289,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
-            headerView.userName.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            headerView.userName.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelName ?? "")
         } else if settingTitle.settingsType == .watermarkAlpha30 {
             headerView.title.isHidden = false
             headerView.iconSettingsImage.isHidden = false
