@@ -1996,17 +1996,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
-                    if self.txtLinkWithCheckOut != "" {
+                    if cell.messageTextView.text != "" {
                         cell.messageTextView.text = self.txtLinkWithCheckOut
                     }
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.detailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
-                    if self.txtLinkWithCheckOut != "" {
+                    if  cell.emailSubjectTextView.text != "" {
                         cell.emailSubjectTextView.text = self.txtLinkWithCheckOut
                     }
-                    if self.txtDetailForEmail != "" {
+                    if cell.emailBodyTextView.text != "" {
                         cell.emailBodyTextView.text = self.txtDetailForEmail
                     }
                 }
