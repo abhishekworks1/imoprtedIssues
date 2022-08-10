@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21208.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21191"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2215,9 +2215,9 @@
                                                                                         <variation key="default">
                                                                                             <mask key="constraints">
                                                                                                 <exclude reference="gXH-9K-7OX"/>
+                                                                                                <exclude reference="J92-pn-Uvo"/>
                                                                                                 <exclude reference="8vy-8y-uEn"/>
                                                                                                 <exclude reference="ixk-dd-DEz"/>
-                                                                                                <exclude reference="J92-pn-Uvo"/>
                                                                                             </mask>
                                                                                         </variation>
                                                                                     </view>
@@ -2277,16 +2277,27 @@
                                                                                             </userDefinedRuntimeAttribute>
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </imageView>
+                                                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDG-21-4jm">
+                                                                                        <rect key="frame" x="153" y="28" width="25" height="25"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="height" constant="25" id="MAg-wv-1zL"/>
+                                                                                            <constraint firstAttribute="width" constant="25" id="uKO-Yr-Nlu"/>
+                                                                                        </constraints>
+                                                                                        <state key="normal" title="Button"/>
+                                                                                        <buttonConfiguration key="configuration" style="plain" image="editProfilePlusIcon"/>
+                                                                                    </button>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="250" id="2Gi-Df-yfc"/>
+                                                                                    <constraint firstItem="FDG-21-4jm" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" constant="28" id="IEZ-8J-Wx0"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="hGq-lS-48j" secondAttribute="trailing" id="JXY-O6-XD3"/>
                                                                                     <constraint firstAttribute="width" constant="250" id="Kk5-ds-XM7"/>
                                                                                     <constraint firstItem="hGq-lS-48j" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" id="d4L-ha-3pj"/>
                                                                                     <constraint firstItem="BlB-h4-BEc" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" constant="27" id="iQY-vY-vIz"/>
                                                                                     <constraint firstItem="BlB-h4-BEc" firstAttribute="centerX" secondItem="wg9-lO-RhK" secondAttribute="centerX" id="kTy-Iv-PNi"/>
                                                                                     <constraint firstItem="hGq-lS-48j" firstAttribute="leading" secondItem="wg9-lO-RhK" secondAttribute="leading" id="ulx-PQ-Yt1"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="FDG-21-4jm" secondAttribute="trailing" constant="72" id="w10-gp-ktE"/>
                                                                                     <constraint firstAttribute="bottom" secondItem="hGq-lS-48j" secondAttribute="bottom" id="yPq-1i-Ob4"/>
                                                                                 </constraints>
                                                                             </view>
@@ -3132,6 +3143,7 @@
         <image name="closeRef" width="512" height="512"/>
         <image name="contentCreate" width="39" height="26"/>
         <image name="day_badge_1" width="365" height="512"/>
+        <image name="editProfilePlusIcon" width="44" height="44"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="freeAppleIcon" width="28.5" height="23.5"/>
         <image name="freeModeWelcomePage" width="72" height="72"/>
@@ -3151,7 +3163,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
