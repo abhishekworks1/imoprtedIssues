@@ -559,6 +559,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
             lblNum5.backgroundColor = .white
+            selectedTitleRow = nil
+            itemsTableView.reloadData()
         }
         else if pageNo == 3 {
             page0view.isHidden = true
