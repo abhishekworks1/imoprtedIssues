@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 import SkyFloatingLabelTextField
-
+import Alamofire
 protocol SharingSocialTypeDelegate {
     func shareSocialType(socialType: ProfileSocialShare)
     func setCroppedImage(croppedImg: UIImage)
@@ -110,7 +110,7 @@ class EditProfilePicViewController: UIViewController {
         self.view.isUserInteractionEnabled = true
         self.scrollView.delegate = self
         
-        self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
+        self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelName ?? "")"
         self.lblUserName.isHidden = true
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
@@ -121,7 +121,7 @@ class EditProfilePicViewController: UIViewController {
         
         
         DispatchQueue.main.async {
-            self.lblChannelName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
+            self.lblChannelName.text = "@\(Defaults.shared.currentUser?.channelName ?? "")"
             
             if let flages = Defaults.shared.currentUser?.userStateFlags,
                flages.count > 0 {
@@ -336,9 +336,18 @@ class EditProfilePicViewController: UIViewController {
             self.showHUD()
             self.editDisplayName()
         } else {
-            self.setDisplayNamePopupView.isHidden = true
-            self.showHUD()
-            self.editChannelName()
+            let displayName = self.txtChannelName.text
+            if displayName?.lowercased() == Defaults.shared.currentUser?.channelId?.lowercased() {
+                self.setDisplayNamePopupView.isHidden = true
+                self.showHUD()
+                let jsonEncoder = JSONEncoder()
+                do {
+                    let jsonData = try jsonEncoder.encode(["channelName" : displayName])
+                    self.editChannelName(data:jsonData)
+                } catch {}
+            } else {
+                Utils.customaizeToastMessage(title: "You can only update letter case here", toastView: self.view)
+            }
         }
     }
     
@@ -371,7 +380,7 @@ class EditProfilePicViewController: UIViewController {
             self.txtDisplayName.isHidden = false
             self.txtChannelName.isHidden = true
             self.setDisplayNamePopupView.isHidden = false
-        } /*else if sender.tag == 102 {
+        } else if sender.tag == 102 {
             isForEditName = false
             self.editNamePopupTitle.text = "Channel Name Display"
             self.editNamePopupMessage.text = "Enter how you want your channel name displayed. You can use capital letters to make your channel name stand out."
@@ -379,7 +388,7 @@ class EditProfilePicViewController: UIViewController {
             self.txtDisplayName.isHidden = true
             self.txtChannelName.isHidden = false
             self.setDisplayNamePopupView.isHidden = false
-        }*/
+        }
     }
     
     @IBAction func btnFlagSelectionsTapped(_ sender: UIButton) {
@@ -782,26 +791,72 @@ extension EditProfilePicViewController {
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
-    func editChannelName() {
-        let displayName = self.txtChannelName.text
-        self.dismissHUD()
-        /*ProManagerApi.editDisplayName(publicDisplayName: displayName?.isEmpty ?? true ? "" : displayName, privateDisplayName: nil).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else {
-                return
+    func editChannelName(data:Data) {
+      
+        let path = API.shared.baseUrlV2 + Paths.editChannelName
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+        request.httpBody = data
+        self.showHUD()
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+               
+                self.dismissHUD()
+                self.lblChannelName.text = self.txtChannelName.text
+                break
+               
+            case .failure(let error):
+                print(error)
+                self.dismissHUD()
+                break
+
+                //failure code here
             }
-            self.dismissHUD()
-            self.isPublicNameEdit = true
-            if response.status == ResponseType.success {
-                self.storyCameraVC.syncUserModel { _ in
-                    self.setPublicDisplayName()
-                    self.view.makeToast("Your changes are saved.")
-                }
-            }
-        }, onError: { error in
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag) */
+        }
     }
-   
+   /* func inviteGuest(data:Data){
+        let path = API.shared.baseUrlV2 + "contact-list/invite-guest"
+        print(path)
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+        request.httpBody = data
+        self.showLoader()
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+               // self.getContactList()
+                if let indexMobile = self.emailContacts.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.emailContacts[indexMobile].status = ContactStatus.invited
+                }
+                if let indexAllHidden = self.allemailContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.allemailContactsForHide[indexAllHidden].status = ContactStatus.invited
+                }
+                self.emailContactTableView.reloadData()
+                self.hideLoader()
+                break
+               
+            case .failure(let error):
+                print(error)
+                self.hideLoader()
+                break
+
+                //failure code here
+            }
+        }
+    }*/
     func setCountrys(_ countrys: [Country]) {
         var arrayCountry: [[String: Any]] = []
         for country in countrys {
@@ -896,7 +951,7 @@ extension EditProfilePicViewController {
         }
         let currentSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         if currentSocialPlatformCount == 4 && previousSocialPlatformCount == 3 {
-            self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.currentUser?.channelId ?? "")")
+            self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.currentUser?.channelName ?? "")")
 //            self.showHideSocialBadgePopupView(isHide: false)
         }
         ProManagerApi.addSocialPlatforms(socialPlatforms: Defaults.shared.socialPlatforms?.uniq() ?? []).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in

@@ -170,7 +170,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
         }
         displayMessage.append(" ")
-        displayMessage.append("\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")")
+        displayMessage.append("\(websiteUrl)/\(Defaults.shared.currentUser?.channelName ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             if let image = image {

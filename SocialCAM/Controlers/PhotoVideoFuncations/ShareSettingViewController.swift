@@ -175,8 +175,6 @@ class ShareSettingViewController: UIViewController {
                 subscriptionBadgeicon.isHidden = false
                 subscriptionBadgeiconImageView.image = UIImage.init(named: badgearry[3])
             }
-        
-        
         }
     func setUpSubscriptionBadges() {
         androidIconImageview.isHidden = true

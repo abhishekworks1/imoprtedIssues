@@ -582,7 +582,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             } else {
                 userImage.image = ApplicationSettings.userPlaceHolder
             }
-        nameLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+        nameLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelName ?? "")
         userName.text =  Defaults.shared.publicDisplayName ?? ""
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
@@ -743,7 +743,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         setUpbadgesPopUp()
         profileDisplayView.isHidden = false
         let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
-        nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+        nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelName ?? "")
         userNametitleLabel.text = Defaults.shared.publicDisplayName
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
@@ -980,7 +980,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.blueBgImg.isHidden = false
-            headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelName ?? "")
             headerView.nameLabel.text = Defaults.shared.publicDisplayName ?? ""
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 headerView.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
@@ -1006,7 +1006,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.badgeIconHeightConstraint.constant = 45
             self?.profileDisplayView.isHidden = false
             let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
-            self?.nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            self?.nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelName ?? "")
             self?.userNametitleLabel.text = Defaults.shared.publicDisplayName
             if let createdDate = Defaults.shared.currentUser?.created {
                 let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
