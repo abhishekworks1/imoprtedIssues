@@ -89,6 +89,11 @@ class QuickStartOptionDetailViewController: UIViewController {
                     item.isread = true
                 }
             }
+            let completed = !((category.Items?.filter({ return !($0.isread ?? false) }).count ?? 0) > 0)
+            category.completed = completed
+            if selectedQuickStartCategory == category {
+                selectedQuickStartCategory?.completed = completed
+            }
         }
         Defaults.shared.quickStartCategories = categories
         UserSync.shared.readQuickStartCategories(id: selectedQuickStartItem?._id ?? "")
@@ -134,15 +139,19 @@ class QuickStartOptionDetailViewController: UIViewController {
     }
     
     @IBAction func didTapOnDoneStep(_ sender: UIButton) {
-        let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
-        greatVC.greatViewDelegate = self
-        greatVC.categoryString = selectedQuickStartCategory?.label
-        greatVC.guidTimerDate = guidTimerDate
-        greatVC.modalPresentationStyle = .overCurrentContext
+        
+        if let completed = selectedQuickStartCategory?.completed, completed {
+            let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
+            greatVC.greatViewDelegate = self
+            greatVC.categoryString = selectedQuickStartCategory?.label
+            greatVC.guidTimerDate = guidTimerDate
+            greatVC.modalPresentationStyle = .overCurrentContext
             present(greatVC, animated: true, completion: nil)
-//        if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
-//            navigationController?.popToViewController(viewController, animated: true)
-//        }
+        } else {
+            if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
+                navigationController?.popToViewController(viewController, animated: true)
+            }
+        }
     }
     
     @IBAction func didTapOnBack(_ sender: UIButton) {

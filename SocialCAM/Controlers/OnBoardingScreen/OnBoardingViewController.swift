@@ -44,6 +44,7 @@ class QuickStartCategory: Codable, Equatable {
     var ordinal: String?
     var __v: Int?
     var created: String?
+    var completed: Bool?
     var Items: [QuickStartCategoryContent]?
 }
 
