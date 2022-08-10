@@ -559,6 +559,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
             lblNum5.backgroundColor = .white
+            selectedTitleRow = nil
+            itemsTableView.reloadData()
+            emailSubjectTextLabel.text = ""
         }
         else if pageNo == 3 {
             page0view.isHidden = true
@@ -1996,17 +1999,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
-                    if self.txtLinkWithCheckOut != "" {
+                    if cell.messageTextView.text != "" {
                         cell.messageTextView.text = self.txtLinkWithCheckOut
                     }
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.detailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
-                    if self.txtLinkWithCheckOut != "" {
+                    if  cell.emailSubjectTextView.text != "" {
                         cell.emailSubjectTextView.text = self.txtLinkWithCheckOut
                     }
-                    if self.txtDetailForEmail != "" {
+                    if cell.emailBodyTextView.text != "" {
                         cell.emailBodyTextView.text = self.txtDetailForEmail
                     }
                 }
@@ -2064,8 +2067,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.txtLinkWithCheckOut = item?.content ?? ""
                         emailSubjectView.isHidden = true
                         emailMaualtextView.isHidden = true
-                        if self.txtLinkWithCheckOut == "" {
-                        } else {
+                        if self.txtLinkWithCheckOut != "" {
                             emailSubjectTextLabel.text = txtLinkWithCheckOut
                         }
                     } else {
@@ -2570,7 +2572,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         return
                     }
                 } else {
-                    guard emailSubjectTextLabel.text != "" || emailSubjectTextLabel.text != nil else {
+                    guard emailSubjectTextLabel.text != ""  else {
                         DispatchQueue.main.async {
                             Utils.customaizeToastMessage(title: "Please Enter Email Subject to send", toastView: self.view)
                         }

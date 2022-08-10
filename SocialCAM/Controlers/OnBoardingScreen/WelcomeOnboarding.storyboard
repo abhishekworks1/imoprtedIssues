@@ -2215,9 +2215,9 @@
                                                                                         <variation key="default">
                                                                                             <mask key="constraints">
                                                                                                 <exclude reference="gXH-9K-7OX"/>
+                                                                                                <exclude reference="J92-pn-Uvo"/>
                                                                                                 <exclude reference="8vy-8y-uEn"/>
                                                                                                 <exclude reference="ixk-dd-DEz"/>
-                                                                                                <exclude reference="J92-pn-Uvo"/>
                                                                                             </mask>
                                                                                         </variation>
                                                                                     </view>
@@ -2277,12 +2277,23 @@
                                                                                             </userDefinedRuntimeAttribute>
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </imageView>
+                                                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-LS-zAX">
+                                                                                        <rect key="frame" x="155" y="30" width="20" height="20"/>
+                                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="width" constant="20" id="4ag-Rm-6pz"/>
+                                                                                            <constraint firstAttribute="height" constant="20" id="ymC-40-xYR"/>
+                                                                                        </constraints>
+                                                                                        <state key="normal" image="editProfilePlusIcon"/>
+                                                                                    </button>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="250" id="2Gi-Df-yfc"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="hGq-lS-48j" secondAttribute="trailing" id="JXY-O6-XD3"/>
                                                                                     <constraint firstAttribute="width" constant="250" id="Kk5-ds-XM7"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="N4Q-LS-zAX" secondAttribute="trailing" constant="75" id="LUY-oV-fgb"/>
+                                                                                    <constraint firstItem="N4Q-LS-zAX" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" constant="30" id="Psl-Cw-1x9"/>
                                                                                     <constraint firstItem="hGq-lS-48j" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" id="d4L-ha-3pj"/>
                                                                                     <constraint firstItem="BlB-h4-BEc" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" constant="27" id="iQY-vY-vIz"/>
                                                                                     <constraint firstItem="BlB-h4-BEc" firstAttribute="centerX" secondItem="wg9-lO-RhK" secondAttribute="centerX" id="kTy-Iv-PNi"/>
@@ -2828,7 +2839,7 @@
                                     <action selector="continueOnClick:" destination="Qlu-EB-aFi" eventType="touchUpInside" id="Cdy-HJ-lg8"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zor-8W-08X">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zor-8W-08X">
                                 <rect key="frame" x="414" y="0.0" width="414" height="1500"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtg-4p-nJ4">
@@ -2865,7 +2876,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makeMoney_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="uHp-O1-bvg">
-                                                                        <rect key="frame" x="151.66666666666666" y="15.333333333333314" width="25" height="25"/>
+                                                                        <rect key="frame" x="151.66666666666663" y="15.666666666666686" width="25" height="25"/>
                                                                         <color key="tintColor" red="0.49019607840000001" green="0.27450980390000002" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="25" id="CKf-P0-C77"/>
@@ -2927,7 +2938,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="makeMoney_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="gNA-2I-q5t">
-                                                                        <rect key="frame" x="151.33333333333334" y="18.333333333333314" width="25" height="25"/>
+                                                                        <rect key="frame" x="151.33333333333337" y="18.666666666666686" width="25" height="25"/>
                                                                         <color key="tintColor" red="0.0" green="0.49019607840000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="25" id="EFn-jc-f6r"/>
@@ -3022,19 +3033,19 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="dtg-4p-nJ4" secondAttribute="trailing" constant="10" id="6FC-Eb-nW4"/>
+                                    <constraint firstAttribute="trailing" secondItem="dtg-4p-nJ4" secondAttribute="trailing" constant="-4" id="6FC-Eb-nW4"/>
                                     <constraint firstItem="dtg-4p-nJ4" firstAttribute="leading" secondItem="Zor-8W-08X" secondAttribute="leading" constant="10" id="M8x-K9-wHz"/>
-                                    <constraint firstItem="dtg-4p-nJ4" firstAttribute="centerY" secondItem="Zor-8W-08X" secondAttribute="centerY" id="eme-ET-XdO"/>
+                                    <constraint firstItem="dtg-4p-nJ4" firstAttribute="centerY" secondItem="Zor-8W-08X" secondAttribute="centerY" constant="-286.83333333333337" id="eme-ET-XdO"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VH3-yW-ZbS"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Zor-8W-08X" firstAttribute="trailing" secondItem="VH3-yW-ZbS" secondAttribute="trailing" id="0gp-vr-NoG"/>
+                            <constraint firstItem="Zor-8W-08X" firstAttribute="trailing" secondItem="VH3-yW-ZbS" secondAttribute="trailing" constant="400" id="0gp-vr-NoG"/>
                             <constraint firstItem="VH3-yW-ZbS" firstAttribute="trailing" secondItem="Om8-ab-NXB" secondAttribute="trailing" constant="8" id="6vp-e1-W9l"/>
                             <constraint firstItem="VH3-yW-ZbS" firstAttribute="bottom" secondItem="Om8-ab-NXB" secondAttribute="bottom" constant="8" id="Aht-Ct-TsU"/>
-                            <constraint firstAttribute="bottom" secondItem="Zor-8W-08X" secondAttribute="bottom" id="Ajt-PB-QLW"/>
+                            <constraint firstAttribute="bottom" secondItem="Zor-8W-08X" secondAttribute="bottom" constant="-574" id="Ajt-PB-QLW"/>
                             <constraint firstItem="ovF-dn-sWx" firstAttribute="top" secondItem="VH3-yW-ZbS" secondAttribute="top" id="FUr-dD-Mdl"/>
                             <constraint firstItem="7Vn-Ry-y5P" firstAttribute="top" secondItem="ovF-dn-sWx" secondAttribute="bottom" id="Rvz-Th-ea1"/>
                             <constraint firstItem="ovF-dn-sWx" firstAttribute="trailing" secondItem="VH3-yW-ZbS" secondAttribute="trailing" id="STL-fe-CjH"/>
@@ -3043,7 +3054,7 @@
                             <constraint firstItem="Zor-8W-08X" firstAttribute="top" secondItem="RuZ-C1-4ID" secondAttribute="top" id="nH4-u2-prk"/>
                             <constraint firstItem="Om8-ab-NXB" firstAttribute="leading" secondItem="VH3-yW-ZbS" secondAttribute="leading" constant="8" id="oel-SH-EwP"/>
                             <constraint firstItem="7Vn-Ry-y5P" firstAttribute="trailing" secondItem="VH3-yW-ZbS" secondAttribute="trailing" id="pz4-do-c4e"/>
-                            <constraint firstItem="Zor-8W-08X" firstAttribute="leading" secondItem="VH3-yW-ZbS" secondAttribute="leading" id="vbZ-4Y-trI"/>
+                            <constraint firstItem="Zor-8W-08X" firstAttribute="leading" secondItem="VH3-yW-ZbS" secondAttribute="leading" constant="414" id="vbZ-4Y-trI"/>
                             <constraint firstItem="7Vn-Ry-y5P" firstAttribute="leading" secondItem="VH3-yW-ZbS" secondAttribute="leading" id="w4E-X0-RMx"/>
                             <constraint firstItem="mrO-DB-iQ5" firstAttribute="width" secondItem="RuZ-C1-4ID" secondAttribute="width" id="wYc-7D-C0n"/>
                         </constraints>
@@ -3132,6 +3143,7 @@
         <image name="closeRef" width="512" height="512"/>
         <image name="contentCreate" width="39" height="26"/>
         <image name="day_badge_1" width="365" height="512"/>
+        <image name="editProfilePlusIcon" width="44" height="44"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="freeAppleIcon" width="28.5" height="23.5"/>
         <image name="freeModeWelcomePage" width="72" height="72"/>

@@ -117,6 +117,11 @@ class WelcomeViewController: UIViewController {
     var currentSelectedTip: Int = 0
     var tipArray = [String]()
     
+    var imageSource = ""
+    var croppedImg: UIImage?
+    private lazy var storyCameraVC = StoryCameraViewController()
+    var profilePicHelper: ProfilePicHelper?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         selectFeatureDetailSwitch.setOn(Defaults.shared.shouldDisplayDetailsOfWelcomeScreenFeatures, animated: false)
@@ -348,6 +353,22 @@ extension WelcomeViewController {
             self.hideLoader()
             self.setUpgradeButton()
             self.setUpSubscriptionBadges()
+        }
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        self.userImageView.isUserInteractionEnabled = true
+        self.userImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func updateUserProfilePic() {
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+        }
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        if let tappedImage = tapGestureRecognizer.view as? UIImageView {
+            self.openSocialShareVC()
         }
     }
     
@@ -1212,3 +1233,94 @@ extension WelcomeViewController {
         return ""
     }
 }
+
+// MARK: - SharingSocialTypeDelegate
+extension WelcomeViewController: SharingSocialTypeDelegate {
+    
+    func setSocialPlatforms() {
+        self.profilePicHelper?.settingSocialPlatforms()
+    }
+    
+    func setCroppedImage(croppedImg: UIImage) {
+        self.profilePicHelper?.settingSocialPlatforms()
+        self.croppedImg = croppedImg
+        self.saveProfilePic()
+    }
+    
+    func shareSocialType(socialType: ProfileSocialShare) {
+        self.profilePicHelper = ProfilePicHelper(parentVC: self, navVC: self.navigationController ?? UINavigationController())
+        self.profilePicHelper?.openSheet(socialType: socialType)
+    }
+    
+}
+
+// MARK: - Camera and Photo gallery methods
+extension WelcomeViewController {
+    
+    /// Delete Image
+    private func deleteImage() {
+        self.userImageView.image = UIImage()
+    }
+    
+    func openSocialShareVC() {
+        if let editProfileSocialShareVC = R.storyboard.editProfileViewController.editProfileSocialShareViewController() {
+            editProfileSocialShareVC.modalPresentationStyle = .overFullScreen
+            editProfileSocialShareVC.delegate = self
+            navigationController?.present(editProfileSocialShareVC, animated: true, completion: {
+                editProfileSocialShareVC.backgroundUpperView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
+            })
+        }
+    }
+    
+    @objc func backgroundTapped() {
+        self.dismiss(animated: true)
+    }
+}
+
+// MARK: - API methods
+extension WelcomeViewController {
+    func saveProfilePic() {
+        self.showHUD()
+//        if let img = self.userImageView.image {
+            self.updateProfilePic(image: self.croppedImg!)
+            self.updateProfileDetails(image: self.croppedImg!)
+//        }
+    }
+    
+    func updateProfilePic(image: UIImage) {
+        ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            
+            self.storyCameraVC.syncUserModel { (isComplete) in
+                self.view.makeToast("Your changes are saved.")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.updateUserProfilePic()
+                    // Do whatever you want
+//                    self.setRedirection()
+                }
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+            self.dismissHUD()
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func updateProfileDetails(image: UIImage) {
+        ProManagerApi.updateProfileDetails(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+          
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+}
+
