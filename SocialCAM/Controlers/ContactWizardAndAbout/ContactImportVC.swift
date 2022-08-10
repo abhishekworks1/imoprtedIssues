@@ -561,6 +561,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum5.backgroundColor = .white
             selectedTitleRow = nil
             itemsTableView.reloadData()
+            emailSubjectTextLabel.text = ""
         }
         else if pageNo == 3 {
             page0view.isHidden = true
@@ -2066,8 +2067,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.txtLinkWithCheckOut = item?.content ?? ""
                         emailSubjectView.isHidden = true
                         emailMaualtextView.isHidden = true
-                        if self.txtLinkWithCheckOut == "" {
-                        } else {
+                        if self.txtLinkWithCheckOut != "" {
                             emailSubjectTextLabel.text = txtLinkWithCheckOut
                         }
                     } else {
@@ -2572,7 +2572,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         return
                     }
                 } else {
-                    guard emailSubjectTextLabel.text != "" || emailSubjectTextLabel.text != nil else {
+                    guard emailSubjectTextLabel.text != ""  else {
                         DispatchQueue.main.async {
                             Utils.customaizeToastMessage(title: "Please Enter Email Subject to send", toastView: self.view)
                         }
