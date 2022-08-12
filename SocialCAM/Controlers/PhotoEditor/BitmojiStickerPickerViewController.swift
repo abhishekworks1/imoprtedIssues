@@ -82,7 +82,7 @@ class BitmojiStickerPickerViewController: UIViewController {
             SnapKitManager.shared.loadUserData { (_) in
                 guard SnapKitManager.shared.userData != nil else {
                     print("User Data is nill")
-                    self.view.makeToast("BitEmoji's are not loading please try again!", duration: ToastManager.shared.duration, position: .bottom)
+                    Utils.customaizeToastMessage(title: "BitEmoji's are not loading please try again!", toastView: self.view)
                     return
                 }
             }

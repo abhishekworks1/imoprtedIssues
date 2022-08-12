@@ -22,6 +22,9 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var webview: WKWebView!
 
+    @IBOutlet weak var incomeGoalConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainincomeGoalConfirmPopup: UIButton!
+    
 //    var selectedOption: QuickStartOptionable = QuickStartOption.CreateContentOption.quickCamCamera
 //    var selectedQuickStartMenu: QuickStartOption = .createContent
     var selectedQuickStartCategory: QuickStartCategory?
@@ -89,6 +92,11 @@ class QuickStartOptionDetailViewController: UIViewController {
                     item.isread = true
                 }
             }
+            let completed = !((category.Items?.filter({ return !($0.isread ?? false) }).count ?? 0) > 0)
+            category.completed = completed
+            if selectedQuickStartCategory == category {
+                selectedQuickStartCategory?.completed = completed
+            }
         }
         Defaults.shared.quickStartCategories = categories
         UserSync.shared.readQuickStartCategories(id: selectedQuickStartItem?._id ?? "")
@@ -134,15 +142,19 @@ class QuickStartOptionDetailViewController: UIViewController {
     }
     
     @IBAction func didTapOnDoneStep(_ sender: UIButton) {
-        let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
-        greatVC.greatViewDelegate = self
-        greatVC.categoryString = selectedQuickStartCategory?.label
-        greatVC.guidTimerDate = guidTimerDate
-        greatVC.modalPresentationStyle = .overCurrentContext
+        
+        if let completed = selectedQuickStartCategory?.completed, completed {
+            let greatVC: GreatViewController = R.storyboard.onBoardingView.greatViewController()!
+            greatVC.greatViewDelegate = self
+            greatVC.categoryString = selectedQuickStartCategory?.label
+            greatVC.guidTimerDate = guidTimerDate
+            greatVC.modalPresentationStyle = .overCurrentContext
             present(greatVC, animated: true, completion: nil)
-//        if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
-//            navigationController?.popToViewController(viewController, animated: true)
-//        }
+        } else {
+            if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
+                navigationController?.popToViewController(viewController, animated: true)
+            }
+        }
     }
     
     @IBAction func didTapOnBack(_ sender: UIButton) {
@@ -168,14 +180,15 @@ class QuickStartOptionDetailViewController: UIViewController {
             }
         } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
             if selectedQuickStartItem?.title == "Income Goal Calculator" {
-                if let token = Defaults.shared.sessionToken {
-                    let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-                    guard let url = URL(string: urlString) else {
-                        return
-                    }
-                    let safariVC = SFSafariViewController(url: url)
-                    present(safariVC, animated: true, completion: nil)
-                }
+                openPotentialIncomeCalculator()
+//                if let token = Defaults.shared.sessionToken {
+//                    let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+//                    guard let url = URL(string: urlString) else {
+//                        return
+//                    }
+//                    let safariVC = SFSafariViewController(url: url)
+//                    present(safariVC, animated: true, completion: nil)
+//                }
             } else {
                 let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
                 if hasAllowAffiliate {
@@ -189,6 +202,49 @@ class QuickStartOptionDetailViewController: UIViewController {
             let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
             navigationController?.pushViewController(storySettingsVC, animated: true)
         }
+    }
+    
+    @IBAction func incomeGoalConfirmConfirmPopupOkButtonClicked(_ sender: UIButton) {
+        if let token = Defaults.shared.sessionToken {
+             let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+             guard let url = URL(string: urlString) else {
+                 return
+             }
+             presentSafariBrowser(url: url)
+         }
+        incomeGoalConfirmPopupView.isHidden = true
+    }
+   
+    func presentSafariBrowser(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
+    }
+    
+    func openPotentialIncomeCalculator(){
+        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
+             incomeGoalConfirmPopupView.isHidden = false
+            btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
+            self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
+          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        }else{
+        if let token = Defaults.shared.sessionToken {
+             let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+             guard let url = URL(string: urlString) else {
+                 return
+             }
+             presentSafariBrowser(url: url)
+         }
+        }
+    }
+    
+    @IBAction func doNotShowAgainIncomeGoalOpenPopupClicked(_ sender: UIButton) {
+        btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = !btnDoNotShowAgainincomeGoalConfirmPopup.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+        Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup = btnDoNotShowAgainincomeGoalConfirmPopup.isSelected
+       
+    }
+    @IBAction func didTapCloseButtonIncomeGoal(_ sender: UIButton) {
+        incomeGoalConfirmPopupView.isHidden = true
     }
     
     func setNavigation() {

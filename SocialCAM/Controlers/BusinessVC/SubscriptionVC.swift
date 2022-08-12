@@ -203,11 +203,11 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
             if appMode != .free {
                 guard let textField = objAlert.textFields?.first,
                     textField.text?.count ?? 0 > 0 else {
-                    self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+                    Utils.customaizeToastMessage(title: R.string.localizable.pleaseEnterValidCode(), toastView: self.view)
                     return
                 }
                 if textField.text?.lowercased() != proModeCode {
-                    self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+                    Utils.customaizeToastMessage(title: R.string.localizable.pleaseEnterValidCode(), toastView: self.view)
                     return
                 }
             }

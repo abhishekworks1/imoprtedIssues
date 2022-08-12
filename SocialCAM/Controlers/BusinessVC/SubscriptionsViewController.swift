@@ -870,7 +870,7 @@ class SubscriptionsViewController: UIViewController {
             if appMode != .free {
                 guard let textField = objAlert.textFields?.first,
                     textField.text?.count ?? 0 > 0 else {
-                    self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+                    Utils.customaizeToastMessage(title: R.string.localizable.pleaseEnterValidCode(), toastView: self.view)
                     return
                 }
                 self.callSubscriptionApi(appMode: appMode, code: textField.text ?? "", successMessage: successMessage)

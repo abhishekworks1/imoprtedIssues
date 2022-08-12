@@ -71,7 +71,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             self.snapChatShareImage(image: image, referType: referType)
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo())
+                Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
                 return
             }
             self.saveImageToCameraRoll(image: image, completion: { [weak self] (_, phAsset) in
@@ -121,7 +121,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             youTubeUpload(url)
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo())
+                Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
                 return
             }
             self.saveVideoToCameraRoll(url: url) { [weak self] (isSuccess, phAsset) in
@@ -170,7 +170,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
         }
         displayMessage.append(" ")
-        displayMessage.append("\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")")
+        displayMessage.append("\(websiteUrl)/\(Defaults.shared.currentUser?.channelName ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             if let image = image {
@@ -205,8 +205,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     public func sharer(_ sharer: Sharing, didFailWithError error: Error) {
-
-        Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallFacebookToShareThisPhotoVideo())
+        Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallFacebookToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
     }
     
     public func sharerDidCancel(_ sharer: Sharing) {
@@ -280,7 +279,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     self.delegate?.success()
                 })
             } else {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallInstagramToShareThisPhotoVideo())
+                Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallInstagramToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
             }
         }
     }

@@ -1035,7 +1035,7 @@ extension PhotoEditorViewController {
             let album = SCAlbum.shared
             album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
             album.save(image: canvasView.toImage())
-            self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+            Utils.customaizeToastMessage(title: R.string.localizable.photoSaved(), toastView: self.view)
         } else if currentCamaraMode == .slideshow {
             if let exportURL = exportedURL {
                 DispatchQueue.runOnMainThread {
@@ -1311,7 +1311,7 @@ extension PhotoEditorViewController {
             DispatchQueue.runOnMainThread {
                 if self.selectedVideoUrlSave == nil && self.storyId == nil {
                     if isOuttakes {
-                        self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+                        Utils.customaizeToastMessage(title: R.string.localizable.videoSaved(), toastView: self.view)
                     }
                 } else {
                     self.outtakesView.isUserInteractionEnabled = true
@@ -1681,13 +1681,13 @@ extension PhotoEditorViewController {
             album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
             album.saveMovieToLibrary(movieURL: url)
             DispatchQueue.runOnMainThread {
-                self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+                Utils.customaizeToastMessage(title: R.string.localizable.videoSaved(), toastView: self.view)
             }
         case .notes:
             album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.notes())"
             album.saveMovieToLibrary(movieURL: url)
             DispatchQueue.runOnMainThread {
-                self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+                Utils.customaizeToastMessage(title: R.string.localizable.videoSaved(), toastView: self.view)
             }
         case .chat:
             DispatchQueue.main.async {

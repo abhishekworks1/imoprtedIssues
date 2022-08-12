@@ -76,7 +76,7 @@ class QRCodeViewController: UIViewController {
         let channelName = NSMutableAttributedString(string: "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))", attributes: channelNameAttributes)
         displayName.append(channelName)
         lblUsername.attributedText = displayName
-        print("----ss \(R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? ""))")
+       // print("----ss \(R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? ""))")
       //  self.lblUsername.text = "@\(Defaults.shared.currentUser?.channelName ?? "")"//"\(Defaults.shared.publicDisplayName ?? "")"
       /*  if let qrImageURL = Defaults.shared.currentUser?.qrcode {
             self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
@@ -146,7 +146,7 @@ class QRCodeViewController: UIViewController {
     @IBAction func downloadButtonClicked(_ sender: UIButton) {
             let image = self.profileView.toImage()
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        Utils.appDelegate?.window?.makeToast(R.string.localizable.qrCodeImageSaved())
+        Utils.customaizeToastMessage(title: R.string.localizable.qrCodeImageSaved(), toastView: (Utils.appDelegate?.window)!)
     }
     @IBAction func quickStartClicked(_ sender: UIButton) {
         selectedTabTextLabel.text = "QuickStart"

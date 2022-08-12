@@ -1165,7 +1165,7 @@ public struct Paths {
     static let redirect_uri = "&redirect_uri="
     static let emailTitle = "template?type=email-content"
     static let messageTitle = "template?type=message-content"
-   
+    static let editChannelName = "user/editChannelName"
     static let inviteGuesViaMobile = "contact-list/mobile/status"
     static let createContactFroMobile = "contact-list/mobile"
     static let getContactList = "template?type=message-content"

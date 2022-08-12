@@ -11,6 +11,7 @@ import SafariServices
 
 class WelcomeViewController: UIViewController {
 
+    @IBOutlet weak var timerLeftLabel: UILabel!
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var subscriptionDetailLabel: UILabel!
@@ -115,6 +116,11 @@ class WelcomeViewController: UIViewController {
     weak var tipTimer: Timer?
     var currentSelectedTip: Int = 0
     var tipArray = [String]()
+    
+    var imageSource = ""
+    var croppedImg: UIImage?
+    private lazy var storyCameraVC = StoryCameraViewController()
+    var profilePicHelper: ProfilePicHelper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -347,6 +353,22 @@ extension WelcomeViewController {
             self.hideLoader()
             self.setUpgradeButton()
             self.setUpSubscriptionBadges()
+        }
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        self.userImageView.isUserInteractionEnabled = true
+        self.userImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func updateUserProfilePic() {
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+        }
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        if let tappedImage = tapGestureRecognizer.view as? UIImageView {
+            self.openSocialShareVC()
         }
     }
     
@@ -779,6 +801,26 @@ extension WelcomeViewController {
 }
 
 extension WelcomeViewController {
+    
+    func setTimerText() {
+        let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
+        if subscriptionStatus == "trial" {
+            if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
+                timerLeftLabel.text = "Time left in premium free trial"
+            }
+        } else if subscriptionStatus == "free" {
+            if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
+                timerLeftLabel.text = "Time since signed up"
+            }
+        } else if  subscriptionStatus == "expired" {
+            if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
+                timerLeftLabel.text = "Time since your subscription expired"
+            }
+        } else {
+            timerLeftLabel.isHidden = true
+        }
+    }
+    
     func getDays() {
         timerStackView.isHidden = true
         timeStackViewHeight.constant = 0
@@ -786,6 +828,7 @@ extension WelcomeViewController {
         freeModeMinImageView.isHidden = true
         freeModeSecImageView.isHidden = true
         freeModeHourImageView.isHidden = true
+        setTimerText()
        // checkNewTrailPeriodExpire()
         var diffDays = 0
         let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
@@ -1094,59 +1137,59 @@ extension WelcomeViewController {
             if originalSubscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                 // for TRIAL user use this
                 if daysLeft == 7 {
-                    return "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam Premium features for free. \nUpgrade to Premium today and get your Premium Subscriber Badge and Day 1 Subscriber Badge! \nTime left in premium free trial."
+                    return "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam Premium features for free. \nUpgrade to Premium today and get your Premium Subscriber Badge and Day 1 Subscriber Badge!"
                 } else if daysLeft == 6 {
-                    return "You’re on Day 2 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 2 Subscriber Badge! \nTime left in premium free trial."
+                    return "You’re on Day 2 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 2 Subscriber Badge!"
                 } else if daysLeft == 5 {
-                    return "You’re on Day 3 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 3 Subscriber Badge! \nTime left in premium free trial."
+                    return "You’re on Day 3 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 3 Subscriber Badge!"
                 } else if daysLeft == 4 {
-                    return "You’re on Day 4 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 4 Subscriber Badge! \nTime left in premium free trial."
+                    return "You’re on Day 4 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 4 Subscriber Badge!"
                 } else if daysLeft == 3 {
-                    return "You’re on Day 5 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 5 Subscriber Badge! \nTime left in premium free trial."
+                    return "You’re on Day 5 of your 7-Day Premium Free Trial. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 5 Subscriber Badge!"
                 } else if daysLeft == 2 {
-                    return "You’re on Day 6 of your 7-Day Premium Free Trial. Don’t lose your Premium access after today. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 6 Subscriber Badge! \nTime left in premium free trial."
+                    return "You’re on Day 6 of your 7-Day Premium Free Trial. Don’t lose your Premium access after today. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 6 Subscriber Badge!"
                 } else if daysLeft == 1 {
-                    return "You’re on the last day of your 7-Day Premium Free Trial. Today is the last day you can access all the QuickCam Premium features for free and the last day to get the Day Subscriber Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge! \nTime left in premium free trial."
+                    return "You’re on the last day of your 7-Day Premium Free Trial. Today is the last day you can access all the QuickCam Premium features for free and the last day to get the Day Subscriber Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
                 } else {
-                    return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge! \nTime since signed up"
+                    return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
                 }
             }
             else {
                 // purchase during trail use this.
                 if originalSubscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                     if daysLeft == 7 {
-                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As a Basic Subscriber, you’ll continue to have access to all the QuickCam Premium features for free during the 7 days before access drops to Basic subscription level. \nUpgrading to Advanced or Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As a Basic Subscriber, you’ll continue to have access to all the QuickCam Premium features for free during the 7 days before access drops to Basic subscription level. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 6 {
-                        return "You’re on Day 2 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 2 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 5 {
-                        return "You’re on Day 3 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 3 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 4 {
-                        return "You’re on Day 4 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 4 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 3 {
-                        return "You’re on Day 5 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 5 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 2 {
-                        return "You’re on Day 6 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 6 of your 7-Day Premium Free Trial. \nUpgrading to Advanced or Premium available soon."
                     } else if daysLeft == 1 {
-                        return "You’re on the last day of your 7-Day Premium Free Trial. As a Basic Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon. \nTime left in premium free trial."
+                        return "You’re on the last day of your 7-Day Premium Free Trial. As a Basic Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Advanced or Premium available soon."
                     } else {
                         return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. \nUpgrade to Advanced or Premium available soon!"
                     }
                 }
                 else if originalSubscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                     if daysLeft == 7 {
-                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As an Advanced Subscriber,you’ll continue to have access to all the QuickCam Premium features for free during the 7 days before access drops to Advanced subscription level. \nUpgrading to Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial. As an Advanced Subscriber,you’ll continue to have access to all the QuickCam Premium features for free during the 7 days before access drops to Advanced subscription level. \nUpgrading to Premium available soon."
                     } else if daysLeft == 6 {
-                        return "You’re on Day 2 of your 7-Day Premium Free Trial. \nUpgrading to Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 2 of your 7-Day Premium Free Trial. \nUpgrading to Premium available soon."
                     } else if daysLeft == 5 {
-                        return "You’re on Day 3 of your 7-Day Premium Free Trial. \nUpgrading to Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 3 of your 7-Day Premium Free Trial. \nUpgrading to Premium available soon."
                     } else if daysLeft == 4 {
-                        return "You’re on Day 4 of your 7-Day Premium Free Trial. \nUpgrading to Premium available soon. \nTime left in premium free trial."
+                        return "You’re on Day 4 of your 7-Day Premium Free Trial. \nUpgrading to Premium available soon."
                     } else if daysLeft == 3 {
-                        return "You’re on Day 5 of your 7-Day Premium Free Trial. \nUpgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial. \nTime left in premium free trial."
+                        return "You’re on Day 5 of your 7-Day Premium Free Trial. \nUpgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial."
                     } else if daysLeft == 2 {
-                        return "You’re on Day 6 of your 7-Day Premium Free Trial. \nUpgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial. \nTime left in premium free trial."
+                        return "You’re on Day 6 of your 7-Day Premium Free Trial. \nUpgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial."
                     } else if daysLeft == 1 {
-                        return "You’re on the last day of your 7-Day Premium Free Trial. As an Advanced Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Premium available soon. \nTime left in premium free trial."
+                        return "You’re on the last day of your 7-Day Premium Free Trial. As an Advanced Subscriber, today is the last day you can access all the QuickCam Premium features for free. \nUpgrading to Premium available soon."
                     } else {
                         return "Your 7-Day Premium Free Trial has ended. Your access level is now Advanced. \nUpgrading to Premium available soon."
                     }
@@ -1173,10 +1216,10 @@ extension WelcomeViewController {
             }
         }
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge! \nTime since signing up:"
+            return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
         }
         else if subscriptionType == "expired" {
-            return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features. \nTime since your subscription expired:"
+            return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features."
         }
         else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             return ""
@@ -1190,3 +1233,94 @@ extension WelcomeViewController {
         return ""
     }
 }
+
+// MARK: - SharingSocialTypeDelegate
+extension WelcomeViewController: SharingSocialTypeDelegate {
+    
+    func setSocialPlatforms() {
+        self.profilePicHelper?.settingSocialPlatforms()
+    }
+    
+    func setCroppedImage(croppedImg: UIImage) {
+        self.profilePicHelper?.settingSocialPlatforms()
+        self.croppedImg = croppedImg
+        self.saveProfilePic()
+    }
+    
+    func shareSocialType(socialType: ProfileSocialShare) {
+        self.profilePicHelper = ProfilePicHelper(parentVC: self, navVC: self.navigationController ?? UINavigationController())
+        self.profilePicHelper?.openSheet(socialType: socialType)
+    }
+    
+}
+
+// MARK: - Camera and Photo gallery methods
+extension WelcomeViewController {
+    
+    /// Delete Image
+    private func deleteImage() {
+        self.userImageView.image = UIImage()
+    }
+    
+    func openSocialShareVC() {
+        if let editProfileSocialShareVC = R.storyboard.editProfileViewController.editProfileSocialShareViewController() {
+            editProfileSocialShareVC.modalPresentationStyle = .overFullScreen
+            editProfileSocialShareVC.delegate = self
+            navigationController?.present(editProfileSocialShareVC, animated: true, completion: {
+                editProfileSocialShareVC.backgroundUpperView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
+            })
+        }
+    }
+    
+    @objc func backgroundTapped() {
+        self.dismiss(animated: true)
+    }
+}
+
+// MARK: - API methods
+extension WelcomeViewController {
+    func saveProfilePic() {
+        self.showHUD()
+//        if let img = self.userImageView.image {
+            self.updateProfilePic(image: self.croppedImg!)
+            self.updateProfileDetails(image: self.croppedImg!)
+//        }
+    }
+    
+    func updateProfilePic(image: UIImage) {
+        ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            
+            self.storyCameraVC.syncUserModel { (isComplete) in
+                self.view.makeToast("Your changes are saved.")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.updateUserProfilePic()
+                    // Do whatever you want
+//                    self.setRedirection()
+                }
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+            self.dismissHUD()
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func updateProfileDetails(image: UIImage) {
+        ProManagerApi.updateProfileDetails(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+          
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+}
+

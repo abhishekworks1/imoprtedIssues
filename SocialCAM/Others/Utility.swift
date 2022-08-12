@@ -13,8 +13,15 @@ import RxSwift
 import AWSCore
 import AWSS3
 import Alamofire
+import Toast_Swift
 
 public struct Utils {
+    
+    static func customaizeToastMessage(title: String, toastView: UIView, position: ToastPosition = .bottom) {
+        var style = ToastStyle()
+        style.backgroundColor = .darkGray
+        toastView.makeToast(title, duration: ToastManager.shared.duration, position: position, style: style)
+    }
     
     static func generateDiagonal(view: UIView?) {
         let maskLayer: CAShapeLayer = CAShapeLayer()

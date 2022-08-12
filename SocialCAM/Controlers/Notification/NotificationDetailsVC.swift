@@ -222,12 +222,12 @@ class NotificationDetailsVC: UIViewController {
             if let following = notification.isFollowing, !following {
                 self.userFollowing(notification, userId, index)
                 DispatchQueue.main.async {
-                    self.view.makeToast("User Followed", duration: ToastManager.shared.duration, position: .bottom)
+                    Utils.customaizeToastMessage(title: "User Followed", toastView: self.view)
                 }
             } else {
                 self.userUnFollowing(notification, userId, index)
                 DispatchQueue.main.async {
-                    self.view.makeToast("User Unfollowed", duration: ToastManager.shared.duration, position: .bottom)
+                    Utils.customaizeToastMessage(title: "User Unfollowed", toastView: self.view)
                 }
             }
         }

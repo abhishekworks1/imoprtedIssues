@@ -126,7 +126,7 @@ open class StoriCamManager: NSObject {
         StoryDataManager.shared.startUpload()
         PostDataManager.shared.startUpload()
         DispatchQueue.runOnMainThread {
-            Utils.appDelegate?.window?.makeToast(R.string.localizable.successfullyPostedInAFewMinutes())
+            Utils.customaizeToastMessage(title: R.string.localizable.successfullyPostedInAFewMinutes(), toastView: (Utils.appDelegate?.window)!)
         }
     }
     

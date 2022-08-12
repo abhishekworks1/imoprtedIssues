@@ -2511,7 +2511,7 @@ extension StoryCameraViewController {
         self.showControls()
          self.isRecording = false
         self.recordingTimeLabel.isHidden = true
-        self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .bottom)
+        Utils.customaizeToastMessage(title: R.string.localizable.videoSaved(), toastView: self.view)
          DispatchQueue.main.async {
              self.speedSlider.isUserInteractionEnabled = true
              self.slowFastVerticalBar.isHidden = true
@@ -2887,7 +2887,7 @@ extension StoryCameraViewController {
                 if Defaults.shared.isAutoSavePic2ArtOriginalPhoto {
                     DispatchQueue.main.async {
                         SCAlbum.shared.save(image: image)
-                        styleTransferVC.view.makeToast("Photo saved", duration: ToastManager.shared.duration, position: .bottom)
+                        Utils.customaizeToastMessage(title: "Photo saved", toastView: styleTransferVC.view)
                     }
                 }
             }

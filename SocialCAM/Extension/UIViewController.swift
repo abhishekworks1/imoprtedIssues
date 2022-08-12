@@ -130,7 +130,7 @@ extension UIViewController {
                     completion(type)
                 } else {
                     self.dismissHUD()
-                    self.view.makeToast(R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                    Utils.customaizeToastMessage(title: R.string.localizable.somethingWentWrongPleaseTryAgainLater(), toastView: self.view)
                 }
             }, onError: { error in
                 self.showAlert(alertMessage: error.localizedDescription)

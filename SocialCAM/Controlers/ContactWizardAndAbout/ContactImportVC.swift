@@ -559,6 +559,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
             lblNum5.backgroundColor = .white
+            selectedTitleRow = nil
+            itemsTableView.reloadData()
+            emailSubjectTextLabel.text = ""
         }
         else if pageNo == 3 {
             page0view.isHidden = true
@@ -1646,7 +1649,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                //App not installed.
                 debugPrint("please install Telegram")
                 DispatchQueue.runOnMainThread {
-                    Utils.appDelegate?.window?.makeToast("please install Telegram")
+                    Utils.customaizeToastMessage(title: "please install Telegram", toastView: (Utils.appDelegate?.window)!)
+                    
                 }
             }
     }
@@ -1665,7 +1669,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             debugPrint("please install Twitter")
             DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast("Please install Twitter")
+                Utils.customaizeToastMessage(title: "Please install Twitter", toastView: (Utils.appDelegate?.window)!)
             }
         }
     }
@@ -1686,7 +1690,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } catch {
             print(error)
             DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast("Please install FB Messanger")
+                Utils.customaizeToastMessage(title: "Please install FB Messanger", toastView: (Utils.appDelegate?.window)!)
             }
         }
         dialog.show()
@@ -1719,7 +1723,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 } else {
                     debugPrint("please install WhatsApp")
                     DispatchQueue.runOnMainThread {
-                        Utils.appDelegate?.window?.makeToast("Please install WhatsApp")
+                        Utils.customaizeToastMessage(title: "Please install WhatsApp", toastView: (Utils.appDelegate?.window)!)
                     }
                 }
             }
@@ -1998,17 +2002,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setSeletedState(state: selectedTitleRow == indexPath, details: "", indexPath: indexPath)
                     print("isselectsms")
-                    if self.txtLinkWithCheckOut != "" {
+                    if cell.messageTextView.text != "" {
                         cell.messageTextView.text = self.txtLinkWithCheckOut
                     }
                 } else {
                     item = self.emailMsgListing?.list[indexPath.row]
                     cell.detailView.isHidden = true
                     cell.setupViewForEmailSelection(isSelected: selectedTitleRow == indexPath, subTitle: item?.subject ?? "", indexPath: indexPath)
-                    if self.txtLinkWithCheckOut != "" {
+                    if  cell.emailSubjectTextView.text != "" {
                         cell.emailSubjectTextView.text = self.txtLinkWithCheckOut
                     }
-                    if self.txtDetailForEmail != "" {
+                    if cell.emailBodyTextView.text != "" {
                         cell.emailBodyTextView.text = self.txtDetailForEmail
                     }
                 }
@@ -2066,8 +2070,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.txtLinkWithCheckOut = item?.content ?? ""
                         emailSubjectView.isHidden = true
                         emailMaualtextView.isHidden = true
-                        if self.txtLinkWithCheckOut == "" {
-                        } else {
+                        if self.txtLinkWithCheckOut != "" {
                             emailSubjectTextLabel.text = txtLinkWithCheckOut
                         }
                     } else {
@@ -2122,10 +2125,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteButtonView.isHidden = true
             }else if contact.status == ContactStatus.invited{
                 cell.buttonInvite.isHidden = false
-
                 cell.buttonImageview.image = R.image.invitedContact()
                 cell.lblInviteButtonTitle.text = "Invited"
                 cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
+                cell.inviteButtonView.layer.borderWidth = 1.5
+                cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
                 cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x909090)
                 cell.inviteButtonView.isHidden = false
             }else{
@@ -2220,6 +2224,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.lblInviteButtonTitle.text = "Invited"
                     cell.inviteButtonView.backgroundColor = UIColor(hex6:0xE3E3E3)
                     cell.lblInviteButtonTitle.textColor = UIColor(hex6: 0x909090)
+                    cell.inviteButtonView.layer.borderWidth = 1.5
+                    cell.inviteButtonView.layer.borderColor = UIColor(hex6:0x4285F4).cgColor
                     cell.inviteButtonView.isHidden = false
                 }
                 cell.inviteBtn.isHidden = true
@@ -2501,7 +2507,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if self.selectedContactManage == nil{
 //                    self.view.makeToast(("Please select contact"))
                     DispatchQueue.main.async {
-                        self.view.makeToast("Please select contact", duration: ToastManager.shared.duration, position: .bottom)
+                        Utils.customaizeToastMessage(title: "Please select contact", toastView: self.view)
                     }
                     
                 }
@@ -2509,13 +2515,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if self.selectedContactManage == nil{
 //                    showToast("Please select contact")
                     DispatchQueue.main.async {
-                        self.view.makeToast("Please select contact", duration: ToastManager.shared.duration, position: .bottom)
+                        Utils.customaizeToastMessage(title: "Please select contact", toastView: self.view)
                     }
                 }
             }else if pageNo == 3 {
                 guard selectedTitleRow != nil else {
                     DispatchQueue.main.async {
-                        self.view.makeToast("Please Choose Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                        Utils.customaizeToastMessage(title: "Please Choose Message to send", toastView: self.view)
                     }
                     return
                 }
@@ -2556,7 +2562,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         else if pageNo == 3 {
             guard selectedTitleRow != nil else {
                 DispatchQueue.main.async {
-                    self.view.makeToast("Please Choose Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                    Utils.customaizeToastMessage(title: "Please Choose Message to send", toastView: self.view)
                 }
                 return
             }
@@ -2564,21 +2570,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if isSelectSMS {
                     guard txtLinkWithCheckOut != "" else {
                         DispatchQueue.main.async {
-                            self.view.makeToast("Please Enter Message to send", duration: ToastManager.shared.duration, position: .bottom)
+                            Utils.customaizeToastMessage(title: "Please Enter Message to send", toastView: self.view)
                         }
                         return
                     }
                 } else {
-                    guard emailSubjectTextLabel.text != "" || emailSubjectTextLabel.text != nil else {
+                    guard emailSubjectTextLabel.text != ""  else {
                         DispatchQueue.main.async {
-                            self.view.makeToast("Please Enter Email Subject to send", duration: ToastManager.shared.duration, position: .bottom)
+                            Utils.customaizeToastMessage(title: "Please Enter Email Subject to send", toastView: self.view)
                         }
                         return
                     }
                     
                     guard txtDetailForEmail != "" else {
                         DispatchQueue.main.async {
-                            self.view.makeToast("Please Enter Email Body to send", duration: ToastManager.shared.duration, position: .bottom)
+                            Utils.customaizeToastMessage(title: "Please Enter Email Body to send", toastView: self.view)
                         }
                         return
                     }
@@ -2715,7 +2721,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if let channelId = Defaults.shared.currentUser?.channelId {
             UIPasteboard.general.string = urlToShare//"\(websiteUrl)/\(channelId)"
             DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.linkCopied())
+                Utils.customaizeToastMessage(title: R.string.localizable.linkCopied(), toastView: (Utils.appDelegate?.window)!)
+                
             }
 //        }
     }
