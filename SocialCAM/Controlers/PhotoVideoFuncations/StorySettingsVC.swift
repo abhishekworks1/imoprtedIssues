@@ -366,6 +366,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.settingsTableView.reloadData()
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
+            self.setUpProfileHeader()
         }
         
         if let count = Defaults.shared.currentUser?.unreadCount {
@@ -742,7 +743,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         getVerifiedSocialPlatforms()
         setUpbadgesPopUp()
         profileDisplayView.isHidden = false
-        let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
         nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelName ?? "")
         userNametitleLabel.text = Defaults.shared.publicDisplayName
         if let createdDate = Defaults.shared.currentUser?.created {
