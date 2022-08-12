@@ -71,7 +71,7 @@ class WelcomeViewController: UIViewController {
     }
     @IBOutlet weak var lblAppInfo: UILabel! {
         didSet {
-            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(39.\(Constant.Application.appBuildNumber))"
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(40.\(Constant.Application.appBuildNumber))"
         }
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
@@ -176,15 +176,6 @@ class WelcomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         containerView.dropShadowNew()
-        
-        // Shadow Color and Radius
-        /*let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
-        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
-        semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        semiHalfView.layer.shadowOpacity = 0.7
-        semiHalfView.layer.shadowRadius = 0
-        semiHalfView.layer.masksToBounds = false
-        semiHalfView.layer.cornerRadius = 81.5*/
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -219,8 +210,6 @@ class WelcomeViewController: UIViewController {
         switch sender.tag {
         case 0:
             Defaults.shared.isSignupLoginFlow = true
-//            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-//            Utils.appDelegate?.window?.rootViewController = rootViewController
             if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
                 storySettingsVC.isFromCameraParentView = true
                 navigationController?.pushViewController(storySettingsVC, animated: true)
@@ -233,13 +222,6 @@ class WelcomeViewController: UIViewController {
                 openOnboarding()
             }
         case 2:
-//            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-//            if let pageViewController = rootViewController as? PageViewController,
-//               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-//               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-//                navigationController.viewControllers.append(settingVC)
-//            }
-//            Utils.appDelegate?.window?.rootViewController = rootViewController
             let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
             navigationController?.pushViewController(storySettingsVC, animated: true)
             break
@@ -258,13 +240,6 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func upgradeNowOnClick(_ sender: Any) {
-//        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
-//        subscriptionVc.appMode = .professional
-//        subscriptionVc.subscriptionType = .professional
-//        subscriptionVc.isFromWelcomeScreen = true
-//        self.navigationController?.isNavigationBarHidden = true
-//        navigationController?.pushViewController(subscriptionVc, animated: true)
-        
         if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
             subscriptionVC.isFromWelcomeScreen = true
             self.navigationController?.isNavigationBarHidden = true
@@ -463,23 +438,10 @@ extension WelcomeViewController {
         }
         upgradeNowButton.isHidden = true
         isFirstTime = false
-//        guard isFirstTime else {
-//            return
-//        }
-//        isFirstTime = false
-//        self.loadingView = LoadingView.instanceFromNib()
-//        self.loadingView?.processingYourQuickieLabel.text = ""
-//        self.loadingView?.shouldCancelShow = true
-//        self.loadingView?.loadingViewShow = true
-//        self.loadingView?.hideAdView(true)
-//        self.loadingView?.show(on: self.view)
     }
     
     func hideLoader() {
         self.activityIndicator.stopAnimating()
-//        DispatchQueue.main.async {
-//            self.loadingView?.hide()
-//        }
     }
 }
 
