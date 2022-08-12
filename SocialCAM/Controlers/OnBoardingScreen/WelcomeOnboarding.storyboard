@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21208.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21191"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2278,11 +2278,11 @@
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </imageView>
                                                                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-LS-zAX">
-                                                                                        <rect key="frame" x="155" y="30" width="20" height="20"/>
+                                                                                        <rect key="frame" x="150" y="25" width="30" height="30"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="width" constant="20" id="4ag-Rm-6pz"/>
-                                                                                            <constraint firstAttribute="height" constant="20" id="ymC-40-xYR"/>
+                                                                                            <constraint firstAttribute="width" constant="30" id="4ag-Rm-6pz"/>
+                                                                                            <constraint firstAttribute="height" constant="30" id="ymC-40-xYR"/>
                                                                                         </constraints>
                                                                                         <state key="normal" image="editProfilePlusIcon"/>
                                                                                     </button>
@@ -2292,8 +2292,8 @@
                                                                                     <constraint firstAttribute="height" constant="250" id="2Gi-Df-yfc"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="hGq-lS-48j" secondAttribute="trailing" id="JXY-O6-XD3"/>
                                                                                     <constraint firstAttribute="width" constant="250" id="Kk5-ds-XM7"/>
-                                                                                    <constraint firstAttribute="trailing" secondItem="N4Q-LS-zAX" secondAttribute="trailing" constant="75" id="LUY-oV-fgb"/>
-                                                                                    <constraint firstItem="N4Q-LS-zAX" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" constant="30" id="Psl-Cw-1x9"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="N4Q-LS-zAX" secondAttribute="trailing" constant="70" id="LUY-oV-fgb"/>
+                                                                                    <constraint firstItem="N4Q-LS-zAX" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" constant="25" id="Psl-Cw-1x9"/>
                                                                                     <constraint firstItem="hGq-lS-48j" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" id="d4L-ha-3pj"/>
                                                                                     <constraint firstItem="BlB-h4-BEc" firstAttribute="top" secondItem="wg9-lO-RhK" secondAttribute="top" constant="27" id="iQY-vY-vIz"/>
                                                                                     <constraint firstItem="BlB-h4-BEc" firstAttribute="centerX" secondItem="wg9-lO-RhK" secondAttribute="centerX" id="kTy-Iv-PNi"/>
@@ -3067,6 +3067,7 @@
                         <outlet property="androidRemainingDaysLabel" destination="RaK-rs-DdR" id="znJ-Q4-w95"/>
                         <outlet property="androidShieldImageview" destination="ugY-Vz-kjt" id="gQt-fe-ozs"/>
                         <outlet property="badgeImageView" destination="zQW-uO-NiX" id="ErV-z8-6fX"/>
+                        <outlet property="btnProfilePic" destination="N4Q-LS-zAX" id="EiI-tb-Agd"/>
                         <outlet property="channelNameLabel" destination="Bs4-jh-AQ8" id="uEY-LD-wsP"/>
                         <outlet property="containerView" destination="M1S-aX-9Oo" id="pfT-7o-sqH"/>
                         <outlet property="dayBadgeImageView" destination="tmo-Wz-Spg" id="2QD-gA-tLo"/>

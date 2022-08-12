@@ -117,6 +117,9 @@ class WelcomeViewController: UIViewController {
     var currentSelectedTip: Int = 0
     var tipArray = [String]()
     
+    @IBOutlet weak var btnProfilePic: UIButton!
+    var tapGestureRecognizer: UITapGestureRecognizer!
+    
     var imageSource = ""
     var croppedImg: UIImage?
     private lazy var storyCameraVC = StoryCameraViewController()
@@ -300,9 +303,8 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController {
     func setupView() {
         subscriptionDetailLabel.textAlignment = .left
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
-        }
+        
+        self.updateUserProfilePic()
         
         self.displayNameLabel.text = Defaults.shared.publicDisplayName
         self.channelNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"
@@ -329,9 +331,9 @@ extension WelcomeViewController {
                 Defaults.shared.shouldDisplayTipOffDay = true
                 UserSync.shared.setOnboardingUserFlags()
             }
-            if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-                self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
-            }
+            
+            self.updateUserProfilePic()
+            
             let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
             if isFoundingMember {
                 self.foundingMemberImageView.isHidden = false
@@ -355,13 +357,21 @@ extension WelcomeViewController {
             self.setUpSubscriptionBadges()
         }
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         self.userImageView.isUserInteractionEnabled = true
         self.userImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func updateUserProfilePic() {
+        self.btnProfilePic.isHidden = false
+        
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            if userImageURL.contains("http") {
+                self.btnProfilePic.isHidden = true
+                if self.tapGestureRecognizer != nil {
+                    self.userImageView.removeGestureRecognizer(self.tapGestureRecognizer)
+                }
+            }
             self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
         }
     }
