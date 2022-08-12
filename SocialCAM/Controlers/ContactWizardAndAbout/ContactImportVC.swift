@@ -883,6 +883,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         var searchText = searchBar.text!
         var contactType = selectedContactType
+        print(self.shareType.rawValue)
         if self.shareType == ShareType.email{
             contactType = ContactType.email
         }
@@ -1535,7 +1536,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.shareType = ShareType.textShare
         searchBar.showsCancelButton = false
         if !isSelectSMS {
-          //  isSelectSMS = true
+            isSelectSMS = true
             pageNo = 3
             selectedContactType = ContactType.mobile
             setupPage()
@@ -1564,14 +1565,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         searchBar.showsCancelButton = false
         self.shareType = ShareType.email
         
-        if !isSelectSMS && !isFromContactManager{
-          //  isSelectSMS = false
-            self.shareType = ShareType.email
-            selectedContactType = ContactType.email
-            pageNo = 3
-            setupPage()
-            return
-        }
+     //   if !isSelectSMS && !isFromContactManager{
+       
         emailButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
         emailSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
         emailSeperatorViewHeight.constant = 3.0
@@ -1582,6 +1577,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         selectedContactType = ContactType.email
         self.emailContactTableView.isHidden = false
         self.contactTableView.isHidden = true
+        if !isFromContactManager{
+             isSelectSMS = false
+             self.shareType = ShareType.email
+             selectedContactType = ContactType.email
+             pageNo = 3
+             setupPage()
+             return
+         }
         if emailContacts.count == 0{
             self.showLoader()
             self.getContactList(page: 1 ,filter: self.selectedFilter)
