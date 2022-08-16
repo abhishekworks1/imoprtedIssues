@@ -813,7 +813,7 @@ extension EditProfilePicViewController {
             print(response)
             switch (response.result) {
             case .success:
-               
+                Utils.customaizeToastMessage(title: "Your changes are saved.", toastView: self.view)
                 self.dismissHUD()
                 Defaults.shared.channelName = self.txtChannelName.text
                 self.lblChannelName.text = "@\(self.txtChannelName.text ?? "")"
