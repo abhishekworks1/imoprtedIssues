@@ -889,6 +889,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         print(self.shareType.rawValue)
         if self.shareType == ShareType.email{
             contactType = ContactType.email
+            self.setEmailTab(isEmail:true)
+        }else{
+            self.setEmailTab(isEmail:false)
         }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
@@ -2766,11 +2769,37 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
 //        navigationController?.pushViewController(storySettingsVC, animated: true)
     }
+    func setEmailTab(isEmail:Bool = false){
+        if isEmail{
+            emailButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+            emailSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
+            emailSeperatorViewHeight.constant = 3.0
+            textMessageButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
+            textMessageSeperatorView.backgroundColor = UIColor(hexString: "676767")
+            textMessageSeperatorViewHeight.constant = 1.0
+            selectedContactType = ContactType.email
+            self.emailContactTableView.isHidden = false
+            self.contactTableView.isHidden = true
+        }else{
+            
+            textMessageButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+            textMessageSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
+            textMessageSeperatorViewHeight.constant = 3.0
+            
+            emailButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
+            emailSeperatorView.backgroundColor = UIColor(hexString: "676767")
+            emailSeperatorViewHeight.constant = 1.0
+            selectedContactType = ContactType.mobile
+            self.emailContactTableView.isHidden = true
+            self.contactTableView.isHidden = false
+        }
+    }
     @IBAction func btnTextShareAction(_ sender: UIButton) {
         self.shareType = ShareType.textShare
         isSelectSMS = true
         pageNo = 3
         self.setupPage()
+        
         self.itemsTableView.reloadData()
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
@@ -2784,6 +2813,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         isSelectSMS = false
         pageNo = 3
         self.setupPage()
+       
         self.itemsTableView.reloadData()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
