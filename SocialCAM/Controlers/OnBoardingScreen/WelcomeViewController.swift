@@ -71,7 +71,7 @@ class WelcomeViewController: UIViewController {
     }
     @IBOutlet weak var lblAppInfo: UILabel! {
         didSet {
-            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(39.\(Constant.Application.appBuildNumber))"
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(40.\(Constant.Application.appBuildNumber))"
         }
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
@@ -116,6 +116,9 @@ class WelcomeViewController: UIViewController {
     weak var tipTimer: Timer?
     var currentSelectedTip: Int = 0
     var tipArray = [String]()
+    
+    @IBOutlet weak var btnProfilePic: UIButton!
+    var tapGestureRecognizer: UITapGestureRecognizer!
     
     var imageSource = ""
     var croppedImg: UIImage?
@@ -173,15 +176,6 @@ class WelcomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         containerView.dropShadowNew()
-        
-        // Shadow Color and Radius
-        /*let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
-        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
-        semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        semiHalfView.layer.shadowOpacity = 0.7
-        semiHalfView.layer.shadowRadius = 0
-        semiHalfView.layer.masksToBounds = false
-        semiHalfView.layer.cornerRadius = 81.5*/
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -216,8 +210,6 @@ class WelcomeViewController: UIViewController {
         switch sender.tag {
         case 0:
             Defaults.shared.isSignupLoginFlow = true
-//            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-//            Utils.appDelegate?.window?.rootViewController = rootViewController
             if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
                 storySettingsVC.isFromCameraParentView = true
                 navigationController?.pushViewController(storySettingsVC, animated: true)
@@ -230,13 +222,6 @@ class WelcomeViewController: UIViewController {
                 openOnboarding()
             }
         case 2:
-//            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-//            if let pageViewController = rootViewController as? PageViewController,
-//               let navigationController = pageViewController.pageControllers.first as? UINavigationController,
-//               let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-//                navigationController.viewControllers.append(settingVC)
-//            }
-//            Utils.appDelegate?.window?.rootViewController = rootViewController
             let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
             navigationController?.pushViewController(storySettingsVC, animated: true)
             break
@@ -255,13 +240,6 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func upgradeNowOnClick(_ sender: Any) {
-//        guard let subscriptionVc = R.storyboard.subscription.subscriptionsViewController() else { return }
-//        subscriptionVc.appMode = .professional
-//        subscriptionVc.subscriptionType = .professional
-//        subscriptionVc.isFromWelcomeScreen = true
-//        self.navigationController?.isNavigationBarHidden = true
-//        navigationController?.pushViewController(subscriptionVc, animated: true)
-        
         if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
             subscriptionVC.isFromWelcomeScreen = true
             self.navigationController?.isNavigationBarHidden = true
@@ -300,9 +278,8 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController {
     func setupView() {
         subscriptionDetailLabel.textAlignment = .left
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
-        }
+        
+        self.updateUserProfilePic()
         
         self.displayNameLabel.text = Defaults.shared.publicDisplayName
         self.channelNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"
@@ -329,9 +306,9 @@ extension WelcomeViewController {
                 Defaults.shared.shouldDisplayTipOffDay = true
                 UserSync.shared.setOnboardingUserFlags()
             }
-            if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-                self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
-            }
+            
+            self.updateUserProfilePic()
+            
             let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
             if isFoundingMember {
                 self.foundingMemberImageView.isHidden = false
@@ -355,13 +332,21 @@ extension WelcomeViewController {
             self.setUpSubscriptionBadges()
         }
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         self.userImageView.isUserInteractionEnabled = true
         self.userImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func updateUserProfilePic() {
+        self.btnProfilePic.isHidden = false
+        
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            if userImageURL.contains("http") {
+                self.btnProfilePic.isHidden = true
+                if self.tapGestureRecognizer != nil {
+                    self.userImageView.removeGestureRecognizer(self.tapGestureRecognizer)
+                }
+            }
             self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
         }
     }
@@ -453,23 +438,10 @@ extension WelcomeViewController {
         }
         upgradeNowButton.isHidden = true
         isFirstTime = false
-//        guard isFirstTime else {
-//            return
-//        }
-//        isFirstTime = false
-//        self.loadingView = LoadingView.instanceFromNib()
-//        self.loadingView?.processingYourQuickieLabel.text = ""
-//        self.loadingView?.shouldCancelShow = true
-//        self.loadingView?.loadingViewShow = true
-//        self.loadingView?.hideAdView(true)
-//        self.loadingView?.show(on: self.view)
     }
     
     func hideLoader() {
         self.activityIndicator.stopAnimating()
-//        DispatchQueue.main.async {
-//            self.loadingView?.hide()
-//        }
     }
 }
 

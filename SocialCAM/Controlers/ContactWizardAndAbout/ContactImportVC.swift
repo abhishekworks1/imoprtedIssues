@@ -2372,6 +2372,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
       @available(iOS 13.0, *)
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        if tableView == itemsTableView{
+            return UIContextMenuConfiguration()
+        }
+        
         return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
             return UIMenu(title: "", children: [
                 UIAction(title: "Delete", image: UIImage(systemName: "")) { action in

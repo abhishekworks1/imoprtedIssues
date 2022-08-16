@@ -60,6 +60,14 @@ class GreatViewController: UIViewController {
     var guidTimerDate: Date = Date()
     var isTrialExpire = false
     
+    @IBOutlet weak var btnProfilePic: UIButton!
+    var tapGestureRecognizer: UITapGestureRecognizer!
+    
+    var imageSource = ""
+    var croppedImg: UIImage?
+    private lazy var storyCameraVC = StoryCameraViewController()
+    var profilePicHelper: ProfilePicHelper?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -94,6 +102,11 @@ class GreatViewController: UIViewController {
 extension GreatViewController {
     
     func setupUI() {
+        
+        self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        self.userImageView.isUserInteractionEnabled = true
+        self.userImageView.addGestureRecognizer(tapGestureRecognizer)
+        
         self.badgeVerticalConstraintTolabelSince.constant = 7
         self.centerView.layer.cornerRadius = 8.0
         self.upgradeNowButton.layer.cornerRadius = 20.0
@@ -110,9 +123,28 @@ extension GreatViewController {
              )
 
         self.backToQuickStartButton.setAttributedTitle(attributeString, for: .normal)
-        
-        
     }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        if let tappedImage = tapGestureRecognizer.view as? UIImageView {
+            self.openSocialShareVC()
+        }
+    }
+    
+    func updateUserProfilePic() {
+        self.btnProfilePic.isHidden = false
+        
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            if userImageURL.contains("http") {
+                self.btnProfilePic.isHidden = true
+                if self.tapGestureRecognizer != nil {
+                    self.userImageView.removeGestureRecognizer(self.tapGestureRecognizer)
+                }
+            }
+            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+        }
+    }
+    
     func setup() {
         var durationString: String = Date().offset(from: self.guidTimerDate).dateComponentsToTimeString()
         if let firstName = Defaults.shared.publicDisplayName {
@@ -124,9 +156,10 @@ extension GreatViewController {
         
         self.lblQuickStartGuideTitle.text = "You’ve completed the \(self.categoryString ?? "") section of QuickStart Guide."
         
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
-        }
+        self.updateUserProfilePic()
+//        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+//            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+//        }
         let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
         if isFoundingMember {
             self.foundingMemberImageView.isHidden = false
@@ -714,3 +747,95 @@ extension GreatViewController {
       }
 
 }
+
+// MARK: - SharingSocialTypeDelegate
+extension GreatViewController: SharingSocialTypeDelegate {
+    
+    func setSocialPlatforms() {
+        self.profilePicHelper?.settingSocialPlatforms()
+    }
+    
+    func setCroppedImage(croppedImg: UIImage) {
+        self.profilePicHelper?.settingSocialPlatforms()
+        self.croppedImg = croppedImg
+        self.saveProfilePic()
+    }
+    
+    func shareSocialType(socialType: ProfileSocialShare) {
+        self.profilePicHelper = ProfilePicHelper(parentVC: self, navVC: self.navigationController ?? UINavigationController())
+        self.profilePicHelper?.openSheet(socialType: socialType)
+    }
+    
+}
+
+// MARK: - Camera and Photo gallery methods
+extension GreatViewController {
+    
+    /// Delete Image
+    private func deleteImage() {
+        self.userImageView.image = UIImage()
+    }
+    
+    func openSocialShareVC() {
+        if let editProfileSocialShareVC = R.storyboard.editProfileViewController.editProfileSocialShareViewController() {
+            editProfileSocialShareVC.modalPresentationStyle = .overFullScreen
+            editProfileSocialShareVC.delegate = self
+            navigationController?.present(editProfileSocialShareVC, animated: true, completion: {
+                editProfileSocialShareVC.backgroundUpperView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
+            })
+        }
+    }
+    
+    @objc func backgroundTapped() {
+        self.dismiss(animated: true)
+    }
+}
+
+// MARK: - API methods
+extension GreatViewController {
+    
+    func saveProfilePic() {
+        self.showHUD()
+//        if let img = self.userImageView.image {
+            self.updateProfilePic(image: self.croppedImg!)
+            self.updateProfileDetails(image: self.croppedImg!)
+//        }
+    }
+    
+    func updateProfilePic(image: UIImage) {
+        ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            
+            self.storyCameraVC.syncUserModel { (isComplete) in
+                self.view.makeToast("Your changes are saved.")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.updateUserProfilePic()
+                    // Do whatever you want
+//                    self.setRedirection()
+                }
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+            self.dismissHUD()
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func updateProfileDetails(image: UIImage) {
+        ProManagerApi.updateProfileDetails(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+          
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+}
+

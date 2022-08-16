@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 import SkyFloatingLabelTextField
 import Alamofire
+
 protocol SharingSocialTypeDelegate {
     func shareSocialType(socialType: ProfileSocialShare)
     func setCroppedImage(croppedImg: UIImage)
@@ -122,7 +123,12 @@ class EditProfilePicViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.lblChannelName.text = "@\(Defaults.shared.currentUser?.channelName ?? "")"
-            
+            if let channelName = Defaults.shared.currentUser?.channelName, !channelName.isEmpty {
+                self.txtChannelName.text = Defaults.shared.currentUser?.channelName
+            } else {
+                self.txtChannelName.text = Defaults.shared.currentUser?.channelId
+            }
+           
             if let flages = Defaults.shared.currentUser?.userStateFlags,
                flages.count > 0 {
                 self.btnSetFlags.isHidden = true
@@ -384,7 +390,7 @@ class EditProfilePicViewController: UIViewController {
             isForEditName = false
             self.editNamePopupTitle.text = "Channel Name Display"
             self.editNamePopupMessage.text = "Enter how you want your channel name displayed. You can use capital letters to make your channel name stand out."
-            self.txtChannelName.text = Defaults.shared.currentUser?.channelId
+//            self.txtChannelName.text = Defaults.shared.currentUser?.channelName
             self.txtDisplayName.isHidden = true
             self.txtChannelName.isHidden = false
             self.setDisplayNamePopupView.isHidden = false
@@ -809,14 +815,14 @@ extension EditProfilePicViewController {
             case .success:
                
                 self.dismissHUD()
-                self.lblChannelName.text = self.txtChannelName.text
+                Defaults.shared.currentUser?.channelName = self.txtChannelName.text
+                self.lblChannelName.text = "@\(self.txtChannelName.text ?? "")"
                 break
                
             case .failure(let error):
                 print(error)
                 self.dismissHUD()
                 break
-
                 //failure code here
             }
         }
@@ -928,6 +934,7 @@ extension EditProfilePicViewController {
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
+  
     func updateProfileDetails(image: UIImage) {
         ProManagerApi.updateProfileDetails(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {

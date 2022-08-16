@@ -148,8 +148,10 @@ class QuickStartOptionDetailViewController: UIViewController {
             greatVC.greatViewDelegate = self
             greatVC.categoryString = selectedQuickStartCategory?.label
             greatVC.guidTimerDate = guidTimerDate
-            greatVC.modalPresentationStyle = .overCurrentContext
-            present(greatVC, animated: true, completion: nil)
+            let greatNavVC = UINavigationController(rootViewController: greatVC)
+            greatNavVC.modalPresentationStyle = .overCurrentContext
+            self.navigationController?.present(greatNavVC, animated: true, completion: nil)
+
         } else {
             if let viewController = navigationController?.viewControllers.first(where: { return $0 is OnBoardingViewController }) {
                 navigationController?.popToViewController(viewController, animated: true)
