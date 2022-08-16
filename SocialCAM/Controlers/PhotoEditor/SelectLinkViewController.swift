@@ -52,6 +52,8 @@ class SelectLinkViewController: UIViewController {
         } else {
             imageViewProfile.isHidden = true
         }
+        imageViewProfile.isHidden = true
+        
         getLinkCells()
         blurBackGroundView.isUserInteractionEnabled = true
         blurBackGroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
