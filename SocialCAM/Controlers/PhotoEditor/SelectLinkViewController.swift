@@ -27,6 +27,7 @@ class SelectLinkViewController: UIViewController {
     @IBOutlet weak var blurBackGroundView: UIView!
     @IBOutlet weak var enterLinkPopupView: UIView!
     @IBOutlet weak var tfEnterLink: UITextField!
+    @IBOutlet weak var imageViewProfile: UIImageView!
     
     // MARK: - Variable Declaration
     var storyEditors: [StoryEditorView] = []
@@ -42,6 +43,17 @@ class SelectLinkViewController: UIViewController {
         view.backgroundColor = .clear
         blurBackGroundView.isHidden = true
         SelectLink.selectLinks.removeAll()
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            if userImageURL.isEmpty {
+                imageViewProfile.isHidden = true
+            }
+            imageViewProfile.isHidden = false
+            imageViewProfile.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+        } else {
+            imageViewProfile.isHidden = true
+        }
+        imageViewProfile.isHidden = true
+        
         getLinkCells()
         blurBackGroundView.isUserInteractionEnabled = true
         blurBackGroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))

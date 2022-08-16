@@ -15,6 +15,7 @@ public struct StaticKeys {
     static let includeQrImg = "includeQrImgForShare"
     static let ytChannelName = "ytChannelName"
     static let channelThumbNail = "channelThumbNail"
+    static let channelName = "channelName"
     static let newSignupsNotificationType = "newSignupsNotificationType"
     static let newSubscriptionNotificationType = "newSubscriptionNotificationType"
     static let milestonesReached = "milestonesReached"
