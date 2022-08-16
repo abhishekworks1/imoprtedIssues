@@ -2029,9 +2029,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         emailBodyTitleLabel.text = "Message"
                         emailSubjectView.isHidden = true
                         emailMaualtextView.isHidden = true
+                        cell.messageTextView.text = ""
                     } else {
                         emailBodyTitleLabel.text = "Email Body"
                         emailMaualtextView.isHidden = false
+                        cell.emailBodyTextView.text = ""
+                        cell.emailSubjectTextView.text = ""
                     }
                 }
 
