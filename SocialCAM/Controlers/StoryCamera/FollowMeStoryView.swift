@@ -85,7 +85,7 @@ class FollowMeStoryView: UIView {
             self.openGallery(fromSourceType: .photoLibrary)
         }
         actionSheet.addAction(galleryAction)
-        let cameraAction = UIAlertAction(title: R.string.localizable.camera(), style: .default) { [unowned self] _ in
+        let cameraAction = UIAlertAction(title: R.string.localizable.quickCamCamera(), style: .default) { [unowned self] _ in
             self.openGallery(fromSourceType: .camera)
         }
         actionSheet.addAction(cameraAction)

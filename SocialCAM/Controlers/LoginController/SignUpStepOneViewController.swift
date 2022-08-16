@@ -343,7 +343,7 @@ class SignUpStepOneViewController: UIViewController {
     }
     
     @IBAction func btnProfileImageClicked(_ sender: UIButton) {
-        let menuOptionsString: [String] = [R.string.localizable.camera(), R.string.localizable.photoLibrary()]
+        let menuOptionsString: [String] = [R.string.localizable.quickCamCamera(), R.string.localizable.photoLibrary()]
         
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 125

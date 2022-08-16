@@ -122,10 +122,11 @@ class EditProfilePicViewController: UIViewController {
         
         
         DispatchQueue.main.async {
-            self.lblChannelName.text = "@\(Defaults.shared.currentUser?.channelName ?? "")"
-            if let channelName = Defaults.shared.currentUser?.channelName, !channelName.isEmpty {
-                self.txtChannelName.text = Defaults.shared.currentUser?.channelName
+            self.lblChannelName.text = "@\(Defaults.shared.channelName ?? "")"
+            if let channelName = Defaults.shared.channelName, !channelName.isEmpty {
+                self.txtChannelName.text = Defaults.shared.channelName
             } else {
+                Defaults.shared.channelName = Defaults.shared.currentUser?.channelId
                 self.txtChannelName.text = Defaults.shared.currentUser?.channelId
             }
            
@@ -233,7 +234,6 @@ class EditProfilePicViewController: UIViewController {
             self.btnPublicDisplayNameTooltip.isHidden = false
         }
         self.setDisplayNamePopupView.isHidden = true
-        
     }
     
     // MARK: - Action Methods
@@ -390,7 +390,7 @@ class EditProfilePicViewController: UIViewController {
             isForEditName = false
             self.editNamePopupTitle.text = "Channel Name Display"
             self.editNamePopupMessage.text = "Enter how you want your channel name displayed. You can use capital letters to make your channel name stand out."
-//            self.txtChannelName.text = Defaults.shared.currentUser?.channelName
+            self.txtChannelName.text = Defaults.shared.channelName
             self.txtDisplayName.isHidden = true
             self.txtChannelName.isHidden = false
             self.setDisplayNamePopupView.isHidden = false
@@ -815,7 +815,7 @@ extension EditProfilePicViewController {
             case .success:
                
                 self.dismissHUD()
-                Defaults.shared.currentUser?.channelName = self.txtChannelName.text
+                Defaults.shared.channelName = self.txtChannelName.text
                 self.lblChannelName.text = "@\(self.txtChannelName.text ?? "")"
                 break
                
@@ -958,7 +958,7 @@ extension EditProfilePicViewController {
         }
         let currentSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         if currentSocialPlatformCount == 4 && previousSocialPlatformCount == 3 {
-            self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.currentUser?.channelName ?? "")")
+            self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.channelName ?? "")")
 //            self.showHideSocialBadgePopupView(isHide: false)
         }
         ProManagerApi.addSocialPlatforms(socialPlatforms: Defaults.shared.socialPlatforms?.uniq() ?? []).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in

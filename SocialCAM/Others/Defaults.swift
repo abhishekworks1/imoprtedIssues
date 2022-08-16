@@ -1279,7 +1279,14 @@ class Defaults {
             appDefaults?.set(newValue, forKey: StaticKeys.publicDisplayName)
         }
     }
-    
+    var channelName: String? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.channelName) as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.channelName)
+        }
+    }
     var privateDisplayName: String? {
         get {
             return appDefaults?.value(forKey: StaticKeys.privateDisplayName) as? String
