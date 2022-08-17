@@ -60,6 +60,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var isScrubbingDidChange = false
     var remineTime = 0
     var isCutToggle = false
+    var isPlayOnce = false
     
     // MARK: - Public Properties
     var videoUrls: [StoryEditorMedia] = []
@@ -257,7 +258,11 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                 cell.trimmerView.leftMaskView.alpha = 0.7
                 cell.trimmerView.rightMaskView.backgroundColor = ApplicationSettings.appWhiteColor
                 cell.trimmerView.rightMaskView.alpha = 0.7
+                player?.pause()
+                btnPlayPause.isSelected = false
+                connVideoPlay(isReload: true)
                 isCutToggle = true
+                isPlayOnce = false
             } else {
                 cutToggleImageView.image = R.image.cutToggle1()
                 cell.trimmerView.trimView.backgroundColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.5)
@@ -317,8 +322,9 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
             return
         }
         if let player = self.player {
-            let playBackTime = player.currentTime()
+            var playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
+                if !isCutToggle {
                 if !isStartMovable {
                     guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                         return
@@ -327,7 +333,6 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                     let currentAsset = self.currentAsset(index: currentPage)
                     cell.trimmerView.seek(to: playBackTime)
                     seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
-                    
                     if !isScrubbingDidChange {
                         if playBackTime >= endTime {
                             player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
@@ -354,6 +359,40 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                             seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
                             btnPlayPause.isSelected = false
                             player.pause()
+                        }
+                    }
+                }
+                } else {
+                    
+                    
+                    if !isStartMovable {
+                        guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                            return
+                        }
+                        
+                        let currentAsset = self.currentAsset(index: currentPage)
+                        cell.trimmerView.seek(to: playBackTime)
+                        seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: .zero, endPipe: currentAsset!.duration)
+                        
+                        if isPlayOnce {
+                            playBackTime = .zero
+                        }
+
+                        if !isScrubbingDidChange {
+                            if playBackTime >= startTime {
+                                cell.trimmerView.seek(to: endTime)
+                                player.seek(to: endTime)
+                                print(endTime.seconds)
+                                player.play()
+                                isPlayOnce = true
+                            }
+                        } else {
+                            
+                            if playBackTime >= startTime {
+                                seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: .zero, endPipe: currentAsset!.duration)
+                                btnPlayPause.isSelected = false
+                                player.pause()
+                            }
                         }
                     }
                 }
@@ -646,7 +685,13 @@ extension OmitEditorViewController {
                 else {
                     return
             }
-            self.connVideoPlay()
+            if !self.isCutToggle {
+                self.connVideoPlay()
+            } else {
+                self.connVideoPlay(isReload: true)
+                self.isPlayOnce = false
+            }
+            
         }
     }
 }
