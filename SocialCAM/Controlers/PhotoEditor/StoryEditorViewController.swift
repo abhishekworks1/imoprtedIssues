@@ -2035,8 +2035,6 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
-        openActionSheet()
-        return
         if isQuickApp {
             isVideoModified = true
             if !isShowToolTipView {
