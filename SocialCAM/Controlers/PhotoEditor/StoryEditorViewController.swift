@@ -393,7 +393,7 @@ class StoryEditorViewController: UIViewController {
         }
         downloadViewGesture()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
-        self.lblUserNameWatermark.text = "@\(Defaults.shared.channelName)"
+        self.lblUserNameWatermark.text = "@\(Defaults.shared.channelName ?? "")"
         self.userNameLabelWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
@@ -474,7 +474,7 @@ class StoryEditorViewController: UIViewController {
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         //Defaults.shared.currentUser?.username
-        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.channelName)"
+        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.channelName ?? "")"
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
        
         storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
