@@ -52,7 +52,7 @@ class SelectLinkViewController: UIViewController {
         } else {
             imageViewProfile.isHidden = true
         }
-        imageViewProfile.isHidden = true
+//        imageViewProfile.isHidden = true
         
         getLinkCells()
         blurBackGroundView.isUserInteractionEnabled = true
