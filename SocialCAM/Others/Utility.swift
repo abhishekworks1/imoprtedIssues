@@ -18,6 +18,7 @@ import Toast_Swift
 public struct Utils {
     
     static func customaizeToastMessage(title: String, toastView: UIView, position: ToastPosition = .bottom) {
+        toastView.hideAllToasts()
         var style = ToastStyle()
         style.backgroundColor = .darkGray
         toastView.makeToast(title, duration: ToastManager.shared.duration, position: position, style: style)
