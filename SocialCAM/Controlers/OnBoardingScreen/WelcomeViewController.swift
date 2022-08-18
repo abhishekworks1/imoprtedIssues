@@ -774,20 +774,14 @@ extension WelcomeViewController {
 
 extension WelcomeViewController {
     
-    func setTimerText() {
-        let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
-        if subscriptionStatus == "trial" {
-            if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
-                timerLeftLabel.text = "Time left in premium free trial"
-            }
-        } else if subscriptionStatus == "free" {
-            if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
-                timerLeftLabel.text = "Time since signed up"
-            }
-        } else if  subscriptionStatus == "expired" {
-            if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
-                timerLeftLabel.text = "Time since your subscription expired"
-            }
+    func setTimerText(subscriptionStatus: String) {
+        timerLeftLabel.isHidden = false
+        if subscriptionStatus == SubscriptionTypeForBadge.TRIAL.rawValue {
+            timerLeftLabel.text = "Time left in premium free trial"
+        } else if subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue {
+            timerLeftLabel.text = "Time since signed up"
+        } else if  subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue {
+            timerLeftLabel.text = "Time since your subscription expired"
         } else {
             timerLeftLabel.isHidden = true
         }
@@ -800,7 +794,7 @@ extension WelcomeViewController {
         freeModeMinImageView.isHidden = true
         freeModeSecImageView.isHidden = true
         freeModeHourImageView.isHidden = true
-        setTimerText()
+        
        // checkNewTrailPeriodExpire()
         var diffDays = 0
         let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
@@ -824,7 +818,7 @@ extension WelcomeViewController {
                 } else {
                     showNewTimer(createdDate: timerDate, subscriptionType: subscriptionType)
                 }
-                
+                setTimerText(subscriptionStatus: subscriptionType)
                 self.showWelcomeData(subscriptionType: subscriptionType, daysLeft: diffDays)
                 self.subscriptionDetailLabel.text = self.showMessageData(subscriptionType: subscriptionType, daysLeft: diffDays)
             }

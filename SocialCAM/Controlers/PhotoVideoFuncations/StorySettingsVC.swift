@@ -95,7 +95,7 @@ enum SettingsMode: Int, Codable {
 }
 
 class StorySetting: Codable {
-       var name: String
+    var name: String
     var selected: Bool
     var image: UIImage?
     var selectedImage: UIImage?
