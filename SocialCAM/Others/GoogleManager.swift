@@ -103,7 +103,7 @@ public class GoogleManager: NSObject {
         scopes?.append(kGTLRAuthScopeYouTubeForceSsl)
         scopes?.append(kGTLRAuthScopeYouTubeUpload)
         scopes?.append(kGTLRAuthScopeYouTube)
-        scopes?.append(kGTLRAuthScopeYouTubeYoutubepartner)
+        scopes?.append(kGTLRAuthScopeYouTubeReadonly)
         GIDSignIn.sharedInstance().scopes = scopes
         GIDSignIn.sharedInstance().delegate = self
     }
