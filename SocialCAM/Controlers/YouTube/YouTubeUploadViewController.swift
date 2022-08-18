@@ -30,8 +30,15 @@ class YouTubeUploadViewController: UIViewController {
     @IBOutlet weak var postSuccessPopupView: UIView!
     @IBOutlet weak var lblPostSuccess: UILabel!
     @IBOutlet weak var loadingVideoUploadView: UIView!
-    
+    @IBOutlet weak var loadingThumbImageView: UIImageView!
+    @IBOutlet weak var loadingSpinnerView: UIView!
     @IBOutlet weak var spinnerImageView: UIImageView!
+    @IBOutlet weak var tipOfDayLabel: UILabel! {
+        didSet {
+            tipOfDayLabel.text = (Defaults.shared.tipOfDay ?? []).randomElement()
+        }
+    }
+
     let dropDownMenu = DropDown()
     var privacy: [String] =  ["Public", "Private", "Unlisted"]
     var channels: [Item] = []
@@ -103,6 +110,7 @@ class YouTubeUploadViewController: UIViewController {
             self.playerView.pause()
             self.imgThumbnail.contentMode = .scaleAspectFit
             self.imgThumbnail.image = UIImage.getThumbnailFrom(videoUrl: videourl)
+            self.loadingThumbImageView.image = UIImage.getThumbnailFrom(videoUrl: videourl)
         }
         getChannelName()
     }
@@ -142,6 +150,15 @@ class YouTubeUploadViewController: UIViewController {
     @IBAction func btnPublishClicked(_ sender: Any?) {
         btnPublish.isUserInteractionEnabled = true
         uploadVideo(token: token)
+    }
+    
+    @IBAction func loadingOKClicked(_ sender: Any) {
+        self.dismiss(animated: true) {
+            DispatchQueue.runOnMainThread {
+                Utils.customaizeToastMessage(title: "Your Quickie will continue uploading in the background.", toastView: (Utils.appDelegate?.window)!)
+            }
+        }
+
     }
     
     func getUserToken() {
@@ -200,46 +217,9 @@ class YouTubeUploadViewController: UIViewController {
         }
         
         loadingVideoUploadView.isHidden = false
-//        let loadingView = LoadingView.instanceFromNib()
-//        loadingView.processingYourQuickieLabel.text = "Uploading your Quickie to YouTube"
-//        loadingView.loadingViewShow = true
-//        loadingView.shouldCancelShow = true
-//        loadingView.show(on: self.view)
-        
         self.isUploading = true
-        //Status
-        let status = GTLRYouTube_VideoStatus()
-        switch selectedPrivacy ?? "" {
-        case "Public":
-            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Public
-        case "Private":
-            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
-        case "Unlisted":
-            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Unlisted
-        default:
-            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
-        }
-        
-        //Snippet
-        let snippet = GTLRYouTube_VideoSnippet()
-        snippet.title = title
-        snippet.categoryId = selectCat.id ?? ""
-        if let describtion = txtDescribtion.text, describtion.length > 0 {
-            snippet.descriptionProperty = describtion
-        }
-        if !tagView.tags.isEmpty {
-            snippet.tags = tagView.tags
-        }
-        if let channelId = selectedChannel?.id {
-            snippet.channelId = channelId.videoId
-        }
-        //Upload parameters
-        let params = GTLRUploadParameters(fileURL: videoUrl!, mimeType: "video/mp4")
-        let video = GTLRYouTube_Video()
-        video.status = status
-        video.snippet = snippet
-        
-        GoogleManager.shared.uploadVideoOnYoutube(youtubeObject: video, params: params) { [weak self] isUpload in
+        YouTubeUploadManager.shared.uploadVideo(videoUrl: videoUrl!,
+                                                selectedPrivacy: selectedPrivacy ?? "", title: title, selectCat: selectCat, description: txtDescribtion.text ?? "", tags: tagView.tags, selectedChannel: selectedChannel) { [weak self] isUpload in
             guard let `self` = self else {
                 return
             }
@@ -253,6 +233,59 @@ class YouTubeUploadViewController: UIViewController {
                 self.showPostSuccessPopupView(isSuccess: false)
             }
         }
+        
+//        let loadingView = LoadingView.instanceFromNib()
+//        loadingView.processingYourQuickieLabel.text = "Uploading your Quickie to YouTube"
+//        loadingView.loadingViewShow = true
+//        loadingView.shouldCancelShow = true
+//        loadingView.show(on: self.view)
+        
+        //Status
+//        let status = GTLRYouTube_VideoStatus()
+//        switch selectedPrivacy ?? "" {
+//        case "Public":
+//            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Public
+//        case "Private":
+//            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
+//        case "Unlisted":
+//            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Unlisted
+//        default:
+//            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
+//        }
+//
+//        //Snippet
+//        let snippet = GTLRYouTube_VideoSnippet()
+//        snippet.title = title
+//        snippet.categoryId = selectCat.id ?? ""
+//        if let describtion = txtDescribtion.text, describtion.length > 0 {
+//            snippet.descriptionProperty = describtion
+//        }
+//        if !tagView.tags.isEmpty {
+//            snippet.tags = tagView.tags
+//        }
+//        if let channelId = selectedChannel?.id {
+//            snippet.channelId = channelId.videoId
+//        }
+//        //Upload parameters
+//        let params = GTLRUploadParameters(fileURL: videoUrl!, mimeType: "video/mp4")
+//        let video = GTLRYouTube_Video()
+//        video.status = status
+//        video.snippet = snippet
+//
+//        GoogleManager.shared.uploadVideoOnYoutube(youtubeObject: video, params: params) { [weak self] isUpload in
+//            guard let `self` = self else {
+//                return
+//            }
+//            if isUpload ?? false {
+//                self.isUploading = false
+//                self.loadingVideoUploadView.isHidden = true
+//                self.showPostSuccessPopupView(isSuccess: true)
+//            } else {
+//                self.isUploading = false
+//                self.loadingVideoUploadView.isHidden = true
+//                self.showPostSuccessPopupView(isSuccess: false)
+//            }
+//        }
     }
     
     @IBAction func btnHashSetClicked(_ sender: Any) {
@@ -377,6 +410,59 @@ extension YouTubeUploadViewController: SelectHashSetDelegate {
     
     func noSetSelected(isSelected: Bool) {
         
+    }
+    
+}
+
+class YouTubeUploadManager {
+    
+    static let shared = YouTubeUploadManager()
+    
+    func uploadVideo(videoUrl: URL, selectedPrivacy: String, title: String, selectCat: YouCategory, description: String, tags: [String], selectedChannel: Item?, completion: @escaping (_ isUpload: Bool?) -> ()) {
+        //Status
+        let status = GTLRYouTube_VideoStatus()
+        switch selectedPrivacy {
+        case "Public":
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Public
+        case "Private":
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
+        case "Unlisted":
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Unlisted
+        default:
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
+        }
+        
+        //Snippet
+        let snippet = GTLRYouTube_VideoSnippet()
+        snippet.title = title
+        snippet.categoryId = selectCat.id ?? ""
+        if description.length > 0 {
+            snippet.descriptionProperty = description
+        }
+        if !tags.isEmpty {
+            snippet.tags = tags
+        }
+        if let channelId = selectedChannel?.id {
+            snippet.channelId = channelId.videoId
+        }
+        //Upload parameters
+        let params = GTLRUploadParameters(fileURL: videoUrl, mimeType: "video/mp4")
+        let video = GTLRYouTube_Video()
+        video.status = status
+        video.snippet = snippet
+        
+        GoogleManager.shared.uploadVideoOnYoutube(youtubeObject: video, params: params) { isUpload in
+            completion(isUpload ?? false)
+            if isUpload ?? false {
+                DispatchQueue.runOnMainThread {
+                    Utils.customaizeToastMessage(title: "Video uploaded successfully", toastView: (Utils.appDelegate?.window)!)
+                }
+            } else {
+                DispatchQueue.runOnMainThread {
+                    Utils.customaizeToastMessage(title: "Video upload failed", toastView: (Utils.appDelegate?.window)!)
+                }
+            }
+        }
     }
     
 }
