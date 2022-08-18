@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMedia
 
 class SystemSettings {
     
@@ -20,28 +21,17 @@ class SystemSettings {
         self.settingsType = settingsType
     }
     
-    
     static var systemSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
         
-        StorySettings(name: "", settings: [StorySetting(name: "Default Opening Screen", selected: false)], settingsType: .onboarding),
+        StorySettings(name: "Default Opening Screen", settings: [StorySetting(name: "Welcome Screen", selected: false), StorySetting(name: "QuickStart Guide", selected: false), StorySetting(name: "QuickCam Camera", selected: false), StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .onboarding),
         
-        StorySettings(name: "", settings: [StorySetting(name: "Welcome Screen", selected: false)], settingsType: .welcomeScreen),
         
-        StorySettings(name: "", settings: [StorySetting(name: "QuickStart Guide", selected: false)], settingsType: .quickMenu),
-        
-        StorySettings(name: "", settings: [StorySetting(name: "QuickCam Camera", selected: false)], settingsType: .quickCamCamera),
-        
-        StorySettings(name: "", settings: [StorySetting(name: "Mobile Dashboard", selected: false)], settingsType: .mobileDashboard),
-        
-        StorySettings(name: "", settings: [StorySetting(name: "Haptic Feedback", selected: false)], settingsType: .hapticFeedBack),
-        
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.all(), selected: false)], settingsType: .hapticAll),
-        
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.some(), selected: false)], settingsType: .hapticSome),
-        
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticNone)
-    ]
+        StorySettings(name: "Haptic Feedback", settings: [
+            StorySetting(name: R.string.localizable.all(), selected: false),
+            StorySetting(name: R.string.localizable.some(), selected: false),
+            StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticFeedBack),
+        ]
 }
 
 class SystemSettingsViewController: UIViewController {
@@ -53,6 +43,7 @@ class SystemSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.systemSettingsTableView.register(R.nib.appSettingsHeaderCell)
         self.systemSettingsTableView.reloadData()
     }
     
@@ -124,24 +115,11 @@ extension SystemSettingsViewController: UITableViewDataSource {
             cell.lblCheckUpdate.text = R.string.localizable.checkUpdates()
             return cell
         } else if settingTitle.settingsType == .onboarding {
-            systemSettingsCell.systemSettingType = .onboarding
-        } else if settingTitle.settingsType == .welcomeScreen {
-            systemSettingsCell.systemSettingType = .welcomeScreen
-        } else if settingTitle.settingsType == .quickMenu {
-            systemSettingsCell.systemSettingType = .quickMenu
-        } else if settingTitle.settingsType == .quickCamCamera {
-            systemSettingsCell.systemSettingType = .quickCamCamera
-        } else if settingTitle.settingsType == .mobileDashboard {
-            systemSettingsCell.systemSettingType = .mobileDashboard
-        }else if settingTitle.settingsType == .hapticFeedBack {
-            systemSettingsCell.systemSettingType = .hapticFeedBack
-        } else if settingTitle.settingsType == .hapticAll {
-            systemSettingsCell.systemSettingType = .hapticAll
-        } else if settingTitle.settingsType == .hapticSome {
-            systemSettingsCell.systemSettingType = .hapticSome
-        } else if settingTitle.settingsType == .hapticNone {
-            systemSettingsCell.systemSettingType = .hapticNone
+            systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
+        } else if settingTitle.settingsType == .hapticFeedBack {
+            systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
         }
+        
         return systemSettingsCell
     }
 }
@@ -150,18 +128,20 @@ extension SystemSettingsViewController: UITableViewDataSource {
 extension SystemSettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
-            fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
+//        AppSettingHeaderCell
+        guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appSettingsHeaderCell.identifier) as? AppSettingsHeaderCell else {
+            fatalError("\(R.reuseIdentifier.appSettingsHeaderCell.identifier) Not Found")
         }
-        headerView.title.isHidden = true
-        headerView.btnSelectShowAllPopup.isHidden = true
-        headerView.btnLock?.isHidden = true
-        headerView.imageViewLock?.isHidden = true
+        headerView.lblTitle.text = SystemSettings.systemSettings[section].name
+
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        if section == 0 {
+            return 0
+        }
+        return 44
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -170,17 +150,14 @@ extension SystemSettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let settingTitle = SystemSettings.systemSettings[indexPath.section]
-        if settingTitle.settingsType == .checkUpdate {
-            // Implement app updater
-            SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
-            }
-        }
+        let settingTitle = SystemSettings.systemSettings[indexPath.section].settings[indexPath.row].name
+        let settingType = SystemSettingType(rawValue: settingTitle)
+
         
         if let systemSettingCell = tableView.cellForRow(at: indexPath) as? SystemSettingsCell {
             if systemSettingCell.isSubscriptionTrialOrExpired() == true {
                 
-                if settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard {
+                if settingType == .quickCamCamera || settingType == .mobileDashboard {
                     
                     self.showAlert()
                     return
@@ -190,17 +167,8 @@ extension SystemSettingsViewController: UITableViewDelegate {
             systemSettingCell.updateAppSettings()
         }
         
-        if settingTitle.settingsType == .showAllPopups || settingTitle.settingsType == .welcomeScreen || settingTitle.settingsType == .quickMenu || settingTitle.settingsType == .quickCamCamera || settingTitle.settingsType == .mobileDashboard {
+        if settingType == .showAllPopUps || settingType == .welcomeScreen || settingType == .quickMenu || settingType == .quickCamCamera || settingType == .mobileDashboard || settingType == .hapticAll || settingType == .hapticSome || settingType == .hapticNone {
             
-            tableView.reloadData()
-        }else if settingTitle.settingsType == .hapticAll{
-            Defaults.shared.allowHaptic = HapticSetting.all.rawValue
-            tableView.reloadData()
-        } else if settingTitle.settingsType == .hapticSome{
-            Defaults.shared.allowHaptic = HapticSetting.some.rawValue
-            tableView.reloadData()
-        } else if settingTitle.settingsType == .hapticNone{
-            Defaults.shared.allowHaptic = HapticSetting.none.rawValue
             tableView.reloadData()
         }
     }
