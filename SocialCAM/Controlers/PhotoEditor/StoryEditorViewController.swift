@@ -417,7 +417,7 @@ class StoryEditorViewController: UIViewController {
                     self.hideSaveVideoPopupView(isHide: false)
                 } else {
                     DispatchQueue.main.async {
-                        Utils.customaizeToastMessage(title: R.string.localizable.videoSaved(), toastView: self.view)
+                        Utils.customaizeToastMessage(title: R.string.localizable.videoSaved(), toastView: (Utils.appDelegate?.window)!)
                     }
                 }
             } else if let isRegistered = Defaults.shared.isFirstTimePic2ArtRegistered, cameraMode == .pic2Art {
@@ -1597,7 +1597,7 @@ extension StoryEditorViewController {
                     if isDownload {
                         if  cameraMode == .pic2Art && (self.isFastesteverWatermarkShow || self.isAppIdentifierWatermarkShow || self.isPublicDisplaynameWatermarkShow) {
                             self.mergeImageAndTextWatermark(image: image)
-                            Utils.customaizeToastMessage(title: R.string.localizable.photoSaved(), toastView: self.view)
+                            Utils.customaizeToastMessage(title: R.string.localizable.photoSaved(), toastView: (Utils.appDelegate?.window)!)
                         } else {
                             self.saveImageOrVideoInGallery(image: image)
                         }
@@ -1850,12 +1850,12 @@ extension StoryEditorViewController {
                 if isSuccess {
                     DispatchQueue.runOnMainThread { [weak self] in
                         guard let `self` = self else { return }
-                        Utils.customaizeToastMessage(title: R.string.localizable.photoSaved(), toastView: self.view)
+                        Utils.customaizeToastMessage(title: R.string.localizable.photoSaved(), toastView: (Utils.appDelegate?.window)!)
                     }
                 } else {
                     DispatchQueue.runOnMainThread { [weak self] in
                         guard let `self` = self else { return }
-                        Utils.customaizeToastMessage(title: R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), toastView: self.view)
+                        Utils.customaizeToastMessage(title: R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), toastView: (Utils.appDelegate?.window)!)
                     }
                 }
             }
@@ -1963,7 +1963,7 @@ extension StoryEditorViewController {
                     self.isSettingsChange = true
                     self.isTiktokShare = false
                 }
-                Utils.customaizeToastMessage(title: R.string.localizable.linkIsCopiedToClipboard(), toastView: self.view)
+                Utils.customaizeToastMessage(title: R.string.localizable.linkIsCopiedToClipboard(), toastView: (Utils.appDelegate?.window)!)
                 if let channelId = Defaults.shared.currentUser?.channelId {
                     if SocialShare.instagram == .instagram {
                         UIPasteboard.general.string = "\(websiteUrl)/\(channelId)"
