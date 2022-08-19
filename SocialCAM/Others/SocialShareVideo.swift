@@ -346,7 +346,11 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     func snapChatShare(snapContent: SCSDKSnapContent) {
-        snapContent.caption = "@\(Defaults.shared.currentUser?.username ?? "")"
+        snapContent.attachmentUrl = "\(websiteUrl)"
+        if let channelId = Defaults.shared.currentUser?.channelId {
+            snapContent.attachmentUrl = "\(websiteUrl)/\(channelId)"
+        }
+        
         let api = SCSDKSnapAPI.init(content: snapContent)
         api.startSnapping { _ in
            
