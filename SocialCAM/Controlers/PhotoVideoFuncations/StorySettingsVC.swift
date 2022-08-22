@@ -93,6 +93,25 @@ enum SettingsMode: Int, Codable {
     case mobileDashboard
     case hapticFeedBack
 }
+enum SettingsEnum : Int, Codable, CaseIterable {
+    case quickstartGuide = 0
+    case userDashboard
+    case subscription
+    case notification
+    case shareSetting
+    case qrcode
+    case cameraSettings
+    case potentialIncomeCalculator
+    case editProfileCard
+    case help
+    case accountSettings
+    case system
+    case checkUpdate
+    case aboutPage
+    case logout
+}
+
+ 
 
 class StorySetting: Codable {
     var name: String
@@ -136,15 +155,17 @@ class StorySettings: Codable {
     var name: String
     var settings: [StorySetting]
     var settingsType: SettingsMode
+    var type: SettingsEnum
     var isCollapsible: Bool {
         return true
     }
     var isCollapsed = false
     
-    init(name: String, settings: [StorySetting], settingsType: SettingsMode) {
+    init(name: String, settings: [StorySetting], settingsType: SettingsMode, type: SettingsEnum = .system) {
         self.name = name
         self.settings = settings
         self.settingsType = settingsType
+        self.type = type
     }
     
     enum CodingKeys: String, CodingKey {
@@ -153,6 +174,7 @@ class StorySettings: Codable {
             case settingsType
             case isCollapsible
             case isCollapsed
+        case type
         }
 
         required init(from decoder: Decoder) {
@@ -161,6 +183,7 @@ class StorySettings: Codable {
             settings = (try? container?.decode([StorySetting].self, forKey: .settings)) ?? [StorySetting]()
             settingsType = (try? container?.decode(SettingsMode.self, forKey: .settingsType)) ?? SettingsMode.aboutPage
             isCollapsed = (try? container?.decode(Bool.self, forKey: .isCollapsed)) ?? false
+            type = (try? container?.decode(SettingsEnum.self, forKey: .type)) ?? SettingsEnum.aboutPage
         }
 
         func encode(to encoder: Encoder) {
@@ -170,6 +193,7 @@ class StorySettings: Codable {
             try? container.encode(isCollapsible, forKey: .isCollapsible)
             try? container.encode(settingsType, forKey: .settingsType)
             try? container.encode(isCollapsed, forKey: .isCollapsed)
+            try? container.encode(type, forKey: .type)
         }
     
     static var storySettings = /*[StorySettings(name: R.string.localizable.subscriptions(),
@@ -183,37 +207,35 @@ class StorySettings: Codable {
                                                                       selected: true)], settingsType: .subscriptions), */
     
                                 [StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide),
+                                               settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide, type: .quickstartGuide),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
+                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard, type: .userDashboard),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
+                                              settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription, type: .subscription),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
+                                              settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification, type: .notification),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
+                                              settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting, type: .shareSetting),
                                  StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
+                                               settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode, type: .qrcode),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
+                                              settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings, type: .cameraSettings),
                                  StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),
+                                               settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),
                                  StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard),
+                                               settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
+                                              settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
+                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings, type: .accountSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.appSettings(), selected: false)], settingsType: .system),
+                                              settings: [StorySetting(name: R.string.localizable.appSettings(), selected: false)], settingsType: .system, type: .system),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
+                                              settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate, type: .checkUpdate),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage),
+                                              settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage, type: .aboutPage),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(),
-                                                                      
-                                                                      selected: false)], settingsType: .logout)]
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout, type: .logout)]
   /* StorySettings(name: "",
                   settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager), */
    /* StorySettings(name: "",
@@ -295,7 +317,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var webSheildImageview: UIImageView!
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
-    
+    var settingsArray: [SettingsEnum] = SettingsEnum.allCases
     
     // MARK: - Variables declaration
     var isDeletePopup = false
@@ -362,7 +384,8 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        StorySettings.storySettings = Defaults.shared.userStorySettings ?? StorySettings.storySettings
+        // StorySettings.storySettings = Defaults.shared.userStorySettings ?? StorySettings.storySettings
+        settingsArray = Defaults.shared.settingsArray
         self.settingsTableView.reloadData()
         setUpProfileHeader()
         storyCameraVC.syncUserModel { _ in
@@ -377,7 +400,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Defaults.shared.userStorySettings = StorySettings.storySettings
+//        Defaults.shared.userStorySettings = StorySettings.storySettings
+//
+//        Defaults.shared.settingsArray = settingsArray
 }
     deinit {
         print("Deinit \(self.description)")
@@ -800,7 +825,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
 //        return 200.0
 //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return StorySettings.storySettings.count
+        return settingsArray.count// StorySettings.storySettings.count
        /* if StorySettings.storySettings[section].settingsType == .subscriptions {
             let item = StorySettings.storySettings[section]
             guard item.isCollapsible else {
@@ -833,7 +858,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StorySettingsListCell.identifier, for: indexPath) as? StorySettingsListCell else {
             fatalError("\(StorySettingsListCell.identifier) Not Found")
         }
-        let settingTitle = StorySettings.storySettings[indexPath.row]
+        let settingType = settingsArray[indexPath.row]
+        guard let settingTitle = StorySettings.storySettings.first(where: { $0.type == settingType }) else {
+            return cell
+        }
         let settings = settingTitle.settings[0]
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
@@ -1095,8 +1123,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let settingTitle = StorySettings.storySettings[indexPath.row]
-       
+//        let settingTitle = StorySettings.storySettings[indexPath.row]
+        let settingType = settingsArray[indexPath.row]
+        guard let settingTitle = StorySettings.storySettings.first(where: { $0.type == settingType }) else {
+            return
+        }
         if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
@@ -1645,7 +1676,10 @@ extension StorySettingsVC: TableViewReorderDelegate {
     }
     
     func tableViewReorder(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        StorySettings.storySettings.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        settingsArray.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        //StorySettings.storySettings.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+       // Defaults.shared.userStorySettings = StorySettings.storySettings
+        Defaults.shared.settingsArray = settingsArray
     }
     
     func tableViewReorder(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -1708,13 +1742,17 @@ extension StorySettingsVC: HeaderViewDelegate {
 extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return StorySettings.storySettings.count
+        return settingsArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SettingsCollectionCell", for: indexPath) as! SettingsCollectionCell
-        let settingTitle = StorySettings.storySettings[indexPath.item]
+        let settingType = settingsArray[indexPath.row]
+        guard let settingTitle = StorySettings.storySettings.first(where: { $0.type == settingType }) else {
+            return cell
+        }
+//        let settingTitle = StorySettings.storySettings[indexPath.item]
         let settings = settingTitle.settings[0]
         cell.settingsName.text = settings.name
         cell.roundedView.isHidden = true
@@ -1779,8 +1817,11 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let settingTitle = StorySettings.storySettings[indexPath.item]
-       
+//        let settingTitle = StorySettings.storySettings[indexPath.item]
+        let settingType = settingsArray[indexPath.row]
+        guard let settingTitle = StorySettings.storySettings.first(where: { $0.type == settingType }) else {
+            return
+        }
         if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)

@@ -220,6 +220,28 @@ class Defaults {
         }
     }
     
+    var settingsArray: [SettingsEnum] {
+        get {
+            if let userStorySettings = userDefaults.object(forKey: "SettingArray") as? Data {
+                let decoder = JSONDecoder()
+                if var settings = try? decoder.decode([SettingsEnum].self, from: userStorySettings) {
+                    return settings
+                }
+            }
+            return SettingsEnum.allCases
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                userDefaults.set(encoded, forKey: "SettingArray")
+                userDefaults.synchronize()
+            } else {
+                userDefaults.set(nil, forKey: "SettingArray")
+                userDefaults.synchronize()
+            }
+        }
+    }
+    
     var userStorySettings: [StorySettings]? {
         get {
             if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
@@ -247,17 +269,20 @@ class Defaults {
                     if !settings.contains(where: {$0.settingsType == .potentialIncomeCalculator})
                     {
                         settings.insert(StorySettings(name: "",
-                                                      settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),at: 7)
+                                                      settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),at: 7)
                     }
                     if !settings.contains(where: {$0.settingsType == .quickstartGuide})
                     {
                         settings.insert(StorySettings(name: "",
-                                                      settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide),at: 0)
+                                                      settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide, type: .quickstartGuide),at: 0)
                     }
                     return settings
                 }
             }
-            return nil
+            else {
+                return nil
+            }
+          return nil
         }
         set {
             let encoder = JSONEncoder()
