@@ -217,12 +217,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var previewTitleLabel: UILabel!
     @IBOutlet weak var chooseMessageTitleTextLabel: UILabel!
     
+    @IBOutlet weak var shareSwitchImageView: UIImageView!
     @IBOutlet weak var subTitleOfPreview: UILabel!
     @IBOutlet weak var imgPreviewImageAspectRatioConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageWidthConstraint: NSLayoutConstraint!
     var isGmailOpened = false
     var isAppleEmailOpened = false
+    var isShareSwitchOn = false
     
     
     var searchText:String = ""
@@ -1598,6 +1600,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         isSelectSMS = false
         
     }
+    
+    @IBAction func didTapShareSwitchButton(_ sender: UIButton) {
+        isShareSwitchOn = !isShareSwitchOn
+        switch isShareSwitchOn {
+        case true:
+            shareSwitchImageView.image = R.image.shareSwitchOn()
+        case false:
+            shareSwitchImageView.image = R.image.shareSwitchOff()
+        default:
+            break
+        }
+        
+    }
+    
+    
     @IBAction func socialShareCloseClick(sender: UIButton) {
         self.socialSharePopupView.isHidden = true
     }
