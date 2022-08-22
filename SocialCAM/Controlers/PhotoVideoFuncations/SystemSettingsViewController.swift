@@ -31,6 +31,8 @@ class SystemSettings {
             StorySetting(name: R.string.localizable.all(), selected: false),
             StorySetting(name: R.string.localizable.some(), selected: false),
             StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticFeedBack),
+        
+        StorySettings(name: "Notifications Settings", settings: [StorySetting(name: "", selected: false)], settingsType: .notification),
         ]
 }
 
@@ -44,7 +46,9 @@ class SystemSettingsViewController: UIViewController {
         super.viewDidLoad()
         
         self.systemSettingsTableView.register(R.nib.appSettingsHeaderCell)
+        self.systemSettingsTableView.register(R.nib.notificationSettingCell)
         self.systemSettingsTableView.reloadData()
+        self.getReferralNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,23 +102,17 @@ extension SystemSettingsViewController: UITableViewDataSource {
             }
             notificationTypeCell.notificationType = .newSignups
             return notificationTypeCell
-        } else if settingTitle.settingsType == .newSubscriptionNotificationSetting {
-            guard let notificationTypeCell: NotificationTypeCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.notificationTypeCell.identifier) as? NotificationTypeCell else {
+        }
+        
+        else if settingTitle.settingsType == .notification {
+            guard let notificationTypeCell: NotificationSettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.notificationSettingCell.identifier) as? NotificationSettingCell else {
                 fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
             }
-            notificationTypeCell.notificationType = .newSubscriptions
+            
             return notificationTypeCell
-        } else if settingTitle.settingsType == .milestoneReachedNotification {
-            systemSettingsCell.systemSettingType = .milestonesReached
-        } else if settingTitle.settingsType == .checkUpdate {
-            systemSettingsCell.title.isHidden = true
-            systemSettingsCell.btnSelectShowAllPopup.isHidden = true
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.checkUpdatesTableViewCell.identifier) as? CheckUpdatesTableViewCell else {
-                fatalError("\(R.reuseIdentifier.checkUpdatesTableViewCell.identifier) Not Found")
-            }
-            cell.lblCheckUpdate.text = R.string.localizable.checkUpdates()
-            return cell
-        } else if settingTitle.settingsType == .onboarding {
+        }
+        
+        else if settingTitle.settingsType == .onboarding {
             systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
         } else if settingTitle.settingsType == .hapticFeedBack {
             systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
@@ -199,8 +197,59 @@ extension SystemSettingsViewController {
 extension SystemSettingsViewController: SubscriptionScreenDelegate {
     
     func backFromSubscription() {
-        
-        print("Function == \(#function) Line === \(#line)")
         self.systemSettingsTableView.reloadData()
     }
+}
+
+// MARK: - Api Calls
+extension SystemSettingsViewController {
+    
+    func getReferralNotification() {
+//        self.showHUD()
+        ProManagerApi.getReferralNotification.request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+//            self.dismissHUD()
+            if response.status == ResponseType.success {
+                if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 3)) as? NotificationSettingCell {
+                    
+                    cell.objReferralNotification = response.result!
+                    cell.configureCell()
+                }
+//                if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? SystemSettingsCell, let onReferralEarnSocialBadge = response.result?.onReferralEarnSocialBadge {
+//                    Defaults.shared.milestonesReached = onReferralEarnSocialBadge
+//                    cell.btnSelectShowAllPopup.isSelected = Defaults.shared.milestonesReached
+//                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+//    func setReferralNotification() {
+//        var numberOfUsers = 1
+//        if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NotificationSettingCell, let numberOfUserText = cell.txtNumberOfSignup.text {
+//            numberOfUsers = Int(numberOfUserText) ?? 1
+//        }
+//        let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
+//        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? 0 : numberOfUsers, isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+//            guard let `self` = self else {
+//                return
+//            }
+//            if response.status == ResponseType.success {
+//                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
+//                self.navigationController?.popViewController(animated: true)
+//            } else {
+//                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+//            }
+//        }, onError: { error in
+//            self.showAlert(alertMessage: error.localizedDescription)
+//        }, onCompleted: {
+//        }).disposed(by: rx.disposeBag)
+//    }
 }
