@@ -223,20 +223,20 @@ class QuickStartOptionDetailViewController: UIViewController {
     }
     
     func openPotentialIncomeCalculator(){
-        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
-             incomeGoalConfirmPopupView.isHidden = false
+      /*  if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
+            incomeGoalConfirmPopupView.isHidden = false
             btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
             self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
-          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
-        }else{
-        if let token = Defaults.shared.sessionToken {
-             let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-             guard let url = URL(string: urlString) else {
-                 return
-             }
-             presentSafariBrowser(url: url)
-         }
-        }
+            //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        }else{ */
+            if let token = Defaults.shared.sessionToken {
+                let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+                guard let url = URL(string: urlString) else {
+                    return
+                }
+                presentSafariBrowser(url: url)
+            }
+//        }
     }
     
     @IBAction func doNotShowAgainIncomeGoalOpenPopupClicked(_ sender: UIButton) {
