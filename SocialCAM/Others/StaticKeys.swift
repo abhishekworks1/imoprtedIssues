@@ -23,6 +23,8 @@ public struct StaticKeys {
     static let deviceType = "deviceType"
     static let isForEveryone = "isForEveryone"
     static let customSignupNumber = "customSignupNumber"
+    static let betweenCameraAppSubscription = "betweenCameraAppSubscription"
+    static let betweenBusinessDashboardSubscription = "betweenBusinessDashboardSubscription"
     static let badgeEarned = "onReferralEarnSocialBadge"
     static let countryNameUS = "United States"
     static let countryCodeUS = "US"

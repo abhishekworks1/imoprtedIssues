@@ -228,7 +228,7 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension SubscriptionVC: HeaderViewDelegate {
-    func toggleSection(header: StorySettingsHeader, section: Int) {
+    func toggleSection(header: UITableViewCell, section: Int) {
         let settingTitle = SubscriptionSettings.storySettings[section]
         if settingTitle.isCollapsible {
 
