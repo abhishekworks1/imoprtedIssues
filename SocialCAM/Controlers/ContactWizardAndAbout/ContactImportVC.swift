@@ -217,12 +217,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var previewTitleLabel: UILabel!
     @IBOutlet weak var chooseMessageTitleTextLabel: UILabel!
     
+    @IBOutlet weak var shareSwitchImageView: UIImageView!
     @IBOutlet weak var subTitleOfPreview: UILabel!
     @IBOutlet weak var imgPreviewImageAspectRatioConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageWidthConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var socialShareDescriptionLabel: UILabel!
+    @IBOutlet weak var textShareDescriptionLabel: UILabel!
+    
+    @IBOutlet weak var emailShareDescriptionLabel: UILabel!
+    @IBOutlet weak var qrCodeShareDescriptionLabel: UILabel!
+    @IBOutlet weak var socialShareBgImageView: UIImageView!
+    @IBOutlet weak var textShareBGImageView: UIImageView!
+    
+    @IBOutlet weak var textShareTitleLabel: UILabel!
+    @IBOutlet weak var qrcodeShareTitleLabel: UILabel!
+    @IBOutlet weak var emaiShareTitleLabel: UILabel!
+    @IBOutlet weak var socialShareTitleLabel: UILabel!
+    
+    @IBOutlet weak var qrcodeBgImageView: UIImageView!
+    @IBOutlet weak var emailBgImageView: UIImageView!
+    
     var isGmailOpened = false
     var isAppleEmailOpened = false
+    var isShareSwitchOn = false
     
     
     var searchText:String = ""
@@ -365,10 +384,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.contactTableView.isHidden = false
 
         
-        self.textShareView.dropShadowNew()
-        self.qrCodeShareView.dropShadowNew()
-        self.manualEmailView.dropShadowNew()
-        self.socialShareView.dropShadowNew()
+//        self.textShareView.dropShadowNew()
+//        self.qrCodeShareView.dropShadowNew()
+//        self.manualEmailView.dropShadowNew()
+//        self.socialShareView.dropShadowNew()
         self.businessDashboardView.dropShadowNew()
         
         self.appleEmailOptionView.dropShadow()
@@ -1609,6 +1628,51 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         isSelectSMS = false
         
     }
+    
+    @IBAction func didTapShareSwitchButton(_ sender: UIButton) {
+        isShareSwitchOn = !isShareSwitchOn
+        switch isShareSwitchOn {
+        case true:
+            shareSwitchImageView.image = R.image.shareSwitchOn()
+            textShareBGImageView.image = R.image.textShareBgImage()
+            qrcodeBgImageView.image = R.image.qrcodeShareBgImage()
+            emailBgImageView.image = R.image.emailShareBgImage()
+            socialShareBgImageView.image = R.image.socialShareBgImage()
+            
+            textShareDescriptionLabel.text = "Use TextShare to invite your contacts by sending them a text with your unique invite link"
+            qrCodeShareDescriptionLabel.text = "Use QRCodeShare to invite your contacts in-person by sharing your QR Code."
+            emailShareDescriptionLabel.text = "Use EmailShare to invite your contacts by sending them an email with your unique invite link."
+            socialShareDescriptionLabel.text = "Use SocialShare to invite your social media followers by posting your unique invite link to your social media newsfeed."
+            
+            textShareTitleLabel.textColor = UIColor(hexString: "16CC6C")
+            qrcodeShareTitleLabel.textColor = UIColor(hexString: "477DFF")
+            emaiShareTitleLabel.textColor = UIColor(hexString: "C87E04")
+            socialShareTitleLabel.textColor = UIColor(hexString: "3B5997")
+            
+        case false:
+            textShareBGImageView.image = R.image.textShareBG()
+            shareSwitchImageView.image = R.image.shareSwitchOff()
+            qrcodeBgImageView.image = R.image.qrcodeShareBG()
+            emailBgImageView.image = R.image.emailShareBG()
+            socialShareBgImageView.image = R.image.socialShareBG()
+            
+            textShareDescriptionLabel.text = ""
+            qrCodeShareDescriptionLabel.text = ""
+            emailShareDescriptionLabel.text = ""
+            socialShareDescriptionLabel.text = ""
+            
+            textShareTitleLabel.textColor = .black
+            qrcodeShareTitleLabel.textColor = .black
+            emaiShareTitleLabel.textColor = .black
+            socialShareTitleLabel.textColor = .black
+            
+            
+        default:
+            break
+        }
+    }
+    
+    
     @IBAction func socialShareCloseClick(sender: UIButton) {
         self.socialSharePopupView.isHidden = true
     }
