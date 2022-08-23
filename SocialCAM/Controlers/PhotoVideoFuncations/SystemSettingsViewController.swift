@@ -15,6 +15,11 @@ class SystemSettings {
     var settings: [StorySetting]
     var settingsType: SettingsMode
     
+    var isCollapsible: Bool {
+        return true
+    }
+    var isCollapsed = false
+    
     init(name: String, settings: [StorySetting], settingsType: SettingsMode) {
         self.name = name
         self.settings = settings
@@ -68,6 +73,7 @@ class SystemSettingsViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func onBackPressed(_ sender: UIButton) {
+        self.setReferralNotification()
         self.doNotShowAgainAPI()
         navigationController?.popViewController(animated: true)
     }
@@ -82,8 +88,16 @@ extension SystemSettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let settingTitle = SystemSettings.systemSettings[section]
-        return settingTitle.settings.count
+        
+        let item = SystemSettings.systemSettings[section]
+        guard item.isCollapsible else {
+            return item.settings.count
+        }
+        if item.isCollapsed {
+            return 0
+        } else {
+            return item.settings.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,8 +144,11 @@ extension SystemSettingsViewController: UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appSettingsHeaderCell.identifier) as? AppSettingsHeaderCell else {
             fatalError("\(R.reuseIdentifier.appSettingsHeaderCell.identifier) Not Found")
         }
+        let settingTitle = SystemSettings.systemSettings[section]
+        headerView.section = section
+        headerView.collapsed = settingTitle.isCollapsed
         headerView.lblTitle.text = SystemSettings.systemSettings[section].name
-
+        headerView.delegate = self
         return headerView
     }
     
@@ -217,10 +234,6 @@ extension SystemSettingsViewController {
                     cell.objReferralNotification = response.result!
                     cell.configureCell()
                 }
-//                if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? SystemSettingsCell, let onReferralEarnSocialBadge = response.result?.onReferralEarnSocialBadge {
-//                    Defaults.shared.milestonesReached = onReferralEarnSocialBadge
-//                    cell.btnSelectShowAllPopup.isSelected = Defaults.shared.milestonesReached
-//                }
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
@@ -231,25 +244,42 @@ extension SystemSettingsViewController {
         }).disposed(by: rx.disposeBag)
     }
     
-//    func setReferralNotification() {
-//        var numberOfUsers = 1
-//        if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NotificationSettingCell, let numberOfUserText = cell.txtNumberOfSignup.text {
-//            numberOfUsers = Int(numberOfUserText) ?? 1
-//        }
-//        let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
-//        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? 0 : numberOfUsers, isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
-//            guard let `self` = self else {
-//                return
-//            }
-//            if response.status == ResponseType.success {
-//                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
-//                self.navigationController?.popViewController(animated: true)
-//            } else {
-//                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-//            }
-//        }, onError: { error in
-//            self.showAlert(alertMessage: error.localizedDescription)
-//        }, onCompleted: {
-//        }).disposed(by: rx.disposeBag)
-//    }
+    func setReferralNotification() {
+        var numberOfUsers = 1
+        var cameraAppSubscription = 1
+        var businessDashboardSubscription = 1
+        if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NotificationSettingCell, let numberOfUserText = cell.txtNumberOfSignup.text, let cameraAppText = cell.txtCameraAppSubscription.text, let busineeDsahBoardText = cell.txtBusinessDashboard.text {
+            numberOfUsers = Int(numberOfUserText) ?? 1
+            cameraAppSubscription = Int(cameraAppText) ?? 1
+            businessDashboardSubscription = Int(busineeDsahBoardText) ?? 1
+        }
+        let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
+        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? 0 : numberOfUsers, betweenCameraAppSubscription: cameraAppSubscription, betweenBusinessDashboardSubscription: businessDashboardSubscription, isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+}
+
+extension SystemSettingsViewController: HeaderViewDelegate {
+    func toggleSection(header: UITableViewCell, section: Int) {
+        let settingTitle = SystemSettings.systemSettings[section]
+        if settingTitle.isCollapsible {
+
+            // Toggle collapse
+            let collapsed = !settingTitle.isCollapsed
+            settingTitle.isCollapsed = collapsed
+            self.systemSettingsTableView?.reloadData()
+        }
+    }
 }

@@ -9,7 +9,8 @@
 import UIKit
 
 protocol HeaderViewDelegate: class {
-   func toggleSection(header: StorySettingsHeader, section: Int)
+//    func toggleSection(header: StorySettingsHeader, section: Int)
+    func toggleSection(header: UITableViewCell, section: Int)
 }
 
 class StorySettingsHeader: UITableViewCell {

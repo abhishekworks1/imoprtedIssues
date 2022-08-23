@@ -28,6 +28,7 @@ class NotificationSettingCell: UITableViewCell {
         self.updateTextFieldUI(textField: self.txtBusinessDashboard)
         btnBadgeEarnedCheckmark.setImage(R.image.checkBoxInActive(), for: .normal)
         btnBadgeEarnedCheckmark.setImage(R.image.checkBoxActive(), for: .selected)
+        self.selectionStyle = .none
     }
     
     func updateTextFieldUI(textField: UITextField) {
@@ -65,6 +66,7 @@ class NotificationSettingCell: UITableViewCell {
     }
     
     @IBAction func badgeEarnedAction(_ sender: UIButton) {
-        
+        Defaults.shared.milestonesReached = !sender.isSelected
+        sender.isSelected = !sender.isSelected
     }
 }

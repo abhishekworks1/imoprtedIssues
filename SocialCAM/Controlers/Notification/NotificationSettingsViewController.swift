@@ -127,12 +127,13 @@ extension NotificationSettingsViewController {
     }
     
     func setReferralNotification() {
+        
         var numberOfUsers = 1
         if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NotificationTypeCell, let numberOfUserText = cell.txtNumberOfUsers.text {
             numberOfUsers = Int(numberOfUserText) ?? 1
         }
         let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
-        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? 0 : numberOfUsers, isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? 0 : numberOfUsers, betweenCameraAppSubscription: 1, betweenBusinessDashboardSubscription: 1 ,isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }

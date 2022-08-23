@@ -1694,7 +1694,7 @@ class ScreenSelectionView: UIView {
     
 }
 extension StorySettingsVC: HeaderViewDelegate {
-    func toggleSection(header: StorySettingsHeader, section: Int) {
+    func toggleSection(header: UITableViewCell, section: Int) {
         let settingTitle = StorySettings.storySettings[section]
         if settingTitle.isCollapsible {
 
