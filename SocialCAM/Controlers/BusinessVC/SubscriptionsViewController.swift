@@ -499,7 +499,7 @@ class SubscriptionsViewController: UIViewController {
             subscriptionStatus = subscriptionSts
         }
         if (subscriptionStatus == "basic") || (subscriptionStatus == "advance") || (subscriptionStatus == "pro"){
-            upGradeButtonView.isHidden = true
+           // upGradeButtonView.isHidden = true
         }
         if appMode == .free{
             upGradeButtonView.isHidden = true
