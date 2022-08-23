@@ -133,6 +133,7 @@ public class GoogleManager: NSObject {
             if error == nil {
                 completion(true)
             } else {
+                print(String(data: (error! as NSError).userInfo["data"] as! Data, encoding: String.Encoding.utf8))
                 completion(false)
             }
         })
