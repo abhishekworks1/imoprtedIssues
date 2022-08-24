@@ -392,7 +392,8 @@ class StoryAssetExportSession {
     
     func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
         var image = R.image.socialCamWaterMark()
-        let userName = Defaults.shared.currentUser?.username ?? ""
+        let userName = "\(Defaults.shared.channelName ?? "")"
+//        Defaults.shared.currentUser?.username ?? ""
         if isViralCamApp {
             image = R.image.wmViralCamLogo()
             if watermarkPosition == .topLeft {

@@ -53,9 +53,11 @@ class WatermarkSettingsViewController: UIViewController {
     // MARK: - View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+//        "@\(Defaults.shared.channelName ?? "")"
         self.watermarkSettingsTableView.reloadData()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
-        self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        self.lblUserNameWatermark.text = "@\(Defaults.shared.channelName ?? "")"
+//        "@\(Defaults.shared.currentUser?.username ?? "")"
         isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
@@ -67,7 +69,8 @@ class WatermarkSettingsViewController: UIViewController {
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
-        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.channelName ?? "")"
+//        "@\(Defaults.shared.currentUser?.username ?? "")"
        /* if Defaults.shared.appMode == .free {
             btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
