@@ -696,40 +696,40 @@ extension SubscriptionContainerViewController {
                 // purchase during trail use this.
                 if originalSubscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                     if daysLeft == 7 {
-                        return "You’re on Day 1 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial.  Upgrade to Premium to upgrade your Basic Subscriber Badge to Premium today!"
                     } else if daysLeft == 6 {
-                        return "You’re on Day 2 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 2 of the 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial!"
                     } else if daysLeft == 5 {
-                        return "You’re on Day 3 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 3 of the 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial!"
                     } else if daysLeft == 4 {
-                        return "You’re on Day 4 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 4 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial"
                     } else if daysLeft == 3 {
-                        return "You’re on Day 5 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 5 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial"
                     } else if daysLeft == 2 {
-                        return "You’re on Day 6 of the 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                        return "You’re on Day 6 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial"
                     } else if daysLeft == 1 {
-                        return "You’re on the last day of your 7-Day Premium Free Trial. Upgrading to Advanced or Premium available soon."
+                        return "You’re on the last day of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after today!"
                     } else {
-                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Advanced or Premium available soon!"
+                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Premium now to regain access to the Premium features!"
                     }
                 }
                 else if originalSubscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                     if daysLeft == 7 {
-                        return "You’re on Day 1 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                        return "You’re on Day 1 of the 7-Day Premium Free Trial. Upgrade to Premium to upgrade your Advanced Subscriber Badge to Premium today!"
                     } else if daysLeft == 6 {
-                        return "You’re on Day 2 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                        return "You’re on Day 2 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial!"
                     } else if daysLeft == 5 {
-                        return "You’re on Day 3 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                        return "You’re on Day 3 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial!"
                     } else if daysLeft == 4 {
-                        return "You’re on Day 4 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                        return "You’re on Day 4 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial"
                     } else if daysLeft == 3 {
-                        return "You’re on Day 5 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                        return "You’re on Day 5 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial"
                     } else if daysLeft == 2 {
-                        return "You’re on Day 6 of the 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                        return "You’re on Day 6 of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after the free trial"
                     } else if daysLeft == 1 {
-                        return "You’re on the last day of your 7-Day Premium Free Trial. Upgrading to Premium available soon."
+                        return "You’re on the last day of your 7-Day Premium Free Trial. Upgrade to Premium now, get the Premium Subscriber Badge and continue using all of the Premium features after today!"
                     } else {
-                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Basic. Upgrade to Premium available soon"
+                        return "Your 7-Day Premium Free Trial has ended. Your access level is now Advanced. Upgrade to Premium now to regain access to the Premium features!!"
                     }
                 }
                 else if originalSubscriptionType == SubscriptionTypeForBadge.PRO.rawValue || originalSubscriptionType.lowercased() == "premium" {
