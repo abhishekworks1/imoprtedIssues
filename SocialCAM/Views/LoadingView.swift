@@ -243,6 +243,13 @@ public class LoadingView: UIView {
                     imgAdvertisementArray = [R.image.gameMode(),
                                              R.image.giftCardBanner(),
                                              R.image.earlyBird()]
+                } else {
+                    imgAdvertisementArray = [R.image.upgradeBasicLiteBanner(),
+                                             R.image.upgradeToAdvance(),
+                                             R.image.upgradeToPro(),
+                                             R.image.gameMode(),
+                                             R.image.giftCardBanner(),
+                                             R.image.earlyBird()]
                 }
             }
         }
