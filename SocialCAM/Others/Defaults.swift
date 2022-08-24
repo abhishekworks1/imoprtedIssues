@@ -1438,6 +1438,61 @@ class Defaults {
         }
     }
     
+    var isTikTokSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isTikTokSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isTikTokSharingEnabled")
+        }
+    }
+    
+    var isInstagramSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isInstagramSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isInstagramSharingEnabled")
+        }
+    }
+    
+    var isSnapChatSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isSnapChatSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isSnapChatSharingEnabled")
+        }
+    }
+    
+    var isFacebookSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isFacebookSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFacebookSharingEnabled")
+        }
+    }
+    
+    var isYoutubeSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isYoutubeSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isYoutubeSharingEnabled")
+        }
+    }
+    
+    var isTwitterSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isTwitterSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isTwitterSharingEnabled")
+        }
+    }
+    
+    
     var quickStartCategories: [QuickStartCategory]? {
         get {
             if let calculatorConfig = userDefaults.object(forKey: "quickStartCategories") as? Data {

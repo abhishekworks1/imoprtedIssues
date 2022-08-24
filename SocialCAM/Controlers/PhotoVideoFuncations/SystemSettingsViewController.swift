@@ -38,6 +38,25 @@ class SystemSettings {
             StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticFeedBack),
         
         StorySettings(name: "Notifications Settings", settings: [StorySetting(name: "", selected: false)], settingsType: .notification),
+        
+        StorySettings(name: "Share on Social Media", settings: [
+            StorySetting(name: SocialMediaApps.tikTok.description, selected: Defaults.shared.isTikTokSharingEnabled, image:  R.image.icoTikTok()),
+            
+            StorySetting(name: SocialMediaApps.instagram.description, selected: Defaults.shared.isInstagramSharingEnabled, image: R.image.instagram()),
+            
+            StorySetting(name: SocialMediaApps.snapChat.description, selected: Defaults.shared.isSnapChatSharingEnabled, image: R.image.icoSnapchat()),
+            
+            StorySetting(name: SocialMediaApps.facebook.description, selected: Defaults.shared.isFacebookSharingEnabled, image: R.image.icoFacebook()),
+            
+            StorySetting(name: SocialMediaApps.youtube.description, selected: Defaults.shared.isYoutubeSharingEnabled, image: R.image.icoYoutube()),
+            
+            StorySetting(name: SocialMediaApps.twitter.description, selected: Defaults.shared.isTwitterSharingEnabled, image: R.image.icoTwitter()),
+            
+//            StorySetting(name: SocialMediaApps.chingari.description, selected: true, image: R.image.iconChingari()),
+            
+//            StorySetting(name: SocialMediaApps.takatak.description, selected: true, image: R.image.icoTwitter()),
+            ],
+            settingsType: .shareOnSocialMedia),
         ]
 }
 
@@ -52,6 +71,8 @@ class SystemSettingsViewController: UIViewController {
         
         self.systemSettingsTableView.register(R.nib.appSettingsHeaderCell)
         self.systemSettingsTableView.register(R.nib.notificationSettingCell)
+        self.systemSettingsTableView.register(R.nib.shareOnSocialMediaSettingsCell)
+
         self.systemSettingsTableView.reloadData()
         self.getReferralNotification()
     }
@@ -91,11 +112,17 @@ extension SystemSettingsViewController: UITableViewDataSource {
         
         let item = SystemSettings.systemSettings[section]
         guard item.isCollapsible else {
+            if item.settingsType == .shareOnSocialMedia {
+                return 1
+            }
             return item.settings.count
         }
         if item.isCollapsed {
             return 0
         } else {
+            if item.settingsType == .shareOnSocialMedia {
+                return 1
+            }
             return item.settings.count
         }
     }
@@ -130,6 +157,13 @@ extension SystemSettingsViewController: UITableViewDataSource {
             systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
         } else if settingTitle.settingsType == .hapticFeedBack {
             systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
+        } else if settingTitle.settingsType == .shareOnSocialMedia {
+            guard let shareOnSocialMediaSettingsCell: ShareOnSocialMediaSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.shareOnSocialMediaSettingsCell.identifier) as? ShareOnSocialMediaSettingsCell else {
+                fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
+            }
+            shareOnSocialMediaSettingsCell.objSocialShareitems = settingTitle.settings
+            shareOnSocialMediaSettingsCell.configureCell()
+            return shareOnSocialMediaSettingsCell
         }
         
         return systemSettingsCell
@@ -139,6 +173,14 @@ extension SystemSettingsViewController: UITableViewDataSource {
 // MARK: - Table View Delegate
 extension SystemSettingsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let settingTitle = SystemSettings.systemSettings[indexPath.section]
+        
+        if settingTitle.settingsType == .shareOnSocialMedia {
+            return CGFloat(70 * Int(settingTitle.settings.count/2))
+        }
+        return UITableView.automaticDimension
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        AppSettingHeaderCell
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appSettingsHeaderCell.identifier) as? AppSettingsHeaderCell else {
