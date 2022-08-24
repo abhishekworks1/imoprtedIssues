@@ -324,8 +324,12 @@ extension WelcomeViewController {
             self.displayNameLabel.text = Defaults.shared.publicDisplayName
             self.channelNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"
             //    self.setSubscriptionBadgeDetails()
-            self.checkIfWelcomeTimerAlertShownToday()
-//             self.showWelcomeTimerAlert()
+
+            if self.checkIfWelcomePopupShouldAppear()
+            {
+//                self.showWelcomeTimerAlert()
+                self.checkIfWelcomeTimerAlertShownToday()
+            }
             self.getDays()
             self.hideLoader()
             self.setUpgradeButton()
@@ -369,7 +373,16 @@ extension WelcomeViewController {
             tipOfTheDayLabel.text = tipOfDay
         }
     }
-    
+    func checkIfWelcomePopupShouldAppear() -> Bool {
+       if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue || subscriptionStatus == SubscriptionTypeForBadge.EXPIRE.rawValue {
+               return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
     func checkIfWelcomeTimerAlertShownToday() {
         if let lastAlertDate = UserDefaults.standard.object(forKey: lastWelcomeTimerAlertDateKey) as? Date {
             if Calendar.current.isDateInToday(lastAlertDate) {

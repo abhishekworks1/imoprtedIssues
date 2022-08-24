@@ -11,6 +11,20 @@ import SafariServices
 
 class ReferSuccessVC: UIViewController {
 
+    @IBOutlet weak var switchOnOffTitle: UILabel!
+    @IBOutlet weak var createContentBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mobileDashBoardBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var referBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var createContentDescriptionLabel: UILabel!
+    @IBOutlet weak var createContentTitleLabel1: UILabel!
+    @IBOutlet weak var mobileDashBoardDescriptionLabel: UILabel!
+    @IBOutlet weak var mobileDashBoardTitleLabel1: UILabel!
+    @IBOutlet weak var referMoreDescriptionLabel: UILabel!
+    @IBOutlet weak var referMoreTitleLabel1: UILabel!
+    @IBOutlet weak var createContentTitleLabel: UILabel!
+    @IBOutlet weak var mobileDashBoardTitleLabel: UILabel!
+    @IBOutlet weak var referMoreTitleLabel: UILabel!
+    @IBOutlet weak var switchOnOffImageView: UIImageView!
     @IBOutlet weak var lblName: UILabel!
     
     @IBOutlet weak var businessDashboardStackView: UIStackView!
@@ -20,23 +34,63 @@ class ReferSuccessVC: UIViewController {
     var isFromOnboarding = false
     
     var callback : ((String) -> Void)?
+    var isSwitchOn = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lblName.text = "Great Job 👍🏻"//\(Defaults.shared.currentUser?.firstName ?? "") "
         // Do any additional setup after loading the view.
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func didTapSwitchButton(_ sender: UIButton) {
+        isSwitchOn = !isSwitchOn
+        
+        switch isSwitchOn {
+        case true:
+            switchOnOffTitle.text = "Select the feature to continue"
+            switchOnOffImageView.image = R.image.shareSwitchOn()
+            referMoreTitleLabel.isHidden = true
+            mobileDashBoardTitleLabel.isHidden = true
+            createContentTitleLabel.isHidden = true
+            
+            createContentDescriptionLabel.isHidden = false
+            createContentTitleLabel1.isHidden = false
+            mobileDashBoardDescriptionLabel.isHidden = false
+            mobileDashBoardTitleLabel1.isHidden = false
+            referMoreDescriptionLabel.isHidden = false
+            referMoreTitleLabel1.isHidden = false
+            
+            createContentDescriptionLabel.text = "< createContentDescription >"
+            mobileDashBoardDescriptionLabel.text = "< mobileDashBoardDescription >"
+            referMoreDescriptionLabel.text = "< referMoreDescription >"
+            
+            createContentBottomConstraint.constant = 15
+            mobileDashBoardBottomConstraint.constant = 15
+            referBottomConstraint.constant = 15
+            
+        case false:
+            switchOnOffTitle.text = "What would you like to do next?"
+            switchOnOffImageView.image = R.image.shareSwitchOff()
+            referMoreTitleLabel.isHidden = false
+            mobileDashBoardTitleLabel.isHidden = false
+            createContentTitleLabel.isHidden = false
+            
+            createContentDescriptionLabel.isHidden = true
+            createContentTitleLabel1.isHidden = true
+            mobileDashBoardDescriptionLabel.isHidden = true
+            mobileDashBoardTitleLabel1.isHidden = true
+            referMoreDescriptionLabel.isHidden = true
+            referMoreTitleLabel1.isHidden = true
+            
+            createContentBottomConstraint.constant = 0
+            mobileDashBoardBottomConstraint.constant = 0
+            referBottomConstraint.constant = 0
+            
+        default:
+            break
+        }
     }
-    */
+    
 
     @IBAction func BusinessDashboardAction(_ sender: Any) {
        // openBussinessDashboard()
@@ -88,13 +142,14 @@ class ReferSuccessVC: UIViewController {
         }*/
     }
     @IBAction func backAction(_ sender: Any) {
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        if viewControllers.count >= 3 {
-          self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
-        } else {
-            self.navigationController!.popToRootViewController(animated: true)
-          
-        }
+        self.navigationController?.popViewController(animated: true)
+//        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+//        if viewControllers.count >= 3 {
+//          self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+//        } else {
+//            self.navigationController!.popToRootViewController(animated: true)
+//
+//        }
     }
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
         

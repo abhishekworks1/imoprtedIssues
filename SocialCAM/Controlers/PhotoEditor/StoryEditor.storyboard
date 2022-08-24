@@ -4514,10 +4514,10 @@
                                         </connections>
                                     </button>
                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder_blue" translatesAutoresizingMaskIntoConstraints="NO" id="NgC-3n-ulr">
-                                        <rect key="frame" x="115.5" y="212.5" width="144" height="144"/>
+                                        <rect key="frame" x="115" y="211" width="145" height="145"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="NgC-3n-ulr" secondAttribute="height" multiplier="1:1" id="FQv-l8-BCV"/>
-                                            <constraint firstAttribute="height" constant="144" id="HhV-bD-AK6"/>
+                                            <constraint firstAttribute="height" constant="145" id="HhV-bD-AK6"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
@@ -4525,13 +4525,22 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tooltipDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="o0U-kc-Kxe">
+                                        <rect key="frame" x="161" y="129.5" width="53" height="102"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="53" id="QFR-Pb-bi8"/>
+                                            <constraint firstAttribute="height" constant="102" id="rUn-9W-kS3"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" name="transparentBackgroundView"/>
                                 <constraints>
+                                    <constraint firstItem="NgC-3n-ulr" firstAttribute="top" secondItem="o0U-kc-Kxe" secondAttribute="bottom" constant="-20.5" id="2Mx-OA-82p"/>
                                     <constraint firstItem="dHb-Pg-DYp" firstAttribute="top" secondItem="ZVV-XV-c1n" secondAttribute="top" constant="50" id="Aej-Lk-SOM"/>
                                     <constraint firstItem="Zd0-Eb-KTx" firstAttribute="centerX" secondItem="ZVV-XV-c1n" secondAttribute="centerX" id="P7a-IY-Eqg"/>
+                                    <constraint firstItem="o0U-kc-Kxe" firstAttribute="centerX" secondItem="ZVV-XV-c1n" secondAttribute="centerX" id="TKl-fF-Nfj"/>
                                     <constraint firstItem="NgC-3n-ulr" firstAttribute="centerX" secondItem="ZVV-XV-c1n" secondAttribute="centerX" id="TPd-5E-8rN"/>
-                                    <constraint firstItem="NgC-3n-ulr" firstAttribute="centerY" secondItem="ZVV-XV-c1n" secondAttribute="centerY" constant="-49" id="Zcw-FA-udx"/>
+                                    <constraint firstItem="NgC-3n-ulr" firstAttribute="centerY" secondItem="ZVV-XV-c1n" secondAttribute="centerY" constant="-50" id="Zcw-FA-udx"/>
                                     <constraint firstItem="Zd0-Eb-KTx" firstAttribute="centerY" secondItem="ZVV-XV-c1n" secondAttribute="centerY" id="qPW-U2-Krb"/>
                                     <constraint firstAttribute="trailing" secondItem="dHb-Pg-DYp" secondAttribute="trailing" constant="20" id="s41-XO-6Ju"/>
                                 </constraints>
@@ -4646,6 +4655,7 @@
         <image name="storySound" width="32" height="32"/>
         <image name="storySticker" width="34" height="34"/>
         <image name="timeSpeed" width="34" height="34"/>
+        <image name="tooltipDownArrow" width="53" height="102"/>
         <image name="trim1" width="256" height="256"/>
         <image name="trimDone" width="21" height="15"/>
         <image name="trimSave" width="21" height="15"/>
@@ -4653,7 +4663,7 @@
         <image name="userPlaceholder_blue" width="143" height="143"/>
         <image name="watermark1" width="20" height="20"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4662,7 +4672,7 @@
             <color red="0.35294117647058826" green="0.38039215686274508" blue="0.4823529411764706" alpha="0.36000001430511475" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hashtag_lightGold">
-            <color red="0.98000001907348633" green="0.85100001096725464" blue="0.37999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98039215686274506" green="0.85098039215686272" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkSkyBlue">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
