@@ -1912,25 +1912,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == itemsTableView{
-            if section == 0 {
-              return 1
-            } else {
-                if self.shareType == .textShare{    //if isSelectSMS {
-                    return self.smsMsgListing?.list.count ?? 0
-                } else {
-                    return self.emailMsgListing?.list.count ?? 0
-                }
-            }
-        }else if tableView == emailContactTableView{
-          //  return emailContacts.count
-            return self.emailContactSection[section].contacts.count
-        } else {
-           // return self.mobileContacts.count
-            return self.contactSections[section].contacts.count
-        }
-    }
+   
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if tableView == self.contactTableView{
@@ -2023,6 +2005,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
               }
           }*/
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == itemsTableView{
+            if section == 0 {
+              return 1
+            } else {
+                if self.shareType == .textShare{ //if isSelectSMS {
+                    print(self.smsMsgListing?.list.count)
+                    print("self.smsMsgListing?.list.count")
+                    return self.smsMsgListing?.list.count ?? 0
+                }else if isSelectSMS {
+                    print(self.smsMsgListing?.list.count)
+                    print("self.smsMsgListing?.list.count")
+                    return self.smsMsgListing?.list.count ?? 0
+                } else {
+                    return self.emailMsgListing?.list.count ?? 0
+                }
+            }
+        }else if tableView == emailContactTableView{
+          //  return emailContacts.count
+            return self.emailContactSection[section].contacts.count
+        } else {
+           // return self.mobileContacts.count
+            return self.contactSections[section].contacts.count
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
             
@@ -2114,6 +2121,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.detailView.isHidden = true
                     cell.radioButtonWidthConstraint.constant = 20
                     cell.emailRadioButtonWidthConstraint.constant = 0
+                    print(self.smsMsgListing?.list)
+                    print(self.smsMsgListing?.list.count)
+                    print("indexPath.row")
+                    print(indexPath.row)
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
                     print(item?.content ?? "")
