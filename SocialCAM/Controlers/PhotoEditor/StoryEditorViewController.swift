@@ -473,6 +473,14 @@ class StoryEditorViewController: UIViewController {
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
+        if self.isAppIdentifierWatermarkShow {
+            self.imgQuickCamWaterMark.isHidden = !self.isAppIdentifierWatermarkShow
+            self.userNameLabelWatermark.isHidden = !self.isAppIdentifierWatermarkShow
+        }
+        if self.isPublicDisplaynameWatermarkShow {
+            self.imgQuickCamWaterMark.isHidden = !self.isAppIdentifierWatermarkShow
+            self.userNameLabelWatermark.isHidden = !self.isPublicDisplaynameWatermarkShow
+        }
         //Defaults.shared.currentUser?.username
         self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.channelName ?? "")"
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
