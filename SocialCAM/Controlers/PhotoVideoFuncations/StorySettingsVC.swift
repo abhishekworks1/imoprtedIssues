@@ -103,7 +103,7 @@ enum SettingsEnum : Int, Codable, CaseIterable {
     case cameraSettings
     case potentialIncomeCalculator
     case editProfileCard
-    case help
+//    case help
     case accountSettings
     case system
     case checkUpdate
@@ -224,8 +224,8 @@ class StorySettings: Codable {
                                                settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),
                                  StorySettings(name: "",
                                                settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
-                               StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),
+                               /*StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),*/
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings, type: .accountSettings),
                                 StorySettings(name: "",
