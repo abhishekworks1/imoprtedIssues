@@ -281,16 +281,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
-        referSuccess.callback = { message in
-            self.pageNo = 1
-            self.setupPage()
-        }
-        referSuccess.isFromOnboarding = self.isFromOnboarding
-        selectedPhoneContact = nil
-        navigationController?.pushViewController(referSuccess, animated: true)
-        return
+
         
         self.setupUI()
         if isFromContactManager{
