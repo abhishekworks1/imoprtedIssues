@@ -47,10 +47,12 @@ class QuickStartOptionDetailViewController: UIViewController {
         headerTitleLabel.text = selectedQuickStartCategory?.label ?? ""
         tryNowButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
         doneButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
-        if (selectedQuickStartItem?.title == "Income Goal Calculator" || selectedQuickStartItem?.title == "Invite Wizard") {
+        if (selectedQuickStartItem?.title == "Income Goal Calculator" || selectedQuickStartItem?.title == "Invite Wizard" || selectedQuickStartItem?.title == "Pic2Art" ) {
             tryNowButton.isHidden = false
             if selectedQuickStartItem?.title == "Invite Wizard" {
                 tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+            } else if selectedQuickStartItem?.title == "Pic2Art" {
+                tryNowButton.setTitle("Try Pic2Art", for: .normal)
             } else {
                 tryNowButton.setTitle("Try Calculator Now", for: .normal)
             }
@@ -175,6 +177,11 @@ class QuickStartOptionDetailViewController: UIViewController {
     
     @IBAction func didTapOnTryNow(_ sender: UIButton) {
         if selectedQuickStartCategory?.catId == "create_engaging_content" {
+            if selectedQuickStartItem?.title == "Pic2Art" {
+                Defaults.shared.cameraMode = .pic2Art
+            } else {
+                Defaults.shared.cameraMode = .normal
+            }
             Defaults.shared.isSignupLoginFlow = true
             if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
                 storySettingsVC.isFromCameraParentView = true

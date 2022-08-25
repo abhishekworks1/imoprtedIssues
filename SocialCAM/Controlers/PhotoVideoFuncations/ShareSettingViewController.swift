@@ -305,9 +305,8 @@ class ShareSettingViewController: UIViewController {
         if let channelId = Defaults.shared.currentUser?.channelId {
             let myString = "\(Defaults.shared.currentUser?.referralPage ?? "")"
             let channelCount = myString.count
-            let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
-            myMutableString = NSMutableAttributedString(string: myString, attributes: underlineAttribute)
-            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: R.color.appPrimaryColor() ?? UIColor.systemBlue, range: NSRange(location: 0, length: channelCount))
+//            let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
+            myMutableString = NSMutableAttributedString(string: myString, attributes: [NSAttributedString.Key.foregroundColor : R.color.appPrimaryColor() ?? UIColor.systemBlue])
             lblHyperLink.attributedText = myMutableString
         }
     }
