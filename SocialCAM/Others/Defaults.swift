@@ -1492,6 +1492,15 @@ class Defaults {
         }
     }
     
+    var isChingariSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isChingariSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isChingariSharingEnabled")
+        }
+    }
+    
     
     var quickStartCategories: [QuickStartCategory]? {
         get {

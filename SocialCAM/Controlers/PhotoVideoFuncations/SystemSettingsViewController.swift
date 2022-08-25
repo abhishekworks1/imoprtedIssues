@@ -52,7 +52,7 @@ class SystemSettings {
             
             StorySetting(name: SocialMediaApps.twitter.description, selected: Defaults.shared.isTwitterSharingEnabled, image: R.image.icoTwitter()),
             
-//            StorySetting(name: SocialMediaApps.chingari.description, selected: true, image: R.image.iconChingari()),
+            StorySetting(name: SocialMediaApps.chingari.description, selected: Defaults.shared.isChingariSharingEnabled, image: R.image.iconChingari()),
             
 //            StorySetting(name: SocialMediaApps.takatak.description, selected: true, image: R.image.icoTwitter()),
             ],

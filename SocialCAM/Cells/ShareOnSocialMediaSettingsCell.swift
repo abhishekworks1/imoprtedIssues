@@ -65,20 +65,37 @@ extension ShareOnSocialMediaSettingsCell: UICollectionViewDataSource, UICollecti
         shareSocialMediaCell.btnSocialShareEnable.setImage(R.image.checkBoxActive(), for: .selected)
         
         shareSocialMediaCell.btnSocialShareEnable.isSelected = setting.selected
-        
         shareSocialMediaCell.imgSocialMediaIcon.image = setting.image
+        
+        let locale = Locale.current
+        
+        if setting.name == SocialMediaApps.tikTok.description {
+            if locale.regionCode?.lowercased() == "in" {
+                shareSocialMediaCell.btnSocialShareEnable.isSelected = false
+            }
+        } else if setting.name == SocialMediaApps.chingari.description {
+            if locale.regionCode?.lowercased() != "in" {
+                shareSocialMediaCell.btnSocialShareEnable.isSelected = false
+            }
+        }
         return shareSocialMediaCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let setting = self.objSocialShareitems[indexPath.row]
         
+        let setting = self.objSocialShareitems[indexPath.row]
         setting.selected = !setting.selected
-        collectionView.reloadData()
+        
+        let locale = Locale.current
         
         switch setting.name {
         case SocialMediaApps.tikTok.description:
             Defaults.shared.isTikTokSharingEnabled = setting.selected
+            
+            if locale.regionCode?.lowercased() == "in" {
+                setting.selected = false
+                Defaults.shared.isTikTokSharingEnabled = false
+            }
         case SocialMediaApps.instagram.description:
             Defaults.shared.isInstagramSharingEnabled = setting.selected
         case SocialMediaApps.snapChat.description:
@@ -89,9 +106,17 @@ extension ShareOnSocialMediaSettingsCell: UICollectionViewDataSource, UICollecti
             Defaults.shared.isYoutubeSharingEnabled = setting.selected
         case SocialMediaApps.twitter.description:
             Defaults.shared.isTwitterSharingEnabled = setting.selected
+        case SocialMediaApps.chingari.description:
+            Defaults.shared.isChingariSharingEnabled = setting.selected
+            if locale.regionCode?.lowercased() != "in" {
+                setting.selected = false
+                Defaults.shared.isTikTokSharingEnabled = false
+            }
         default:
             Defaults.shared.isTikTokSharingEnabled = setting.selected
         }
+        
+        collectionView.reloadData()
     }
     
     
