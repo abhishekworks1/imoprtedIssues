@@ -24,7 +24,7 @@ class AppSettingsHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        self.btnExpandCollaps.isUserInteractionEnabled = false
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeader)))
     }
 

@@ -92,6 +92,7 @@ enum SettingsMode: Int, Codable {
     case quickCamCamera
     case mobileDashboard
     case hapticFeedBack
+    case shareOnSocialMedia
 }
 
 class StorySetting: Codable {

@@ -69,6 +69,23 @@ enum SystemSettingType: String {
       }
 }
 
+enum SocialMediaApps: String {
+    case tikTok = "Tiktok"
+    case snapChat = "Snapchat"
+    case messanger = "Messanger"
+    case youtube = "Youtube"
+    case chingari = "Chingari"
+    case instagram = "Instagram"
+    case facebook = "Facebook"
+    case whatsapp = "Whatsapp"
+    case twitter = "Twitter"
+    case takatak = "Takatak"
+    
+    var description: String {
+        return self.rawValue
+    }
+}
+
 enum OnboardingReferral: String {
     case welcomeScreen = "Welcome Screen"
     case QuickMenu = "QuickStart Guide"

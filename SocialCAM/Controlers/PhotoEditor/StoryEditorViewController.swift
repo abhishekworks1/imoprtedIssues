@@ -182,6 +182,11 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var youtubeShareView: UIView!
     @IBOutlet weak var tiktokShareView: UIView!
     @IBOutlet weak var chingariShareView: UIView!
+    @IBOutlet weak var snapChatShareView: UIView!
+    @IBOutlet weak var twitterShareView: UIView!
+    @IBOutlet weak var facebookShareView: UIView!
+    @IBOutlet weak var instagramShareView: UIView!
+    
     
     @IBOutlet weak var discardPopUpMessageLabel: UILabel!
     @IBOutlet weak var btnShowHideEditImage: UIButton!
@@ -436,14 +441,27 @@ class StoryEditorViewController: UIViewController {
         } else {
             lblSaveShare.text = R.string.localizable.saveVideo()
         }
-        let locale = Locale.current
-        if locale.regionCode?.lowercased() == "in" {
-            chingariShareView.isHidden = false
-        } else {
-            chingariShareView.isHidden = true
-        }
+        
+        self.hideShowSoicalShareView()
     }
     
+    func hideShowSoicalShareView() {
+        
+        self.tiktokShareView.isHidden = !Defaults.shared.isTikTokSharingEnabled
+        self.youtubeShareView.isHidden = !Defaults.shared.isYoutubeSharingEnabled
+        self.snapChatShareView.isHidden = !Defaults.shared.isSnapChatSharingEnabled
+        self.twitterShareView.isHidden = !Defaults.shared.isTwitterSharingEnabled
+        self.facebookShareView.isHidden = !Defaults.shared.isFacebookSharingEnabled
+        self.instagramShareView.isHidden = !Defaults.shared.isInstagramSharingEnabled
+        self.chingariShareView.isHidden = !Defaults.shared.isChingariSharingEnabled
+        
+        let locale = Locale.current
+        if locale.regionCode?.lowercased() == "in" {
+            self.tiktokShareView.isHidden = true
+        } else {
+            self.chingariShareView.isHidden = true
+        } 
+    }
     
     func socialMediaViewTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSocialMediaView))
