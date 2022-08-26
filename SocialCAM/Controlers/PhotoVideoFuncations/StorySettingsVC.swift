@@ -1330,12 +1330,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func openBussinessDashboard(){
 //        print("isShowAllPopUpChecked: \(Defaults.shared.isShowAllPopUpChecked)\nisDoNotShowAgainOpenBusinessCenterPopup: \(Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup) ")
-        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
-             businessDashbardConfirmPopupView.isHidden = false
-            btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
-            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
+//        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
+//             businessDashbardConfirmPopupView.isHidden = false
+//            btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
+//            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
           //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
-        }else{
+//        }else{
             if let token = Defaults.shared.sessionToken {
                  let urlString = "\(websiteUrl)/redirect?token=\(token)"
                  guard let url = URL(string: urlString) else {
@@ -1343,9 +1343,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                  }
                  presentSafariBrowser(url: url)
              }
-             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
-             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
-        }
+//             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+//             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+//        }
     }
     func openPotentialIncomeCalculator(){
        /* if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
