@@ -484,14 +484,22 @@ class StoryEditorViewController: UIViewController {
         isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
+        btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         isAppIdentifierWatermarkShow = Defaults.shared.appIdentifierWatermarkSetting == .show
         btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
-        isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
-        btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
-        isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
+        if (Defaults.shared.appIdentifierWatermarkSetting == .show){
+            Defaults.shared.publicDisplaynameWatermarkSetting = .hide
+            isPublicDisplaynameWatermarkShow = false
+            btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
+        } else if (Defaults.shared.publicDisplaynameWatermarkSetting == .show){
+            Defaults.shared.appIdentifierWatermarkSetting = .hide
+            isAppIdentifierWatermarkShow = false
+            btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        }
         if self.isAppIdentifierWatermarkShow {
             self.imgQuickCamWaterMark.isHidden = !self.isAppIdentifierWatermarkShow
             self.userNameLabelWatermark.isHidden = !self.isAppIdentifierWatermarkShow
@@ -505,13 +513,6 @@ class StoryEditorViewController: UIViewController {
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
        
         storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
-        
-        if Defaults.shared.appMode == .free {
-            btnFastesteverWatermark.isSelected = true
-            btnAppIdentifierWatermark.isSelected = true
-            btnSelectAppIdentifierWatermark.isSelected = true
-            btnSelectedMadeWithGif.isSelected = true
-        }
         
         if  cameraMode == .pic2Art {
             self.imgFastestEverWatermark.image = R.image.pic2artwatermark()
