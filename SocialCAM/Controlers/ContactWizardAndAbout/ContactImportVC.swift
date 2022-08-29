@@ -277,6 +277,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var groupedEmailContactArray = [[ContactResponse]()]
     var contactSections = [ContactGroup]()
     var emailContactSection = [ContactGroup]()
+    var contactMessageText = "Please wait while your contacts are loaded."
+    var textContent = "Please wait while your Text Content are loaded."
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -468,9 +470,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             filterOptionView.isHidden = true
         }
     }
-    func showLoader(){
+    func showLoader(message: String){
         self.loadingView = LoadingView.instanceFromNib()
-        self.loadingView?.loadingText = "Please wait while your contacts are loaded."
+        self.loadingView?.loadingText = message
         self.loadingView?.shouldCancelShow = true
         self.loadingView?.loadingViewShow = true
         self.loadingView?.hideAdView(true)
@@ -483,7 +485,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func ContactPermission(){
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
             
         case .authorized,.notDetermined: //access contacts
@@ -683,7 +685,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
                 
             case .authorized: //access contacts
-                self.showLoader()
+                self.showLoader(message: contactMessageText)
                 contactPermitView.isHidden = true
                 self.getContactList(firstTime:true)
                 break
@@ -699,6 +701,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func fetchTitleMessages(){
+        self.showLoader(message: textContent)
         let path = API.shared.baseUrlV2 + Paths.messageTitle
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
@@ -707,6 +710,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
+            self.hideLoader()
             self.smsMsgListing = resposnse.value as? msgTitleList
             if self.isSelectSMS {
                 self.itemsTableView.reloadData()
@@ -718,6 +722,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func fetchEmailMessages(){
+        self.showLoader(message: textContent)
         let path = API.shared.baseUrlV2 + Paths.emailTitle
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
@@ -726,6 +731,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
+            self.hideLoader()
             self.emailMsgListing = resposnse.value as? msgTitleList
             if !self.isSelectSMS {
                 self.itemsTableView.reloadData()
@@ -833,7 +839,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         //}
         //phoneContacts.append(contentsOf: filterdArray)
         
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         DispatchQueue.main.async {
             self.createContactJSON()
            // self.contactTableView.reloadData() // update your tableView having phoneContacts array
@@ -1106,7 +1112,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
         request.setValue("1", forHTTPHeaderField: "deviceType")
         request.httpBody = data
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         AF.request(request).responseJSON { response in
             print(response)
             switch (response.result) {
@@ -1153,7 +1159,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
         request.setValue("1", forHTTPHeaderField: "deviceType")
         request.httpBody = data
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         AF.request(request).responseJSON { response in
             print(response)
             switch (response.result) {
@@ -1190,7 +1196,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
         request.setValue("1", forHTTPHeaderField: "deviceType")
        
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         AF.request(request).responseJSON { response in
             print(response)
             switch (response.result) {
@@ -1370,7 +1376,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
         case .authorized: //access contacts
-            self.showLoader()
+            self.showLoader(message: contactMessageText)
             self.loadContacts(filter: self.filter)
             break
         case .denied, .notDetermined:
@@ -1580,7 +1586,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.emailContactTableView.isHidden = true
         self.contactTableView.isHidden = false
         if mobileContacts.count == 0{
-            self.showLoader()
+            self.showLoader(message: contactMessageText)
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
         isSelectSMS = false
@@ -1613,7 +1619,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
              return
          }
         if emailContacts.count == 0{
-            self.showLoader()
+            self.showLoader(message: contactMessageText)
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
         isSelectSMS = false

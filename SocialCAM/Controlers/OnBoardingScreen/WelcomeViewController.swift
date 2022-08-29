@@ -207,6 +207,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func selectFeatureOnClick(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         switch sender.tag {
         case 0:
             Defaults.shared.isSignupLoginFlow = true
@@ -240,6 +241,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func upgradeNowOnClick(_ sender: Any) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
             subscriptionVC.isFromWelcomeScreen = true
             self.navigationController?.isNavigationBarHidden = true
@@ -259,6 +261,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func makeMoneyOptionClicked(_ sender: Any) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .makeMoney
         UserSync.shared.setOnboardingUserFlags()
@@ -267,6 +270,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func createContentOptionClicked(_ sender: Any) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .createContent
         UserSync.shared.setOnboardingUserFlags()
