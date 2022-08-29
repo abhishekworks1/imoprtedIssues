@@ -142,14 +142,14 @@ class ReferSuccessVC: UIViewController {
         }*/
     }
     @IBAction func backAction(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-//        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-//        if viewControllers.count >= 3 {
-//          self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
-//        } else {
-//            self.navigationController!.popToRootViewController(animated: true)
-//
-//        }
+//        self.navigationController?.popViewController(animated: true)
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        if viewControllers.count >= 3 {
+          self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+        } else {
+            self.navigationController!.popToRootViewController(animated: true)
+
+        }
     }
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
         

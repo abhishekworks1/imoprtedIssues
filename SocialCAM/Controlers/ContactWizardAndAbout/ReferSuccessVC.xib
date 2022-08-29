@@ -116,10 +116,10 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzd-V8-RXy">
                             <rect key="frame" x="0.0" y="214" width="375" height="450"/>
                             <subviews>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iz2-tL-j8j">
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iz2-tL-j8j">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cZw-dr-DB2">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZw-dr-DB2">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Vwa-sI-plc">
@@ -369,6 +369,7 @@
                                         <constraint firstItem="cZw-dr-DB2" firstAttribute="top" secondItem="Iz2-tL-j8j" secondAttribute="top" id="IJa-Uq-pRZ"/>
                                         <constraint firstItem="cZw-dr-DB2" firstAttribute="centerX" secondItem="Iz2-tL-j8j" secondAttribute="centerX" id="gmQ-xR-naV"/>
                                         <constraint firstAttribute="bottom" secondItem="cZw-dr-DB2" secondAttribute="bottom" id="iCA-lG-O2w"/>
+                                        <constraint firstItem="cZw-dr-DB2" firstAttribute="bottom" secondItem="rcH-RN-u8A" secondAttribute="bottom" id="jBc-ly-xJh"/>
                                     </constraints>
                                     <viewLayoutGuide key="contentLayoutGuide" id="eWu-Lo-KZH"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="rcH-RN-u8A"/>
@@ -382,7 +383,7 @@
                                 <constraint firstAttribute="trailing" secondItem="Iz2-tL-j8j" secondAttribute="trailing" id="Y0U-QY-nJz"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xg2-5M-PTH">
+                        <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xg2-5M-PTH">
                             <rect key="frame" x="200" y="674" width="150" height="40"/>
                             <color key="backgroundColor" red="0.0" green="0.57846415039999999" blue="0.99952560660000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -624,7 +625,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ReferMoreBGColor">
             <color red="0.91399997472763062" green="0.89399999380111694" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
