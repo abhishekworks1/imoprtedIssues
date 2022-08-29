@@ -455,12 +455,26 @@ class StoryEditorViewController: UIViewController {
         self.instagramShareView.isHidden = !Defaults.shared.isInstagramSharingEnabled
         self.chingariShareView.isHidden = !Defaults.shared.isChingariSharingEnabled
         
+        var isImage = false
+        switch storyEditors[currentStoryIndex].type {
+        case .image:
+            isImage = true
+        default: break
+        }
+        
+        
         let locale = Locale.current
         if locale.regionCode?.lowercased() == "in" {
             self.tiktokShareView.isHidden = true
         } else {
             self.chingariShareView.isHidden = true
-        } 
+        }
+        
+        if isImage{
+            self.tiktokShareView.isHidden = true
+            self.youtubeShareView.isHidden = true
+            
+        }
     }
     
     func socialMediaViewTapGesture() {
@@ -738,6 +752,7 @@ class StoryEditorViewController: UIViewController {
         
 //        self.youtubeShareView.isHidden = isImage //isImage
 //        self.tiktokShareView.isHidden = isImage
+     
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
     }
