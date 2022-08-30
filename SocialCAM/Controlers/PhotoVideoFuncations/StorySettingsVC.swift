@@ -1356,6 +1356,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else{ */
             if let token = Defaults.shared.sessionToken {
                 let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+                //for follower goal calculator
+            //https://quickcam.app/u/calculator/p-followers
+                print ("\(urlString)")
                 guard let url = URL(string: urlString) else {
                     return
                 }
