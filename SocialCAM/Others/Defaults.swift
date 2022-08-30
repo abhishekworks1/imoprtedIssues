@@ -243,6 +243,7 @@ class Defaults {
     }
     
     var userStorySettings: [StorySettings]? {
+        //not used now
         get {
             if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
                 let decoder = JSONDecoder()

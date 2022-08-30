@@ -80,6 +80,7 @@ enum SettingsMode: Int, Codable {
     case publicDisplaynameWatermark
     case editProfileCard
     case potentialIncomeCalculator
+    case followerGoalCalculator
     case socialMediaConnections
     case hapticNone
     case hapticAll
@@ -103,6 +104,7 @@ enum SettingsEnum : Int, Codable, CaseIterable {
     case qrcode
     case cameraSettings
     case potentialIncomeCalculator
+    case followerGoalCalculator
     case editProfileCard
 //    case help
     case accountSettings
@@ -224,6 +226,8 @@ class StorySettings: Codable {
                                  StorySettings(name: "",
                                                settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),
                                  StorySettings(name: "",
+                                               settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .followerGoalCalculator, type: .followerGoalCalculator),
+                              StorySettings(name: "",
                                                settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
                                /*StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),*/
@@ -888,6 +892,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             cell.newBadgesImageView.image = R.image.editProfileBadge()
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
             hideUnhideImgButton(cell, R.image.potentialIncomeCalculator())
+        }else if settingTitle.settingsType == .followerGoalCalculator {
+            hideUnhideImgButton(cell, R.image.followerGoalCalculator())
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
@@ -1167,11 +1173,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 contactWizardController.isFromContactManager = true
                 navigationController?.pushViewController(contactWizardController, animated: true)
             }
-        }
-        else if settingTitle.settingsType == .potentialIncomeCalculator {
+        } else if settingTitle.settingsType == .potentialIncomeCalculator {
             openPotentialIncomeCalculator()
+        } else if settingTitle.settingsType == .followerGoalCalculator {
+            openFollowerGoalCalculator()
         } else if settingTitle.settingsType == .quickstartGuide{
-           
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
                     vc.showPopUpView = false
@@ -1348,23 +1354,29 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
 //        }
     }
     func openPotentialIncomeCalculator(){
-       /* if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
-            incomeGoalConfirmPopupView.isHidden = false
-            btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
-            self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
-            //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
-        }else{ */
-            if let token = Defaults.shared.sessionToken {
-                let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-                //for follower goal calculator
-            //https://quickcam.app/u/calculator/p-followers
-                print ("\(urlString)")
-                guard let url = URL(string: urlString) else {
-                    return
-                }
-                presentSafariBrowser(url: url)
+        /* if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
+         incomeGoalConfirmPopupView.isHidden = false
+         btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
+         self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
+         //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+         }else{ */
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+            guard let url = URL(string: urlString) else {
+                return
             }
-//        }
+            presentSafariBrowser(url: url)
+        }
+        //        }
+    }
+    func openFollowerGoalCalculator(){
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/u/calculator/p-followers?token=\(token)&redirect_uri=\(redirectUri)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
     }
     func viralCamLogout() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
@@ -1774,6 +1786,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             cell.newBadgesImageView.image = R.image.editProfileBadge()
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
             cell.socialImageView?.image = R.image.potentialIncomeCalculator()
+        }else if settingTitle.settingsType == .followerGoalCalculator {
+            cell.socialImageView?.image = R.image.followerGoalCalculator()
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
@@ -1865,6 +1879,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             }
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
             openPotentialIncomeCalculator()
+        }else if settingTitle.settingsType == .followerGoalCalculator {
+            openFollowerGoalCalculator()
         }else if settingTitle.settingsType == .quickstartGuide{
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
