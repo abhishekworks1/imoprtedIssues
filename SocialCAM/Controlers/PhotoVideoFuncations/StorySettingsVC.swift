@@ -200,54 +200,54 @@ class StorySettings: Codable {
         }
     
     static var storySettings = /*[StorySettings(name: R.string.localizable.subscriptions(),
-                                              settings: [StorySetting(name: R.string.localizable.free(),
-                                                                      selected: true),
-                                                         StorySetting(name: R.string.localizable.basic(),
-                                                                      selected: false),
-                                                         StorySetting(name: R.string.localizable.advanced(),
-                                                                      selected: true),
-                                                         StorySetting(name: R.string.localizable.professional(),
-                                                                      selected: true)], settingsType: .subscriptions), */
+                                settings: [StorySetting(name: R.string.localizable.free(),
+                                selected: true),
+                                StorySetting(name: R.string.localizable.basic(),
+                                selected: false),
+                                StorySetting(name: R.string.localizable.advanced(),
+                                selected: true),
+                                StorySetting(name: R.string.localizable.professional(),
+                                selected: true)], settingsType: .subscriptions), */
     
-                                [StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide, type: .quickstartGuide),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard, type: .userDashboard),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription, type: .subscription),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification, type: .notification),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting, type: .shareSetting),
-                                 StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode, type: .qrcode),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings, type: .cameraSettings),
-                                 StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),
-                                 StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .followerGoalCalculator, type: .followerGoalCalculator),
-                              StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
-                               /*StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),*/
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings, type: .accountSettings),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.appSettings(), selected: false)], settingsType: .system, type: .system),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate, type: .checkUpdate),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage, type: .aboutPage),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout, type: .logout)]
-  /* StorySettings(name: "",
-                  settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager), */
-   /* StorySettings(name: "",
-                  settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel), */
+    [StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide, type: .quickstartGuide),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard, type: .userDashboard),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription, type: .subscription),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification, type: .notification),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting, type: .shareSetting),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode, type: .qrcode),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings, type: .cameraSettings),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.followerGoalCalculator(), selected: false)], settingsType: .followerGoalCalculator, type: .followerGoalCalculator),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
+     /*StorySettings(name: "",
+      settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),*/
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings, type: .accountSettings),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.appSettings(), selected: false)], settingsType: .system, type: .system),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate, type: .checkUpdate),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage, type: .aboutPage),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout, type: .logout)]
+    /* StorySettings(name: "",
+     settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager), */
+    /* StorySettings(name: "",
+     settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel), */
     
     /*StorySettings(name: "",
-                  settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections) */
+     settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections) */
 }
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
