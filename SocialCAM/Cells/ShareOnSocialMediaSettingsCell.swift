@@ -102,6 +102,8 @@ extension ShareOnSocialMediaSettingsCell: UICollectionViewDataSource, UICollecti
             Defaults.shared.isSnapChatSharingEnabled = setting.selected
         case SocialMediaApps.facebook.description:
             Defaults.shared.isFacebookSharingEnabled = setting.selected
+        case SocialMediaApps.messanger.description:
+            Defaults.shared.isFBMessangerSharingEnabled = setting.selected
         case SocialMediaApps.youtube.description:
             Defaults.shared.isYoutubeSharingEnabled = setting.selected
         case SocialMediaApps.twitter.description:
@@ -113,7 +115,7 @@ extension ShareOnSocialMediaSettingsCell: UICollectionViewDataSource, UICollecti
                 Defaults.shared.isTikTokSharingEnabled = false
             }
         default:
-            Defaults.shared.isTikTokSharingEnabled = setting.selected
+            Defaults.shared.isFacebookSharingEnabled = setting.selected
         }
         
         collectionView.reloadData()

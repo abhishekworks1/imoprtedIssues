@@ -1500,6 +1500,15 @@ class Defaults {
         }
     }
     
+    var isFBMessangerSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isFBMessangerSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFBMessangerSharingEnabled")
+        }
+    }
+    
     var isYoutubeSharingEnabled: Bool {
         get {
             return (appDefaults?.value(forKey: "isYoutubeSharingEnabled") as? Bool) ?? true
