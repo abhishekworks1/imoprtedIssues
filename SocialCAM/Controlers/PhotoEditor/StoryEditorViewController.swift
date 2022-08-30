@@ -186,6 +186,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var twitterShareView: UIView!
     @IBOutlet weak var facebookShareView: UIView!
     @IBOutlet weak var instagramShareView: UIView!
+    @IBOutlet weak var messangerShareView: UIView!
     
     
     @IBOutlet weak var discardPopUpMessageLabel: UILabel!
@@ -452,6 +453,7 @@ class StoryEditorViewController: UIViewController {
         self.snapChatShareView.isHidden = !Defaults.shared.isSnapChatSharingEnabled
         self.twitterShareView.isHidden = !Defaults.shared.isTwitterSharingEnabled
         self.facebookShareView.isHidden = !Defaults.shared.isFacebookSharingEnabled
+        self.messangerShareView.isHidden = !Defaults.shared.isFBMessangerSharingEnabled
         self.instagramShareView.isHidden = !Defaults.shared.isInstagramSharingEnabled
         self.chingariShareView.isHidden = !Defaults.shared.isChingariSharingEnabled
         
