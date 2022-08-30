@@ -44,9 +44,11 @@ class SystemSettings {
             
             StorySetting(name: SocialMediaApps.instagram.description, selected: Defaults.shared.isInstagramSharingEnabled, image: R.image.instagram()),
             
-            StorySetting(name: SocialMediaApps.snapChat.description, selected: Defaults.shared.isSnapChatSharingEnabled, image: R.image.icoSnapchat()),
-            
             StorySetting(name: SocialMediaApps.facebook.description, selected: Defaults.shared.isFacebookSharingEnabled, image: R.image.icoFacebook()),
+            
+            StorySetting(name: SocialMediaApps.messanger.description, selected: Defaults.shared.isFBMessangerSharingEnabled, image: R.image.iconMessanger()),
+            
+            StorySetting(name: SocialMediaApps.snapChat.description, selected: Defaults.shared.isSnapChatSharingEnabled, image: R.image.icoSnapchat()),
             
             StorySetting(name: SocialMediaApps.youtube.description, selected: Defaults.shared.isYoutubeSharingEnabled, image: R.image.icoYoutube()),
             
@@ -290,13 +292,13 @@ extension SystemSettingsViewController {
         var numberOfUsers = 1
         var cameraAppSubscription = 1
         var businessDashboardSubscription = 1
-        if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NotificationSettingCell, let numberOfUserText = cell.txtNumberOfSignup.text, let cameraAppText = cell.txtCameraAppSubscription.text, let busineeDsahBoardText = cell.txtBusinessDashboard.text {
+        if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 3)) as? NotificationSettingCell, let numberOfUserText = cell.txtNumberOfSignup.text, let cameraAppText = cell.txtCameraAppSubscription.text, let busineeDsahBoardText = cell.txtBusinessDashboard.text {
             numberOfUsers = Int(numberOfUserText) ?? 1
             cameraAppSubscription = Int(cameraAppText) ?? 1
             businessDashboardSubscription = Int(busineeDsahBoardText) ?? 1
         }
         let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
-        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? 0 : numberOfUsers, betweenCameraAppSubscription: cameraAppSubscription, betweenBusinessDashboardSubscription: businessDashboardSubscription, isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? numberOfUsers : numberOfUsers, betweenCameraAppSubscription: cameraAppSubscription, betweenBusinessDashboardSubscription: businessDashboardSubscription, isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }
