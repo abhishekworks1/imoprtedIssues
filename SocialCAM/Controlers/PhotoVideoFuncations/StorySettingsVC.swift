@@ -80,6 +80,7 @@ enum SettingsMode: Int, Codable {
     case publicDisplaynameWatermark
     case editProfileCard
     case potentialIncomeCalculator
+    case followerGoalCalculator
     case socialMediaConnections
     case hapticNone
     case hapticAll
@@ -103,6 +104,7 @@ enum SettingsEnum : Int, Codable, CaseIterable {
     case qrcode
     case cameraSettings
     case potentialIncomeCalculator
+    case followerGoalCalculator
     case editProfileCard
 //    case help
     case accountSettings
@@ -198,52 +200,54 @@ class StorySettings: Codable {
         }
     
     static var storySettings = /*[StorySettings(name: R.string.localizable.subscriptions(),
-                                              settings: [StorySetting(name: R.string.localizable.free(),
-                                                                      selected: true),
-                                                         StorySetting(name: R.string.localizable.basic(),
-                                                                      selected: false),
-                                                         StorySetting(name: R.string.localizable.advanced(),
-                                                                      selected: true),
-                                                         StorySetting(name: R.string.localizable.professional(),
-                                                                      selected: true)], settingsType: .subscriptions), */
+                                settings: [StorySetting(name: R.string.localizable.free(),
+                                selected: true),
+                                StorySetting(name: R.string.localizable.basic(),
+                                selected: false),
+                                StorySetting(name: R.string.localizable.advanced(),
+                                selected: true),
+                                StorySetting(name: R.string.localizable.professional(),
+                                selected: true)], settingsType: .subscriptions), */
     
-                                [StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide, type: .quickstartGuide),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard, type: .userDashboard),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription, type: .subscription),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification, type: .notification),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting, type: .shareSetting),
-                                 StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode, type: .qrcode),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings, type: .cameraSettings),
-                                 StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),
-                                 StorySettings(name: "",
-                                               settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
-                               /*StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),*/
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings, type: .accountSettings),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.appSettings(), selected: false)], settingsType: .system, type: .system),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate, type: .checkUpdate),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage, type: .aboutPage),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout, type: .logout)]
-  /* StorySettings(name: "",
-                  settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager), */
-   /* StorySettings(name: "",
-                  settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel), */
+    [StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide, type: .quickstartGuide),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard, type: .userDashboard),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription, type: .subscription),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification, type: .notification),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting, type: .shareSetting),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode, type: .qrcode),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings, type: .cameraSettings),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.followerGoalCalculator(), selected: false)], settingsType: .followerGoalCalculator, type: .followerGoalCalculator),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
+     /*StorySettings(name: "",
+      settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),*/
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings, type: .accountSettings),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.appSettings(), selected: false)], settingsType: .system, type: .system),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate, type: .checkUpdate),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage, type: .aboutPage),
+     StorySettings(name: "",
+                   settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout, type: .logout)]
+    /* StorySettings(name: "",
+     settings: [StorySetting(name: R.string.localizable.contactManager(), selected: false)], settingsType: .contactManager), */
+    /* StorySettings(name: "",
+     settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel), */
     
     /*StorySettings(name: "",
-                  settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections) */
+     settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections) */
 }
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
@@ -888,6 +892,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             cell.newBadgesImageView.image = R.image.editProfileBadge()
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
             hideUnhideImgButton(cell, R.image.potentialIncomeCalculator())
+        }else if settingTitle.settingsType == .followerGoalCalculator {
+            hideUnhideImgButton(cell, R.image.followerGoalCalculator())
         }else if settingTitle.settingsType == .socialMediaConnections {
             hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
@@ -1167,11 +1173,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 contactWizardController.isFromContactManager = true
                 navigationController?.pushViewController(contactWizardController, animated: true)
             }
-        }
-        else if settingTitle.settingsType == .potentialIncomeCalculator {
+        } else if settingTitle.settingsType == .potentialIncomeCalculator {
             openPotentialIncomeCalculator()
+        } else if settingTitle.settingsType == .followerGoalCalculator {
+            openFollowerGoalCalculator()
         } else if settingTitle.settingsType == .quickstartGuide{
-           
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{
                     vc.showPopUpView = false
@@ -1348,20 +1354,29 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
 //        }
     }
     func openPotentialIncomeCalculator(){
-       /* if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
-            incomeGoalConfirmPopupView.isHidden = false
-            btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
-            self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
-            //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
-        }else{ */
-            if let token = Defaults.shared.sessionToken {
-                let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-                guard let url = URL(string: urlString) else {
-                    return
-                }
-                presentSafariBrowser(url: url)
+        /* if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
+         incomeGoalConfirmPopupView.isHidden = false
+         btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
+         self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
+         //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+         }else{ */
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+            guard let url = URL(string: urlString) else {
+                return
             }
-//        }
+            presentSafariBrowser(url: url)
+        }
+        //        }
+    }
+    func openFollowerGoalCalculator(){
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/u/calculator/p-followers?token=\(token)&redirect_uri=\(redirectUri)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
     }
     func viralCamLogout() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
@@ -1771,6 +1786,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             cell.newBadgesImageView.image = R.image.editProfileBadge()
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
             cell.socialImageView?.image = R.image.potentialIncomeCalculator()
+        }else if settingTitle.settingsType == .followerGoalCalculator {
+            cell.socialImageView?.image = R.image.followerGoalCalculator()
         }else if settingTitle.settingsType == .socialMediaConnections {
             cell.socialImageView?.image = R.image.settings_Account()
         }else if settingTitle.settingsType == .shareSetting {
@@ -1862,6 +1879,8 @@ extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate,
             }
         }else if settingTitle.settingsType == .potentialIncomeCalculator {
             openPotentialIncomeCalculator()
+        }else if settingTitle.settingsType == .followerGoalCalculator {
+            openFollowerGoalCalculator()
         }else if settingTitle.settingsType == .quickstartGuide{
             if let onBoardView = R.storyboard.onBoardingView.onBoardingViewController() {
                 if let vc = onBoardView.viewControllers.first as? OnBoardingViewController{

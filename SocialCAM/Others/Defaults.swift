@@ -243,6 +243,7 @@ class Defaults {
     }
     
     var userStorySettings: [StorySettings]? {
+        //not used now
         get {
             if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
                 let decoder = JSONDecoder()
@@ -1496,6 +1497,15 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: "isFacebookSharingEnabled")
+        }
+    }
+    
+    var isFBMessangerSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isFBMessangerSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFBMessangerSharingEnabled")
         }
     }
     
