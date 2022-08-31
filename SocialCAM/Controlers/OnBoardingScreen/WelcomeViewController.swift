@@ -9,8 +9,30 @@
 import UIKit
 import SafariServices
 
+extension UIView {
+  func enableZoom() {
+    let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(startZooming(_:)))
+    isUserInteractionEnabled = true
+    addGestureRecognizer(pinchGesture)
+  }
+
+  @objc
+  private func startZooming(_ sender: UIPinchGestureRecognizer) {
+    let scaleResult = sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale)
+    guard let scale = scaleResult, scale.a > 1, scale.d > 1 else { return }
+    sender.view?.transform = scale
+    sender.scale = 1
+  }
+}
 class WelcomeViewController: UIViewController {
 
+    
+    
+    @IBOutlet weak var quickcamCameraView: UIView!
+    
+   
+    
+    @IBOutlet weak var topmainView: UIView!
     @IBOutlet weak var timerLeftLabel: UILabel!
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
@@ -131,6 +153,11 @@ class WelcomeViewController: UIViewController {
         selectFeatureChanged(selectFeatureDetailSwitch)
         self.activityIndicator.hidesWhenStopped = true
 //        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+        
+       
+        whatDoYouWantSeeView.enableZoom()
+      //  quickcamCameraView.enableZoom()
+        topmainView.enableZoom()
     }
     
     private func setupUI() {
