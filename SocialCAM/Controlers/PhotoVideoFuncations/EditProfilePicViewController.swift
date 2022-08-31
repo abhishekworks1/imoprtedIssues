@@ -338,6 +338,10 @@ class EditProfilePicViewController: UIViewController {
     
     @IBAction func btnSetDisplayYesTapped(_ sender: UIButton) {
         if isForEditName {
+            if self.txtDisplayName.text!.isEmpty {
+                Utils.customaizeToastMessage(title: "Please enter public display name", toastView: (Utils.appDelegate?.window)!)
+                return
+            }
             self.setDisplayNamePopupView.isHidden = true
             self.showHUD()
             self.editDisplayName()
