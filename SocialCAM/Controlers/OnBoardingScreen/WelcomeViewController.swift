@@ -71,7 +71,7 @@ class WelcomeViewController: UIViewController {
     }
     @IBOutlet weak var lblAppInfo: UILabel! {
         didSet {
-            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(40.\(Constant.Application.appBuildNumber))"
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(41.\(Constant.Application.appBuildNumber))"
         }
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
