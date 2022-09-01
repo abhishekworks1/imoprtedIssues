@@ -50,7 +50,7 @@ class SystemSettings {
             
             StorySetting(name: SocialMediaApps.snapChat.description, selected: Defaults.shared.isSnapChatSharingEnabled, image: R.image.icoSnapchat()),
             
-            StorySetting(name: SocialMediaApps.youtube.description, selected: Defaults.shared.isYoutubeSharingEnabled, image: R.image.icoYoutube()),
+//            StorySetting(name: SocialMediaApps.youtube.description, selected: Defaults.shared.isYoutubeSharingEnabled, image: R.image.icoYoutube()),
             
             StorySetting(name: SocialMediaApps.twitter.description, selected: Defaults.shared.isTwitterSharingEnabled, image: R.image.icoTwitter()),
             
