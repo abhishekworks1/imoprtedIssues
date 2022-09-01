@@ -9,8 +9,30 @@
 import UIKit
 import SafariServices
 
+extension UIView {
+  func enableZoom() {
+    let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(startZooming(_:)))
+    isUserInteractionEnabled = true
+    addGestureRecognizer(pinchGesture)
+  }
+
+  @objc
+  private func startZooming(_ sender: UIPinchGestureRecognizer) {
+    let scaleResult = sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale)
+    guard let scale = scaleResult, scale.a > 1, scale.d > 1 else { return }
+    sender.view?.transform = scale
+    sender.scale = 1
+  }
+}
 class WelcomeViewController: UIViewController {
 
+    
+    
+    @IBOutlet weak var quickcamCameraView: UIView!
+    
+   
+    
+    @IBOutlet weak var topmainView: UIView!
     @IBOutlet weak var timerLeftLabel: UILabel!
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
@@ -87,7 +109,9 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var preLaunchBadgeImageView: UIImageView!
     @IBOutlet weak var foundingMemberBadgeImageView: UIImageView!
     @IBOutlet weak var socialBadgeImageView: UIImageView!
-    @IBOutlet weak var dayBadgeImageView: UIImageView!
+    @IBOutlet weak var dayBadgeIosImageView: UIImageView!
+    @IBOutlet weak var dayBadgeAndroidImageView: UIImageView!
+    @IBOutlet weak var dayBadgeWebImageView: UIImageView!
 
     @IBOutlet weak var iosBadgeView: UIView!
     @IBOutlet weak var iosShieldImageview: UIImageView!
@@ -131,6 +155,11 @@ class WelcomeViewController: UIViewController {
         selectFeatureChanged(selectFeatureDetailSwitch)
         self.activityIndicator.hidesWhenStopped = true
 //        self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
+        
+       
+        whatDoYouWantSeeView.enableZoom()
+      //  quickcamCameraView.enableZoom()
+        topmainView.enableZoom()
     }
     
     private func setupUI() {
@@ -964,7 +993,7 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     
     func setUpSubscriptionBadges() {
-        dayBadgeImageView.isHidden = true
+//        dayBadgeImageView.isHidden = true
         preLaunchBadgeImageView.isHidden = true
         socialBadgeImageView.isHidden = true
         foundingMemberBadgeImageView.isHidden = true
@@ -998,7 +1027,6 @@ extension WelcomeViewController {
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
-                    var hideDayBadge = false
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         iosBadgeView.isHidden = false
                         iosRemainingDaysLabel.text = finalDay
@@ -1015,7 +1043,6 @@ extension WelcomeViewController {
                             iosRemainingDaysLabel.text = ""
                             iosShieldImageview.image = R.image.badgeIphoneFree()
 //                        }
-                        hideDayBadge = true
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -1033,8 +1060,14 @@ extension WelcomeViewController {
                         iosRemainingDaysLabel.text = finalDay
                         iosShieldImageview.image = R.image.badgeIphonePre()
                     }
-                    dayBadgeImageView.isHidden = hideDayBadge
-                    dayBadgeImageView.image = UIImage(named: "day_badge_\(finalDay)")
+                    
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        dayBadgeIosImageView.isHidden = true
+                    }
+                    else if finalDay.count > 0 {
+                        dayBadgeIosImageView.isHidden = false
+                        dayBadgeIosImageView.image = UIImage(named: "day_badge_\(finalDay)")
+                    }
                 }
                 // Setup For Android Badge
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
@@ -1068,6 +1101,13 @@ extension WelcomeViewController {
                         androidBadgeView.isHidden = false
                         androidRemainingDaysLabel.text = finalDay
                         androidShieldImageview.image = R.image.badgeAndroidPre()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        dayBadgeAndroidImageView.isHidden = true
+                    }
+                    else if finalDay.count > 0 {
+                        dayBadgeAndroidImageView.isHidden = false
+                        dayBadgeAndroidImageView.image = UIImage(named: "day_badge_android_\(finalDay)")
                     }
                 }
                 
@@ -1103,6 +1143,13 @@ extension WelcomeViewController {
                         webBadgeView.isHidden = false
                         webRemainingDaysLabel.text = finalDay
                         webShieldImageview.image = R.image.badgeWebPre()
+                    }
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        dayBadgeWebImageView.isHidden = true
+                    }
+                    else if finalDay.count > 0 {
+                        dayBadgeWebImageView.isHidden = false
+                        dayBadgeWebImageView.image = UIImage(named: "day_badge_Web_\(finalDay)")
                     }
                 }
             }

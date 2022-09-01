@@ -1511,7 +1511,8 @@ class Defaults {
     
     var isYoutubeSharingEnabled: Bool {
         get {
-            return (appDefaults?.value(forKey: "isYoutubeSharingEnabled") as? Bool) ?? true
+            return false
+            //return (appDefaults?.value(forKey: "isYoutubeSharingEnabled") as? Bool) ?? true
         }
         set {
             appDefaults?.set(newValue, forKey: "isYoutubeSharingEnabled")
