@@ -1139,6 +1139,13 @@ extension EditProfilePicViewController {
                 }
             }
         case .snapchat:
+            
+            if ((Defaults.shared.snapchatProfileURL?.isEmpty) != nil) {
+                SnapKitManager.shared.logout { _ in
+                    
+                }
+            }
+            
             if !SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
                     if !isLogin {
