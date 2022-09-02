@@ -471,7 +471,8 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.chingariShareView.isHidden = true
         }
-        
+        //Hide youtube Temporary
+        self.youtubeShareView.isHidden = true
         if isImage{
             self.tiktokShareView.isHidden = true
             self.youtubeShareView.isHidden = true

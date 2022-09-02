@@ -171,7 +171,7 @@ class EditProfilePicViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.addLeftViewToTxtField(textField: self.txtDisplayName)
+     //   self.addLeftViewToTxtField(textField: self.txtDisplayName)
         self.addLeftViewToTxtField(textField: self.txtChannelName)
   }
     

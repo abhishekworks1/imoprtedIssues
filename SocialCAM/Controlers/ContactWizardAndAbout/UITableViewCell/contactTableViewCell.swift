@@ -19,6 +19,7 @@ class contactTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDisplayName: UILabel!
     @IBOutlet weak var lblNumberEmail: UILabel!
     @IBOutlet weak var contactImage: UIImageView!
+    @IBOutlet weak var contactImageLabel: UILabel!
     @IBOutlet weak var inviteBtn: UIButton!
 
     @IBOutlet weak var contactStatusView: UIView!
