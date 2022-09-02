@@ -3072,8 +3072,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7J-Bn-hgW">
-                                <rect key="frame" x="0.0" y="0.0" width="395" height="52"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="1rj-d4-JOB"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skL-Ej-vVx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
@@ -3459,17 +3462,15 @@
                             <constraint firstItem="7aa-4B-LfV" firstAttribute="top" secondItem="skL-Ej-vVx" secondAttribute="bottom" id="0Zo-nA-fua"/>
                             <constraint firstItem="ujO-bf-mS3" firstAttribute="top" secondItem="7aa-4B-LfV" secondAttribute="bottom" id="7ZC-hD-P1Z"/>
                             <constraint firstItem="g3g-LJ-zht" firstAttribute="trailing" secondItem="7aa-4B-LfV" secondAttribute="trailing" id="8Lo-yx-gaz"/>
-                            <constraint firstAttribute="trailing" secondItem="U7J-Bn-hgW" secondAttribute="trailing" constant="-20" id="AAe-7N-xQp"/>
-                            <constraint firstItem="U7J-Bn-hgW" firstAttribute="bottom" secondItem="skL-Ej-vVx" secondAttribute="bottom" id="GkQ-IZ-Kux"/>
-                            <constraint firstItem="U7J-Bn-hgW" firstAttribute="top" secondItem="tQ0-h2-bUU" secondAttribute="top" id="IUq-pg-dCX"/>
-                            <constraint firstItem="g3g-LJ-zht" firstAttribute="top" secondItem="skL-Ej-vVx" secondAttribute="top" id="Ks6-SY-vf3"/>
+                            <constraint firstItem="skL-Ej-vVx" firstAttribute="top" secondItem="g3g-LJ-zht" secondAttribute="top" id="M6C-dF-UMv"/>
                             <constraint firstItem="g3g-LJ-zht" firstAttribute="bottom" secondItem="ujO-bf-mS3" secondAttribute="bottom" id="PLY-ke-xBU"/>
-                            <constraint firstItem="U7J-Bn-hgW" firstAttribute="leading" secondItem="g3g-LJ-zht" secondAttribute="leading" id="Pv9-Rw-zMY"/>
+                            <constraint firstItem="U7J-Bn-hgW" firstAttribute="top" secondItem="g3g-LJ-zht" secondAttribute="top" id="Yzz-Rt-qgN"/>
                             <constraint firstItem="g3g-LJ-zht" firstAttribute="trailing" secondItem="skL-Ej-vVx" secondAttribute="trailing" id="e0P-q1-9O8"/>
                             <constraint firstItem="ujO-bf-mS3" firstAttribute="leading" secondItem="g3g-LJ-zht" secondAttribute="leading" id="eZs-jF-yvd"/>
+                            <constraint firstAttribute="trailing" secondItem="U7J-Bn-hgW" secondAttribute="trailing" id="gqs-Es-hWb"/>
                             <constraint firstItem="7aa-4B-LfV" firstAttribute="leading" secondItem="g3g-LJ-zht" secondAttribute="leading" id="iTd-1e-Sqd"/>
                             <constraint firstItem="g3g-LJ-zht" firstAttribute="trailing" secondItem="ujO-bf-mS3" secondAttribute="trailing" id="jaG-cc-gvM"/>
-                            <constraint firstAttribute="top" secondItem="skL-Ej-vVx" secondAttribute="top" constant="-44" id="pCp-VB-pv7"/>
+                            <constraint firstItem="U7J-Bn-hgW" firstAttribute="leading" secondItem="g3g-LJ-zht" secondAttribute="leading" id="x5M-e8-sCg"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3497,7 +3498,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DwK-dE-sHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-413.04347826086962" y="-808.25892857142856"/>
+            <point key="canvasLocation" x="-413.60000000000002" y="-809.14542728635683"/>
         </scene>
         <!--Edit Profile Crop View Controller-->
         <scene sceneID="2oL-Xc-PyG">
@@ -3662,7 +3663,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
