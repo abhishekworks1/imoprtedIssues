@@ -94,7 +94,7 @@ class QRCodeViewController: UIViewController {
 
         view.addGestureRecognizer(leftSwipe)
         view.addGestureRecognizer(rightSwipe)
-        navView.addGradient()
+        navView.setHorizontalGradientColor()
        // imageQrCode.addGradient()
         self.quickStartClicked(self.quickStartButton)
         refferelType = .quickStart
@@ -340,13 +340,31 @@ extension UIView {
         // This way we won't cover any other elements
         self.layer.insertSublayer(gradient, at: 0)
     }
-    func addGradient(){
-       
-        let gradient = CAGradientLayer()
-         let color3 = UIColor(hexString:"4285F4")
-         let color1 = UIColor(hexString:"4F2AD8")
+    
+    
+    
+    func setHorizontalGradientColor() {
+        let gradientLayer = CAGradientLayer()
+        let color3 = UIColor(hexString:"4285F4")
+        let color1 = UIColor(hexString:"4F2AD8")
         let color2 = UIColor(hexString:"4A2EDA")
-         gradient.frame = self.bounds
+        var updatedFrame = self.bounds
+        updatedFrame.size.width += 40
+        gradientLayer.frame = updatedFrame
+        gradientLayer.colors = [color1.cgColor,color2.cgColor,color3.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    
+    func addGradient(){
+        
+        let gradient = CAGradientLayer()
+        let color3 = UIColor(hexString:"4285F4")
+        let color1 = UIColor(hexString:"4F2AD8")
+        let color2 = UIColor(hexString:"4A2EDA")
+        gradient.frame = self.bounds
         gradient.colors = [color1.cgColor,color2.cgColor,color3.cgColor]
         
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5) // vertical gradient start
