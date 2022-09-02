@@ -124,7 +124,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         txtPassword.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
         txtPassword.iconText = String.fontAwesomeIcon(name: .lock)
         setColorTextField(views: [txtEmail, txtPassword])
-        lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(40.\(Constant.Application.appBuildNumber))"
+        lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(41.\(Constant.Application.appBuildNumber))"
         
         let attributedString = NSMutableAttributedString(string: R.string.localizable.donTHaveAnAccountSignUp(), attributes: [
           .font: UIFont.systemFont(ofSize: 14.0, weight: .medium),

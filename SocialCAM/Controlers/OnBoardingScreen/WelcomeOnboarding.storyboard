@@ -1843,6 +1843,12 @@
                                                                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Wz-Spg">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="sW7-Pd-oc0">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
+                                                                                                    </imageView>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="hLf-Yj-o7a">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
+                                                                                                    </imageView>
                                                                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="puA-bI-GMT">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
@@ -3072,7 +3078,9 @@
                         <outlet property="btnProfilePic" destination="N4Q-LS-zAX" id="EiI-tb-Agd"/>
                         <outlet property="channelNameLabel" destination="Bs4-jh-AQ8" id="uEY-LD-wsP"/>
                         <outlet property="containerView" destination="M1S-aX-9Oo" id="pfT-7o-sqH"/>
-                        <outlet property="dayBadgeImageView" destination="tmo-Wz-Spg" id="2QD-gA-tLo"/>
+                        <outlet property="dayBadgeAndroidImageView" destination="sW7-Pd-oc0" id="WUO-UZ-sxi"/>
+                        <outlet property="dayBadgeIosImageView" destination="tmo-Wz-Spg" id="Und-zD-gCc"/>
+                        <outlet property="dayBadgeWebImageView" destination="hLf-Yj-o7a" id="wye-4Y-dU4"/>
                         <outlet property="dayLabel" destination="4l8-0C-kWO" id="jdC-NX-v2g"/>
                         <outlet property="dayLineView" destination="euZ-7L-KZv" id="VVG-8n-RxW"/>
                         <outlet property="dayValueLabel" destination="CN5-2c-BdJ" id="GPI-2G-KWo"/>
@@ -3148,6 +3156,8 @@
         <image name="closeRef" width="512" height="512"/>
         <image name="contentCreate" width="39" height="26"/>
         <image name="day_badge_1" width="107" height="150"/>
+        <image name="day_badge_Web_1" width="107" height="150"/>
+        <image name="day_badge_android_1" width="107" height="150"/>
         <image name="editProfilePlusIcon" width="44" height="44"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="freeAppleIcon" width="28.5" height="23.5"/>
@@ -3168,7 +3178,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -38,6 +38,9 @@ class HelpSettingsViewController: UIViewController {
     // MARK: - View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        var frame = CGRect.zero
+        frame.size.height = .leastNormalMagnitude
+        helpSettingsTableView.tableHeaderView = UIView(frame: frame)
     }
     
     deinit {
@@ -96,11 +99,11 @@ extension HelpSettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1.0
+        return 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -3090,8 +3090,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     mail.setSubject(self.txtDetailForEmail)
                     mail.setMessageBody(urlwithString, isHTML: false)
                     
-                    /* let imageData = imageV.jpegData(compressionQuality: 1.0)
-                     mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg") */
+                    let imageData = imgProfilePic.image?.jpegData(compressionQuality: 1.0)
+                     mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg")
                     present(mail, animated: true)
                     
                     // Show third party email composer if default Mail app is not present
