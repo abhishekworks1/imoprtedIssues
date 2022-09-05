@@ -626,7 +626,7 @@ extension WelcomeViewController {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
-                    } else if subscriptionType == "expired" {
+                    } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
@@ -842,7 +842,7 @@ extension WelcomeViewController {
             timerLeftLabel.text = "Time left in premium free trial"
         } else if subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue {
             timerLeftLabel.text = "Time since signed up"
-        } else if  subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue {
+        } else if  subscriptionStatus == SubscriptionTypeForBadge.EXPIRE.rawValue {
             timerLeftLabel.text = "Time since your subscription expired"
         } else {
             timerLeftLabel.isHidden = true
@@ -961,7 +961,7 @@ extension WelcomeViewController {
             subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
             badgeImageView.isHidden = true
-        } else if subscriptionType == "expired" {
+        } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
             subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
             badgeImageView.isHidden = true
@@ -1077,7 +1077,7 @@ extension WelcomeViewController {
                         iosShieldImageview.image = R.image.badgeIphonePre()
                     }
                     
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeIosImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
@@ -1118,7 +1118,7 @@ extension WelcomeViewController {
                         androidRemainingDaysLabel.text = finalDay
                         androidShieldImageview.image = R.image.badgeAndroidPre()
                     }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeAndroidImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
@@ -1160,7 +1160,7 @@ extension WelcomeViewController {
                         webRemainingDaysLabel.text = finalDay
                         webShieldImageview.image = R.image.badgeWebPre()
                     }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeWebImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
@@ -1264,7 +1264,7 @@ extension WelcomeViewController {
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             return "Your 7-Day Premium Free Trial has ended. You can still use QuickCam with Free User access level and the Free User Badge. \nUpgrade to Premium now and get your Premium Subscriber Badge and Day 7 Subscriber Badge!"
         }
-        else if subscriptionType == "expired" {
+        else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features."
         }
         else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
