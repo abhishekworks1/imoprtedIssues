@@ -95,7 +95,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         guard let url = url else { return }
         self.copyLink(referType: referType)
         switch socialType {
-        case .facebook, .instagram:
+        case .facebook, .instagram, .fbMessanger:
             self.saveVideoToCameraRoll(url: url, completion: { [weak self] (isSuccess, phAsset) in
                 guard let `self` = self else {
                     return
@@ -107,6 +107,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                             self.fbShareVideo(phAsset)
                         case .instagram:
                             self.instaImageVideoShare(phAsset)
+                        case .fbMessanger:
+                            self.fbMessangerShareVideo(phAsset)
                         default:
                             break
                         }
@@ -138,6 +140,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             }
         case .storiCam, .storiCamPost:
             storiCamShareVideo(url, socialType: socialType)
+        case .whatsApp:
+            self.whatsAppShareVideo(url)
         case .more:
             print(url)
         }
@@ -197,6 +201,13 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     func showShareDialog<C: SharingContent>(_ content: C, mode: ShareDialog.Mode = .automatic) {
         let dialog = ShareDialog(fromViewController: Utils.appDelegate?.window?.visibleViewController()!, content: content, delegate: self)
         dialog.mode = mode
+        dialog.show()
+    }
+    
+    func showFBMessangeShareDialog<C: SharingContent>(_ content: C, mode: ShareDialog.Mode = .automatic) {
+        
+        let dialog = MessageDialog(content: content, delegate: self)
+        
         dialog.show()
     }
     
@@ -264,6 +275,25 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         content.video = ShareVideo(videoAsset: phAsset)
         showShareDialog(content)
     }
+    
+    func fbMessangerShareVideo(_ phAsset: PHAsset?) {
+        guard let phAsset = phAsset else { return }
+        let content = ShareVideoContent()
+        content.video = ShareVideo(videoAsset: phAsset)
+        showFBMessangeShareDialog(content)
+    }
+    
+    func whatsAppShareVideo(_ videoUrl: URL) {
+
+        let documentInteractionController = UIDocumentInteractionController()
+        documentInteractionController.url = URL(fileURLWithPath: videoUrl.absoluteString)
+        documentInteractionController.uti = "public.movie"
+//        Utils.appDelegate?.window?.visibleViewController()!.present(documentInteractionController, animated: true, completion: nil)
+        documentInteractionController.presentOpenInMenu(from: .zero, in: Utils.appDelegate!.window!.visibleViewController()!.view, animated: true)
+        
+        
+    }
+
     
     func instaImageVideoShare(_ phAsset: PHAsset?) {
         guard let phAsset = phAsset else { return }
@@ -346,7 +376,11 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     func snapChatShare(snapContent: SCSDKSnapContent) {
-        snapContent.caption = "@\(Defaults.shared.currentUser?.username ?? "")"
+        snapContent.attachmentUrl = "\(websiteUrl)"
+        if let channelId = Defaults.shared.currentUser?.channelId {
+            snapContent.attachmentUrl = "\(websiteUrl)/\(channelId)"
+        }
+        
         let api = SCSDKSnapAPI.init(content: snapContent)
         api.startSnapping { _ in
            

@@ -47,10 +47,12 @@ class QuickStartOptionDetailViewController: UIViewController {
         headerTitleLabel.text = selectedQuickStartCategory?.label ?? ""
         tryNowButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
         doneButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
-        if (selectedQuickStartItem?.title == "Income Goal Calculator" || selectedQuickStartItem?.title == "Invite Wizard") {
+        if (selectedQuickStartItem?.title == "Income Goal Calculator" || selectedQuickStartItem?.title == "Invite Wizard" || selectedQuickStartItem?.title == "Pic2Art" ) {
             tryNowButton.isHidden = false
             if selectedQuickStartItem?.title == "Invite Wizard" {
                 tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+            } else if selectedQuickStartItem?.title == "Pic2Art" {
+                tryNowButton.setTitle("Try Pic2Art", for: .normal)
             } else {
                 tryNowButton.setTitle("Try Calculator Now", for: .normal)
             }
@@ -66,6 +68,13 @@ class QuickStartOptionDetailViewController: UIViewController {
             }
         }
         subscribeNowButton.isHidden = !tryNowButton.isHidden
+        
+        if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced{
+            subscribeNowButton.isHidden = true
+        }else{
+            subscribeNowButton.isHidden = false
+        }
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -175,6 +184,11 @@ class QuickStartOptionDetailViewController: UIViewController {
     
     @IBAction func didTapOnTryNow(_ sender: UIButton) {
         if selectedQuickStartCategory?.catId == "create_engaging_content" {
+            if selectedQuickStartItem?.title == "Pic2Art" {
+                Defaults.shared.cameraMode = .pic2Art
+            } else {
+                Defaults.shared.cameraMode = .normal
+            }
             Defaults.shared.isSignupLoginFlow = true
             if let storySettingsVC = R.storyboard.storyCameraViewController.storyCameraViewController() {
                 storySettingsVC.isFromCameraParentView = true
@@ -223,20 +237,20 @@ class QuickStartOptionDetailViewController: UIViewController {
     }
     
     func openPotentialIncomeCalculator(){
-        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
-             incomeGoalConfirmPopupView.isHidden = false
+      /*  if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup == false {
+            incomeGoalConfirmPopupView.isHidden = false
             btnDoNotShowAgainincomeGoalConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenIncomeGoalPopup
             self.view.bringSubviewToFront(incomeGoalConfirmPopupView)
-          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
-        }else{
-        if let token = Defaults.shared.sessionToken {
-             let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-             guard let url = URL(string: urlString) else {
-                 return
-             }
-             presentSafariBrowser(url: url)
-         }
-        }
+            //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        }else{ */
+            if let token = Defaults.shared.sessionToken {
+                let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
+                guard let url = URL(string: urlString) else {
+                    return
+                }
+                presentSafariBrowser(url: url)
+            }
+//        }
     }
     
     @IBAction func doNotShowAgainIncomeGoalOpenPopupClicked(_ sender: UIButton) {

@@ -333,6 +333,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         self.collectionView.reloadData()
         applyFilter()
         UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
+        Utils.customaizeToastMessage(title: "Default Pic2Art filter set", toastView: (Utils.appDelegate?.window)!)
         showDefaultFilterView.isHidden = true
     }
     
@@ -592,6 +593,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                 self.collectionView.reloadData()
                 applyFilter()
                 UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
+                Utils.customaizeToastMessage(title: "Default Pic2Art filter set", toastView: (Utils.appDelegate?.window)!)
             } else {
                 showDefaultFilterView.isHidden = false
             }

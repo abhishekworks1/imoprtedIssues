@@ -8,8 +8,8 @@
 
 import UIKit
 
-enum SystemSettingType {
-    case showAllPopUps
+enum SystemSettingType: String {
+    case showAllPopUps = "Show All Popups"
     case skipYoutubeLogin
     case saveVideoAfterRecording
     case autoSaveAfterEditing
@@ -20,14 +20,70 @@ enum SystemSettingType {
     case mutehapticFeedbackOnSpeedSelection
     case autoSavePic2Art
     case onboarding
-    case welcomeScreen
-    case quickMenu
-    case quickCamCamera
-    case mobileDashboard
-    case hapticNone
-    case hapticAll
-    case hapticSome
-    case hapticFeedBack
+    case welcomeScreen = "Welcome Screen"
+    case quickMenu = "QuickStart Guide"
+    case quickCamCamera = "QuickCam Camera"
+    case mobileDashboard = "Mobile Dashboard"
+    case hapticNone = "None"
+    case hapticAll = "All"
+    case hapticSome = "Some"
+    case hapticFeedBack = "Haptic Feedback"
+    
+    var description : String {
+        switch self {
+        // Use Internationalization, as appropriate.
+        case .welcomeScreen: return "Welcome Screen"
+        case .quickMenu: return "QuickStart Guide"
+        case .quickCamCamera: return "QuickCam Camera"
+        case .mobileDashboard: return "Mobile Dashboard"
+        case .hapticFeedBack: return "Haptic Feedback"
+        case .showAllPopUps: "Show All Popups"
+        case .skipYoutubeLogin:
+            break
+        case .saveVideoAfterRecording:
+            break
+        case .autoSaveAfterEditing:
+            break
+        case .autoSavePic2ArtOriginalPhoto:
+            break
+        case .muteRecordingSlowMotion:
+            break
+        case .muteRecordingFastMotion:
+            break
+        case .milestonesReached:
+            break
+        case .mutehapticFeedbackOnSpeedSelection:
+            break
+        case .autoSavePic2Art:
+            break
+        case .onboarding:
+            break
+        case .hapticNone:
+            return "None"
+        case .hapticAll:
+            return "All"
+        case .hapticSome:
+            return "Some"
+        }
+        return ""
+      }
+}
+
+enum SocialMediaApps: String {
+    case tikTok = "Tiktok"
+    case snapChat = "Snapchat"
+    case messanger = "Messanger"
+    case youtube = "Youtube"
+    case chingari = "Chingari"
+    case instagram = "Instagram"
+    case facebook = "Facebook"
+    case whatsapp = "Whatsapp"
+    case twitter = "Twitter"
+    case takatak = "Takatak"
+    
+    var description: String {
+        return self.rawValue
+    }
 }
 
 enum OnboardingReferral: String {
@@ -59,7 +115,7 @@ class SystemSettingsCell: UITableViewCell {
     var systemSettingType: SystemSettingType = .showAllPopUps {
         didSet {
             selectButtonLeadingConstraint?.constant = 19
-            title.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+//            title.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             btnSelectShowAllPopup.isHidden = false
             
             btnSelectShowAllPopup.setImage(R.image.checkBoxActive(), for: .selected)
@@ -108,7 +164,7 @@ class SystemSettingsCell: UITableViewCell {
                 title.font = UIFont.boldSystemFont(ofSize: 17)
                 title.textColor = R.color.appBlackColor()
                 title.text = "Default Opening Screen"
-                selectButtonLeadingConstraint?.constant = -11
+//                selectButtonLeadingConstraint?.constant = -15
                 btnSelectShowAllPopup.isHidden = true
             } else if systemSettingType == .welcomeScreen {
                 title.text = "Welcome Screen"
@@ -150,7 +206,7 @@ class SystemSettingsCell: UITableViewCell {
                 title.textColor = R.color.appPrimaryColor()
                 title.text = R.string.localizable.hapticFeedback()
                 btnSelectShowAllPopup.setImage(R.image.iconWaterMarkOpacity(), for: .normal)
-                selectButtonLeadingConstraint?.constant = 5
+//                selectButtonLeadingConstraint?.constant = 5
             } else if systemSettingType == .hapticAll {
                 title.text = R.string.localizable.all()
                 selectButtonLeadingConstraint?.constant = 30
@@ -182,6 +238,28 @@ class SystemSettingsCell: UITableViewCell {
         self.btnLock?.isHidden = true
         self.imageViewLock?.isHidden = true
         self.btnSystemSetting?.isUserInteractionEnabled = false
+    }
+    
+    func configureCellForSection(storySetting: StorySetting) {
+        
+        switch storySetting.name {
+        case SystemSettingType.welcomeScreen.description:
+            self.systemSettingType = .welcomeScreen
+        case SystemSettingType.quickMenu.description:
+            self.systemSettingType = .quickMenu
+        case SystemSettingType.quickCamCamera.description:
+            self.systemSettingType = .quickCamCamera
+        case SystemSettingType.mobileDashboard.description:
+            self.systemSettingType = .mobileDashboard
+        case SystemSettingType.hapticAll.description:
+            self.systemSettingType = .hapticAll
+        case SystemSettingType.hapticSome.description:
+            self.systemSettingType = .hapticSome
+        case SystemSettingType.hapticNone.description:
+            self.systemSettingType = .hapticNone
+        default:
+            self.systemSettingType = .welcomeScreen
+        }
     }
     
     // MARK: - Action Methods
@@ -305,6 +383,12 @@ class SystemSettingsCell: UITableViewCell {
             Defaults.shared.onBoardingReferral = OnboardingReferral.QuickCamera.description
         } else if systemSettingType == .mobileDashboard {
             Defaults.shared.onBoardingReferral = OnboardingReferral.MobileDashboard.description
+        }else if systemSettingType == .hapticAll{
+            Defaults.shared.allowHaptic = HapticSetting.all.rawValue
+        } else if systemSettingType == .hapticSome{
+            Defaults.shared.allowHaptic = HapticSetting.some.rawValue
+        } else if systemSettingType == .hapticNone{
+            Defaults.shared.allowHaptic = HapticSetting.none.rawValue
         }
     }
 }

@@ -55,6 +55,7 @@ class NotificationDetailsVC: UIViewController {
             self.collectionView.scrollToItem(at: IndexPath(item: self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: false)
             self.collectionView.isPagingEnabled = true
         }
+        collectionView.isScrollEnabled = true
     }
     
     func scrollToNextCell() {

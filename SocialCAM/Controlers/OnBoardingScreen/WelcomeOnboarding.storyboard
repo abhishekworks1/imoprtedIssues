@@ -1164,6 +1164,7 @@
                         <outlet property="profileHeightConstraints" destination="MUt-4t-1aV" id="Zp2-9p-qmW"/>
                         <outlet property="profileWidthConstraints" destination="PvG-zV-u8l" id="iDV-zi-zpz"/>
                         <outlet property="quickGuideStackViewHeight" destination="3Zk-zV-pvg" id="nLP-Dz-exe"/>
+                        <outlet property="quickcamCameraView" destination="mUD-hi-fxa" id="7u4-YO-eVY"/>
                         <outlet property="secLabel" destination="21s-Wd-ut5" id="Ht9-ES-ejM"/>
                         <outlet property="secLineView" destination="Wc8-7D-7It" id="bhG-Cv-ztu"/>
                         <outlet property="secValueLabel" destination="jG1-8Q-riD" id="3Gx-j2-fi1"/>
@@ -1175,6 +1176,7 @@
                         <outlet property="tipOfDayActivityIndicator" destination="SiZ-lQ-zn9" id="ada-Ao-sQb"/>
                         <outlet property="tipOfTheDayLabel" destination="Qe0-sI-dZi" id="NDG-99-KcB"/>
                         <outlet property="tipOfTheDayView" destination="b4g-0u-DW9" id="95E-oq-L68"/>
+                        <outlet property="topmainView" destination="g4i-xM-IlI" id="58V-Yq-cDR"/>
                         <outlet property="upgradeButtonHeight" destination="Blx-3F-JPX" id="VOw-es-1W5"/>
                         <outlet property="upgradeNowButton" destination="F2t-bP-u0L" id="WI6-YS-upM"/>
                         <outlet property="userImageView" destination="rie-v2-3Mp" id="yMM-pK-kXy"/>
@@ -1839,6 +1841,12 @@
                                                                                                 <rect key="frame" x="192" y="9.3333333333333144" width="0.0" height="72"/>
                                                                                                 <subviews>
                                                                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Wz-Spg">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
+                                                                                                    </imageView>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="sW7-Pd-oc0">
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
+                                                                                                    </imageView>
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="hLf-Yj-o7a">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
                                                                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="puA-bI-GMT">
@@ -3070,7 +3078,9 @@
                         <outlet property="btnProfilePic" destination="N4Q-LS-zAX" id="EiI-tb-Agd"/>
                         <outlet property="channelNameLabel" destination="Bs4-jh-AQ8" id="uEY-LD-wsP"/>
                         <outlet property="containerView" destination="M1S-aX-9Oo" id="pfT-7o-sqH"/>
-                        <outlet property="dayBadgeImageView" destination="tmo-Wz-Spg" id="2QD-gA-tLo"/>
+                        <outlet property="dayBadgeAndroidImageView" destination="sW7-Pd-oc0" id="WUO-UZ-sxi"/>
+                        <outlet property="dayBadgeIosImageView" destination="tmo-Wz-Spg" id="Und-zD-gCc"/>
+                        <outlet property="dayBadgeWebImageView" destination="hLf-Yj-o7a" id="wye-4Y-dU4"/>
                         <outlet property="dayLabel" destination="4l8-0C-kWO" id="jdC-NX-v2g"/>
                         <outlet property="dayLineView" destination="euZ-7L-KZv" id="VVG-8n-RxW"/>
                         <outlet property="dayValueLabel" destination="CN5-2c-BdJ" id="GPI-2G-KWo"/>
@@ -3098,6 +3108,7 @@
                         <outlet property="profileHeightConstraints" destination="J2X-SG-pMW" id="hcV-RS-csD"/>
                         <outlet property="profileWidthConstraints" destination="uVn-al-UX4" id="Nqg-5i-XMh"/>
                         <outlet property="quickGuideStackViewHeight" destination="fBx-nh-TOH" id="gsV-P4-zsI"/>
+                        <outlet property="quickcamCameraView" destination="Uqx-Jo-REj" id="Pj6-rn-qa8"/>
                         <outlet property="secLabel" destination="Ejq-CL-0p6" id="5Az-dA-Gb1"/>
                         <outlet property="secLineView" destination="kgC-9B-0dS" id="Vht-OU-q6j"/>
                         <outlet property="secValueLabel" destination="EwY-ud-Zig" id="hjK-qr-HxK"/>
@@ -3111,6 +3122,7 @@
                         <outlet property="tipOfDayActivityIndicator" destination="DW0-38-QDc" id="f7t-hS-HJ9"/>
                         <outlet property="tipOfTheDayLabel" destination="ePh-XZ-53R" id="uft-im-eFM"/>
                         <outlet property="tipOfTheDayView" destination="EPv-MK-dQH" id="fjk-J2-hNA"/>
+                        <outlet property="topmainView" destination="oj9-m0-o57" id="7z9-gg-7z0"/>
                         <outlet property="upgradeButtonHeight" destination="RDU-lc-xrU" id="6K3-Z2-X4i"/>
                         <outlet property="upgradeNowButton" destination="sNF-Ks-EJa" id="VhI-n0-fl7"/>
                         <outlet property="userImageView" destination="BlB-h4-BEc" id="gZG-yy-duh"/>
@@ -3143,7 +3155,9 @@
         <image name="basicBadge" width="62" height="73"/>
         <image name="closeRef" width="512" height="512"/>
         <image name="contentCreate" width="39" height="26"/>
-        <image name="day_badge_1" width="365" height="512"/>
+        <image name="day_badge_1" width="107" height="150"/>
+        <image name="day_badge_Web_1" width="107" height="150"/>
+        <image name="day_badge_android_1" width="107" height="150"/>
         <image name="editProfilePlusIcon" width="44" height="44"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="freeAppleIcon" width="28.5" height="23.5"/>

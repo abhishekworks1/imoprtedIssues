@@ -57,6 +57,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var line4: UILabel!
     
     let characterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    
+    let colorCodeArray = ["006CFF","000000", "00B2FF","00FFC2", "05FFF0","1C2898","252E49","296459","4F964E","531232","531C98","542B0B", "62345B","64FF05", "751A46", "781717","784A17", "7D46F5","844186","859AA3","986771","B51717", "BB97B1","D5C7AC","D99E3B","E0B87A", "FF0000","FF069C","FF8C05","FFF505"]
     @IBOutlet weak var lblNum2: UILabel!
     @IBOutlet weak var lblNum3: UILabel!
     @IBOutlet weak var lblNum4: UILabel!
@@ -217,12 +219,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var previewTitleLabel: UILabel!
     @IBOutlet weak var chooseMessageTitleTextLabel: UILabel!
     
+    @IBOutlet weak var shareSwitchImageView: UIImageView!
     @IBOutlet weak var subTitleOfPreview: UILabel!
     @IBOutlet weak var imgPreviewImageAspectRatioConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgPreviewImageWidthConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var socialShareDescriptionLabel: UILabel!
+    @IBOutlet weak var textShareDescriptionLabel: UILabel!
+    
+    @IBOutlet weak var emailShareDescriptionLabel: UILabel!
+    @IBOutlet weak var qrCodeShareDescriptionLabel: UILabel!
+    @IBOutlet weak var socialShareBgImageView: UIImageView!
+    @IBOutlet weak var textShareBGImageView: UIImageView!
+    
+    @IBOutlet weak var textShareTitleLabel: UILabel!
+    @IBOutlet weak var qrcodeShareTitleLabel: UILabel!
+    @IBOutlet weak var emaiShareTitleLabel: UILabel!
+    @IBOutlet weak var socialShareTitleLabel: UILabel!
+    
+    @IBOutlet weak var qrcodeBgImageView: UIImageView!
+    @IBOutlet weak var emailBgImageView: UIImageView!
+    
     var isGmailOpened = false
     var isAppleEmailOpened = false
+    var isShareSwitchOn = false
     
     
     var searchText:String = ""
@@ -258,10 +279,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var groupedEmailContactArray = [[ContactResponse]()]
     var contactSections = [ContactGroup]()
     var emailContactSection = [ContactGroup]()
+    var contactMessageText = "Please wait while your contacts are loaded."
+    var textContent = "Please wait while your Text Content are loaded."
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+
+        
         self.setupUI()
         if isFromContactManager{
             pageNo = 5
@@ -354,10 +379,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.contactTableView.isHidden = false
 
         
-        self.textShareView.dropShadowNew()
-        self.qrCodeShareView.dropShadowNew()
-        self.manualEmailView.dropShadowNew()
-        self.socialShareView.dropShadowNew()
+//        self.textShareView.dropShadowNew()
+//        self.qrCodeShareView.dropShadowNew()
+//        self.manualEmailView.dropShadowNew()
+//        self.socialShareView.dropShadowNew()
         self.businessDashboardView.dropShadowNew()
         
         self.appleEmailOptionView.dropShadow()
@@ -447,9 +472,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             filterOptionView.isHidden = true
         }
     }
-    func showLoader(){
+    func showLoader(message: String){
         self.loadingView = LoadingView.instanceFromNib()
-        self.loadingView?.loadingText = "Please wait while your contacts are loaded."
+        self.loadingView?.loadingText = message
         self.loadingView?.shouldCancelShow = true
         self.loadingView?.loadingViewShow = true
         self.loadingView?.hideAdView(true)
@@ -462,7 +487,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func ContactPermission(){
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
             
         case .authorized,.notDetermined: //access contacts
@@ -662,7 +687,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
                 
             case .authorized: //access contacts
-                self.showLoader()
+                self.showLoader(message: contactMessageText)
                 contactPermitView.isHidden = true
                 self.getContactList(firstTime:true)
                 break
@@ -678,6 +703,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func fetchTitleMessages(){
+        self.showLoader(message: textContent)
         let path = API.shared.baseUrlV2 + Paths.messageTitle
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
@@ -686,6 +712,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
+            self.hideLoader()
             self.smsMsgListing = resposnse.value as? msgTitleList
             if self.isSelectSMS {
                 self.itemsTableView.reloadData()
@@ -697,6 +724,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func fetchEmailMessages(){
+        self.showLoader(message: textContent)
         let path = API.shared.baseUrlV2 + Paths.emailTitle
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
@@ -705,6 +733,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
+            self.hideLoader()
             self.emailMsgListing = resposnse.value as? msgTitleList
             if !self.isSelectSMS {
                 self.itemsTableView.reloadData()
@@ -812,7 +841,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         //}
         //phoneContacts.append(contentsOf: filterdArray)
         
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         DispatchQueue.main.async {
             self.createContactJSON()
            // self.contactTableView.reloadData() // update your tableView having phoneContacts array
@@ -1085,7 +1114,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
         request.setValue("1", forHTTPHeaderField: "deviceType")
         request.httpBody = data
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         AF.request(request).responseJSON { response in
             print(response)
             switch (response.result) {
@@ -1132,7 +1161,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
         request.setValue("1", forHTTPHeaderField: "deviceType")
         request.httpBody = data
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         AF.request(request).responseJSON { response in
             print(response)
             switch (response.result) {
@@ -1169,7 +1198,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
         request.setValue("1", forHTTPHeaderField: "deviceType")
        
-        self.showLoader()
+        self.showLoader(message: contactMessageText)
         AF.request(request).responseJSON { response in
             print(response)
             switch (response.result) {
@@ -1349,7 +1378,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
         case .authorized: //access contacts
-            self.showLoader()
+            self.showLoader(message: contactMessageText)
             self.loadContacts(filter: self.filter)
             break
         case .denied, .notDetermined:
@@ -1559,7 +1588,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.emailContactTableView.isHidden = true
         self.contactTableView.isHidden = false
         if mobileContacts.count == 0{
-            self.showLoader()
+            self.showLoader(message: contactMessageText)
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
         isSelectSMS = false
@@ -1592,12 +1621,57 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
              return
          }
         if emailContacts.count == 0{
-            self.showLoader()
+            self.showLoader(message: contactMessageText)
             self.getContactList(page: 1 ,filter: self.selectedFilter)
         }
         isSelectSMS = false
         
     }
+    
+    @IBAction func didTapShareSwitchButton(_ sender: UIButton) {
+        isShareSwitchOn = !isShareSwitchOn
+        switch isShareSwitchOn {
+        case true:
+            shareSwitchImageView.image = R.image.shareSwitchOn()
+            textShareBGImageView.image = R.image.textShareBgImage()
+            qrcodeBgImageView.image = R.image.qrcodeShareBgImage()
+            emailBgImageView.image = R.image.emailShareBgImage()
+            socialShareBgImageView.image = R.image.socialShareBgImage()
+            
+            textShareDescriptionLabel.text = "Use TextShare to invite your contacts by sending them a text with your unique invite link"
+            qrCodeShareDescriptionLabel.text = "Use QRCodeShare to invite your contacts in-person by sharing your QR Code."
+            emailShareDescriptionLabel.text = "Use EmailShare to invite your contacts by sending them an email with your unique invite link."
+            socialShareDescriptionLabel.text = "Use SocialShare to invite your social media followers by posting your unique invite link to your social media newsfeed."
+            
+            textShareTitleLabel.textColor = UIColor(hexString: "16CC6C")
+            qrcodeShareTitleLabel.textColor = UIColor(hexString: "477DFF")
+            emaiShareTitleLabel.textColor = UIColor(hexString: "C87E04")
+            socialShareTitleLabel.textColor = UIColor(hexString: "3B5997")
+            
+        case false:
+            textShareBGImageView.image = R.image.textShareBG()
+            shareSwitchImageView.image = R.image.shareSwitchOff()
+            qrcodeBgImageView.image = R.image.qrcodeShareBG()
+            emailBgImageView.image = R.image.emailShareBG()
+            socialShareBgImageView.image = R.image.socialShareBG()
+            
+            textShareDescriptionLabel.text = ""
+            qrCodeShareDescriptionLabel.text = ""
+            emailShareDescriptionLabel.text = ""
+            socialShareDescriptionLabel.text = ""
+            
+            textShareTitleLabel.textColor = .black
+            qrcodeShareTitleLabel.textColor = .black
+            emaiShareTitleLabel.textColor = .black
+            socialShareTitleLabel.textColor = .black
+            
+            
+        default:
+            break
+        }
+    }
+    
+    
     @IBAction func socialShareCloseClick(sender: UIButton) {
         self.socialSharePopupView.isHidden = true
     }
@@ -1683,20 +1757,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         guard let url = URL(string: shareUrl) else {
             preconditionFailure("URL is invalid")
         }
-        
-        let content = ShareLinkContent()
-        content.contentURL = url
-        content.quote = message
-        let dialog = MessageDialog(content: content, delegate: self)
-        do {
-            try dialog.validate()
-        } catch {
-            print(error)
+        if UIApplication.shared.canOpenURL(URL(string: "fb-messenger-share-api://")!){
+            let content = ShareLinkContent()
+            content.contentURL = url
+            content.quote = message
+            let dialog = MessageDialog(content: content, delegate: self)
+            do {
+                try dialog.validate()
+            } catch {
+                print(error)
+                DispatchQueue.runOnMainThread {
+                    Utils.customaizeToastMessage(title: "Please install FB Messanger", toastView: (Utils.appDelegate?.window)!)
+                }
+            }
+            dialog.show()
+        }else{
             DispatchQueue.runOnMainThread {
                 Utils.customaizeToastMessage(title: "Please install FB Messanger", toastView: (Utils.appDelegate?.window)!)
             }
         }
-        dialog.show()
+       
     }
     
     
@@ -1820,7 +1900,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            cantSendTextOrEmailAlert(alertTitle: multiUse.alertTitle, alertMessage: multiUse.messageSMS)
         }
     }
-    
+    func getRandomColor()->UIColor{
+        return UIColor(hexString: self.colorCodeArray.randomElement() ?? "000000")
+    }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -1848,25 +1930,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == itemsTableView{
-            if section == 0 {
-              return 1
-            } else {
-                if self.shareType == .textShare{    //if isSelectSMS {
-                    return self.smsMsgListing?.list.count ?? 0
-                } else {
-                    return self.emailMsgListing?.list.count ?? 0
-                }
-            }
-        }else if tableView == emailContactTableView{
-          //  return emailContacts.count
-            return self.emailContactSection[section].contacts.count
-        } else {
-           // return self.mobileContacts.count
-            return self.contactSections[section].contacts.count
-        }
-    }
+   
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if tableView == self.contactTableView{
@@ -1959,6 +2023,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
               }
           }*/
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == itemsTableView{
+            if section == 0 {
+              return 1
+            } else {
+                if self.shareType == .textShare{ //if isSelectSMS {
+                    print(self.smsMsgListing?.list.count)
+                    print("self.smsMsgListing?.list.count")
+                    return self.smsMsgListing?.list.count ?? 0
+                }else if isSelectSMS {
+                    print(self.smsMsgListing?.list.count)
+                    print("self.smsMsgListing?.list.count")
+                    return self.smsMsgListing?.list.count ?? 0
+                } else {
+                    return self.emailMsgListing?.list.count ?? 0
+                }
+            }
+        }else if tableView == emailContactTableView{
+          //  return emailContacts.count
+            return self.emailContactSection[section].contacts.count
+        } else {
+           // return self.mobileContacts.count
+            return self.contactSections[section].contacts.count
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
             
@@ -2050,6 +2139,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.detailView.isHidden = true
                     cell.radioButtonWidthConstraint.constant = 20
                     cell.emailRadioButtonWidthConstraint.constant = 0
+                    print(self.smsMsgListing?.list)
+                    print(self.smsMsgListing?.list.count)
+                    print("indexPath.row")
+                    print(indexPath.row)
                     item = self.smsMsgListing?.list[indexPath.row]
                     cell.setText(text: item?.content ?? "")
                     print(item?.content ?? "")
@@ -2111,7 +2204,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let contact = emailContacts[indexPath.row]
             cell.lblDisplayName.text = contact.name ?? ""
             cell.lblNumberEmail.text = contact.email ?? ""
-            cell.contactImage.image = UIImage.init(named: "User_placeholder")
+           // cell.contactImage.image = UIImage.init(named: "User_placeholder")
+            cell.contactImage.backgroundColor = self.getRandomColor()
+            let names = (contact.name ?? "").components(separatedBy:" ")
+            cell.contactImageLabel.text =  "\(Array(names.first ?? "")[0])\(Array(names.last ?? " ")[0])"
             cell.mobileContactObj = contact
             cell.inviteButtonView.layer.borderWidth = 0.0
             cell.btnSelect.rowIndex = indexPath.row
@@ -2190,7 +2286,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let contact = mobileContacts[indexPath.row]
                 cell.lblDisplayName.text = contact.name ?? ""
                 cell.lblNumberEmail.text = contact.mobile
-                cell.contactImage.image = UIImage.init(named: "User_placeholder")
+               // cell.contactImage.image = UIImage.init(named: "User_placeholder")
+                cell.contactImage.backgroundColor = self.getRandomColor()
+                let names = (contact.name ?? "").components(separatedBy:" ")
+                cell.contactImageLabel.text =  "\(Array(names.first ?? "")[0])\(Array(names.last ?? " ")[0])"
                 cell.mobileContactObj = contact
                 cell.btnSelect.rowIndex = indexPath.row
                 cell.btnSelect.sectionIndex = indexPath.section
@@ -2997,8 +3096,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     mail.setSubject(self.txtDetailForEmail)
                     mail.setMessageBody(urlwithString, isHTML: false)
                     
-                    /* let imageData = imageV.jpegData(compressionQuality: 1.0)
-                     mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg") */
+                    let imageData = imgProfilePic.image?.jpegData(compressionQuality: 1.0)
+                     mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg")
                     present(mail, animated: true)
                     
                     // Show third party email composer if default Mail app is not present

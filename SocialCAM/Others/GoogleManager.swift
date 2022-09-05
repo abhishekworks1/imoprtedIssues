@@ -103,7 +103,7 @@ public class GoogleManager: NSObject {
         scopes?.append(kGTLRAuthScopeYouTubeForceSsl)
         scopes?.append(kGTLRAuthScopeYouTubeUpload)
         scopes?.append(kGTLRAuthScopeYouTube)
-        scopes?.append(kGTLRAuthScopeYouTubeYoutubepartner)
+        scopes?.append(kGTLRAuthScopeYouTubeReadonly)
         GIDSignIn.sharedInstance().scopes = scopes
         GIDSignIn.sharedInstance().delegate = self
     }
@@ -133,6 +133,7 @@ public class GoogleManager: NSObject {
             if error == nil {
                 completion(true)
             } else {
+                print(String(data: (error! as NSError).userInfo["data"] as! Data, encoding: String.Encoding.utf8))
                 completion(false)
             }
         })

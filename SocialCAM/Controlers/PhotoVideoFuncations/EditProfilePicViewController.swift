@@ -171,7 +171,7 @@ class EditProfilePicViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.addLeftViewToTxtField(textField: self.txtDisplayName)
+     //   self.addLeftViewToTxtField(textField: self.txtDisplayName)
         self.addLeftViewToTxtField(textField: self.txtChannelName)
   }
     
@@ -338,6 +338,10 @@ class EditProfilePicViewController: UIViewController {
     
     @IBAction func btnSetDisplayYesTapped(_ sender: UIButton) {
         if isForEditName {
+            if self.txtDisplayName.text!.isEmpty {
+                Utils.customaizeToastMessage(title: "Please enter public display name", toastView: (Utils.appDelegate?.window)!)
+                return
+            }
             self.setDisplayNamePopupView.isHidden = true
             self.showHUD()
             self.editDisplayName()
@@ -958,8 +962,8 @@ extension EditProfilePicViewController {
         }
         let currentSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         if currentSocialPlatformCount == 4 && previousSocialPlatformCount == 3 {
-            self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.channelName ?? "")")
-//            self.showHideSocialBadgePopupView(isHide: false)
+            self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("\(Defaults.shared.currentUser?.firstName ?? "")")
+            self.showHideSocialBadgePopupView(isHide: false)
         }
         ProManagerApi.addSocialPlatforms(socialPlatforms: Defaults.shared.socialPlatforms?.uniq() ?? []).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
@@ -1135,6 +1139,13 @@ extension EditProfilePicViewController {
                 }
             }
         case .snapchat:
+            
+            if ((Defaults.shared.snapchatProfileURL?.isEmpty) != nil) {
+                SnapKitManager.shared.logout { _ in
+                    
+                }
+            }
+            
             if !SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
                     if !isLogin {

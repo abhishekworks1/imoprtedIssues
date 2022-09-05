@@ -13,6 +13,8 @@ class GetReferralNotificationModel: Mappable {
     
     var isForEveryone: Bool?
     var customSignupNumber: Int?
+    var betweenCameraAppSubscription: Int?
+    var betweenBusinessDashboardSubscription: Int?
     var onReferralEarnSocialBadge: Bool?
     
     required init?(map: Map) {
@@ -22,6 +24,8 @@ class GetReferralNotificationModel: Mappable {
     func mapping(map: Map) {
         isForEveryone <- map["isForEveryone"]
         customSignupNumber <- map["customSignupNumber"]
+        betweenCameraAppSubscription <- map["betweenCameraAppSubscription"]
+        betweenBusinessDashboardSubscription <- map["betweenBusinessDashboardSubscription"]
         onReferralEarnSocialBadge <- map["onReferralEarnSocialBadge"]
     }
     

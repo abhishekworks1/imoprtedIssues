@@ -44,10 +44,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7cT-hr-FzH">
                                 <rect key="frame" x="10" y="12.5" width="90" height="90"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="founderMemberContact" translatesAutoresizingMaskIntoConstraints="NO" id="5Tj-9E-bC3">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="founderMemberContact" translatesAutoresizingMaskIntoConstraints="NO" id="5Tj-9E-bC3">
                                         <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="BzA-eA-hcm">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BzA-eA-hcm">
                                         <rect key="frame" x="22.5" y="9" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="Gga-xT-Lfk"/>
@@ -58,10 +58,16 @@
                                                 <real key="value" value="26"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                                <real key="value" value="15"/>
+                                                <real key="value" value="22.5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHL-qh-cCb">
+                                        <rect key="frame" x="45" y="31.5" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -69,6 +75,8 @@
                                     <constraint firstItem="5Tj-9E-bC3" firstAttribute="leading" secondItem="7cT-hr-FzH" secondAttribute="leading" id="2TQ-6K-gYL"/>
                                     <constraint firstAttribute="height" constant="90" id="OqX-6H-gUQ"/>
                                     <constraint firstItem="BzA-eA-hcm" firstAttribute="centerX" secondItem="7cT-hr-FzH" secondAttribute="centerX" id="Tpu-rl-Myl"/>
+                                    <constraint firstItem="LHL-qh-cCb" firstAttribute="centerX" secondItem="BzA-eA-hcm" secondAttribute="centerX" id="XeA-p5-u9c"/>
+                                    <constraint firstItem="LHL-qh-cCb" firstAttribute="centerY" secondItem="BzA-eA-hcm" secondAttribute="centerY" id="gy4-zi-tFd"/>
                                     <constraint firstAttribute="width" constant="90" id="ot3-XI-rSs"/>
                                     <constraint firstAttribute="trailing" secondItem="5Tj-9E-bC3" secondAttribute="trailing" id="q8Q-Je-ruo"/>
                                     <constraint firstItem="5Tj-9E-bC3" firstAttribute="top" secondItem="7cT-hr-FzH" secondAttribute="top" id="sZq-hU-ZQX"/>
@@ -617,6 +625,7 @@
                 <outlet property="buttonImageview" destination="EYK-lz-6C8" id="0r8-UB-RQ4"/>
                 <outlet property="buttonInvite" destination="cfK-O9-5Qk" id="8fF-9y-Qcx"/>
                 <outlet property="contactImage" destination="BzA-eA-hcm" id="zVf-8f-UdZ"/>
+                <outlet property="contactImageLabel" destination="LHL-qh-cCb" id="zeP-Xe-N4G"/>
                 <outlet property="contactStatusView" destination="jTK-2r-eK1" id="P5g-7r-qkn"/>
                 <outlet property="imgSocialMediaBadge" destination="27a-hL-rHY" id="ddy-zH-44y"/>
                 <outlet property="imgSubscribeBadge" destination="SMy-SM-qix" id="C0T-hn-ZBQ"/>
@@ -645,7 +654,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="User_placeholder" width="400" height="400"/>
         <image name="advancedBadge" width="62" height="73"/>
         <image name="androidBadge" width="64" height="64"/>
         <image name="basicBadge" width="62" height="73"/>

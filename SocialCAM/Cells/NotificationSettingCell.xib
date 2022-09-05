@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationSettingCell" customModule="QuickCam" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationSettingCell" rowHeight="282" id="KGk-i7-Jjw" customClass="NotificationSettingCell" customModule="QuickCam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="282"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="282"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Signups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYY-hl-DNA">
+                        <rect key="frame" x="30" y="10" width="118" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="IsK-jF-tDM"/>
+                            <constraint firstAttribute="width" constant="118" id="gDh-CX-O0w"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Paying Subscribers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="1oF-zZ-YUR">
+                        <rect key="frame" x="106" y="45.666666666666664" width="209" height="20.999999999999993"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="xNW-VS-w0d"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RmP-zE-PNJ">
+                        <rect key="frame" x="50" y="39" width="48" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="6hT-jg-4Qh"/>
+                            <constraint firstAttribute="width" constant="48" id="BqS-8w-MLq"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickCam Camera app subscription" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="wmc-Vu-XZ5">
+                        <rect key="frame" x="106" y="150.66666666666666" width="209" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="pF9-4w-NAP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0b6-ts-rko">
+                        <rect key="frame" x="50" y="144" width="48" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="iJW-46-8E1"/>
+                            <constraint firstAttribute="width" constant="48" id="lnH-If-S17"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Dashboard subscription" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="O2u-u8-tjQ">
+                        <rect key="frame" x="106" y="192.66666666666666" width="209" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="pAD-iQ-6f8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m8A-9t-71c">
+                        <rect key="frame" x="50" y="186" width="48" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="VM3-kn-0Qo"/>
+                            <constraint firstAttribute="width" constant="48" id="bqZ-Ka-1Xj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Badge Earned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJE-Of-YY5">
+                        <rect key="frame" x="56" y="237.66666666666666" width="254" height="20.999999999999972"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="rE5-Jm-ETS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Paying Subscribers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjL-UU-f2a">
+                        <rect key="frame" x="30" y="83" width="285" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="wxp-Td-McO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Subscription between notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="bKz-eP-uo7">
+                        <rect key="frame" x="50" y="108" width="265" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="WEX-ZC-E7W"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ak-Ed-UON">
+                        <rect key="frame" x="30" y="240" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="cad-i0-8xn"/>
+                            <constraint firstAttribute="width" constant="16" id="lq5-6Z-eSh"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="checkBoxInActive" title=""/>
+                        <connections>
+                            <action selector="badgeEarnedAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MGt-aB-crH"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bKz-eP-uo7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="0a9-v3-XAb"/>
+                    <constraint firstAttribute="trailing" secondItem="bKz-eP-uo7" secondAttribute="trailing" constant="5" id="1Vh-cJ-PRl"/>
+                    <constraint firstItem="bjL-UU-f2a" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="2RU-mf-7eU"/>
+                    <constraint firstItem="bKz-eP-uo7" firstAttribute="top" secondItem="bjL-UU-f2a" secondAttribute="bottom" constant="4" id="AkZ-N4-kT3"/>
+                    <constraint firstItem="iYY-hl-DNA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="B01-KB-a57"/>
+                    <constraint firstAttribute="trailing" secondItem="bjL-UU-f2a" secondAttribute="trailing" constant="5" id="Bpg-aw-DGH"/>
+                    <constraint firstItem="m8A-9t-71c" firstAttribute="top" secondItem="0b6-ts-rko" secondAttribute="bottom" constant="8" id="DOO-KQ-bZ0"/>
+                    <constraint firstItem="wmc-Vu-XZ5" firstAttribute="centerY" secondItem="0b6-ts-rko" secondAttribute="centerY" id="EEz-pW-zGX"/>
+                    <constraint firstAttribute="trailing" secondItem="1oF-zZ-YUR" secondAttribute="trailing" constant="5" id="EFp-Zl-h9B"/>
+                    <constraint firstItem="AJE-Of-YY5" firstAttribute="centerY" secondItem="4Ak-Ed-UON" secondAttribute="centerY" id="F4N-Gy-aEa"/>
+                    <constraint firstItem="4Ak-Ed-UON" firstAttribute="top" secondItem="m8A-9t-71c" secondAttribute="bottom" constant="20" id="GoY-Nm-L2G"/>
+                    <constraint firstItem="AJE-Of-YY5" firstAttribute="leading" secondItem="4Ak-Ed-UON" secondAttribute="trailing" constant="10" id="HPV-b6-3h2"/>
+                    <constraint firstItem="RmP-zE-PNJ" firstAttribute="top" secondItem="iYY-hl-DNA" secondAttribute="bottom" constant="8" symbolic="YES" id="IGg-RO-d4s"/>
+                    <constraint firstItem="wmc-Vu-XZ5" firstAttribute="leading" secondItem="0b6-ts-rko" secondAttribute="trailing" constant="8" id="KGf-cb-kwu"/>
+                    <constraint firstItem="1oF-zZ-YUR" firstAttribute="centerY" secondItem="RmP-zE-PNJ" secondAttribute="centerY" id="NxT-1B-ZbL"/>
+                    <constraint firstItem="1oF-zZ-YUR" firstAttribute="leading" secondItem="RmP-zE-PNJ" secondAttribute="trailing" constant="8" symbolic="YES" id="UnR-pw-MBW"/>
+                    <constraint firstAttribute="trailing" secondItem="wmc-Vu-XZ5" secondAttribute="trailing" constant="5" id="XKR-oE-wTW"/>
+                    <constraint firstItem="0b6-ts-rko" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="XpS-jJ-lyD"/>
+                    <constraint firstItem="bjL-UU-f2a" firstAttribute="top" secondItem="RmP-zE-PNJ" secondAttribute="bottom" constant="10" id="Ycr-QF-X95"/>
+                    <constraint firstItem="0b6-ts-rko" firstAttribute="top" secondItem="bKz-eP-uo7" secondAttribute="bottom" constant="15" id="aJc-al-aui"/>
+                    <constraint firstItem="4Ak-Ed-UON" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="aeF-mI-u94"/>
+                    <constraint firstAttribute="bottom" secondItem="4Ak-Ed-UON" secondAttribute="bottom" constant="26" id="cBj-43-jzV"/>
+                    <constraint firstItem="RmP-zE-PNJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="dFB-mx-K4A"/>
+                    <constraint firstAttribute="trailing" secondItem="AJE-Of-YY5" secondAttribute="trailing" constant="10" id="fT9-HB-vUt"/>
+                    <constraint firstItem="O2u-u8-tjQ" firstAttribute="centerY" secondItem="m8A-9t-71c" secondAttribute="centerY" id="hpk-4f-xTF"/>
+                    <constraint firstAttribute="trailing" secondItem="O2u-u8-tjQ" secondAttribute="trailing" constant="5" id="mlR-Rh-Tdg"/>
+                    <constraint firstItem="O2u-u8-tjQ" firstAttribute="leading" secondItem="m8A-9t-71c" secondAttribute="trailing" constant="8" id="rZH-NI-k1l"/>
+                    <constraint firstItem="m8A-9t-71c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="t6T-rI-MsA"/>
+                    <constraint firstItem="iYY-hl-DNA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="uKj-Wp-HPx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnBadgeEarnedCheckmark" destination="4Ak-Ed-UON" id="iIt-x3-0dg"/>
+                <outlet property="txtBusinessDashboard" destination="m8A-9t-71c" id="bkD-Rz-Ehn"/>
+                <outlet property="txtCameraAppSubscription" destination="0b6-ts-rko" id="dbM-mt-C7V"/>
+                <outlet property="txtNumberOfSignup" destination="RmP-zE-PNJ" id="zO5-gZ-aRm"/>
+            </connections>
+            <point key="canvasLocation" x="135.98130841121494" y="110.79913606911448"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkBoxInActive" width="20" height="20"/>
+    </resources>
+</document>

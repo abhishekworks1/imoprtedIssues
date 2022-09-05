@@ -691,6 +691,8 @@ enum SocialShare: Int {
     case storiCam
     case storiCamPost
     case more
+    case fbMessanger
+    case whatsApp
 }
 
 enum SocialLogin: Int, CaseIterable {
