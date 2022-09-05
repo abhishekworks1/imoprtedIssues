@@ -47,33 +47,39 @@ class QuickStartOptionDetailViewController: UIViewController {
         headerTitleLabel.text = selectedQuickStartCategory?.label ?? ""
         tryNowButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
         doneButton.isHidden = !(selectedQuickStartCategory?.Items?.last == selectedQuickStartItem)
-        if (selectedQuickStartItem?.title == "Income Goal Calculator" || selectedQuickStartItem?.title == "Invite Wizard" || selectedQuickStartItem?.title == "Pic2Art" ) {
+        subscribeNowButton.setTitle(selectedQuickStartItem?.cta_text, for: .normal)
+        tryNowButton.setTitle(selectedQuickStartItem?.cta_text, for: .normal)
+        
+        if (selectedQuickStartItem?.cta_text == "Try Invite Wizard Now" || selectedQuickStartItem?.cta_text == "Try Pic2Art" || selectedQuickStartItem?.cta_text == "Try Calculator Now" || selectedQuickStartItem?.cta_text == "Try QuickCam Camera Now" || selectedQuickStartItem?.cta_text == "Try Mobile Dashboard Now" || selectedQuickStartItem?.cta_text == "Try Calculator Now" || selectedQuickStartItem?.cta_text == "Go to Your Welcome Page" || selectedQuickStartItem?.title == "Pic2Art") {
             tryNowButton.isHidden = false
-            if selectedQuickStartItem?.title == "Invite Wizard" {
-                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
-            } else if selectedQuickStartItem?.title == "Pic2Art" {
+//            if selectedQuickStartItem?.title == "Invite Wizard" {
+//                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+//            } else
+            if selectedQuickStartItem?.title == "Pic2Art" {
                 tryNowButton.setTitle("Try Pic2Art", for: .normal)
-            } else {
-                tryNowButton.setTitle("Try Calculator Now", for: .normal)
             }
-        } else {
-            if selectedQuickStartCategory?.catId == "create_engaging_content" {
-                tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
-            } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
-                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
-            } else if selectedQuickStartCategory?.catId == "mobile_dashboard" {
-                tryNowButton.setTitle("Try Mobile Dashboard Now", for: .normal)
-            } else {
-                tryNowButton.setTitle("Try Now", for: .normal)
-            }
+//                else {
+//                tryNowButton.setTitle("Try Calculator Now", for: .normal)
+//            }
         }
+//        else {
+//            if selectedQuickStartCategory?.catId == "create_engaging_content" {
+//                tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
+//            } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
+//                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
+//            } else if selectedQuickStartCategory?.catId == "mobile_dashboard" {
+//                tryNowButton.setTitle("Try Mobile Dashboard Now", for: .normal)
+//            } else {
+//                tryNowButton.setTitle("Try Now", for: .normal)
+//            }
+//        }
         subscribeNowButton.isHidden = !tryNowButton.isHidden
         
-        if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced{
-            subscribeNowButton.isHidden = true
-        }else{
-            subscribeNowButton.isHidden = false
-        }
+//        if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced{
+//            subscribeNowButton.isHidden = true
+//        }else{
+//            subscribeNowButton.isHidden = false
+//        }
        
     }
     
@@ -197,14 +203,14 @@ class QuickStartOptionDetailViewController: UIViewController {
         } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
             if selectedQuickStartItem?.title == "Income Goal Calculator" {
                 openPotentialIncomeCalculator()
-//                if let token = Defaults.shared.sessionToken {
-//                    let urlString = "\(websiteUrl)/p-calculator-2?token=\(token)&redirect_uri=\(redirectUri)"
-//                    guard let url = URL(string: urlString) else {
-//                        return
-//                    }
-//                    let safariVC = SFSafariViewController(url: url)
-//                    present(safariVC, animated: true, completion: nil)
-//                }
+            } else if selectedQuickStartItem?.cta_text == "Go to Your Welcome Page" {
+                if let token = Defaults.shared.sessionToken {
+                    let urlString = "\(websiteUrl)/\(selectedQuickStartItem?.cta_link ?? "")?token=\(token)&redirect_uri=\(redirectUri)"
+                    guard let url = URL(string: urlString) else {
+                        return
+                    }
+                    presentSafariBrowser(url: url)
+                }
             } else {
                 let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
                 if hasAllowAffiliate {

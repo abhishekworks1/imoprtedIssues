@@ -293,6 +293,13 @@ class WelcomeViewController: UIViewController {
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .makeMoney
+        if let makemoney = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "make_money_referring_quickCam" }).first, let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, let mobiledashboard = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "mobile_dashboard" }).first {
+            var categories = [createContent, mobiledashboard, makemoney]
+            if Defaults.shared.selectedQuickStartOption == .makeMoney {
+                categories = [makemoney, mobiledashboard, createContent]
+            }
+            Defaults.shared.quickStartCategories = categories
+        }
         UserSync.shared.setOnboardingUserFlags()
         whatToSeeFirstBaseView.isHidden = true
         openOnboarding()
@@ -302,6 +309,13 @@ class WelcomeViewController: UIViewController {
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.shouldDisplayQuickStartFirstOptionSelection = !isWhatDoYouWantSeeViewChecked
         Defaults.shared.selectedQuickStartOption = .createContent
+        if let makemoney = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "make_money_referring_quickCam" }).first, let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, let mobiledashboard = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "mobile_dashboard" }).first {
+            var categories = [createContent, mobiledashboard, makemoney]
+            if Defaults.shared.selectedQuickStartOption == .makeMoney {
+                categories = [makemoney, mobiledashboard, createContent]
+            }
+            Defaults.shared.quickStartCategories = categories
+        }
         UserSync.shared.setOnboardingUserFlags()
         whatToSeeFirstBaseView.isHidden = true
         openOnboarding()
@@ -340,6 +354,8 @@ extension WelcomeViewController {
                 UserSync.shared.setOnboardingUserFlags()
             }
             
+            UserSync.shared.getQuickStartCategories(completion: { _ in
+            })
             self.updateUserProfilePic()
             
             let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0

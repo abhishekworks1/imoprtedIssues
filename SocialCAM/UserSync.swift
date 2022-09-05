@@ -294,6 +294,13 @@ class UserSync {
                 sorted.append(newValue)
             }
             Defaults.shared.quickStartCategories = sorted
+            if let makemoney = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "make_money_referring_quickCam" }).first, let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, let mobiledashboard = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "mobile_dashboard" }).first {
+                var categories = [createContent, mobiledashboard, makemoney]
+                if Defaults.shared.selectedQuickStartOption == .makeMoney {
+                    categories = [makemoney, mobiledashboard, createContent]
+                }
+                Defaults.shared.quickStartCategories = categories
+            }
             completion(true)
         }
     }
