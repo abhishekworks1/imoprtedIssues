@@ -42,7 +42,7 @@ class WelcomeTimerPopupViewController: UIViewController {
     @IBOutlet weak var popUpScrollview: UIScrollView!
     private var countdownTimer: Timer?
     weak var tipTimer: Timer?
-    var currentSelectedTip: Int = 0 
+    var currentSelectedTip: Int = 0
     var tipArray = [String]()
     
     var upgradeButtonAction:(()-> Void)?
@@ -76,12 +76,12 @@ class WelcomeTimerPopupViewController: UIViewController {
         
         // Shadow Color and Radius
         let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
-        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
-        semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        semiHalfView.layer.shadowOpacity = 0.7
-        semiHalfView.layer.shadowRadius = 0
+//        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
+//        semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+//        semiHalfView.layer.shadowOpacity = 0.7
+//        semiHalfView.layer.shadowRadius = 0
         semiHalfView.layer.masksToBounds = false
-        semiHalfView.layer.cornerRadius = 81.5
+//        semiHalfView.layer.cornerRadius = 81.5
         
 //        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
         checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
