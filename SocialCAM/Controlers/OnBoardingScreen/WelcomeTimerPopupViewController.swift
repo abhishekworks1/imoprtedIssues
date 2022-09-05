@@ -506,7 +506,7 @@ extension WelcomeTimerPopupViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             return ""
         
-        } else if subscriptionType == "expired" {
+        } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             return ""
         
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
