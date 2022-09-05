@@ -171,7 +171,7 @@ class EditProfilePicViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.addLeftViewToTxtField(textField: self.txtDisplayName)
+     //   self.addLeftViewToTxtField(textField: self.txtDisplayName)
         self.addLeftViewToTxtField(textField: self.txtChannelName)
   }
     
@@ -1139,6 +1139,13 @@ extension EditProfilePicViewController {
                 }
             }
         case .snapchat:
+            
+            if ((Defaults.shared.snapchatProfileURL?.isEmpty) != nil) {
+                SnapKitManager.shared.logout { _ in
+                    
+                }
+            }
+            
             if !SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
                     if !isLogin {

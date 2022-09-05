@@ -57,6 +57,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var line4: UILabel!
     
     let characterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    
+    let colorCodeArray = ["006CFF","000000", "00B2FF","00FFC2", "05FFF0","1C2898","252E49","296459","4F964E","531232","531C98","542B0B", "62345B","64FF05", "751A46", "781717","784A17", "7D46F5","844186","859AA3","986771","B51717", "BB97B1","D5C7AC","D99E3B","E0B87A", "FF0000","FF069C","FF8C05","FFF505"]
     @IBOutlet weak var lblNum2: UILabel!
     @IBOutlet weak var lblNum3: UILabel!
     @IBOutlet weak var lblNum4: UILabel!
@@ -1892,7 +1894,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            cantSendTextOrEmailAlert(alertTitle: multiUse.alertTitle, alertMessage: multiUse.messageSMS)
         }
     }
-    
+    func getRandomColor()->UIColor{
+        return UIColor(hexString: self.colorCodeArray.randomElement() ?? "000000")
+    }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -2194,7 +2198,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let contact = emailContacts[indexPath.row]
             cell.lblDisplayName.text = contact.name ?? ""
             cell.lblNumberEmail.text = contact.email ?? ""
-            cell.contactImage.image = UIImage.init(named: "User_placeholder")
+           // cell.contactImage.image = UIImage.init(named: "User_placeholder")
+            cell.contactImage.backgroundColor = self.getRandomColor()
+            let names = (contact.name ?? "").components(separatedBy:" ")
+            cell.contactImageLabel.text =  "\(Array(names.first ?? "")[0])\(Array(names.last ?? " ")[0])"
             cell.mobileContactObj = contact
             cell.inviteButtonView.layer.borderWidth = 0.0
             cell.btnSelect.rowIndex = indexPath.row
@@ -2273,7 +2280,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let contact = mobileContacts[indexPath.row]
                 cell.lblDisplayName.text = contact.name ?? ""
                 cell.lblNumberEmail.text = contact.mobile
-                cell.contactImage.image = UIImage.init(named: "User_placeholder")
+               // cell.contactImage.image = UIImage.init(named: "User_placeholder")
+                cell.contactImage.backgroundColor = self.getRandomColor()
+                let names = (contact.name ?? "").components(separatedBy:" ")
+                cell.contactImageLabel.text =  "\(Array(names.first ?? "")[0])\(Array(names.last ?? " ")[0])"
                 cell.mobileContactObj = contact
                 cell.btnSelect.rowIndex = indexPath.row
                 cell.btnSelect.sectionIndex = indexPath.section
