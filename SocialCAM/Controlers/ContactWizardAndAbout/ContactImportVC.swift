@@ -1536,10 +1536,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 SDImageCache.shared.clearMemory()
                 SDImageCache.shared.clearDisk()
                 DispatchQueue.main.async {
-                    self.messageImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-                    self.previewImageview.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-                    self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
-                    self.messageImageView.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
+                    self.messageImageView.sd_imageIndicator = SDWebImageActivityIndicator.large
+                    self.previewImageview.sd_imageIndicator = SDWebImageActivityIndicator.large
+//                    self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
+//                    self.messageImageView.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
+                    guard let url = data.imageUrl else { return }
+                    self.previewImageview.loadImageWithUrl(url: url, placeholderImage: R.image.cameraWithBG() ?? UIImage())
+                    self.messageImageView.loadImageWithUrl(url: url, placeholderImage: R.image.cameraWithBG() ?? UIImage())
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
                     self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
                 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SDWebImage
 
 extension UIImage {
     
@@ -456,4 +457,21 @@ extension UIImage {
         return newImage!
     }
     
+}
+
+extension UIImageView {
+    func loadImageWithUrl(url: URL, placeholderImage: UIImage) {
+        self.image = placeholderImage
+        let loader = SDWebImageActivityIndicator()
+        if #available(iOS 13.0, *) {
+            loader.indicatorView.style = .large
+        } else {
+            // Fallback on earlier versions
+        }
+        loader.indicatorView.color = .blue
+        self.sd_imageIndicator = loader
+        self.sd_setImage(with: url, completed: { img, error, cacheType, newUrl in
+            self.image = error == nil ? img : placeholderImage
+        })
+    }
 }
