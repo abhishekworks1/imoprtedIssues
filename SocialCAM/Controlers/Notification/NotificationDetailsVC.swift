@@ -105,6 +105,14 @@ class NotificationDetailsVC: UIViewController {
     
     // MARK: - IBActions
     
+    @IBAction func didTapOnBadgesButton(_ sender: UIButton) {
+        
+        let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
+    }
+    
+    
     @IBAction func dismissButtonTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
