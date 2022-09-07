@@ -1757,20 +1757,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         guard let url = URL(string: shareUrl) else {
             preconditionFailure("URL is invalid")
         }
-        
-        let content = ShareLinkContent()
-        content.contentURL = url
-        content.quote = message
-        let dialog = MessageDialog(content: content, delegate: self)
-        do {
-            try dialog.validate()
-        } catch {
-            print(error)
+        if UIApplication.shared.canOpenURL(URL(string: "fb-messenger-share-api://")!){
+            let content = ShareLinkContent()
+            content.contentURL = url
+            content.quote = message
+            let dialog = MessageDialog(content: content, delegate: self)
+            do {
+                try dialog.validate()
+            } catch {
+                print(error)
+                DispatchQueue.runOnMainThread {
+                    Utils.customaizeToastMessage(title: "Please install FB Messanger", toastView: (Utils.appDelegate?.window)!)
+                }
+            }
+            dialog.show()
+        }else{
             DispatchQueue.runOnMainThread {
                 Utils.customaizeToastMessage(title: "Please install FB Messanger", toastView: (Utils.appDelegate?.window)!)
             }
         }
-        dialog.show()
+       
     }
     
     

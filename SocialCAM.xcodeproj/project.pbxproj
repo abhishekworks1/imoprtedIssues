@@ -9830,6 +9830,10 @@
 		9CAE571727456CE20067AAA5 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */; };
 		9CDA461E27851E09002BF726 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CDA461D27851E09002BF726 /* StoreKit.framework */; };
 		A11D24C0285D026600B01C2E /* UserSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D24BF285D026600B01C2E /* UserSync.swift */; };
+		A129124F28C26AE1002540AA /* QuickStartGuideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */; };
+		A129125028C26AE1002540AA /* QuickStartGuideTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */; };
+		A129125128C2735F002540AA /* QuickStartGuideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */; };
+		A129125228C2736C002540AA /* QuickStartGuideTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */; };
 		A1450EB22864B25B0094ED7C /* AnnularLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EAE2864B2560094ED7C /* AnnularLayer.swift */; };
 		A1450EB32864B25B0094ED7C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1450EAF2864B2560094ED7C /* Media.xcassets */; };
 		A1450EB42864B25B0094ED7C /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB02864B2560094ED7C /* LineLayer.swift */; };
@@ -16525,6 +16529,8 @@
 		9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QRCodeViewController.swift; path = PhotoVideoFuncations/QRCodeViewController.swift; sourceTree = "<group>"; };
 		9CDA461D27851E09002BF726 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A11D24BF285D026600B01C2E /* UserSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSync.swift; sourceTree = "<group>"; };
+		A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartGuideTableViewCell.swift; sourceTree = "<group>"; };
+		A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickStartGuideTableViewCell.xib; sourceTree = "<group>"; };
 		A1450EAE2864B2560094ED7C /* AnnularLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnularLayer.swift; sourceTree = "<group>"; };
 		A1450EAF2864B2560094ED7C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		A1450EB02864B2560094ED7C /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
@@ -17119,6 +17125,8 @@
 				A1450EAD2864B2560094ED7C /* StepIndicator */,
 				3546C8DE28521FF300D76ACF /* OnBoardingView.storyboard */,
 				3546C8E12852202A00D76ACF /* OnBoardingViewController.swift */,
+				A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */,
+				A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */,
 				A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */,
 				75930D6828525DDF00B1A1EF /* MakeMoneyReferringViewController.swift */,
 				75E7FF082864949400D8C397 /* WelcomeOnboarding.storyboard */,
@@ -20771,6 +20779,7 @@
 				F601005D25355DE600F86479 /* CommonAssets.xcassets in Resources */,
 				8205FD38236C3B06002B2603 /* LUT_M08.png in Resources */,
 				82D1EC5123702B4300A680E7 /* Wonderful.JPG in Resources */,
+				A129125028C26AE1002540AA /* QuickStartGuideTableViewCell.xib in Resources */,
 				8205FC43236C2C2F002B2603 /* SF-UI-Text-Heavy.otf in Resources */,
 				82D1EBF3236FF4D000A680E7 /* UpgradePageCollectionViewCell.xib in Resources */,
 				8205FB64236C1D0F002B2603 /* FeedbackLocalizable.strings in Resources */,
@@ -22431,6 +22440,7 @@
 				C2F93464264AA0CA006CA527 /* laugh.json in Resources */,
 				C2F93465264AA0CA006CA527 /* StoryEmojiCollectionViewCell.xib in Resources */,
 				C2F93466264AA0CA006CA527 /* AMColorPickerWheelView.xib in Resources */,
+				A129125228C2736C002540AA /* QuickStartGuideTableViewCell.xib in Resources */,
 				614E6B4D283DFABC0039765C /* SettingsCollectionCell.xib in Resources */,
 				C2F93467264AA0CA006CA527 /* LoginViewController.storyboard in Resources */,
 				C2F93468264AA0CA006CA527 /* 01 Instrumental Theme (Intro).mp3 in Resources */,
@@ -27337,6 +27347,7 @@
 				8205FAA6236C0FD7002B2603 /* AVAssetTimeSelector.swift in Sources */,
 				824EB3E723619FB000205993 /* NextLevel+Metadata.swift in Sources */,
 				8205FD6D236C3B06002B2603 /* VignetteControl.swift in Sources */,
+				A129124F28C26AE1002540AA /* QuickStartGuideTableViewCell.swift in Sources */,
 				82437BFA23DF01FA00F5A2FD /* SnapKitManager.swift in Sources */,
 				8205FC5E236C3AD9002B2603 /* StyleTransferModel43.mlmodel in Sources */,
 				8205FC67236C3AE7002B2603 /* DrawingContainerView.swift in Sources */,
@@ -34112,6 +34123,7 @@
 				C2F9332B264AA0CA006CA527 /* CoreML+Helpers.swift in Sources */,
 				C2F9332C264AA0CA006CA527 /* NextLevel+CIContext.swift in Sources */,
 				C2F9332D264AA0CA006CA527 /* FilterControlBase.swift in Sources */,
+				A129125128C2735F002540AA /* QuickStartGuideTableViewCell.swift in Sources */,
 				C2F9332E264AA0CA006CA527 /* NextLevel+CMSampleBuffer.swift in Sources */,
 				C2F93330264AA0CA006CA527 /* UIReactionControl.swift in Sources */,
 				C2226DCC265512FE00E2B647 /* ReferringChannelSuggestionViewController.swift in Sources */,

@@ -1259,7 +1259,7 @@ extension SubscriptionsViewController {
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             return "Your 7-Day Premium Free Trial has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features.\nTime since signing up:"
         }
-        else if subscriptionType == "expired" {
+        else if subscriptionType ==  SubscriptionTypeForBadge.EXPIRE.rawValue  {
             return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features.\nTime since your subscription expired:"
         }
         else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {

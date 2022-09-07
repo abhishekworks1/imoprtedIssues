@@ -753,11 +753,11 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
             var image = img
             let imageSize: Int = compressedImg.count
             let imgSizeInKb = Double(imageSize) / 1000.0
-            if imgSizeInKb > 8000.0 {
+           // if imgSizeInKb > 8000.0 {
                 if let resizeImage = image.resizeWithWidth(width: 2000) {
                     image = resizeImage
                 }
-            }
+           // }
             self.isCroppedImage = false
             self.uncroppedImg = image
             picker.dismiss(animated: true, completion: {
