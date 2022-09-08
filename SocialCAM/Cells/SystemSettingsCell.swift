@@ -28,6 +28,9 @@ enum SystemSettingType: String {
     case hapticAll = "All"
     case hapticSome = "Some"
     case hapticFeedBack = "Haptic Feedback"
+    case beginner = "Beginner"
+    case intermediate = "Intermediate"
+    case advanced = "Advanced"
     
     var description : String {
         switch self {
@@ -64,6 +67,12 @@ enum SystemSettingType: String {
             return "All"
         case .hapticSome:
             return "Some"
+        case .beginner:
+            return "Beginner"
+        case .intermediate:
+            return "Intermediate"
+        case .advanced:
+            return "Advanced"
         }
         return ""
       }
