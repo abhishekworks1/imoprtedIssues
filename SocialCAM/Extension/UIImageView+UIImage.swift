@@ -460,18 +460,36 @@ extension UIImage {
 }
 
 extension UIImageView {
-    func loadImageWithUrl(url: URL, placeholderImage: UIImage) {
-        self.image = placeholderImage
-        let loader = SDWebImageActivityIndicator()
+    
+    func showActivityIndicatory(activityView: UIActivityIndicatorView,
+                                indicatorStyle: UIActivityIndicatorView.Style) {
         if #available(iOS 13.0, *) {
-            loader.indicatorView.style = .large
-        } else {
-            // Fallback on earlier versions
+            activityView.style = indicatorStyle
+            activityView.color = R.color.appPrimaryColor()
+            activityView.center = self.center
+            self.addSubview(activityView)
+            self.bringSubviewToFront(activityView)
+            activityView.startAnimating()
+            activityView.isHidden = false
         }
-        loader.indicatorView.color = .blue
+    }
+    
+    
+    func stopActivityIndicatory(activityView: UIActivityIndicatorView) {
+        if (activityView != nil){
+            activityView.stopAnimating()
+        }
+    }
+    
+    func loadImageWithSDwebImage(imageUrlString: String) {
+        self.image = R.image.indicatorBgImage()
+        let loader = SDWebImageActivityIndicator()
+        loader.indicatorView.style = .gray
+        loader.indicatorView.color = R.color.appPrimaryColor()
         self.sd_imageIndicator = loader
-        self.sd_setImage(with: url, completed: { img, error, cacheType, newUrl in
-            self.image = error == nil ? img : placeholderImage
-        })
+        loader.startAnimatingIndicator()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+            self.sd_setImage(with: URL.init(string: imageUrlString), placeholderImage: R.image.cameraWithBG() ?? UIImage())
+        }
     }
 }

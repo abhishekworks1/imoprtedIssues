@@ -329,6 +329,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     let releaseType = Defaults.shared.releaseType
     private lazy var storyCameraVC = StoryCameraViewController()
     var notificationUnreadCount = 0
+    var activityView = UIActivityIndicatorView()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.backButton.imageView?.contentMode = .scaleAspectFit
@@ -604,12 +605,24 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             }
         }
     }
+    
+    func setProfileImage(imageView: UIImageView, imageUrl: String) {
+        let loader = SDWebImageActivityIndicator()
+        loader.indicatorView.style = .gray
+        loader.indicatorView.color = R.color.appPrimaryColor()
+        imageView.sd_imageIndicator = loader
+        loader.startAnimatingIndicator()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            imageView.sd_setImage(with: URL.init(string: imageUrl), placeholderImage: R.image.cameraWithBG() ?? UIImage())
+        }
+    }
+    
     func setUpProfileHeader() {
         userImage.layer.cornerRadius = userImage.bounds.width / 2
 //        if settingTitle.settingsType == .userDashboard {
+        userImage.image = R.image.indicatorBgImage()
           if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-                userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
-                userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+              setProfileImage(imageView: userImage, imageUrl: userImageURL)
             } else {
                 userImage.image = ApplicationSettings.userPlaceHolder
             }
@@ -784,7 +797,8 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             if userImageURL.isEmpty {
                 userPlaceHolderImageView.isHidden = false
             }
-            userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            setProfileImage(imageView: userPlaceHolderImageView, imageUrl: userImageURL)
+//            userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
         } else {
             userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
         }
@@ -1010,7 +1024,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 if userImageURL.isEmpty {
                     headerView.addProfilePic.isHidden = false
                 }
-                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+                setProfileImage(imageView: headerView.userImage, imageUrl: userImageURL)
+//                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
@@ -1052,7 +1067,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 if userImageURL.isEmpty {
                     self?.userPlaceHolderImageView.isHidden = false
                 }
-                self?.userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+                self?.setProfileImage(imageView: self?.userPlaceHolderImageView ?? UIImageView(), imageUrl: userImageURL)
+//                self?.userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 self?.userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
             }

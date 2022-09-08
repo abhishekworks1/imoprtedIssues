@@ -1854,7 +1854,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwD-u2-BGb">
                                                                                         <rect key="frame" x="30" y="5" width="305" height="250"/>
                                                                                         <subviews>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraWithBG" translatesAutoresizingMaskIntoConstraints="NO" id="kFs-4o-hd7">
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="indicatorBgImage" translatesAutoresizingMaskIntoConstraints="NO" id="kFs-4o-hd7">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="305" height="230"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="height" constant="230" id="exl-Gm-fPZ"/>
@@ -1995,7 +1995,7 @@
                                                                                                             <nil key="textColor"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
-                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraWithBG" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
+                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="indicatorBgImage" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
                                                                                                             <rect key="frame" x="10" y="125.5" width="160" height="170"/>
                                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                             <constraints>
@@ -3481,13 +3481,13 @@
                                         <rect key="frame" x="20" y="204" width="335" height="215"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The QuickCam Business Dashboard Sharing will open in your default browser." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZ9-uj-XLj">
-                                                <rect key="frame" x="15" y="25" width="305" height="61"/>
+                                                <rect key="frame" x="15" y="25" width="305" height="59.5"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" name="AppBlackColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XeA-xI-3ji">
-                                                <rect key="frame" x="0.0" y="86" width="335" height="120"/>
+                                                <rect key="frame" x="0.0" y="84.5" width="335" height="120"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECQ-JQ-hzo">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="60"/>
@@ -3507,7 +3507,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXZ-gP-Pzx">
-                                                                <rect key="frame" x="55" y="20" width="271" height="20.5"/>
+                                                                <rect key="frame" x="55" y="20" width="271" height="20"/>
                                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="17"/>
                                                                 <color key="textColor" name="AppBlackColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -3635,7 +3635,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNc-lo-SsS">
-                                                        <rect key="frame" x="120" y="13" width="60" height="19"/>
+                                                        <rect key="frame" x="120" y="13" width="60.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -5009,7 +5009,6 @@
         <image name="appleEmail" width="512" height="512"/>
         <image name="arrowCircle" width="500" height="500"/>
         <image name="avtarContact" width="23" height="24"/>
-        <image name="cameraWithBG" width="304" height="213"/>
         <image name="checkBoxActive" width="20" height="20"/>
         <image name="checkBoxInActive" width="20" height="20"/>
         <image name="circleHelpQuestionMark" width="16" height="16"/>
@@ -5026,6 +5025,7 @@
         <image name="ic_down" width="512" height="254"/>
         <image name="iconQuickCam" width="32" height="32"/>
         <image name="iconShare" width="17" height="20"/>
+        <image name="indicatorBgImage" width="144" height="149"/>
         <image name="instagram" width="45" height="45"/>
         <image name="iosbadge" width="165" height="163"/>
         <image name="makeMoneyRightArrow" width="512" height="512"/>
