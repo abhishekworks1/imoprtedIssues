@@ -26,12 +26,7 @@ extension UIView {
 }
 class WelcomeViewController: UIViewController {
 
-    
-    
     @IBOutlet weak var quickcamCameraView: UIView!
-    
-   
-    
     @IBOutlet weak var topmainView: UIView!
     @IBOutlet weak var timerLeftLabel: UILabel!
     @IBOutlet weak var displayNameLabel: UILabel!
@@ -376,8 +371,8 @@ extension WelcomeViewController {
 
             if self.checkIfWelcomePopupShouldAppear()
             {
-//                self.showWelcomeTimerAlert()
-                self.checkIfWelcomeTimerAlertShownToday()
+                self.showWelcomeTimerAlert()
+//                self.checkIfWelcomeTimerAlertShownToday()
             }
             self.getDays()
             self.hideLoader()
@@ -1017,6 +1012,17 @@ extension WelcomeViewController {
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:)))
+        preLaunchBadgeImageView.addGestureRecognizer(tap)
+        foundingMemberBadgeImageView.addGestureRecognizer(tap)
+        socialBadgeImageView.addGestureRecognizer(tap)
+        dayBadgeIosImageView.addGestureRecognizer(tap)
+        dayBadgeAndroidImageView.addGestureRecognizer(tap)
+        dayBadgeWebImageView.addGestureRecognizer(tap)
+        iosBadgeView.addGestureRecognizer(tap)
+        androidBadgeView.addGestureRecognizer(tap)
+        webBadgeView.addGestureRecognizer(tap)
+        
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -1170,6 +1176,13 @@ extension WelcomeViewController {
                 }
             }
         }
+    }
+    
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
     }
     
     func showMessageData(subscriptionType: String, daysLeft: Int) -> String {

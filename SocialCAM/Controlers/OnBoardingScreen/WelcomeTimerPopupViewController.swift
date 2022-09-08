@@ -81,7 +81,7 @@ class WelcomeTimerPopupViewController: UIViewController {
         semiHalfView.layer.shadowOpacity = 0.7
         semiHalfView.layer.shadowRadius = 0
         semiHalfView.layer.masksToBounds = false
-        semiHalfView.layer.cornerRadius = 81.5*/
+        semiHalfView.layer.cornerRadius = 81.5
         
 //        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
         checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
