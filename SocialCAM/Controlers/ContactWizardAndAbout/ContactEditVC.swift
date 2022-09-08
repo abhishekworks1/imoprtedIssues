@@ -57,7 +57,7 @@ class ContactEditVC: UIViewController {
         txtPhone.keyboardType = .phonePad
     }
     @IBAction func doneClicked(sender:UIButton){
-        if txtPhone.text!.count < 10{
+        if txtPhone.text!.count < 10 && isEmail == false{
             DispatchQueue.runOnMainThread {
                 Utils.customaizeToastMessage(title: "Please enter valid mobile number.", toastView: (Utils.appDelegate?.window)!)
             }
@@ -97,6 +97,10 @@ class ContactEditVC: UIViewController {
                 self.contact?.name = self.txtName.text!
                 self.contact?.mobile = self.txtPhone.text!
                 self.delegate?.didFinishEdit(contact:self.contact!)
+                DispatchQueue.runOnMainThread {
+                    Utils.customaizeToastMessage(title: "Contact Updated.", toastView: (Utils.appDelegate?.window)!)
+                }
+
                 self.dismiss(animated:true, completion: nil)
                 break
                
