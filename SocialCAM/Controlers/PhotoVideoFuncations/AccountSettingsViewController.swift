@@ -22,13 +22,14 @@ class AccountSettings {
     
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.pleaseEnterEmail(), selected: false)], settingsType: .email),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.displayName(), selected: false)], settingsType: .publicDisplayName)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.displayName(), selected: false)], settingsType: .publicDisplayName),
+        StorySettings(name: "", settings: [StorySetting(name: "Channel Name Display", selected: false)], settingsType: .channelDisplayName)
 //        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
     ]
     //StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName), // Hide Private name for boomicam
 }
 
-class AccountSettingsViewController: UIViewController {
+class AccountSettingsViewController: UIViewController, DisplayTooltiPDelegate {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var accountSettingsTableView: UITableView!
@@ -42,11 +43,12 @@ class AccountSettingsViewController: UIViewController {
     // MARK: - Variable Declarations
     var isDisplayNameChange = false
     private lazy var storyCameraVC = StoryCameraViewController()
-    
+    var easyTipView: EasyTipView?
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.accountSettingsTableView.reloadData()
+        self.setupEasyTipView()
     }
     
     func showHideButtonView(isHide: Bool) {
@@ -88,6 +90,16 @@ class AccountSettingsViewController: UIViewController {
     
     @IBAction func onDisplayNameOkPressed(_ sender: UIButton) {
         self.displayNameTooltipView.isHidden = true
+    }
+    
+    func setupEasyTipView() {
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont.systemFont(ofSize: 12)
+        preferences.drawing.textAlignment = .left
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor(red: 0, green: 125/255, blue: 255/255, alpha: 1.0)
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.left
+        EasyTipView.globalPreferences = preferences
     }
 }
 
@@ -134,7 +146,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
             accountSettingsCell.imgSettingIcon.image = R.image.iconAccountDelete()
-        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email {
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email || settingTitle.settingsType == .channelDisplayName {
             guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
                 return accountSettingsCell
             }
@@ -147,6 +159,8 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 displayNameCell.displayNameType = .privateDisplayName
             }else if settingTitle.settingsType == .email {
                 displayNameCell.displayNameType = .emailAddress
+            } else if settingTitle.settingsType == .channelDisplayName {
+                displayNameCell.displayNameType = .channelDisplayName
             }
             displayNameCell.txtDisplaName.alpha = settingTitle.settingsType == .email ? 0.5 : 1
             displayNameCell.txtDisplaName.isUserInteractionEnabled = !(settingTitle.settingsType == .email)
@@ -187,7 +201,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
         let settingTitle = AccountSettings.accountSettings[indexPath.section]
         if settingTitle.settingsType == .referringChannelName {
             return 60
-        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email {
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email || settingTitle.settingsType == .channelDisplayName {
             return 94
         } else {
             return 40
@@ -281,18 +295,44 @@ extension AccountSettingsViewController: UITableViewDelegate {
     }
 }
 
-extension AccountSettingsViewController: DisplayTooltiPDelegate {
-    func displayTooltip(index: Int) {
-        self.displayNameTooltipView.isHidden = false
+extension AccountSettingsViewController {
+    
+    func displayTooltip(index: Int, cell: DisplayNameTableViewCell) {
+        self.displayNameTooltipView.isHidden = true
+//        self.easyTipView?.dismiss()
         if index == 0 {
-            self.lblDisplayNameTooltip.text = "You must go to the Business Dashboard to update your Email Address."
+            self.showEasyTipView(string: R.string.localizable.emailTooltip(), forview: cell.btnDisplayNameTooltipIcon, superView: cell.contentView)
+            
         }else if index == 1 {
-            self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+            
+            self.showEasyTipView(string: R.string.localizable.publicDisplayNameTooltip(), forview: cell.btnDisplayNameTooltipIcon, superView: cell.contentView)
+            
         } else if index == 2 {
-           // self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+            
+            self.showEasyTipView(string: R.string.localizable.channelDisplayNameTooltip(), forview: cell.btnDisplayNameTooltipIcon, superView: cell.contentView)
         }
     }
-    func displayTextAlert(string:String){
+    func displayTextAlert(string:String, cell: DisplayNameTableViewCell){
         self.showAlert(alertMessage: string)
+    }
+    
+    func showEasyTipView(string: String, forview: UIView, superView: UIView) {
+        if self.easyTipView != nil {
+            self.easyTipView?.dismiss()
+        }
+        self.easyTipView = EasyTipView(text: string)
+        
+        self.easyTipView!.show(animated: true, forView: forview, withinSuperview: superView)
+    }
+}
+
+extension AccountSettingsViewController:EasyTipViewDelegate {
+    
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+        tipView.dismiss()
+    }
+    
+    func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+        
     }
 }
