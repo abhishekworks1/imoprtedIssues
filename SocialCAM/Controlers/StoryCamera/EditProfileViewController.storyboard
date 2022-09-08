@@ -227,28 +227,28 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tN0-Xq-gwU" userLabel="Social Badge Stack View">
                                                         <rect key="frame" x="0.0" y="0.0" width="190" height="65"/>
                                                         <subviews>
-                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="aTW-Rd-6q3">
+                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="OFe-vj-zjf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
                                                             </imageView>
-                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="B9G-hU-4FA">
+                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="LXd-mJ-nyf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
                                                             </imageView>
-                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-Z9-Fln">
+                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="sm6-Ja-0Oh">
                                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
                                                             </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7ol-WA-GoB">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7ol-WA-GoB">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="qIH-jR-SNH"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3GF-CY-zH0">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3GF-CY-zH0">
                                                                 <rect key="frame" x="50" y="0.0" width="40" height="65"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="QvB-Kf-OSR"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="O4h-Ly-kGY">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="6" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="O4h-Ly-kGY">
                                                                 <rect key="frame" x="100" y="0.0" width="40" height="65"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="eKI-91-Wri"/>
@@ -269,7 +269,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0q0-VL-eI3">
                                                         <rect key="frame" x="192" y="0.0" width="195" height="65"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3g-2k-oLz" userLabel="Android Badge">
+                                                            <view tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3g-2k-oLz" userLabel="Android Badge">
                                                                 <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="LZK-OL-g9l">
@@ -302,7 +302,7 @@
                                                                     <constraint firstItem="DjN-8w-XZE" firstAttribute="top" secondItem="j3g-2k-oLz" secondAttribute="top" constant="12" id="xmt-Ke-pMB"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ua3-ih-v3r" userLabel="Apple Badge">
+                                                            <view tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ua3-ih-v3r" userLabel="Apple Badge">
                                                                 <rect key="frame" x="65" y="0.0" width="65" height="65"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="DQ4-Yu-AW5">
@@ -332,7 +332,7 @@
                                                                     <constraint firstAttribute="bottom" secondItem="DQ4-Yu-AW5" secondAttribute="bottom" id="xai-LD-GMc"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rrh-mE-NVS" userLabel="Web Badge">
+                                                            <view tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rrh-mE-NVS" userLabel="Web Badge">
                                                                 <rect key="frame" x="130" y="0.0" width="65" height="65"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="vSt-gw-ECe">
@@ -1337,6 +1337,9 @@
                         <outlet property="btnSelectDiscardPopupView" destination="gFI-xo-hLL" id="IWd-uy-FYV"/>
                         <outlet property="btnSetFlags" destination="AF7-qD-moD" id="ntQ-Se-Fzw"/>
                         <outlet property="btnSetPublicDisplayName" destination="UcJ-PD-IZa" id="AHt-J2-dkr"/>
+                        <outlet property="dayBadgeAndroidImageView" destination="OFe-vj-zjf" id="UMG-Lc-CjL"/>
+                        <outlet property="dayBadgeIosImageView" destination="LXd-mJ-nyf" id="x5c-xB-Sk4"/>
+                        <outlet property="dayBadgeWebImageView" destination="sm6-Ja-0Oh" id="YbB-q6-AJ2"/>
                         <outlet property="dicardPopupView" destination="jfS-NO-u5c" id="rc9-0L-ap3"/>
                         <outlet property="displayNameViewTopConstraint" destination="fdi-X0-hR5" id="HLD-RF-tkA"/>
                         <outlet property="editNamePopupMessage" destination="dh6-oE-ZBf" id="RGS-Im-ETX"/>
@@ -3308,33 +3311,147 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srp-d9-X8e">
                                                                     <rect key="frame" x="0.0" y="400.5" width="290" height="65"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3i4-t5-eC5" userLabel="Social Badge Stack View">
-                                                                            <rect key="frame" x="50" y="0.0" width="190" height="65"/>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3i4-t5-eC5" userLabel="Social Badge Stack View">
+                                                                            <rect key="frame" x="-48.5" y="0.0" width="387" height="65"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RHi-5E-JN2">
+                                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="po9-WI-TJV">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
+                                                                                </imageView>
+                                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="gaR-WP-oiS">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
+                                                                                </imageView>
+                                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="FFq-FZ-yqf">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
+                                                                                </imageView>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RHi-5E-JN2">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="J9D-kN-NdZ"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="YKN-OT-4ZZ">
-                                                                                    <rect key="frame" x="50" y="0.0" width="40" height="65"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="YKN-OT-4ZZ">
+                                                                                    <rect key="frame" x="48" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="yla-PN-BYB"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="eQS-2N-Lf7">
-                                                                                    <rect key="frame" x="100" y="0.0" width="40" height="65"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="6" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="eQS-2N-Lf7">
+                                                                                    <rect key="frame" x="96" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="dOT-ct-rJz"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="DUO-F8-qQU">
-                                                                                    <rect key="frame" x="150" y="0.0" width="40" height="65"/>
+                                                                                    <rect key="frame" x="144" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="PB9-zO-zEu"/>
                                                                                     </constraints>
                                                                                 </imageView>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pch-lp-CfW">
+                                                                                    <rect key="frame" x="192" y="0.0" width="195" height="65"/>
+                                                                                    <subviews>
+                                                                                        <view tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glr-fp-N4a" userLabel="Android Badge">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                                                            <subviews>
+                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="5V3-Aa-YEA">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                                                                </imageView>
+                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="snU-Es-ruy">
+                                                                                                    <rect key="frame" x="12" y="12" width="41" height="41"/>
+                                                                                                </imageView>
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvT-OB-e9w">
+                                                                                                    <rect key="frame" x="28.5" y="36" width="8.5" height="17"/>
+                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                                    <color key="textColor" name="Active1"/>
+                                                                                                    <nil key="highlightedColor"/>
+                                                                                                </label>
+                                                                                            </subviews>
+                                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstItem="snU-Es-ruy" firstAttribute="top" secondItem="glr-fp-N4a" secondAttribute="top" constant="12" id="0Lf-cp-cQP"/>
+                                                                                                <constraint firstItem="5V3-Aa-YEA" firstAttribute="top" secondItem="glr-fp-N4a" secondAttribute="top" id="8fg-CF-HvZ"/>
+                                                                                                <constraint firstItem="snU-Es-ruy" firstAttribute="centerX" secondItem="glr-fp-N4a" secondAttribute="centerX" id="9w6-ol-ePt"/>
+                                                                                                <constraint firstItem="5V3-Aa-YEA" firstAttribute="leading" secondItem="glr-fp-N4a" secondAttribute="leading" id="BUm-lb-cXy"/>
+                                                                                                <constraint firstAttribute="bottom" secondItem="snU-Es-ruy" secondAttribute="bottom" constant="12" id="JWa-T8-R78"/>
+                                                                                                <constraint firstItem="snU-Es-ruy" firstAttribute="leading" secondItem="glr-fp-N4a" secondAttribute="leading" constant="12" id="LRW-Bi-H6g"/>
+                                                                                                <constraint firstAttribute="width" constant="65" id="W6n-Zw-RNG"/>
+                                                                                                <constraint firstAttribute="bottom" secondItem="5V3-Aa-YEA" secondAttribute="bottom" id="mDR-IK-NLF"/>
+                                                                                                <constraint firstItem="snU-Es-ruy" firstAttribute="centerY" secondItem="glr-fp-N4a" secondAttribute="centerY" id="opr-8p-P7O"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="snU-Es-ruy" secondAttribute="trailing" constant="12" id="p2Z-2j-i9u"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="5V3-Aa-YEA" secondAttribute="trailing" id="uhR-CU-6pD"/>
+                                                                                                <constraint firstItem="DvT-OB-e9w" firstAttribute="centerY" secondItem="glr-fp-N4a" secondAttribute="centerY" constant="12" id="vuF-sp-atL"/>
+                                                                                                <constraint firstItem="DvT-OB-e9w" firstAttribute="centerX" secondItem="glr-fp-N4a" secondAttribute="centerX" id="wOe-l6-qjI"/>
+                                                                                            </constraints>
+                                                                                        </view>
+                                                                                        <view tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Bd-aG-yfS" userLabel="Apple Badge">
+                                                                                            <rect key="frame" x="65" y="0.0" width="65" height="65"/>
+                                                                                            <subviews>
+                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="onH-6R-EGh">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                                                                </imageView>
+                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nSx-u8-EKH">
+                                                                                                    <rect key="frame" x="5" y="7" width="55" height="23.5"/>
+                                                                                                </imageView>
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY1-cK-mIg">
+                                                                                                    <rect key="frame" x="28.5" y="36" width="8.5" height="17"/>
+                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                                    <color key="textColor" name="Active1"/>
+                                                                                                    <nil key="highlightedColor"/>
+                                                                                                </label>
+                                                                                            </subviews>
+                                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="trailing" secondItem="nSx-u8-EKH" secondAttribute="trailing" constant="5" id="3qj-4j-drC"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="onH-6R-EGh" secondAttribute="trailing" id="Bcm-ga-Zfm"/>
+                                                                                                <constraint firstItem="nSx-u8-EKH" firstAttribute="leading" secondItem="1Bd-aG-yfS" secondAttribute="leading" constant="5" id="I97-lc-Iig"/>
+                                                                                                <constraint firstAttribute="width" constant="65" id="cYu-ul-tyy"/>
+                                                                                                <constraint firstItem="tY1-cK-mIg" firstAttribute="centerX" secondItem="1Bd-aG-yfS" secondAttribute="centerX" id="hVE-OD-K7r"/>
+                                                                                                <constraint firstAttribute="bottom" secondItem="onH-6R-EGh" secondAttribute="bottom" id="m0l-O2-4pP"/>
+                                                                                                <constraint firstItem="onH-6R-EGh" firstAttribute="leading" secondItem="1Bd-aG-yfS" secondAttribute="leading" id="nda-BK-wcN"/>
+                                                                                                <constraint firstItem="onH-6R-EGh" firstAttribute="top" secondItem="1Bd-aG-yfS" secondAttribute="top" id="pbO-Em-bW6"/>
+                                                                                                <constraint firstItem="tY1-cK-mIg" firstAttribute="centerY" secondItem="1Bd-aG-yfS" secondAttribute="centerY" constant="12" id="sbS-YF-2hs"/>
+                                                                                                <constraint firstItem="nSx-u8-EKH" firstAttribute="top" secondItem="1Bd-aG-yfS" secondAttribute="top" constant="7" id="xYI-wn-wrR"/>
+                                                                                            </constraints>
+                                                                                        </view>
+                                                                                        <view tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wuu-1u-VjT" userLabel="Web Badge">
+                                                                                            <rect key="frame" x="130" y="0.0" width="65" height="65"/>
+                                                                                            <subviews>
+                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="l8d-od-zD1">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                                                                </imageView>
+                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="P8J-8l-jcc">
+                                                                                                    <rect key="frame" x="12" y="12" width="41" height="41"/>
+                                                                                                </imageView>
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96i-FU-3Mf">
+                                                                                                    <rect key="frame" x="28.5" y="36" width="8.5" height="17"/>
+                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                                    <color key="textColor" name="Active1"/>
+                                                                                                    <nil key="highlightedColor"/>
+                                                                                                </label>
+                                                                                            </subviews>
+                                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstItem="l8d-od-zD1" firstAttribute="top" secondItem="Wuu-1u-VjT" secondAttribute="top" id="4kg-e6-Rlr"/>
+                                                                                                <constraint firstItem="P8J-8l-jcc" firstAttribute="leading" secondItem="Wuu-1u-VjT" secondAttribute="leading" constant="12" id="FZa-6V-P1z"/>
+                                                                                                <constraint firstItem="P8J-8l-jcc" firstAttribute="centerX" secondItem="Wuu-1u-VjT" secondAttribute="centerX" id="QJQ-0a-xhr"/>
+                                                                                                <constraint firstAttribute="bottom" secondItem="l8d-od-zD1" secondAttribute="bottom" id="TEO-i5-cmW"/>
+                                                                                                <constraint firstAttribute="width" constant="65" id="bTX-hs-x4F"/>
+                                                                                                <constraint firstItem="l8d-od-zD1" firstAttribute="leading" secondItem="Wuu-1u-VjT" secondAttribute="leading" id="boK-nu-Jxc"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="P8J-8l-jcc" secondAttribute="trailing" constant="12" id="dOP-f5-e0z"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="l8d-od-zD1" secondAttribute="trailing" id="qAW-fo-Znw"/>
+                                                                                                <constraint firstItem="96i-FU-3Mf" firstAttribute="centerX" secondItem="Wuu-1u-VjT" secondAttribute="centerX" id="sDT-BE-vQ2"/>
+                                                                                                <constraint firstItem="P8J-8l-jcc" firstAttribute="top" secondItem="Wuu-1u-VjT" secondAttribute="top" constant="12" id="sIv-JP-xS4"/>
+                                                                                                <constraint firstItem="P8J-8l-jcc" firstAttribute="centerY" secondItem="Wuu-1u-VjT" secondAttribute="centerY" id="wKt-9t-XyO"/>
+                                                                                                <constraint firstAttribute="bottom" secondItem="P8J-8l-jcc" secondAttribute="bottom" constant="12" id="x2V-XQ-895"/>
+                                                                                                <constraint firstItem="96i-FU-3Mf" firstAttribute="centerY" secondItem="Wuu-1u-VjT" secondAttribute="centerY" constant="12" id="yy1-CM-epO"/>
+                                                                                            </constraints>
+                                                                                        </view>
+                                                                                    </subviews>
+                                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="65" id="yI0-PQ-QqG"/>
+                                                                                    </constraints>
+                                                                                </stackView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
@@ -3483,10 +3600,22 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="androidBadgeView" destination="glr-fp-N4a" id="Y0P-BO-ajf"/>
+                        <outlet property="androidIconImageview" destination="snU-Es-ruy" id="nyM-jf-Oee"/>
+                        <outlet property="androidSheildImageview" destination="5V3-Aa-YEA" id="yff-LQ-Cyr"/>
+                        <outlet property="dayBadgeAndroidImageView" destination="po9-WI-TJV" id="Fuq-yc-waC"/>
+                        <outlet property="dayBadgeIosImageView" destination="gaR-WP-oiS" id="qjS-Xf-W8u"/>
+                        <outlet property="dayBadgeWebImageView" destination="FFq-FZ-yqf" id="ZGZ-o6-lXR"/>
                         <outlet property="foundingMergeBadge" destination="YKN-OT-4ZZ" id="7er-bd-Laj"/>
                         <outlet property="imageQrCode" destination="O4E-3v-KrV" id="1CX-3j-5T7"/>
                         <outlet property="imgProfilePic" destination="PWx-RQ-pBF" id="QQM-xq-vVD"/>
+                        <outlet property="iosBadgeView" destination="1Bd-aG-yfS" id="dbY-T4-Wen"/>
+                        <outlet property="iosIconImageview" destination="nSx-u8-EKH" id="Z8p-H5-xJb"/>
+                        <outlet property="iosSheildImageview" destination="onH-6R-EGh" id="9Mj-Af-Wj0"/>
                         <outlet property="lblUsername" destination="DK7-v4-hSl" id="yK1-ll-NCw"/>
+                        <outlet property="lblandroidDaysRemains" destination="DvT-OB-e9w" id="56I-MC-61V"/>
+                        <outlet property="lbliosDaysRemains" destination="tY1-cK-mIg" id="1ba-xg-Tkj"/>
+                        <outlet property="lblwebDaysRemains" destination="96i-FU-3Mf" id="r1s-Yr-VlB"/>
                         <outlet property="navView" destination="U7J-Bn-hgW" id="LDy-xg-egS"/>
                         <outlet property="preLunchBadge" destination="RHi-5E-JN2" id="yaN-VS-FZW"/>
                         <outlet property="profileView" destination="uPt-7x-OBH" id="xgt-QE-2Ke"/>
@@ -3503,6 +3632,9 @@
                         <outlet property="socialBadgeicon" destination="eQS-2N-Lf7" id="zTf-DM-tWZ"/>
                         <outlet property="subscriptionBadgeicon" destination="DUO-F8-qQU" id="f2K-m3-rQb"/>
                         <outlet property="topView" destination="7aa-4B-LfV" id="pTe-OY-OZO"/>
+                        <outlet property="webBadgeView" destination="Wuu-1u-VjT" id="X37-P6-SMs"/>
+                        <outlet property="webIconImageview" destination="P8J-8l-jcc" id="sjL-Rz-RrF"/>
+                        <outlet property="webSheildImageview" destination="l8d-od-zD1" id="Vwg-0R-UlF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DwK-dE-sHA" userLabel="First Responder" sceneMemberID="firstResponder"/>

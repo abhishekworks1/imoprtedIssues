@@ -66,11 +66,13 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var btnSelectDiscardPopupView: UIButton!
     
     @IBOutlet weak var preLunchBadge: UIImageView!
-     @IBOutlet weak var foundingMergeBadge: UIImageView!
-     @IBOutlet weak var socialBadgeicon: UIImageView!
-     @IBOutlet weak var subscriptionBadgeicon: UIImageView!
-
-
+    @IBOutlet weak var foundingMergeBadge: UIImageView!
+    @IBOutlet weak var socialBadgeicon: UIImageView!
+    @IBOutlet weak var subscriptionBadgeicon: UIImageView!
+    @IBOutlet weak var dayBadgeAndroidImageView: UIImageView!
+    @IBOutlet weak var dayBadgeIosImageView: UIImageView!
+    @IBOutlet weak var dayBadgeWebImageView: UIImageView!
+    
     @IBOutlet weak var iosBadgeView: UIView!
     @IBOutlet weak var iosSheildImageview: UIImageView!
     @IBOutlet weak var iosIconImageview: UIImageView!
@@ -493,6 +495,13 @@ class EditProfilePicViewController: UIViewController {
                         lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.badgeIphonePre()
                     }
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                        dayBadgeIosImageView.isHidden = true
+                    }
+                    else if finalDay.count > 0 {
+                        dayBadgeIosImageView.isHidden = false
+                        dayBadgeIosImageView.image = UIImage(named: "day_badge_\(finalDay)")
+                    }
                 }
                 // Setup For Android Badge
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
@@ -527,6 +536,15 @@ class EditProfilePicViewController: UIViewController {
                         lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.badgeAndroidPre()
                     }
+                    
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                        dayBadgeAndroidImageView.isHidden = true
+                    }
+                    else if finalDay.count > 0 {
+                        dayBadgeAndroidImageView.isHidden = false
+                        dayBadgeAndroidImageView.image = UIImage(named: "day_badge_android_\(finalDay)")
+                    }
+                    
                 }
                 
                 if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
@@ -562,6 +580,15 @@ class EditProfilePicViewController: UIViewController {
                         lblwebDaysRemains.text = finalDay
                         webSheildImageview.image = R.image.badgeWebPre()
                     }
+                    
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                        dayBadgeWebImageView.isHidden = true
+                    }
+                    else if finalDay.count > 0 {
+                        dayBadgeWebImageView.isHidden = false
+                        dayBadgeWebImageView.image = UIImage(named: "day_badge_Web_\(finalDay)")
+                    }
+                    
                 }
             }
         }
