@@ -75,8 +75,8 @@ class WelcomeTimerPopupViewController: UIViewController {
         }
         
         // Shadow Color and Radius
-       /* let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
-        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
+        let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
+        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.white.cgColor : UIColor.white.cgColor
         semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         semiHalfView.layer.shadowOpacity = 0.7
         semiHalfView.layer.shadowRadius = 0
