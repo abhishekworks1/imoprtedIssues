@@ -297,6 +297,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
       //  self.getContactList()
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector:#selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.viewhandleTap(_:)))
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func viewhandleTap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        print("handleTap")
+        for view in page0view.subviews {
+            if view is EasyTipView {
+                view.removeFromSuperview()
+            }
+        }
     }
     // MARK: - UI setup
     func setupUI(){
