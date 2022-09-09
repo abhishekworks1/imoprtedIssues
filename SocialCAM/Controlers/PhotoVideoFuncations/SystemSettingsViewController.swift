@@ -49,16 +49,18 @@ class SystemSettings {
             StorySetting(name: SocialMediaApps.messanger.description, selected: Defaults.shared.isFBMessangerSharingEnabled, image: R.image.iconMessanger()),
             
             StorySetting(name: SocialMediaApps.snapChat.description, selected: Defaults.shared.isSnapChatSharingEnabled, image: R.image.icoSnapchat()),
-            
-//            StorySetting(name: SocialMediaApps.youtube.description, selected: Defaults.shared.isYoutubeSharingEnabled, image: R.image.icoYoutube()),
-            
+                        
             StorySetting(name: SocialMediaApps.twitter.description, selected: Defaults.shared.isTwitterSharingEnabled, image: R.image.icoTwitter()),
             
             StorySetting(name: SocialMediaApps.chingari.description, selected: Defaults.shared.isChingariSharingEnabled, image: R.image.iconChingari()),
             
-//            StorySetting(name: SocialMediaApps.takatak.description, selected: true, image: R.image.icoTwitter()),
             ],
             settingsType: .shareOnSocialMedia),
+        
+        StorySettings(name: "Tip of the Day", settings: [
+            StorySetting(name: TipOfTheDay.beginner.description, selected: false),
+            StorySetting(name: TipOfTheDay.intermediate.description, selected: false),
+            StorySetting(name: TipOfTheDay.advanced.description, selected: false)], settingsType: .tipOftheDay),
         ]
 }
 
@@ -74,6 +76,7 @@ class SystemSettingsViewController: UIViewController {
         self.systemSettingsTableView.register(R.nib.appSettingsHeaderCell)
         self.systemSettingsTableView.register(R.nib.notificationSettingCell)
         self.systemSettingsTableView.register(R.nib.shareOnSocialMediaSettingsCell)
+        self.systemSettingsTableView.register(R.nib.tipOfTheDaySettingCell)
 
         self.systemSettingsTableView.reloadData()
         self.getReferralNotification()
@@ -167,6 +170,15 @@ extension SystemSettingsViewController: UITableViewDataSource {
             shareOnSocialMediaSettingsCell.configureCell()
             return shareOnSocialMediaSettingsCell
         }
+        else if settingTitle.settingsType == .tipOftheDay {
+            guard let tipOftheDayCell: TipOfTheDaySettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.tipOfTheDaySettingCell.identifier) as? TipOfTheDaySettingCell else {
+                fatalError("\(R.reuseIdentifier.tipOfTheDaySettingCell.identifier) Not Found")
+            }
+            
+            tipOftheDayCell.configureCell(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
+
+            return tipOftheDayCell
+        }
         
         return systemSettingsCell
     }
@@ -228,6 +240,11 @@ extension SystemSettingsViewController: UITableViewDelegate {
         
         if settingType == .showAllPopUps || settingType == .welcomeScreen || settingType == .quickMenu || settingType == .quickCamCamera || settingType == .mobileDashboard || settingType == .hapticAll || settingType == .hapticSome || settingType == .hapticNone {
             
+            tableView.reloadData()
+        }
+        
+        if settingType == .beginner || settingType == .intermediate || settingType == .advanced {
+            Defaults.shared.selectedTipOfTheLevel = indexPath.row
             tableView.reloadData()
         }
     }

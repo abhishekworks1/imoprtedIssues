@@ -1537,6 +1537,16 @@ class Defaults {
         }
     }
     
+    var selectedTipOfTheLevel: Int {
+        get {
+            return appDefaults?.integer(forKey: "selectedTipOfTheLevel") ?? 1
+        }
+        set {
+            appDefaults?.setValue(newValue, forKey: "selectedTipOfTheLevel")
+            userDefaults.synchronize()
+        }
+    }
+    
     
     var quickStartCategories: [QuickStartCategory]? {
         get {
