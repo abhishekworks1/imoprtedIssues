@@ -81,7 +81,7 @@ enum SystemSettingType: String {
 enum SocialMediaApps: String {
     case tikTok = "Tiktok"
     case snapChat = "Snapchat"
-    case messanger = "Messanger"
+    case messanger = "Messenger"
     case youtube = "Youtube"
     case chingari = "Chingari"
     case instagram = "Instagram"
