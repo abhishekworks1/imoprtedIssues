@@ -1840,25 +1840,25 @@
                                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NE3-EN-xJd">
                                                                                                 <rect key="frame" x="192" y="9.3333333333333144" width="0.0" height="72"/>
                                                                                                 <subviews>
-                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="sW7-Pd-oc0">
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="sW7-Pd-oc0">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Wz-Spg">
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_1" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Wz-Spg">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="hLf-Yj-o7a">
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="hLf-Yj-o7a">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="puA-bI-GMT">
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="puA-bI-GMT">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RQK-vI-cwa">
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RQK-vI-cwa">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="VKa-6d-oed">
+                                                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" tag="6" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="VKa-6d-oed">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                     </imageView>
-                                                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMn-t9-uJS" userLabel="Android Badge">
+                                                                                                    <view hidden="YES" tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMn-t9-uJS" userLabel="Android Badge">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                         <subviews>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicBadge" translatesAutoresizingMaskIntoConstraints="NO" id="ugY-Vz-kjt">
@@ -1896,7 +1896,7 @@
                                                                                                             </mask>
                                                                                                         </variation>
                                                                                                     </view>
-                                                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqn-4e-Fku" userLabel="Apple Badge">
+                                                                                                    <view hidden="YES" tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqn-4e-Fku" userLabel="Apple Badge">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="512"/>
                                                                                                         <subviews>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proBadge" translatesAutoresizingMaskIntoConstraints="NO" id="vQi-2c-6nq">
@@ -1935,7 +1935,7 @@
                                                                                                             </mask>
                                                                                                         </variation>
                                                                                                     </view>
-                                                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGJ-xr-Kih" userLabel="Web Badge">
+                                                                                                    <view hidden="YES" tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGJ-xr-Kih" userLabel="Web Badge">
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="512"/>
                                                                                                         <subviews>
                                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advancedBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Mgb-Qu-gWQ">
@@ -3178,7 +3178,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
