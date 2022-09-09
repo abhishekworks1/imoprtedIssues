@@ -71,6 +71,7 @@ enum SettingsMode: Int, Codable {
     case milestoneReachedNotification
     case publicDisplayName
     case privateDisplayName
+    case channelDisplayName
     case email
     case checkUpdate
     case referringChannel
@@ -94,6 +95,7 @@ enum SettingsMode: Int, Codable {
     case mobileDashboard
     case hapticFeedBack
     case shareOnSocialMedia
+    case tipOftheDay
 }
 enum SettingsEnum : Int, Codable, CaseIterable {
     case quickstartGuide = 0

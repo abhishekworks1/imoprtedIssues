@@ -62,7 +62,7 @@ class ReferSuccessVC: UIViewController {
             
             createContentDescriptionLabel.text = "< createContentDescription >"
             mobileDashBoardDescriptionLabel.text = "< mobileDashBoardDescription >"
-            referMoreDescriptionLabel.text = "< referMoreDescription >"
+//            referMoreDescriptionLabel.text = "Invite more contacts using the Invite Wizard to get more referrals."
             
             createContentBottomConstraint.constant = 15
             mobileDashBoardBottomConstraint.constant = 15
