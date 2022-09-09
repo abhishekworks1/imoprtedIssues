@@ -296,22 +296,19 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var btnProfilePic: UIButton!
-    
-    
+  
+    @IBOutlet weak var imgSocialMediaBadge: UIImageView!
+    @IBOutlet weak var imgprelaunch: UIImageView!
+    @IBOutlet weak var imgfoundingMember: UIImageView!
+    @IBOutlet weak var imgSubscribeBadge: UIImageView!
+
     @IBOutlet weak var bottomCopyRightView: UIView!
     @IBOutlet weak var tableViewBottomConstraints: NSLayoutConstraint!
     private var lastContentOffset: CGFloat = 0
 
 //    @IBOutlet weak var iconSettingsImage: UIImageView!
 //    @IBOutlet weak var badgesView: UIStackView!
-    @IBOutlet weak var imgSocialMediaBadge: UIImageView!
-    @IBOutlet weak var imgprelaunch: UIImageView!
-    @IBOutlet weak var imgfoundingMember: UIImageView!
-    @IBOutlet weak var imgSubscribeBadge: UIImageView!
 
-    @IBOutlet weak var dayBadgeAndroidImageView: UIImageView!
-    @IBOutlet weak var dayBadgeIosImageView: UIImageView!
-    @IBOutlet weak var dayBadgeWebImageView: UIImageView!
     
     @IBOutlet weak var iosBadgeView: UIView!
     @IBOutlet weak var iosSheildImageview: UIImageView!
@@ -486,7 +483,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     func setUpSubscriptionBadges() {
         androidIconImageview.isHidden = true
-        //        badgeView.isHidden = false
+//        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
@@ -510,15 +507,15 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
-                        /* if freeTrialDay > 0 {
-                         lbliosDaysRemains.text = finalDay
-                         iosSheildImageview.image = R.image.freeBadge()
-                         } else {*/
-                        //iOS shield hide
-                        //square badge show
-                        lbliosDaysRemains.text = ""
-                        iosSheildImageview.image = R.image.badgeIphoneFree()
-                        //                        }
+                       /* if freeTrialDay > 0 {
+                            lbliosDaysRemains.text = finalDay
+                            iosSheildImageview.image = R.image.freeBadge()
+                        } else {*/
+                            //iOS shield hide
+                            //square badge show
+                            lbliosDaysRemains.text = ""
+                            iosSheildImageview.image = R.image.badgeIphoneFree()
+//                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -535,20 +532,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                         iosBadgeView.isHidden = false
                         lbliosDaysRemains.text = finalDay
                         iosSheildImageview.image = R.image.badgeIphonePre()
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
-                        dayBadgeIosImageView.isHidden = true
-                    }
-                    else if finalDay.count > 0 {
-                        dayBadgeIosImageView.isHidden = false
-                        dayBadgeIosImageView.image = UIImage(named: "day_badge_\(finalDay)")
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
-                        dayBadgeIosImageView.isHidden = true
-                    }
-                    else if finalDay.count > 0 {
-                        dayBadgeIosImageView.isHidden = false
-                        dayBadgeIosImageView.image = UIImage(named: "day_badge_\(finalDay)")
                     }
                 }
                 // Setup For Android Badge
@@ -584,15 +567,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                         lblandroidDaysRemains.text = finalDay
                         androidSheildImageview.image = R.image.badgeAndroidPre()
                     }
-                    
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
-                        dayBadgeAndroidImageView.isHidden = true
-                    }
-                    else if finalDay.count > 0 {
-                        dayBadgeAndroidImageView.isHidden = false
-                        dayBadgeAndroidImageView.image = UIImage(named: "day_badge_android_\(finalDay)")
-                    }
-                    
                 }
                 
                 if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
@@ -628,14 +602,6 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
                         lblwebDaysRemains.text = finalDay
                         webSheildImageview.image = R.image.badgeWebPre()
                     }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
-                        dayBadgeWebImageView.isHidden = true
-                    }
-                    else if finalDay.count > 0 {
-                        dayBadgeWebImageView.isHidden = false
-                        dayBadgeWebImageView.image = UIImage(named: "day_badge_Web_\(finalDay)")
-                    }
-                    
                 }
             }
         }
