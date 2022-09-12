@@ -423,6 +423,9 @@ extension LoadingView {
     }
     
     func getDays() {
+        guard let subscriptionType = Defaults.shared.currentUser?.subscriptionStatus else {
+            return
+        }
         timerView.isHidden = true
         freeModeDayImageView.isHidden = true
         freeModeMinImageView.isHidden = true
@@ -431,7 +434,6 @@ extension LoadingView {
         
        // checkNewTrailPeriodExpire()
         var diffDays = 0
-        let subscriptionType = Defaults.shared.currentUser!.subscriptionStatus!
         if let timerStartDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
             var timerDate = timerStartDate
             var dateComponent = DateComponents()

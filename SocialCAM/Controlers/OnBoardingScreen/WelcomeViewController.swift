@@ -134,7 +134,6 @@ class WelcomeViewController: UIViewController {
     let lastWelcomeTimerAlertDateKey = "lastWelcomeTimerAlertDate"
     var isWhatDoYouWantSeeViewChecked = false
 
-    var loadingView: LoadingView? = LoadingView.instanceFromNib()
     var isFirstTime = true
     
     weak var tipTimer: Timer?
