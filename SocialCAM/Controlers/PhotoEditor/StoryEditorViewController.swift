@@ -727,7 +727,7 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.pic2ArtOptionView.isHidden = true
         }
-        self.pic2ArtOptionView.isHidden = false
+        self.pic2ArtOptionView.isHidden = true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
         self.splitOptionView.isHidden = true//isImage
