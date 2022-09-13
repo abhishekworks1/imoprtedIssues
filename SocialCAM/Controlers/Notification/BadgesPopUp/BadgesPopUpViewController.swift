@@ -104,7 +104,7 @@ class BadgesPopUpViewController: UIViewController {
     func setUpSubscriptionBadges() -> [GetBadges] {
         if let badgearray = Defaults.shared.currentUser?.badges {
             if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
-                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType != SubscriptionTypeForBadge.FREE.rawValue || subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
+                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue && subscriptionType != SubscriptionTypeForBadge.FREE.rawValue && subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                     if finalDay.count > 0 {
                         let androidDayBadgeImage = UIImage(named: "day_badge_android_\(finalDay)")
@@ -116,7 +116,7 @@ class BadgesPopUpViewController: UIViewController {
                 }
             }
             if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_IOS.rawValue}).first {
-                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType != SubscriptionTypeForBadge.FREE.rawValue || subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
+                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue && subscriptionType != SubscriptionTypeForBadge.FREE.rawValue && subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                     if finalDay.count > 0 {
                         let iosDayBadgeImage = UIImage(named: "day_badge_\(finalDay)")
@@ -128,7 +128,7 @@ class BadgesPopUpViewController: UIViewController {
                 }
             }
             if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_WEB.rawValue}).first {
-                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType != SubscriptionTypeForBadge.FREE.rawValue || subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
+                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue && subscriptionType != SubscriptionTypeForBadge.FREE.rawValue && subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                     if finalDay.count > 0 {
                         let webDayBadgeImage = UIImage(named: "day_badge_Web_\(finalDay)")
