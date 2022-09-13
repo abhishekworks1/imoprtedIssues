@@ -371,8 +371,8 @@ extension WelcomeViewController {
 
             if self.checkIfWelcomePopupShouldAppear()
             {
-                self.showWelcomeTimerAlert()
-//                self.checkIfWelcomeTimerAlertShownToday()
+//                self.showWelcomeTimerAlert()
+                self.checkIfWelcomeTimerAlertShownToday()
             }
             self.getDays()
             self.hideLoader()
@@ -1012,16 +1012,25 @@ extension WelcomeViewController {
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:)))
-        preLaunchBadgeImageView.addGestureRecognizer(tap)
-        foundingMemberBadgeImageView.addGestureRecognizer(tap)
-        socialBadgeImageView.addGestureRecognizer(tap)
-        dayBadgeIosImageView.addGestureRecognizer(tap)
-        dayBadgeAndroidImageView.addGestureRecognizer(tap)
-        dayBadgeWebImageView.addGestureRecognizer(tap)
-        iosBadgeView.addGestureRecognizer(tap)
-        androidBadgeView.addGestureRecognizer(tap)
-        webBadgeView.addGestureRecognizer(tap)
+        dayBadgeAndroidImageView.tag = 1
+        dayBadgeIosImageView.tag = 2
+        dayBadgeWebImageView.tag = 3
+        preLaunchBadgeImageView.tag = 4
+        foundingMemberImageView.tag = 5
+        socialBadgeImageView.tag = 6
+        androidBadgeView.tag = 7
+        iosBadgeView.tag = 8
+        webBadgeView.tag = 9
+
+        preLaunchBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        foundingMemberBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        socialBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeIosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeAndroidImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeWebImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
@@ -1179,8 +1188,8 @@ extension WelcomeViewController {
     }
     
     @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
         let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        vc.currentPage = sender?.view?.tag ?? 0
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true, completion: nil)
     }

@@ -23,14 +23,15 @@ class BadgesPopUpViewController: UIViewController {
     var currentPage: Int = 0
     
     var badgeDetails: [GetBadges] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("cp --> \(currentPage)")
         previousPageButton.isHidden = true
         setUpCollectionView()
         
         badgeDetails = setUpSubscriptionBadges()
-        setUpPageButtonText(currentPageText: 1, nextPage: 2, previousPage: 0)
+        setUpPageButtonText(currentPageText: currentPage, nextPage: currentPage + 1, previousPage: currentPage - 1)
     }
 
     
@@ -76,7 +77,7 @@ class BadgesPopUpViewController: UIViewController {
         if currentPage != 0 {
             self.currentPage -= 1
             self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
-            setUpPageButtonText(currentPageText: currentPage + 1, nextPage: currentPage + 2, previousPage: currentPage)
+            setUpPageButtonText(currentPageText: currentPage, nextPage: currentPage + 1, previousPage: currentPage-1)
         } else {
             return
         }
@@ -102,116 +103,259 @@ class BadgesPopUpViewController: UIViewController {
     
     func setUpSubscriptionBadges() -> [GetBadges] {
         if let badgearray = Defaults.shared.currentUser?.badges {
-            for parentbadge in badgearray {
-                let badgeCode = parentbadge.badge?.code ?? ""
-                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
-                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
-                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
-                
-                // Setup For iOS Badge
-                
-                if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue {
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
+                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType != SubscriptionTypeForBadge.FREE.rawValue || subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                     if finalDay.count > 0 {
                         let androidDayBadgeImage = UIImage(named: "day_badge_android_\(finalDay)")
                         badgeDetails.append(GetBadges(badgesImage: androidDayBadgeImage, badgeName: "Android \(finalDay) badge"))
-                    }
-                } else if badgeCode == Badges.SUBSCRIBER_IOS.rawValue {
-                    if finalDay.count > 0 {
-                        let iosDayBadgeImage = UIImage(named: "day_badge_\(finalDay)")
-                        badgeDetails.append(GetBadges(badgesImage: iosDayBadgeImage, badgeName: "IOS \(finalDay) badge"))
-                    }
-                } else if badgeCode == Badges.SUBSCRIBER_WEB.rawValue {
-                    if finalDay.count > 0 {
-                        let webDayBadgeImage = UIImage(named: "day_badge_Web_\(finalDay)")
-                        badgeDetails.append(GetBadges(badgesImage: webDayBadgeImage, badgeName: "Web \(finalDay) badge"))
-                    }
-                }
-                
-                switch badgeCode {
-                case Badges.PRELAUNCH.rawValue:
-                    let prelaunchBadge = UIImage(named: "prelaunchBadge")
-                    badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "PrelaunchBadge"))
-                case Badges.FOUNDING_MEMBER.rawValue:
-                    let foundingMemberBadge = UIImage(named: "foundingMemberBadge")
-                    badgeDetails.append(GetBadges(badgesImage: foundingMemberBadge, badgeName: "FoundingMemberBadge"))
-                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
-                    let socialBadge = UIImage(named: "socialBadge")
-                    badgeDetails.append(GetBadges(badgesImage: socialBadge, badgeName: "SocialBadge"))
-                default:
-                    break
-                }
-                
-                // Setup For Android Badge
-                if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
-                {
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
-                    }
-                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        if freeTrialDay > 0 {
-                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
-                        } else {
-                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidFree(), badgeName: "Android Free"))
+                        if currentPage == 1 {
+                            currentPage = badgeDetails.count - 1
                         }
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic"))
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced"))
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium"))
-                    }
-                }
-                
-                
-                if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
-                {
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneTrial(), badgeName: "Iphone Trial"))
-                    }
-                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneFree(), badgeName: "Iphone Free"))
-                    }
-                    
-                    if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic"))
-                        
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced"))
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium"))
-                    }
-                }
-                
-                if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
-                {
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
-                    }
-                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                        
-                        if freeTrialDay > 0 {
-                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
-                        } else {
-                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebFree(), badgeName: "Web Free"))
-                        }
-                    }
-                    
-                    if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic"))
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced"))
-                    }
-                    if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium"))
                     }
                 }
             }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_IOS.rawValue}).first {
+                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType != SubscriptionTypeForBadge.FREE.rawValue || subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    if finalDay.count > 0 {
+                        let iosDayBadgeImage = UIImage(named: "day_badge_\(finalDay)")
+                        badgeDetails.append(GetBadges(badgesImage: iosDayBadgeImage, badgeName: "IOS \(finalDay) badge"))
+                        if currentPage == 2 {
+                            currentPage = badgeDetails.count - 1
+                        }
+                    }
+                }
+            }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_WEB.rawValue}).first {
+                if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType != SubscriptionTypeForBadge.FREE.rawValue || subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    if finalDay.count > 0 {
+                        let webDayBadgeImage = UIImage(named: "day_badge_Web_\(finalDay)")
+                        badgeDetails.append(GetBadges(badgesImage: webDayBadgeImage, badgeName: "Web \(finalDay) badge"))
+                        if currentPage == 3 {
+                            currentPage = badgeDetails.count - 1
+                        }
+                    }
+                }
+            }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.PRELAUNCH.rawValue}).first {
+                let prelaunchBadge = UIImage(named: "prelaunchBadge")
+                badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "PrelaunchBadge"))
+                if currentPage == 4 {
+                    currentPage = badgeDetails.count - 1
+                }
+            }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.FOUNDING_MEMBER.rawValue}).first {
+                let foundingMemberBadge = UIImage(named: "foundingMemberBadge")
+                badgeDetails.append(GetBadges(badgesImage: foundingMemberBadge, badgeName: "FoundingMemberBadge"))
+                if currentPage == 5 {
+                    currentPage = badgeDetails.count - 1
+                }
+            }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SOCIAL_MEDIA_CONNECTION.rawValue}).first {
+                let socialBadge = UIImage(named: "socialBadge")
+                badgeDetails.append(GetBadges(badgesImage: socialBadge, badgeName: "SocialBadge"))
+                if currentPage == 6 {
+                    currentPage = badgeDetails.count - 1
+                }
+            }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
+                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
+                    if currentPage == 7 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                    if freeTrialDay > 0 {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
+                        if currentPage == 7 {
+                            currentPage = badgeDetails.count - 1
+                        }
+                    } else {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidFree(), badgeName: "Android Free"))
+                        if currentPage == 7 {
+                            currentPage = badgeDetails.count - 1
+                        }
+                    }
+                }
+                else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic"))
+                    if currentPage == 7 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced"))
+                    if currentPage == 7 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium"))
+                    if currentPage == 7 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+            }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_IOS.rawValue}).first {
+                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneTrial(), badgeName: "Iphone Trial"))
+                    if currentPage == 8 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneFree(), badgeName: "Iphone Free"))
+                    if currentPage == 8 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic"))
+                    if currentPage == 8 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                    
+                }
+                if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced"))
+                    if currentPage == 8 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium"))
+                    if currentPage == 8 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+            }
+            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_WEB.rawValue}).first {
+                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
+                    if currentPage == 9 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                    if freeTrialDay > 0 {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
+                        if currentPage == 9 {
+                            currentPage = badgeDetails.count - 1
+                        }
+                    } else {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebFree(), badgeName: "Web Free"))
+                        if currentPage == 9 {
+                            currentPage = badgeDetails.count - 1
+                        }
+                    }
+                }
+                
+                if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic"))
+                    if currentPage == 9 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced"))
+                    if currentPage == 9 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+                if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium"))
+                    if currentPage == 9 {
+                        currentPage = badgeDetails.count - 1
+                    }
+                }
+            }
+            /*  for parentbadge in badgearray {
+             let badgeCode = parentbadge.badge?.code ?? ""
+             let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+             let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+             let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+             // Setup For Android Badge
+             if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
+             {
+             if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
+             }
+             else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+             if freeTrialDay > 0 {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
+             } else {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidFree(), badgeName: "Android Free"))
+             }
+             }
+             if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic"))
+             }
+             if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced"))
+             }
+             if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium"))
+             }
+             }
+             
+             
+             if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
+             {
+             if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneTrial(), badgeName: "Iphone Trial"))
+             }
+             else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneFree(), badgeName: "Iphone Free"))
+             }
+             
+             if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic"))
+             
+             }
+             if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced"))
+             }
+             if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium"))
+             }
+             }
+             
+             if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
+             {
+             if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
+             }
+             else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+             
+             if freeTrialDay > 0 {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
+             } else {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebFree(), badgeName: "Web Free"))
+             }
+             }
+             
+             if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic"))
+             }
+             if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced"))
+             }
+             if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+             badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium"))
+             }
+             }
+             } */
         }
         
         return badgeDetails
