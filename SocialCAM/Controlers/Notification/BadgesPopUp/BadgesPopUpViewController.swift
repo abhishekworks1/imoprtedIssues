@@ -29,9 +29,9 @@ class BadgesPopUpViewController: UIViewController {
         print("cp --> \(currentPage)")
         previousPageButton.isHidden = true
         setUpCollectionView()
-        
         badgeDetails = setUpSubscriptionBadges()
         setUpPageButtonText(currentPageText: currentPage, nextPage: currentPage + 1, previousPage: currentPage - 1)
+        badgesCollectionView.reloadData()
     }
 
     
@@ -110,7 +110,7 @@ class BadgesPopUpViewController: UIViewController {
                         let androidDayBadgeImage = UIImage(named: "day_badge_android_\(finalDay)")
                         badgeDetails.append(GetBadges(badgesImage: androidDayBadgeImage, badgeName: "Android \(finalDay) badge"))
                         if currentPage == 1 {
-                            currentPage = badgeDetails.count - 1
+                            currentPage = badgeDetails.count
                         }
                     }
                 }
@@ -122,7 +122,7 @@ class BadgesPopUpViewController: UIViewController {
                         let iosDayBadgeImage = UIImage(named: "day_badge_\(finalDay)")
                         badgeDetails.append(GetBadges(badgesImage: iosDayBadgeImage, badgeName: "IOS \(finalDay) badge"))
                         if currentPage == 2 {
-                            currentPage = badgeDetails.count - 1
+                            currentPage = badgeDetails.count
                         }
                     }
                 }
@@ -134,7 +134,7 @@ class BadgesPopUpViewController: UIViewController {
                         let webDayBadgeImage = UIImage(named: "day_badge_Web_\(finalDay)")
                         badgeDetails.append(GetBadges(badgesImage: webDayBadgeImage, badgeName: "Web \(finalDay) badge"))
                         if currentPage == 3 {
-                            currentPage = badgeDetails.count - 1
+                            currentPage = badgeDetails.count
                         }
                     }
                 }
@@ -143,21 +143,21 @@ class BadgesPopUpViewController: UIViewController {
                 let prelaunchBadge = UIImage(named: "prelaunchBadge")
                 badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "PrelaunchBadge"))
                 if currentPage == 4 {
-                    currentPage = badgeDetails.count - 1
+                    currentPage = badgeDetails.count
                 }
             }
             if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.FOUNDING_MEMBER.rawValue}).first {
                 let foundingMemberBadge = UIImage(named: "foundingMemberBadge")
                 badgeDetails.append(GetBadges(badgesImage: foundingMemberBadge, badgeName: "FoundingMemberBadge"))
                 if currentPage == 5 {
-                    currentPage = badgeDetails.count - 1
+                    currentPage = badgeDetails.count
                 }
             }
             if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SOCIAL_MEDIA_CONNECTION.rawValue}).first {
                 let socialBadge = UIImage(named: "socialBadge")
                 badgeDetails.append(GetBadges(badgesImage: socialBadge, badgeName: "SocialBadge"))
                 if currentPage == 6 {
-                    currentPage = badgeDetails.count - 1
+                    currentPage = badgeDetails.count
                 }
             }
             if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
@@ -167,38 +167,38 @@ class BadgesPopUpViewController: UIViewController {
                 if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
                     if currentPage == 7 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
                 else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                     if freeTrialDay > 0 {
                         badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial"))
                         if currentPage == 7 {
-                            currentPage = badgeDetails.count - 1
+                            currentPage = badgeDetails.count
                         }
                     } else {
                         badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidFree(), badgeName: "Android Free"))
                         if currentPage == 7 {
-                            currentPage = badgeDetails.count - 1
+                            currentPage = badgeDetails.count
                         }
                     }
                 }
                 else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic"))
                     if currentPage == 7 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
                 else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced"))
                     if currentPage == 7 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
                 else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium"))
                     if currentPage == 7 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
             }
@@ -209,31 +209,32 @@ class BadgesPopUpViewController: UIViewController {
                 if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneTrial(), badgeName: "Iphone Trial"))
                     if currentPage == 8 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
                 else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneFree(), badgeName: "Iphone Free"))
                     if currentPage == 8 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
-                } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                }
+                else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic"))
                     if currentPage == 8 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                     
                 }
-                if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced"))
                     if currentPage == 8 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
-                if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium"))
                     if currentPage == 8 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
             }
@@ -244,39 +245,38 @@ class BadgesPopUpViewController: UIViewController {
                 if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
                     if currentPage == 9 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
                 else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                     if freeTrialDay > 0 {
                         badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial"))
                         if currentPage == 9 {
-                            currentPage = badgeDetails.count - 1
+                            currentPage = badgeDetails.count
                         }
                     } else {
                         badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebFree(), badgeName: "Web Free"))
                         if currentPage == 9 {
-                            currentPage = badgeDetails.count - 1
+                            currentPage = badgeDetails.count
                         }
                     }
                 }
-                
-                if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic"))
                     if currentPage == 9 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
-                if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced"))
                     if currentPage == 9 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
-                if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
                     badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium"))
                     if currentPage == 9 {
-                        currentPage = badgeDetails.count - 1
+                        currentPage = badgeDetails.count
                     }
                 }
             }
@@ -422,7 +422,6 @@ extension BadgesPopUpViewController {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage()
-        print(currentPage)
         setUpPageButtonText(currentPageText: currentPage + 1, nextPage: currentPage + 2, previousPage: currentPage)
         badgesCollectionView.reloadData()
     }
