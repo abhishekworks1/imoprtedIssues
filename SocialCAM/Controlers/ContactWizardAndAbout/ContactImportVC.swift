@@ -2218,7 +2218,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
            // cell.contactImage.image = UIImage.init(named: "User_placeholder")
             cell.contactImage.backgroundColor = self.getRandomColor()
             let names = (contact.name ?? "").components(separatedBy:" ")
-            cell.contactImageLabel.text =  "\(Array(names.first ?? "")[0])\(Array(names.last ?? " ")[0])"
+            cell.contactImageLabel.text =  "\(names.first?.first ?? " ")\(names.last?.first ?? " ")"
             cell.mobileContactObj = contact
             cell.inviteButtonView.layer.borderWidth = 0.0
             cell.btnSelect.rowIndex = indexPath.row
