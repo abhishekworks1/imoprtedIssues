@@ -1585,38 +1585,67 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-Mr-con">
-                                                <rect key="frame" x="82" y="199" width="200" height="40"/>
-                                                <color key="backgroundColor" red="0.25882352941176467" green="0.52156862745098043" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="qBb-rK-Va6"/>
-                                                    <constraint firstAttribute="width" constant="200" id="yae-V9-Kaz"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="Upgrade Now">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                        <real key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
-                                                        <real key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
-                                                        <color key="value" red="0.25857141610000001" green="0.52174073460000003" blue="0.95800918339999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="upgradeNowOnClick:" destination="hbM-2M-n4l" eventType="touchUpInside" id="xtU-nw-KU0"/>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="8UB-VV-9bC">
+                                                <rect key="frame" x="20" y="199" width="324" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-Mr-con">
+                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="40"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="qBb-rK-Va6"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Later">
+                                                            <color key="titleColor" name="AppPrimaryColor"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="20"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                                <color key="value" red="0.25857141610000001" green="0.52174073460000003" blue="0.95800918339999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="closeAction:" destination="hbM-2M-n4l" eventType="touchUpInside" id="sH4-TW-n08"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bg-tq-bN0">
+                                                        <rect key="frame" x="177" y="0.0" width="147" height="40"/>
+                                                        <color key="backgroundColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="O0A-o2-nwQ"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Upgrade Now">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="20"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                                <color key="value" red="0.25857141610000001" green="0.52174073460000003" blue="0.95800918339999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="upgradeNowOnClick:" destination="hbM-2M-n4l" eventType="touchUpInside" id="h2X-Sl-jUe"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="pl7-z0-S9w" firstAttribute="leading" secondItem="FaF-1B-nrt" secondAttribute="leading" id="5tX-b5-6He"/>
                                             <constraint firstItem="3Om-pT-aRz" firstAttribute="centerX" secondItem="FaF-1B-nrt" secondAttribute="centerX" id="Nfy-Na-IHV"/>
                                             <constraint firstAttribute="trailing" secondItem="pl7-z0-S9w" secondAttribute="trailing" id="Q7a-Bt-CfS"/>
+                                            <constraint firstAttribute="trailing" secondItem="8UB-VV-9bC" secondAttribute="trailing" constant="20" id="fft-63-Muz"/>
+                                            <constraint firstItem="8UB-VV-9bC" firstAttribute="leading" secondItem="FaF-1B-nrt" secondAttribute="leading" constant="20" id="qbf-oW-gwc"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -1717,7 +1746,7 @@
                         <outlet property="topMessageHeight" destination="C1F-CR-iul" id="eXY-ue-8Ei"/>
                         <outlet property="topMessageLabel" destination="Nm8-G6-l9z" id="tbz-3y-YmL"/>
                         <outlet property="topMessageView" destination="EpB-IZ-vOd" id="n0W-CX-o8Z"/>
-                        <outlet property="upgradeNowButton" destination="K8b-Mr-con" id="RYM-b6-Bok"/>
+                        <outlet property="upgradeNowButton" destination="6bg-tq-bN0" id="AnI-I9-OfF"/>
                         <outlet property="userImageView" destination="OF7-Sw-APm" id="f7Q-ak-U5R"/>
                     </connections>
                 </viewController>
@@ -3178,7 +3207,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
