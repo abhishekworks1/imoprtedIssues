@@ -110,6 +110,7 @@ class NotificationDetailsVC: UIViewController {
     }
     
     @IBAction func btnNextTapped(_ sender: Any) {
+        if self.startLoading == true{return}
         btnNext.flash()
         self.scrollToNextCell()
     }
