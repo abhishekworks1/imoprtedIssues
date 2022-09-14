@@ -93,7 +93,7 @@ class WelcomeViewController: UIViewController {
     }
     @IBOutlet weak var lblAppInfo: UILabel! {
         didSet {
-            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(41.\(Constant.Application.appBuildNumber))"
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.3(42.\(Constant.Application.appBuildNumber))"
         }
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
@@ -134,7 +134,6 @@ class WelcomeViewController: UIViewController {
     let lastWelcomeTimerAlertDateKey = "lastWelcomeTimerAlertDate"
     var isWhatDoYouWantSeeViewChecked = false
 
-    var loadingView: LoadingView? = LoadingView.instanceFromNib()
     var isFirstTime = true
     
     weak var tipTimer: Timer?

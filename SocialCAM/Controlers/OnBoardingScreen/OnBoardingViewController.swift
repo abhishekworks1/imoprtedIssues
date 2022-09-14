@@ -28,6 +28,7 @@ class QuickStartCategoryContent: Codable, Equatable {
     var updatedAt: String?
     var isread: Bool?
     var content: String?
+    var itemId: String?
 }
 
 class QuickStartCategory: Codable, Equatable {
@@ -829,7 +830,7 @@ class OnBoardingViewController: UIViewController {
     @IBOutlet var lastOptionCreateContent: UIStackView!
     @IBOutlet weak var lblAppInfo: UILabel! {
         didSet {
-            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(41.\(Constant.Application.appBuildNumber))"
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.3(42.\(Constant.Application.appBuildNumber))"
         }
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
@@ -1230,6 +1231,7 @@ extension OnBoardingViewController: UITableViewDataSource, UITableViewDelegate {
             cell.stepper.setStep(step: index, finished: (item.isread ?? false))
             let view = UIView()
             let label = UILabel()
+            label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
             label.text = item.title
             view.addSubview(label)
             view.translatesAutoresizingMaskIntoConstraints = false

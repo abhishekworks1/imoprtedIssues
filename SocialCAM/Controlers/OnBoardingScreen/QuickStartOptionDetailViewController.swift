@@ -50,17 +50,8 @@ class QuickStartOptionDetailViewController: UIViewController {
         subscribeNowButton.setTitle(selectedQuickStartItem?.cta_text, for: .normal)
         tryNowButton.setTitle(selectedQuickStartItem?.cta_text, for: .normal)
         
-        if (selectedQuickStartItem?.cta_text == "Try Invite Wizard Now" || selectedQuickStartItem?.cta_text == "Try Pic2Art" || selectedQuickStartItem?.cta_text == "Try Calculator Now" || selectedQuickStartItem?.cta_text == "Try QuickCam Camera Now" || selectedQuickStartItem?.cta_text == "Try Mobile Dashboard Now" || selectedQuickStartItem?.cta_text == "Try Calculator Now" || selectedQuickStartItem?.cta_text == "Go to Your Welcome Page" || selectedQuickStartItem?.title == "Pic2Art") {
+        if !(selectedQuickStartItem?.cta_link?.trim.isEmpty ?? true) || (selectedQuickStartItem?.itemId == "invite_wizard" || selectedQuickStartItem?.itemId == "pic2art" || selectedQuickStartItem?.itemId == "check_updates" || selectedQuickStartItem?.itemId == "create_your_goal" || selectedQuickStartItem?.itemId == "make_money_your_goal") {
             tryNowButton.isHidden = false
-//            if selectedQuickStartItem?.title == "Invite Wizard" {
-//                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
-//            } else
-            if selectedQuickStartItem?.title == "Pic2Art" {
-                tryNowButton.setTitle("Try Pic2Art", for: .normal)
-            }
-//                else {
-//                tryNowButton.setTitle("Try Calculator Now", for: .normal)
-//            }
         }
 //        else {
 //            if selectedQuickStartCategory?.catId == "create_engaging_content" {
@@ -189,8 +180,19 @@ class QuickStartOptionDetailViewController: UIViewController {
     }
     
     @IBAction func didTapOnTryNow(_ sender: UIButton) {
-        if selectedQuickStartCategory?.catId == "create_engaging_content" {
-            if selectedQuickStartItem?.title == "Pic2Art" {
+        if !(selectedQuickStartItem?.cta_link?.trim.isEmpty ?? true) {
+            if let token = Defaults.shared.sessionToken {
+                let urlString = "\(websiteUrl)/\(selectedQuickStartItem?.cta_link ?? "")?token=\(token)&redirect_uri=\(redirectUri)"
+                guard let url = URL(string: urlString) else {
+                    return
+                }
+                presentSafariBrowser(url: url)
+            }
+        } else if selectedQuickStartItem?.itemId == "check_updates" {
+            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
+            navigationController?.pushViewController(storySettingsVC, animated: true)
+        } else if selectedQuickStartItem?.itemId == "create_your_goal" || selectedQuickStartItem?.itemId == "pic2art" {
+            if selectedQuickStartItem?.itemId == "pic2art" {
                 Defaults.shared.cameraMode = .pic2Art
             } else {
                 Defaults.shared.cameraMode = .normal
@@ -200,29 +202,14 @@ class QuickStartOptionDetailViewController: UIViewController {
                 storySettingsVC.isFromCameraParentView = true
                 navigationController?.pushViewController(storySettingsVC, animated: true)
             }
-        } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
-            if selectedQuickStartItem?.title == "Income Goal Calculator" {
-                openPotentialIncomeCalculator()
-            } else if selectedQuickStartItem?.cta_text == "Go to Your Welcome Page" {
-                if let token = Defaults.shared.sessionToken {
-                    let urlString = "\(websiteUrl)/\(selectedQuickStartItem?.cta_link ?? "")?token=\(token)&redirect_uri=\(redirectUri)"
-                    guard let url = URL(string: urlString) else {
-                        return
-                    }
-                    presentSafariBrowser(url: url)
-                }
+        } else if selectedQuickStartItem?.itemId == "make_money_your_goal" || selectedQuickStartItem?.itemId == "invite_wizard" {
+            let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
+            if hasAllowAffiliate {
+                self.setNavigation()
             } else {
-                let hasAllowAffiliate = Defaults.shared.currentUser?.isAllowAffiliate ?? false
-                if hasAllowAffiliate {
-                    self.setNavigation()
-                } else {
-                    guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
-                    navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
-                }
+                guard let makeMoneyReferringVC = R.storyboard.onBoardingView.makeMoneyReferringViewController() else { return }
+                navigationController?.pushViewController(makeMoneyReferringVC, animated: true)
             }
-        } else {
-            let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
-            navigationController?.pushViewController(storySettingsVC, animated: true)
         }
     }
     
