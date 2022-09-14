@@ -661,7 +661,6 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
-        print("----o \(subscriptionType)")
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
@@ -1188,7 +1187,8 @@ extension WelcomeViewController {
     
     @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
         let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
-        vc.currentPage = sender?.view?.tag ?? 0
+        print("tag--> \(sender?.view?.tag)")
+        vc.selectedBadgeTag = sender?.view?.tag ?? 0
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true, completion: nil)
     }
