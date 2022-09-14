@@ -1408,7 +1408,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func logoutWithKeycloak() {
         ProManagerApi.logoutKeycloak.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
+           // if response.status == ResponseType.success {
                 StoriCamManager.shared.logout()
                 TwitterManger.shared.logout()
                 GoogleManager.shared.logout()
@@ -1426,13 +1426,32 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                    // Defaults.shared.clearData()
                     Utils.appDelegate?.window?.rootViewController = loginNav
                 }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-            }
+           // } else {
+               // self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+           // }
             self.logoutPopupView.isHidden = true
         }, onError: { error in
+           // self.logoutPopupView.isHidden = true
+           // self.showAlert(alertMessage: error.localizedDescription)
+            
+            StoriCamManager.shared.logout()
+            TwitterManger.shared.logout()
+            GoogleManager.shared.logout()
+            FaceBookManager.shared.logout()
+            InstagramManager.shared.logout()
+            SnapKitManager.shared.logout { _ in
+                
+            }
+            if #available(iOS 13.0, *) {
+                AppleSignInManager.shared.logout()
+            }
+            self.settingsTableView.reloadData()
+            self.removeDeviceToken()
+            if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+               // Defaults.shared.clearData()
+                Utils.appDelegate?.window?.rootViewController = loginNav
+            }
             self.logoutPopupView.isHidden = true
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
