@@ -1014,7 +1014,7 @@ extension WelcomeViewController {
         dayBadgeIosImageView.tag = 2
         dayBadgeWebImageView.tag = 3
         preLaunchBadgeImageView.tag = 4
-        foundingMemberImageView.tag = 5
+        foundingMemberBadgeImageView.tag = 5
         socialBadgeImageView.tag = 6
         androidBadgeView.tag = 7
         iosBadgeView.tag = 8

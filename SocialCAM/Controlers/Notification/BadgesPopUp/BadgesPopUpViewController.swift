@@ -32,7 +32,7 @@ class BadgesPopUpViewController: UIViewController {
         badgeDetails = setUpSubscriptionBadges()
         badgesCollectionView.reloadData()
         print("CP --> \(currentPage)")
-        self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
+        self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage-1, section: 0), at: .centeredHorizontally, animated: true)
         setUpPageButtonText(currentPageText: currentPage, nextPage: currentPage + 1, previousPage: currentPage - 1)
         
     }
