@@ -10,6 +10,7 @@ import UIKit
 
 class WelcomeTimerPopupViewController: UIViewController {
 
+    @IBOutlet weak var laterButton: UIButton!
     @IBOutlet weak var tipOfDayActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var topMessageView: UIView!
     @IBOutlet weak var topMessageLabel: UILabel!
@@ -126,20 +127,27 @@ class WelcomeTimerPopupViewController: UIViewController {
         }
     }
     func setOnboardImageName() {
+        laterButton.isHidden = true
+        upgradeNowButton.isHidden = false
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
             if paidSubscriptionStatus.lowercased() == "basic" {
              onboardImageName = "basic"
+                upgradeNowButton.setTitle("Upgrade Now", for: .normal)
                 setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
             } else if paidSubscriptionStatus.lowercased() == "pro" {
                 onboardImageName = "premium"
+                upgradeNowButton.isHidden = true
+                laterButton.isHidden = false
                 setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
             } else if paidSubscriptionStatus.lowercased() == "advance" {
                 onboardImageName = "advance"
+                upgradeNowButton.setTitle("Upgrade Now", for: .normal)
                 setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
             }
         } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
             if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
                 onboardImageName = "free"
+                upgradeNowButton.setTitle("Subscribe Now", for: .normal)
             } else {
                 onboardImageName = "free"
             }
