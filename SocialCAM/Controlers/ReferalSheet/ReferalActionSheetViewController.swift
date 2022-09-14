@@ -34,7 +34,7 @@ class ReferalActionSheetViewController: UIViewController {
             if userImageURL.isEmpty {
                 yourProfilePicImageView.isHidden = false
             }
-            yourProfilePicImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.placeHolderRef())
+            self.yourProfilePicImageView.loadImageWithSDwebImage(imageUrlString: userImageURL)
         } else {
             yourProfilePicImageView.image = R.image.placeHolderRef()
         }

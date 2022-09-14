@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import SDWebImage
 
 enum ReferType {
     case none
@@ -749,7 +750,7 @@ extension StoryEditorView {
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
                 } else if type == .noLink || type == .profilePicture {
                     if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
-                        followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+                        followMeStoryView.userBitEmoji.loadImageWithSDwebImage(imageUrlString: userImageUrl)
                     }
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
                 } else {
@@ -831,7 +832,8 @@ extension StoryEditorView {
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
         } else if type == .noLink || type == .profilePicture {
             if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
-                followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+                followMeStoryView.userBitEmoji.loadImageWithSDwebImage(imageUrlString: userImageUrl)
+//                followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
             followMeStoryView.textView.becomeFirstResponder()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()

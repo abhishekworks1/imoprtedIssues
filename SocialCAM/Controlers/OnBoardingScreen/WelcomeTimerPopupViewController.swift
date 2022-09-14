@@ -72,7 +72,7 @@ class WelcomeTimerPopupViewController: UIViewController {
     }
     func setUpUI() {
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            self.userImageView.loadImageWithSDwebImage(imageUrlString: userImageURL)
         }
         
         // Shadow Color and Radius
