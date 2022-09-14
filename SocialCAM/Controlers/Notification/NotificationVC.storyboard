@@ -68,7 +68,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Notification Found!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhT-BL-2NB">
-                                                <rect key="frame" x="10" y="374" width="380" height="21.5"/>
+                                                <rect key="frame" x="10" y="374" width="380" height="21"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
                                                 <color key="textColor" red="0.56470588239999997" green="0.58039215690000001" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -154,7 +154,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 M" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ajU-Md-WiY">
-                                                            <rect key="frame" x="365" y="28.5" width="25" height="16"/>
+                                                            <rect key="frame" x="345.5" y="29" width="44.5" height="15.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" priority="749" constant="100" id="azv-Pb-QGy"/>
                                                             </constraints>
@@ -169,7 +169,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lisa Cuddyhgnmgmngnjhkhnkgnhghn fggfn hg g " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m46-o7-aTe" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                            <rect key="frame" x="82" y="21" width="278" height="31.5"/>
+                                                            <rect key="frame" x="82" y="21.5" width="258.5" height="30.5"/>
                                                             <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="13"/>
                                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -228,8 +228,7 @@
                                 <color key="tintColor" name="resendLinkColor"/>
                                 <state key="normal" image="storySettings"/>
                                 <connections>
-                                    <action selector="btnOkClicked:" destination="vHk-9c-f9g" eventType="touchUpInside" id="mLG-5U-pLi"/>
-                                    <segue destination="vHk-9c-f9g" kind="show" id="xMa-VC-5Wo"/>
+                                    <action selector="onSettingButtonClick:" destination="jgZ-pb-py8" eventType="touchUpInside" id="k4x-6R-nlc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -258,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMt-z7-uhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-478" y="814"/>
+            <point key="canvasLocation" x="-258" y="717"/>
         </scene>
         <!--User DetailsVC-->
         <scene sceneID="zvZ-pM-mYj">
@@ -751,7 +750,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kf8-NM-TPw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="814"/>
+            <point key="canvasLocation" x="459" y="800"/>
         </scene>
         <!--Notification Settings View Controller-->
         <scene sceneID="mQj-g1-k53">
@@ -803,7 +802,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1as-hY-j1p">
-                                                    <rect key="frame" x="19" y="0.0" width="101" height="19"/>
+                                                    <rect key="frame" x="19" y="0.0" width="89.5" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="TeE-Sp-Otl"/>
                                                     </constraints>
@@ -818,7 +817,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="346" height="75"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLG-P7-40I">
-                                                                    <rect key="frame" x="0.0" y="10" width="34.5" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="10" width="30" height="18"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="18" id="Mj3-dc-JRG"/>
                                                                     </constraints>
@@ -885,7 +884,7 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of signups between notifications" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iu0-SR-CdU">
-                                                                                    <rect key="frame" x="75" y="1" width="253" height="34"/>
+                                                                                    <rect key="frame" x="75" y="1.5" width="253" height="33"/>
                                                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -979,7 +978,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVr-AA-s3k">
-                                                    <rect key="frame" x="49" y="13" width="32.5" height="18"/>
+                                                    <rect key="frame" x="49" y="13.5" width="28.5" height="17.5"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

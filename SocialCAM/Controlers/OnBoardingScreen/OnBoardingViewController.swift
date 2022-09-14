@@ -28,6 +28,7 @@ class QuickStartCategoryContent: Codable, Equatable {
     var updatedAt: String?
     var isread: Bool?
     var content: String?
+    var itemId: String?
 }
 
 class QuickStartCategory: Codable, Equatable {
