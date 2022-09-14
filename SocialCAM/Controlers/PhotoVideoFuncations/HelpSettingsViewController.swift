@@ -75,11 +75,11 @@ extension HelpSettingsViewController: UITableViewDataSource {
         helpSettingsCell.title.text = settings.name
         
         if settingTitle.settingsType == .instruction {
-            helpSettingsCell.imgSettingIcon.image = R.image.iconCameraHelp()
+            helpSettingsCell.imgSettingIcon.image = R.image.quickCakHelp()
         } else if settingTitle.settingsType == .pic2Art {
-            helpSettingsCell.imgSettingIcon.image = R.image.iconPic2ArtHelp()
+            helpSettingsCell.imgSettingIcon.image = R.image.pic2ArtHelp()
         } else if settingTitle.settingsType == .edit {
-            helpSettingsCell.imgSettingIcon.image = R.image.iconEditHelp()
+            helpSettingsCell.imgSettingIcon.image = R.image.editHelp()
         }
             
         return helpSettingsCell
