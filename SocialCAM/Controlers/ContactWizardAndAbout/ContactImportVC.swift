@@ -298,6 +298,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector:#selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.viewhandleTap(_:)))
+    
         self.view.addGestureRecognizer(tap)
     }
     @objc func viewhandleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -2623,6 +2624,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func nextClick(_ sender: UIButton) {
+        print("handleTap")
+        self.view.gestureRecognizers?.removeAll()
+        
         if isFromContactManager{
             if pageNo == 5 {
                 if self.selectedContactManage == nil{
@@ -2725,6 +2729,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
                 referSuccess.callback = { message in
                     self.pageNo = 1
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.viewhandleTap(_:)))
+                
+                    self.view.addGestureRecognizer(tap)
                     self.setupPage()
                 }
                 referSuccess.isFromOnboarding = self.isFromOnboarding
@@ -2757,6 +2764,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
             referSuccess.callback = { message in
                 self.pageNo = 1
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.viewhandleTap(_:)))
+                self.view.addGestureRecognizer(tap)
                 self.setupPage()
             }
             referSuccess.isFromOnboarding = self.isFromOnboarding
@@ -2784,7 +2793,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
-        
+        self.view.gestureRecognizers?.removeAll()
         selectedShareTitleLabel.text = "Share your Referral Page invite link"
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
@@ -2802,6 +2811,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapQuickStartButton(_ sender: Any) {
+        self.view.gestureRecognizers?.removeAll()
         selectedShareTitleLabel.text = "Share your QuickStart Invite Link"
         if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
            urlToShare = shareUrl
