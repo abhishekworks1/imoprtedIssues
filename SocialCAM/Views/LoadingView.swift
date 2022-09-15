@@ -89,10 +89,18 @@ public class LoadingView: UIView {
             tipOfTheDayLabel.text = (Defaults.shared.tipOfDay ?? []).randomElement()
         }
     }
-    @IBOutlet weak var tipOfTheDayView: UIView!
+    @IBOutlet weak var tipOfTheDayView: UIView! {
+        didSet {
+            tipOfTheDayView.isHidden = true
+        }
+    }
 
     @IBOutlet weak var timerLeftLabel: UILabel!
-    @IBOutlet weak var timerView: UIView!
+    @IBOutlet weak var timerView: UIView! {
+        didSet {
+            timerView.isHidden = true
+        }
+    }
     @IBOutlet weak var dayValueLabel: UILabel!
     @IBOutlet weak var hourValueLabel: UILabel!
     @IBOutlet weak var minValueLabel: UILabel!
@@ -284,8 +292,6 @@ public class LoadingView: UIView {
             }
         }
         imgAdvertisementArray.shuffle()
-        getDays()
-        tipOfTheDayView.isHidden = !timerView.isHidden
     }
     
     func checkForBanners(bannerImg: UIImage?) {
@@ -310,6 +316,12 @@ public class LoadingView: UIView {
     }
     
     public func show(on view: UIView, completion: (() -> Void)? = nil) {
+        tipOfTheDayView.isHidden = loadingViewShow
+        timerView.isHidden = loadingViewShow
+        if !loadingViewShow {
+            getDays()
+            tipOfTheDayView.isHidden = !timerView.isHidden
+        }
         progressView.setProgress(to: 0.0, withAnimation: false)
         var targetView = view
         if let view = view as? UIScrollView, let superView = view.superview {

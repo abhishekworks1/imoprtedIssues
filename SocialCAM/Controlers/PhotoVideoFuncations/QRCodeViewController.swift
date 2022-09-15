@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import SDWebImage
 
 enum RefferelType:Int{
     case quickStart = 1
@@ -61,11 +62,12 @@ class QRCodeViewController: UIViewController {
     // MARK: - Setup Methods
     func setup() {
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+//            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
             self.imgProfilePic.layer.borderWidth = 1.5
             self.imgProfilePic.layer.borderColor = UIColor.white.cgColor
+            imgProfilePic.loadImageWithSDwebImage(imageUrlString: userImageURL)
 
         }
         setUpbadges()

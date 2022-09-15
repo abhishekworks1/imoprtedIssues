@@ -394,7 +394,7 @@ extension WelcomeViewController {
                     self.userImageView.removeGestureRecognizer(self.tapGestureRecognizer)
                 }
             }
-            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            self.userImageView.loadImageWithSDwebImage(imageUrlString: userImageURL)
         }
     }
     

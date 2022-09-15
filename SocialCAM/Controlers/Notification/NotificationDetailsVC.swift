@@ -273,6 +273,11 @@ extension NotificationDetailsVC: UICollectionViewDataSource, UICollectionViewDel
             self.showHUD()
             self.getFollowingNotifications(pageIndex: self.pageIndex)
         }
+        self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPrevious, isImageChange: indexPath.row == 0)
+        if self.startLoading == false{
+            self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: indexPath.row == self.notificationArray.count - 1)
+        }
+       
     }
 }
 

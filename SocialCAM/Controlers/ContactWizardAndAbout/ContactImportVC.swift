@@ -281,6 +281,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var emailContactSection = [ContactGroup]()
     var contactMessageText = "Please wait while your contacts are loaded."
     var textContent = "Please wait while your Text Content are loaded."
+    var activityView = UIActivityIndicatorView()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -298,6 +299,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector:#selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.viewhandleTap(_:)))
+    
         self.view.addGestureRecognizer(tap)
     }
     @objc func viewhandleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -352,9 +354,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblUserName.text = "@\(channelId)"
         }
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+//            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
+            self.imgProfilePic.loadImageWithSDwebImage(imageUrlString: userImageURL)
+            
         }
 //        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
 //            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
@@ -1540,17 +1544,21 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        }
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
-        
+        if #available(iOS 13.0, *) {
+            previewImageview.showActivityIndicatory(activityView: activityView, indicatorStyle: .large)
+            messageImageView.showActivityIndicatory(activityView: activityView, indicatorStyle: .large)
+        }
         OpenGraphDataDownloader.shared.fetchOGData(urlString: link) { result in
             switch result {
             case let .success(data, isExpired):
-                SDImageCache.shared.clearMemory()
-                SDImageCache.shared.clearDisk()
-                DispatchQueue.main.async {
-                    self.messageImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-                    self.previewImageview.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-                    self.previewImageview.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
-                    self.messageImageView.sd_setImage(with: data.imageUrl, placeholderImage: R.image.cameraWithBG())
+                DispatchQueue.main.async { [self] in
+                    guard let url = data.imageUrl else { return }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+                        self.previewImageview.sd_setImage(with: url, placeholderImage: R.image.cameraWithBG() ?? UIImage())
+                        self.messageImageView.sd_setImage(with: url, placeholderImage: R.image.cameraWithBG() ?? UIImage())
+                        messageImageView.stopActivityIndicatory(activityView: activityView)
+                        previewImageview.stopActivityIndicatory(activityView: activityView)
+                    }
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
                     self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
                 }
@@ -2623,6 +2631,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func nextClick(_ sender: UIButton) {
+        print("handleTap")
+        self.view.gestureRecognizers?.removeAll()
+        
         if isFromContactManager{
             if pageNo == 5 {
                 if self.selectedContactManage == nil{
@@ -2725,6 +2736,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
                 referSuccess.callback = { message in
                     self.pageNo = 1
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.viewhandleTap(_:)))
+                
+                    self.view.addGestureRecognizer(tap)
                     self.setupPage()
                 }
                 referSuccess.isFromOnboarding = self.isFromOnboarding
@@ -2757,6 +2771,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
             referSuccess.callback = { message in
                 self.pageNo = 1
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.viewhandleTap(_:)))
+                self.view.addGestureRecognizer(tap)
                 self.setupPage()
             }
             referSuccess.isFromOnboarding = self.isFromOnboarding
@@ -2784,7 +2800,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
-        
+        self.view.gestureRecognizers?.removeAll()
         selectedShareTitleLabel.text = "Share your Referral Page invite link"
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
@@ -2802,6 +2818,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapQuickStartButton(_ sender: Any) {
+        self.view.gestureRecognizers?.removeAll()
         selectedShareTitleLabel.text = "Share your QuickStart Invite Link"
         if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
            urlToShare = shareUrl
