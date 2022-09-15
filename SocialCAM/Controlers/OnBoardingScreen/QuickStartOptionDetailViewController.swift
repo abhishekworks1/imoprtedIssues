@@ -66,11 +66,11 @@ class QuickStartOptionDetailViewController: UIViewController {
 //        }
         subscribeNowButton.isHidden = !tryNowButton.isHidden
         
-//        if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced{
-//            subscribeNowButton.isHidden = true
-//        }else{
-//            subscribeNowButton.isHidden = false
-//        }
+        if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced{
+            subscribeNowButton.isHidden = true
+        }else{
+            subscribeNowButton.isHidden = false
+        }
        
     }
     
