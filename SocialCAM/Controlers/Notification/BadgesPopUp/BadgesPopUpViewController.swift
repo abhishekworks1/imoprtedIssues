@@ -40,46 +40,66 @@ class BadgesPopUpViewController: UIViewController {
     
     func setUpPageButtonText(currentPageText:Int,nextPage: Int, previousPage: Int) {
         currentPageButton.setTitle("\(currentPageText)", for: .normal)
-        nextPageButton.setTitle("\(nextPage)", for: .normal)
-        previousPageButton.setTitle("\(previousPage)", for: .normal)
-        if previousPage == 0 {
+        nextPageButton.setTitle("\(currentPageText + 1)", for: .normal)
+        previousPageButton.setTitle("\(currentPageText - 1)", for: .normal)
+        currentPageButton.tag = currentPageText
+        if currentPageText == 1 {
             previousPageButton.isHidden = true
+            previousPageButton.tag = 0
         } else {
             previousPageButton.isHidden = false
+            previousPageButton.tag = currentPageText - 1
         }
-        if nextPage > badgeDetails.count {
+        if currentPageText >= badgeDetails.count {
             nextPageButton.isHidden = true
+            nextPageButton.tag = 0
         } else {
             nextPageButton.isHidden = false
+            nextPageButton.tag = currentPageText + 1
         }
         
-        previousPageButton.tag = previousPage - 1
-        currentPageButton.tag = currentPageText - 1
-        nextPageButton.tag = nextPage - 1
+//        previousPageButton.tag = previousPage - 1
+//        currentPageButton.tag = currentPageText - 1
+//        nextPageButton.tag = nextPage - 1
     }
     
     
     @IBAction func didTapOnPreviousPageTextButton(_ sender: UIButton) {
-        print(previousPageButton.tag)
-        self.badgesCollectionView.scrollToItem(at: IndexPath(row: previousPageButton.tag, section: 0), at: .centeredHorizontally, animated: true)
+//        print(previousPageButton.tag)
+        if currentPage == 1 {
+            return
+        } else {
+            currentPage = currentPage - 1
+        }
+        self.badgesCollectionView.reloadData()
+        self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
     }
     
     
     @IBAction func didTapOnCurrentTextPageButton(_ sender: UIButton) {
+        return
         print(currentPageButton.tag)
+        self.badgesCollectionView.reloadData()
         self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPageButton.tag, section: 0), at: .centeredHorizontally, animated: true)
     }
     
     @IBAction func didTapOnNextPageTextButton(_ sender: UIButton) {
-        print(nextPageButton.tag)
-        self.badgesCollectionView.scrollToItem(at: IndexPath(row: nextPageButton.tag, section: 0), at: .centeredHorizontally, animated: true)
+//        print(nextPageButton.tag)
+        if currentPage == badgeDetails.count {
+            return
+        } else {
+            currentPage = currentPage + 1
+        }
+        self.badgesCollectionView.reloadData()
+        self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
     }
     
     
     @IBAction func didTapArrowPreviusButton(_ sender: UIButton) {
-        if currentPage != 0 {
+        if currentPage != 1 {
             self.currentPage -= 1
-            self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
+            self.badgesCollectionView.reloadData()
+            self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage-1, section: 0), at: .centeredHorizontally, animated: true)
             setUpPageButtonText(currentPageText: currentPage, nextPage: currentPage + 1, previousPage: currentPage-1)
         } else {
             return
@@ -88,7 +108,15 @@ class BadgesPopUpViewController: UIViewController {
     }
     
     @IBAction func didTapArrowNextButton(_ sender: UIButton) {
-        if self.currentPage == 0 {
+        if currentPage == badgeDetails.count {
+            return
+        } else {
+            self.currentPage += 1
+            self.badgesCollectionView.reloadData()
+            self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage-1, section: 0), at: .centeredHorizontally, animated: true)
+            setUpPageButtonText(currentPageText: currentPage, nextPage: currentPage + 1, previousPage: currentPage-1)
+        }
+       /*if self.currentPage == 1 {
             self.currentPage += 1
             self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
             setUpPageButtonText(currentPageText: currentPage + 1, nextPage: currentPage + 2, previousPage: currentPage)
@@ -100,7 +128,7 @@ class BadgesPopUpViewController: UIViewController {
                 self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
                 setUpPageButtonText(currentPageText: currentPage + 1, nextPage: currentPage + 2, previousPage: currentPage)
             }
-        }
+        } */
 
     }
     
@@ -378,7 +406,7 @@ class BadgesPopUpViewController: UIViewController {
         let visibleRect = CGRect(origin: badgesCollectionView.contentOffset, size: badgesCollectionView.bounds.size)
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
         if let visibleIndexPath = badgesCollectionView.indexPathForItem(at: visiblePoint) {
-            return visibleIndexPath.row
+            return visibleIndexPath.row + 1
         }
         return currentPage
     }
@@ -396,7 +424,7 @@ extension BadgesPopUpViewController: UICollectionViewDelegate, UICollectionViewD
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.badgesCollectionViewCell.identifier, for: indexPath) as? BadgesCollectionViewCell else { return UICollectionViewCell() }
-        if currentPage == indexPath.item {
+        if currentPage - 1 == indexPath.item {
             cell.badgeImageView.alpha = 1
             cell.badgeNameLabel.isHidden = false
             cell.badgeDescriptionLabel.isHidden = false
@@ -424,7 +452,7 @@ extension BadgesPopUpViewController {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage()
-        setUpPageButtonText(currentPageText: currentPage + 1, nextPage: currentPage + 2, previousPage: currentPage)
         badgesCollectionView.reloadData()
+        setUpPageButtonText(currentPageText: currentPage, nextPage: currentPage + 1, previousPage: currentPage-1)
     }
 }
