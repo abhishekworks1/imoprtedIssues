@@ -80,7 +80,35 @@ class PurchaseHelper: NSObject {
     }
     
 }
+enum AppConfiguration {
+  case Debug
+  case TestFlight
+  case AppStore
+}
 
+struct Config {
+  // This is private because the use of 'appConfiguration' is preferred.
+  private static let isTestFlight = Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+  
+  // This can be used to add debug statements.
+  static var isDebug: Bool {
+    #if DEBUG
+      return true
+    #else
+      return false
+    #endif
+  }
+
+  static var appConfiguration: AppConfiguration {
+    if isDebug {
+      return .Debug
+    } else if isTestFlight {
+      return .TestFlight
+    } else {
+      return .AppStore
+    }
+  }
+}
 // MARK: - Receipt Validation Methods
 extension PurchaseHelper {
     
@@ -90,9 +118,20 @@ extension PurchaseHelper {
         do {
             let receiptData = try Data(contentsOf: receiptFileURL)
             let receiptString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-            let mode = isProduction ?? false ? IAPMode.production.getStringValue() : IAPMode.sandbox.getStringValue()
+          //  let mode = isProduction ?? false ? IAPMode.production.getStringValue() : IAPMode.sandbox.getStringValue()
+            var mode = IAPMode.sandbox.getStringValue()
+            switch (Config.appConfiguration) {
+                case .Debug:
+                    mode = IAPMode.sandbox.getStringValue()
+                case .TestFlight:
+                    mode = IAPMode.sandbox.getStringValue()
+                case .AppStore:
+                    mode = IAPMode.production.getStringValue()
+               
+            }
             let data = receiptString
             let requestContents: [String: Any] = [Constant.BuySubscription.receipt: data, Constant.BuySubscription.password: inAppConfig, Constant.BuySubscription.mode: mode, Constant.BuySubscription.subscriptionID: productServerID, Constant.BuySubscription.platformType: platformType]
+           // print("mode is \(mode)")
             validateReceiptFromServer(userInfo: requestContents)
         } catch {
             if let block = self.receiptValidationBlock {
