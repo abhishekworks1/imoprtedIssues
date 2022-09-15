@@ -285,7 +285,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.isHidden = true
             headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+                headerView.userImage.loadImageWithSDwebImage(imageUrlString: userImageURL)
+//                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }

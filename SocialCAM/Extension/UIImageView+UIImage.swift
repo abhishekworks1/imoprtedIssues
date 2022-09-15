@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SDWebImage
 
 extension UIImage {
     
@@ -456,4 +457,39 @@ extension UIImage {
         return newImage!
     }
     
+}
+
+extension UIImageView {
+    
+    func showActivityIndicatory(activityView: UIActivityIndicatorView,
+                                indicatorStyle: UIActivityIndicatorView.Style) {
+        if #available(iOS 13.0, *) {
+            activityView.style = indicatorStyle
+            activityView.color = R.color.appPrimaryColor()
+            activityView.center = self.center
+            self.addSubview(activityView)
+            self.bringSubviewToFront(activityView)
+            activityView.startAnimating()
+            activityView.isHidden = false
+        }
+    }
+    
+    
+    func stopActivityIndicatory(activityView: UIActivityIndicatorView) {
+        if (activityView != nil){
+            activityView.stopAnimating()
+        }
+    }
+    
+    func loadImageWithSDwebImage(imageUrlString: String) {
+        self.image = R.image.indicatorBgImage()
+        let loader = SDWebImageActivityIndicator()
+        loader.indicatorView.style = .gray
+        loader.indicatorView.color = R.color.appPrimaryColor()
+        self.sd_imageIndicator = loader
+        loader.startAnimatingIndicator()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+            self.sd_setImage(with: URL.init(string: imageUrlString), placeholderImage: R.image.cameraWithBG() ?? UIImage())
+        }
+    }
 }

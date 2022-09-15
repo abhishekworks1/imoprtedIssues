@@ -108,7 +108,7 @@ enum SettingsEnum : Int, Codable, CaseIterable {
     case potentialIncomeCalculator
     case followerGoalCalculator
     case editProfileCard
-//    case help
+    case help
     case accountSettings
     case system
     case checkUpdate
@@ -231,8 +231,8 @@ class StorySettings: Codable {
                    settings: [StorySetting(name: R.string.localizable.followerGoalCalculator(), selected: false)], settingsType: .followerGoalCalculator, type: .followerGoalCalculator),
      StorySettings(name: "",
                    settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard, type: .editProfileCard),
-     /*StorySettings(name: "",
-      settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),*/
+     StorySettings(name: "",
+      settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help, type: .help),
      StorySettings(name: "",
                    settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings, type: .accountSettings),
      StorySettings(name: "",
@@ -331,6 +331,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     let releaseType = Defaults.shared.releaseType
     private lazy var storyCameraVC = StoryCameraViewController()
     var notificationUnreadCount = 0
+    var activityView = UIActivityIndicatorView()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.backButton.imageView?.contentMode = .scaleAspectFit
@@ -606,12 +607,24 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             }
         }
     }
+    
+    func setProfileImage(imageView: UIImageView, imageUrl: String) {
+        let loader = SDWebImageActivityIndicator()
+        loader.indicatorView.style = .gray
+        loader.indicatorView.color = R.color.appPrimaryColor()
+        imageView.sd_imageIndicator = loader
+        loader.startAnimatingIndicator()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            imageView.sd_setImage(with: URL.init(string: imageUrl), placeholderImage: R.image.cameraWithBG() ?? UIImage())
+        }
+    }
+    
     func setUpProfileHeader() {
         userImage.layer.cornerRadius = userImage.bounds.width / 2
 //        if settingTitle.settingsType == .userDashboard {
+        userImage.image = R.image.indicatorBgImage()
           if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-                userImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
-                userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+              setProfileImage(imageView: userImage, imageUrl: userImageURL)
             } else {
                 userImage.image = ApplicationSettings.userPlaceHolder
             }
@@ -786,7 +799,8 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             if userImageURL.isEmpty {
                 userPlaceHolderImageView.isHidden = false
             }
-            userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            setProfileImage(imageView: userPlaceHolderImageView, imageUrl: userImageURL)
+//            userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
         } else {
             userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
         }
@@ -1012,7 +1026,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 if userImageURL.isEmpty {
                     headerView.addProfilePic.isHidden = false
                 }
-                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+                setProfileImage(imageView: headerView.userImage, imageUrl: userImageURL)
+//                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
@@ -1054,7 +1069,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 if userImageURL.isEmpty {
                     self?.userPlaceHolderImageView.isHidden = false
                 }
-                self?.userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+                self?.setProfileImage(imageView: self?.userPlaceHolderImageView ?? UIImageView(), imageUrl: userImageURL)
+//                self?.userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             } else {
                 self?.userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
             }
@@ -1408,7 +1424,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func logoutWithKeycloak() {
         ProManagerApi.logoutKeycloak.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
+           // if response.status == ResponseType.success {
                 StoriCamManager.shared.logout()
                 TwitterManger.shared.logout()
                 GoogleManager.shared.logout()
@@ -1426,13 +1442,32 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                    // Defaults.shared.clearData()
                     Utils.appDelegate?.window?.rootViewController = loginNav
                 }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-            }
+           // } else {
+               // self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+           // }
             self.logoutPopupView.isHidden = true
         }, onError: { error in
+           // self.logoutPopupView.isHidden = true
+           // self.showAlert(alertMessage: error.localizedDescription)
+            
+            StoriCamManager.shared.logout()
+            TwitterManger.shared.logout()
+            GoogleManager.shared.logout()
+            FaceBookManager.shared.logout()
+            InstagramManager.shared.logout()
+            SnapKitManager.shared.logout { _ in
+                
+            }
+            if #available(iOS 13.0, *) {
+                AppleSignInManager.shared.logout()
+            }
+            self.settingsTableView.reloadData()
+            self.removeDeviceToken()
+            if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+               // Defaults.shared.clearData()
+                Utils.appDelegate?.window?.rootViewController = loginNav
+            }
             self.logoutPopupView.isHidden = true
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }

@@ -1077,7 +1077,7 @@ extension OnBoardingViewController {
     func setupView() {
         self.setUpQuickStartData()
         popupView.isHidden = !self.showPopUpView
-        UserSync.shared.syncUserModel { isCompleted in
+        UserSync.shared.syncUserModel { [self] isCompleted in
             UserSync.shared.getOnboardingUserFlags { isCompleted in
                 self.fillStepIndicatorViews()
             }
@@ -1085,7 +1085,7 @@ extension OnBoardingViewController {
                 self.setUpQuickStartData()
             })
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-                self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+                self.userImageView.loadImageWithSDwebImage(imageUrlString: userImageURL)
             }
             let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
             if isFoundingMember {

@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 import FBSDKShareKit
 import MessageUI
+import SDWebImage
 
 enum EmailType {
     case gmail
@@ -97,9 +98,11 @@ class ShareSettingViewController: UIViewController {
             self.lblUserName.text = "@\(channelId)"
         }
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+//            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
+            imgProfilePic.loadImageWithSDwebImage(imageUrlString: userImageURL)
+            
         }
 //        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
 //            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
