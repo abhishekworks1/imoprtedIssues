@@ -71,6 +71,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             self.snapChatShareImage(image: image, referType: referType)
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
+                self.openAppToAppstoreWith(url: AppstoreUrl.tiktokURL.rawValue)
                 Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
                 return
             }
@@ -123,6 +124,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             youTubeUpload(url)
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
+                self.openAppToAppstoreWith(url: AppstoreUrl.tiktokURL.rawValue)
                 Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
                 return
             }
@@ -216,6 +218,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     public func sharer(_ sharer: Sharing, didFailWithError error: Error) {
+        
+        self.openAppToAppstoreWith(url: AppstoreUrl.fbURl.rawValue)
+        
         Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallFacebookToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
     }
     
@@ -309,6 +314,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     self.delegate?.success()
                 })
             } else {
+                
+                self.openAppToAppstoreWith(url: AppstoreUrl.instagramURL.rawValue)
+                
                 Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallInstagramToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
             }
         }
@@ -395,4 +403,10 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         StoriCamManager.shared.uploadVideo(videoUrl: videoUrl, socialType: socialType)
     }
     
+    func openAppToAppstoreWith(url: String) {
+        guard let url = URL(string: url) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
 }
