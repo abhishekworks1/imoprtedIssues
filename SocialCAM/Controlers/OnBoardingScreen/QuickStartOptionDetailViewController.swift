@@ -53,25 +53,11 @@ class QuickStartOptionDetailViewController: UIViewController {
         if !(selectedQuickStartItem?.cta_link?.trim.isEmpty ?? true) || (selectedQuickStartItem?.itemId == "invite_wizard" || selectedQuickStartItem?.itemId == "pic2art" || selectedQuickStartItem?.itemId == "check_updates" || selectedQuickStartItem?.itemId == "create_your_goal" || selectedQuickStartItem?.itemId == "make_money_your_goal") {
             tryNowButton.isHidden = false
         }
-//        else {
-//            if selectedQuickStartCategory?.catId == "create_engaging_content" {
-//                tryNowButton.setTitle("Try QuickCam Camera Now", for: .normal)
-//            } else if selectedQuickStartCategory?.catId == "make_money_referring_quickCam" {
-//                tryNowButton.setTitle("Try Invite Wizard Now", for: .normal)
-//            } else if selectedQuickStartCategory?.catId == "mobile_dashboard" {
-//                tryNowButton.setTitle("Try Mobile Dashboard Now", for: .normal)
-//            } else {
-//                tryNowButton.setTitle("Try Now", for: .normal)
-//            }
-//        }
         subscribeNowButton.isHidden = !tryNowButton.isHidden
-        
-//        if Defaults.shared.appMode == .professional || Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced{
-//            subscribeNowButton.isHidden = true
-//        }else{
-//            subscribeNowButton.isHidden = false
-//        }
-       
+        if selectedQuickStartItem?.cta_text?.trim.isEmpty ?? false {
+            subscribeNowButton.isHidden = true
+            tryNowButton.isHidden = true
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
