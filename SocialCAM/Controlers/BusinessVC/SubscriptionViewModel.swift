@@ -27,7 +27,8 @@ class SubscriptionViewModel {
     
     func validateRecieptOverServer(param: [String: Any]) {
         ProManagerApi.buySubscription(param: param).request(Result<BuySubscriptionResponseModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
+           // if response.status == ResponseType.success {
+            if ((response.message ?? "") == "Subscription Purchased."){
                 self.subscriptionResponseMsg.value = (response.message ?? "", true)
             } else {
                 Defaults.shared.isSubscriptionApiCalled = false
