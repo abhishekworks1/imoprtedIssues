@@ -38,6 +38,7 @@ class HelpSettingsViewController: UIViewController {
     // MARK: - View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Tutorials"
         var frame = CGRect.zero
         frame.size.height = .leastNormalMagnitude
         helpSettingsTableView.tableHeaderView = UIView(frame: frame)
