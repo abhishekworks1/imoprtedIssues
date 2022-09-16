@@ -336,7 +336,7 @@ extension GreatViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
            // self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
-            
+            self.upgradeNowButton.isHidden = true
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
@@ -347,7 +347,7 @@ extension GreatViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.212, green: 0.718, blue: 1, alpha: 1))
            // self.upgradeNowButton.setTitle("Upgrade To Premium", for: .normal)
-            
+            self.upgradeNowButton.isHidden = true
             if (days == "7") {
                 setUpTimerViewForSignupDay()
             } else {
