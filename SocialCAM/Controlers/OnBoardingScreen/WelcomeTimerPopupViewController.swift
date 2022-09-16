@@ -255,8 +255,28 @@ class WelcomeTimerPopupViewController: UIViewController {
         }
         
     }
-    
     func setUpgradeButton() {
+        laterButton.isHidden = true
+        upgradeNowButton.isHidden = true
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" || paidSubscriptionStatus.lowercased() == "advance" || paidSubscriptionStatus.lowercased() == "pro" {
+                upgradeNowButton.isHidden = true
+                laterButton.isHidden = true
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                upgradeNowButton.isHidden = false
+                laterButton.isHidden = false
+            } else {
+                upgradeNowButton.isHidden = true
+                laterButton.isHidden = true
+            }
+        } else {
+            upgradeNowButton.isHidden = false
+            laterButton.isHidden = false
+        }
+    }
+    func setUpgradeButtonwithUpgrade() {
         laterButton.isHidden = true
         upgradeNowButton.isHidden = true
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
