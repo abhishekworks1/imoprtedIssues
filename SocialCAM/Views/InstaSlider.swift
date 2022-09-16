@@ -145,14 +145,14 @@ open class InstaSlider: UIView {
                 currentCell.label.makeLabelOpaque()
                // currentCell.label.textColor = cellTextColor
                 currentCell.label.textColor = UIColor(hex:"ebebeb")
-                currentCell.label.font = UIFont.systemFont(ofSize: 14)
+                currentCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
                 selectedCell = collectionView.indexPath(for: cell!)?.item
                 cell!.label.textColor = selectedCellTextColor
-                cell!.label.font = UIFont.systemFont(ofSize: 14)
+                cell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                 //print("**SelectedC1 \(cell!.label.text)")
                 Defaults.shared.callHapticFeedback(isHeavy: false)
                 if (self.currentCell != nil) {
@@ -166,11 +166,11 @@ open class InstaSlider: UIView {
                 currentCell!.label.makeLabelOpaque()
               //  currentCell!.label.textColor = cellTextColor
                 currentCell!.label.textColor = UIColor(hex:"ebebeb")
-                currentCell!.label.font = UIFont.systemFont(ofSize: 14)
+                currentCell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
                     cells!.label.textColor = selectedCellTextColor
-                    cells!.label.font = UIFont.systemFont(ofSize: 14)
+                    cells!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                     //print("**SelectedC2 \(cells!.label.text)")
                 }
             }
@@ -191,13 +191,13 @@ open class InstaSlider: UIView {
                 currentCell.label.makeLabelOpaque()
                // currentCell.label.textColor = cellTextColor
                 currentCell.label.textColor = UIColor(hex:"ebebeb")
-                currentCell.label.font = UIFont.systemFont(ofSize: 14)
+                currentCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
                 cell!.label.textColor = selectedCellTextColor
-                cell!.label.font = UIFont.systemFont(ofSize: 14)
+                cell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                 //print("**SelectedC1 \(cell!.label.text)")
             }
         }
@@ -248,12 +248,12 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
-                kCell.label.font = UIFont.systemFont(ofSize: 14)
+                kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
             } else {
                 kCell.label.makeLabelOpaque()
                // kCell.label.textColor = cellTextColor
                 kCell.label.textColor = UIColor(hex:"ebebeb")
-                kCell.label.font = UIFont.systemFont(ofSize: 14)
+                kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
             }
         }
         let cameraType = self.stringArray[indexPath.item].recordingType
@@ -311,7 +311,7 @@ class CollectionViewCustomCell: UICollectionViewCell {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
