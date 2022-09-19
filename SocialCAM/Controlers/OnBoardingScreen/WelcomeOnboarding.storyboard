@@ -351,10 +351,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9J-Ph-ZlR">
                                                                                 <rect key="frame" x="71.333333333333314" y="20" width="250" height="250"/>
                                                                                 <subviews>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="j1q-P9-s4x">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
-                                                                                    </imageView>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="rie-v2-3Mp">
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraWithBG" translatesAutoresizingMaskIntoConstraints="NO" id="rie-v2-3Mp">
                                                                                         <rect key="frame" x="62.666666666666657" y="27" width="125" height="125"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="125" id="MUt-4t-1aV"/>
@@ -365,6 +362,9 @@
                                                                                                 <real key="value" value="62.5"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                         </userDefinedRuntimeAttributes>
+                                                                                    </imageView>
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareScreenProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="j1q-P9-s4x">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                                                                     </imageView>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1264,7 +1264,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btc-SP-hcV">
                                                 <rect key="frame" x="100.66666666666666" y="12" width="162.99999999999997" height="163"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="OF7-Sw-APm">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraWithBG" translatesAutoresizingMaskIntoConstraints="NO" id="OF7-Sw-APm">
                                                         <rect key="frame" x="41.333333333333343" y="18" width="80" height="80"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="80" id="pDn-su-cE9"/>
@@ -3180,6 +3180,7 @@
         <image name="advancedBadge" width="62" height="73"/>
         <image name="androidBadge" width="64" height="64"/>
         <image name="basicBadge" width="62" height="73"/>
+        <image name="cameraWithBG" width="144" height="149"/>
         <image name="closeRef" width="512" height="512"/>
         <image name="contentCreate" width="39" height="26"/>
         <image name="day_badge_1" width="107" height="150"/>
@@ -3205,7 +3206,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
