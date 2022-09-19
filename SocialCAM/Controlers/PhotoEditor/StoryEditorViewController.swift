@@ -1630,6 +1630,7 @@ extension StoryEditorViewController {
                             self.shareWithActivity(url:exportURL)
                         } else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                            SocialShareVideo.shared.socialShareType = type
                         }
                         self.pauseVideo()
                     }
@@ -1666,6 +1667,7 @@ extension StoryEditorViewController {
                             self.shareWithActivity(url:nil,image:image)
                         }else{
                             SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
+                            SocialShareVideo.shared.socialShareType = type
                         }
                         
                     }
@@ -1680,6 +1682,7 @@ extension StoryEditorViewController {
                             self.shareWithActivity(url:exportURL)
                         }else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                            SocialShareVideo.shared.socialShareType = type
                         }
                         self.pauseVideo()
                         self.isVideoPlay = true
@@ -1732,6 +1735,7 @@ extension StoryEditorViewController {
                                             self.shareWithActivity(url:exportURL)
                                         } else {
                                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                            SocialShareVideo.shared.socialShareType = type
                                         }
                                         self.pauseVideo()
                                         self.isVideoPlay = true
@@ -2971,6 +2975,7 @@ extension StoryEditorViewController {
                     self.shareWithActivity(url:exporturl)
                 }else {
                     SocialShareVideo.shared.shareVideo(url: exporturl, socialType: type, referType: self.referType)
+                    SocialShareVideo.shared.socialShareType = type
                 }
                 self.pauseVideo()
                 self.isVideoPlay = true
