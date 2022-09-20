@@ -108,6 +108,7 @@ enum SettingsEnum : Int, Codable, CaseIterable {
     case potentialIncomeCalculator
     case followerGoalCalculator
     case editProfileCard
+//    case contactManager
     case help
     case accountSettings
     case system

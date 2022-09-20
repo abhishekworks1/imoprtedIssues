@@ -155,26 +155,27 @@ class ShareSettingViewController: UIViewController {
     }
     
     func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
-        print(badgearry)
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
         
-        if  badgearry.count >  0 {
-            preLunchBadge.isHidden = false
-            let imageName = badgearry[0]
-            preLunchBadgeImageView.image = UIImage(named: imageName)
-        }
-        if  badgearry.count >  1 {
-            foundingMergeBadge.isHidden = false
-            let imageName = badgearry[1]
-            foundingMergeBadgeImageView.image = UIImage(named: imageName)
-        }
-        if  badgearry.count >  2 {
-            socialBadgeicon.isHidden = false
-            let imageName = badgearry[2]
-            socialBadgeiconImageView.image = UIImage(named: imageName)
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge.isHidden = false
+                    preLunchBadgeImageView.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge.isHidden = false
+                    foundingMergeBadgeImageView.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon.isHidden = false
+                    socialBadgeiconImageView.image = R.image.socialBadge()
+                default:
+                    break
+                }
+            }
         }
     }
     func setUpSubscriptionBadges() {
@@ -183,9 +184,9 @@ class ShareSettingViewController: UIViewController {
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
-        dayBadgeAndroidImageView.tag = 1
+        /*dayBadgeAndroidImageView.tag = 1
         dayBadgeIosImageView.tag = 2
-        dayBadgeWebImageView.tag = 3
+        dayBadgeWebImageView.tag = 3*/
         preLunchBadge.tag = 4
         foundingMergeBadge.tag = 5
         socialBadgeiconImageView.tag = 6
@@ -196,9 +197,9 @@ class ShareSettingViewController: UIViewController {
         preLunchBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         foundingMergeBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         socialBadgeiconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
-        dayBadgeIosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        /*dayBadgeIosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         dayBadgeAndroidImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
-        dayBadgeWebImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeWebImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))*/
         iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
@@ -324,6 +325,7 @@ class ShareSettingViewController: UIViewController {
     @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
         let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
         vc.selectedBadgeTag = sender?.view?.tag ?? 0
+        vc.badgeType = .allBadges
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true, completion: nil)
     }

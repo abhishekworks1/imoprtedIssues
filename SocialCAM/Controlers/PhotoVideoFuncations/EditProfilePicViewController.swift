@@ -418,22 +418,27 @@ class EditProfilePicViewController: UIViewController {
     
     
     func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
         
-        if  badgearry.count >  0 {
-            preLunchBadge.isHidden = false
-            preLunchBadge.image = UIImage.init(named: badgearry[0])
-        }
-        if  badgearry.count >  1 {
-            foundingMergeBadge.isHidden = false
-            foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-        }
-        if  badgearry.count >  2 {
-            socialBadgeicon.isHidden = false
-            socialBadgeicon.image = UIImage.init(named: badgearry[2])
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge.isHidden = false
+                    preLunchBadge.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge.isHidden = false
+                    foundingMergeBadge.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon.isHidden = false
+                    socialBadgeicon.image = R.image.socialBadge()
+                default:
+                    break
+                }
+            }
         }
     }
     
@@ -584,12 +589,12 @@ class EditProfilePicViewController: UIViewController {
     }
   
     @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
-            let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
-            vc.selectedBadgeTag = sender?.view?.tag ?? 0
-            vc.modalPresentationStyle = .overFullScreen
-            present(vc, animated: true, completion: nil)
-        }
-
+        let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        vc.badgeType = .allBadges
+        vc.selectedBadgeTag = sender?.view?.tag ?? 0
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
+    }
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {

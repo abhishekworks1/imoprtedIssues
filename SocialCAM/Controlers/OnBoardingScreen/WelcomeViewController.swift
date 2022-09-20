@@ -1188,6 +1188,7 @@ extension WelcomeViewController {
     @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
         let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
         print("tag--> \(sender?.view?.tag)")
+        vc.badgeType = .allBadges
         vc.selectedBadgeTag = sender?.view?.tag ?? 0
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true, completion: nil)

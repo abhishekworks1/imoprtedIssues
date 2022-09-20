@@ -108,6 +108,7 @@ class NotificationDetailsVC: UIViewController {
     @IBAction func didTapOnBadgesButton(_ sender: UIButton) {
         
         let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        vc.badgeType = .allBadges
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true, completion: nil)
     }

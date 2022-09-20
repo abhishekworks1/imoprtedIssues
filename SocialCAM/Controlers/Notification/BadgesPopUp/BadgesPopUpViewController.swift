@@ -12,10 +12,13 @@ struct GetBadges {
     var badgesImage: UIImage?
     var badgeName: String?
 }
-
+enum BadgeType {
+    case allBadges
+    case basicBadges
+    case SubscriptionBadges
+}
 class BadgesPopUpViewController: UIViewController {
     @IBOutlet weak var badgesCollectionView: UICollectionView!
-    
     @IBOutlet weak var previousPageButton: UIButton!
     @IBOutlet weak var nextPageButton: UIButton!
     @IBOutlet weak var currentPageButton: UIButton!
@@ -23,6 +26,7 @@ class BadgesPopUpViewController: UIViewController {
     var currentPage: Int = 0
     var selectedBadgeTag: Int = 0
     var badgeDetails: [GetBadges] = []
+    var badgeType : BadgeType = .allBadges
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,7 +138,7 @@ class BadgesPopUpViewController: UIViewController {
     
     func setUpSubscriptionBadges() -> [GetBadges] {
         if let badgearray = Defaults.shared.currentUser?.badges {
-            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
+         /*   if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
                 if let subscriptionType = parentbadge.meta?.subscriptionType, subscriptionType != SubscriptionTypeForBadge.TRIAL.rawValue && subscriptionType != SubscriptionTypeForBadge.FREE.rawValue && subscriptionType != SubscriptionTypeForBadge.EXPIRE.rawValue {
                     let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
                     if finalDay.count > 0 {
@@ -169,7 +173,8 @@ class BadgesPopUpViewController: UIViewController {
                         }
                     }
                 }
-            }
+            } */
+            
             if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.PRELAUNCH.rawValue}).first {
                 let prelaunchBadge = UIImage(named: "prelaunchBadge")
                 badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "Prelaunch Badge"))
