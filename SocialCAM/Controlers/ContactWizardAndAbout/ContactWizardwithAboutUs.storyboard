@@ -608,9 +608,9 @@
                                                                             <constraint firstAttribute="height" constant="40" id="wYV-2D-APU"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Dashboard" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tba-dF-UI8">
-                                                                        <rect key="frame" x="85" y="0.0" width="148.5" height="60"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite from Business Dashboard" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tba-dF-UI8">
+                                                                        <rect key="frame" x="77" y="0.0" width="165" height="60"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -637,6 +637,7 @@
                                                                     <constraint firstAttribute="bottom" secondItem="ZsB-MC-9j9" secondAttribute="bottom" id="7BF-U8-eb9"/>
                                                                     <constraint firstItem="ZsB-MC-9j9" firstAttribute="top" secondItem="0NX-5J-Jhs" secondAttribute="top" id="BDx-g2-ojz"/>
                                                                     <constraint firstItem="2SG-pA-jIF" firstAttribute="width" secondItem="2SG-pA-jIF" secondAttribute="height" multiplier="1:1" id="EEY-fV-9XV"/>
+                                                                    <constraint firstItem="2SG-pA-jIF" firstAttribute="leading" secondItem="Tba-dF-UI8" secondAttribute="trailing" constant="8" id="IuJ-8p-tYH"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Tba-dF-UI8" secondAttribute="bottom" id="K6V-U2-n0T"/>
                                                                     <constraint firstAttribute="trailing" secondItem="2SG-pA-jIF" secondAttribute="trailing" constant="15" id="ScE-zj-Twk"/>
                                                                     <constraint firstItem="Tba-dF-UI8" firstAttribute="centerY" secondItem="2SG-pA-jIF" secondAttribute="centerY" id="VaJ-6Y-afy"/>
@@ -644,7 +645,7 @@
                                                                     <constraint firstItem="Tba-dF-UI8" firstAttribute="top" secondItem="0NX-5J-Jhs" secondAttribute="top" id="cqQ-2G-sQD"/>
                                                                     <constraint firstItem="hrI-t7-cyB" firstAttribute="leading" secondItem="0NX-5J-Jhs" secondAttribute="leading" constant="25" id="kM9-jw-3LC"/>
                                                                     <constraint firstItem="ZsB-MC-9j9" firstAttribute="leading" secondItem="0NX-5J-Jhs" secondAttribute="leading" id="kPe-AQ-o78"/>
-                                                                    <constraint firstItem="Tba-dF-UI8" firstAttribute="leading" secondItem="hrI-t7-cyB" secondAttribute="trailing" constant="20" id="lcy-nK-DMm"/>
+                                                                    <constraint firstItem="Tba-dF-UI8" firstAttribute="leading" secondItem="hrI-t7-cyB" secondAttribute="trailing" constant="12" id="lcy-nK-DMm"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ZsB-MC-9j9" secondAttribute="trailing" id="oZs-cY-JXL"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
@@ -1981,22 +1982,22 @@
                                                                                             <rect key="frame" x="0.0" y="148" width="355" height="357"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Body" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeX-Ad-mhL">
-                                                                                                    <rect key="frame" x="10" y="10" width="95" height="106.5"/>
+                                                                                                    <rect key="frame" x="10" y="10" width="95" height="21.5"/>
                                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                                                     <nil key="textColor"/>
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-vs-FDP">
-                                                                                                    <rect key="frame" x="5" y="126.5" width="345" height="220.5"/>
+                                                                                                    <rect key="frame" x="5" y="41.5" width="345" height="305.5"/>
                                                                                                     <subviews>
                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMM-4K-lYH">
-                                                                                                            <rect key="frame" x="5" y="10" width="335" height="20.5"/>
+                                                                                                            <rect key="frame" x="5" y="10" width="335" height="105.5"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                                             <nil key="textColor"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
                                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="indicatorBgImage" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
-                                                                                                            <rect key="frame" x="10" y="40.5" width="160" height="170"/>
+                                                                                                            <rect key="frame" x="10" y="125.5" width="160" height="170"/>
                                                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="height" constant="170" id="H2m-0R-0h5"/>
@@ -5029,7 +5030,7 @@
         <image name="instagram" width="45" height="45"/>
         <image name="iosbadge" width="165" height="163"/>
         <image name="makeMoneyRightArrow" width="512" height="512"/>
-        <image name="messageIcon" width="48" height="48"/>
+        <image name="messageIcon" width="512" height="512"/>
         <image name="messangerIcon" width="48" height="48"/>
         <image name="moreOptions" width="512" height="512"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
@@ -5066,7 +5067,7 @@
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
