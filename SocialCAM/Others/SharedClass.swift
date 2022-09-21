@@ -1511,7 +1511,8 @@ enum LayoutOption {
 }
 
 enum AppstoreUrl: String {
-    case fbURl = "https://apps.apple.com/in/app/facebook/id284882215"
+    case fbURL = "https://apps.apple.com/in/app/facebook/id284882215"
+    case fbMessangerURL = "https://apps.apple.com/us/app/messenger/id454638411"
     case instagramURL = "https://apps.apple.com/in/app/instagram/id389801252"
     case tiktokURL = "https://apps.apple.com/us/app/tiktok/id835599320"
 }

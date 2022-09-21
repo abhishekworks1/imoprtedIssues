@@ -225,6 +225,7 @@ class Defaults {
             if let userStorySettings = userDefaults.object(forKey: "SettingArray") as? Data {
                 let decoder = JSONDecoder()
                 if var settings = try? decoder.decode([SettingsEnum].self, from: userStorySettings) {
+                    //add here if you add/remove any object in settingsArray
                     return settings
                 }
             }

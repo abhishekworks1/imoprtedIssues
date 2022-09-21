@@ -192,10 +192,20 @@ open class InstaSlider: UIView {
                // currentCell.label.textColor = cellTextColor
                 currentCell.label.textColor = UIColor(hex:"ebebeb")
                 currentCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                currentCell.view.isHidden = true
+                currentCell.viewCenter.isHidden = true
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
+                let cameraType = self.stringArray[index!.item].recordingType
+                if showCenterView(cameraType: cameraType) {
+                    cell!.view.isHidden = true
+                    cell!.viewCenter.isHidden = false
+                } else {
+                    cell!.view.isHidden = false
+                    cell!.viewCenter.isHidden = true
+                }
                 cell!.label.textColor = selectedCellTextColor
                 cell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                 //print("**SelectedC1 \(cell!.label.text)")
@@ -243,69 +253,50 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         kCell.tag = indexPath.item
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
-        if cameraType == .normal {
-            kCell.view.layer.cornerRadius = (self.collectionView.frame.height/2)/2
-            kCell.view.layer.borderColor = UIColor.white.cgColor
-            kCell.view.layer.borderWidth = 1
-            kCell.viewCenter.layer.cornerRadius = (self.collectionView.frame.height/2)/2
-            kCell.viewCenter.layer.borderColor = UIColor.white.cgColor
-            kCell.viewCenter.layer.borderWidth = 1
-            kCell.viewCenter.isHidden = true
-            kCell.view.isHidden = false
-        } else {
-            kCell.view.isHidden = true
-            kCell.viewCenter.isHidden = true
-        }
+        kCell.view.layer.cornerRadius = (self.collectionView.frame.height/2)/2
+        kCell.view.layer.borderColor = UIColor.white.cgColor
+        kCell.view.layer.borderWidth = 1
+        kCell.viewCenter.layer.cornerRadius = (self.collectionView.frame.height/2)/2
+        kCell.viewCenter.layer.borderColor = UIColor.white.cgColor
+        kCell.viewCenter.layer.borderWidth = 1
+        kCell.viewCenter.isHidden = true
         //kCell.backgroundColor = .red
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
                 kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                if showCenterView(cameraType: cameraType) {
+                    kCell.view.isHidden = true
+                    kCell.viewCenter.isHidden = false
+                } else {
+                    kCell.view.isHidden = false
+                    kCell.viewCenter.isHidden = true
+                }
             } else {
                 kCell.label.makeLabelOpaque()
                // kCell.label.textColor = cellTextColor
                 kCell.label.textColor = UIColor(hex:"ebebeb")
                 kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                
+                kCell.view.isHidden = true
+                kCell.viewCenter.isHidden = true
             }
         }
         if cameraType == .capture || cameraType == .pic2Art || cameraType == .normal {
             
             if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
                 if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
-                   // kCell.view.isHidden = false
                     kCell.imageView.isHidden = false
-                    if cameraType == .normal {
-                    kCell.viewCenter.isHidden = true
-                    kCell.view.isHidden = false
-                    }
                 } else if isQuickApp && Defaults.shared.appMode == .basic && cameraType == .pic2Art {
-                   // kCell.view.isHidden = false
                     kCell.imageView.isHidden = false
-                    if cameraType == .normal {
-                    kCell.viewCenter.isHidden = false
-                    kCell.view.isHidden = true
-                    }
                 } else {
-                   // kCell.view.isHidden = true
                     kCell.imageView.isHidden = true
-                    if cameraType == .normal {
-                    kCell.viewCenter.isHidden = false
-                    kCell.view.isHidden = true
-                    }
                 }
             } else {
-              //  kCell.view.isHidden = false
                 kCell.imageView.isHidden = false
-                if cameraType == .normal {
-                kCell.viewCenter.isHidden = true
-                kCell.view.isHidden = false
-                }
             }
         } else {
-          //  kCell.view.isHidden = true
             kCell.imageView.isHidden = true
-            kCell.viewCenter.isHidden = true
-            kCell.view.isHidden = true
         }
         
         return kCell
@@ -334,6 +325,24 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let rect = collectionView.layoutAttributesForItem(at: indexPath)?.frame
         collectionView.scrollRectToVisible(rect!, animated: true)
     }
+    
+    func showCenterView(cameraType: CameraMode) -> Bool {
+        if cameraType == .capture || cameraType == .pic2Art || cameraType == .normal {
+            if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
+                    return false
+                } else if isQuickApp && Defaults.shared.appMode == .basic && cameraType == .pic2Art {
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+               
+            }
+        }
+        return true
+    }
+    
 }
 
 class CollectionViewCustomCell: UICollectionViewCell {

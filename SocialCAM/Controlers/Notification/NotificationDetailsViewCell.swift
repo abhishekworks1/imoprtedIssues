@@ -85,6 +85,14 @@ class NotificationDetailsViewCell: UICollectionViewCell {
         if let channelId = notification?.refereeUserId?.channelId {
             self.lblChannelName.text = "@\(channelId)"
         }
+        if let user = Defaults.shared.currentUser,
+           let channelId = user.channelId{
+            if channelId == notification?.refereeUserId?.channelId ?? ""{
+                self.btnFollow.isHidden = true
+            }else{
+                self.btnFollow.isHidden = false
+            }
+        }
         self.getVerifiedSocialPlatforms()
         if let createdDate = notification?.refereeUserId?.created {
             self.lblJoiningDate.text = R.string.localizable.sinceJoined(convertDate(createdDate))
@@ -141,7 +149,8 @@ class NotificationDetailsViewCell: UICollectionViewCell {
             } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
                 self.snapchatVerifiedView.isHidden = false
             } else if socialPlatform == R.string.localizable.youtube().lowercased() {
-                self.youtubeVerifiedView.isHidden = false
+                // self.youtubeVerifiedView.isHidden = false
+               // Hide Youtube Temporary
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
