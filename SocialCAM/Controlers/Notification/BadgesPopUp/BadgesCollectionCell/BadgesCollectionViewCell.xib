@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,6 +41,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4h8-tJ-PKC">
+                                <rect key="frame" x="64.5" y="51" width="11" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" name="AppWhiteColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -49,7 +56,9 @@
                             <constraint firstItem="pXt-pr-Ulu" firstAttribute="centerY" secondItem="Xw6-zS-t3C" secondAttribute="centerY" constant="-20" id="FIz-hf-D2s"/>
                             <constraint firstItem="M1E-JW-i9L" firstAttribute="leading" secondItem="Xw6-zS-t3C" secondAttribute="leading" constant="2" id="LCU-tY-RfC"/>
                             <constraint firstItem="pXt-pr-Ulu" firstAttribute="centerX" secondItem="Xw6-zS-t3C" secondAttribute="centerX" id="Nlv-6H-OFr"/>
+                            <constraint firstItem="4h8-tJ-PKC" firstAttribute="centerY" secondItem="Xw6-zS-t3C" secondAttribute="centerY" constant="-10" id="UPP-KZ-qHc"/>
                             <constraint firstItem="M1E-JW-i9L" firstAttribute="centerX" secondItem="Xw6-zS-t3C" secondAttribute="centerX" id="WlW-LX-Lbl"/>
+                            <constraint firstItem="4h8-tJ-PKC" firstAttribute="centerX" secondItem="Xw6-zS-t3C" secondAttribute="centerX" id="XXE-UA-mGd"/>
                             <constraint firstItem="M1E-JW-i9L" firstAttribute="top" secondItem="pXt-pr-Ulu" secondAttribute="bottom" constant="7" id="ZAC-X5-fSV"/>
                             <constraint firstItem="JnY-ZK-Sbd" firstAttribute="leading" secondItem="Xw6-zS-t3C" secondAttribute="leading" constant="5" id="cad-Vh-k07"/>
                             <constraint firstItem="JnY-ZK-Sbd" firstAttribute="centerX" secondItem="Xw6-zS-t3C" secondAttribute="centerX" id="tAW-Il-Ww3"/>
@@ -68,12 +77,16 @@
                 <outlet property="badgeDescriptionLabel" destination="JnY-ZK-Sbd" id="eMT-Rd-Lc1"/>
                 <outlet property="badgeImageView" destination="pXt-pr-Ulu" id="0PM-ol-WDy"/>
                 <outlet property="badgeNameLabel" destination="M1E-JW-i9L" id="NQt-Fe-0u7"/>
+                <outlet property="daysRemainLabel" destination="4h8-tJ-PKC" id="A6D-dM-Z9h"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="99.776785714285708"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="badgeIphonePre" width="123" height="145"/>
+        <namedColor name="AppWhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

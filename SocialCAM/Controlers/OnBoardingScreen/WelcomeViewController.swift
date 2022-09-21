@@ -1090,13 +1090,13 @@ extension WelcomeViewController {
                         iosShieldImageview.image = R.image.badgeIphonePre()
                     }
                     
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                   /* if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeIosImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
                         dayBadgeIosImageView.isHidden = false
                         dayBadgeIosImageView.image = UIImage(named: "day_badge_\(finalDay)")
-                    }
+                    } */
                 }
                 // Setup For Android Badge
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
@@ -1131,13 +1131,13 @@ extension WelcomeViewController {
                         androidRemainingDaysLabel.text = finalDay
                         androidShieldImageview.image = R.image.badgeAndroidPre()
                     }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                   /* if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeAndroidImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
                         dayBadgeAndroidImageView.isHidden = false
                         dayBadgeAndroidImageView.image = UIImage(named: "day_badge_android_\(finalDay)")
-                    }
+                    } */
                 }
                 
                 if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
@@ -1173,13 +1173,13 @@ extension WelcomeViewController {
                         webRemainingDaysLabel.text = finalDay
                         webShieldImageview.image = R.image.badgeWebPre()
                     }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                   /* if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeWebImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
                         dayBadgeWebImageView.isHidden = false
                         dayBadgeWebImageView.image = UIImage(named: "day_badge_Web_\(finalDay)")
-                    }
+                    } */
                 }
             }
         }

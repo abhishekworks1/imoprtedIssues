@@ -105,15 +105,6 @@ class NotificationDetailsVC: UIViewController {
     
     // MARK: - IBActions
     
-    @IBAction func didTapOnBadgesButton(_ sender: UIButton) {
-        
-        let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
-        vc.badgeType = .allBadges
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: true, completion: nil)
-    }
-    
-    
     @IBAction func dismissButtonTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -243,6 +234,15 @@ class NotificationDetailsVC: UIViewController {
             }
         }
     }
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+            let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+            vc.badgeType = .allBadges
+            vc.selectedBadgeTag = sender?.view?.tag ?? 0
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+        }
+     
+
 }
 
 // MARK: - CollectionView DataSource
@@ -257,6 +257,13 @@ extension NotificationDetailsVC: UICollectionViewDataSource, UICollectionViewDel
                 return
             }
             self.followButtonTapped(notification, indexPath.row)
+        }
+        cell.badgeTapHandler = {
+            [weak self] sender in
+                guard let `self` = self else {
+                    return
+                }
+            self.handleBadgeTap(sender)
         }
         return cell
     }
