@@ -21,7 +21,6 @@ class StorySettingsCell: UITableViewCell {
     @IBOutlet weak var imgSettingsIcon: UIImageView!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var imgSubscribeBadge: UIImageView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
        // shadowView.dropShadowNew()
@@ -69,6 +68,7 @@ class StorySettingsListCell: UITableViewCell {
     @IBOutlet weak var newBadgesImageView: UIImageView!
     @IBOutlet weak var notificationCountView: UIView!
     
+    var badgeTapHandler : ((_ sender: UITapGestureRecognizer?)  -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -86,12 +86,19 @@ class StorySettingsListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
         badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
-        
+       
+                androidBadgeView.tag = 7
+                iosBadgeView.tag = 8
+                webBadgeView.tag = 9
+         
+               iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+                androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+                webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -208,6 +215,11 @@ class StorySettingsListCell: UITableViewCell {
                     }
                 }
             }
+        }
+    }
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+        if let handler = self.badgeTapHandler {
+            handler(sender)
         }
     }
 }

@@ -17,7 +17,7 @@ struct GetBadges {
 enum BadgeType {
     case allBadges
     case basicBadges
-    case SubscriptionBadges
+    case subscriptionBadges
 }
 class BadgesPopUpViewController: UIViewController {
     @IBOutlet weak var badgesCollectionView: UICollectionView!
@@ -176,145 +176,148 @@ class BadgesPopUpViewController: UIViewController {
                     }
                 }
             } */
-            
-            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.PRELAUNCH.rawValue}).first {
-                let prelaunchBadge = UIImage(named: "prelaunchBadge")
-                badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "Prelaunch Badge", badgeDescription: ""))
-                if selectedBadgeTag == 4 {
-                    currentPage = badgeDetails.count
-                }
-            }
-            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.FOUNDING_MEMBER.rawValue}).first {
-                let foundingMemberBadge = UIImage(named: "foundingMemberBadge")
-                badgeDetails.append(GetBadges(badgesImage: foundingMemberBadge, badgeName: "Founding Member Badge", badgeDescription: ""))
-                if selectedBadgeTag == 5 {
-                    currentPage = badgeDetails.count
-                }
-            }
-            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SOCIAL_MEDIA_CONNECTION.rawValue}).first {
-                let socialBadge = UIImage(named: "socialBadge")
-                badgeDetails.append(GetBadges(badgesImage: socialBadge, badgeName: "Social Badge", badgeDescription: ""))
-                if selectedBadgeTag == 6 {
-                    currentPage = badgeDetails.count
-                }
-            }
-            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
-                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
-                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
-                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
-                if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 7 {
+            if badgeType == .allBadges || badgeType == .basicBadges {
+                if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.PRELAUNCH.rawValue}).first {
+                    let prelaunchBadge = R.image.prelaunchBadge()
+                    badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "Prelaunch Badge", badgeDescription: ""))
+                    if selectedBadgeTag == 4 {
                         currentPage = badgeDetails.count
                     }
                 }
-                else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                    if freeTrialDay > 0 {
+                if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.FOUNDING_MEMBER.rawValue}).first {
+                    let foundingMemberBadge = R.image.foundingMemberBadge()
+                    badgeDetails.append(GetBadges(badgesImage: foundingMemberBadge, badgeName: "Founding Member Badge", badgeDescription: ""))
+                    if selectedBadgeTag == 5 {
+                        currentPage = badgeDetails.count
+                    }
+                }
+                if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SOCIAL_MEDIA_CONNECTION.rawValue}).first {
+                    let socialBadge = R.image.socialBadge()
+                    badgeDetails.append(GetBadges(badgesImage: socialBadge, badgeName: "Social Badge", badgeDescription: ""))
+                    if selectedBadgeTag == 6 {
+                        currentPage = badgeDetails.count
+                    }
+                }
+            }
+            if badgeType == .allBadges || badgeType == .subscriptionBadges {
+                if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_ANDROID.rawValue}).first {
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial", badgeDescription: "", badgeCount: finalDay))
                         if selectedBadgeTag == 7 {
                             currentPage = badgeDetails.count
                         }
-                    } else {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidFree(), badgeName: "Android Free", badgeDescription: "", badgeCount: finalDay))
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidTrial(), badgeName: "Android Trial", badgeDescription: "", badgeCount: finalDay))
+                            if selectedBadgeTag == 7 {
+                                currentPage = badgeDetails.count
+                            }
+                        } else {
+                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidFree(), badgeName: "Android Free", badgeDescription: "", badgeCount: finalDay))
+                            if selectedBadgeTag == 7 {
+                                currentPage = badgeDetails.count
+                            }
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 7 {
+                            currentPage = badgeDetails.count
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 7 {
+                            currentPage = badgeDetails.count
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium", badgeDescription: "", badgeCount: finalDay))
                         if selectedBadgeTag == 7 {
                             currentPage = badgeDetails.count
                         }
                     }
                 }
-                else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 7 {
-                        currentPage = badgeDetails.count
+                if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_IOS.rawValue}).first {
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneTrial(), badgeName: "Iphone Trial", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 8 {
+                            currentPage = badgeDetails.count
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneFree(), badgeName: "Iphone Free", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 8 {
+                            currentPage = badgeDetails.count
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 8 {
+                            currentPage = badgeDetails.count
+                        }
+                        
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 8 {
+                            currentPage = badgeDetails.count
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 8 {
+                            currentPage = badgeDetails.count
+                        }
                     }
                 }
-                else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 7 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 7 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-            }
-            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_IOS.rawValue}).first {
-                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
-                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
-                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
-                if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneTrial(), badgeName: "Iphone Trial", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 8 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneFree(), badgeName: "Iphone Free", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 8 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 8 {
-                        currentPage = badgeDetails.count
-                    }
-                    
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 8 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 8 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-            }
-            if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_WEB.rawValue}).first {
-                let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
-                let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
-                let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
-                if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 9 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-                    if freeTrialDay > 0 {
+                if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SUBSCRIBER_WEB.rawValue}).first {
+                    let finalDay = Defaults.shared.getCountFromBadge(parentbadge: parentbadge)
+                    let freeTrialDay = parentbadge.meta?.freeTrialDay ?? 0
+                    let subscriptionType = parentbadge.meta?.subscriptionType ?? ""
+                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                         badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial", badgeDescription: "", badgeCount: finalDay))
                         if selectedBadgeTag == 9 {
                             currentPage = badgeDetails.count
                         }
-                    } else {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebFree(), badgeName: "Web Free", badgeDescription: "", badgeCount: finalDay))
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
+                        if freeTrialDay > 0 {
+                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebTrial(), badgeName: "Web Trial", badgeDescription: "", badgeCount: finalDay))
+                            if selectedBadgeTag == 9 {
+                                currentPage = badgeDetails.count
+                            }
+                        } else {
+                            badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebFree(), badgeName: "Web Free", badgeDescription: "", badgeCount: finalDay))
+                            if selectedBadgeTag == 9 {
+                                currentPage = badgeDetails.count
+                            }
+                        }
+                    }
+                    else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic", badgeDescription: "", badgeCount: finalDay))
                         if selectedBadgeTag == 9 {
                             currentPage = badgeDetails.count
                         }
                     }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 9 {
-                        currentPage = badgeDetails.count
+                    else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 9 {
+                            currentPage = badgeDetails.count
+                        }
                     }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 9 {
-                        currentPage = badgeDetails.count
-                    }
-                }
-                else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                    badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium", badgeDescription: "", badgeCount: finalDay))
-                    if selectedBadgeTag == 9 {
-                        currentPage = badgeDetails.count
+                    else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium", badgeDescription: "", badgeCount: finalDay))
+                        if selectedBadgeTag == 9 {
+                            currentPage = badgeDetails.count
+                        }
                     }
                 }
             }

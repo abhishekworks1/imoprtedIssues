@@ -1043,13 +1043,13 @@ extension WelcomeViewController {
                 switch badgeCode {
                 case Badges.PRELAUNCH.rawValue:
                     preLaunchBadgeImageView.isHidden = false
-                    preLaunchBadgeImageView.image = UIImage(named: "prelaunchBadge")
+                    preLaunchBadgeImageView.image = R.image.prelaunchBadge()
                 case Badges.FOUNDING_MEMBER.rawValue:
                     foundingMemberBadgeImageView.isHidden = false
-                    foundingMemberBadgeImageView.image = UIImage(named: "foundingMemberBadge")
+                    foundingMemberBadgeImageView.image = R.image.foundingMemberBadge()
                 case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
                     socialBadgeImageView.isHidden = false
-                    socialBadgeImageView.image = UIImage(named: "socialBadge")
+                    socialBadgeImageView.image = R.image.socialBadge()
                 default:
                     break
                 }
