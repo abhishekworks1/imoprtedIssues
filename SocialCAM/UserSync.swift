@@ -315,7 +315,6 @@ class UserSync {
         let request = AF.request(path, method: .put, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         request.responseDecodable(of: [QuickStartCategory].self) {(resposnse) in
             print(resposnse.value)
-            print("Response String: \(String(data: resposnse.data!, encoding:.utf8))")
         }
     }
     

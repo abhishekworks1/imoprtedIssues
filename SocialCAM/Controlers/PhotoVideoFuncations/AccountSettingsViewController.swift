@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class AccountSettings {
     
@@ -23,8 +24,8 @@ class AccountSettings {
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.pleaseEnterEmail(), selected: false)], settingsType: .email),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.displayName(), selected: false)], settingsType: .publicDisplayName),
-        StorySettings(name: "", settings: [StorySetting(name: "Channel Name Display", selected: false)], settingsType: .channelDisplayName)
-//        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
+        StorySettings(name: "", settings: [StorySetting(name: "Channel Name Display", selected: false)], settingsType: .channelDisplayName),
+        StorySettings(name: "", settings: [StorySetting(name: "Delete my account?", selected: false)], settingsType: .deleteAccount)
     ]
     //StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName), // Hide Private name for boomicam
 }
@@ -145,7 +146,8 @@ extension AccountSettingsViewController: UITableViewDataSource {
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
-            accountSettingsCell.imgSettingIcon.image = R.image.iconAccountDelete()
+            accountSettingsCell.imgSettingIcon.image = R.image.storyDelete()?.withRenderingMode(.alwaysTemplate)
+            accountSettingsCell.imgSettingIcon.tintColor = R.color.labelError()
         } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email || settingTitle.settingsType == .channelDisplayName {
             guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
                 return accountSettingsCell
@@ -221,7 +223,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
                 }
             }
         } else if settingTitle.settingsType == .deleteAccount {
-            lblPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
+            lblPopup.text = "Are you sure you want to delete your account?"
             showHideButtonView(isHide: true)
             popupView.isHidden = false
         } else if settingTitle.settingsType == .referringChannelName {
@@ -231,34 +233,76 @@ extension AccountSettingsViewController: UITableViewDelegate {
         }
     }
     
+    func removeDeviceToken() {
+        if let deviceToken = Defaults.shared.deviceToken {
+            ProManagerApi.removeToken(deviceToken: deviceToken).request(Result<RemoveTokenModel>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else {
+                    return
+                }
+                if response.status != ResponseType.success {
+                    self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                }
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        }
+    }
+    
     func deleteUserAccount() {
-        ProManagerApi.userDelete.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
-                StoriCamManager.shared.logout()
-                TwitterManger.shared.logout()
-                GoogleManager.shared.logout()
-                FaceBookManager.shared.logout()
-                InstagramManager.shared.logout()
-                SnapKitManager.shared.logout { _ in
+        let path = API.shared.baseUrlV2 + "user/me"
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "platformType": "ios",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: TipOfDayResponse.self) {(resposnse) in
+            StoriCamManager.shared.logout()
+            TwitterManger.shared.logout()
+            GoogleManager.shared.logout()
+            FaceBookManager.shared.logout()
+            InstagramManager.shared.logout()
+            SnapKitManager.shared.logout { _ in
                 
-                }
-                if #available(iOS 13.0, *) {
-                    AppleSignInManager.shared.logout()
-                }
-                self.accountSettingsTableView.reloadData()
-                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                    Defaults.shared.clearData(isDeleteAccount: true)
-                    Utils.appDelegate?.window?.rootViewController = loginNav
-                }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
-            self.popupView.isHidden = true
-        }, onError: { error in
-            self.popupView.isHidden = true
-            self.showAlert(alertMessage: error.localizedDescription)
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag)
+            if #available(iOS 13.0, *) {
+                AppleSignInManager.shared.logout()
+            }
+            self.removeDeviceToken()
+            if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+               // Defaults.shared.clearData()
+                Utils.appDelegate?.window?.rootViewController = loginNav
+            }
+        }
+        
+//        ProManagerApi.userDelete.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+//            if response.status == ResponseType.success {
+//                StoriCamManager.shared.logout()
+//                TwitterManger.shared.logout()
+//                GoogleManager.shared.logout()
+//                FaceBookManager.shared.logout()
+//                InstagramManager.shared.logout()
+//                SnapKitManager.shared.logout { _ in
+//
+//                }
+//                if #available(iOS 13.0, *) {
+//                    AppleSignInManager.shared.logout()
+//                }
+//                self.accountSettingsTableView.reloadData()
+//                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+//                    Defaults.shared.clearData(isDeleteAccount: true)
+//                    Utils.appDelegate?.window?.rootViewController = loginNav
+//                }
+//            } else {
+//                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+//            }
+//            self.popupView.isHidden = true
+//        }, onError: { error in
+//            self.popupView.isHidden = true
+//            self.showAlert(alertMessage: error.localizedDescription)
+//        }, onCompleted: {
+//        }).disposed(by: self.rx.disposeBag)
     }
     
     func editDisplayName() {
