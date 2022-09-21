@@ -45,7 +45,6 @@ class SubscriptionsViewController: UIViewController {
     
     @IBOutlet weak var freeTrialView: UIView!
     @IBOutlet weak var timerLabel: UILabel!
-    
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timerStackView: UIStackView!
     @IBOutlet weak var dayValueLabel: UILabel!
@@ -343,12 +342,16 @@ class SubscriptionsViewController: UIViewController {
         }
          else if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
+             
             self.enableMode(appMode: self.subscriptionType)
         }
     }
     
     
     @IBAction func didTapBackButton(_ sender: UIButton) {
+        if appDelegate?.isSubscriptionButtonPressed ?? false{
+            return
+        }
         navigationController?.popViewController(animated: true)
     }
     

@@ -1510,6 +1510,13 @@ enum LayoutOption {
     case grid
 }
 
+enum AppstoreUrl: String {
+    case fbURL = "https://apps.apple.com/in/app/facebook/id284882215"
+    case fbMessangerURL = "https://apps.apple.com/us/app/messenger/id454638411"
+    case instagramURL = "https://apps.apple.com/in/app/instagram/id389801252"
+    case tiktokURL = "https://apps.apple.com/us/app/tiktok/id835599320"
+}
+
 protocol CollageMakerVCDelegate: class {
     func didSelectImage(image: UIImage)
 }

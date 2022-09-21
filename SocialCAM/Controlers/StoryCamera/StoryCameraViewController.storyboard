@@ -2545,37 +2545,56 @@ Countdown</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OO-th-ufN">
                                         <rect key="frame" x="15" y="242" width="345" height="250"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kk5-9I-Ywr">
+                                                <rect key="frame" x="0.0" y="0.0" width="345" height="48"/>
+                                                <color key="backgroundColor" red="0.027450980392156862" green="0.49019607843137253" blue="0.99215686274509807" alpha="0.32000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="oNi-Hi-hts"/>
+                                                </constraints>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscription feature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ad7-bn-cTP">
-                                                <rect key="frame" x="20" y="20" width="305" height="24"/>
+                                                <rect key="frame" x="20" y="15" width="305" height="24"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have an active subscription to use this feature. Upgrade now?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MR9-Bg-cDq">
-                                                <rect key="frame" x="20" y="59.000000000000007" width="305" height="64.666666666666686"/>
+                                                <rect key="frame" x="20" y="54.000000000000007" width="305" height="64.666666666666686"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRe-LL-9uv">
+                                                <rect key="frame" x="24" y="141" width="297" height="27"/>
+                                                <color key="backgroundColor" red="0.17254901960784313" green="0.17254901960784313" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="27" id="kup-cl-fMk"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                        <real key="value" value="13.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7IY-fJ-UfR">
-                                                <rect key="frame" x="25.666666666666657" y="146" width="294" height="27"/>
+                                                <rect key="frame" x="24" y="141" width="297" height="27"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-C2-HRe">
                                                         <rect key="frame" x="0.0" y="0.0" width="109" height="27"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Start" translatesAutoresizingMaskIntoConstraints="NO" id="yNg-J3-CA3">
-                                                                <rect key="frame" x="7" y="7" width="13" height="13"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="paid" translatesAutoresizingMaskIntoConstraints="NO" id="yNg-J3-CA3">
+                                                                <rect key="frame" x="82" y="7" width="20" height="13"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="QuickCam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRa-1O-loO">
-                                                                <rect key="frame" x="29" y="0.0" width="71.333333333333329" height="26"/>
+                                                                <rect key="frame" x="7" y="0.0" width="71.333333333333329" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.027450980392156862" green="0.49019607843137253" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="109" id="mCC-oO-XFz"/>
                                                         </constraints>
@@ -2586,23 +2605,23 @@ Countdown</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Izl-Lh-hbv">
-                                                        <rect key="frame" x="119" y="0.0" width="72" height="27"/>
+                                                        <rect key="frame" x="119" y="0.0" width="75" height="27"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Start" translatesAutoresizingMaskIntoConstraints="NO" id="FrB-J8-LwR">
-                                                                <rect key="frame" x="7" y="7" width="13" height="13"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="paid" translatesAutoresizingMaskIntoConstraints="NO" id="FrB-J8-LwR">
+                                                                <rect key="frame" x="48" y="7" width="20" height="13"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CS-3r-8b0">
-                                                                <rect key="frame" x="29" y="0.0" width="41.333333333333329" height="26"/>
+                                                                <rect key="frame" x="7" y="0.0" width="41.333333333333329" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.0" green="0.49019607843137253" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="72" id="Pjd-T0-YdC"/>
+                                                            <constraint firstAttribute="width" constant="75" id="Pjd-T0-YdC"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
@@ -2611,21 +2630,21 @@ Countdown</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KI8-qw-Iyg">
-                                                        <rect key="frame" x="201" y="0.0" width="93" height="27"/>
+                                                        <rect key="frame" x="204" y="0.0" width="93" height="27"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Start" translatesAutoresizingMaskIntoConstraints="NO" id="hVQ-zj-2GJ">
-                                                                <rect key="frame" x="7" y="7" width="13" height="13"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="paid" translatesAutoresizingMaskIntoConstraints="NO" id="hVQ-zj-2GJ">
+                                                                <rect key="frame" x="66" y="7" width="20" height="13"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pic2Art" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XKw-7d-wZd">
-                                                                <rect key="frame" x="29" y="0.0" width="60.333333333333329" height="26"/>
+                                                                <rect key="frame" x="7" y="0.0" width="60.333333333333329" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.027450980390000001" green="0.49019607840000001" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="93" id="07K-Ol-zGv"/>
                                                         </constraints>
@@ -2641,20 +2660,20 @@ Countdown</string>
                                                 </constraints>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaU-7m-dUH">
-                                                <rect key="frame" x="199" y="193.66666666666669" width="126" height="40"/>
+                                                <rect key="frame" x="185" y="188.66666666666669" width="140" height="40"/>
                                                 <color key="backgroundColor" name="AppPrimaryColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="76W-R4-qJ9"/>
-                                                    <constraint firstAttribute="width" constant="126" id="YRh-Bg-hXl"/>
+                                                    <constraint firstAttribute="width" constant="140" id="YRh-Bg-hXl"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Upgrade">
-                                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Upgrade Now">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
                                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                        <real key="value" value="10"/>
+                                                        <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -2662,20 +2681,20 @@ Countdown</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAK-eb-eaT">
-                                                <rect key="frame" x="20" y="193.66666666666669" width="126" height="40"/>
-                                                <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="20" y="188.66666666666669" width="126" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="CFm-ml-QMf"/>
                                                     <constraint firstAttribute="width" constant="126" id="Zne-a4-mJP"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Cancel">
-                                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
-                                                    <color key="baseForegroundColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Later">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
+                                                    <color key="baseForegroundColor" name="AppPrimaryColor"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                        <real key="value" value="10"/>
+                                                        <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -2685,15 +2704,21 @@ Countdown</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="HRe-LL-9uv" firstAttribute="centerX" secondItem="8OO-th-ufN" secondAttribute="centerX" id="8qT-Cg-bwX"/>
                                             <constraint firstItem="VAK-eb-eaT" firstAttribute="leading" secondItem="8OO-th-ufN" secondAttribute="leading" constant="20" id="B6e-pv-ngU"/>
+                                            <constraint firstItem="Kk5-9I-Ywr" firstAttribute="leading" secondItem="8OO-th-ufN" secondAttribute="leading" id="BVI-2y-dJ4"/>
                                             <constraint firstItem="7IY-fJ-UfR" firstAttribute="centerX" secondItem="8OO-th-ufN" secondAttribute="centerX" id="J8Z-Jz-s0Q"/>
+                                            <constraint firstItem="HRe-LL-9uv" firstAttribute="width" secondItem="7IY-fJ-UfR" secondAttribute="width" id="QJA-lQ-mPe"/>
                                             <constraint firstItem="WaU-7m-dUH" firstAttribute="top" secondItem="MR9-Bg-cDq" secondAttribute="bottom" constant="70" id="QJK-eo-u2E"/>
                                             <constraint firstItem="MR9-Bg-cDq" firstAttribute="top" secondItem="ad7-bn-cTP" secondAttribute="bottom" constant="15" id="XP8-HO-Uzp"/>
                                             <constraint firstAttribute="trailing" secondItem="MR9-Bg-cDq" secondAttribute="trailing" constant="20" id="Zce-wo-OJK"/>
                                             <constraint firstItem="VAK-eb-eaT" firstAttribute="centerY" secondItem="WaU-7m-dUH" secondAttribute="centerY" id="aS9-hE-ZbC"/>
-                                            <constraint firstItem="ad7-bn-cTP" firstAttribute="top" secondItem="8OO-th-ufN" secondAttribute="top" constant="20" id="bgd-3T-h7r"/>
+                                            <constraint firstItem="ad7-bn-cTP" firstAttribute="top" secondItem="8OO-th-ufN" secondAttribute="top" constant="15" id="bgd-3T-h7r"/>
+                                            <constraint firstAttribute="trailing" secondItem="Kk5-9I-Ywr" secondAttribute="trailing" id="bit-mp-8IF"/>
                                             <constraint firstItem="7IY-fJ-UfR" firstAttribute="top" secondItem="MR9-Bg-cDq" secondAttribute="bottom" constant="22.329999999999998" id="cSa-fi-k0y"/>
                                             <constraint firstAttribute="trailing" secondItem="ad7-bn-cTP" secondAttribute="trailing" constant="20" id="dr2-S3-gLn"/>
+                                            <constraint firstItem="HRe-LL-9uv" firstAttribute="top" secondItem="MR9-Bg-cDq" secondAttribute="bottom" constant="22.329999999999998" id="jha-i3-qK1"/>
+                                            <constraint firstItem="Kk5-9I-Ywr" firstAttribute="top" secondItem="8OO-th-ufN" secondAttribute="top" id="olO-0d-5al"/>
                                             <constraint firstAttribute="height" constant="250" id="rqs-kI-Weu"/>
                                             <constraint firstAttribute="trailing" secondItem="WaU-7m-dUH" secondAttribute="trailing" constant="20" id="vRJ-ad-jK9"/>
                                             <constraint firstItem="ad7-bn-cTP" firstAttribute="leading" secondItem="8OO-th-ufN" secondAttribute="leading" constant="20" id="xib-zt-mPm"/>
@@ -8314,8 +8339,8 @@ Countdown</string>
                                             <action selector="onBack:" destination="rNA-UU-eXT" eventType="touchUpInside" id="BwJ-z6-xKC"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it Works" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Erh-ak-ayH">
-                                        <rect key="frame" x="133.33333333333334" y="11.333333333333337" width="108.66666666666666" height="21.666666666666671"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutorials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Erh-ak-ayH">
+                                        <rect key="frame" x="152" y="11.333333333333337" width="71.333333333333314" height="21.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -9937,7 +9962,6 @@ Countdown</string>
     <resources>
         <image name="Camara-border" width="256" height="256"/>
         <image name="QuickStart2" width="71" height="71"/>
-        <image name="Start" width="512" height="512"/>
         <image name="User_placeholder" width="400" height="400"/>
         <image name="advancedBadge" width="62" height="73"/>
         <image name="androidBadge" width="64" height="64"/>
@@ -9997,6 +10021,7 @@ Countdown</string>
         <image name="outtakes" width="38" height="38"/>
         <image name="oval" width="18" height="18"/>
         <image name="overLayOption" width="82" height="167"/>
+        <image name="paid" width="20" height="13"/>
         <image name="playIconDownload" width="16" height="16"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="prelaunchBadge" width="226" height="342"/>
@@ -10045,7 +10070,7 @@ Countdown</string>
             <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

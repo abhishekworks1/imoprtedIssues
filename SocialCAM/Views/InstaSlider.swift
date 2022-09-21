@@ -145,14 +145,14 @@ open class InstaSlider: UIView {
                 currentCell.label.makeLabelOpaque()
                // currentCell.label.textColor = cellTextColor
                 currentCell.label.textColor = UIColor(hex:"ebebeb")
-                currentCell.label.font = UIFont.systemFont(ofSize: 14)
+                currentCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
                 selectedCell = collectionView.indexPath(for: cell!)?.item
                 cell!.label.textColor = selectedCellTextColor
-                cell!.label.font = UIFont.systemFont(ofSize: 14)
+                cell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                 //print("**SelectedC1 \(cell!.label.text)")
                 Defaults.shared.callHapticFeedback(isHeavy: false)
                 if (self.currentCell != nil) {
@@ -166,11 +166,11 @@ open class InstaSlider: UIView {
                 currentCell!.label.makeLabelOpaque()
               //  currentCell!.label.textColor = cellTextColor
                 currentCell!.label.textColor = UIColor(hex:"ebebeb")
-                currentCell!.label.font = UIFont.systemFont(ofSize: 14)
+                currentCell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
                     cells!.label.textColor = selectedCellTextColor
-                    cells!.label.font = UIFont.systemFont(ofSize: 14)
+                    cells!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                     //print("**SelectedC2 \(cells!.label.text)")
                 }
             }
@@ -191,13 +191,23 @@ open class InstaSlider: UIView {
                 currentCell.label.makeLabelOpaque()
                // currentCell.label.textColor = cellTextColor
                 currentCell.label.textColor = UIColor(hex:"ebebeb")
-                currentCell.label.font = UIFont.systemFont(ofSize: 14)
+                currentCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                currentCell.view.isHidden = true
+                currentCell.viewCenter.isHidden = true
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
+                let cameraType = self.stringArray[index!.item].recordingType
+                if showCenterView(cameraType: cameraType) {
+                    cell!.view.isHidden = true
+                    cell!.viewCenter.isHidden = false
+                } else {
+                    cell!.view.isHidden = false
+                    cell!.viewCenter.isHidden = true
+                }
                 cell!.label.textColor = selectedCellTextColor
-                cell!.label.font = UIFont.systemFont(ofSize: 14)
+                cell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
                 //print("**SelectedC1 \(cell!.label.text)")
             }
         }
@@ -238,44 +248,54 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         guard let kCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CollectionViewCustomCell else {
             fatalError("Unable to find cell with '\(cellId)' reuseIdentifier")
         }
-        
+        let cameraType = self.stringArray[indexPath.item].recordingType
         kCell.label.text = self.stringArray[indexPath.item].name.capitalized
         kCell.tag = indexPath.item
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
         kCell.view.layer.cornerRadius = (self.collectionView.frame.height/2)/2
+        kCell.view.layer.borderColor = UIColor.white.cgColor
+        kCell.view.layer.borderWidth = 1
+        kCell.viewCenter.layer.cornerRadius = (self.collectionView.frame.height/2)/2
+        kCell.viewCenter.layer.borderColor = UIColor.white.cgColor
+        kCell.viewCenter.layer.borderWidth = 1
+        kCell.viewCenter.isHidden = true
         //kCell.backgroundColor = .red
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
-                kCell.label.font = UIFont.systemFont(ofSize: 14)
+                kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                if showCenterView(cameraType: cameraType) {
+                    kCell.view.isHidden = true
+                    kCell.viewCenter.isHidden = false
+                } else {
+                    kCell.view.isHidden = false
+                    kCell.viewCenter.isHidden = true
+                }
             } else {
                 kCell.label.makeLabelOpaque()
                // kCell.label.textColor = cellTextColor
                 kCell.label.textColor = UIColor(hex:"ebebeb")
-                kCell.label.font = UIFont.systemFont(ofSize: 14)
+                kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                
+                kCell.view.isHidden = true
+                kCell.viewCenter.isHidden = true
             }
         }
-        let cameraType = self.stringArray[indexPath.item].recordingType
-        if cameraType == .capture || cameraType == .pic2Art || cameraType == .pic2Art || cameraType == .normal {
+        if cameraType == .capture || cameraType == .pic2Art || cameraType == .normal {
             
             if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
                 if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
-                    kCell.view.isHidden = false
                     kCell.imageView.isHidden = false
                 } else if isQuickApp && Defaults.shared.appMode == .basic && cameraType == .pic2Art {
-                    kCell.view.isHidden = false
                     kCell.imageView.isHidden = false
                 } else {
-                    kCell.view.isHidden = true
                     kCell.imageView.isHidden = true
                 }
             } else {
-                kCell.view.isHidden = false
                 kCell.imageView.isHidden = false
             }
         } else {
-            kCell.view.isHidden = true
             kCell.imageView.isHidden = true
         }
         
@@ -305,13 +325,31 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let rect = collectionView.layoutAttributesForItem(at: indexPath)?.frame
         collectionView.scrollRectToVisible(rect!, animated: true)
     }
+    
+    func showCenterView(cameraType: CameraMode) -> Bool {
+        if cameraType == .capture || cameraType == .pic2Art || cameraType == .normal {
+            if let subscriptionStatusValue = Defaults.shared.currentUser?.subscriptionStatus {
+                if  subscriptionStatusValue == "expired" || subscriptionStatusValue == "free" {
+                    return false
+                } else if isQuickApp && Defaults.shared.appMode == .basic && cameraType == .pic2Art {
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+               
+            }
+        }
+        return true
+    }
+    
 }
 
 class CollectionViewCustomCell: UICollectionViewCell {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -320,14 +358,20 @@ class CollectionViewCustomCell: UICollectionViewCell {
     
     let view: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0, green: 0.49, blue: 1, alpha: 1)
+       // view.backgroundColor = UIColor(red: 0, green: 0.49, blue: 1, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    let viewCenter: UIView = {
+        let viewCenter = UIView()
+        viewCenter.translatesAutoresizingMaskIntoConstraints = false
+        return viewCenter
+    }()
+    
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Start")
+        imageView.image = UIImage(named: "paid")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -341,6 +385,7 @@ class CollectionViewCustomCell: UICollectionViewCell {
     func addViews() {
         backgroundColor = UIColor.clear
         addSubview(view)
+        addSubview(viewCenter)
         addSubview(imageView)
         addSubview(label)
         
@@ -351,15 +396,20 @@ class CollectionViewCustomCell: UICollectionViewCell {
         label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
        // label.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive = true
         
-        view.leftAnchor.constraint(equalTo: label.leftAnchor, constant: -20).isActive = true
+        view.leftAnchor.constraint(equalTo: label.leftAnchor, constant: -7).isActive = true
         view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         view.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        view.rightAnchor.constraint(equalTo: label.rightAnchor, constant: 10).isActive = true
+        view.rightAnchor.constraint(equalTo: label.rightAnchor, constant: 30).isActive = true
         
-        imageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5).isActive = true
+        viewCenter.leftAnchor.constraint(equalTo: label.leftAnchor, constant: -7).isActive = true
+        viewCenter.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        viewCenter.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        viewCenter.rightAnchor.constraint(equalTo: label.rightAnchor, constant: 7).isActive = true
+        
+        imageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5).isActive = true
         imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 13).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 13).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
