@@ -22,6 +22,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     static let shared: SocialShareVideo = SocialShareVideo()
   
     weak var delegate: ShareStoriesDelegate?
+    var socialShareType: SocialShare?
     
     func copyLink(referType: ReferType = .none) {
         var attachmentUrl: String = ""
@@ -219,7 +220,11 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     
     public func sharer(_ sharer: Sharing, didFailWithError error: Error) {
         
-        self.openAppToAppstoreWith(url: AppstoreUrl.fbURl.rawValue)
+        if self.socialShareType == .facebook {
+            self.openAppToAppstoreWith(url: AppstoreUrl.fbURL.rawValue)
+        } else if self.socialShareType == .fbMessanger {
+            self.openAppToAppstoreWith(url: AppstoreUrl.fbMessangerURL.rawValue)
+        }
         
         Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallFacebookToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
     }

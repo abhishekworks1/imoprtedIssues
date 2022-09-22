@@ -40,8 +40,6 @@ class QuickStartOptionDetailViewController: UIViewController {
         } else {
             descriptionLabel.text = selectedQuickStartItem?.content ?? ""
         }
-        let headerString = "<head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head>"
-        webview.loadHTMLString(headerString + (selectedQuickStartItem?.content ?? ""), baseURL: nil)
 //        backButtonHeaderView.isHidden = selectedOption.isFirstStep
 //        quickCamHeaderView.isHidden = !selectedOption.isFirstStep
         headerTitleLabel.text = selectedQuickStartCategory?.label ?? ""
@@ -58,6 +56,17 @@ class QuickStartOptionDetailViewController: UIViewController {
             subscribeNowButton.isHidden = true
             tryNowButton.isHidden = true
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let headerString = "<head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head>"
+        webview.loadHTMLString(headerString + (selectedQuickStartItem?.content ?? ""), baseURL: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        webview.loadHTMLString("", baseURL: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
