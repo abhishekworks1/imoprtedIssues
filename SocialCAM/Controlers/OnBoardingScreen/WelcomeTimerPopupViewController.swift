@@ -63,6 +63,7 @@ class WelcomeTimerPopupViewController: UIViewController {
             self.checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
             self.startTipTimer()
         }
+        setupMessages()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -70,6 +71,45 @@ class WelcomeTimerPopupViewController: UIViewController {
         tipTimer?.invalidate()
         
     }
+    
+    func setupMessages() {
+        UserSync.shared.getMessages(screen: "welcome-daily-popup") { messageData in
+            let messsgeData: [MessageData] = messageData?.data ?? []
+            if let messageDataObj =  messsgeData.first, let messageObj = messageDataObj.messages?.first {
+                let aData: [String] = messageObj.a ?? []
+                let bData: [String] = messageObj.b ?? []
+                let cData: [String] = messageObj.c ?? []
+                
+                let astr = aData.joined(separator: "\n")
+                let bstr = bData.joined(separator: "\n")
+                let cstr = cData.joined(separator: "\n")
+               
+                
+                
+                self.topMessageLabel.text = astr
+                self.subscriptionMessageLabel.text = bstr
+                self.timerDescLabel.text = cstr
+                if self.topMessageLabel.text?.trimStr() == "" {
+                    self.topMessageView.isHidden = true
+                    self.topMessageHeight.constant = 0
+                } else {
+                    self.topMessageView.isHidden = false
+                    self.topMessageHeight.constant = 80
+                }
+                if self.subscriptionMessageLabel.text?.trimStr() == "" {
+                    self.subscriptionMessageLabel.isHidden = true
+                } else {
+                    self.subscriptionMessageLabel.isHidden = false
+                }
+                if self.timerDescLabel.text?.trimStr() == "" {
+                    self.timerDescLabel.isHidden = true
+                } else {
+                    self.timerDescLabel.isHidden = false
+                }
+            }
+        }
+    }
+    
     func setUpUI() {
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
             self.userImageView.loadImageWithSDwebImage(imageUrlString: userImageURL)
@@ -152,22 +192,22 @@ class WelcomeTimerPopupViewController: UIViewController {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
-                timerDescLabel.text = "Time left in premium free trial"
+               // timerDescLabel.text = "Time left in premium free trial"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
-                timerDescLabel.text = "Time since signed up"
+              //  timerDescLabel.text = "Time since signed up"
                 showUpTimer(timerDate: timerDate)
             }
         } else if  subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
-                timerDescLabel.text = "Time since your subscription expired"
+              //  timerDescLabel.text = "Time since your subscription expired"
                showUpTimer(timerDate: timerDate)
             }
         } else {
             timerStackView.isHidden = true
-            timerDescLabel.isHidden = true
+           // timerDescLabel.isHidden = true
         }
     }
     func showUpTimer(timerDate: Date){
@@ -239,20 +279,20 @@ class WelcomeTimerPopupViewController: UIViewController {
             } else {
                 message = ("","")
             }
-        subscriptionMessageLabel.text = message.1
-        if subscriptionMessageLabel.text == "" {
-            subscriptionMessageLabel.isHidden = true
-        } else {
-            subscriptionMessageLabel.isHidden = false
-        }
-        topMessageLabel.text = message.0
-        if topMessageLabel.text == "" {
-            topMessageView.isHidden = true
-            topMessageHeight.constant = 0
-        } else {
-            topMessageView.isHidden = false
-            topMessageHeight.constant = 80
-        }
+        //subscriptionMessageLabel.text = message.1
+//        if subscriptionMessageLabel.text == "" {
+//            subscriptionMessageLabel.isHidden = true
+//        } else {
+//            subscriptionMessageLabel.isHidden = false
+//        }
+      //  topMessageLabel.text = message.0
+//        if topMessageLabel.text == "" {
+//            topMessageView.isHidden = true
+//            topMessageHeight.constant = 0
+//        } else {
+//            topMessageView.isHidden = false
+//            topMessageHeight.constant = 80
+//        }
         
     }
     func setUpgradeButton() {
