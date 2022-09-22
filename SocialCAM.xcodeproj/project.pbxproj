@@ -626,6 +626,16 @@
 		23EB18F4244F21D700B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		250428470C44322499DD0E5D /* Pods_FastCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2AF063A5F38539ACFB5BCC /* Pods_FastCamLite.framework */; };
 		275992F9310DBBE737278C07 /* Pods_FastCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28990050E4D434A263290C3 /* Pods_FastCam.framework */; };
+		35133FAC28C5F8E600BD798A /* BadgesPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */; };
+		35133FAD28C5F8E600BD798A /* BadgesPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */; };
+		35133FAE28C5F8F000BD798A /* BadgesPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */; };
+		35133FAF28C5F8FE00BD798A /* BadgesPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */; };
+		35133FB128C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */; };
+		35133FB228C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */; };
+		35133FB628C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */; };
+		35133FB728C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */; };
+		35133FB828C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */; };
+		35133FB928C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */; };
 		353395022812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
 		353395032812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
 		353395042812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 353395012812759B00549D73 /* SettingScreenTableViewCell.xib */; };
@@ -15530,6 +15540,11 @@
 		2B745205732387EF7B691824 /* Pods_Viralvids.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Viralvids.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5385B7FB968013B59EAA97 /* Pods-SocialCamMediaShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.release.xcconfig"; sourceTree = "<group>"; };
 		31974CCF361ADE2507BABFAD /* Pods-Pic2ArtShare.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2ArtShare.alpha.xcconfig"; path = "Target Support Files/Pods-Pic2ArtShare/Pods-Pic2ArtShare.alpha.xcconfig"; sourceTree = "<group>"; };
+		35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesPopUpViewController.swift; sourceTree = "<group>"; };
+		35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BadgesPopUpViewController.xib; sourceTree = "<group>"; };
+		35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesCarouselFlowLayout.swift; sourceTree = "<group>"; };
+		35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesCollectionViewCell.swift; sourceTree = "<group>"; };
+		35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BadgesCollectionViewCell.xib; sourceTree = "<group>"; };
 		353395002812759B00549D73 /* SettingScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreenTableViewCell.swift; sourceTree = "<group>"; };
 		353395012812759B00549D73 /* SettingScreenTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingScreenTableViewCell.xib; sourceTree = "<group>"; };
 		3546C8DE28521FF300D76ACF /* OnBoardingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnBoardingView.storyboard; sourceTree = "<group>"; };
@@ -17032,6 +17047,26 @@
 				82AED96B245FFCD300931A1B /* VideosWebViewVC.swift */,
 			);
 			path = ViralCamVideos;
+			sourceTree = "<group>";
+		};
+		35133FA928C5F8B200BD798A /* BadgesPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				35133FB328C60F7000BD798A /* BadgesCollectionCell */,
+				35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */,
+				35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */,
+				35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */,
+			);
+			path = BadgesPopUp;
+			sourceTree = "<group>";
+		};
+		35133FB328C60F7000BD798A /* BadgesCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */,
+				35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */,
+			);
+			path = BadgesCollectionCell;
 			sourceTree = "<group>";
 		};
 		353394FE2812755200549D73 /* SettingScreenCustomCell */ = {
@@ -18911,6 +18946,7 @@
 		82A404BC26FC6BF80032AC0F /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				35133FA928C5F8B200BD798A /* BadgesPopUp */,
 				8203867026FDD6BD001FB6BB /* MIBlurPopup.swift */,
 				8203867226FDD6BD001FB6BB /* NotificationVC.storyboard */,
 				8203867326FDD6BE001FB6BB /* NotificationVC.swift */,
@@ -20650,11 +20686,13 @@
 				8205FC44236C2C2F002B2603 /* SF-UI-Text-Semibold.otf in Resources */,
 				8205FC31236C2C2F002B2603 /* Linoleo Script.ttf in Resources */,
 				8205FB67236C1D0F002B2603 /* wow.json in Resources */,
+				35133FB828C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */,
 				82D1EC4223702B4300A680E7 /* Pink.JPG in Resources */,
 				82CDF7C426FE0C480070ED7A /* StateCodes.json in Resources */,
 				848A4F082841045B00A8BFC3 /* CameraTooltip1.gif in Resources */,
 				82D1EC5223702B4300A680E7 /* Philharmonic.JPG in Resources */,
 				82D1EC4C23702B4300A680E7 /* Rejoicing.JPG in Resources */,
+				35133FAD28C5F8E600BD798A /* BadgesPopUpViewController.xib in Resources */,
 				8421F132283BB53E009E16C9 /* EditTooltip1.gif in Resources */,
 				BB3C2EE528B54FF60095434E /* ShareSocialMediaCell.xib in Resources */,
 				820386C026FDD6BE001FB6BB /* NotificationVC.storyboard in Resources */,
@@ -22526,7 +22564,9 @@
 				821BBEEF271705DD00D48DA9 /* FlagLayoutListCollectionViewCell.xib in Resources */,
 				C2F934BB264AA0CA006CA527 /* Courier Prime Italic.ttf in Resources */,
 				C2F934BC264AA0CA006CA527 /* LoadingView.xib in Resources */,
+				35133FAF28C5F8FE00BD798A /* BadgesPopUpViewController.xib in Resources */,
 				C2F934BD264AA0CA006CA527 /* StoryCameraViewController.storyboard in Resources */,
+				35133FB928C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */,
 				C2F934BE264AA0CA006CA527 /* AMColorPickerViewController.xib in Resources */,
 				C2F934BF264AA0CA006CA527 /* Innocence.JPG in Resources */,
 				C2F934C1264AA0CA006CA527 /* Playful.JPG in Resources */,
@@ -27060,6 +27100,7 @@
 				8205FCC5236C3AFA002B2603 /* CollageViewT203.swift in Sources */,
 				8205FC9E236C3AFA002B2603 /* PickerViewCell.swift in Sources */,
 				82C0FEF8272687A100B8BE72 /* NotificationTableViewCell.swift in Sources */,
+				35133FAC28C5F8E600BD798A /* BadgesPopUpViewController.swift in Sources */,
 				821CF9F9248784E000EC1503 /* STPopupNavigationBar.m in Sources */,
 				8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */,
 				952EC2BF244870180020992A /* PreRegistrationViewController.swift in Sources */,
@@ -27286,6 +27327,7 @@
 				8205FD81236C3B06002B2603 /* ImagePreviewView.swift in Sources */,
 				824EB3D123619E5C00205993 /* NSObject.swift in Sources */,
 				8287D21423826F800074FC39 /* GrowingTextView.swift in Sources */,
+				35133FB628C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */,
 				8205FB6B236C1D0F002B2603 /* ComponentBuilder.swift in Sources */,
 				954660632387B5CC00A37AE0 /* CropAssetExportSession.swift in Sources */,
 				82046F2726F33BE00082EB3F /* CountryPickerViewCell.swift in Sources */,
@@ -27413,6 +27455,7 @@
 				82D1EBA6236FED2100A680E7 /* StoryPlayer.swift in Sources */,
 				8205FD60236C3B06002B2603 /* Options.swift in Sources */,
 				F61055B725382A0800B89F7B /* CalculatorCustomLabel.swift in Sources */,
+				35133FB128C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */,
 				821BBFA52717F84800D48DA9 /* Country.swift in Sources */,
 				C239514126D6795E00C3C607 /* SSVersionInfo.swift in Sources */,
 				8205FCB5236C3AFA002B2603 /* CollageViewT407.swift in Sources */,
@@ -34077,6 +34120,7 @@
 				C2F9331A264AA0CA006CA527 /* KeyframeImageGenerator.swift in Sources */,
 				C2F9331B264AA0CA006CA527 /* CommonFunctions.swift in Sources */,
 				C2F9331C264AA0CA006CA527 /* VideoResolutionCell.swift in Sources */,
+				35133FB728C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */,
 				3F83818A26B90CBF0058BC3C /* AccountSettingsCell.swift in Sources */,
 				3F75AC4F26C584AC00ECD86D /* YourAffiliateLinkViewController.swift in Sources */,
 				A1450EB22864B25B0094ED7C /* AnnularLayer.swift in Sources */,
@@ -34113,6 +34157,7 @@
 				C271E59D265BEE0C005098B8 /* PurchaseHelper.swift in Sources */,
 				C2F93339264AA0CA006CA527 /* CartTableViewCell.swift in Sources */,
 				C2F9333A264AA0CA006CA527 /* CollageViewT302.swift in Sources */,
+				35133FAE28C5F8F000BD798A /* BadgesPopUpViewController.swift in Sources */,
 				C2F9333B264AA0CA006CA527 /* CoreGraphicsExtensions.swift in Sources */,
 				C2F9333C264AA0CA006CA527 /* ImageLibrary.swift in Sources */,
 				C2F9333D264AA0CA006CA527 /* CountdownView.swift in Sources */,
@@ -34182,6 +34227,7 @@
 				C2F93373264AA0CA006CA527 /* StatTableViewCell.swift in Sources */,
 				9C56A3D627B444B1007ADE04 /* ImageCollectionViewCutCell.swift in Sources */,
 				C2F93374264AA0CA006CA527 /* HalfModalPresentationController.swift in Sources */,
+				35133FB228C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */,
 				3F6037D226C27BAA005A1920 /* SelectLinkViewController.swift in Sources */,
 				C2F93375264AA0CA006CA527 /* UIColor+Apple.swift in Sources */,
 				C2F93376264AA0CA006CA527 /* YouTubePlayerVC.swift in Sources */,
