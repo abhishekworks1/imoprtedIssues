@@ -782,50 +782,52 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func setUpbadges() {
-           let badgearry = Defaults.shared.getbadgesArray()
            preLunchBadge.isHidden = true
            foundingMergeBadge.isHidden = true
            socialBadgeicon.isHidden = true
            subscriptionBadgeicon.isHidden = true
          
-           if  badgearry.count >  0 {
-               preLunchBadge.isHidden = false
-               preLunchBadge.image = UIImage.init(named: badgearry[0])
-           }
-           if  badgearry.count >  1 {
-               foundingMergeBadge.isHidden = false
-               foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-           }
-           if  badgearry.count >  2 {
-               socialBadgeicon.isHidden = false
-               socialBadgeicon.image = UIImage.init(named: badgearry[2])
-           }
-           if  badgearry.count >  3 {
-               subscriptionBadgeicon.isHidden = false
-               subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
-           }
-        
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge.isHidden = false
+                    preLunchBadge.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge.isHidden = false
+                    foundingMergeBadge.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon.isHidden = false
+                    socialBadgeicon.image = R.image.socialBadge()
+                default:
+                    break
+                }
+            }
+        }
         
         preLunchBadge1.isHidden = true
         foundingMergeBadge1.isHidden = true
         socialBadgeicon1.isHidden = true
         subscriptionBadgeicon1.isHidden = true
       
-        if  badgearry.count >  0 {
-            preLunchBadge1.isHidden = false
-            preLunchBadge1.image = UIImage.init(named: badgearry[0])
-        }
-        if  badgearry.count >  1 {
-            foundingMergeBadge1.isHidden = false
-            foundingMergeBadge1.image = UIImage.init(named: badgearry[1])
-        }
-        if  badgearry.count >  2 {
-            socialBadgeicon1.isHidden = false
-            socialBadgeicon1.image = UIImage.init(named: badgearry[2])
-        }
-        if  badgearry.count >  3 {
-            subscriptionBadgeicon1.isHidden = false
-            subscriptionBadgeicon1.image = UIImage.init(named: badgearry[3])
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge1.isHidden = false
+                    preLunchBadge1.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge1.isHidden = false
+                    foundingMergeBadge1.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon1.isHidden = false
+                    socialBadgeicon1.image = R.image.socialBadge()
+                default:
+                    break
+                }
+            }
         }
        }
     fileprivate func loadContacts(filter: ContactsFilter) {

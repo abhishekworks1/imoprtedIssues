@@ -225,7 +225,10 @@ class Defaults {
             if let userStorySettings = userDefaults.object(forKey: "SettingArray") as? Data {
                 let decoder = JSONDecoder()
                 if var settings = try? decoder.decode([SettingsEnum].self, from: userStorySettings) {
-                    //add here if you add/remove any object in settingsArray
+                        //add here if you add/remove any object in storySettings array
+//                    if !settings.contains(.contactManager) {
+//                        settings.insert(.contactManager, at: 1)
+//                    }
                     return settings
                 }
             }
@@ -243,7 +246,7 @@ class Defaults {
         }
     }
     
-    var userStorySettings: [StorySettings]? {
+  /*  var userStorySettings: [StorySettings]? {
         //not used now
         get {
             if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
@@ -296,7 +299,7 @@ class Defaults {
                 userDefaults.synchronize()
             }
         }
-    }
+    } */
     
     var waterarkOpacity: Int {
         get {

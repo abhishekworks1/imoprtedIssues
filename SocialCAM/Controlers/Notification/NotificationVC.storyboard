@@ -1264,33 +1264,34 @@
                                                                                     </constraints>
                                                                                 </stackView>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r8V-Fn-pOh">
-                                                                                    <rect key="frame" x="72.5" y="330" width="267" height="110"/>
+                                                                                    <rect key="frame" x="46.5" y="330" width="319" height="110"/>
                                                                                     <subviews>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Anr-5e-j3n">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="267" height="70"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="319" height="70"/>
                                                                                             <subviews>
-                                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Tjm-St-o41" userLabel="Social Badge Stack View">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="70"/>
+                                                                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="exK-Bf-hVr">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="48" height="70"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="width" constant="48" id="VTY-4H-FAi"/>
+                                                                                                    </constraints>
+                                                                                                </imageView>
+                                                                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Fqb-zP-IDd">
+                                                                                                    <rect key="frame" x="56" y="0.0" width="48" height="70"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="width" constant="48" id="8sK-JH-plD"/>
+                                                                                                    </constraints>
+                                                                                                </imageView>
+                                                                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="84k-xd-QQ1">
+                                                                                                    <rect key="frame" x="112" y="0.0" width="48" height="70"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="width" constant="48" id="P7M-G6-ImM"/>
+                                                                                                    </constraints>
+                                                                                                </imageView>
+                                                                                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Tjm-St-o41" userLabel="Social Badge Stack View">
+                                                                                                    <rect key="frame" x="164" y="0.0" width="50" height="70"/>
                                                                                                     <subviews>
-                                                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JME-dW-BRr">
+                                                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQt-da-iSg">
                                                                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
-                                                                                                            <subviews>
-                                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5z6-4a-pHd">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
-                                                                                                                    <state key="normal" image="prelaunchBadge"/>
-                                                                                                                </button>
-                                                                                                            </subviews>
-                                                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                                            <constraints>
-                                                                                                                <constraint firstAttribute="bottom" secondItem="5z6-4a-pHd" secondAttribute="bottom" id="0V6-US-W3Z"/>
-                                                                                                                <constraint firstItem="5z6-4a-pHd" firstAttribute="top" secondItem="JME-dW-BRr" secondAttribute="top" id="3cP-aK-64C"/>
-                                                                                                                <constraint firstItem="5z6-4a-pHd" firstAttribute="leading" secondItem="JME-dW-BRr" secondAttribute="leading" id="Gb5-SR-4qm"/>
-                                                                                                                <constraint firstAttribute="width" constant="50" id="g72-BP-35e"/>
-                                                                                                                <constraint firstAttribute="trailing" secondItem="5z6-4a-pHd" secondAttribute="trailing" id="xua-e4-Ymy"/>
-                                                                                                            </constraints>
-                                                                                                        </view>
-                                                                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQt-da-iSg">
-                                                                                                            <rect key="frame" x="54" y="0.0" width="50" height="70"/>
                                                                                                             <subviews>
                                                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFx-52-5cw">
                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
@@ -1306,30 +1307,13 @@
                                                                                                                 <constraint firstAttribute="bottom" secondItem="WFx-52-5cw" secondAttribute="bottom" id="yna-DS-LP5"/>
                                                                                                             </constraints>
                                                                                                         </view>
-                                                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Va-f4-x7j">
-                                                                                                            <rect key="frame" x="58" y="0.0" width="50" height="70"/>
-                                                                                                            <subviews>
-                                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9jk-6v-ZEp">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
-                                                                                                                    <state key="normal" image="foundingMemberBadge"/>
-                                                                                                                </button>
-                                                                                                            </subviews>
-                                                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                                            <constraints>
-                                                                                                                <constraint firstItem="9jk-6v-ZEp" firstAttribute="top" secondItem="6Va-f4-x7j" secondAttribute="top" id="9ni-hZ-W3M"/>
-                                                                                                                <constraint firstAttribute="width" constant="50" id="Xay-vJ-lFF"/>
-                                                                                                                <constraint firstItem="9jk-6v-ZEp" firstAttribute="leading" secondItem="6Va-f4-x7j" secondAttribute="leading" id="f5F-Un-JgI"/>
-                                                                                                                <constraint firstAttribute="trailing" secondItem="9jk-6v-ZEp" secondAttribute="trailing" id="j19-L4-PSA"/>
-                                                                                                                <constraint firstAttribute="bottom" secondItem="9jk-6v-ZEp" secondAttribute="bottom" id="qrd-k8-Hji"/>
-                                                                                                            </constraints>
-                                                                                                        </view>
                                                                                                     </subviews>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="height" constant="70" id="UQ6-hD-EGq"/>
                                                                                                     </constraints>
                                                                                                 </stackView>
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="i5j-gs-j4f">
-                                                                                                    <rect key="frame" x="116" y="0.0" width="151" height="70"/>
+                                                                                                    <rect key="frame" x="168" y="0.0" width="151" height="70"/>
                                                                                                     <subviews>
                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIa-1r-Um8" userLabel="Android Badge">
                                                                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="70"/>
@@ -1337,12 +1321,12 @@
                                                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="androidBadge" translatesAutoresizingMaskIntoConstraints="NO" id="eiV-Dp-qYp">
                                                                                                                     <rect key="frame" x="12" y="12" width="21" height="46"/>
                                                                                                                 </imageView>
-                                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="badgeAndroidBasic" translatesAutoresizingMaskIntoConstraints="NO" id="d4s-r7-y8g">
+                                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="badgeIphoneBasic" translatesAutoresizingMaskIntoConstraints="NO" id="d4s-r7-y8g">
                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="45" height="70"/>
                                                                                                                 </imageView>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pst-n1-hhx">
-                                                                                                                    <rect key="frame" x="19" y="35" width="7" height="14.5"/>
-                                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                                                                    <rect key="frame" x="18.5" y="33.5" width="8.5" height="17"/>
+                                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                                                                     <color key="textColor" name="Active1"/>
                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                 </label>
@@ -1370,12 +1354,12 @@
                                                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeAppleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="k7a-qc-AnM">
                                                                                                                     <rect key="frame" x="5" y="7" width="35" height="23.5"/>
                                                                                                                 </imageView>
-                                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="badgeIphoneBasic" translatesAutoresizingMaskIntoConstraints="NO" id="THL-RH-G1k">
+                                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="badgeAndroidBasic" translatesAutoresizingMaskIntoConstraints="NO" id="THL-RH-G1k">
                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="45" height="70"/>
                                                                                                                 </imageView>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9II-Pa-LiS">
-                                                                                                                    <rect key="frame" x="19" y="35" width="7" height="14.5"/>
-                                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                                                                    <rect key="frame" x="18.5" y="33.5" width="8.5" height="17"/>
+                                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                                                                     <color key="textColor" name="Active1"/>
                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                 </label>
@@ -1400,12 +1384,12 @@
                                                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webBadge" translatesAutoresizingMaskIntoConstraints="NO" id="DNd-lX-Ov3">
                                                                                                                     <rect key="frame" x="12" y="12" width="21" height="46"/>
                                                                                                                 </imageView>
-                                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="badgeWebAdvance" translatesAutoresizingMaskIntoConstraints="NO" id="qWJ-VL-h8r">
+                                                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="badgeWebBasic" translatesAutoresizingMaskIntoConstraints="NO" id="qWJ-VL-h8r">
                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="45" height="70"/>
                                                                                                                 </imageView>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKb-zc-wo8">
-                                                                                                                    <rect key="frame" x="19" y="35" width="7" height="14.5"/>
-                                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                                                                    <rect key="frame" x="18.5" y="33.5" width="8.5" height="17"/>
+                                                                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                                                                     <color key="textColor" name="Active1"/>
                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                 </label>
@@ -1441,8 +1425,8 @@
                                                                                     </subviews>
                                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                     <constraints>
-                                                                                        <constraint firstItem="Anr-5e-j3n" firstAttribute="top" secondItem="r8V-Fn-pOh" secondAttribute="top" constant="-20" symbolic="YES" id="BLD-MG-J1E"/>
-                                                                                        <constraint firstAttribute="bottom" secondItem="Anr-5e-j3n" secondAttribute="bottom" constant="-20" symbolic="YES" id="HDx-hg-Wih"/>
+                                                                                        <constraint firstItem="Anr-5e-j3n" firstAttribute="top" secondItem="r8V-Fn-pOh" secondAttribute="top" constant="20" symbolic="YES" id="BLD-MG-J1E"/>
+                                                                                        <constraint firstAttribute="bottom" secondItem="Anr-5e-j3n" secondAttribute="bottom" constant="20" symbolic="YES" id="HDx-hg-Wih"/>
                                                                                         <constraint firstAttribute="trailing" secondItem="Anr-5e-j3n" secondAttribute="trailing" id="TAf-6D-C5N"/>
                                                                                         <constraint firstItem="Anr-5e-j3n" firstAttribute="leading" secondItem="r8V-Fn-pOh" secondAttribute="leading" id="suL-7c-peg"/>
                                                                                     </constraints>
@@ -1607,6 +1591,7 @@
                                                             <outlet property="facebookVerifiedView" destination="If6-Rf-FnV" id="bPa-PY-uwY"/>
                                                             <outlet property="flagStackView" destination="ZUo-VC-PI5" id="qnb-AW-qHZ"/>
                                                             <outlet property="flagStackViewHeightConstraint" destination="EwE-bB-rd3" id="HvR-tI-7VD"/>
+                                                            <outlet property="foundingMemberBadgeImageView" destination="Fqb-zP-IDd" id="UHR-Go-mNm"/>
                                                             <outlet property="imgUserImage" destination="7bf-vi-Ttt" id="4go-8h-EZc"/>
                                                             <outlet property="imgUserPlaceholder" destination="Qp7-3w-gkg" id="WgP-6z-X5f"/>
                                                             <outlet property="iosBadgeView" destination="eVV-P4-f4r" id="N1y-ol-mt2"/>
@@ -1620,7 +1605,9 @@
                                                             <outlet property="lblandroidDaysRemains" destination="Pst-n1-hhx" id="hDj-DZ-HRx"/>
                                                             <outlet property="lbliosDaysRemains" destination="9II-Pa-LiS" id="Dpo-fI-Bu1"/>
                                                             <outlet property="lblwebDaysRemains" destination="iKb-zc-wo8" id="fEX-Xf-gpR"/>
+                                                            <outlet property="preLaunchBadgeImageView" destination="exK-Bf-hVr" id="ge8-47-LCu"/>
                                                             <outlet property="snapchatVerifiedView" destination="s0x-ZG-58m" id="qaB-wQ-2Se"/>
+                                                            <outlet property="socialBadgeImageView" destination="84k-xd-QQ1" id="0Sb-3d-Jfz"/>
                                                             <outlet property="socialMediaVerifiedBadgeView" destination="GQt-da-iSg" id="Mnu-2B-bWz"/>
                                                             <outlet property="twitterVerifiedView" destination="1yl-8y-tWR" id="T3w-X5-XcM"/>
                                                             <outlet property="verifiedStackView" destination="2ru-0m-0Ca" id="TSv-ZA-8j3"/>
@@ -1739,7 +1726,7 @@
         <image name="androidBadge" width="64" height="64"/>
         <image name="badgeAndroidBasic" width="512" height="604"/>
         <image name="badgeIphoneBasic" width="123" height="145"/>
-        <image name="badgeWebAdvance" width="512" height="604"/>
+        <image name="badgeWebBasic" width="512" height="604"/>
         <image name="basicBadge" width="62" height="73"/>
         <image name="checkBoxActive" width="20" height="20"/>
         <image name="checkBoxInActive" width="20" height="20"/>

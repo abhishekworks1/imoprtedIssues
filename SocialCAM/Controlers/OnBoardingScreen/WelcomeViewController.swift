@@ -26,12 +26,7 @@ extension UIView {
 }
 class WelcomeViewController: UIViewController {
 
-    
-    
     @IBOutlet weak var quickcamCameraView: UIView!
-    
-   
-    
     @IBOutlet weak var topmainView: UIView!
     @IBOutlet weak var timerLeftLabel: UILabel!
     @IBOutlet weak var displayNameLabel: UILabel!
@@ -666,7 +661,6 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     
     func setuptimerViewBaseOnDayLeft(days: String, subscriptionType: String) {
-        print("----o \(subscriptionType)")
         if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
             setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 1, green: 0, blue: 0, alpha: 1))
             
@@ -1016,6 +1010,26 @@ extension WelcomeViewController {
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
         
+        dayBadgeAndroidImageView.tag = 1
+        dayBadgeIosImageView.tag = 2
+        dayBadgeWebImageView.tag = 3
+        preLaunchBadgeImageView.tag = 4
+        foundingMemberBadgeImageView.tag = 5
+        socialBadgeImageView.tag = 6
+        androidBadgeView.tag = 7
+        iosBadgeView.tag = 8
+        webBadgeView.tag = 9
+
+        preLaunchBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        foundingMemberBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        socialBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeIosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeAndroidImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeWebImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -1029,13 +1043,13 @@ extension WelcomeViewController {
                 switch badgeCode {
                 case Badges.PRELAUNCH.rawValue:
                     preLaunchBadgeImageView.isHidden = false
-                    preLaunchBadgeImageView.image = UIImage(named: "prelaunchBadge")
+                    preLaunchBadgeImageView.image = R.image.prelaunchBadge()
                 case Badges.FOUNDING_MEMBER.rawValue:
                     foundingMemberBadgeImageView.isHidden = false
-                    foundingMemberBadgeImageView.image = UIImage(named: "foundingMemberBadge")
+                    foundingMemberBadgeImageView.image = R.image.foundingMemberBadge()
                 case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
                     socialBadgeImageView.isHidden = false
-                    socialBadgeImageView.image = UIImage(named: "socialBadge")
+                    socialBadgeImageView.image = R.image.socialBadge()
                 default:
                     break
                 }
@@ -1076,13 +1090,13 @@ extension WelcomeViewController {
                         iosShieldImageview.image = R.image.badgeIphonePre()
                     }
                     
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                   /* if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeIosImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
                         dayBadgeIosImageView.isHidden = false
                         dayBadgeIosImageView.image = UIImage(named: "day_badge_\(finalDay)")
-                    }
+                    } */
                 }
                 // Setup For Android Badge
                 if badgeCode == Badges.SUBSCRIBER_ANDROID.rawValue
@@ -1117,13 +1131,13 @@ extension WelcomeViewController {
                         androidRemainingDaysLabel.text = finalDay
                         androidShieldImageview.image = R.image.badgeAndroidPre()
                     }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                   /* if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeAndroidImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
                         dayBadgeAndroidImageView.isHidden = false
                         dayBadgeAndroidImageView.image = UIImage(named: "day_badge_android_\(finalDay)")
-                    }
+                    } */
                 }
                 
                 if badgeCode == Badges.SUBSCRIBER_WEB.rawValue
@@ -1159,16 +1173,25 @@ extension WelcomeViewController {
                         webRemainingDaysLabel.text = finalDay
                         webShieldImageview.image = R.image.badgeWebPre()
                     }
-                    if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
+                   /* if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue || subscriptionType == SubscriptionTypeForBadge.FREE.rawValue || subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
                         dayBadgeWebImageView.isHidden = true
                     }
                     else if finalDay.count > 0 {
                         dayBadgeWebImageView.isHidden = false
                         dayBadgeWebImageView.image = UIImage(named: "day_badge_Web_\(finalDay)")
-                    }
+                    } */
                 }
             }
         }
+    }
+    
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+        let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        print("tag--> \(sender?.view?.tag)")
+        vc.badgeType = .allBadges
+        vc.selectedBadgeTag = sender?.view?.tag ?? 0
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
     }
     
     func showMessageData(subscriptionType: String, daysLeft: Int) -> String {

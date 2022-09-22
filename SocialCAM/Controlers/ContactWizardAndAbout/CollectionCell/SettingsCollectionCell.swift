@@ -35,6 +35,7 @@ class SettingsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var webSheildImageview: UIImageView!
     @IBOutlet weak var webIconImageview: UIImageView!
     @IBOutlet weak var lblwebDaysRemains: UILabel!
+    var badgeTapHandler : ((_ sender: UITapGestureRecognizer?)  -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -47,12 +48,17 @@ class SettingsCollectionCell: UICollectionViewCell {
        
     }
     func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
         badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
-        
+        androidBadgeView.tag = 7
+        iosBadgeView.tag = 8
+        webBadgeView.tag = 9
+ 
+       iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -169,6 +175,11 @@ class SettingsCollectionCell: UICollectionViewCell {
                     }
                 }
             }
+        }
+    }
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+        if let handler = self.badgeTapHandler {
+            handler(sender)
         }
     }
     

@@ -222,10 +222,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="rAY-z5-Mj8">
-                                                <rect key="frame" x="-6" y="493" width="387" height="65"/>
+                                                <rect key="frame" x="19" y="493" width="337" height="65"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tN0-Xq-gwU" userLabel="Social Badge Stack View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="65"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="65"/>
                                                         <subviews>
                                                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_android_1" translatesAutoresizingMaskIntoConstraints="NO" id="aTW-Rd-6q3">
                                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
@@ -236,28 +236,22 @@
                                                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="day_badge_Web_1" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-Z9-Fln">
                                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
                                                             </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7ol-WA-GoB">
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7ol-WA-GoB">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="qIH-jR-SNH"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3GF-CY-zH0">
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3GF-CY-zH0">
                                                                 <rect key="frame" x="50" y="0.0" width="40" height="65"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="QvB-Kf-OSR"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="O4h-Ly-kGY">
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="O4h-Ly-kGY">
                                                                 <rect key="frame" x="100" y="0.0" width="40" height="65"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="eKI-91-Wri"/>
-                                                                </constraints>
-                                                            </imageView>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="eVy-Em-2Qz">
-                                                                <rect key="frame" x="150" y="0.0" width="40" height="65"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="40" id="zaL-NN-CTI"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -267,7 +261,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0q0-VL-eI3">
-                                                        <rect key="frame" x="192" y="0.0" width="195" height="65"/>
+                                                        <rect key="frame" x="142" y="0.0" width="195" height="65"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3g-2k-oLz" userLabel="Android Badge">
                                                                 <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
@@ -1337,6 +1331,9 @@
                         <outlet property="btnSelectDiscardPopupView" destination="gFI-xo-hLL" id="IWd-uy-FYV"/>
                         <outlet property="btnSetFlags" destination="AF7-qD-moD" id="ntQ-Se-Fzw"/>
                         <outlet property="btnSetPublicDisplayName" destination="UcJ-PD-IZa" id="AHt-J2-dkr"/>
+                        <outlet property="dayBadgeAndroidImageView" destination="aTW-Rd-6q3" id="Ls8-2O-FKU"/>
+                        <outlet property="dayBadgeIosImageView" destination="B9G-hU-4FA" id="sD3-mC-qIP"/>
+                        <outlet property="dayBadgeWebImageView" destination="WM5-Z9-Fln" id="Mgt-fC-o5m"/>
                         <outlet property="dicardPopupView" destination="jfS-NO-u5c" id="rc9-0L-ap3"/>
                         <outlet property="displayNameViewTopConstraint" destination="fdi-X0-hR5" id="HLD-RF-tkA"/>
                         <outlet property="editNamePopupMessage" destination="dh6-oE-ZBf" id="RGS-Im-ETX"/>
@@ -1373,7 +1370,6 @@
                         <outlet property="socialBadgeicon" destination="O4h-Ly-kGY" id="YaT-zM-Ae2"/>
                         <outlet property="socialPlatformStackViewHeightConstraint" destination="uLn-zh-799" id="o5t-kR-zDd"/>
                         <outlet property="socialSharePopupView" destination="xPd-JQ-tiK" id="ChG-8Z-ZoC"/>
-                        <outlet property="subscriptionBadgeicon" destination="eVy-Em-2Qz" id="wY1-Zr-dis"/>
                         <outlet property="twitterVerifiedView" destination="Yj6-OA-bsE" id="DFW-2m-veP"/>
                         <outlet property="txtChannelName" destination="ToL-SP-9gY" id="fOR-dZ-yD0"/>
                         <outlet property="txtDisplayName" destination="18H-2n-iw3" id="R0X-S6-eoZ"/>
@@ -1560,14 +1556,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPQ-bN-f5h">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="258"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="298"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="402" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="chH-Y2-fKn" customClass="SelfSizedTableView" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="18" y="248" width="339" height="340"/>
+                                <rect key="frame" x="18" y="288" width="339" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="340" id="p7h-z4-TM6"/>
+                                    <constraint firstAttribute="height" constant="300" id="p7h-z4-TM6"/>
                                 </constraints>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="eeV-Sz-87S">
                                     <rect key="frame" x="0.0" y="0.0" width="339" height="44"/>
@@ -2215,10 +2211,10 @@
                                                                         <rect key="frame" x="0.0" y="287.5" width="345" height="65"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CLr-cS-9Jt">
-                                                                                <rect key="frame" x="-3.5" y="0.0" width="352" height="65"/>
+                                                                                <rect key="frame" x="21.5" y="0.0" width="302" height="65"/>
                                                                                 <subviews>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SeB-y6-vko">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="65"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="65"/>
                                                                                         <subviews>
                                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozI-rc-Y9c">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
@@ -2290,31 +2286,6 @@
                                                                                                     <constraint firstItem="gxk-2W-9Fw" firstAttribute="leading" secondItem="MY1-zT-Ui6" secondAttribute="leading" id="szM-Cm-nbI"/>
                                                                                                 </constraints>
                                                                                             </view>
-                                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ab7-5W-zJ1">
-                                                                                                <rect key="frame" x="150" y="0.0" width="40" height="65"/>
-                                                                                                <subviews>
-                                                                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5H-n3-byM">
-                                                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
-                                                                                                        <state key="normal" image="iosbadge"/>
-                                                                                                    </button>
-                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="RiC-xN-zh2">
-                                                                                                        <rect key="frame" x="0.0" y="12.5" width="40" height="40"/>
-                                                                                                        <constraints>
-                                                                                                            <constraint firstAttribute="width" constant="40" id="1Gm-FJ-KYz"/>
-                                                                                                            <constraint firstAttribute="height" constant="40" id="T5o-C8-2fF"/>
-                                                                                                        </constraints>
-                                                                                                    </imageView>
-                                                                                                </subviews>
-                                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                                <constraints>
-                                                                                                    <constraint firstItem="RiC-xN-zh2" firstAttribute="centerX" secondItem="Ab7-5W-zJ1" secondAttribute="centerX" id="0FB-XE-fuz"/>
-                                                                                                    <constraint firstAttribute="trailing" secondItem="a5H-n3-byM" secondAttribute="trailing" id="7rK-lT-swR"/>
-                                                                                                    <constraint firstAttribute="bottom" secondItem="a5H-n3-byM" secondAttribute="bottom" id="MQ0-fn-JAr"/>
-                                                                                                    <constraint firstItem="a5H-n3-byM" firstAttribute="top" secondItem="Ab7-5W-zJ1" secondAttribute="top" id="QWX-2b-u8B"/>
-                                                                                                    <constraint firstItem="a5H-n3-byM" firstAttribute="leading" secondItem="Ab7-5W-zJ1" secondAttribute="leading" id="sLu-yT-iHr"/>
-                                                                                                    <constraint firstItem="RiC-xN-zh2" firstAttribute="centerY" secondItem="Ab7-5W-zJ1" secondAttribute="centerY" id="saM-nI-a83"/>
-                                                                                                </constraints>
-                                                                                            </view>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
@@ -2322,7 +2293,7 @@
                                                                                         </constraints>
                                                                                     </stackView>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Krf-AJ-DPK">
-                                                                                        <rect key="frame" x="194" y="0.0" width="158" height="65"/>
+                                                                                        <rect key="frame" x="144" y="0.0" width="158" height="65"/>
                                                                                         <subviews>
                                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FT1-hy-WmL" userLabel="Android Badge">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
@@ -3048,8 +3019,6 @@
                         <outlet property="socialBadgeStackView" destination="SeB-y6-vko" id="pNd-eE-w9K"/>
                         <outlet property="socialBadgeicon" destination="MY1-zT-Ui6" id="9Wu-hM-Umj"/>
                         <outlet property="socialBadgeiconImageView" destination="gxk-2W-9Fw" id="zgm-oe-aGl"/>
-                        <outlet property="subscriptionBadgeicon" destination="Ab7-5W-zJ1" id="1Qo-QX-akc"/>
-                        <outlet property="subscriptionBadgeiconImageView" destination="RiC-xN-zh2" id="ysI-S7-khE"/>
                         <outlet property="twitterVerifiedView" destination="zth-li-sLC" id="JfW-Mb-Eap"/>
                         <outlet property="txtLinkWithCheckOut" destination="uLX-pa-jOW" id="leW-8O-PLY"/>
                         <outlet property="verifiedView" destination="YHI-Je-t6n" id="bfw-vP-QXe"/>
@@ -3311,25 +3280,25 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3i4-t5-eC5" userLabel="Social Badge Stack View">
                                                                             <rect key="frame" x="50" y="0.0" width="190" height="65"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RHi-5E-JN2">
+                                                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="RHi-5E-JN2">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="J9D-kN-NdZ"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="YKN-OT-4ZZ">
+                                                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="YKN-OT-4ZZ">
                                                                                     <rect key="frame" x="50" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="yla-PN-BYB"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="eQS-2N-Lf7">
+                                                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="eQS-2N-Lf7">
                                                                                     <rect key="frame" x="100" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="dOT-ct-rJz"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="DUO-F8-qQU">
+                                                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="DUO-F8-qQU">
                                                                                     <rect key="frame" x="150" y="0.0" width="40" height="65"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="40" id="PB9-zO-zEu"/>
