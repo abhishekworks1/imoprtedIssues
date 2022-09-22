@@ -1126,29 +1126,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
-   /* func setUpbadgesTop() {
-        let badgearry = Defaults.shared.getbadgesArray()
-        preLunchBadge.isHidden = true
-        foundingMergeBadge.isHidden = true
-        socialBadgeicon.isHidden = true
-        subscriptionBadgeicon.isHidden = true
-        if  badgearry.count >  0 {
-            preLunchBadge.isHidden = false
-            preLunchBadge.image = UIImage.init(named: badgearry[0])
-        }
-        if  badgearry.count >  1 {
-            foundingMergeBadge.isHidden = false
-            foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-        }
-        if  badgearry.count >  2 {
-            socialBadgeicon.isHidden = false
-            socialBadgeicon.image = UIImage.init(named: badgearry[2])
-        }
-        if  badgearry.count >  3 {
-            subscriptionBadgeicon.isHidden = false
-            subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
-        }
-    } */
+
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = Defaults.shared.socialPlatforms {
             for socialPlatform in socialPlatforms {

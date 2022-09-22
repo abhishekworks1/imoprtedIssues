@@ -179,21 +179,21 @@ class BadgesPopUpViewController: UIViewController {
             if badgeType == .allBadges || badgeType == .basicBadges {
                 if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.PRELAUNCH.rawValue}).first {
                     let prelaunchBadge = R.image.prelaunchBadge()
-                    badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "Prelaunch Badge", badgeDescription: ""))
+                    badgeDetails.append(GetBadges(badgesImage: prelaunchBadge, badgeName: "Prelaunch Badge", badgeDescription: "Recognize the beta testers and early adopters"))
                     if selectedBadgeTag == 4 {
                         currentPage = badgeDetails.count
                     }
                 }
                 if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.FOUNDING_MEMBER.rawValue}).first {
                     let foundingMemberBadge = R.image.foundingMemberBadge()
-                    badgeDetails.append(GetBadges(badgesImage: foundingMemberBadge, badgeName: "Founding Member Badge", badgeDescription: ""))
+                    badgeDetails.append(GetBadges(badgesImage: foundingMemberBadge, badgeName: "Founding Member Badge", badgeDescription: "Recognize early adopters and trend setters"))
                     if selectedBadgeTag == 5 {
                         currentPage = badgeDetails.count
                     }
                 }
                 if let parentbadge = badgearray.filter({ $0.badge?.code == Badges.SOCIAL_MEDIA_CONNECTION.rawValue}).first {
                     let socialBadge = R.image.socialBadge()
-                    badgeDetails.append(GetBadges(badgesImage: socialBadge, badgeName: "Social Badge", badgeDescription: ""))
+                    badgeDetails.append(GetBadges(badgesImage: socialBadge, badgeName: "Social Badge", badgeDescription: "Recognize channels with connected social media accounts"))
                     if selectedBadgeTag == 6 {
                         currentPage = badgeDetails.count
                     }
@@ -224,19 +224,19 @@ class BadgesPopUpViewController: UIViewController {
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidBasic(), badgeName: "Android Basic", badgeDescription: "Recognize the channel’s Basic subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 7 {
                             currentPage = badgeDetails.count
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidAdvance(), badgeName: "Android Advanced", badgeDescription: "Recognize the channel’s Advanced subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 7 {
                             currentPage = badgeDetails.count
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeAndroidPre(), badgeName: "Android Premium", badgeDescription: "Recognize the channel’s Premium subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 7 {
                             currentPage = badgeDetails.count
                         }
@@ -259,20 +259,20 @@ class BadgesPopUpViewController: UIViewController {
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneBasic(), badgeName: "Iphone Basic", badgeDescription: "Recognize the channel’s Basic subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 8 {
                             currentPage = badgeDetails.count
                         }
                         
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphoneAdvance(), badgeName: "Iphone Advanced", badgeDescription: "Recognize the channel’s Advanced subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 8 {
                             currentPage = badgeDetails.count
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeIphonePre(), badgeName: "Iphone Premium", badgeDescription: "Recognize the channel’s Premium subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 8 {
                             currentPage = badgeDetails.count
                         }
@@ -302,19 +302,19 @@ class BadgesPopUpViewController: UIViewController {
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebBasic(), badgeName: "Web Basic", badgeDescription: "Recognize the channel’s Basic subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 9 {
                             currentPage = badgeDetails.count
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebAdvance(), badgeName: "Web Advanced", badgeDescription: "Recognize the channel’s Advanced subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 9 {
                             currentPage = badgeDetails.count
                         }
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue {
-                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium", badgeDescription: "", badgeCount: finalDay))
+                        badgeDetails.append(GetBadges(badgesImage: R.image.badgeWebPre(), badgeName: "Web Premium", badgeDescription: "Recognize the channel’s Premium subscription level", badgeCount: finalDay))
                         if selectedBadgeTag == 9 {
                             currentPage = badgeDetails.count
                         }
@@ -437,7 +437,7 @@ extension BadgesPopUpViewController: UICollectionViewDelegate, UICollectionViewD
         if currentPage - 1 == indexPath.item {
             cell.badgeImageView.alpha = 1
             cell.badgeNameLabel.isHidden = false
-            cell.badgeDescriptionLabel.isHidden = false
+            cell.badgeDescriptionLabel.isHidden = true
             if Int(cell.daysRemainLabel.text ?? "0") ?? 0 > 0 {
                 cell.daysRemainLabel.isHidden = false
             } else {

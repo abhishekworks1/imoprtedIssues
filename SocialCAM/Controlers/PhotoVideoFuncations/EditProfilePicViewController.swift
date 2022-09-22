@@ -421,7 +421,6 @@ class EditProfilePicViewController: UIViewController {
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
-        
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
                 let badgeCode = parentbadge.badge?.code ?? ""
@@ -443,8 +442,6 @@ class EditProfilePicViewController: UIViewController {
     }
     
     func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
-        //        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
