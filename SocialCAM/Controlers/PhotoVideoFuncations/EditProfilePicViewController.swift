@@ -68,8 +68,9 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var preLunchBadge: UIImageView!
      @IBOutlet weak var foundingMergeBadge: UIImageView!
      @IBOutlet weak var socialBadgeicon: UIImageView!
-     @IBOutlet weak var subscriptionBadgeicon: UIImageView!
-
+    @IBOutlet weak var dayBadgeIosImageView: UIImageView!
+    @IBOutlet weak var dayBadgeAndroidImageView: UIImageView!
+    @IBOutlet weak var dayBadgeWebImageView: UIImageView!
 
     @IBOutlet weak var iosBadgeView: UIView!
     @IBOutlet weak var iosSheildImageview: UIImageView!
@@ -417,36 +418,53 @@ class EditProfilePicViewController: UIViewController {
     
     
     func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
-        subscriptionBadgeicon.isHidden = true
-        
-        if  badgearry.count >  0 {
-            preLunchBadge.isHidden = false
-            preLunchBadge.image = UIImage.init(named: badgearry[0])
-        }
-        if  badgearry.count >  1 {
-            foundingMergeBadge.isHidden = false
-            foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-        }
-        if  badgearry.count >  2 {
-            socialBadgeicon.isHidden = false
-            socialBadgeicon.image = UIImage.init(named: badgearry[2])
-        }
-        if  badgearry.count >  3 {
-            subscriptionBadgeicon.isHidden = false
-            subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge.isHidden = false
+                    preLunchBadge.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge.isHidden = false
+                    foundingMergeBadge.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon.isHidden = false
+                    socialBadgeicon.image = R.image.socialBadge()
+                default:
+                    break
+                }
+            }
         }
     }
     
     func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
-//        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
+        
+        dayBadgeAndroidImageView.tag = 1
+        dayBadgeIosImageView.tag = 2
+        dayBadgeWebImageView.tag = 3
+        preLunchBadge.tag = 4
+        foundingMergeBadge.tag = 5
+        socialBadgeicon.tag = 6
+        androidBadgeView.tag = 7
+        iosBadgeView.tag = 8
+        webBadgeView.tag = 9
+        
+        preLunchBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        foundingMergeBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        socialBadgeicon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeIosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeAndroidImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeWebImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
@@ -467,15 +485,15 @@ class EditProfilePicViewController: UIViewController {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
-                       /* if freeTrialDay > 0 {
-                            lbliosDaysRemains.text = finalDay
-                            iosSheildImageview.image = R.image.freeBadge()
-                        } else {*/
-                            //iOS shield hide
-                            //square badge show
-                            lbliosDaysRemains.text = ""
-                            iosSheildImageview.image = R.image.badgeIphoneFree()
-//                        }
+                        /* if freeTrialDay > 0 {
+                         lbliosDaysRemains.text = finalDay
+                         iosSheildImageview.image = R.image.freeBadge()
+                         } else {*/
+                        //iOS shield hide
+                        //square badge show
+                        lbliosDaysRemains.text = ""
+                        iosSheildImageview.image = R.image.badgeIphoneFree()
+                        //                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -565,6 +583,14 @@ class EditProfilePicViewController: UIViewController {
                 }
             }
         }
+    }
+  
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+        let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        vc.badgeType = .allBadges
+        vc.selectedBadgeTag = sender?.view?.tag ?? 0
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
     }
 }
 
