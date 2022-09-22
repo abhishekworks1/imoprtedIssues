@@ -266,7 +266,8 @@ class UserDetailsVC: UIViewController {
             } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
                 self.snapchatVerifiedView.isHidden = false
             } else if socialPlatform == R.string.localizable.youtube().lowercased() {
-                self.youtubeVerifiedView.isHidden = false
+              //  self.youtubeVerifiedView.isHidden = false
+                // Hide Youtube Temporary
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()

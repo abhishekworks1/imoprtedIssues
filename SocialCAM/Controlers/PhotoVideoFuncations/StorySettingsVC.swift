@@ -1383,6 +1383,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             guard let url = URL(string: urlString) else {
                 return
             }
+            print(url)
             presentSafariBrowser(url: url)
         }
         //        }
