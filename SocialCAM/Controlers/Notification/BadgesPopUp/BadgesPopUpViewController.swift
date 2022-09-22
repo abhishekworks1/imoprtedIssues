@@ -83,7 +83,6 @@ class BadgesPopUpViewController: UIViewController {
     
     
     @IBAction func didTapOnCurrentTextPageButton(_ sender: UIButton) {
-        return
         print(currentPageButton.tag)
         self.badgesCollectionView.reloadData()
         self.badgesCollectionView.scrollToItem(at: IndexPath(row: currentPageButton.tag, section: 0), at: .centeredHorizontally, animated: true)
