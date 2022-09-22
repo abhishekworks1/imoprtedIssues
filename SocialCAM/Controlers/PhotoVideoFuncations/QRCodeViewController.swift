@@ -223,6 +223,7 @@ class QRCodeViewController: UIViewController {
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
+        subscriptionBadgeicon.isHidden = true
         
         preLunchBadge.tag = 4
         foundingMergeBadge.tag = 5
