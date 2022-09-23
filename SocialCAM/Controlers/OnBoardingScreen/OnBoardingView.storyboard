@@ -2179,7 +2179,7 @@
                                             <wkPreferences key="preferences"/>
                                         </wkWebViewConfiguration>
                                     </wkWebView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htg-tR-9mC">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="htg-tR-9mC">
                                         <rect key="frame" x="0.0" y="603" width="374" height="40"/>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.94509803920000002" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -2211,6 +2211,7 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="05t-9x-Mbl"/>
+                                                <exclude reference="pWE-kZ-yzy"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -2252,11 +2253,10 @@
                                                     <action selector="didTapOnPreviousStep:" destination="cg9-jn-5oz" eventType="touchUpInside" id="8du-mJ-Ped"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxS-U9-kWv">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pxS-U9-kWv">
                                                 <rect key="frame" x="45" y="0.0" width="284" height="40"/>
                                                 <color key="backgroundColor" red="0.91764705879999997" green="0.94509803920000002" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="6d7-kd-T6S"/>
                                                     <constraint firstAttribute="width" constant="226" id="Ael-Jv-Y3p"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
@@ -2330,8 +2330,8 @@
                                     <constraint firstAttribute="trailing" secondItem="Pvk-aJ-ftS" secondAttribute="trailing" id="zeA-hI-fOV"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Uc-5K-V1J">
-                                <rect key="frame" x="20" y="798" width="374" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Uc-5K-V1J">
+                                <rect key="frame" x="20" y="600" width="374" height="40"/>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.52156862749999999" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="226" id="DeE-Qg-ceC"/>
@@ -2356,8 +2356,8 @@
                                     <action selector="didTapOnDoneStep:" destination="cg9-jn-5oz" eventType="touchUpInside" id="h1J-1N-mLe"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXp-5C-qVm">
-                                <rect key="frame" x="414" y="0.0" width="414" height="896"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXp-5C-qVm">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKy-kw-iRE">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>

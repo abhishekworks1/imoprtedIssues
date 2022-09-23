@@ -16,8 +16,16 @@ class QuickStartOptionDetailViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var backButtonHeaderView: UIView!
     @IBOutlet weak var quickCamHeaderView: UIView!
-    @IBOutlet weak var tryNowButton: UIButton!
-    @IBOutlet weak var subscribeNowButton: UIButton!
+    @IBOutlet weak var tryNowButton: UIButton! {
+        didSet {
+            tryNowButton.titleLabel?.textAlignment = .center
+        }
+    }
+    @IBOutlet weak var subscribeNowButton: UIButton! {
+        didSet {
+            subscribeNowButton.titleLabel?.textAlignment = .center
+        }
+    }
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var webview: WKWebView!
