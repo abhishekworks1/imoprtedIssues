@@ -172,6 +172,14 @@ class UserDetailsVC: UIViewController {
     func setup() {
         if let channelId = notification?.refereeUserId?.channelId {
             self.lblUserName.text = "@\(channelId)"
+            if let user = Defaults.shared.currentUser,
+               let cid = user.channelId{
+                if cid == notification?.refereeUserId?.channelId ?? ""{
+                    self.btnFollow.isHidden = true
+                }else{
+                    self.btnFollow.isHidden = false
+                }
+            }
         } else {
             if let name = Defaults.shared.currentUser?.refferingChannel {
                 self.lblUserName.text = "@\(name)"

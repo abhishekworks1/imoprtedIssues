@@ -546,10 +546,10 @@ class SubscriptionsViewController: UIViewController {
         } else {
             message = ""
         }
-        messageLabel.text = message
-        if messageLabel.text == "" {
-            messageLabel.isHidden = true
-        }
+//        messageLabel.text = message
+//        if messageLabel.text == "" {
+//            messageLabel.isHidden = true
+//        }
     }
     
     func setSubscriptionBadgeDetails(){
@@ -1275,5 +1275,31 @@ extension SubscriptionsViewController {
             return ""
         }
         return ""
+    }
+}
+
+extension SubscriptionsViewController {
+    
+    func setupMessage() {
+        UserSync.shared.getMessages(screen: "subscription-details") { messageData in
+            let messsgeData: [MessageData] = messageData?.data ?? []
+            if let messageDataObj =  messsgeData.first, let messageObj = messageDataObj.messages?.first {
+                let aData: [String] = messageObj.a ?? []
+                let bData: [String] = messageObj.b ?? []
+                let cData: [String] = messageObj.c ?? []
+                
+                let astr = aData.joined(separator: "\n")
+                let bstr = bData.joined(separator: "\n")
+                let cstr = cData.joined(separator: "\n")
+                print("\(astr)--\(bstr)---\(cstr)")
+                
+                
+                self.messageLabel.text = astr + bstr + "\n" + cstr
+                if self.messageLabel.text?.trimStr() == "" {
+                    self.messageLabel.isHidden = true
+                }
+            }
+        }
+
     }
 }

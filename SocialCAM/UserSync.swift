@@ -276,6 +276,25 @@ class UserSync {
 
     }
     
+    func getMessages(screen: String, completion: @escaping (_ tipOfDayResponse: MessagesResponse?) -> Void) {
+        let path = API.shared.baseUrlV2 + "message?platform=ios&screen=\(screen)"
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "platformType": "ios",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
+        
+        let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: MessagesResponse.self) {(resposnse) in
+            print("test \(resposnse.value)")
+
+            print(String(data: resposnse.data!, encoding: String.Encoding.utf8))
+            
+            completion(resposnse.value)
+        }
+
+    }
+    
     func getQuickStartCategories(completion: @escaping (_ isCompleted: Bool?) -> Void) {
         let path = API.shared.baseUrlV2 + "quickstart-guide/category-item?platformType=ios"
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
@@ -346,6 +365,43 @@ class TipOfDay: Codable {
         case createdAt = "createdAt"
     }
     
+}
+
+class MessagesResponse: Codable {
+    
+    var message: String?
+    var success: Bool?
+    var data: [MessageData]?
+    
+    private enum CodingKeys: String, CodingKey {
+        case message = "message"
+        case success = "success"
+        case data = "data"
+    }
+    
+}
+
+class MessageData: Codable {
+    var subscription: String?
+    var day: Int?
+    var messages: [Message]?
+    
+    private enum CodingKeys: String, CodingKey {
+        case subscription = "subscription"
+        case day = "day"
+        case messages = "messages"
+    }
+}
+
+class Message: Codable {
+    var a, b: [String]?
+    var c: [String]?
+
+    private enum CodingKeys: String, CodingKey {
+        case a = "a"
+        case b = "b"
+        case c = "c"
+    }
 }
 
 

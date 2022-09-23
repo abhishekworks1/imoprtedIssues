@@ -194,6 +194,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupView()
+        setupMessages()
     }
     
     override func viewDidLayoutSubviews() {
@@ -590,10 +591,10 @@ extension WelcomeViewController {
                             fday = 7 - day
                         }
                     }
-                    subscriptionDetailLabel.text = ""
+                   // subscriptionDetailLabel.text = ""
                     if subscriptionType == SubscriptionTypeForBadge.TRIAL.rawValue {
                        if finalDay == "7" {
-                           subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
+                          // subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
                            if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                showTimer(createdDate: createdDate)
                            }
@@ -605,9 +606,9 @@ extension WelcomeViewController {
                             } else {
                                 self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
                                 if fday + 1 == 7 {
-                                    subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+                                 //   subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                                 } else {
-                                    subscriptionDetailLabel.text = "You have \(fday + 1) days left on your free trial. Subscribe now and earn your subscription badge."
+                                   // subscriptionDetailLabel.text = "You have \(fday + 1) days left on your free trial. Subscribe now and earn your subscription badge."
                                 }
                                 if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                     showTimer(createdDate: createdDate)
@@ -621,12 +622,12 @@ extension WelcomeViewController {
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
-                        subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+                       // subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
                         self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
                     } else {
                         
                         if finalDay == "7" {
-                            subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
+                          //  subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
                             if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                 showTimer(createdDate: createdDate)
                             }
@@ -640,9 +641,9 @@ extension WelcomeViewController {
                             } else {
                                 self.setuptimerViewBaseOnDayLeft(days: "\(fday + 1)", subscriptionType: subscriptionType)
                                 if fday + 1 == 7 {
-                                    subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+                                   // subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                                 } else {
-                                    subscriptionDetailLabel.text = "You have \(fday + 1) days left on your free trial. Subscribe now and earn your subscription badge."
+                                  //  subscriptionDetailLabel.text = "You have \(fday + 1) days left on your free trial. Subscribe now and earn your subscription badge."
                                 }
                                 if let createdDate = parentbadge.createdAt?.isoDateFromString() {
                                     showTimer(createdDate: createdDate)
@@ -666,7 +667,7 @@ extension WelcomeViewController {
             
             if days == "0" {
                 setImageForDays(days: days, imageName: "freeOnboard")
-                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+              //  subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
                 setUpTimerViewForZeroDay()
             } else if (days == "7") {
                 setUpTimerViewForSignupDay()
@@ -677,7 +678,7 @@ extension WelcomeViewController {
             }
             
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+          //  subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             setImageForDays(days: "1", imageName: "freeOnboard")
             setUpTimerViewForOtherDay()
             //setUpTimerViewForZeroDay()
@@ -794,12 +795,12 @@ extension WelcomeViewController {
     func setUpTimerViewForZeroDaySubscription(subscriptionType: String) {
       //  Upgrade from <current subscriber level> to Premium before your 7-day premium free trial ends to continue using premium features!
         if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
-            subscriptionDetailLabel.text = "Upgrading your subscription to Advanced or Premium will be available in the next release. You'll be notified when upgrading your channel is ready."//"Upgrade from BASIC to Premium before your 7-day premium free trial ends to continue using premium features!"
+         //   subscriptionDetailLabel.text = "Upgrading your subscription to Advanced or Premium will be available in the next release. You'll be notified when upgrading your channel is ready."//"Upgrade from BASIC to Premium before your 7-day premium free trial ends to continue using premium features!"
             badgeImageView.image = UIImage(named: "badgeIphoneBasic")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
-            subscriptionDetailLabel.text = "Upgrading your subscription to Premium will be available in the next release. You'll be notified when upgrading your channel is ready."//"Upgrade from ADVANCE to Premium before your 7-day premium free trial ends to continue using premium features!"
+          //  subscriptionDetailLabel.text = "Upgrading your subscription to Premium will be available in the next release. You'll be notified when upgrading your channel is ready."//"Upgrade from ADVANCE to Premium before your 7-day premium free trial ends to continue using premium features!"
             badgeImageView.image = UIImage(named: "badgeIphoneAdvance")
             badgeImageView.isHidden = false
             timeStackViewHeight.constant = 72
@@ -814,7 +815,7 @@ extension WelcomeViewController {
             let tipOftheDay = NSMutableAttributedString(string: "Tip of the Day\n", attributes: tipOftheDayAttributes)
             let tipText = NSMutableAttributedString(string: "Use TextShare as the fastest way to share the QuickCam opportunity and grow your potential income.", attributes: tipTextAttributes)
             tipOftheDay.append(tipText)
-            subscriptionDetailLabel.text = ""
+          //  subscriptionDetailLabel.text = ""
         }
     }
     
@@ -832,11 +833,11 @@ extension WelcomeViewController {
     func setTimerText(subscriptionStatus: String) {
         timerLeftLabel.isHidden = false
         if subscriptionStatus == SubscriptionTypeForBadge.TRIAL.rawValue {
-            timerLeftLabel.text = "Time left in premium free trial"
+           // timerLeftLabel.text = "Time left in premium free trial"
         } else if subscriptionStatus == SubscriptionTypeForBadge.FREE.rawValue {
-            timerLeftLabel.text = "Time since signed up"
+           // timerLeftLabel.text = "Time since signed up"
         } else if  subscriptionStatus == SubscriptionTypeForBadge.EXPIRE.rawValue {
-            timerLeftLabel.text = "Time since your subscription expired"
+           // timerLeftLabel.text = "Time since your subscription expired"
         } else {
             timerLeftLabel.isHidden = true
         }
@@ -875,7 +876,7 @@ extension WelcomeViewController {
                 }
                 setTimerText(subscriptionStatus: subscriptionType)
                 self.showWelcomeData(subscriptionType: subscriptionType, daysLeft: diffDays)
-                self.subscriptionDetailLabel.text = self.showMessageData(subscriptionType: subscriptionType, daysLeft: diffDays)
+               // self.subscriptionDetailLabel.text = self.showMessageData(subscriptionType: subscriptionType, daysLeft: diffDays)
             }
         } else {
             
@@ -938,60 +939,60 @@ extension WelcomeViewController {
             }
             badgeImageView.isHidden = true
             if daysLeft == 7 {
-                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+              //  subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
                 self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
             } else if daysLeft == 0 || daysLeft < 0 {
-                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+               // subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
                 self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: originalSubscriptionType)
             } else if daysLeft == 1 {
-                subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
+              //  subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
                 self.setuptimerViewBaseOnDayLeft(days: "1", subscriptionType: originalSubscriptionType)
             } else {
                 self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: originalSubscriptionType)
-                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+              //  subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
-            subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
+          //  subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has ended. Please upgrade your subscription to resume using the Premium features."
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
             badgeImageView.isHidden = true
         } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             self.setuptimerViewBaseOnDayLeft(days: "0", subscriptionType: subscriptionType)
-            subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
+           // subscriptionDetailLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features."
             badgeImageView.isHidden = true
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
             self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
             if daysLeft == 7 {
-                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+              //  subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
             } else if daysLeft == 0 || daysLeft < 0 {
                 
             } else if daysLeft == 1 {
-                subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
+              //  subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
             } else {
-                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+              //  subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }
             self.subscribersHideTimer(subscriptionType: subscriptionType)
         } else if subscriptionType == SubscriptionTypeForBadge.ADVANCE.rawValue {
             self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
             if daysLeft == 7 {
-                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+               // subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
             } else if daysLeft == 0 || daysLeft < 0 {
                 
             } else if daysLeft == 1 {
-                subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
+               // subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
             } else {
-                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+               // subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }
             self.subscribersHideTimer(subscriptionType: subscriptionType)
         } else if subscriptionType == SubscriptionTypeForBadge.PRO.rawValue || subscriptionType == "premium" {
             self.setuptimerViewBaseOnDayLeft(days: "\(daysLeft)", subscriptionType: subscriptionType)
             if daysLeft == 7 {
-                subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
+              //  subscriptionDetailLabel.text = "Your 7-Day Premium Free Trial has started. You have 7 days to access all the QuickCam premium features for free while learning how to create fun and engaging content and/or make money sharing QuickCam."
             } else if daysLeft == 0 || daysLeft < 0 {
                 
             } else if daysLeft == 1 {
-                subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
+              //  subscriptionDetailLabel.text = "Today is the last day of your 7-Day Premium Free Trial"
             } else {
-                subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
+               // subscriptionDetailLabel.text = "You have \(daysLeft) days left on your free trial. Subscribe now and earn your subscription badge."
             }
             self.subscribersHideTimer(subscriptionType: subscriptionType)
         }
@@ -1392,3 +1393,28 @@ extension WelcomeViewController {
     }
 }
 
+extension WelcomeViewController {
+    func setupMessages() {
+        UserSync.shared.getMessages(screen: "welcome-daily-popup") { messageData in
+            let messsgeData: [MessageData] = messageData?.data ?? []
+            if let messageDataObj =  messsgeData.first, let messageObj = messageDataObj.messages?.first {
+                let aData: [String] = messageObj.a ?? []
+                let bData: [String] = messageObj.b ?? []
+                let cData: [String] = messageObj.c ?? []
+                
+                let astr = aData.joined(separator: "\n")
+                let bstr = bData.joined(separator: "\n")
+                let cstr = cData.joined(separator: "\n")
+                print("\(astr)--\(bstr)---\(cstr)")
+                
+                self.subscriptionDetailLabel.text = astr + "\n" + bstr
+                self.timerLeftLabel.text = cstr
+                if self.timerLeftLabel.text?.trimStr() == "" {
+                    self.timerLeftLabel.isHidden = true
+                } else {
+                    self.timerLeftLabel.isHidden = false
+                }
+            }
+        }
+    }
+}
