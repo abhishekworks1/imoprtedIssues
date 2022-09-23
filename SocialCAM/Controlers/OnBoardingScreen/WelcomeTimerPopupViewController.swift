@@ -52,7 +52,7 @@ class WelcomeTimerPopupViewController: UIViewController {
         super.viewDidLoad()
        setUpUI()
         setOnboardImageName()
-        setSubscriptionMessageLabel()
+//        setSubscriptionMessageLabel()
         setUpgradeButton()
     }
     override func viewWillAppear(_ animated: Bool) {

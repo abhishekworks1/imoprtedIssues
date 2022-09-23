@@ -150,7 +150,7 @@ class SubscriptionsViewController: UIViewController {
             setTimer()
 //        }
         setupFreeTrialView()
-        setUpMessageLabel()
+//        setUpMessageLabel()
         tapGestureSetUp()
         if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
             if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
@@ -641,24 +641,24 @@ class SubscriptionsViewController: UIViewController {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Time remaining"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Time remaining"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
                showUpTimer(timerDate: timerDate)
             } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
                 showUpTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features.\nTime since subscription ended"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features.\nTime since subscription ended"
                 showUpTimer(timerDate: timerDate)
             }
         } else {
