@@ -145,14 +145,14 @@ open class InstaSlider: UIView {
                 currentCell.label.makeLabelOpaque()
                // currentCell.label.textColor = cellTextColor
                 currentCell.label.textColor = UIColor(hex:"ebebeb")
-                currentCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                currentCell.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
                 selectedCell = collectionView.indexPath(for: cell!)?.item
                 cell!.label.textColor = selectedCellTextColor
-                cell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                cell!.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
                 //print("**SelectedC1 \(cell!.label.text)")
                 Defaults.shared.callHapticFeedback(isHeavy: false)
                 if (self.currentCell != nil) {
@@ -166,11 +166,11 @@ open class InstaSlider: UIView {
                 currentCell!.label.makeLabelOpaque()
               //  currentCell!.label.textColor = cellTextColor
                 currentCell!.label.textColor = UIColor(hex:"ebebeb")
-                currentCell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                currentCell!.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
                     cells!.label.textColor = selectedCellTextColor
-                    cells!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                    cells!.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
                     //print("**SelectedC2 \(cells!.label.text)")
                 }
             }
@@ -191,7 +191,7 @@ open class InstaSlider: UIView {
                 currentCell.label.makeLabelOpaque()
                // currentCell.label.textColor = cellTextColor
                 currentCell.label.textColor = UIColor(hex:"ebebeb")
-                currentCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                currentCell.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
                 currentCell.view.isHidden = true
                 currentCell.viewCenter.isHidden = true
             }
@@ -207,7 +207,7 @@ open class InstaSlider: UIView {
                     cell!.viewCenter.isHidden = true
                 }
                 cell!.label.textColor = selectedCellTextColor
-                cell!.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                cell!.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
                 //print("**SelectedC1 \(cell!.label.text)")
             }
         }
@@ -264,7 +264,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
-                kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                kCell.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
                 if showCenterView(cameraType: cameraType) {
                     kCell.view.isHidden = true
                     kCell.viewCenter.isHidden = false
@@ -276,7 +276,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
                 kCell.label.makeLabelOpaque()
                // kCell.label.textColor = cellTextColor
                 kCell.label.textColor = UIColor(hex:"ebebeb")
-                kCell.label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                kCell.label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
                 
                 kCell.view.isHidden = true
                 kCell.viewCenter.isHidden = true
@@ -349,7 +349,7 @@ class CollectionViewCustomCell: UICollectionViewCell {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
