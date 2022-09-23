@@ -106,6 +106,11 @@ class WelcomeTimerPopupViewController: UIViewController {
                 } else {
                     self.timerDescLabel.isHidden = false
                 }
+                if self.topMessageLabel.text?.count ?? 0 > 0 {
+                    self.topMessageView.isHidden = false
+                } else {
+                    self.topMessageView.isHidden = true
+                }
             }
         }
     }
