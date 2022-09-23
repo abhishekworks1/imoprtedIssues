@@ -286,11 +286,7 @@ class UserSync {
         
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         request.responseDecodable(of: MessagesResponse.self) {(resposnse) in
-            print("test \(resposnse.value)")
-
-            print(String(data: resposnse.data!, encoding: String.Encoding.utf8))
-            
-            completion(resposnse.value)
+          completion(resposnse.value)
         }
 
     }
