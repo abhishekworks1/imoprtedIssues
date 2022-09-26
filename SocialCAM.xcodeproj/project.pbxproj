@@ -9839,6 +9839,7 @@
 		A1450EB42864B25B0094ED7C /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB02864B2560094ED7C /* LineLayer.swift */; };
 		A1450EB52864B25B0094ED7C /* StepIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB12864B2560094ED7C /* StepIndicatorView.swift */; };
 		A1450EB72864DE860094ED7C /* QuickStartOptionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */; };
+		A1E513C928E1E18800EF4C2E /* QuickStartPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E513C728E1E18000EF4C2E /* QuickStartPageViewController.swift */; };
 		A5DFA48E6B7A3F536FA84BC6 /* Pods_Pic2Art.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12AB906D69BDE0807AD8E9CF /* Pods_Pic2Art.framework */; };
 		BB3C2EE128B54FF60095434E /* ShareSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */; };
 		BB3C2EE228B54FF60095434E /* ShareSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */; };
@@ -16544,6 +16545,7 @@
 		A1450EB02864B2560094ED7C /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
 		A1450EB12864B2560094ED7C /* StepIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepIndicatorView.swift; sourceTree = "<group>"; };
 		A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartOptionDetailViewController.swift; sourceTree = "<group>"; };
+		A1E513C728E1E18000EF4C2E /* QuickStartPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartPageViewController.swift; sourceTree = "<group>"; };
 		A32455081ED8F0CC55A1E49A /* Pods-ViralCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCamLite.release.xcconfig"; path = "Target Support Files/Pods-ViralCamLite/Pods-ViralCamLite.release.xcconfig"; sourceTree = "<group>"; };
 		A41C33C6D54082DABB9C7937 /* Pods-SnapCamLite.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapCamLite.beta.xcconfig"; path = "Target Support Files/Pods-SnapCamLite/Pods-SnapCamLite.beta.xcconfig"; sourceTree = "<group>"; };
 		A6291129B82617C0D72DA5B3 /* Pods-SoccerCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerCam.alpha.xcconfig"; path = "Target Support Files/Pods-SoccerCam/Pods-SoccerCam.alpha.xcconfig"; sourceTree = "<group>"; };
@@ -17138,6 +17140,7 @@
 				A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */,
 				A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */,
 				A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */,
+				A1E513C728E1E18000EF4C2E /* QuickStartPageViewController.swift */,
 				75930D6828525DDF00B1A1EF /* MakeMoneyReferringViewController.swift */,
 				75E7FF082864949400D8C397 /* WelcomeOnboarding.storyboard */,
 				75E7FF0B2864A23C00D8C397 /* WelcomeViewController.swift */,
@@ -34356,6 +34359,7 @@
 				C2F933D8264AA0CA006CA527 /* PhotoEditorViewController.swift in Sources */,
 				C239514026D6795E00C3C607 /* LookUpResponseModel.swift in Sources */,
 				C2F933D9264AA0CA006CA527 /* CollageViewT310.swift in Sources */,
+				A1E513C928E1E18800EF4C2E /* QuickStartPageViewController.swift in Sources */,
 				C2F933DA264AA0CA006CA527 /* NextLevel.swift in Sources */,
 				75E7FF0D2864A23C00D8C397 /* WelcomeViewController.swift in Sources */,
 				C2F933DB264AA0CA006CA527 /* BubbleTransition.swift in Sources */,
@@ -38207,7 +38211,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38236,7 +38240,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38265,7 +38269,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38294,7 +38298,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -41498,7 +41502,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41535,7 +41539,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41574,7 +41578,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41612,7 +41616,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLiteApp-Info.plist";

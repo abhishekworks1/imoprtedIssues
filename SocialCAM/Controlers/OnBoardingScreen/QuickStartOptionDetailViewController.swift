@@ -72,8 +72,8 @@ class QuickStartOptionDetailViewController: UIViewController {
         webview.loadHTMLString(headerString + (selectedQuickStartItem?.content ?? ""), baseURL: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         webview.loadHTMLString("", baseURL: nil)
     }
     
