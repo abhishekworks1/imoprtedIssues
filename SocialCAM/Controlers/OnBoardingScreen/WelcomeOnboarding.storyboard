@@ -2643,12 +2643,18 @@
                                                                     <constraint firstItem="eaK-Xg-t5T" firstAttribute="top" secondItem="4uP-vK-NHn" secondAttribute="top" constant="5" id="8vK-6p-6Xh"/>
                                                                     <constraint firstAttribute="trailing" secondItem="nXA-Fv-0rx" secondAttribute="trailing" constant="14" id="ENY-s5-JdI"/>
                                                                     <constraint firstAttribute="height" constant="550" id="FxC-ac-NYF"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="oib-jM-61h" secondAttribute="bottom" constant="22.329999999999998" id="Ga5-AJ-dwp"/>
                                                                     <constraint firstItem="eaK-Xg-t5T" firstAttribute="leading" secondItem="4uP-vK-NHn" secondAttribute="leading" constant="14" id="MLp-3s-oCU"/>
                                                                     <constraint firstItem="oib-jM-61h" firstAttribute="leading" secondItem="4uP-vK-NHn" secondAttribute="leading" constant="5" id="cJd-yE-Iaw"/>
                                                                     <constraint firstItem="nXA-Fv-0rx" firstAttribute="centerY" secondItem="eaK-Xg-t5T" secondAttribute="centerY" id="nu6-El-yyj"/>
                                                                     <constraint firstAttribute="trailing" secondItem="oib-jM-61h" secondAttribute="trailing" constant="5" id="vZT-pE-p7M"/>
                                                                     <constraint firstItem="oib-jM-61h" firstAttribute="top" secondItem="eaK-Xg-t5T" secondAttribute="bottom" constant="15" id="xaI-ZY-tuO"/>
                                                                 </constraints>
+                                                                <variation key="default">
+                                                                    <mask key="constraints">
+                                                                        <exclude reference="FxC-ac-NYF"/>
+                                                                    </mask>
+                                                                </variation>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EPv-MK-dQH">
                                                                 <rect key="frame" x="0.0" y="1181.6666666666667" width="400" height="128"/>

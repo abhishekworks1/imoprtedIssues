@@ -91,10 +91,10 @@ class WelcomeTimerPopupViewController: UIViewController {
                 self.timerDescLabel.text = cstr
                 if self.topMessageLabel.text?.trimStr() == "" {
                     self.topMessageView.isHidden = true
-                    self.topMessageHeight.constant = 0
+//                    self.topMessageHeight.constant = 0
                 } else {
                     self.topMessageView.isHidden = false
-                    self.topMessageHeight.constant = 80
+//                    self.topMessageHeight.constant = 80
                 }
                 if self.subscriptionMessageLabel.text?.trimStr() == "" {
                     self.subscriptionMessageLabel.isHidden = true

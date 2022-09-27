@@ -1016,13 +1016,15 @@ class OnBoardingViewController: UIViewController {
     
     func openQuickStartOptionDetail(quickStartOption: QuickStartOption, tag: Int) {
         var viewControllers: [UIViewController] = []
+        var titleText = ""
         switch quickStartOption {
         case .createContent:
             var options = Defaults.shared.createContentOptions
             options.append(tag)
             Defaults.shared.createContentOptions = Array(Set(options))
-            for i in 0...tag {
+            for i in 0..<(Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })?.Items?.count ?? 0) {
                 if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    titleText = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })?.label ?? ""
                     quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })
                     quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .createContent {
@@ -1037,8 +1039,9 @@ class OnBoardingViewController: UIViewController {
             var options = Defaults.shared.mobileDashboardOptions
             options.append(tag)
             Defaults.shared.mobileDashboardOptions = Array(Set(options))
-            for i in 0...tag {
+            for i in 0..<(Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })?.Items?.count ?? 0) {
                 if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    titleText = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })?.label ?? ""
                     quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })
                     quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .mobileDashboard {
@@ -1053,8 +1056,9 @@ class OnBoardingViewController: UIViewController {
             var options = Defaults.shared.makeMoneyOptions
             options.append(tag)
             Defaults.shared.makeMoneyOptions = Array(Set(options))
-            for i in 0...tag {
+            for i in 0..<(Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })?.Items?.count ?? 0) {
                 if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    titleText = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })?.label ?? ""
                     quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })
                     quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .makeMoney {
@@ -1067,7 +1071,16 @@ class OnBoardingViewController: UIViewController {
             }
         }
         UserSync.shared.setOnboardingUserFlags()
-        navigationController?.viewControllers.append(contentsOf: viewControllers)
+        
+        let appearance = UIPageControl.appearance(whenContainedInInstancesOf: [UIPageViewController.self])
+        appearance.pageIndicatorTintColor = UIColor(hexString: "D9D9D9")
+        appearance.currentPageIndicatorTintColor = UIColor(hexString: "007DFF")
+
+        let quickStartPage = R.storyboard.onBoardingView.quickStartPageContainerViewController()
+        quickStartPage?.titleText = titleText
+        quickStartPage?.viewcontrollersList = viewControllers
+        quickStartPage?.startIndex = tag
+        navigationController?.pushViewController(quickStartPage!, animated: true)
     }
     
 }
