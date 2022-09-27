@@ -59,6 +59,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     let characterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     let colorCodeArray = ["006CFF","000000", "00B2FF","00FFC2", "05FFF0","1C2898","252E49","296459","4F964E","531232","531C98","542B0B", "62345B","64FF05", "751A46", "781717","784A17", "7D46F5","844186","859AA3","986771","B51717", "BB97B1","D5C7AC","D99E3B","E0B87A", "FF0000","FF069C","FF8C05","FFF505"]
+    
+    
+    @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var lblNum2: UILabel!
     @IBOutlet weak var lblNum3: UILabel!
     @IBOutlet weak var lblNum4: UILabel!
@@ -580,6 +583,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
             lblNum5.backgroundColor = .white
+            
+            mainScrollView.isScrollEnabled = true
         }
         else if pageNo == 2 {
             page0view.isHidden = true
@@ -602,6 +607,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             selectedTitleRow = nil
             itemsTableView.reloadData()
             emailSubjectTextLabel.text = ""
+            
+            mainScrollView.isScrollEnabled = true
         }
         else if pageNo == 3 {
             page0view.isHidden = true
@@ -630,7 +637,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if self.isTitleRawSelected == false{
                 itemsTableView.reloadData()
             }
-          
+            mainScrollView.isScrollEnabled = true
         }
         else if pageNo == 4 {
             page0view.isHidden = true
@@ -678,6 +685,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 emailMaualtextView.isHidden = true
                 messageImagePreviewView.isHidden = false
             }
+            mainScrollView.isScrollEnabled = false
         }
         else if pageNo == 5 {
             page0view.isHidden = true
@@ -715,6 +723,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             @unknown default:
                 break
             }
+            mainScrollView.isScrollEnabled = true
         }
     }
     func fetchTitleMessages(){
@@ -1350,6 +1359,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             filterOptionView.isHidden = true
         }
     }
+    @IBAction func addContactButtonClicked(sender: UIButton) {
+        if let contactEdit = R.storyboard.contactWizardwithAboutUs.addContactVC() {
+          //  contactEdit.modalPresentationStyle = .fullScreen
+            contactEdit.delegate = self
+            self.present(contactEdit, animated: true, completion: nil)
+        }
+    }
     func hasContactPermission() -> Bool {
         var hasPermission = false
         
@@ -1563,6 +1579,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
                     self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(link)"
+                    self.emailMaualtextView.layoutSubviews()
                 }
                 break
                 // do something
@@ -2211,6 +2228,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     print(self.txtLinkWithCheckOut)
                     self.txtvwpreviewText.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
                     self.messageTextPreviewTextView.text = "\(self.txtLinkWithCheckOut)\n\n\(urlToShare)"
+                    self.emailMaualtextView.layoutSubviews()
                     //                self.lblpreviewText.text = self.txtLinkWithCheckOut
                 }
                 return cell
@@ -3616,6 +3634,7 @@ extension ContactImportVC: MessageTitleDelagate {
         case 3:
             self.txtDetailForEmail = textViewText
             self.txtvwpreviewText.text = "\(textViewText)\n\n\(urlToShare)"
+            self.emailMaualtextView.layoutSubviews()
         default:
             break
         }
