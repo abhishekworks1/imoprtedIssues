@@ -130,7 +130,7 @@ class SubscriptionsViewController: UIViewController {
                 planActiveView.isHidden = false
             }
         }else{
-            lblPrice.text = "Free:  $0/month \nNo subscription required"
+            lblPrice.text = "Free: $0/month \nNo subscription required"
             subScriptionTypeLabel.text = "Free"
             if (subscriptionStatus.lowercased() == "trial"){
                 let numberOfFreeTrialDays = Defaults.shared.numberOfFreeTrialDays ?? 0
