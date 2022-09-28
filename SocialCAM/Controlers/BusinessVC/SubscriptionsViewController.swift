@@ -156,15 +156,19 @@ class SubscriptionsViewController: UIViewController {
             if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
                 if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
                     self.timerStackView.isHidden = true
-                    self.messageLabel.isHidden = true
+                   // self.messageLabel.isHidden = true
                 }
             }
             if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
                 self.timerStackView.isHidden = true
-                self.messageLabel.isHidden = true
+               // self.messageLabel.isHidden = true
             }
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupMessage(
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -683,12 +687,12 @@ class SubscriptionsViewController: UIViewController {
                 if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
                     if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
                         self.timerStackView.isHidden = true
-                        self.messageLabel.isHidden = true
+                       // self.messageLabel.isHidden = true
                     }
                 }
                 if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
                     self.timerStackView.isHidden = true
-                    self.messageLabel.isHidden = true
+                  //  self.messageLabel.isHidden = true
                 }
             }
             
@@ -724,12 +728,12 @@ class SubscriptionsViewController: UIViewController {
             if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
                 if subscriptionStatus == "trial" && (paidSubscriptionStatus == "premium" || paidSubscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue) {
                     self.timerStackView.isHidden = true
-                    self.messageLabel.isHidden = true
+                   // self.messageLabel.isHidden = true
                 }
             }
             if subscriptionStatus == SubscriptionTypeForBadge.PRO.rawValue || subscriptionStatus == "premium" {
                 self.timerStackView.isHidden = true
-                self.messageLabel.isHidden = true
+               // self.messageLabel.isHidden = true
             }
         }
     }
@@ -1295,6 +1299,7 @@ extension SubscriptionsViewController {
                 
                 
                 self.messageLabel.text = astr + bstr + "\n" + cstr
+                self.messageLabel.isHidden = false
                 if self.messageLabel.text?.trimStr() == "" {
                     self.messageLabel.isHidden = true
                 }
