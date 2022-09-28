@@ -398,7 +398,23 @@ class SubscriptionsViewController: UIViewController {
 //            }
 //        }
     }
-    
+    private func setUpgradeButton(){
+        if Defaults.shared.subscriptionType == "pro"{
+            self.upGradeButtonView.isHidden = true
+        }else if Defaults.shared.subscriptionType == "advance"{
+            if subscriptionType == .basic{
+                self.upGradeButtonView.isHidden = true
+            }else if subscriptionType == .professional{
+                self.upGradeButtonView.isHidden = false
+            }
+        }else if Defaults.shared.subscriptionType == "basic"{
+            if subscriptionType == .advanced{
+                self.upGradeButtonView.isHidden = false
+            }else if subscriptionType == .professional{
+                self.upGradeButtonView.isHidden = false
+            }
+        }
+    }
     private func setupUI() {
         let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
         if let currentUser = Defaults.shared.currentUser {
@@ -419,8 +435,9 @@ class SubscriptionsViewController: UIViewController {
             }
             //if (currentUser.isTempSubscription == true && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
             if ((Defaults.shared.subscriptionType == "trial") && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
-//                btnUpgrade.isHidden = true
+               // btnUpgrade.isHidden = true
             }
+            
         }
         self.lblTitle.text = self.subscriptionType.description
         print(self.subscriptionType.description)
@@ -495,6 +512,7 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .free {
 //            btnUpgrade.isHidden = true
         }
+        
         var subscriptionStatus = "free"
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
             subscriptionStatus = paidSubscriptionStatus
@@ -508,6 +526,7 @@ class SubscriptionsViewController: UIViewController {
             upGradeButtonView.isHidden = true
             planActiveView.isHidden = false
         }
+        self.setUpgradeButton()
         if appMode == .free{
             upGradeButtonView.isHidden = true
         }

@@ -157,6 +157,8 @@ extension ProManagerApi: TargetType {
             return URL.init(string: Constant.Instagram.basicUrl)!
         case .buySubscription:
             return URL.init(string: API.shared.baseUrlV2)!
+        case .userSync:
+            return URL.init(string: API.shared.baseUrlV2)!
         default:
             return URL.init(string: API.shared.baseUrl)!
         }
