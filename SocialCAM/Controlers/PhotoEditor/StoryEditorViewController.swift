@@ -182,6 +182,12 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var youtubeShareView: UIView!
     @IBOutlet weak var tiktokShareView: UIView!
     @IBOutlet weak var chingariShareView: UIView!
+    @IBOutlet weak var snapChatShareView: UIView!
+    @IBOutlet weak var twitterShareView: UIView!
+    @IBOutlet weak var facebookShareView: UIView!
+    @IBOutlet weak var instagramShareView: UIView!
+    @IBOutlet weak var messangerShareView: UIView!
+    
     
     @IBOutlet weak var discardPopUpMessageLabel: UILabel!
     @IBOutlet weak var btnShowHideEditImage: UIButton!
@@ -394,7 +400,8 @@ class StoryEditorViewController: UIViewController {
         downloadViewGesture()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
         self.lblUserNameWatermark.text = "@\(Defaults.shared.channelName ?? "")"
-        self.userNameLabelWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        self.userNameLabelWatermark.text = "@\(Defaults.shared.channelName ?? "")"
+//        "@\(Defaults.shared.currentUser?.username ?? "")"
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
@@ -435,14 +442,43 @@ class StoryEditorViewController: UIViewController {
         } else {
             lblSaveShare.text = R.string.localizable.saveVideo()
         }
-        let locale = Locale.current
-        if locale.regionCode?.lowercased() == "in" {
-            chingariShareView.isHidden = false
-        } else {
-            chingariShareView.isHidden = true
-        }
+        
+        self.hideShowSoicalShareView()
     }
     
+    func hideShowSoicalShareView() {
+        
+        self.tiktokShareView.isHidden = !Defaults.shared.isTikTokSharingEnabled
+        self.youtubeShareView.isHidden = !Defaults.shared.isYoutubeSharingEnabled
+        self.snapChatShareView.isHidden = !Defaults.shared.isSnapChatSharingEnabled
+        self.twitterShareView.isHidden = !Defaults.shared.isTwitterSharingEnabled
+        self.facebookShareView.isHidden = !Defaults.shared.isFacebookSharingEnabled
+        self.messangerShareView.isHidden = !Defaults.shared.isFBMessangerSharingEnabled
+        self.instagramShareView.isHidden = !Defaults.shared.isInstagramSharingEnabled
+        self.chingariShareView.isHidden = !Defaults.shared.isChingariSharingEnabled
+        
+        var isImage = false
+        switch storyEditors[currentStoryIndex].type {
+        case .image:
+            isImage = true
+        default: break
+        }
+        
+        
+        let locale = Locale.current
+        if locale.regionCode?.lowercased() == "in" {
+            self.tiktokShareView.isHidden = true
+        } else {
+            self.chingariShareView.isHidden = true
+        }
+        //Hide youtube Temporary
+        self.youtubeShareView.isHidden = true
+        if isImage{
+            self.tiktokShareView.isHidden = true
+            self.youtubeShareView.isHidden = true
+            
+        }
+    }
     
     func socialMediaViewTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSocialMediaView))
@@ -465,26 +501,35 @@ class StoryEditorViewController: UIViewController {
         isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
+        btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         isAppIdentifierWatermarkShow = Defaults.shared.appIdentifierWatermarkSetting == .show
         btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
-        isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
-        btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
-        isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
+        if (Defaults.shared.appIdentifierWatermarkSetting == .show){
+            Defaults.shared.publicDisplaynameWatermarkSetting = .hide
+            isPublicDisplaynameWatermarkShow = false
+            btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
+        } else if (Defaults.shared.publicDisplaynameWatermarkSetting == .show){
+            Defaults.shared.appIdentifierWatermarkSetting = .hide
+            isAppIdentifierWatermarkShow = false
+            btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        }
+        if self.isAppIdentifierWatermarkShow {
+            self.imgQuickCamWaterMark.isHidden = !self.isAppIdentifierWatermarkShow
+            self.userNameLabelWatermark.isHidden = !self.isAppIdentifierWatermarkShow
+        }
+        if self.isPublicDisplaynameWatermarkShow {
+            self.imgQuickCamWaterMark.isHidden = !self.isAppIdentifierWatermarkShow
+            self.userNameLabelWatermark.isHidden = !self.isPublicDisplaynameWatermarkShow
+        }
         //Defaults.shared.currentUser?.username
         self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.channelName ?? "")"
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
        
         storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
-        
-        if Defaults.shared.appMode == .free {
-            btnFastesteverWatermark.isSelected = true
-            btnAppIdentifierWatermark.isSelected = true
-            btnSelectAppIdentifierWatermark.isSelected = true
-            btnSelectedMadeWithGif.isSelected = true
-        }
         
         if  cameraMode == .pic2Art {
             self.imgFastestEverWatermark.image = R.image.pic2artwatermark()
@@ -682,6 +727,7 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.pic2ArtOptionView.isHidden = true
         }
+        self.pic2ArtOptionView.isHidden = true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
         self.splitOptionView.isHidden = true//isImage
@@ -711,6 +757,7 @@ class StoryEditorViewController: UIViewController {
         
 //        self.youtubeShareView.isHidden = isImage //isImage
 //        self.tiktokShareView.isHidden = isImage
+     
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
     }
@@ -1583,6 +1630,7 @@ extension StoryEditorViewController {
                             self.shareWithActivity(url:exportURL)
                         } else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                            SocialShareVideo.shared.socialShareType = type
                         }
                         self.pauseVideo()
                     }
@@ -1619,6 +1667,7 @@ extension StoryEditorViewController {
                             self.shareWithActivity(url:nil,image:image)
                         }else{
                             SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
+                            SocialShareVideo.shared.socialShareType = type
                         }
                         
                     }
@@ -1633,6 +1682,7 @@ extension StoryEditorViewController {
                             self.shareWithActivity(url:exportURL)
                         }else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                            SocialShareVideo.shared.socialShareType = type
                         }
                         self.pauseVideo()
                         self.isVideoPlay = true
@@ -1685,6 +1735,7 @@ extension StoryEditorViewController {
                                             self.shareWithActivity(url:exportURL)
                                         } else {
                                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                            SocialShareVideo.shared.socialShareType = type
                                         }
                                         self.pauseVideo()
                                         self.isVideoPlay = true
@@ -2924,6 +2975,7 @@ extension StoryEditorViewController {
                     self.shareWithActivity(url:exporturl)
                 }else {
                     SocialShareVideo.shared.shareVideo(url: exporturl, socialType: type, referType: self.referType)
+                    SocialShareVideo.shared.socialShareType = type
                 }
                 self.pauseVideo()
                 self.isVideoPlay = true

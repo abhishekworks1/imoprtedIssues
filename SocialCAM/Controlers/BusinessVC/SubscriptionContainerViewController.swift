@@ -103,6 +103,7 @@ class SubscriptionContainerViewController: UIViewController {
         setSubscribeNowLabel()
         setOnboardImageName()
         setTimer()
+        setupMessage()
     }
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
@@ -251,28 +252,28 @@ class SubscriptionContainerViewController: UIViewController {
         } else {
             message = ""
         }
-        lbltrialDays.text = message
-        if lbltrialDays.text == "" {
-            lbltrialDays.isHidden = true
-        }
+//        lbltrialDays.text = message
+//        if lbltrialDays.text == "" {
+//            lbltrialDays.isHidden = true
+//        }
     }
     func setTimer(){
         timerContainerStackView.isHidden = true
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
-                timerDescLabel.text = "Time remaining:"
+               // timerDescLabel.text = "Time remaining:"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
-            timerDescLabel.text = "Time since signing up:"
+           // timerDescLabel.text = "Time since signing up:"
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "expired" {
-            timerDescLabel.text = "Time since your subscription expired:"
+           // timerDescLabel.text = "Time since your subscription expired:"
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
                 showUpTimer(timerDate: timerDate)
             }
@@ -753,5 +754,31 @@ extension SubscriptionContainerViewController {
             return ""
         }
         return ""
+    }
+}
+
+extension SubscriptionContainerViewController {
+    
+    func setupMessage() {
+        UserSync.shared.getMessages(screen: "subscription-plans") { messageData in
+            let messsgeData: [MessageData] = messageData?.data ?? []
+            if let messageDataObj =  messsgeData.first, let messageObj = messageDataObj.messages?.first {
+                let aData: [String] = messageObj.a ?? []
+                let bData: [String] = messageObj.b ?? []
+                let cData: [String] = messageObj.c ?? []
+                
+                let astr = aData.joined(separator: "\n")
+                let bstr = bData.joined(separator: "\n")
+                let cstr = cData.joined(separator: "\n")
+                print("\(astr)--\(bstr)---\(cstr)")
+                
+                self.lbltrialDays.text = astr + "\n" + bstr
+                if self.lbltrialDays.text?.trimStr() == "" {
+                    self.lbltrialDays.isHidden = true
+                }
+                self.timerDescLabel.text = cstr
+            }
+        }
+
     }
 }

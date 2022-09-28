@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import SDWebImage
 
 enum RefferelType:Int{
     case quickStart = 1
@@ -61,11 +62,12 @@ class QRCodeViewController: UIViewController {
     // MARK: - Setup Methods
     func setup() {
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+//            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
             self.imgProfilePic.layer.borderWidth = 1.5
             self.imgProfilePic.layer.borderColor = UIColor.white.cgColor
+            imgProfilePic.loadImageWithSDwebImage(imageUrlString: userImageURL)
 
         }
         setUpbadges()
@@ -94,7 +96,7 @@ class QRCodeViewController: UIViewController {
 
         view.addGestureRecognizer(leftSwipe)
         view.addGestureRecognizer(rightSwipe)
-        navView.addGradient()
+        navView.setHorizontalGradientColor()
        // imageQrCode.addGradient()
         self.quickStartClicked(self.quickStartButton)
         refferelType = .quickStart
@@ -218,31 +220,47 @@ class QRCodeViewController: UIViewController {
     
     
     func setUpbadges() {
-            let badgearry = Defaults.shared.getbadgesArray()
-            preLunchBadge.isHidden = true
-            foundingMergeBadge.isHidden = true
-            socialBadgeicon.isHidden = true
-            subscriptionBadgeicon.isHidden = true
-          
-            if  badgearry.count >  0 {
-                preLunchBadge.isHidden = false
-                preLunchBadge.image = UIImage.init(named: badgearry[0])
-            }
-            if  badgearry.count >  1 {
-                foundingMergeBadge.isHidden = false
-                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-            }
-            if  badgearry.count >  2 {
-                socialBadgeicon.isHidden = false
-                socialBadgeicon.image = UIImage.init(named: badgearry[2])
-            }
-            if  badgearry.count >  3 {
-                subscriptionBadgeicon.isHidden = false
-                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        subscriptionBadgeicon.isHidden = true
+        
+        preLunchBadge.tag = 4
+        foundingMergeBadge.tag = 5
+        socialBadgeicon.tag = 6
+        
+        preLunchBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        foundingMergeBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        socialBadgeicon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        
+        
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge.isHidden = false
+                    preLunchBadge.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge.isHidden = false
+                    foundingMergeBadge.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon.isHidden = false
+                    socialBadgeicon.image = R.image.socialBadge()
+                default:
+                    break
+                }
             }
         }
-    
-    
+    }
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+           let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+           vc.badgeType = .basicBadges
+           vc.selectedBadgeTag = sender?.view?.tag ?? 0
+           vc.modalPresentationStyle = .overFullScreen
+           present(vc, animated: true, completion: nil)
+       }
+
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = Defaults.shared.socialPlatforms {
 //            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
@@ -340,13 +358,31 @@ extension UIView {
         // This way we won't cover any other elements
         self.layer.insertSublayer(gradient, at: 0)
     }
-    func addGradient(){
-       
-        let gradient = CAGradientLayer()
-         let color3 = UIColor(hexString:"4285F4")
-         let color1 = UIColor(hexString:"4F2AD8")
+    
+    
+    
+    func setHorizontalGradientColor() {
+        let gradientLayer = CAGradientLayer()
+        let color3 = UIColor(hexString:"4285F4")
+        let color1 = UIColor(hexString:"4F2AD8")
         let color2 = UIColor(hexString:"4A2EDA")
-         gradient.frame = self.bounds
+        var updatedFrame = self.bounds
+        updatedFrame.size.width += 40
+        gradientLayer.frame = updatedFrame
+        gradientLayer.colors = [color1.cgColor,color2.cgColor,color3.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    
+    func addGradient(){
+        
+        let gradient = CAGradientLayer()
+        let color3 = UIColor(hexString:"4285F4")
+        let color1 = UIColor(hexString:"4F2AD8")
+        let color2 = UIColor(hexString:"4A2EDA")
+        gradient.frame = self.bounds
         gradient.colors = [color1.cgColor,color2.cgColor,color3.cgColor]
         
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5) // vertical gradient start

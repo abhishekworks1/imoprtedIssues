@@ -15,6 +15,11 @@ class SystemSettings {
     var settings: [StorySetting]
     var settingsType: SettingsMode
     
+    var isCollapsible: Bool {
+        return true
+    }
+    var isCollapsed = false
+    
     init(name: String, settings: [StorySetting], settingsType: SettingsMode) {
         self.name = name
         self.settings = settings
@@ -31,6 +36,31 @@ class SystemSettings {
             StorySetting(name: R.string.localizable.all(), selected: false),
             StorySetting(name: R.string.localizable.some(), selected: false),
             StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticFeedBack),
+        
+        StorySettings(name: "Notifications Settings", settings: [StorySetting(name: "", selected: false)], settingsType: .notification),
+        
+        StorySettings(name: "Share on Social Media", settings: [
+            StorySetting(name: SocialMediaApps.tikTok.description, selected: Defaults.shared.isTikTokSharingEnabled, image:  R.image.icoTikTok()),
+            
+            StorySetting(name: SocialMediaApps.instagram.description, selected: Defaults.shared.isInstagramSharingEnabled, image: R.image.instagram()),
+            
+            StorySetting(name: SocialMediaApps.facebook.description, selected: Defaults.shared.isFacebookSharingEnabled, image: R.image.icoFacebook()),
+            
+            StorySetting(name: SocialMediaApps.messanger.description, selected: Defaults.shared.isFBMessangerSharingEnabled, image: R.image.iconMessanger()),
+            
+            StorySetting(name: SocialMediaApps.snapChat.description, selected: Defaults.shared.isSnapChatSharingEnabled, image: R.image.icoSnapchat()),
+                        
+            StorySetting(name: SocialMediaApps.twitter.description, selected: Defaults.shared.isTwitterSharingEnabled, image: R.image.icoTwitter()),
+            
+            StorySetting(name: SocialMediaApps.chingari.description, selected: Defaults.shared.isChingariSharingEnabled, image: R.image.iconChingari()),
+            
+            ],
+            settingsType: .shareOnSocialMedia),
+        
+        StorySettings(name: "Tip of the Day", settings: [
+            StorySetting(name: TipOfTheDay.beginner.description, selected: false),
+            StorySetting(name: TipOfTheDay.intermediate.description, selected: false),
+            StorySetting(name: TipOfTheDay.advanced.description, selected: false)], settingsType: .tipOftheDay),
         ]
 }
 
@@ -44,7 +74,12 @@ class SystemSettingsViewController: UIViewController {
         super.viewDidLoad()
         
         self.systemSettingsTableView.register(R.nib.appSettingsHeaderCell)
+        self.systemSettingsTableView.register(R.nib.notificationSettingCell)
+        self.systemSettingsTableView.register(R.nib.shareOnSocialMediaSettingsCell)
+        self.systemSettingsTableView.register(R.nib.tipOfTheDaySettingCell)
+
         self.systemSettingsTableView.reloadData()
+        self.getReferralNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +99,7 @@ class SystemSettingsViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func onBackPressed(_ sender: UIButton) {
+        self.setReferralNotification()
         self.doNotShowAgainAPI()
         navigationController?.popViewController(animated: true)
     }
@@ -78,8 +114,22 @@ extension SystemSettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let settingTitle = SystemSettings.systemSettings[section]
-        return settingTitle.settings.count
+        
+        let item = SystemSettings.systemSettings[section]
+        guard item.isCollapsible else {
+            if item.settingsType == .shareOnSocialMedia {
+                return 1
+            }
+            return item.settings.count
+        }
+        if item.isCollapsed {
+            return 0
+        } else {
+            if item.settingsType == .shareOnSocialMedia {
+                return 1
+            }
+            return item.settings.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,26 +148,36 @@ extension SystemSettingsViewController: UITableViewDataSource {
             }
             notificationTypeCell.notificationType = .newSignups
             return notificationTypeCell
-        } else if settingTitle.settingsType == .newSubscriptionNotificationSetting {
-            guard let notificationTypeCell: NotificationTypeCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.notificationTypeCell.identifier) as? NotificationTypeCell else {
+        }
+        
+        else if settingTitle.settingsType == .notification {
+            guard let notificationTypeCell: NotificationSettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.notificationSettingCell.identifier) as? NotificationSettingCell else {
                 fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
             }
-            notificationTypeCell.notificationType = .newSubscriptions
+            
             return notificationTypeCell
-        } else if settingTitle.settingsType == .milestoneReachedNotification {
-            systemSettingsCell.systemSettingType = .milestonesReached
-        } else if settingTitle.settingsType == .checkUpdate {
-            systemSettingsCell.title.isHidden = true
-            systemSettingsCell.btnSelectShowAllPopup.isHidden = true
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.checkUpdatesTableViewCell.identifier) as? CheckUpdatesTableViewCell else {
-                fatalError("\(R.reuseIdentifier.checkUpdatesTableViewCell.identifier) Not Found")
-            }
-            cell.lblCheckUpdate.text = R.string.localizable.checkUpdates()
-            return cell
-        } else if settingTitle.settingsType == .onboarding {
+        }
+        
+        else if settingTitle.settingsType == .onboarding {
             systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
         } else if settingTitle.settingsType == .hapticFeedBack {
             systemSettingsCell.configureCellForSection(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
+        } else if settingTitle.settingsType == .shareOnSocialMedia {
+            guard let shareOnSocialMediaSettingsCell: ShareOnSocialMediaSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.shareOnSocialMediaSettingsCell.identifier) as? ShareOnSocialMediaSettingsCell else {
+                fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
+            }
+            shareOnSocialMediaSettingsCell.objSocialShareitems = settingTitle.settings
+            shareOnSocialMediaSettingsCell.configureCell()
+            return shareOnSocialMediaSettingsCell
+        }
+        else if settingTitle.settingsType == .tipOftheDay {
+            guard let tipOftheDayCell: TipOfTheDaySettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.tipOfTheDaySettingCell.identifier) as? TipOfTheDaySettingCell else {
+                fatalError("\(R.reuseIdentifier.tipOfTheDaySettingCell.identifier) Not Found")
+            }
+            
+            tipOftheDayCell.configureCell(storySetting: SystemSettings.systemSettings[indexPath.section].settings[indexPath.row])
+
+            return tipOftheDayCell
         }
         
         return systemSettingsCell
@@ -127,13 +187,24 @@ extension SystemSettingsViewController: UITableViewDataSource {
 // MARK: - Table View Delegate
 extension SystemSettingsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let settingTitle = SystemSettings.systemSettings[indexPath.section]
+        
+        if settingTitle.settingsType == .shareOnSocialMedia {
+            return CGFloat(70 * Int(settingTitle.settings.count/2))
+        }
+        return UITableView.automaticDimension
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        AppSettingHeaderCell
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appSettingsHeaderCell.identifier) as? AppSettingsHeaderCell else {
             fatalError("\(R.reuseIdentifier.appSettingsHeaderCell.identifier) Not Found")
         }
+        let settingTitle = SystemSettings.systemSettings[section]
+        headerView.section = section
+        headerView.collapsed = settingTitle.isCollapsed
         headerView.lblTitle.text = SystemSettings.systemSettings[section].name
-
+        headerView.delegate = self
         return headerView
     }
     
@@ -171,6 +242,11 @@ extension SystemSettingsViewController: UITableViewDelegate {
             
             tableView.reloadData()
         }
+        
+        if settingType == .beginner || settingType == .intermediate || settingType == .advanced {
+            Defaults.shared.selectedTipOfTheLevel = indexPath.row
+            tableView.reloadData()
+        }
     }
 }
 
@@ -199,8 +275,72 @@ extension SystemSettingsViewController {
 extension SystemSettingsViewController: SubscriptionScreenDelegate {
     
     func backFromSubscription() {
-        
-        print("Function == \(#function) Line === \(#line)")
         self.systemSettingsTableView.reloadData()
+    }
+}
+
+// MARK: - Api Calls
+extension SystemSettingsViewController {
+    
+    func getReferralNotification() {
+//        self.showHUD()
+        ProManagerApi.getReferralNotification.request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+//            self.dismissHUD()
+            if response.status == ResponseType.success {
+                if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 3)) as? NotificationSettingCell {
+                    
+                    cell.objReferralNotification = response.result!
+                    cell.configureCell()
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func setReferralNotification() {
+        var numberOfUsers = 1
+        var cameraAppSubscription = 1
+        var businessDashboardSubscription = 1
+        if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 3)) as? NotificationSettingCell, let numberOfUserText = cell.txtNumberOfSignup.text, let cameraAppText = cell.txtCameraAppSubscription.text, let busineeDsahBoardText = cell.txtBusinessDashboard.text {
+            numberOfUsers = Int(numberOfUserText) ?? 1
+            cameraAppSubscription = Int(cameraAppText) ?? 1
+            businessDashboardSubscription = Int(busineeDsahBoardText) ?? 1
+        }
+        let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
+        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? numberOfUsers : numberOfUsers, betweenCameraAppSubscription: cameraAppSubscription, betweenBusinessDashboardSubscription: businessDashboardSubscription, isBadgeEarned: Defaults.shared.milestonesReached).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+}
+
+extension SystemSettingsViewController: HeaderViewDelegate {
+    func toggleSection(header: UITableViewCell, section: Int) {
+        let settingTitle = SystemSettings.systemSettings[section]
+        if settingTitle.isCollapsible {
+
+            // Toggle collapse
+            let collapsed = !settingTitle.isCollapsed
+            settingTitle.isCollapsed = collapsed
+            self.systemSettingsTableView?.reloadData()
+        }
     }
 }

@@ -48,7 +48,7 @@ class SelectLinkViewController: UIViewController {
                 imageViewProfile.isHidden = true
             }
             imageViewProfile.isHidden = false
-            imageViewProfile.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            imageViewProfile.loadImageWithSDwebImage(imageUrlString: userImageURL)
         } else {
             imageViewProfile.isHidden = true
         }

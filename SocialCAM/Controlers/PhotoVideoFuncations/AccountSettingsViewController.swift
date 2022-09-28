@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class AccountSettings {
     
@@ -22,13 +23,14 @@ class AccountSettings {
     
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.pleaseEnterEmail(), selected: false)], settingsType: .email),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.displayName(), selected: false)], settingsType: .publicDisplayName)
-//        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.displayName(), selected: false)], settingsType: .publicDisplayName),
+        StorySettings(name: "", settings: [StorySetting(name: "Channel Name Display", selected: false)], settingsType: .channelDisplayName),
+        StorySettings(name: "", settings: [StorySetting(name: "Delete my account?", selected: false)], settingsType: .deleteAccount)
     ]
     //StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName), // Hide Private name for boomicam
 }
 
-class AccountSettingsViewController: UIViewController {
+class AccountSettingsViewController: UIViewController, DisplayTooltiPDelegate {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var accountSettingsTableView: UITableView!
@@ -42,11 +44,12 @@ class AccountSettingsViewController: UIViewController {
     // MARK: - Variable Declarations
     var isDisplayNameChange = false
     private lazy var storyCameraVC = StoryCameraViewController()
-    
+    var easyTipView: EasyTipView?
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.accountSettingsTableView.reloadData()
+        self.setupEasyTipView()
     }
     
     func showHideButtonView(isHide: Bool) {
@@ -88,6 +91,16 @@ class AccountSettingsViewController: UIViewController {
     
     @IBAction func onDisplayNameOkPressed(_ sender: UIButton) {
         self.displayNameTooltipView.isHidden = true
+    }
+    
+    func setupEasyTipView() {
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont.systemFont(ofSize: 12)
+        preferences.drawing.textAlignment = .left
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor(red: 0, green: 125/255, blue: 255/255, alpha: 1.0)
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.left
+        EasyTipView.globalPreferences = preferences
     }
 }
 
@@ -133,8 +146,9 @@ extension AccountSettingsViewController: UITableViewDataSource {
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
-            accountSettingsCell.imgSettingIcon.image = R.image.iconAccountDelete()
-        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email {
+            accountSettingsCell.imgSettingIcon.image = R.image.storyDelete()?.withRenderingMode(.alwaysTemplate)
+            accountSettingsCell.imgSettingIcon.tintColor = R.color.labelError()
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email || settingTitle.settingsType == .channelDisplayName {
             guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
                 return accountSettingsCell
             }
@@ -147,6 +161,8 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 displayNameCell.displayNameType = .privateDisplayName
             }else if settingTitle.settingsType == .email {
                 displayNameCell.displayNameType = .emailAddress
+            } else if settingTitle.settingsType == .channelDisplayName {
+                displayNameCell.displayNameType = .channelDisplayName
             }
             displayNameCell.txtDisplaName.alpha = settingTitle.settingsType == .email ? 0.5 : 1
             displayNameCell.txtDisplaName.isUserInteractionEnabled = !(settingTitle.settingsType == .email)
@@ -187,7 +203,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
         let settingTitle = AccountSettings.accountSettings[indexPath.section]
         if settingTitle.settingsType == .referringChannelName {
             return 60
-        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email {
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email || settingTitle.settingsType == .channelDisplayName {
             return 94
         } else {
             return 40
@@ -207,7 +223,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
                 }
             }
         } else if settingTitle.settingsType == .deleteAccount {
-            lblPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
+            lblPopup.text = "Are you sure you want to delete your account?"
             showHideButtonView(isHide: true)
             popupView.isHidden = false
         } else if settingTitle.settingsType == .referringChannelName {
@@ -217,34 +233,76 @@ extension AccountSettingsViewController: UITableViewDelegate {
         }
     }
     
+    func removeDeviceToken() {
+        if let deviceToken = Defaults.shared.deviceToken {
+            ProManagerApi.removeToken(deviceToken: deviceToken).request(Result<RemoveTokenModel>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else {
+                    return
+                }
+                if response.status != ResponseType.success {
+                    self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                }
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        }
+    }
+    
     func deleteUserAccount() {
-        ProManagerApi.userDelete.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
-                StoriCamManager.shared.logout()
-                TwitterManger.shared.logout()
-                GoogleManager.shared.logout()
-                FaceBookManager.shared.logout()
-                InstagramManager.shared.logout()
-                SnapKitManager.shared.logout { _ in
+        let path = API.shared.baseUrlV2 + "user/me"
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                              "userid": Defaults.shared.currentUser?.id ?? "",
+                                              "deviceType": "1",
+                                              "platformType": "ios",
+                                              "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        request.responseDecodable(of: TipOfDayResponse.self) {(resposnse) in
+            StoriCamManager.shared.logout()
+            TwitterManger.shared.logout()
+            GoogleManager.shared.logout()
+            FaceBookManager.shared.logout()
+            InstagramManager.shared.logout()
+            SnapKitManager.shared.logout { _ in
                 
-                }
-                if #available(iOS 13.0, *) {
-                    AppleSignInManager.shared.logout()
-                }
-                self.accountSettingsTableView.reloadData()
-                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                    Defaults.shared.clearData(isDeleteAccount: true)
-                    Utils.appDelegate?.window?.rootViewController = loginNav
-                }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
-            self.popupView.isHidden = true
-        }, onError: { error in
-            self.popupView.isHidden = true
-            self.showAlert(alertMessage: error.localizedDescription)
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag)
+            if #available(iOS 13.0, *) {
+                AppleSignInManager.shared.logout()
+            }
+            self.removeDeviceToken()
+            if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+               // Defaults.shared.clearData()
+                Utils.appDelegate?.window?.rootViewController = loginNav
+            }
+        }
+        
+//        ProManagerApi.userDelete.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+//            if response.status == ResponseType.success {
+//                StoriCamManager.shared.logout()
+//                TwitterManger.shared.logout()
+//                GoogleManager.shared.logout()
+//                FaceBookManager.shared.logout()
+//                InstagramManager.shared.logout()
+//                SnapKitManager.shared.logout { _ in
+//
+//                }
+//                if #available(iOS 13.0, *) {
+//                    AppleSignInManager.shared.logout()
+//                }
+//                self.accountSettingsTableView.reloadData()
+//                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+//                    Defaults.shared.clearData(isDeleteAccount: true)
+//                    Utils.appDelegate?.window?.rootViewController = loginNav
+//                }
+//            } else {
+//                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+//            }
+//            self.popupView.isHidden = true
+//        }, onError: { error in
+//            self.popupView.isHidden = true
+//            self.showAlert(alertMessage: error.localizedDescription)
+//        }, onCompleted: {
+//        }).disposed(by: self.rx.disposeBag)
     }
     
     func editDisplayName() {
@@ -281,18 +339,44 @@ extension AccountSettingsViewController: UITableViewDelegate {
     }
 }
 
-extension AccountSettingsViewController: DisplayTooltiPDelegate {
-    func displayTooltip(index: Int) {
-        self.displayNameTooltipView.isHidden = false
+extension AccountSettingsViewController {
+    
+    func displayTooltip(index: Int, cell: DisplayNameTableViewCell) {
+        self.displayNameTooltipView.isHidden = true
+//        self.easyTipView?.dismiss()
         if index == 0 {
-            self.lblDisplayNameTooltip.text = "You must go to the Business Dashboard to update your Email Address."
+            self.showEasyTipView(string: R.string.localizable.emailTooltip(), forview: cell.btnDisplayNameTooltipIcon, superView: cell.contentView)
+            
         }else if index == 1 {
-            self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+            
+            self.showEasyTipView(string: R.string.localizable.publicDisplayNameTooltip(), forview: cell.btnDisplayNameTooltipIcon, superView: cell.contentView)
+            
         } else if index == 2 {
-           // self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+            
+            self.showEasyTipView(string: R.string.localizable.channelDisplayNameTooltip(), forview: cell.btnDisplayNameTooltipIcon, superView: cell.contentView)
         }
     }
-    func displayTextAlert(string:String){
+    func displayTextAlert(string:String, cell: DisplayNameTableViewCell){
         self.showAlert(alertMessage: string)
+    }
+    
+    func showEasyTipView(string: String, forview: UIView, superView: UIView) {
+        if self.easyTipView != nil {
+            self.easyTipView?.dismiss()
+        }
+        self.easyTipView = EasyTipView(text: string)
+        
+        self.easyTipView!.show(animated: true, forView: forview, withinSuperview: superView)
+    }
+}
+
+extension AccountSettingsViewController:EasyTipViewDelegate {
+    
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+        tipView.dismiss()
+    }
+    
+    func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+        
     }
 }

@@ -28,6 +28,7 @@ class QuickStartCategoryContent: Codable, Equatable {
     var updatedAt: String?
     var isread: Bool?
     var content: String?
+    var itemId: String?
 }
 
 class QuickStartCategory: Codable, Equatable {
@@ -829,7 +830,7 @@ class OnBoardingViewController: UIViewController {
     @IBOutlet var lastOptionCreateContent: UIStackView!
     @IBOutlet weak var lblAppInfo: UILabel! {
         didSet {
-            lblAppInfo.text = "\(Constant.Application.displayName) - 1.2(40.\(Constant.Application.appBuildNumber))"
+            lblAppInfo.text = "\(Constant.Application.displayName) - 1.3(43.\(Constant.Application.appBuildNumber))"
         }
     }
     @IBOutlet weak var imgAppLogo: UIImageView! {
@@ -837,6 +838,7 @@ class OnBoardingViewController: UIViewController {
 //            setupUI()
         }
     }
+    @IBOutlet weak var tableView: UITableView!
 
     var showPopUpView: Bool = false
     var shouldShowFoundingMemberView: Bool = true
@@ -846,6 +848,7 @@ class OnBoardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "QuickStartGuideTableViewCell", bundle: nil), forCellReuseIdentifier: "QuickStartGuideTableViewCell")
         backButton.isHidden = false
         setupView()
         switch Defaults.shared.selectedQuickStartOption {
@@ -899,6 +902,7 @@ class OnBoardingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fillStepIndicatorViews()
+        tableView.reloadData()
     }
     
     func fillStepIndicatorViews() {
@@ -1012,13 +1016,15 @@ class OnBoardingViewController: UIViewController {
     
     func openQuickStartOptionDetail(quickStartOption: QuickStartOption, tag: Int) {
         var viewControllers: [UIViewController] = []
+        var titleText = ""
         switch quickStartOption {
         case .createContent:
             var options = Defaults.shared.createContentOptions
             options.append(tag)
             Defaults.shared.createContentOptions = Array(Set(options))
-            for i in 0...tag {
+            for i in 0..<(Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })?.Items?.count ?? 0) {
                 if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    titleText = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })?.label ?? ""
                     quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })
                     quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "create_engaging_content" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .createContent {
@@ -1033,8 +1039,9 @@ class OnBoardingViewController: UIViewController {
             var options = Defaults.shared.mobileDashboardOptions
             options.append(tag)
             Defaults.shared.mobileDashboardOptions = Array(Set(options))
-            for i in 0...tag {
+            for i in 0..<(Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })?.Items?.count ?? 0) {
                 if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    titleText = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })?.label ?? ""
                     quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })
                     quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "mobile_dashboard" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .mobileDashboard {
@@ -1049,8 +1056,9 @@ class OnBoardingViewController: UIViewController {
             var options = Defaults.shared.makeMoneyOptions
             options.append(tag)
             Defaults.shared.makeMoneyOptions = Array(Set(options))
-            for i in 0...tag {
+            for i in 0..<(Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })?.Items?.count ?? 0) {
                 if let quickStartDetail = R.storyboard.onBoardingView.quickStartOptionDetailViewController() {
+                    titleText = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })?.label ?? ""
                     quickStartDetail.selectedQuickStartCategory = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })
                     quickStartDetail.selectedQuickStartItem = Defaults.shared.quickStartCategories?.first(where: { return $0.catId == "make_money_referring_quickCam" })?.Items?[i]
                     if self.previousSelectedQuickStartMenu != .makeMoney {
@@ -1063,7 +1071,16 @@ class OnBoardingViewController: UIViewController {
             }
         }
         UserSync.shared.setOnboardingUserFlags()
-        navigationController?.viewControllers.append(contentsOf: viewControllers)
+        
+        let appearance = UIPageControl.appearance(whenContainedInInstancesOf: [UIPageViewController.self])
+        appearance.pageIndicatorTintColor = UIColor(hexString: "D9D9D9")
+        appearance.currentPageIndicatorTintColor = UIColor(hexString: "007DFF")
+
+        let quickStartPage = R.storyboard.onBoardingView.quickStartPageContainerViewController()
+        quickStartPage?.titleText = titleText
+        quickStartPage?.viewcontrollersList = viewControllers
+        quickStartPage?.startIndex = tag
+        navigationController?.pushViewController(quickStartPage!, animated: true)
     }
     
 }
@@ -1073,7 +1090,7 @@ extension OnBoardingViewController {
     func setupView() {
         self.setUpQuickStartData()
         popupView.isHidden = !self.showPopUpView
-        UserSync.shared.syncUserModel { isCompleted in
+        UserSync.shared.syncUserModel { [self] isCompleted in
             UserSync.shared.getOnboardingUserFlags { isCompleted in
                 self.fillStepIndicatorViews()
             }
@@ -1081,7 +1098,7 @@ extension OnBoardingViewController {
                 self.setUpQuickStartData()
             })
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-                self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+                self.userImageView.loadImageWithSDwebImage(imageUrlString: userImageURL)
             }
             let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
             if isFoundingMember {
@@ -1142,6 +1159,14 @@ extension OnBoardingViewController {
     }
     
     func setUpQuickStartData() {
+        if let makemoney = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "make_money_referring_quickCam" }).first, let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first, let mobiledashboard = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "mobile_dashboard" }).first {
+            var categories = [createContent, mobiledashboard, makemoney]
+            if Defaults.shared.selectedQuickStartOption == .makeMoney {
+                categories = [makemoney, mobiledashboard, createContent]
+            }
+            Defaults.shared.quickStartCategories = categories
+        }
+        tableView.reloadData()
         if Defaults.shared.quickStartCategories?.count == 3 {
             if let createContent = Defaults.shared.quickStartCategories?.filter({ return $0.catId == "create_engaging_content" }).first {
                 self.createContentTitleLabel.text = createContent.label
@@ -1169,6 +1194,107 @@ extension OnBoardingViewController {
             }
         }
         self.fillStepIndicatorViews()
+    }
+    
+}
+
+extension OnBoardingViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Defaults.shared.quickStartCategories?.count ?? 0
+    }
+    
+    @objc func goToButtonClicked(_ sender: UIButton) {
+        if Defaults.shared.quickStartCategories?[sender.tag].catId == "create_engaging_content" {
+            createContent(sender)
+        }
+        if Defaults.shared.quickStartCategories?[sender.tag].catId == "mobile_dashboard" {
+            didTapMobileDashboardClick(sender)
+        }
+        if Defaults.shared.quickStartCategories?[sender.tag].catId == "make_money_referring_quickCam" {
+            didTapMakeMoneyClick(sender)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "QuickStartGuideTableViewCell", for: indexPath) as! QuickStartGuideTableViewCell
+        cell.selectionStyle = .none
+        cell.titleLabel.text = Defaults.shared.quickStartCategories?[indexPath.row].label
+        cell.stepper.numberOfSteps = (Defaults.shared.quickStartCategories?[indexPath.row].Items ?? []).count
+        cell.titleLabel.text = Defaults.shared.quickStartCategories?[indexPath.row].label
+        if Defaults.shared.quickStartCategories?[indexPath.row].catId == "create_engaging_content" {
+            cell.backgroundImageView.image = UIImage(named: "refer_createcontent_background")
+            cell.goToButton.setTitle("Go to QuickCam Camera", for: .normal)
+            cell.goToButton.setImage(UIImage(named: "quickstart_camera"), for: .normal)
+        }
+        if Defaults.shared.quickStartCategories?[indexPath.row].catId == "mobile_dashboard" {
+            cell.backgroundImageView.image = UIImage(named: "refer_mobiledashboard_background")
+            cell.goToButton.setTitle("Go to Mobile Dashboard", for: .normal)
+            cell.goToButton.setImage(UIImage(named: "quickstart_mobdashboard"), for: .normal)
+        }
+        if Defaults.shared.quickStartCategories?[indexPath.row].catId == "make_money_referring_quickCam" {
+            cell.backgroundImageView.image = UIImage(named: "refer_makemoney_background")
+            cell.goToButton.setTitle("Go to Invite Wizard", for: .normal)
+            cell.goToButton.setImage(UIImage(named: "quickstart_invite_wizard"), for: .normal)
+        }
+        cell.goToButton.tag = indexPath.row
+        cell.goToButton.addTarget(self, action: #selector(goToButtonClicked(_:)), for: .touchUpInside)
+        cell.optionsStackView.removeAllArrangedSubviews()
+        for (index, item) in (Defaults.shared.quickStartCategories?[indexPath.row].Items ?? []).enumerated() {
+            cell.stepper.setStep(step: index, finished: (item.isread ?? false))
+            let view = UIView()
+            let label = UILabel()
+            label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+            label.text = item.title
+            view.addSubview(label)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+            
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = UIImage(named: "refer_checkmark")
+            view.addSubview(imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 0).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+
+            imageView.widthAnchor.constraint(equalToConstant: 35).isActive = true
+
+            
+            let button = UIButton()
+            button.tag = index
+            view.addSubview(button)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+            button.tag = index
+            if Defaults.shared.quickStartCategories?[indexPath.row].catId == "make_money_referring_quickCam" {
+                button.addTarget(self, action: #selector( didTapOnMakeMoneySteps(_:)), for: .touchUpInside)
+            }
+            if Defaults.shared.quickStartCategories?[indexPath.row].catId == "create_engaging_content" {
+                button.addTarget(self, action: #selector( didTapOnCreateContentSteps(_:)), for: .touchUpInside)
+            }
+            if Defaults.shared.quickStartCategories?[indexPath.row].catId == "mobile_dashboard" {
+                button.addTarget(self, action: #selector( didTapOnMobileDashboardSteps(_:)), for: .touchUpInside)
+            }
+            cell.optionsStackView.addArrangedSubview(view)
+
+        }
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (CGFloat((Defaults.shared.quickStartCategories?[indexPath.row].Items ?? []).count) * 50.0) + 180
     }
     
 }

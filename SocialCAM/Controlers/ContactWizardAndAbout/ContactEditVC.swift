@@ -12,10 +12,11 @@ import Alamofire
 
 struct EditContact:Codable{
     var name: String = ""
-    init(name:String) {
+    var mobile: String?
+    init(name:String,mobile:String?) {
         self.name = name
+        self.mobile = mobile
     }
-    
 }
 class ContactEditVC: UIViewController {
 
@@ -50,11 +51,20 @@ class ContactEditVC: UIViewController {
         txtName.text = contact?.name
         txtPhone.text = contact?.mobile
         
-        txtPhone.isUserInteractionEnabled = false
+        txtPhone.isUserInteractionEnabled = true
         txtEmail.isUserInteractionEnabled = false
+                
+        txtPhone.keyboardType = .phonePad
     }
     @IBAction func doneClicked(sender:UIButton){
-        let editContact = EditContact(name:txtName.text!)
+        if txtPhone.text!.count < 10 && isEmail == false{
+            DispatchQueue.runOnMainThread {
+                Utils.customaizeToastMessage(title: "Please enter valid mobile number.", toastView: (Utils.appDelegate?.window)!)
+            }
+            return
+
+        }
+        let editContact = EditContact(name:txtName.text!, mobile: txtPhone.text!)
         let jsonEncoder = JSONEncoder()
         do {
             let jsonData = try jsonEncoder.encode(editContact)
@@ -68,7 +78,7 @@ class ContactEditVC: UIViewController {
         self.dismiss(animated:true, completion: nil)
     }
     private func editContact(data:Data){
-       
+           
         let path = API.shared.baseUrlV2 + "contact-list/\(contact?.Id ?? "")/user/info"
         print(path)
         var request = URLRequest(url:URL(string:path)!)
@@ -85,7 +95,12 @@ class ContactEditVC: UIViewController {
             case .success:
               //  self.showLoader()
                 self.contact?.name = self.txtName.text!
+                self.contact?.mobile = self.txtPhone.text!
                 self.delegate?.didFinishEdit(contact:self.contact!)
+                DispatchQueue.runOnMainThread {
+                    Utils.customaizeToastMessage(title: "Contact Updated.", toastView: (Utils.appDelegate?.window)!)
+                }
+
                 self.dismiss(animated:true, completion: nil)
                 break
                

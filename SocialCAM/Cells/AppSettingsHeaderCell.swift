@@ -13,11 +13,18 @@ class AppSettingsHeaderCell: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnExpandCollaps: UIButton!
     var section: Int = 0
+    weak var delegate: HeaderViewDelegate?
+    
+    var collapsed: Bool = false {
+        didSet {
+            btnExpandCollaps?.rotate(collapsed ? 0.0 : .pi)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        self.btnExpandCollaps.isUserInteractionEnabled = false
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeader)))
     }
 
@@ -32,6 +39,6 @@ class AppSettingsHeaderCell: UITableViewCell {
     }
     
     @objc private func didTapHeader() {
-//        delegate?.toggleSection(header: self, section: section)
+        delegate?.toggleSection(header: self, section: section)
     }
 }

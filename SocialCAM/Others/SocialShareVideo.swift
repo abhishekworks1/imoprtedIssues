@@ -22,6 +22,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     static let shared: SocialShareVideo = SocialShareVideo()
   
     weak var delegate: ShareStoriesDelegate?
+    var socialShareType: SocialShare?
     
     func copyLink(referType: ReferType = .none) {
         var attachmentUrl: String = ""
@@ -71,6 +72,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             self.snapChatShareImage(image: image, referType: referType)
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
+                self.openAppToAppstoreWith(url: AppstoreUrl.tiktokURL.rawValue)
                 Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
                 return
             }
@@ -95,7 +97,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         guard let url = url else { return }
         self.copyLink(referType: referType)
         switch socialType {
-        case .facebook, .instagram:
+        case .facebook, .instagram, .fbMessanger:
             self.saveVideoToCameraRoll(url: url, completion: { [weak self] (isSuccess, phAsset) in
                 guard let `self` = self else {
                     return
@@ -107,6 +109,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                             self.fbShareVideo(phAsset)
                         case .instagram:
                             self.instaImageVideoShare(phAsset)
+                        case .fbMessanger:
+                            self.fbMessangerShareVideo(phAsset)
                         default:
                             break
                         }
@@ -121,6 +125,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             youTubeUpload(url)
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
+                self.openAppToAppstoreWith(url: AppstoreUrl.tiktokURL.rawValue)
                 Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
                 return
             }
@@ -138,6 +143,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             }
         case .storiCam, .storiCamPost:
             storiCamShareVideo(url, socialType: socialType)
+        case .whatsApp:
+            self.whatsAppShareVideo(url)
         case .more:
             print(url)
         }
@@ -200,11 +207,25 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         dialog.show()
     }
     
+    func showFBMessangeShareDialog<C: SharingContent>(_ content: C, mode: ShareDialog.Mode = .automatic) {
+        
+        let dialog = MessageDialog(content: content, delegate: self)
+        
+        dialog.show()
+    }
+    
     public func sharer(_ sharer: Sharing, didCompleteWithResults results: [String: Any]) {
         
     }
     
     public func sharer(_ sharer: Sharing, didFailWithError error: Error) {
+        
+        if self.socialShareType == .facebook {
+            self.openAppToAppstoreWith(url: AppstoreUrl.fbURL.rawValue)
+        } else if self.socialShareType == .fbMessanger {
+            self.openAppToAppstoreWith(url: AppstoreUrl.fbMessangerURL.rawValue)
+        }
+        
         Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallFacebookToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
     }
     
@@ -265,6 +286,25 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         showShareDialog(content)
     }
     
+    func fbMessangerShareVideo(_ phAsset: PHAsset?) {
+        guard let phAsset = phAsset else { return }
+        let content = ShareVideoContent()
+        content.video = ShareVideo(videoAsset: phAsset)
+        showFBMessangeShareDialog(content)
+    }
+    
+    func whatsAppShareVideo(_ videoUrl: URL) {
+
+        let documentInteractionController = UIDocumentInteractionController()
+        documentInteractionController.url = URL(fileURLWithPath: videoUrl.absoluteString)
+        documentInteractionController.uti = "public.movie"
+//        Utils.appDelegate?.window?.visibleViewController()!.present(documentInteractionController, animated: true, completion: nil)
+        documentInteractionController.presentOpenInMenu(from: .zero, in: Utils.appDelegate!.window!.visibleViewController()!.view, animated: true)
+        
+        
+    }
+
+    
     func instaImageVideoShare(_ phAsset: PHAsset?) {
         guard let phAsset = phAsset else { return }
         let localIdentifier = phAsset.localIdentifier
@@ -279,6 +319,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     self.delegate?.success()
                 })
             } else {
+                
+                self.openAppToAppstoreWith(url: AppstoreUrl.instagramURL.rawValue)
+                
                 Utils.customaizeToastMessage(title: R.string.localizable.youNeedToInstallInstagramToShareThisPhotoVideo(), toastView: (Utils.appDelegate?.window)!)
             }
         }
@@ -365,4 +408,10 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         StoriCamManager.shared.uploadVideo(videoUrl: videoUrl, socialType: socialType)
     }
     
+    func openAppToAppstoreWith(url: String) {
+        guard let url = URL(string: url) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
 }

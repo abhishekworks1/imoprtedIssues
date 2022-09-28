@@ -691,6 +691,8 @@ enum SocialShare: Int {
     case storiCam
     case storiCamPost
     case more
+    case fbMessanger
+    case whatsApp
 }
 
 enum SocialLogin: Int, CaseIterable {
@@ -1129,13 +1131,15 @@ public struct Paths {
     static let getCalculatorConfig = "calcConfig"
     static let getWebsiteData = "faq/website"
     static let setSubsctiption = "users/buySubscription"
+   
     static let forgotPassword = "user/forgetPassword"
     static let getUserProfile = "user/profile"
     static let userSettings = "user/settings"
     static let loginWithKeycloak = "user/login"
     static let logoutWithKeycloak = "user/logout"
     static let addReferral = "user/addReferral"
-    static let buySubscription = "subscription/buySubscription"
+   // static let buySubscription = "subscription/buySubscription"
+    static let buySubscription = "subscription/buy/ios"
     static let cancelledSubscriptions = "subscription/cancelledSubscriptions"
     static let subsciptionList = "subscriptions"
     static let userSync = "user/userSync"
@@ -1504,6 +1508,13 @@ enum CurrentMode: Int {
 enum LayoutOption {
     case list
     case grid
+}
+
+enum AppstoreUrl: String {
+    case fbURL = "https://apps.apple.com/in/app/facebook/id284882215"
+    case fbMessangerURL = "https://apps.apple.com/us/app/messenger/id454638411"
+    case instagramURL = "https://apps.apple.com/in/app/instagram/id389801252"
+    case tiktokURL = "https://apps.apple.com/us/app/tiktok/id835599320"
 }
 
 protocol CollageMakerVCDelegate: class {

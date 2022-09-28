@@ -28,6 +28,9 @@ enum SystemSettingType: String {
     case hapticAll = "All"
     case hapticSome = "Some"
     case hapticFeedBack = "Haptic Feedback"
+    case beginner = "Beginner"
+    case intermediate = "Intermediate"
+    case advanced = "Advanced"
     
     var description : String {
         switch self {
@@ -64,9 +67,32 @@ enum SystemSettingType: String {
             return "All"
         case .hapticSome:
             return "Some"
+        case .beginner:
+            return "Beginner"
+        case .intermediate:
+            return "Intermediate"
+        case .advanced:
+            return "Advanced"
         }
         return ""
       }
+}
+
+enum SocialMediaApps: String {
+    case tikTok = "Tiktok"
+    case snapChat = "Snapchat"
+    case messanger = "Messenger"
+    case youtube = "Youtube"
+    case chingari = "Chingari"
+    case instagram = "Instagram"
+    case facebook = "Facebook"
+    case whatsapp = "Whatsapp"
+    case twitter = "Twitter"
+    case takatak = "Takatak"
+    
+    var description: String {
+        return self.rawValue
+    }
 }
 
 enum OnboardingReferral: String {

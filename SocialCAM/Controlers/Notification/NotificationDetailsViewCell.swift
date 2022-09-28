@@ -31,6 +31,11 @@ class NotificationDetailsViewCell: UICollectionViewCell {
     @IBOutlet weak var flagStackViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var lblNotificationDate: UILabel!
     
+    //Badges
+    @IBOutlet weak var preLaunchBadgeImageView: UIImageView!
+    @IBOutlet weak var foundingMemberBadgeImageView: UIImageView!
+    @IBOutlet weak var socialBadgeImageView: UIImageView!
+    
     @IBOutlet weak var iosBadgeView: UIView!
     @IBOutlet weak var iosSheildImageview: UIImageView!
     @IBOutlet weak var iosIconImageview: UIImageView!
@@ -54,6 +59,7 @@ class NotificationDetailsViewCell: UICollectionViewCell {
         }
     }
     var followButtonHandler : ((_ notification: UserNotification?) -> Void)?
+    var badgeTapHandler : ((_ sender: UITapGestureRecognizer?)  -> Void)?
     
     func setBtnFollow(isFollowing: Bool) {
         btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
@@ -84,6 +90,14 @@ class NotificationDetailsViewCell: UICollectionViewCell {
         }
         if let channelId = notification?.refereeUserId?.channelId {
             self.lblChannelName.text = "@\(channelId)"
+        }
+        if let user = Defaults.shared.currentUser,
+           let channelId = user.channelId{
+            if channelId == notification?.refereeUserId?.channelId ?? ""{
+                self.btnFollow.isHidden = true
+            }else{
+                self.btnFollow.isHidden = false
+            }
         }
         self.getVerifiedSocialPlatforms()
         if let createdDate = notification?.refereeUserId?.created {
@@ -141,7 +155,8 @@ class NotificationDetailsViewCell: UICollectionViewCell {
             } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
                 self.snapchatVerifiedView.isHidden = false
             } else if socialPlatform == R.string.localizable.youtube().lowercased() {
-                self.youtubeVerifiedView.isHidden = false
+                // self.youtubeVerifiedView.isHidden = false
+               // Hide Youtube Temporary
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
@@ -159,11 +174,33 @@ class NotificationDetailsViewCell: UICollectionViewCell {
         }
     }
     func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
-//        badgeView.isHidden = false
+        preLaunchBadgeImageView.isHidden = true
+        socialBadgeImageView.isHidden = true
+        foundingMemberBadgeImageView.isHidden = true
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
+        
+//        dayBadgeAndroidImageView.tag = 1
+//        dayBadgeIosImageView.tag = 2
+//        dayBadgeWebImageView.tag = 3
+        preLaunchBadgeImageView.tag = 4
+        foundingMemberBadgeImageView.tag = 5
+        socialBadgeImageView.tag = 6
+        androidBadgeView.tag = 7
+        iosBadgeView.tag = 8
+        webBadgeView.tag = 9
+
+        preLaunchBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        foundingMemberBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        socialBadgeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+//        dayBadgeIosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+//        dayBadgeAndroidImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+//        dayBadgeWebImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        
         
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
@@ -174,6 +211,19 @@ class NotificationDetailsViewCell: UICollectionViewCell {
                 iosIconImageview.isHidden = true
                 androidIconImageview.isHidden = true
                 webIconImageview.isHidden = true
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLaunchBadgeImageView.isHidden = false
+                    preLaunchBadgeImageView.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMemberBadgeImageView.isHidden = false
+                    foundingMemberBadgeImageView.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeImageView.isHidden = false
+                    socialBadgeImageView.image = R.image.socialBadge()
+                default:
+                    break
+                }
                 // Setup For iOS Badge
                 if badgeCode == Badges.SUBSCRIBER_IOS.rawValue
                 {
@@ -184,15 +234,15 @@ class NotificationDetailsViewCell: UICollectionViewCell {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
-                       /* if freeTrialDay > 0 {
-                            lbliosDaysRemains.text = finalDay
-                            iosSheildImageview.image = R.image.freeBadge()
-                        } else {*/
-                            //iOS shield hide
-                            //square badge show
-                            lbliosDaysRemains.text = ""
-                            iosSheildImageview.image = R.image.badgeIphoneFree()
-//                        }
+                        /* if freeTrialDay > 0 {
+                         lbliosDaysRemains.text = finalDay
+                         iosSheildImageview.image = R.image.freeBadge()
+                         } else {*/
+                        //iOS shield hide
+                        //square badge show
+                        lbliosDaysRemains.text = ""
+                        iosSheildImageview.image = R.image.badgeIphoneFree()
+                        //                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -283,4 +333,10 @@ class NotificationDetailsViewCell: UICollectionViewCell {
             }
         }
     }
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+        if let handler = self.badgeTapHandler {
+            handler(sender)
+        }
+    }
+    
 }

@@ -172,6 +172,14 @@ class UserDetailsVC: UIViewController {
     func setup() {
         if let channelId = notification?.refereeUserId?.channelId {
             self.lblUserName.text = "@\(channelId)"
+            if let user = Defaults.shared.currentUser,
+               let cid = user.channelId{
+                if cid == notification?.refereeUserId?.channelId ?? ""{
+                    self.btnFollow.isHidden = true
+                }else{
+                    self.btnFollow.isHidden = false
+                }
+            }
         } else {
             if let name = Defaults.shared.currentUser?.refferingChannel {
                 self.lblUserName.text = "@\(name)"
@@ -266,7 +274,8 @@ class UserDetailsVC: UIViewController {
             } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
                 self.snapchatVerifiedView.isHidden = false
             } else if socialPlatform == R.string.localizable.youtube().lowercased() {
-                self.youtubeVerifiedView.isHidden = false
+              //  self.youtubeVerifiedView.isHidden = false
+                // Hide Youtube Temporary
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
@@ -279,34 +288,44 @@ class UserDetailsVC: UIViewController {
     }
     
     func setUpbadges() {
-            let badgearry = Defaults.shared.getbadgesArray()
-            preLunchBadge.isHidden = true
-            foundingMergeBadge.isHidden = true
-            socialBadgeicon.isHidden = true
-          
-            if  badgearry.count >  0 {
-                preLunchBadge.isHidden = false
-                preLunchBadge.image = UIImage.init(named: badgearry[0])
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge.isHidden = false
+                    preLunchBadge.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge.isHidden = false
+                    foundingMergeBadge.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon.isHidden = false
+                    socialBadgeicon.image = R.image.socialBadge()
+                default:
+                    break
+                }
             }
-            if  badgearry.count >  1 {
-                foundingMergeBadge.isHidden = false
-                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-            }
-            if  badgearry.count >  2 {
-                socialBadgeicon.isHidden = false
-                socialBadgeicon.image = UIImage.init(named: badgearry[2])
-            }
-//            if  badgearry.count >  3 {
-//                subscriptionBadgeicon.isHidden = false
-//                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
-//            }
         }
+    }
     func setUpSubscriptionBadges() {
-        androidIconImageview.isHidden = true
-//        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
+        preLunchBadge.tag = 4
+        foundingMergeBadge.tag = 5
+        socialBadgeicon.tag = 6
+        androidBadgeView.tag = 7
+        iosBadgeView.tag = 8
+        webBadgeView.tag = 9
+        preLunchBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        foundingMergeBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        socialBadgeicon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
@@ -426,6 +445,13 @@ class UserDetailsVC: UIViewController {
             }
         }
     }
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+            let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+            vc.badgeType = .allBadges
+            vc.selectedBadgeTag = sender?.view?.tag ?? 0
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+        }
 }
 
 // MARK: - MIBlurPopupDelegate

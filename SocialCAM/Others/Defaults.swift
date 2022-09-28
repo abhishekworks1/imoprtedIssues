@@ -220,7 +220,34 @@ class Defaults {
         }
     }
     
-    var userStorySettings: [StorySettings]? {
+    var settingsArray: [SettingsEnum] {
+        get {
+            if let userStorySettings = userDefaults.object(forKey: "SettingArray") as? Data {
+                let decoder = JSONDecoder()
+                if var settings = try? decoder.decode([SettingsEnum].self, from: userStorySettings) {
+                        //add here if you add/remove any object in storySettings array
+//                    if !settings.contains(.contactManager) {
+//                        settings.insert(.contactManager, at: 1)
+//                    }
+                    return settings
+                }
+            }
+            return SettingsEnum.allCases
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                userDefaults.set(encoded, forKey: "SettingArray")
+                userDefaults.synchronize()
+            } else {
+                userDefaults.set(nil, forKey: "SettingArray")
+                userDefaults.synchronize()
+            }
+        }
+    }
+    
+  /*  var userStorySettings: [StorySettings]? {
+        //not used now
         get {
             if let userStorySettings = userDefaults.object(forKey: "userStorySettings") as? Data {
                 let decoder = JSONDecoder()
@@ -247,17 +274,20 @@ class Defaults {
                     if !settings.contains(where: {$0.settingsType == .potentialIncomeCalculator})
                     {
                         settings.insert(StorySettings(name: "",
-                                                      settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator),at: 7)
+                                                      settings: [StorySetting(name: R.string.localizable.incomeGoalCalculator(), selected: false)], settingsType: .potentialIncomeCalculator, type: .potentialIncomeCalculator),at: 7)
                     }
                     if !settings.contains(where: {$0.settingsType == .quickstartGuide})
                     {
                         settings.insert(StorySettings(name: "",
-                                                      settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide),at: 0)
+                                                      settings: [StorySetting(name: R.string.localizable.quickStartGuide(), selected: false)], settingsType: .quickstartGuide, type: .quickstartGuide),at: 0)
                     }
                     return settings
                 }
             }
-            return nil
+            else {
+                return nil
+            }
+          return nil
         }
         set {
             let encoder = JSONEncoder()
@@ -269,7 +299,7 @@ class Defaults {
                 userDefaults.synchronize()
             }
         }
-    }
+    } */
     
     var waterarkOpacity: Int {
         get {
@@ -1437,6 +1467,90 @@ class Defaults {
             appDefaults?.set(newValue, forKey: "shouldDisplayDetailsOfWelcomeScreenFeatures")
         }
     }
+    
+    var isTikTokSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isTikTokSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isTikTokSharingEnabled")
+        }
+    }
+    
+    var isInstagramSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isInstagramSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isInstagramSharingEnabled")
+        }
+    }
+    
+    var isSnapChatSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isSnapChatSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isSnapChatSharingEnabled")
+        }
+    }
+    
+    var isFacebookSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isFacebookSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFacebookSharingEnabled")
+        }
+    }
+    
+    var isFBMessangerSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isFBMessangerSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFBMessangerSharingEnabled")
+        }
+    }
+    
+    var isYoutubeSharingEnabled: Bool {
+        get {
+            return false
+            //return (appDefaults?.value(forKey: "isYoutubeSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isYoutubeSharingEnabled")
+        }
+    }
+    
+    var isTwitterSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isTwitterSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isTwitterSharingEnabled")
+        }
+    }
+    
+    var isChingariSharingEnabled: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isChingariSharingEnabled") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isChingariSharingEnabled")
+        }
+    }
+    
+    var selectedTipOfTheLevel: Int {
+        get {
+            return appDefaults?.integer(forKey: "selectedTipOfTheLevel") ?? 1
+        }
+        set {
+            appDefaults?.setValue(newValue, forKey: "selectedTipOfTheLevel")
+            userDefaults.synchronize()
+        }
+    }
+    
     
     var quickStartCategories: [QuickStartCategory]? {
         get {

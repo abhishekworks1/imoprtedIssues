@@ -10,6 +10,7 @@ import UIKit
 
 class WelcomeTimerPopupViewController: UIViewController {
 
+    @IBOutlet weak var laterButton: UIButton!
     @IBOutlet weak var tipOfDayActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var topMessageView: UIView!
     @IBOutlet weak var topMessageLabel: UILabel!
@@ -42,7 +43,7 @@ class WelcomeTimerPopupViewController: UIViewController {
     @IBOutlet weak var popUpScrollview: UIScrollView!
     private var countdownTimer: Timer?
     weak var tipTimer: Timer?
-    var currentSelectedTip: Int = 0 
+    var currentSelectedTip: Int = 0
     var tipArray = [String]()
     
     var upgradeButtonAction:(()-> Void)?
@@ -51,7 +52,7 @@ class WelcomeTimerPopupViewController: UIViewController {
         super.viewDidLoad()
        setUpUI()
         setOnboardImageName()
-        setSubscriptionMessageLabel()
+//        setSubscriptionMessageLabel()
         setUpgradeButton()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +63,7 @@ class WelcomeTimerPopupViewController: UIViewController {
             self.checkTipOfDayText(tipOfDay: Defaults.shared.tipOfDay?[0] ?? "")
             self.startTipTimer()
         }
+        setupMessages()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -69,14 +71,58 @@ class WelcomeTimerPopupViewController: UIViewController {
         tipTimer?.invalidate()
         
     }
+    
+    func setupMessages() {
+        UserSync.shared.getMessages(screen: "welcome-daily-popup") { messageData in
+            let messsgeData: [MessageData] = messageData?.data ?? []
+            if let messageDataObj =  messsgeData.first, let messageObj = messageDataObj.messages?.first {
+                let aData: [String] = messageObj.a ?? []
+                let bData: [String] = messageObj.b ?? []
+                let cData: [String] = messageObj.c ?? []
+                
+                let astr = aData.joined(separator: "\n")
+                let bstr = bData.joined(separator: "\n")
+                let cstr = cData.joined(separator: "\n")
+               
+                
+                
+                self.topMessageLabel.text = astr
+                self.subscriptionMessageLabel.text = bstr
+                self.timerDescLabel.text = cstr
+                if self.topMessageLabel.text?.trimStr() == "" {
+                    self.topMessageView.isHidden = true
+//                    self.topMessageHeight.constant = 0
+                } else {
+                    self.topMessageView.isHidden = false
+//                    self.topMessageHeight.constant = 80
+                }
+                if self.subscriptionMessageLabel.text?.trimStr() == "" {
+                    self.subscriptionMessageLabel.isHidden = true
+                } else {
+                    self.subscriptionMessageLabel.isHidden = false
+                }
+                if self.timerDescLabel.text?.trimStr() == "" {
+                    self.timerDescLabel.isHidden = true
+                } else {
+                    self.timerDescLabel.isHidden = false
+                }
+                if self.topMessageLabel.text?.count ?? 0 > 0 {
+                    self.topMessageView.isHidden = false
+                } else {
+                    self.topMessageView.isHidden = true
+                }
+            }
+        }
+    }
+    
     func setUpUI() {
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.userImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            self.userImageView.loadImageWithSDwebImage(imageUrlString: userImageURL)
         }
         
         // Shadow Color and Radius
         let isFoundingMember = Defaults.shared.currentUser?.badges?.filter({ return $0.badge?.code == "founding-member" }).count ?? 0 > 0
-        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.lightGray.cgColor : UIColor.white.cgColor
+        semiHalfView.layer.shadowColor = isFoundingMember ? UIColor.white.cgColor : UIColor.white.cgColor
         semiHalfView.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         semiHalfView.layer.shadowOpacity = 0.7
         semiHalfView.layer.shadowRadius = 0
@@ -128,8 +174,8 @@ class WelcomeTimerPopupViewController: UIViewController {
     func setOnboardImageName() {
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
             if paidSubscriptionStatus.lowercased() == "basic" {
-             onboardImageName = "basic"
-                setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
+                onboardImageName = "basic"
+               setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.614, green: 0.465, blue: 0.858, alpha: 1))
             } else if paidSubscriptionStatus.lowercased() == "pro" {
                 onboardImageName = "premium"
                 setUpLineIndicatorForSignupDay(lineColor: UIColor(red: 0.38, green: 0, blue: 1, alpha: 1))
@@ -151,22 +197,22 @@ class WelcomeTimerPopupViewController: UIViewController {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
-                timerDescLabel.text = "Time left in premium free trial"
+               // timerDescLabel.text = "Time left in premium free trial"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
-                timerDescLabel.text = "Time since signed up"
+              //  timerDescLabel.text = "Time since signed up"
                 showUpTimer(timerDate: timerDate)
             }
         } else if  subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
-                timerDescLabel.text = "Time since your subscription expired"
+              //  timerDescLabel.text = "Time since your subscription expired"
                showUpTimer(timerDate: timerDate)
             }
         } else {
             timerStackView.isHidden = true
-            timerDescLabel.isHidden = true
+           // timerDescLabel.isHidden = true
         }
     }
     func showUpTimer(timerDate: Date){
@@ -238,35 +284,75 @@ class WelcomeTimerPopupViewController: UIViewController {
             } else {
                 message = ("","")
             }
-        subscriptionMessageLabel.text = message.1
-        if subscriptionMessageLabel.text == "" {
-            subscriptionMessageLabel.isHidden = true
-        } else {
-            subscriptionMessageLabel.isHidden = false
-        }
-        topMessageLabel.text = message.0
-        if topMessageLabel.text == "" {
-            topMessageView.isHidden = true
-            topMessageHeight.constant = 0
-        } else {
-            topMessageView.isHidden = false
-            topMessageHeight.constant = 80
-        }
+        //subscriptionMessageLabel.text = message.1
+//        if subscriptionMessageLabel.text == "" {
+//            subscriptionMessageLabel.isHidden = true
+//        } else {
+//            subscriptionMessageLabel.isHidden = false
+//        }
+      //  topMessageLabel.text = message.0
+//        if topMessageLabel.text == "" {
+//            topMessageView.isHidden = true
+//            topMessageHeight.constant = 0
+//        } else {
+//            topMessageView.isHidden = false
+//            topMessageHeight.constant = 80
+//        }
         
     }
-    
     func setUpgradeButton() {
-        upgradeNowButton.isHidden = false
+        laterButton.isHidden = true
+        upgradeNowButton.isHidden = true
         if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
             if paidSubscriptionStatus.lowercased() == "pro" {
                 upgradeNowButton.isHidden = true
+                laterButton.isHidden = true
             }
         } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
-            if subscriptionStatus.lowercased() == "pro" {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                upgradeNowButton.isHidden = false
+                laterButton.isHidden = false
+            } else {
                 upgradeNowButton.isHidden = true
+                laterButton.isHidden = true
             }
         } else {
             upgradeNowButton.isHidden = false
+            laterButton.isHidden = false
+        }
+    }
+    func setUpgradeButtonwithUpgrade() {
+        laterButton.isHidden = true
+        upgradeNowButton.isHidden = true
+        if let paidSubscriptionStatus = Defaults.shared.currentUser?.paidSubscriptionStatus {
+            if paidSubscriptionStatus.lowercased() == "basic" || paidSubscriptionStatus.lowercased() == "advance" {
+                upgradeNowButton.setTitle("Upgrade Now", for: .normal)
+                upgradeNowButton.isHidden = false
+                laterButton.isHidden = false
+            }
+            else if paidSubscriptionStatus.lowercased() == "pro" {
+                upgradeNowButton.isHidden = true
+                laterButton.isHidden = true
+            }
+        } else if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
+            if subscriptionStatus == "trial" || subscriptionStatus == "free" || subscriptionStatus == "expired" {
+                upgradeNowButton.setTitle("Subscribe Now", for: .normal)
+                upgradeNowButton.isHidden = false
+                laterButton.isHidden = false
+            } else if subscriptionStatus.lowercased() == "basic" || subscriptionStatus.lowercased() == "advance" {
+                upgradeNowButton.setTitle("Upgrade Now", for: .normal)
+                upgradeNowButton.isHidden = false
+                laterButton.isHidden = false
+            } else if subscriptionStatus.lowercased() == "pro" {
+                upgradeNowButton.isHidden = true
+                laterButton.isHidden = true
+            } else {
+                upgradeNowButton.isHidden = true
+                laterButton.isHidden = true
+            }
+        } else {
+            upgradeNowButton.isHidden = false
+            laterButton.isHidden = false
         }
     }
     
@@ -504,7 +590,7 @@ extension WelcomeTimerPopupViewController {
         } else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             return ""
         
-        } else if subscriptionType == "expired" {
+        } else if subscriptionType == SubscriptionTypeForBadge.EXPIRE.rawValue {
             return ""
         
         } else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {

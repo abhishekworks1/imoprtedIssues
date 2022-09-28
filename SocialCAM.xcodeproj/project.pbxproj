@@ -626,6 +626,16 @@
 		23EB18F4244F21D700B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		250428470C44322499DD0E5D /* Pods_FastCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2AF063A5F38539ACFB5BCC /* Pods_FastCamLite.framework */; };
 		275992F9310DBBE737278C07 /* Pods_FastCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28990050E4D434A263290C3 /* Pods_FastCam.framework */; };
+		35133FAC28C5F8E600BD798A /* BadgesPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */; };
+		35133FAD28C5F8E600BD798A /* BadgesPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */; };
+		35133FAE28C5F8F000BD798A /* BadgesPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */; };
+		35133FAF28C5F8FE00BD798A /* BadgesPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */; };
+		35133FB128C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */; };
+		35133FB228C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */; };
+		35133FB628C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */; };
+		35133FB728C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */; };
+		35133FB828C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */; };
+		35133FB928C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */; };
 		353395022812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
 		353395032812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
 		353395042812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 353395012812759B00549D73 /* SettingScreenTableViewCell.xib */; };
@@ -1162,6 +1172,8 @@
 		5B9332B6723F878496140D06 /* Pods_ViralCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED41D41CDE7064D41421BB49 /* Pods_ViralCamLite.framework */; };
 		60DDD20C3175DB18D4E64440 /* Pods_SoccerCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59BE74BB4C36E79E92BD9DB /* Pods_SoccerCam.framework */; };
 		612D4378288130A300C84522 /* contactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */; };
+		612EC1FE28E2FB93006A326A /* AddContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612EC1FD28E2FB93006A326A /* AddContactVC.swift */; };
+		612EC1FF28E3031D006A326A /* AddContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612EC1FD28E2FB93006A326A /* AddContactVC.swift */; };
 		6132543A2864530A0057E8C5 /* BusinessDashboardWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61325439286453070057E8C5 /* BusinessDashboardWebViewVC.swift */; };
 		6132543B2864530B0057E8C5 /* BusinessDashboardWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61325439286453070057E8C5 /* BusinessDashboardWebViewVC.swift */; };
 		614E6B4C283DFABC0039765C /* SettingsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 614E6B4B283DFABA0039765C /* SettingsCollectionCell.xib */; };
@@ -9820,15 +9832,52 @@
 		9CAE571727456CE20067AAA5 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */; };
 		9CDA461E27851E09002BF726 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CDA461D27851E09002BF726 /* StoreKit.framework */; };
 		A11D24C0285D026600B01C2E /* UserSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D24BF285D026600B01C2E /* UserSync.swift */; };
+		A129124F28C26AE1002540AA /* QuickStartGuideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */; };
+		A129125028C26AE1002540AA /* QuickStartGuideTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */; };
+		A129125128C2735F002540AA /* QuickStartGuideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */; };
+		A129125228C2736C002540AA /* QuickStartGuideTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */; };
 		A1450EB22864B25B0094ED7C /* AnnularLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EAE2864B2560094ED7C /* AnnularLayer.swift */; };
 		A1450EB32864B25B0094ED7C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1450EAF2864B2560094ED7C /* Media.xcassets */; };
 		A1450EB42864B25B0094ED7C /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB02864B2560094ED7C /* LineLayer.swift */; };
 		A1450EB52864B25B0094ED7C /* StepIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB12864B2560094ED7C /* StepIndicatorView.swift */; };
 		A1450EB72864DE860094ED7C /* QuickStartOptionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */; };
+		A1E513C928E1E18800EF4C2E /* QuickStartPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E513C728E1E18000EF4C2E /* QuickStartPageViewController.swift */; };
 		A5DFA48E6B7A3F536FA84BC6 /* Pods_Pic2Art.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12AB906D69BDE0807AD8E9CF /* Pods_Pic2Art.framework */; };
+		BB3C2EE128B54FF60095434E /* ShareSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */; };
+		BB3C2EE228B54FF60095434E /* ShareSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */; };
+		BB3C2EE328B54FF60095434E /* ShareSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */; };
+		BB3C2EE428B54FF60095434E /* ShareSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */; };
+		BB3C2EE528B54FF60095434E /* ShareSocialMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3C2EE028B54FF60095434E /* ShareSocialMediaCell.xib */; };
+		BB3C2EE628B54FF60095434E /* ShareSocialMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3C2EE028B54FF60095434E /* ShareSocialMediaCell.xib */; };
+		BB3C2EE728B54FF60095434E /* ShareSocialMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3C2EE028B54FF60095434E /* ShareSocialMediaCell.xib */; };
+		BB3C2EE828B54FF60095434E /* ShareSocialMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3C2EE028B54FF60095434E /* ShareSocialMediaCell.xib */; };
+		BB4C5A4828B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4C5A4628B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift */; };
+		BB4C5A4928B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4C5A4628B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift */; };
+		BB4C5A4A28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4C5A4628B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift */; };
+		BB4C5A4B28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4C5A4628B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift */; };
+		BB4C5A4C28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4C5A4728B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib */; };
+		BB4C5A4D28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4C5A4728B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib */; };
+		BB4C5A4E28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4C5A4728B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib */; };
+		BB4C5A4F28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4C5A4728B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib */; };
+		BB5241E928B3889600FB5A17 /* NotificationSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5241E728B3889600FB5A17 /* NotificationSettingCell.swift */; };
+		BB5241EA28B3889600FB5A17 /* NotificationSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5241E728B3889600FB5A17 /* NotificationSettingCell.swift */; };
+		BB5241EB28B3889600FB5A17 /* NotificationSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5241E728B3889600FB5A17 /* NotificationSettingCell.swift */; };
+		BB5241EC28B3889600FB5A17 /* NotificationSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5241E728B3889600FB5A17 /* NotificationSettingCell.swift */; };
+		BB5241ED28B3889600FB5A17 /* NotificationSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB5241E828B3889600FB5A17 /* NotificationSettingCell.xib */; };
+		BB5241EE28B3889600FB5A17 /* NotificationSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB5241E828B3889600FB5A17 /* NotificationSettingCell.xib */; };
+		BB5241EF28B3889600FB5A17 /* NotificationSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB5241E828B3889600FB5A17 /* NotificationSettingCell.xib */; };
+		BB5241F028B3889600FB5A17 /* NotificationSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB5241E828B3889600FB5A17 /* NotificationSettingCell.xib */; };
 		BB5FCAE428A389980083D0DB /* ProfilePicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5FCAE328A389980083D0DB /* ProfilePicHelper.swift */; };
 		BB5FCAE528A389980083D0DB /* ProfilePicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5FCAE328A389980083D0DB /* ProfilePicHelper.swift */; };
 		BB5FCAE628A389980083D0DB /* ProfilePicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5FCAE328A389980083D0DB /* ProfilePicHelper.swift */; };
+		BBA046C128CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA046BF28CA4521002AA323 /* TipOfTheDaySettingCell.swift */; };
+		BBA046C228CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA046BF28CA4521002AA323 /* TipOfTheDaySettingCell.swift */; };
+		BBA046C328CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA046BF28CA4521002AA323 /* TipOfTheDaySettingCell.swift */; };
+		BBA046C428CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA046BF28CA4521002AA323 /* TipOfTheDaySettingCell.swift */; };
+		BBA046C528CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBA046C028CA4521002AA323 /* TipOfTheDaySettingCell.xib */; };
+		BBA046C628CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBA046C028CA4521002AA323 /* TipOfTheDaySettingCell.xib */; };
+		BBA046C728CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBA046C028CA4521002AA323 /* TipOfTheDaySettingCell.xib */; };
+		BBA046C828CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBA046C028CA4521002AA323 /* TipOfTheDaySettingCell.xib */; };
 		BBDF39F628AE89CB009B92C0 /* AppSettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDF39F428AE89CB009B92C0 /* AppSettingsHeaderCell.swift */; };
 		BBDF39F728AE89CB009B92C0 /* AppSettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDF39F428AE89CB009B92C0 /* AppSettingsHeaderCell.swift */; };
 		BBDF39F828AE89CB009B92C0 /* AppSettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDF39F428AE89CB009B92C0 /* AppSettingsHeaderCell.swift */; };
@@ -15494,6 +15543,11 @@
 		2B745205732387EF7B691824 /* Pods_Viralvids.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Viralvids.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5385B7FB968013B59EAA97 /* Pods-SocialCamMediaShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.release.xcconfig"; sourceTree = "<group>"; };
 		31974CCF361ADE2507BABFAD /* Pods-Pic2ArtShare.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2ArtShare.alpha.xcconfig"; path = "Target Support Files/Pods-Pic2ArtShare/Pods-Pic2ArtShare.alpha.xcconfig"; sourceTree = "<group>"; };
+		35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesPopUpViewController.swift; sourceTree = "<group>"; };
+		35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BadgesPopUpViewController.xib; sourceTree = "<group>"; };
+		35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesCarouselFlowLayout.swift; sourceTree = "<group>"; };
+		35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesCollectionViewCell.swift; sourceTree = "<group>"; };
+		35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BadgesCollectionViewCell.xib; sourceTree = "<group>"; };
 		353395002812759B00549D73 /* SettingScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreenTableViewCell.swift; sourceTree = "<group>"; };
 		353395012812759B00549D73 /* SettingScreenTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingScreenTableViewCell.xib; sourceTree = "<group>"; };
 		3546C8DE28521FF300D76ACF /* OnBoardingView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnBoardingView.storyboard; sourceTree = "<group>"; };
@@ -15566,6 +15620,7 @@
 		537D8826B9C10B903C0A4EEB /* Pods-QuickCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCam.alpha.xcconfig"; path = "Target Support Files/Pods-QuickCam/Pods-QuickCam.alpha.xcconfig"; sourceTree = "<group>"; };
 		559C003A0DCED8283AB80A11 /* Pods-QuickCamLiteApp.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteApp.alpha.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteApp/Pods-QuickCamLiteApp.alpha.xcconfig"; sourceTree = "<group>"; };
 		57A10355C626D6C43538435D /* Pods-ViralvidsLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralvidsLite.release.xcconfig"; path = "Target Support Files/Pods-ViralvidsLite/Pods-ViralvidsLite.release.xcconfig"; sourceTree = "<group>"; };
+		612EC1FD28E2FB93006A326A /* AddContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactVC.swift; sourceTree = "<group>"; };
 		61325439286453070057E8C5 /* BusinessDashboardWebViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDashboardWebViewVC.swift; sourceTree = "<group>"; };
 		614E6B4B283DFABA0039765C /* SettingsCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCollectionCell.xib; sourceTree = "<group>"; };
 		6177C7C527D23F4C00013088 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
@@ -16486,11 +16541,14 @@
 		9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QRCodeViewController.swift; path = PhotoVideoFuncations/QRCodeViewController.swift; sourceTree = "<group>"; };
 		9CDA461D27851E09002BF726 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A11D24BF285D026600B01C2E /* UserSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSync.swift; sourceTree = "<group>"; };
+		A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartGuideTableViewCell.swift; sourceTree = "<group>"; };
+		A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickStartGuideTableViewCell.xib; sourceTree = "<group>"; };
 		A1450EAE2864B2560094ED7C /* AnnularLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnularLayer.swift; sourceTree = "<group>"; };
 		A1450EAF2864B2560094ED7C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		A1450EB02864B2560094ED7C /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
 		A1450EB12864B2560094ED7C /* StepIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepIndicatorView.swift; sourceTree = "<group>"; };
 		A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartOptionDetailViewController.swift; sourceTree = "<group>"; };
+		A1E513C728E1E18000EF4C2E /* QuickStartPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartPageViewController.swift; sourceTree = "<group>"; };
 		A32455081ED8F0CC55A1E49A /* Pods-ViralCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCamLite.release.xcconfig"; path = "Target Support Files/Pods-ViralCamLite/Pods-ViralCamLite.release.xcconfig"; sourceTree = "<group>"; };
 		A41C33C6D54082DABB9C7937 /* Pods-SnapCamLite.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapCamLite.beta.xcconfig"; path = "Target Support Files/Pods-SnapCamLite/Pods-SnapCamLite.beta.xcconfig"; sourceTree = "<group>"; };
 		A6291129B82617C0D72DA5B3 /* Pods-SoccerCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerCam.alpha.xcconfig"; path = "Target Support Files/Pods-SoccerCam/Pods-SoccerCam.alpha.xcconfig"; sourceTree = "<group>"; };
@@ -16501,7 +16559,15 @@
 		B6D0238F3481C9A50E550162 /* Pods-QuickCamLiteApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteApp.release.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteApp/Pods-QuickCamLiteApp.release.xcconfig"; sourceTree = "<group>"; };
 		B965D2FAA33744D609D69C5E /* Pods_QuickCamLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickCamLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1A02D2898832FE1F692AA8 /* Pods-Pic2Art.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2Art.release.xcconfig"; path = "Target Support Files/Pods-Pic2Art/Pods-Pic2Art.release.xcconfig"; sourceTree = "<group>"; };
+		BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSocialMediaCell.swift; sourceTree = "<group>"; };
+		BB3C2EE028B54FF60095434E /* ShareSocialMediaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareSocialMediaCell.xib; sourceTree = "<group>"; };
+		BB4C5A4628B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOnSocialMediaSettingsCell.swift; sourceTree = "<group>"; };
+		BB4C5A4728B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOnSocialMediaSettingsCell.xib; sourceTree = "<group>"; };
+		BB5241E728B3889600FB5A17 /* NotificationSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingCell.swift; sourceTree = "<group>"; };
+		BB5241E828B3889600FB5A17 /* NotificationSettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingCell.xib; sourceTree = "<group>"; };
 		BB5FCAE328A389980083D0DB /* ProfilePicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicHelper.swift; sourceTree = "<group>"; };
+		BBA046BF28CA4521002AA323 /* TipOfTheDaySettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipOfTheDaySettingCell.swift; sourceTree = "<group>"; };
+		BBA046C028CA4521002AA323 /* TipOfTheDaySettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TipOfTheDaySettingCell.xib; sourceTree = "<group>"; };
 		BBDF39F428AE89CB009B92C0 /* AppSettingsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsHeaderCell.swift; sourceTree = "<group>"; };
 		BBDF39F528AE89CB009B92C0 /* AppSettingsHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppSettingsHeaderCell.xib; sourceTree = "<group>"; };
 		BCFE1CC268FAC7BF398F63D4 /* Pods-SocialScreenRecorder.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialScreenRecorder.beta.xcconfig"; path = "Target Support Files/Pods-SocialScreenRecorder/Pods-SocialScreenRecorder.beta.xcconfig"; sourceTree = "<group>"; };
@@ -16988,6 +17054,26 @@
 			path = ViralCamVideos;
 			sourceTree = "<group>";
 		};
+		35133FA928C5F8B200BD798A /* BadgesPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				35133FB328C60F7000BD798A /* BadgesCollectionCell */,
+				35133FAA28C5F8E600BD798A /* BadgesPopUpViewController.swift */,
+				35133FAB28C5F8E600BD798A /* BadgesPopUpViewController.xib */,
+				35133FB028C60D6600BD798A /* BadgesCarouselFlowLayout.swift */,
+			);
+			path = BadgesPopUp;
+			sourceTree = "<group>";
+		};
+		35133FB328C60F7000BD798A /* BadgesCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				35133FB428C60FB800BD798A /* BadgesCollectionViewCell.swift */,
+				35133FB528C60FB800BD798A /* BadgesCollectionViewCell.xib */,
+			);
+			path = BadgesCollectionCell;
+			sourceTree = "<group>";
+		};
 		353394FE2812755200549D73 /* SettingScreenCustomCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -17054,7 +17140,10 @@
 				A1450EAD2864B2560094ED7C /* StepIndicator */,
 				3546C8DE28521FF300D76ACF /* OnBoardingView.storyboard */,
 				3546C8E12852202A00D76ACF /* OnBoardingViewController.swift */,
+				A129124D28C26AE1002540AA /* QuickStartGuideTableViewCell.swift */,
+				A129124E28C26AE1002540AA /* QuickStartGuideTableViewCell.xib */,
 				A1450EB62864DE860094ED7C /* QuickStartOptionDetailViewController.swift */,
+				A1E513C728E1E18000EF4C2E /* QuickStartPageViewController.swift */,
 				75930D6828525DDF00B1A1EF /* MakeMoneyReferringViewController.swift */,
 				75E7FF082864949400D8C397 /* WelcomeOnboarding.storyboard */,
 				75E7FF0B2864A23C00D8C397 /* WelcomeViewController.swift */,
@@ -17591,6 +17680,14 @@
 				82D1EBCE236FF13900A680E7 /* StorySettingsHeaderCell.swift */,
 				BBDF39F428AE89CB009B92C0 /* AppSettingsHeaderCell.swift */,
 				BBDF39F528AE89CB009B92C0 /* AppSettingsHeaderCell.xib */,
+				BB3C2EDF28B54FF60095434E /* ShareSocialMediaCell.swift */,
+				BB3C2EE028B54FF60095434E /* ShareSocialMediaCell.xib */,
+				BB4C5A4628B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift */,
+				BB4C5A4728B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib */,
+				BB5241E728B3889600FB5A17 /* NotificationSettingCell.swift */,
+				BB5241E828B3889600FB5A17 /* NotificationSettingCell.xib */,
+				BBA046BF28CA4521002AA323 /* TipOfTheDaySettingCell.swift */,
+				BBA046C028CA4521002AA323 /* TipOfTheDaySettingCell.xib */,
 				82D1EBC8236FEE9900A680E7 /* FrameCollectionViewCell.swift */,
 				82D1EBCA236FEE9D00A680E7 /* FrameCollectionViewCell.xib */,
 				82D1EBC6236FEE7F00A680E7 /* StickerCollectionViewCell.xib */,
@@ -18855,6 +18952,7 @@
 		82A404BC26FC6BF80032AC0F /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				35133FA928C5F8B200BD798A /* BadgesPopUp */,
 				8203867026FDD6BD001FB6BB /* MIBlurPopup.swift */,
 				8203867226FDD6BD001FB6BB /* NotificationVC.storyboard */,
 				8203867326FDD6BE001FB6BB /* NotificationVC.swift */,
@@ -19282,6 +19380,7 @@
 				9C75F80327ACC1BC0026322F /* PhoneContact.swift */,
 				6177C85427D243F800013088 /* ContactImportVC.swift */,
 				61D5D3C128001CD900550128 /* ContactEditVC.swift */,
+				612EC1FD28E2FB93006A326A /* AddContactVC.swift */,
 				6177C85527D243F900013088 /* ContactWizardwithAboutUs.storyboard */,
 				35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */,
 				8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */,
@@ -20594,12 +20693,15 @@
 				8205FC44236C2C2F002B2603 /* SF-UI-Text-Semibold.otf in Resources */,
 				8205FC31236C2C2F002B2603 /* Linoleo Script.ttf in Resources */,
 				8205FB67236C1D0F002B2603 /* wow.json in Resources */,
+				35133FB828C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */,
 				82D1EC4223702B4300A680E7 /* Pink.JPG in Resources */,
 				82CDF7C426FE0C480070ED7A /* StateCodes.json in Resources */,
 				848A4F082841045B00A8BFC3 /* CameraTooltip1.gif in Resources */,
 				82D1EC5223702B4300A680E7 /* Philharmonic.JPG in Resources */,
 				82D1EC4C23702B4300A680E7 /* Rejoicing.JPG in Resources */,
+				35133FAD28C5F8E600BD798A /* BadgesPopUpViewController.xib in Resources */,
 				8421F132283BB53E009E16C9 /* EditTooltip1.gif in Resources */,
+				BB3C2EE528B54FF60095434E /* ShareSocialMediaCell.xib in Resources */,
 				820386C026FDD6BE001FB6BB /* NotificationVC.storyboard in Resources */,
 				8271069B24A45EFB00C53521 /* AMColorPickerViewController.xib in Resources */,
 				954B083E245171C700BACFB4 /* TikTokShareView.xib in Resources */,
@@ -20609,6 +20711,7 @@
 				82D1EBFB236FF68A00A680E7 /* StoryEmojiCollectionViewCell.xib in Resources */,
 				82CCB1762372E9D000EC76E8 /* LoginViewController.storyboard in Resources */,
 				8242C02C2498B30A00FD09DA /* VideoTableViewCell.xib in Resources */,
+				BBA046C528CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */,
 				8242C02B2498B30500FD09DA /* ViralCamVideos.storyboard in Resources */,
 				75E7FF092864949400D8C397 /* WelcomeOnboarding.storyboard in Resources */,
 				8205FC26236C2C2F002B2603 /* 01 Instrumental Theme (Intro).mp3 in Resources */,
@@ -20696,6 +20799,7 @@
 				F601005D25355DE600F86479 /* CommonAssets.xcassets in Resources */,
 				8205FD38236C3B06002B2603 /* LUT_M08.png in Resources */,
 				82D1EC5123702B4300A680E7 /* Wonderful.JPG in Resources */,
+				A129125028C26AE1002540AA /* QuickStartGuideTableViewCell.xib in Resources */,
 				8205FC43236C2C2F002B2603 /* SF-UI-Text-Heavy.otf in Resources */,
 				82D1EBF3236FF4D000A680E7 /* UpgradePageCollectionViewCell.xib in Resources */,
 				8205FB64236C1D0F002B2603 /* FeedbackLocalizable.strings in Resources */,
@@ -20730,6 +20834,7 @@
 				9C7546D227A8F6C30041B8D5 /* messageTitleCell.xib in Resources */,
 				C215EE2B26A0136800D6C74E /* Tooltip6.gif in Resources */,
 				8205FC28236C2C2F002B2603 /* 02 Instrumental Theme (Orchestral Sunset).mp3 in Resources */,
+				BB4C5A4C28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */,
 				8205FC3C236C2C2F002B2603 /* SF-UI-Text-Regular.otf in Resources */,
 				8205FD30236C3B06002B2603 /* LUT_M01.png in Resources */,
 				8205FD31236C3B06002B2603 /* LUT_M02.png in Resources */,
@@ -20749,6 +20854,7 @@
 				8205FD8E236C3B2C002B2603 /* TagVC.xib in Resources */,
 				821BBEC8271705DD00D48DA9 /* FlagLayoutGridCollectionViewCell.xib in Resources */,
 				C2433A16266E157D00C8A42D /* Tooltip3.gif in Resources */,
+				BB5241ED28B3889600FB5A17 /* NotificationSettingCell.xib in Resources */,
 				95BFD43223FE93D70066BA3C /* SocialCamWaterMark.gif in Resources */,
 				8205FB63236C1D0F002B2603 /* ReactionSummaryLocalizable.stringsdict in Resources */,
 				82D1EBDD236FF29B00A680E7 /* MensionCollectionViewCell.xib in Resources */,
@@ -21742,6 +21848,7 @@
 				F6B9F1AC250768DA00AF974A /* Calculator.storyboard in Resources */,
 				95284D2C24C89C4600786662 /* LUT_M11.png in Resources */,
 				95284D2D24C89C4600786662 /* FairyTales.JPG in Resources */,
+				BBA046C628CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */,
 				95284D2E24C89C4600786662 /* sad.json in Resources */,
 				95284D2F24C89C4600786662 /* CollageMaker.storyboard in Resources */,
 				95284D3024C89C4600786662 /* Detached.JPG in Resources */,
@@ -21771,6 +21878,7 @@
 				C22D4BF12670F2AB00DE7085 /* Tooltip5.gif in Resources */,
 				95284D4424C89C4600786662 /* Courier Prime Italic.ttf in Resources */,
 				95284D4524C89C4600786662 /* LoadingView.xib in Resources */,
+				BB5241EE28B3889600FB5A17 /* NotificationSettingCell.xib in Resources */,
 				95284D4624C89C4600786662 /* StoryCameraViewController.storyboard in Resources */,
 				95284D4724C89C4600786662 /* AMColorPickerViewController.xib in Resources */,
 				95284D4824C89C4600786662 /* Innocence.JPG in Resources */,
@@ -21778,6 +21886,7 @@
 				825C2A0925232042002CFF4D /* VideoTrim.storyboard in Resources */,
 				82CDF7CE26FE0C480070ED7A /* StateCodes.json in Resources */,
 				95284D4A24C89C4600786662 /* FacebookReactionLocalizable.strings in Resources */,
+				BB4C5A4D28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */,
 				95284D4B24C89C4600786662 /* PreviewView.storyboard in Resources */,
 				95284D4C24C89C4600786662 /* LaunchScreenFutbolCam.storyboard in Resources */,
 				F6BB001325345438003D9850 /* Assets.xcassets in Resources */,
@@ -21798,6 +21907,7 @@
 				F6C05E3124E29A820018E8DA /* QuickCamLiteLauchScreen.storyboard in Resources */,
 				821BBED2271705DD00D48DA9 /* FlagLayoutGridCollectionViewCell.xib in Resources */,
 				95284D5624C89C4600786662 /* LUT_M02.png in Resources */,
+				BB3C2EE628B54FF60095434E /* ShareSocialMediaCell.xib in Resources */,
 				95284D5724C89C4600786662 /* Duration.ttf in Resources */,
 				95284D5824C89C4600786662 /* YouTubeUpload.storyboard in Resources */,
 				95284D5924C89C4600786662 /* PreRegistration.storyboard in Resources */,
@@ -22351,6 +22461,7 @@
 				C2F93464264AA0CA006CA527 /* laugh.json in Resources */,
 				C2F93465264AA0CA006CA527 /* StoryEmojiCollectionViewCell.xib in Resources */,
 				C2F93466264AA0CA006CA527 /* AMColorPickerWheelView.xib in Resources */,
+				A129125228C2736C002540AA /* QuickStartGuideTableViewCell.xib in Resources */,
 				614E6B4D283DFABC0039765C /* SettingsCollectionCell.xib in Resources */,
 				C2F93467264AA0CA006CA527 /* LoginViewController.storyboard in Resources */,
 				C2F93468264AA0CA006CA527 /* 01 Instrumental Theme (Intro).mp3 in Resources */,
@@ -22382,6 +22493,7 @@
 				C2F93480264AA0CA006CA527 /* Rouge.JPG in Resources */,
 				3546EAE928082C8C0043CA9B /* README.md in Resources */,
 				C2339ECA2696FFD400786997 /* QuickCamLiteWatermarkGIF.gif in Resources */,
+				BB5241F028B3889600FB5A17 /* NotificationSettingCell.xib in Resources */,
 				C2F93481264AA0CA006CA527 /* PhotosPickerViewController.xib in Resources */,
 				C2F93482264AA0CA006CA527 /* SnapCamAssetsV2.xcassets in Resources */,
 				C2F93483264AA0CA006CA527 /* FontAwesome.otf in Resources */,
@@ -22455,10 +22567,13 @@
 				C2F934B8264AA0CA006CA527 /* SpeedViewController.storyboard in Resources */,
 				C2F934B9264AA0CA006CA527 /* SocialCamShareVC.storyboard in Resources */,
 				C2F934BA264AA0CA006CA527 /* SF-UI-Text-Bold.otf in Resources */,
+				BB4C5A4F28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */,
 				821BBEEF271705DD00D48DA9 /* FlagLayoutListCollectionViewCell.xib in Resources */,
 				C2F934BB264AA0CA006CA527 /* Courier Prime Italic.ttf in Resources */,
 				C2F934BC264AA0CA006CA527 /* LoadingView.xib in Resources */,
+				35133FAF28C5F8FE00BD798A /* BadgesPopUpViewController.xib in Resources */,
 				C2F934BD264AA0CA006CA527 /* StoryCameraViewController.storyboard in Resources */,
+				35133FB928C60FB800BD798A /* BadgesCollectionViewCell.xib in Resources */,
 				C2F934BE264AA0CA006CA527 /* AMColorPickerViewController.xib in Resources */,
 				C2F934BF264AA0CA006CA527 /* Innocence.JPG in Resources */,
 				C2F934C1264AA0CA006CA527 /* Playful.JPG in Resources */,
@@ -22497,6 +22612,7 @@
 				C23AC0042697063F00A15DA5 /* MadeWithQuickCamLite.gif in Resources */,
 				848A4F0D2841045C00A8BFC3 /* CameraTooltip3.gif in Resources */,
 				C2F934D6264AA0CA006CA527 /* Cute.JPG in Resources */,
+				BB3C2EE828B54FF60095434E /* ShareSocialMediaCell.xib in Resources */,
 				C2F934D7264AA0CA006CA527 /* GameGridCell.xib in Resources */,
 				C2F934D8264AA0CA006CA527 /* ImageCollectionViewCell.xib in Resources */,
 				C2F934D9264AA0CA006CA527 /* TagVC.xib in Resources */,
@@ -22512,6 +22628,7 @@
 				8421F133283BB53E009E16C9 /* EditTooltip1.gif in Resources */,
 				C26DF1832696C4C60086F35E /* Tooltip1.gif in Resources */,
 				C2F934E1264AA0CA006CA527 /* YouTube.storyboard in Resources */,
+				BBA046C828CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */,
 				C2F934E2264AA0CA006CA527 /* Thursday.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -23291,6 +23408,7 @@
 				F6B9F1A02507687500AF974A /* Calculator.storyboard in Resources */,
 				F6C05DEB24E294F80018E8DA /* LUT_M11.png in Resources */,
 				F6C05DEC24E294F80018E8DA /* FairyTales.JPG in Resources */,
+				BBA046C728CA4521002AA323 /* TipOfTheDaySettingCell.xib in Resources */,
 				F6C05DED24E294F80018E8DA /* sad.json in Resources */,
 				F6C05DEE24E294F80018E8DA /* CollageMaker.storyboard in Resources */,
 				F6C05DEF24E294F80018E8DA /* Detached.JPG in Resources */,
@@ -23320,6 +23438,7 @@
 				C22D4BF22670F2AB00DE7085 /* Tooltip5.gif in Resources */,
 				F6C05E0224E294F80018E8DA /* SpeedViewController.storyboard in Resources */,
 				F6C05E0324E294F80018E8DA /* SF-UI-Text-Bold.otf in Resources */,
+				BB5241EF28B3889600FB5A17 /* NotificationSettingCell.xib in Resources */,
 				F6C05E0424E294F80018E8DA /* Courier Prime Italic.ttf in Resources */,
 				F6C05E0524E294F80018E8DA /* LoadingView.xib in Resources */,
 				F6C05E0624E294F80018E8DA /* StoryCameraViewController.storyboard in Resources */,
@@ -23327,6 +23446,7 @@
 				F6C05E0824E294F80018E8DA /* Innocence.JPG in Resources */,
 				82CDF7CF26FE0C480070ED7A /* StateCodes.json in Resources */,
 				825C2A0C25232042002CFF4D /* VideoTrim.storyboard in Resources */,
+				BB4C5A4E28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.xib in Resources */,
 				F6C05E0924E294F80018E8DA /* Playful.JPG in Resources */,
 				F6C05E0A24E294F80018E8DA /* FacebookReactionLocalizable.strings in Resources */,
 				F6C05E0B24E294F80018E8DA /* PreviewView.storyboard in Resources */,
@@ -23347,6 +23467,7 @@
 				F6C05E3024E299F70018E8DA /* QuickCamLiteLauchScreen.storyboard in Resources */,
 				821BBED3271705DD00D48DA9 /* FlagLayoutGridCollectionViewCell.xib in Resources */,
 				F6C05E1624E294F80018E8DA /* LUT_M02.png in Resources */,
+				BB3C2EE728B54FF60095434E /* ShareSocialMediaCell.xib in Resources */,
 				F6C05E1724E294F80018E8DA /* Duration.ttf in Resources */,
 				F6C05E1824E294F80018E8DA /* YouTubeUpload.storyboard in Resources */,
 				F6C05E1924E294F80018E8DA /* PreRegistration.storyboard in Resources */,
@@ -26986,12 +27107,14 @@
 				8205FCC5236C3AFA002B2603 /* CollageViewT203.swift in Sources */,
 				8205FC9E236C3AFA002B2603 /* PickerViewCell.swift in Sources */,
 				82C0FEF8272687A100B8BE72 /* NotificationTableViewCell.swift in Sources */,
+				35133FAC28C5F8E600BD798A /* BadgesPopUpViewController.swift in Sources */,
 				821CF9F9248784E000EC1503 /* STPopupNavigationBar.m in Sources */,
 				8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */,
 				952EC2BF244870180020992A /* PreRegistrationViewController.swift in Sources */,
 				8205FCB3236C3AFA002B2603 /* CollageViewT503.swift in Sources */,
 				3F426C5A26D4E85200089150 /* YourAffiliateLink.swift in Sources */,
 				8205FD43236C3B06002B2603 /* ImageSource.swift in Sources */,
+				612EC1FE28E2FB93006A326A /* AddContactVC.swift in Sources */,
 				82046E7526F33B430082EB3F /* TransitionManager.swift in Sources */,
 				824EB3F023619FB000205993 /* NextLevelConfiguration.swift in Sources */,
 				824C0FFD24582958009C5297 /* ViralToolsVC.swift in Sources */,
@@ -27171,6 +27294,7 @@
 				82D1EC8423703DE300A680E7 /* PhotoEditorViewController+Picker.swift in Sources */,
 				8205FCBD236C3AFA002B2603 /* CollageViewT306.swift in Sources */,
 				82262113239E164400B963CF /* SpeedViewController.swift in Sources */,
+				BB5241E928B3889600FB5A17 /* NotificationSettingCell.swift in Sources */,
 				8206AEF52374108C000CDD2A /* Scheduler.swift in Sources */,
 				F68AFF06255A3DB900465E5F /* SubscriptionsViewController.swift in Sources */,
 				825A2C0023E19188003BE8D5 /* GoogleManager.swift in Sources */,
@@ -27211,6 +27335,7 @@
 				8205FD81236C3B06002B2603 /* ImagePreviewView.swift in Sources */,
 				824EB3D123619E5C00205993 /* NSObject.swift in Sources */,
 				8287D21423826F800074FC39 /* GrowingTextView.swift in Sources */,
+				35133FB628C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */,
 				8205FB6B236C1D0F002B2603 /* ComponentBuilder.swift in Sources */,
 				954660632387B5CC00A37AE0 /* CropAssetExportSession.swift in Sources */,
 				82046F2726F33BE00082EB3F /* CountryPickerViewCell.swift in Sources */,
@@ -27246,6 +27371,7 @@
 				8205FAA6236C0FD7002B2603 /* AVAssetTimeSelector.swift in Sources */,
 				824EB3E723619FB000205993 /* NextLevel+Metadata.swift in Sources */,
 				8205FD6D236C3B06002B2603 /* VignetteControl.swift in Sources */,
+				A129124F28C26AE1002540AA /* QuickStartGuideTableViewCell.swift in Sources */,
 				82437BFA23DF01FA00F5A2FD /* SnapKitManager.swift in Sources */,
 				8205FC5E236C3AD9002B2603 /* StyleTransferModel43.mlmodel in Sources */,
 				8205FC67236C3AE7002B2603 /* DrawingContainerView.swift in Sources */,
@@ -27274,6 +27400,7 @@
 				824EB3EB23619FB000205993 /* NextLevelBufferRenderer.swift in Sources */,
 				9546606A2387B5CC00A37AE0 /* CGAngle.swift in Sources */,
 				C2AA268826E5DE21003C6486 /* SocialMediaProfileSettings.swift in Sources */,
+				BB3C2EE128B54FF60095434E /* ShareSocialMediaCell.swift in Sources */,
 				8205FBBA236C2A88002B2603 /* MMPlayerPassViewPresentConfig.swift in Sources */,
 				8205FD77236C3B06002B2603 /* RootControlView.swift in Sources */,
 				8205FD68236C3B06002B2603 /* SaturationControl.swift in Sources */,
@@ -27327,6 +27454,7 @@
 				824EB3EC23619FB000205993 /* NextLevel.swift in Sources */,
 				952EC2BB244870180020992A /* ButtonWithImage.swift in Sources */,
 				82A4E5782701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */,
+				BB4C5A4828B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */,
 				8277C77224B584E400711987 /* DashboardViewController.swift in Sources */,
 				82D1EBB5236FED4F00A680E7 /* BubbleTransition.swift in Sources */,
 				230722CF244EE932009454B0 /* ColorRoundedView.swift in Sources */,
@@ -27335,6 +27463,7 @@
 				82D1EBA6236FED2100A680E7 /* StoryPlayer.swift in Sources */,
 				8205FD60236C3B06002B2603 /* Options.swift in Sources */,
 				F61055B725382A0800B89F7B /* CalculatorCustomLabel.swift in Sources */,
+				35133FB128C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */,
 				821BBFA52717F84800D48DA9 /* Country.swift in Sources */,
 				C239514126D6795E00C3C607 /* SSVersionInfo.swift in Sources */,
 				8205FCB5236C3AFA002B2603 /* CollageViewT407.swift in Sources */,
@@ -27432,6 +27561,7 @@
 				C2D6DB61267783E9002C9CAF /* HelpSettingsCell.swift in Sources */,
 				8205FD7C236C3B06002B2603 /* StepSlider.swift in Sources */,
 				8205FD90236C3B2E002B2603 /* TagVC.swift in Sources */,
+				BBA046C128CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */,
 				8205FD4F236C3B06002B2603 /* FilterSaturation.swift in Sources */,
 				8205FB6D236C1D0F002B2603 /* ReactionFeedback.swift in Sources */,
 				23EB18F2244F213900B6564A /* APIModels.swift in Sources */,
@@ -31227,6 +31357,7 @@
 				95284B9624C89C4600786662 /* MaskControlView.swift in Sources */,
 				95284B9724C89C4600786662 /* Post+CoreDataClass.swift in Sources */,
 				95284B9824C89C4600786662 /* AMColorPickerRGBSliderView.swift in Sources */,
+				BBA046C228CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */,
 				95284B9924C89C4600786662 /* FixedRatioManager.swift in Sources */,
 				3FFF7AD826CA79C10067D723 /* ActivateAffiliateLinkCell.swift in Sources */,
 				C239513926D6795E00C3C607 /* LookUpResponseModel.swift in Sources */,
@@ -31378,6 +31509,7 @@
 				95284C0E24C89C4600786662 /* ShadowsControl.swift in Sources */,
 				95284C0F24C89C4600786662 /* DNDDragOperation.m in Sources */,
 				95284C1024C89C4600786662 /* CollageViewT504.swift in Sources */,
+				BB3C2EE228B54FF60095434E /* ShareSocialMediaCell.swift in Sources */,
 				95284C1124C89C4600786662 /* Animations.swift in Sources */,
 				95284C1224C89C4600786662 /* PickerView.swift in Sources */,
 				95284C1324C89C4600786662 /* HomeViewController.swift in Sources */,
@@ -31441,6 +31573,7 @@
 				95284C4224C89C4600786662 /* CropBoxLockedAspectFrameUpdater.swift in Sources */,
 				95284C4324C89C4600786662 /* LocationManager.swift in Sources */,
 				95284C4424C89C4600786662 /* EmojiCollectionViewDelegate.swift in Sources */,
+				BB5241EA28B3889600FB5A17 /* NotificationSettingCell.swift in Sources */,
 				95284C4524C89C4600786662 /* NextLevel+Foundation.swift in Sources */,
 				95284C4624C89C4600786662 /* SearchDropDown.swift in Sources */,
 				95284C4724C89C4600786662 /* StroyCameraViewController+CollectionView.swift in Sources */,
@@ -31526,6 +31659,7 @@
 				95284C8A24C89C4600786662 /* CollageViewT303.swift in Sources */,
 				95284C8B24C89C4600786662 /* StoryCameraViewController+NextLevel.swift in Sources */,
 				95284C8C24C89C4600786662 /* CropViewStatus.swift in Sources */,
+				BB4C5A4928B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */,
 				95284C8D24C89C4600786662 /* FaceBookConstant.swift in Sources */,
 				95284C8E24C89C4600786662 /* KeywordViewController.swift in Sources */,
 				95284C8F24C89C4600786662 /* YouTubeSubscription.swift in Sources */,
@@ -33719,6 +33853,7 @@
 				C2F93235264AA0CA006CA527 /* VerticalCenteredTextView.swift in Sources */,
 				3F6037A326C27B0F005A1920 /* SelectLinkCell.swift in Sources */,
 				C2F93236264AA0CA006CA527 /* UpgradePageCollectionViewCell.swift in Sources */,
+				BB4C5A4B28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */,
 				C2F93237264AA0CA006CA527 /* StorySettingsOptionsVC.swift in Sources */,
 				C2F93238264AA0CA006CA527 /* ForgotPasswordViewController.swift in Sources */,
 				C2F93239264AA0CA006CA527 /* ScreenCaptureObservable.swift in Sources */,
@@ -33877,6 +34012,7 @@
 				C2F932B7264AA0CA006CA527 /* PreRegistrationViewController.swift in Sources */,
 				C2F932B8264AA0CA006CA527 /* CollageViewT503.swift in Sources */,
 				C2F932B9264AA0CA006CA527 /* ImageSource.swift in Sources */,
+				BB5241EC28B3889600FB5A17 /* NotificationSettingCell.swift in Sources */,
 				C2F932BA264AA0CA006CA527 /* NextLevelConfiguration.swift in Sources */,
 				C2F932BB264AA0CA006CA527 /* ThumbnailsView.swift in Sources */,
 				C2F932BC264AA0CA006CA527 /* CollageMakerVC.swift in Sources */,
@@ -33975,6 +34111,7 @@
 				C2F9330D264AA0CA006CA527 /* UIAlertController.swift in Sources */,
 				C2F9330E264AA0CA006CA527 /* StorySettingsVC.swift in Sources */,
 				C2F9330F264AA0CA006CA527 /* EditorLog.swift in Sources */,
+				BBA046C428CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */,
 				C2F93310264AA0CA006CA527 /* CropScrollView.swift in Sources */,
 				C2F93311264AA0CA006CA527 /* URL.swift in Sources */,
 				C2F93312264AA0CA006CA527 /* CGRect+Extension.swift in Sources */,
@@ -33991,6 +34128,7 @@
 				C2F9331A264AA0CA006CA527 /* KeyframeImageGenerator.swift in Sources */,
 				C2F9331B264AA0CA006CA527 /* CommonFunctions.swift in Sources */,
 				C2F9331C264AA0CA006CA527 /* VideoResolutionCell.swift in Sources */,
+				35133FB728C60FB800BD798A /* BadgesCollectionViewCell.swift in Sources */,
 				3F83818A26B90CBF0058BC3C /* AccountSettingsCell.swift in Sources */,
 				3F75AC4F26C584AC00ECD86D /* YourAffiliateLinkViewController.swift in Sources */,
 				A1450EB22864B25B0094ED7C /* AnnularLayer.swift in Sources */,
@@ -34012,6 +34150,7 @@
 				C2F9332B264AA0CA006CA527 /* CoreML+Helpers.swift in Sources */,
 				C2F9332C264AA0CA006CA527 /* NextLevel+CIContext.swift in Sources */,
 				C2F9332D264AA0CA006CA527 /* FilterControlBase.swift in Sources */,
+				A129125128C2735F002540AA /* QuickStartGuideTableViewCell.swift in Sources */,
 				C2F9332E264AA0CA006CA527 /* NextLevel+CMSampleBuffer.swift in Sources */,
 				C2F93330264AA0CA006CA527 /* UIReactionControl.swift in Sources */,
 				C2226DCC265512FE00E2B647 /* ReferringChannelSuggestionViewController.swift in Sources */,
@@ -34026,6 +34165,7 @@
 				C271E59D265BEE0C005098B8 /* PurchaseHelper.swift in Sources */,
 				C2F93339264AA0CA006CA527 /* CartTableViewCell.swift in Sources */,
 				C2F9333A264AA0CA006CA527 /* CollageViewT302.swift in Sources */,
+				35133FAE28C5F8F000BD798A /* BadgesPopUpViewController.swift in Sources */,
 				C2F9333B264AA0CA006CA527 /* CoreGraphicsExtensions.swift in Sources */,
 				C2F9333C264AA0CA006CA527 /* ImageLibrary.swift in Sources */,
 				C2F9333D264AA0CA006CA527 /* CountdownView.swift in Sources */,
@@ -34095,6 +34235,7 @@
 				C2F93373264AA0CA006CA527 /* StatTableViewCell.swift in Sources */,
 				9C56A3D627B444B1007ADE04 /* ImageCollectionViewCutCell.swift in Sources */,
 				C2F93374264AA0CA006CA527 /* HalfModalPresentationController.swift in Sources */,
+				35133FB228C60D6700BD798A /* BadgesCarouselFlowLayout.swift in Sources */,
 				3F6037D226C27BAA005A1920 /* SelectLinkViewController.swift in Sources */,
 				C2F93375264AA0CA006CA527 /* UIColor+Apple.swift in Sources */,
 				C2F93376264AA0CA006CA527 /* YouTubePlayerVC.swift in Sources */,
@@ -34223,6 +34364,7 @@
 				C2F933D8264AA0CA006CA527 /* PhotoEditorViewController.swift in Sources */,
 				C239514026D6795E00C3C607 /* LookUpResponseModel.swift in Sources */,
 				C2F933D9264AA0CA006CA527 /* CollageViewT310.swift in Sources */,
+				A1E513C928E1E18800EF4C2E /* QuickStartPageViewController.swift in Sources */,
 				C2F933DA264AA0CA006CA527 /* NextLevel.swift in Sources */,
 				75E7FF0D2864A23C00D8C397 /* WelcomeViewController.swift in Sources */,
 				C2F933DB264AA0CA006CA527 /* BubbleTransition.swift in Sources */,
@@ -34248,6 +34390,7 @@
 				C2F933ED264AA0CA006CA527 /* CollageViewT303.swift in Sources */,
 				C29A353526FDCDE600565B3D /* StatePickerViewController.swift in Sources */,
 				C2F933EE264AA0CA006CA527 /* StoryCameraViewController+NextLevel.swift in Sources */,
+				612EC1FF28E3031D006A326A /* AddContactVC.swift in Sources */,
 				C2F933EF264AA0CA006CA527 /* CropViewStatus.swift in Sources */,
 				C2F933F0264AA0CA006CA527 /* FaceBookConstant.swift in Sources */,
 				C2F933F1264AA0CA006CA527 /* KeywordViewController.swift in Sources */,
@@ -34357,6 +34500,7 @@
 				C23950F826D6795E00C3C607 /* SSAppUpdaterDate.swift in Sources */,
 				C2F93449264AA0CA006CA527 /* RotationDialViewModel.swift in Sources */,
 				C2F9344A264AA0CA006CA527 /* MyUndoManager.swift in Sources */,
+				BB3C2EE428B54FF60095434E /* ShareSocialMediaCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37351,6 +37495,7 @@
 				F6C05C5624E294F80018E8DA /* Post+CoreDataClass.swift in Sources */,
 				F6C05C5724E294F80018E8DA /* AMColorPickerRGBSliderView.swift in Sources */,
 				F6C05C5824E294F80018E8DA /* FixedRatioManager.swift in Sources */,
+				BBA046C328CA4521002AA323 /* TipOfTheDaySettingCell.swift in Sources */,
 				F6C05C5924E294F80018E8DA /* GetPlayList.swift in Sources */,
 				3FFF7AD926CA79C10067D723 /* ActivateAffiliateLinkCell.swift in Sources */,
 				C239513A26D6795E00C3C607 /* LookUpResponseModel.swift in Sources */,
@@ -37502,6 +37647,7 @@
 				F6C05CCF24E294F80018E8DA /* DNDDragOperation.m in Sources */,
 				F6C05CD024E294F80018E8DA /* CollageViewT504.swift in Sources */,
 				F6C05CD124E294F80018E8DA /* Animations.swift in Sources */,
+				BB3C2EE328B54FF60095434E /* ShareSocialMediaCell.swift in Sources */,
 				F6C05CD224E294F80018E8DA /* PickerView.swift in Sources */,
 				F6C05CD324E294F80018E8DA /* HomeViewController.swift in Sources */,
 				F6C05CD424E294F80018E8DA /* MMPlayer+UIView+Shadow.swift in Sources */,
@@ -37565,6 +37711,7 @@
 				F6C05D0124E294F80018E8DA /* ProfileDetailsResponse.swift in Sources */,
 				F6C05D0224E294F80018E8DA /* CropBoxLockedAspectFrameUpdater.swift in Sources */,
 				F6C05D0324E294F80018E8DA /* LocationManager.swift in Sources */,
+				BB5241EB28B3889600FB5A17 /* NotificationSettingCell.swift in Sources */,
 				F6C05D0424E294F80018E8DA /* EmojiCollectionViewDelegate.swift in Sources */,
 				F6C05D0524E294F80018E8DA /* NextLevel+Foundation.swift in Sources */,
 				F6C05D0624E294F80018E8DA /* SearchDropDown.swift in Sources */,
@@ -37650,6 +37797,7 @@
 				F6C05D4A24E294F80018E8DA /* CollageViewT303.swift in Sources */,
 				F6C05D4B24E294F80018E8DA /* StoryCameraViewController+NextLevel.swift in Sources */,
 				F6C05D4C24E294F80018E8DA /* CropViewStatus.swift in Sources */,
+				BB4C5A4A28B5FF0A00FC8D80 /* ShareOnSocialMediaSettingsCell.swift in Sources */,
 				F6C05D4D24E294F80018E8DA /* FaceBookConstant.swift in Sources */,
 				F6C05D4E24E294F80018E8DA /* KeywordViewController.swift in Sources */,
 				F6C05D4F24E294F80018E8DA /* YouTubeSubscription.swift in Sources */,
@@ -38069,7 +38217,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38081,7 +38229,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -38098,7 +38246,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38110,7 +38258,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -38127,7 +38275,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38139,7 +38287,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -38156,7 +38304,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtentionQuickCam/ShareExtentionQuickCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
@@ -38168,7 +38316,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -41360,7 +41508,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41370,7 +41518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -41397,7 +41545,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41407,7 +41555,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -41436,7 +41584,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41446,7 +41594,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -41474,7 +41622,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLiteApp-Info.plist";
@@ -41483,7 +41631,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.40;
+				MARKETING_VERSION = 1.43;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode",
 					"$(inherited)",

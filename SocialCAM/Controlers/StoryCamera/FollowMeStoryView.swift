@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 class FollowMeStoryView: UIView {
     
@@ -130,7 +131,7 @@ class FollowMeStoryView: UIView {
     
     func setFromUserProfilePic() {
         if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
-            userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+            userBitEmoji.loadImageWithSDwebImage(imageUrlString: userImageUrl)
         }
     }
 }

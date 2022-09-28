@@ -12,11 +12,12 @@ enum DisplayNameType: Int {
     case publicDisplayName = 0
     case privateDisplayName
     case emailAddress
+    case channelDisplayName
 }
 
 protocol DisplayTooltiPDelegate: class {
-    func displayTooltip(index: Int)
-    func displayTextAlert(string:String)
+    func displayTooltip(index: Int, cell: DisplayNameTableViewCell)
+    func displayTextAlert(string:String, cell: DisplayNameTableViewCell)
 }
 
 class DisplayNameTableViewCell: UITableViewCell {
@@ -42,6 +43,10 @@ class DisplayNameTableViewCell: UITableViewCell {
                 self.lblDisplayNameType.text = R.string.localizable.emailAddress()
                 self.txtDisplaName.placeholder = R.string.localizable.emailAddress()
                 self.txtDisplaName.text = Defaults.shared.emailAddress
+            } else if displayNameType == .channelDisplayName {
+                self.lblDisplayNameType.text = "Channel Name Display"
+                self.txtDisplaName.placeholder = "Enter Channel Name Display"
+                self.txtDisplaName.text = "@\(Defaults.shared.channelName ?? "")"
             }
             
         }
@@ -54,7 +59,7 @@ class DisplayNameTableViewCell: UITableViewCell {
     }
     
     @IBAction func btnTooltipTapped(_ sender: UIButton) {
-        displayTooltipDelegate?.displayTooltip(index: sender.tag)
+        displayTooltipDelegate?.displayTooltip(index: sender.tag, cell: self)
     }
 }
 extension DisplayNameTableViewCell: UITextFieldDelegate {
@@ -64,10 +69,28 @@ extension DisplayNameTableViewCell: UITextFieldDelegate {
                     return
             }
             if email.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-                displayTooltipDelegate?.displayTextAlert(string:R.string.localizable.pleaseEnterEmail())
+                displayTooltipDelegate?.displayTextAlert(string:R.string.localizable.pleaseEnterEmail(), cell: self)
             } else if !email.isValidEmail() {
-                displayTooltipDelegate?.displayTextAlert(string:R.string.localizable.pleaseEnterValidEmail())
+                displayTooltipDelegate?.displayTextAlert(string:R.string.localizable.pleaseEnterValidEmail(), cell: self)
             }
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if displayNameType == .channelDisplayName {
+            if let text = textField.text,
+                       let textRange = Range(range, in: text) {
+                let updatedText = text.replacingCharacters(in: textRange,
+                                                                   with: string)
+                
+                
+                Defaults.shared.channelName = String(updatedText.dropFirst())
+                       
+            }
+        }
+        
+        
+        return true
     }
 }

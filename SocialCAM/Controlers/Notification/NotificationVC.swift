@@ -52,6 +52,11 @@ class NotificationVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
+    @IBAction func onSettingButtonClick(_ sender: UIButton) {
+        if let systemSettingsVC = R.storyboard.storyCameraViewController.systemSettingsViewController() {
+            navigationController?.pushViewController(systemSettingsVC, animated: true)
+        }
+    }
     func getFollowingNotifications(pageIndex: Int) {
         ProManagerApi.getNotification(page: pageIndex).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else { return }

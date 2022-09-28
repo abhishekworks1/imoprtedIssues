@@ -45,7 +45,6 @@ class SubscriptionsViewController: UIViewController {
     
     @IBOutlet weak var freeTrialView: UIView!
     @IBOutlet weak var timerLabel: UILabel!
-    
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timerStackView: UIStackView!
     @IBOutlet weak var dayValueLabel: UILabel!
@@ -151,7 +150,7 @@ class SubscriptionsViewController: UIViewController {
             setTimer()
 //        }
         setupFreeTrialView()
-        setUpMessageLabel()
+//        setUpMessageLabel()
         tapGestureSetUp()
         if let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus {
             if let paidSubscriptionStatus = Defaults.shared.currentUser!.paidSubscriptionStatus {
@@ -343,12 +342,16 @@ class SubscriptionsViewController: UIViewController {
         }
          else if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
+             
             self.enableMode(appMode: self.subscriptionType)
         }
     }
     
     
     @IBAction func didTapBackButton(_ sender: UIButton) {
+        if appDelegate?.isSubscriptionButtonPressed ?? false{
+            return
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -547,10 +550,10 @@ class SubscriptionsViewController: UIViewController {
         } else {
             message = ""
         }
-        messageLabel.text = message
-        if messageLabel.text == "" {
-            messageLabel.isHidden = true
-        }
+//        messageLabel.text = message
+//        if messageLabel.text == "" {
+//            messageLabel.isHidden = true
+//        }
     }
     
     func setSubscriptionBadgeDetails(){
@@ -642,24 +645,24 @@ class SubscriptionsViewController: UIViewController {
         let subscriptionStatus = Defaults.shared.currentUser?.subscriptionStatus
         if subscriptionStatus == "trial" {
             if let timerDate = Defaults.shared.userSubscription?.endDate?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Time remaining"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Time remaining"
                 showDownTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "free" {
             if let timerDate = Defaults.shared.currentUser?.trialSubscriptionStartDateIOS?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
                showUpTimer(timerDate: timerDate)
             } else if let timerDate = Defaults.shared.currentUser?.created?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Your 7-Day Premium Free Trial is over. Subscribe now to continue using the Basic, Advanced or Premium features.\nTime since signing up"
                 showUpTimer(timerDate: timerDate)
             }
         } else if subscriptionStatus == "expired" {
             if let timerDate = Defaults.shared.currentUser?.subscriptionEndDate?.isoDateFromString() {
-                self.messageLabel.isHidden = false
-                self.messageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features.\nTime since subscription ended"
+//                self.messageLabel.isHidden = false
+//                self.messageLabel.text = "Your subscription has ended. Please upgrade your account now to resume using the basic, advanced or premium features.\nTime since subscription ended"
                 showUpTimer(timerDate: timerDate)
             }
         } else {
@@ -1263,7 +1266,7 @@ extension SubscriptionsViewController {
         else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
             return "Your 7-Day Premium Free Trial has  ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features.\nTime since signing up:"
         }
-        else if subscriptionType == "expired" {
+        else if subscriptionType ==  SubscriptionTypeForBadge.EXPIRE.rawValue  {
             return "Your subscription has ended. Please upgrade now to resume using the Basic, Advanced or Premium subscription features.\nTime since your subscription expired:"
         }
         else if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -1276,5 +1279,31 @@ extension SubscriptionsViewController {
             return ""
         }
         return ""
+    }
+}
+
+extension SubscriptionsViewController {
+    
+    func setupMessage() {
+        UserSync.shared.getMessages(screen: "subscription-details") { messageData in
+            let messsgeData: [MessageData] = messageData?.data ?? []
+            if let messageDataObj =  messsgeData.first, let messageObj = messageDataObj.messages?.first {
+                let aData: [String] = messageObj.a ?? []
+                let bData: [String] = messageObj.b ?? []
+                let cData: [String] = messageObj.c ?? []
+                
+                let astr = aData.joined(separator: "\n")
+                let bstr = bData.joined(separator: "\n")
+                let cstr = cData.joined(separator: "\n")
+                print("\(astr)--\(bstr)---\(cstr)")
+                
+                
+                self.messageLabel.text = astr + bstr + "\n" + cstr
+                if self.messageLabel.text?.trimStr() == "" {
+                    self.messageLabel.isHidden = true
+                }
+            }
+        }
+
     }
 }

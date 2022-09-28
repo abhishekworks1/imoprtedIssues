@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 import FBSDKShareKit
 import MessageUI
+import SDWebImage
 
 enum EmailType {
     case gmail
@@ -50,7 +51,10 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var shareTooltipPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
-    @IBOutlet weak var subscriptionBadgeicon: UIView!
+    @IBOutlet weak var dayBadgeAndroidImageView: UIImageView!
+      @IBOutlet weak var dayBadgeIosImageView: UIImageView!
+      @IBOutlet weak var dayBadgeWebImageView: UIImageView!
+    
     @IBOutlet weak var foundingMergeBadge: UIView!
     @IBOutlet weak var preLunchBadge: UIView!
     @IBOutlet weak var socialBadgeicon: UIView!
@@ -97,9 +101,11 @@ class ShareSettingViewController: UIViewController {
             self.lblUserName.text = "@\(channelId)"
         }
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+//            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
+            imgProfilePic.loadImageWithSDwebImage(imageUrlString: userImageURL)
+            
         }
 //        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
 //            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
@@ -149,39 +155,54 @@ class ShareSettingViewController: UIViewController {
     }
     
     func setUpbadges() {
-            let badgearry = Defaults.shared.getbadgesArray()
-        print(badgearry)
-            preLunchBadge.isHidden = true
-            foundingMergeBadge.isHidden = true
-            socialBadgeicon.isHidden = true
-            subscriptionBadgeicon.isHidden = true
-          
-            if  badgearry.count >  0 {
-                preLunchBadge.isHidden = false
-                let imageName = badgearry[0]
-                preLunchBadgeImageView.image = UIImage(named: imageName)
-            }
-            if  badgearry.count >  1 {
-                foundingMergeBadge.isHidden = false
-                let imageName = badgearry[1]
-                foundingMergeBadgeImageView.image = UIImage(named: imageName)
-            }
-            if  badgearry.count >  2 {
-                socialBadgeicon.isHidden = false
-                let imageName = badgearry[2]
-                socialBadgeiconImageView.image = UIImage(named: imageName)
-            }
-            if  badgearry.count >  3 {
-                subscriptionBadgeicon.isHidden = false
-                subscriptionBadgeiconImageView.image = UIImage.init(named: badgearry[3])
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        
+        if let badgearray = Defaults.shared.currentUser?.badges {
+            for parentbadge in badgearray {
+                let badgeCode = parentbadge.badge?.code ?? ""
+                switch badgeCode {
+                case Badges.PRELAUNCH.rawValue:
+                    preLunchBadge.isHidden = false
+                    preLunchBadgeImageView.image = R.image.prelaunchBadge()
+                case Badges.FOUNDING_MEMBER.rawValue:
+                    foundingMergeBadge.isHidden = false
+                    foundingMergeBadgeImageView.image = R.image.foundingMemberBadge()
+                case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+                    socialBadgeicon.isHidden = false
+                    socialBadgeiconImageView.image = R.image.socialBadge()
+                default:
+                    break
+                }
             }
         }
+    }
     func setUpSubscriptionBadges() {
         androidIconImageview.isHidden = true
-//        badgeView.isHidden = false
+        //        badgeView.isHidden = false
         iosBadgeView.isHidden = true
         androidBadgeView.isHidden = true
         webBadgeView.isHidden = true
+        /*dayBadgeAndroidImageView.tag = 1
+        dayBadgeIosImageView.tag = 2
+        dayBadgeWebImageView.tag = 3*/
+        preLunchBadge.tag = 4
+        foundingMergeBadge.tag = 5
+        socialBadgeiconImageView.tag = 6
+        androidBadgeView.tag = 7
+        iosBadgeView.tag = 8
+        webBadgeView.tag = 9
+        
+        preLunchBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        foundingMergeBadge.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        socialBadgeiconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        /*dayBadgeIosImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeAndroidImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        dayBadgeWebImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))*/
+        iosBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        androidBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
+        webBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleBadgeTap(_:))))
         
         if let badgearray = Defaults.shared.currentUser?.badges {
             for parentbadge in badgearray {
@@ -202,15 +223,15 @@ class ShareSettingViewController: UIViewController {
                     }
                     else if subscriptionType == SubscriptionTypeForBadge.FREE.rawValue {
                         iosBadgeView.isHidden = false
-                       /* if freeTrialDay > 0 {
-                            lbliosDaysRemains.text = finalDay
-                            iosSheildImageview.image = R.image.freeBadge()
-                        } else {*/
-                            //iOS shield hide
-                            //square badge show
-                            lbliosDaysRemains.text = ""
-                            iosSheildImageview.image = R.image.badgeIphoneFree()
-//                        }
+                        /* if freeTrialDay > 0 {
+                         lbliosDaysRemains.text = finalDay
+                         iosSheildImageview.image = R.image.freeBadge()
+                         } else {*/
+                        //iOS shield hide
+                        //square badge show
+                        lbliosDaysRemains.text = ""
+                        iosSheildImageview.image = R.image.badgeIphoneFree()
+                        //                        }
                     }
                     
                     if subscriptionType == SubscriptionTypeForBadge.BASIC.rawValue {
@@ -301,13 +322,20 @@ class ShareSettingViewController: UIViewController {
             }
         }
     }
+    @objc func handleBadgeTap(_ sender: UITapGestureRecognizer? = nil) {
+        let vc = BadgesPopUpViewController(nibName: R.nib.badgesPopUpViewController.name, bundle: nil)
+        vc.selectedBadgeTag = sender?.view?.tag ?? 0
+        vc.badgeType = .allBadges
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
+    }
+
     func setAttributedString() {
         if let channelId = Defaults.shared.currentUser?.channelId {
             let myString = "\(Defaults.shared.currentUser?.referralPage ?? "")"
             let channelCount = myString.count
-            let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
-            myMutableString = NSMutableAttributedString(string: myString, attributes: underlineAttribute)
-            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: R.color.appPrimaryColor() ?? UIColor.systemBlue, range: NSRange(location: 0, length: channelCount))
+//            let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
+            myMutableString = NSMutableAttributedString(string: myString, attributes: [NSAttributedString.Key.foregroundColor : R.color.appPrimaryColor() ?? UIColor.systemBlue])
             lblHyperLink.attributedText = myMutableString
         }
     }
