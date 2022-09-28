@@ -168,7 +168,7 @@ class SubscriptionsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setupMessage(
+        setupMessage()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
