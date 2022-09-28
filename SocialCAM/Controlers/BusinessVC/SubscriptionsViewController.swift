@@ -356,27 +356,35 @@ class SubscriptionsViewController: UIViewController {
     }
     
     @IBAction func btnOkayTapped(_ sender: UIButton) {
-        self.thankYouViewSubScription.isHidden = true
-        if isFromWelcomeScreen {
-            guard let onBoardView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
-            let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
-            welcomeNavigationVC?.viewControllers.append((R.storyboard.welcomeOnboarding.welcomeViewController()?.viewControllers.first)!)
-            Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
-        } else {
-            for controller in self.navigationController!.viewControllers as Array {
-                if controller.isKind(of: StoryCameraViewController.self) {
-                    self.navigationController!.popToViewController(controller, animated: true)
-                    break
-                } else if controller.isKind(of: StorySettingsVC.self) {
-                    self.navigationController!.popToViewController(controller, animated: true)
-                    break
-                }
-            }
-        }
-//        freeModeAlertBlurView.isHidden = true
-//        freeModeAlertView.isHidden = true
-//        Defaults.shared.isSubscriptionApiCalled = false
-    }
+       self.thankYouViewSubScription.isHidden = true
+       if isFromWelcomeScreen {
+           guard let onBoardView = R.storyboard.welcomeOnboarding.welcomeViewController() else { return }
+           let welcomeNavigationVC = R.storyboard.welcomeOnboarding.welcomeViewController()
+           welcomeNavigationVC?.viewControllers.append((R.storyboard.welcomeOnboarding.welcomeViewController()?.viewControllers.first)!)
+           Utils.appDelegate?.window?.rootViewController = welcomeNavigationVC
+       } else {
+           for controller in self.navigationController!.viewControllers as Array {
+               if controller.isKind(of: StoryCameraViewController.self) {
+                  
+                   self.navigationController!.popToViewController(controller, animated: true)
+                   break
+               } else if controller.isKind(of: StorySettingsVC.self) {
+                   for controller in self.navigationController!.viewControllers as Array {
+                       if controller.isKind(of:StoryCameraViewController.self) {
+                           self.navigationController!.popToViewController(controller, animated: true)
+                           return
+                       }
+                   }
+                   self.navigationController!.popToViewController(controller, animated: true)
+                   
+                   break
+               }
+           }
+       }
+        //   freeModeAlertBlurView.isHidden = true
+        //   freeModeAlertView.isHidden = true
+        //   Defaults.shared.isSubscriptionApiCalled = false
+       }
     
     @IBAction func btnCancelPopupTapped(_ sender: UIButton) {
 //        self.downgradePopupView.isHidden = true
