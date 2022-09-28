@@ -194,7 +194,6 @@ class WelcomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupView()
-        setupMessages()
     }
     
     override func viewDidLayoutSubviews() {
@@ -327,7 +326,7 @@ extension WelcomeViewController {
         self.channelNameLabel.text = "@\(Defaults.shared.currentUser?.channelName ?? (R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")))"
         self.checkTrailPeriodExpire()
       //  self.setSubscriptionBadgeDetails()
-        self.getDays()
+       // self.getDays()
         self.setUpgradeButton()
         self.showLoader()
 //        self.tipOfTheDayLabel.text = Defaults.shared.tipOfDay?[0]
@@ -342,7 +341,7 @@ extension WelcomeViewController {
             self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
             UserSync.shared.getOnboardingUserFlags { isCompleted in
                 self.hideLoader()
-                
+                self.setupMessages()
 //                self.whatDoYouWantSeeView.isHidden = !Defaults.shared.shouldDisplayQuickStartFirstOptionSelection
                 self.tipOfTheDayView.isHidden = !Defaults.shared.shouldDisplayTipOffDay
                 Defaults.shared.shouldDisplayTipOffDay = true
